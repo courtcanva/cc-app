@@ -13,7 +13,19 @@ const customJestConfig = {
   moduleDirectories: ["node_modules", "<rootDir>/"],
   testEnvironment: "jest-environment-jsdom",
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
-  testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/cypress/", "<rootDir>/node_modules/"],
+  testMatch: ["<rootDir>/src/__tests__/**/**/*.{spec,test}.{js,jsx,ts,tsx}"],
+  collectCoverageFrom: [
+    "<rootDir>/src/**/*.{tsx,ts}",
+    "!<rootDir>/src/styles/*.{tsx,ts}",
+    "!<rootDir>/src/layouts/*.{tsx,ts}",
+    "!<rootDir>/src/pages/_app.tsx",
+    "!<rootDir>/src/pages/_document.tsx",
+    "!<rootDir>/node_modules/",
+    "!<rootDir>/**/__tests__/**",
+    "!<rootDir>/**/*.d.ts",
+  ],
+  verbose: true,
+  collectCoverage: true,
   coverageThreshold: {
     global: {
       statements: 80,

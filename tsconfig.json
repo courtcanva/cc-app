@@ -23,5 +23,11 @@
     "incremental": true
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/styles/Chakra.ts",
+    "src/__tests__/pages/Home/index.spec.tsx"
+  ]
 }
