@@ -7,7 +7,7 @@ import {
   clear,
   incrementByAmount,
   changeCounter,
-} from "../app/reducer/counterSlice";
+} from "../store/reducer/counterSlice";
 import ThemeToggleButton from "../components/ThemeToggleButton";
 import { Button, Box, Flex, Heading, Text } from "@chakra-ui/react";
 

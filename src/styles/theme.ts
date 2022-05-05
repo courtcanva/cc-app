@@ -7,6 +7,7 @@ const config: ThemeConfig = {
 
 const styles = {
   styles: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     global: (props: any) => ({
       "html, body": {
         bg: props.colorMode === "dark" ? "gray.800" : "orange.50",

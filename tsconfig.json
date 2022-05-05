@@ -28,6 +28,6 @@
     "**/*.ts",
     "**/*.tsx",
     "src/styles/Chakra.ts",
-    "src/__tests__/pages/Home/index.spec.tsx"
+    "**/*.spec.tsx"
   ]
 }
