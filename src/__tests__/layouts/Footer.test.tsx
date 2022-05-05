@@ -1,4 +1,3 @@
-import React from "react";
 import renderWithMockedProvider from "../utils";
 import { screen } from "@testing-library/react";
 import Footer, { FooterContent } from "../../layouts/Footer";

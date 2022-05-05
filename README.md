@@ -48,8 +48,6 @@ $PROJECT_ROOT
 ├── src
 │   │   # all unit tests
 │   ├── tests
-│   │   # redux(store,reducer,action)
-│   ├── app
 │   │   # all images
 │   ├── assets
 │   │   # react component files
@@ -58,6 +56,8 @@ $PROJECT_ROOT
 │   ├── layouts
 │   │   # Page files
 │   ├── pages
+│   │   # redux(store,reducer,action)
+│   ├── store
 │   │   # chakra config
 │   ├── styles
 │   │   # tools
