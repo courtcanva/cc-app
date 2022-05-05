@@ -3,7 +3,15 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["plugin:react/recommended", "google", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "google",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:@next/next/recommended",
+    "plugin:jest/recommended"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -12,15 +20,18 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "plugins": ["react", "@typescript-eslint", "jest"],
   "rules": {
     // do not require JSDoc for your functions
     "require-jsdoc": "off",
     // suppress errors for missing 'import React' in files
     "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,
-    // we use 2 spaces to indent our code
-    "@typescript-eslint/indent": ["error", 2],
     // we want to avoid extraneous spaces
     "no-multi-spaces": ["error"],
     "@typescript-eslint/no-unused-vars": "warn",

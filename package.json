@@ -6,8 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix",
-    "prettier": "prettier -c .prettierrc \"src/{pages,store,components}/**/*.{js,jsx,ts,tsx}\" --write",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "eslint": "eslint . --ext .ts",
+    "prettier": "prettier -c .prettierrc \"src/{__tests__,pages,store,components}/**/*.{js,jsx,ts,tsx}\" --write",
     "test": "jest --colors --config jest.config.js --maxWorkers=50%",
     "test:watch": "jest --colors --config jest.config.js --watch --maxWorkers=25%",
     "test:ci": "CI=true jest --colors --config jest.config.js --runInBand --coverage",
@@ -25,7 +27,7 @@
       "git add ."
     ],
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
+      "yarn eslint",
       "git add ."
     ]
   },
@@ -67,6 +69,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-config-next": "12.1.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^26.1.5",
     "eslint-plugin-react": "^7.29.4",
     "husky": "^7.0.4",
     "jest": "^27.5.1",

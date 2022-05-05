@@ -17,7 +17,6 @@ const customJestConfig = {
   collectCoverageFrom: [
     "<rootDir>/src/**/*.{tsx,ts}",
     "!<rootDir>/src/styles/*.{tsx,ts}",
-    "!<rootDir>/src/layouts/*.{tsx,ts}",
     "!<rootDir>/src/pages/_app.tsx",
     "!<rootDir>/src/pages/_document.tsx",
     "!<rootDir>/node_modules/",
