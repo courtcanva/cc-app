@@ -1,19 +1,20 @@
 import React from "react";
-import { StoreProvider } from "../stores";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { colors } from "../styles";
 import { AppProps } from "next/app";
+import { Provider } from "react-redux";
+import store from "../app/store";
+import { Chakra } from "@/styles/Chakra";
+import Layout from "@/layouts";
 
-const theme = extendTheme({ colors });
-
-function MyApp({ Component, pageProps }: AppProps) {
+function CourtCanvaApp({ Component, pageProps }: AppProps) {
   return (
-    <StoreProvider hydrationData={pageProps.hydrationData}>
-      <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </StoreProvider>
+    <Chakra cookies={pageProps.cookies}>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
+    </Chakra>
   );
 }
 
-export default MyApp;
+export default CourtCanvaApp;
