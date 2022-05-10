@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 
-export const FooterContent = `&copy; ${new Date().getFullYear()} CourtCanva.`;
+export const FooterContent = `&copy; ${new Date().getFullYear()} CourtCanva. All rights reserved.`;
 
 const Footer = () => {
   return (
