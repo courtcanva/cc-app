@@ -5,6 +5,7 @@
 ### Install dependencies
 
 ```bash
+<<<<<<< HEAD
 $ npm i
 # or
 $ yarn
@@ -13,6 +14,17 @@ $ yarn
 ### Start the server
 
 ```bash
+||||||| parent of 15ade3f (fix: add changes into readme)
+=======
+$ npm i
+# or
+$ yarn 
+```
+
+### Start the server
+
+```bash
+>>>>>>> 15ade3f (fix: add changes into readme)
 $ npm run dev
 # or
 $ yarn dev
