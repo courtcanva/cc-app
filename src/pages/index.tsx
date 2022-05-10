@@ -17,7 +17,7 @@ const Home: NextPage = () => {
   const dispatch = useDispatch();
   return (
     <HeaderLayout>
-      <Flex align="center" justify="center" flexDirection="column" maxW="60rem">
+      <Flex align="center" justify="center" flexDirection="column">
         <Heading mt="24px" mb={4}>
           Welcome to CourtCanva
         </Heading>
@@ -57,5 +57,3 @@ const CountWrapper = styled.span`
 `;
 
 export default Home;
-
-export { getServerSideProps } from "../styles/Chakra";
