@@ -5,6 +5,14 @@
 ### Install dependencies
 
 ```bash
+$ npm i
+# or
+$ yarn 
+```
+
+### Start the server
+
+```bash
 $ npm run dev
 # or
 $ yarn dev
