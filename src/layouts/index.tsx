@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Box, Container } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -8,7 +8,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
     <>
       <Header />
       <Box as="main">
-        <Container>{children}</Container>
+        {children}
         <Footer />
       </Box>
     </>
