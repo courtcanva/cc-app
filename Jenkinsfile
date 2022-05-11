@@ -32,7 +32,7 @@ agent any
         }
 	stage('Master Brach Deploy') {
 		when {
-		  branch 'master'
+		  branch 'devops'
 		}
 		steps {
 		  echo 'Deploying Code from master branch'
