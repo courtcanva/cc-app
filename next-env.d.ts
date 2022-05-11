@@ -17,5 +17,5 @@
 >>>>>>> 5b70988 (feat: cc-0006 finish functional part)
 >>>>>>> 55f8aad (feat: cc-0006 finish functional part)
 
-// NOTE: This file should not be edited
-// see https://nextjs.org/docs/basic-features/typescript for more information.
+//  NOTE: This file should not be edited
+//  see https://nextjs.org/docs/basic-features/typescript for more information.
