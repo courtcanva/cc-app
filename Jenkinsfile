@@ -27,7 +27,7 @@ agent any
 		    sh 'echo "$GIT_HASH"';
             }
         }
-	stage('Master Brach Deploy') {
+	stage('Master Branch Deploy') {
 		when {
 		  branch 'master'
 		}
