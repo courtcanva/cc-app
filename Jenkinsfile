@@ -17,6 +17,11 @@ agent any
                 sh 'npm run build'
     }
   }
+     stage('Export') {
+            steps {
+                sh 'npm run export'
+    }
+  }
 	     stage('Test') {
             steps {
                 echo 'Testing..., Version number is $VERSION'
@@ -28,13 +33,9 @@ agent any
 		}
 		steps {
 		  echo 'Deploying Code from master branch'
-		  sh 'aws s3 sync .next s3://uat.design.courtcanva.com'
+		  sh 'aws s3 sync .out s3://uat.design.courtcanva.com'
         }
      }
-	 stage('Clean Worksapce') {
-		 steps{
-			 cleanWs () 
-		 }
-	 }
+	
   }
 }
