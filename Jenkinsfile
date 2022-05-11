@@ -24,7 +24,7 @@ agent any
   }
 	     stage('Test') {
             steps {
-                echo 'Testing..., Version number is $VERSION'
+		    echo 'Testing..., Version number is "$VERSION"'
             }
         }
 	stage('Master Brach Deploy') {
@@ -33,9 +33,13 @@ agent any
 		}
 		steps {
 		  echo 'Deploying Code from master branch'
-		  sh 'aws s3 sync .out s3://uat.design.courtcanva.com'
+		  sh 'aws s3 sync out s3://uat.design.courtcanva.com'
         }
      }
-	
-  }
+	stage('Clean Worksapce') {
+		 steps{
+			 cleanWs () 
+	     }
+	 }
+    }
 }
