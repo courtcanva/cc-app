@@ -42,7 +42,7 @@ agent any
 	stage('Clean Worksapce') {
 		 steps{
 			 cleanWs () 
-	     }
+		 }
 	 }
     }
 }
