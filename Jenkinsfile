@@ -33,7 +33,7 @@ agent any
      }
 	 stage('Clean Worksapce') {
 		 steps{
-			 cleanWs deleteDirs: true, patterns: [[pattern: '.next', type: 'EXCLUDE']] 
+			 cleanWs () 
 		 }
 	 }
   }
