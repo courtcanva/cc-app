@@ -1,8 +1,11 @@
 pipeline {
 agent any
 	environment {
-    VERSION = VersionNumber(projectStartDate: '2022-05-11', versionNumberString: '${BUILDS_ALL_TIME,XXXX}')  
-    }
+     VERSION = VersionNumber([
+    versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_ID}',
+    projectStartDate : '2022-05-22'
+  ]);
+}
   stages{
     stage('Install dependencies') {
             steps {
@@ -22,9 +25,9 @@ agent any
                 sh 'npm run export'
     }
   }
-	     stage('Test') {
+	     stage('Version Number') {
             steps {
-		    echo 'Testing..., Version number is "$VERSION"'
+		    sh 'echo "$VERSION"';
             }
         }
 	stage('Master Brach Deploy') {
