@@ -24,7 +24,7 @@ agent any
   }
 	     stage('Version Number') {
             steps {
-		    sh 'echo "$GIT_HASH"';
+		    sh 'echo Version Number: "$GIT_HASH"';
             }
         }
 	stage('Master Branch Deploy') {
