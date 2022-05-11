@@ -1,11 +1,8 @@
 pipeline {
 agent any
-	environment {
-     VERSION = VersionNumber([
-    versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_ID}',
-    projectStartDate : '2022-05-22'
-  ]);
-}
+   environment {
+      	GIT_HASH = GIT_COMMIT.take(7)
+          }
   stages{
     stage('Install dependencies') {
             steps {
@@ -27,7 +24,7 @@ agent any
   }
 	     stage('Version Number') {
             steps {
-		    sh 'echo "$VERSION"';
+		    sh 'echo "$GIT_HASH"';
             }
         }
 	stage('Master Brach Deploy') {
