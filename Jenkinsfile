@@ -1,7 +1,7 @@
 pipeline {
 agent any
    environment {
-      	GIT_HASH = GIT_COMMIT.take(7)
+      	GIT_HASH = GIT_COMMIT
           }
   stages{
     stage('Install dependencies') {
@@ -29,7 +29,7 @@ agent any
         }
 	stage('Master Brach Deploy') {
 		when {
-		  branch 'devops'
+		  branch 'master'
 		}
 		steps {
 		  echo 'Deploying Code from master branch'
