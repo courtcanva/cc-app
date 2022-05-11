@@ -16,11 +16,6 @@ const styles = {
   },
 };
 
-const fonts = {
-  heading: `Oswald, ${chakraTheme.fonts?.heading}`,
-  body: `Oswald, ${chakraTheme.fonts?.heading}`,
-};
-
 const colors = {
   brand: {
     primary: "#344C5C",
@@ -56,7 +51,6 @@ const fontSize = {
 
 const overrides = {
   ...chakraTheme,
-  fonts,
   colors,
   config,
   styles,
