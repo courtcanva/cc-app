@@ -1,7 +1,7 @@
 pipeline {
 agent any
    environment {
-      	GIT_HASH = GIT_COMMIT
+      	GIT_HASH = GIT_COMMIT.take(10)
           }
   stages{
     stage('Install dependencies') {
