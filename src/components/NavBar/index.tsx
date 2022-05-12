@@ -1,4 +1,4 @@
-import { Flex, Button, Text, IconButton, Grid} from "@chakra-ui/react";
+import { Flex, Button, Text, IconButton, Grid } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -6,9 +6,9 @@ import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import { BiStar, BiPencil } from "react-icons/bi";
 
-const NavigationBar = ():JSX.Element => {
+const NavigationBar = (): JSX.Element => {
   return (
-    <Grid templateColumns='repeat(3, 1fr)' bg="brand.primary" p={4}>
+    <Grid templateColumns="repeat(3, 1fr)" bg="brand.primary" p={4}>
       <Flex alignItems="center">
         <Button
           leftIcon={<IoIosArrowBack />}
@@ -16,8 +16,9 @@ const NavigationBar = ():JSX.Element => {
           bg=""
           size="sm"
           color="white"
-          fontSize='xl'
+          fontSize="xl"
           _hover={{ bg: "#496A80" }}
+          data-testid="home"
         >
           Home
         </Button>
@@ -25,8 +26,9 @@ const NavigationBar = ():JSX.Element => {
           color="white"
           bg=""
           size="sm"
-          fontSize='xl'
+          fontSize="xl"
           _hover={{ bg: "#496A80" }}
+          data-testid="file"
         >
           File
         </Button>
@@ -37,16 +39,16 @@ const NavigationBar = ():JSX.Element => {
             bg=""
             size="sm"
             color="white"
-            fontSize='xl'
+            fontSize="xl"
             _hover={{ bg: "#496A80" }}
           />
           <IconButton
             aria-label="Forward edit"
             icon={<RiArrowGoForwardLine />}
             bg=""
-             size="sm"
+            size="sm"
             color="#72818B"
-            fontSize='xl'
+            fontSize="xl"
             _hover={{ bg: "#496A80" }}
           />
         </Flex>
@@ -58,10 +60,10 @@ const NavigationBar = ():JSX.Element => {
           bg=""
           size="sm"
           color="white"
-          fontSize='xl'
+          fontSize="xl"
           _hover={{ bg: "#496A80" }}
         />
-        <Text color="white" fontSize='xl'>
+        <Text color="white" fontSize="xl">
           CourtCanva1
         </Text>
         <IconButton
@@ -70,7 +72,7 @@ const NavigationBar = ():JSX.Element => {
           bg=""
           size="sm"
           color="white"
-          fontSize='xl'
+          fontSize="xl"
           _hover={{ bg: "#496A80" }}
         />
       </Flex>
@@ -80,7 +82,7 @@ const NavigationBar = ():JSX.Element => {
           icon={<FaRegUser />}
           bg="white"
           color="black"
-          fontSize='xl'
+          fontSize="xl"
           marginRight="10px"
           isRound
         />
@@ -90,7 +92,7 @@ const NavigationBar = ():JSX.Element => {
           bg=""
           size="sm"
           color="white"
-          fontSize='xl'
+          fontSize="xl"
           _hover={{ bg: "#496A80" }}
         />
         <IconButton
@@ -99,7 +101,7 @@ const NavigationBar = ():JSX.Element => {
           bg=""
           size="sm"
           color="white"
-          fontSize='xl'
+          fontSize="xl"
           _hover={{ bg: "#496A80" }}
         />
         <Button
@@ -108,7 +110,8 @@ const NavigationBar = ():JSX.Element => {
           width="130px"
           height="45px"
           marginLeft="10px"
-          fontSize='xl'
+          fontSize="xl"
+          data-testid="share"
         >
           Share
         </Button>
