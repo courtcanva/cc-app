@@ -29,13 +29,20 @@ agent any
         }
 	stage('Master Branch Deploy') {
 		when {
-		  branch 'master'
+		  branch 'devops'
 		}
 		steps {
 		  echo 'Deploying Code from master branch'
 		  sh 'aws s3 sync out s3://uat.design.courtcanva.com'
         }
-     }
+		steps{
+	           echo 'Zip Artifact File'
+		   sh 'zip "$GIT_HASH".zip ./out/*'
+		   echo 'Upload artifact zip file to standby S3 bucket'
+		   sh 'aws s3 sync "$GIT_HASH".zip s3://uat.design.courtcanva.com'
+		  }
+       }
+		  
 	stage('Clean Worksapce') {
 		 steps{
 			 cleanWs () 
