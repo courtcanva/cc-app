@@ -1,4 +1,4 @@
-import { Flex, Spacer, HStack, Button, Text, IconButton } from "@chakra-ui/react";
+import { Flex, Button, Text, IconButton, Grid} from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -6,15 +6,17 @@ import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import { BiStar, BiPencil } from "react-icons/bi";
 
-const NavigationBar = () => {
+const NavigationBar = ():JSX.Element => {
   return (
-    <Flex bg="brand.primary" padding="28px">
+    <Grid templateColumns='repeat(3, 1fr)' bg="brand.primary" p={4}>
       <Flex alignItems="center">
         <Button
           leftIcon={<IoIosArrowBack />}
+          pl="0"
           bg=""
+          size="sm"
           color="white"
-          fontSize="22px"
+          fontSize='xl'
           _hover={{ bg: "#496A80" }}
         >
           Home
@@ -22,64 +24,63 @@ const NavigationBar = () => {
         <Button
           color="white"
           bg=""
-          marginRight="123.5px"
-          marginLeft="64px"
-          fontSize="22px"
+          size="sm"
+          fontSize='xl'
           _hover={{ bg: "#496A80" }}
         >
           File
         </Button>
-        <HStack>
+        <Flex flex="1" justifyContent="center">
           <IconButton
             aria-label="Revert edit"
             icon={<RiArrowGoBackLine />}
             bg=""
+            size="sm"
             color="white"
-            fontSize="22px"
+            fontSize='xl'
             _hover={{ bg: "#496A80" }}
           />
           <IconButton
             aria-label="Forward edit"
             icon={<RiArrowGoForwardLine />}
             bg=""
+             size="sm"
             color="#72818B"
-            fontSize="22px"
+            fontSize='xl'
             _hover={{ bg: "#496A80" }}
           />
-        </HStack>
+        </Flex>
       </Flex>
-
-      <Spacer />
-      <HStack>
+      <Flex justifyContent="center" alignItems="center">
         <IconButton
           aria-label="Star"
           icon={<BiStar />}
           bg=""
+          size="sm"
           color="white"
-          fontSize="22px"
+          fontSize='xl'
           _hover={{ bg: "#496A80" }}
         />
-        <Text color="white" fontSize="22px">
+        <Text color="white" fontSize='xl'>
           CourtCanva1
         </Text>
         <IconButton
           aria-label="Edit"
           icon={<BiPencil />}
           bg=""
+          size="sm"
           color="white"
-          fontSize="22px"
+          fontSize='xl'
           _hover={{ bg: "#496A80" }}
         />
-      </HStack>
-
-      <Spacer />
-      <Flex alignItems="center">
+      </Flex>
+      <Flex alignItems="center" justifyContent="flex-end">
         <IconButton
           aria-label="User information"
           icon={<FaRegUser />}
           bg="white"
           color="black"
-          fontSize="22px"
+          fontSize='xl'
           marginRight="10px"
           isRound
         />
@@ -87,16 +88,18 @@ const NavigationBar = () => {
           aria-label="Download design"
           icon={<FiDownload />}
           bg=""
+          size="sm"
           color="white"
-          fontSize="22px"
+          fontSize='xl'
           _hover={{ bg: "#496A80" }}
         />
         <IconButton
           aria-label="Order"
           icon={<HiOutlineShoppingBag />}
           bg=""
+          size="sm"
           color="white"
-          fontSize="22px"
+          fontSize='xl'
           _hover={{ bg: "#496A80" }}
         />
         <Button
@@ -105,12 +108,13 @@ const NavigationBar = () => {
           width="130px"
           height="45px"
           marginLeft="10px"
-          fontSize="22px"
+          fontSize='xl'
         >
           Share
         </Button>
       </Flex>
-    </Flex>
+    </Grid>
   );
 };
+
 export default NavigationBar;
