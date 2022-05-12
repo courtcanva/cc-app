@@ -38,7 +38,7 @@ agent any
    }  
        stage('Master Branch Deploy to Standby') { 
 	       when {
-		  branch 'devops'
+		  branch 'master'
 		}
 	       steps{
 	           echo 'Zip Artifact File'
@@ -47,7 +47,11 @@ agent any
 		   sh 'aws s3 cp "$GIT_HASH".zip s3://uat.design.courtcanva.com.standby'
 		  }
        }
-		  
+	stage('Clean Worksapce') {
+		 steps{
+			 cleanWs () 
+		 }
+	 }	  
 	
     }
 }
