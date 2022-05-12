@@ -18,6 +18,7 @@ const NavigationBar = ():JSX.Element => {
           color="white"
           fontSize='xl'
           _hover={{ bg: "#496A80" }}
+          data-testid="home"
         >
           Home
         </Button>
@@ -27,6 +28,7 @@ const NavigationBar = ():JSX.Element => {
           size="sm"
           fontSize='xl'
           _hover={{ bg: "#496A80" }}
+          data-testid="file"
         >
           File
         </Button>
@@ -109,6 +111,7 @@ const NavigationBar = ():JSX.Element => {
           height="45px"
           marginLeft="10px"
           fontSize='xl'
+          data-testid="share"
         >
           Share
         </Button>
