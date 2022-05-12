@@ -22,7 +22,7 @@ agent any
                 sh 'npm run export'
     }
   }
-	     stage('Version Number') {
+     stage('Version Number') {
             steps {
 		    sh 'echo Version Number: "$GIT_HASH"';
             }
@@ -35,7 +35,12 @@ agent any
 		  echo 'Deploying Code from master branch'
 		  sh 'aws s3 sync out s3://uat.design.courtcanva.com'
         }
-		steps{
+   }  
+       stage('Master Branch Deploy to Standby') { 
+	       when {
+		  branch 'devops'
+		}
+	       steps{
 	           echo 'Zip Artifact File'
 		   sh 'zip "$GIT_HASH".zip ./out/*'
 		   echo 'Upload artifact zip file to standby S3 bucket'
