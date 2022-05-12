@@ -44,14 +44,10 @@ agent any
 	           echo 'Zip Artifact File'
 		   sh 'zip "$GIT_HASH".zip ./out/*'
 		   echo 'Upload artifact zip file to standby S3 bucket'
-		   sh 'aws s3 sync "$GIT_HASH".zip s3://uat.design.courtcanva.com'
+		   sh 'aws s3 sync "$GIT_HASH".zip s3://uat.design.courtcanva.com.standby'
 		  }
        }
 		  
-	stage('Clean Worksapce') {
-		 steps{
-			 cleanWs () 
-		 }
-	 }
+	
     }
 }
