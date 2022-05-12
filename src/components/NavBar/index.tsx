@@ -1,4 +1,4 @@
-import { Flex, Button, Text, IconButton, Grid, Menu, MenuButton } from "@chakra-ui/react";
+import { Flex, Button, Text, IconButton, Grid,Menu, MenuButton} from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -6,9 +6,9 @@ import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import { BiStar, BiPencil } from "react-icons/bi";
 
-const NavigationBar = () => {
+const NavigationBar = ():JSX.Element => {
   return (
-    <Grid templateColumns="repeat(3, 1fr)" bg="brand.primary" p={4}>
+    <Grid templateColumns='repeat(3, 1fr)' bg="brand.primary" p={4}>
       <Flex alignItems="center">
         <Button leftIcon={<IoIosArrowBack />} pl="0" variant="navbarIconBtn">
           Home
@@ -46,6 +46,7 @@ const NavigationBar = () => {
           variant="navbarIconBtn"
           bg="white"
           color="black"
+          fontSize='xl'
           marginRight="10px"
           isRound
         />
