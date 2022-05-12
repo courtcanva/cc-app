@@ -34,3 +34,4 @@ yarn-error.log*
 .vercel
 
 /jest.config.js
+/next-env.d.ts
