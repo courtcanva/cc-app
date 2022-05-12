@@ -6,9 +6,9 @@ import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import { BiStar, BiPencil } from "react-icons/bi";
 
-const NavigationBar = ():JSX.Element => {
+const NavigationBar = (): JSX.Element => {
   return (
-    <Grid templateColumns='repeat(3, 1fr)' bg="brand.primary" p={4}>
+    <Grid templateColumns="repeat(3, 1fr)" bg="brand.primary" p={4}>
       <Flex alignItems="center">
         <Button leftIcon={<IoIosArrowBack />} pl="0" variant="navbarIconBtn">
           Home
@@ -46,7 +46,7 @@ const NavigationBar = ():JSX.Element => {
           variant="navbarIconBtn"
           bg="white"
           color="black"
-          fontSize='xl'
+          fontSize="xl"
           marginRight="10px"
           isRound
         />
