@@ -48,7 +48,7 @@ const Home: NextPage = () => {
           Plus 100
         </Button>
       </Flex>
-      <SideBar></SideBar>
+      <SideBar />
     </HeaderLayout>
   );
 };

@@ -30,7 +30,16 @@ const SideBar = () => {
     },
   ];
   return (
-    <Box bg="#2C3333" w="98px" h="960px" color="#C8C5C5" fontWeight="700">
+    <Box
+      bg="#2C3333"
+      w="98px"
+      h="960px"
+      color="#C8C5C5"
+      fontWeight="700"
+      position="absolute"
+      top="100px"
+      left="0"
+    >
       <Flex align="center" justify="center" flexDirection="column" maxW="98px">
         {sideBarContent.map((item, index) => (
           <SideBarItem
