@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import NavigationBar from "../../components/NavBar";
+import NavigationBar from "../../../components/NavBar";
 
 test("Each button in the navbar needs to display the correct text", () => {
   render(<NavigationBar />);
