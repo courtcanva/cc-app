@@ -43,8 +43,8 @@ agent any
 	       steps{
 	           echo 'Zip Artifact File'
 		   sh 'zip "$GIT_HASH".zip ./out/*'
-		   echo 'Upload artifact zip file to standby S3 bucket'
-		   sh 'aws s3 cp "$GIT_HASH".zip s3://uat.design.courtcanva.com.standby'
+		   echo 'Upload artifact zip file to frontend artifact repo'
+		   sh 'aws s3 cp "$GIT_HASH".zip s3://frontend.artifact.repo'
 		  }
        }
 	stage('Clean Worksapce') {
