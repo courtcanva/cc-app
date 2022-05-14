@@ -58,6 +58,10 @@ const NavigationBar = (): JSX.Element => {
           height="45px"
           marginLeft="10px"
           fontSize="xl"
+          _hover={{ 
+            bg: 'brand.secondary',
+            opacity: "0.38"
+          }}
         >
           Share
         </Button>
