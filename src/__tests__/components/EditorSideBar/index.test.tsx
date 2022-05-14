@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import EditorSideBar from "../../../components/EditorSideBar/EditorSideBar";
+import EditorSideBar from "../../../components/EditorSideBar";
 
 describe("EditorSideBar component", () => {
   test("Each box in the sidebar should render the correct text", () => {
