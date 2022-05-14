@@ -7,7 +7,7 @@
 ```bash
 $ npm i
 # or
-$ yarn 
+$ yarn
 ```
 
 ### Start the server
