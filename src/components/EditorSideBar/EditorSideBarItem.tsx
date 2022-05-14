@@ -1,25 +1,23 @@
-import { Box, Text, Flex, Image, Icon } from "@chakra-ui/react";
+import { Box, Text, Flex, Icon } from "@chakra-ui/react";
 
 interface Props {
   key: string;
   item_text: string;
-  // icon_src: string
   icon_path: string;
+  viewBox: string;
 }
 const EditorSideBarItem = (props: Props) => {
   return (
-    <Box role="group" w="full" p="30px 7px" _hover={{ fill: "fontcolor.primary" }}>
+    <Box role="group" w="full" p="30px 7px">
       <Flex flexDirection="column" align="center" justify="flex-start">
         <Icon
           w="28px"
-          h="24px"
-          // src={props.icon_src}
-          // alt={props.item_text}
-          // fill='fontcolor.secondary'
+          h="28px"
+          viewBox={props.viewBox}
           _groupHover={{ fill: "fontcolor.primary" }}
-          // fill='fontcolor.secondary'
+          fill="fontcolor.secondary"
         >
-          <path fill="currentColor" d={props.icon_path} />
+          <path d={props.icon_path} />
         </Icon>
         <Text
           m={2}
