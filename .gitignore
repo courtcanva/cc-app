@@ -41,3 +41,5 @@ yarn-error.log*
 
 #history directory
 .history
+
+next-env.d.ts
