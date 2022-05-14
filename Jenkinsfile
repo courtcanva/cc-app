@@ -45,7 +45,7 @@ pipeline {
 		          steps {
 		               echo 'Deploying artifact to UAT environment from main branch'
                          sh 'export uatS3=`cat uatenv`'
-		               sh 'aws s3 sync out $uatS3'
+		               sh 'aws s3 sync out "$uatS3"'
                           }
                   }  
 		stage('Clean Worksapce') {
