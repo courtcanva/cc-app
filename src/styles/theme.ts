@@ -7,18 +7,6 @@ const config: ThemeConfig = {
   useSystemColorMode: false,
 };
 
-const iconButtonStyles = {
-  variants: {
-    navbarIconBtn: {
-      bg: "transparent",
-      color: "white",
-      fontSize: "xl",
-      _hover: { bg: "brand.primaryLight" },
-      size: "sm",
-    },
-  },
-};
-
 const styles = {
   styles: {
     global: (props: StyleFunctionProps) => ({
