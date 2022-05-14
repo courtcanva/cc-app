@@ -22,8 +22,16 @@ const colors = {
     800: "#153e75",
     700: "#2a69ac",
   },
+  background:{
+    primary : "#2C3333"
+  },
+  fontcolor:{
+    primary : "#C8C5C5",
+    secondary :"rgba(200, 197, 197, 0.4)"
+  }
 };
 
-const theme = extendTheme(styles, config, colors);
+
+const theme = extendTheme({styles, config, colors});
 
 export default theme;
