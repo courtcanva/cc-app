@@ -35,16 +35,17 @@ pipeline {
 	                       echo 'Zip Artifact File' 
 		               sh 'zip "1.0.$Version_ID".zip ./out/*'
 		               echo 'Upload main branch artifact to UAT frontend artifact repo'
-		               sh 'aws s3 cp "1.0.$Version_ID".zip s3://frontend.artifact.repo/courtcanva.app.uat.artifact.repo/'
+		               sh 'aws s3 cp "1.0.$Version_ID".zip s3://frontend.artifact.repo/courtcanva.app.artifact.repo/'
 		          }
                    }
 	            stage('Main Branch Deploy') {
 		          when {
-		               branch 'main'
+		               branch 'feature/ccd-0008-front-end-jenkins-file'
 		          }
 		          steps {
 		               echo 'Deploying artifact to UAT environment from main branch'
-		               sh 'aws s3 sync out s3://uat.design.courtcanva.com'
+                         sh 'export uatS3=`cat uatenv`'
+		               sh 'aws s3 sync out $uatS3'
                           }
                   }  
 		stage('Clean Worksapce') {
