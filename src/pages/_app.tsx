@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "../store";
 import { Chakra } from "@/styles/Chakra";
 import Layout from "@/layouts";
+import { ChakraProvider } from "@chakra-ui/react";
 
 function CourtCanvaApp({ Component, pageProps }: AppProps) {
   return (
