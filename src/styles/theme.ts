@@ -1,9 +1,20 @@
-import { extendTheme, ThemeConfig, theme as chakraTheme } from "@chakra-ui/react";
-import Navbar from "@/styles/components/navbarBtnStyle";
+import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
   useSystemColorMode: false,
+};
+
+const iconButtonStyles = {
+  variants: {
+    navbarIconBtn: {
+      bg: "transparent",
+      color: "white",
+      fontSize: "xl",
+      _hover: { bg: "brand.primaryLight" },
+      size: "sm",
+    },
+  },
 };
 
 const styles = {
@@ -21,21 +32,14 @@ const colors = {
   brand: {
     primary: "#344C5C",
     secondary: "#40B484",
+    primaryLight: "#496A80",
   },
 };
 
 const components = {
-  Button: { ...Navbar },
+  Button: { ...iconButtonStyles },
 };
 
-const overrides = {
-  ...chakraTheme,
-  colors,
-  config,
-  styles,
-  components,
-};
-
-const theme = extendTheme(overrides);
+const theme = extendTheme({ colors, config, styles, components });
 
 export default theme;

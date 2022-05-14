@@ -10,11 +10,11 @@ const NavigationBar = (): JSX.Element => {
   return (
     <Grid templateColumns="repeat(3, 1fr)" bg="brand.primary" p={4}>
       <Flex alignItems="center">
-        <Button leftIcon={<IoIosArrowBack />} pl="0" variant="navbarIconBtn" data-testid="home">
+        <Button leftIcon={<IoIosArrowBack />} pl="0" variant="navbarIconBtn">
           Home
         </Button>
         <Menu>
-          <MenuButton as={Button} variant="navbarIconBtn" data-testid="file">
+          <MenuButton as={Button} variant="navbarIconBtn">
             File
           </MenuButton>
         </Menu>
@@ -58,7 +58,6 @@ const NavigationBar = (): JSX.Element => {
           height="45px"
           marginLeft="10px"
           fontSize="xl"
-          data-testid="share"
         >
           Share
         </Button>
