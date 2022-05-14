@@ -7,7 +7,6 @@ import {
   TextWrapper,
   PriceWrapper,
   ColorText,
-  PriceText,
   BoldText,
   LightText,
 } from "./styles";
