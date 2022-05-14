@@ -6,7 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import { BiStar, BiPencil } from "react-icons/bi";
 
-const NavigationBar = (): JSX.Element => {
+const NavigationBar = () => {
   return (
     <Grid templateColumns="repeat(3, 1fr)" bg="brand.primary" p={4}>
       <Flex alignItems="center">
@@ -51,18 +51,7 @@ const NavigationBar = (): JSX.Element => {
         />
         <IconButton aria-label="Download design" icon={<FiDownload />} variant="navbarIconBtn" />
         <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
-        <Button
-          bg="brand.secondary"
-          color="white"
-          width="130px"
-          height="45px"
-          marginLeft="10px"
-          fontSize="xl"
-          _hover={{ 
-            bg: 'brand.secondary',
-            opacity: "0.38"
-          }}
-        >
+        <Button variant="shareBtn" marginLeft="10px">
           Share
         </Button>
       </Flex>

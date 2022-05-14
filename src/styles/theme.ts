@@ -1,26 +1,15 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
+import { StyleFunctionProps } from "@chakra-ui/theme-tools";
+import buttonStyles from "./components/buttonStyles";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
   useSystemColorMode: false,
 };
 
-const iconButtonStyles = {
-  variants: {
-    navbarIconBtn: {
-      bg: "transparent",
-      color: "white",
-      fontSize: "xl",
-      _hover: { bg: "brand.primaryLight" },
-      size: "sm",
-    },
-  },
-};
-
 const styles = {
   styles: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    global: (props: any) => ({
+    global: (props: StyleFunctionProps) => ({
       "html, body": {
         bg: props.colorMode === "dark" ? "gray.800" : "orange.50",
       },
@@ -37,7 +26,7 @@ const colors = {
 };
 
 const components = {
-  Button: { ...iconButtonStyles },
+  Button: { ...buttonStyles },
 };
 
 const theme = extendTheme({ colors, config, styles, components });
