@@ -11,13 +11,12 @@ import {
   LightText,
   ContainerFooter,
   Wrapper,
-  RulerText
+  RulerText,
 } from "./styles";
 
 import { HiOutlineZoomIn, HiOutlineZoomOut, HiOutlineInformationCircle } from "react-icons/hi";
 
 import { Switch } from "@chakra-ui/react";
-
 
 const PriceBar: React.FC = () => {
   return (
