@@ -2,8 +2,7 @@ pipeline {
         agent any
         environment {
       	           GIT_HASH = GIT_COMMIT.take(7)
-		   Version_ID = "$BUILD_NUMBER" + "-" + "$GIT_HASH" + "-" + "$BUILD_TIMESTAMP"
-		   uatS3 = sh 'cat /home/jenkins/uatS3'
+		   Version_ID = "$BUILD_NUMBER" + "-" + "$GIT_HASH" + "-" + "$BUILD_TIMESTAMP"	  
         }
         stages{
                    stage('Install dependencies') {
@@ -45,6 +44,7 @@ pipeline {
 		          }
 		          steps {
 		               echo 'Deploying artifact to UAT environment from main branch'
+			       sh 'export uats3=`cat /home/jenkins/uatS3`'
 		               sh 'aws s3 sync out "$uatS3"'
                           }
                   }  
