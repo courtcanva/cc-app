@@ -6,7 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import { BiStar, BiPencil } from "react-icons/bi";
 import Link from "next/link";
-import HOME_PAGE_LINK from "@/constants/homePage";
+import HOME_PAGE_LINK from "@/constants/index";
 
 const NavigationBar = () => {
   return (
