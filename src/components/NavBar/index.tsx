@@ -6,13 +6,14 @@ import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import { BiStar, BiPencil } from "react-icons/bi";
 import Link from "next/link";
+import HOME_PAGE_LINK from "@/constants/homePage";
 
 const NavigationBar = () => {
   return (
     <Grid templateColumns="repeat(3, 1fr)" bg="brand.primary" p={4}>
       <Flex alignItems="center">
-        <Link href="https://courtcanva.com/" passHref>
-          <Button leftIcon={<IoIosArrowBack />} pl="0" variant="navbarIconBtn" >
+        <Link href={HOME_PAGE_LINK} passHref>
+          <Button leftIcon={<IoIosArrowBack />} pl="0" variant="navbarIconBtn">
             Home
           </Button>
         </Link>
