@@ -2,20 +2,21 @@ import { Box, Text, Flex, Icon } from "@chakra-ui/react";
 import React from "react";
 interface Props {
   key: string;
-  item_text: string;
-  icon_svg: React.FC;
+  title: string;
+  icon: React.ReactNode;
 }
 const EditorSideBarItem = (props: Props) => {
   return (
     <Box as="button" role="group" w="full" p="30px 7px">
       <Flex flexDirection="column" align="center" justify="flex-start">
         <Icon
-          as={props.icon_svg}
+          w="24px"
+          h="24px"
           _groupHover={{ color: "fontcolor.primary" }}
           color="fontcolor.secondary"
-          w="28px"
-          h="28px"
-        />
+        >
+          {props.icon}
+        </Icon>
         <Text
           m={2}
           as="span"
@@ -25,7 +26,7 @@ const EditorSideBarItem = (props: Props) => {
           lineHeight="19px"
           _groupHover={{ color: "fontcolor.primary" }}
         >
-          {props.item_text}
+          {props.title}
         </Text>
       </Flex>
     </Box>

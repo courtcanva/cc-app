@@ -10,7 +10,7 @@ import {
 } from "../store/reducer/counterSlice";
 import HeaderLayout from "../layouts/HeaderLayout";
 import ThemeToggleButton from "../components/ThemeToggleButton";
-import EditorSideBar from "../components/EditorSideBar";
+import EditorSideBar from "@/components/EditorSideBar";
 import { Button, Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 const Home: NextPage = () => {
