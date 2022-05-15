@@ -3,7 +3,7 @@ pipeline {
         environment {
       	           GIT_HASH = GIT_COMMIT.take(7)
 		   Version_ID = "$BUILD_NUMBER" + "-" + "$GIT_HASH" + "-" + "$BUILD_TIMESTAMP"
-		   uatS3 =`cat /home/jenkins/uatS3`
+		   uatS3 = sh 'cat /home/jenkins/uatS3'
         }
         stages{
                    stage('Install dependencies') {
