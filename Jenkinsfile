@@ -34,8 +34,8 @@ pipeline {
 	                  steps{
 	                       echo 'Zip Artifact File' 
 		               sh 'zip "1.0.$Version_ID".zip ./out/*'
-		               echo 'Upload main branch artifact to frontend artifact repo'
-		               sh 'aws s3 cp "1.0.$Version_ID".zip s3://frontend.artifact.repo/courtcanva.app.artifact.repo/'
+		               echo 'Upload main branch artifact to front-end artifact repo'
+				  sh 'aws s3 cp "1.0.$Version_ID".zip ${FrontEndRepo}'
 		          }
                    }
 	            stage('Main Branch Deploy') {
