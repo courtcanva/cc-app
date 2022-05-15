@@ -8,7 +8,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 function CourtCanvaApp({ Component, pageProps }: AppProps) {
   return (
-    <Chakra cookies={pageProps.cookies}>
+    <Chakra>
       <Provider store={store}>
         <Layout>
           <Component {...pageProps} />

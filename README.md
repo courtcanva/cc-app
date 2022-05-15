@@ -5,6 +5,14 @@
 ### Install dependencies
 
 ```bash
+$ npm i
+# or
+$ yarn
+```
+
+### Start the server
+
+```bash
 $ npm run dev
 # or
 $ yarn dev
@@ -26,12 +34,36 @@ $ npm run build
 $ yarn build
 ```
 
+### [Static HTML Export](https://nextjs.org/docs/advanced-features/static-html-export)
+
+```shell
+$ npm run export
+# or
+$ yarn export
+```
+
 ### Run the Production
 
 ```shell
 $ npm run start
 # or
 $ yarn start
+```
+
+### Run All Test
+
+```shell
+$ npm run test:ci
+# or
+$ yarn test:ci
+```
+
+### Run Single Test With Watching And Display Coverage
+
+```shell
+$ npm run test filename --watch --coverage
+# or
+$ yarn test filename --watch --coverage
 ```
 
 ## Project structure

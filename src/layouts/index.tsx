@@ -1,15 +1,17 @@
 import { ReactNode } from "react";
-import { Box, Container } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Header from "./Header";
 import Footer from "./Footer";
 import PriceBar from "../components/PriceBar";
+import NavigationBar from "../components/NavBar";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <>
       <Header />
       <Box as="main">
-        <Container>{children}</Container>
+        <NavigationBar />
+        {children}
         <Footer />
       </Box>
       <PriceBar />
