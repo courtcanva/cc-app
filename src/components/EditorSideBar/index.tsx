@@ -1,24 +1,24 @@
 import EditorSideBarItem from "./EditorSideBarItem";
 import { Box, Flex } from "@chakra-ui/react";
-import { BlueprintsSvg, ElementsSvg, EstimatorSvg, PreviewSvg } from './EditorSideBarIcon'
+import { BlueprintsSvg, ElementsSvg, EstimatorSvg, PreviewSvg } from "./EditorSideBarIcon";
 
 const EditorSideBar = () => {
   const sideBarContent = [
     {
       sideBarItemText: "Blueprints",
-      iconSvg:BlueprintsSvg
+      iconSvg: BlueprintsSvg,
     },
     {
       sideBarItemText: "Elements",
-      iconSvg:ElementsSvg
+      iconSvg: ElementsSvg,
     },
     {
       sideBarItemText: "Estimator",
-      iconSvg:EstimatorSvg
+      iconSvg: EstimatorSvg,
     },
     {
       sideBarItemText: "Preview",
-      iconSvg:PreviewSvg
+      iconSvg: PreviewSvg,
     },
   ];
   return (
