@@ -34,7 +34,7 @@ pipeline {
 	                  steps{
 	                       echo 'Zip Artifact File' 
 		               sh 'zip "1.0.$Version_ID".zip ./out/*'
-		               echo 'Upload main branch artifact to UAT frontend artifact repo'
+		               echo 'Upload main branch artifact to frontend artifact repo'
 		               sh 'aws s3 cp "1.0.$Version_ID".zip s3://frontend.artifact.repo/courtcanva.app.artifact.repo/'
 		          }
                    }
@@ -45,7 +45,7 @@ pipeline {
 		          steps {
 		               echo 'Deploying artifact to UAT environment from main branch'
                                sh 'export uatS3=`cat /home/jenkins/uatS3`'
-		               sh 'aws s3 sync out "$uatS3"'
+		               sh 'aws s3 sync out $uatS3'
                           }
                   }  
 		stage('Clean Worksapce') {
