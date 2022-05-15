@@ -40,14 +40,14 @@ pipeline {
                    }
 	            stage('Main Branch Deploy') {
 		          when {
-		               branch 'feature/ccd-0008-front-end-jenkins-file'
+		               branch 'main'
 		          }
 		          steps {
 		               echo 'Deploying artifact to UAT environment from main branch'
 		               sh 'aws s3 sync out ${UATS3Bucket}'
                           }
                   }  
-		stage('Clean Worksapce') {
+		  stage('Clean Worksapce') {
 		          steps{
 			       cleanWs () 
 		          }
