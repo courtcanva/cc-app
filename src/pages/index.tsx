@@ -13,8 +13,6 @@ import ThemeToggleButton from "../components/ThemeToggleButton";
 import ScaleFadeEx from "../components/ChangeCourtSize/ChangeCourtSize";
 import { Button, Box, Flex, Heading, Text } from "@chakra-ui/react";
 
-import CourtSize from "../components/courtSize";
-
 const Home: NextPage = () => {
   const count = useSelector(changeCounter);
   const dispatch = useDispatch();
@@ -52,7 +50,6 @@ const Home: NextPage = () => {
         </Button>
       </Flex>
       {/* select court size */}
-      <CourtSize />
     </HeaderLayout>
   );
 };
