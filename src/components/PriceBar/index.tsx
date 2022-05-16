@@ -31,8 +31,8 @@ const TilesInfo: React.FC = () => {
   const listTiles = tiles.map((tile) => {
     return (
       <TextWrapper key={tile.id}>
-        <ColorText key={tile.id}>{tile.tile}</ColorText>
-        <Text key={tile.id}>tile*{tile.quantity}</Text>
+        <ColorText>{tile.tile}</ColorText>
+        <Text>tile*{tile.quantity}</Text>
       </TextWrapper>
     );
   });
