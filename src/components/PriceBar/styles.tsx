@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { PageItemWrapper as FooterItemWrapper } from "../helpers/ItemWrapper";
-import { PageText as FooterText } from "../helpers/PageText";
 
 export const Container = styled.div`
   width: 100%;
@@ -81,11 +80,4 @@ export const Wrapper = styled(FooterItemWrapper)`
   justify-content: flex-start;
   flex-direction: row;
   align-items: center;
-`;
-
-export const RulerText = styled(FooterText)`
-  color: black;
-  font-size: 1em;
-
-  cursor: pointer;
 `;

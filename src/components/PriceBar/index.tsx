@@ -11,12 +11,11 @@ import {
   LightText,
   ContainerFooter,
   Wrapper,
-  RulerText,
 } from "./styles";
 
 import { HiOutlineZoomIn, HiOutlineZoomOut, HiOutlineInformationCircle } from "react-icons/hi";
 
-import { Switch } from "@chakra-ui/react";
+import { FormControl, FormLabel, Switch } from "@chakra-ui/react";
 
 const TilesInfo: React.FC = () => {
   const tiles = [
@@ -59,10 +58,13 @@ const PriceBar: React.FC = () => {
         </Wrapper>
 
         <Wrapper>
-          <Wrapper>
-            <RulerText>Ruler On</RulerText>
-            <Switch />
-          </Wrapper>
+          <FormControl display="flex" alignItems="center">
+            <FormLabel htmlFor="ruler-on" mb="0">
+              Ruler On
+            </FormLabel>
+            <Switch id="ruler-on" />
+          </FormControl>
+
           <HiOutlineInformationCircle />
         </Wrapper>
       </ContainerFooter>
