@@ -5,14 +5,18 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import { BiStar, BiPencil } from "react-icons/bi";
+import Link from "next/link";
+import HOME_PAGE_LINK from "@/constants/index";
 
 const NavigationBar = () => {
   return (
     <Grid templateColumns="repeat(3, 1fr)" bg="brand.primary" p={4}>
       <Flex alignItems="center">
-        <Button leftIcon={<IoIosArrowBack />} pl="0" variant="navbarIconBtn">
-          Home
-        </Button>
+        <Link href={HOME_PAGE_LINK} passHref>
+          <Button leftIcon={<IoIosArrowBack />} pl="0" variant="navbarIconBtn">
+            Home
+          </Button>
+        </Link>
         <Menu>
           <MenuButton as={Button} variant="navbarIconBtn">
             File
