@@ -18,37 +18,33 @@ import { HiOutlineZoomIn, HiOutlineZoomOut, HiOutlineInformationCircle } from "r
 
 import { Switch } from "@chakra-ui/react";
 
+const TilesInfo: React.FC = () => {
+  const tiles = [
+    { id: 1, tile: "#83DJ31", quantity: 1 },
+    { id: 2, tile: "#83DJ32", quantity: 2 },
+    { id: 3, tile: "#83DJ33", quantity: 3 },
+    { id: 4, tile: "#83DJ34", quantity: 4 },
+    { id: 5, tile: "#83DJ35", quantity: 1 },
+    { id: 6, tile: "#83DJ36", quantity: 2 },
+  ];
+
+  const listTiles = tiles.map((tile) => {
+    return (
+      <TextWrapper key={tile.id}>
+        <ColorText key={tile.id}>{tile.tile}</ColorText>
+        <Text key={tile.id}>tile*{tile.quantity}</Text>
+      </TextWrapper>
+    );
+  });
+
+  return <WrapperOuter>{listTiles}</WrapperOuter>;
+};
+
 const PriceBar: React.FC = () => {
   return (
     <>
       <Container>
-        {/* <OpenCloseButton /> */}
-        <WrapperOuter>
-          <TextWrapper>
-            <ColorText>#83DJ34</ColorText>
-            <Text>tile*2</Text>
-          </TextWrapper>
-          <TextWrapper>
-            <ColorText>#83DJ34</ColorText>
-            <Text>tile*2</Text>
-          </TextWrapper>
-          <TextWrapper>
-            <ColorText>#83DJ34</ColorText>
-            <Text>tile*2</Text>
-          </TextWrapper>
-          <TextWrapper>
-            <ColorText>#83DJ34</ColorText>
-            <Text>tile*2</Text>
-          </TextWrapper>
-          <TextWrapper>
-            <ColorText>#83DJ34</ColorText>
-            <Text>tile*2</Text>
-          </TextWrapper>
-          <TextWrapper>
-            <ColorText>#83DJ34</ColorText>
-            <Text>tile*2</Text>
-          </TextWrapper>
-        </WrapperOuter>
+        <TilesInfo />
 
         <PriceWrapper>
           <BoldText>Estimated Budget: From $ 1647</BoldText>
