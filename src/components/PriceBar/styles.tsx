@@ -15,6 +15,14 @@ export const WrapperOuter = styled.div`
   flex-wrap: wrap;
   // border: 1px solid purple;
   padding: 0.7em 0;
+
+  @media only screen and (max-width: 1121px) {
+    width: 40%;
+  }
+
+  @media only screen and (max-width: 842px) {
+    width: 50%;
+  }
 `;
 export const TextWrapper = styled.div`
   // border: 1px solid green;
@@ -26,6 +34,14 @@ export const Text = styled.span`
   // border: 1px solid red;
   font-size: 1em;
   margin-left: 1em;
+
+  @media only screen and (max-width: 1121px) {
+    font-size: 0.9em
+  }
+
+  @media only screen and (max-width: 842px) {
+    font-size: 0.8em
+  }  
 `;
 
 export const ColorText = styled(Text)`
@@ -48,10 +64,19 @@ export const PriceText = styled.p`
   // border: 1px solid red;
   font-size: 1em;
   text-align: right;
+
 `;
 export const BoldText = styled(PriceText)`
   font-weight: 700;
   font-size: 1.5em;
+
+  @media only screen and (max-width: 1121px) {
+    font-size: 1.2em;
+  }
+
+  @media only screen and (max-width: 842px) {
+    font-size: 1em;
+  }
 `;
 export const LightText = styled(PriceText)`
   color: grey;
@@ -61,6 +86,15 @@ export const LightText = styled(PriceText)`
     color: red;
     margin-right: 0.2em;
   }
+
+  @media only screen and (max-width: 1121px) {
+    font-size: 0.6em;
+  }
+
+  @media only screen and (max-width: 842px) {
+    font-size: 0.5em;
+  }
+
 `;
 
 export const ContainerFooter = styled.div`
