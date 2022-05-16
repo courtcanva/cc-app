@@ -1,4 +1,4 @@
-import { Flex, Button, Text, IconButton, Grid,Menu, MenuButton} from "@chakra-ui/react";
+import { Flex, Button, Text, IconButton, Grid, Menu, MenuButton } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";

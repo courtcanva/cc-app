@@ -28,7 +28,6 @@ const colors = {
   },
   fontcolor:{
     primary : "#C8C5C5",
-    secondary :"rgba(200, 197, 197, 0.4)"
   }
 };
 
