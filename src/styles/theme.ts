@@ -22,8 +22,30 @@ const colors = {
     800: "#153e75",
     700: "#2a69ac",
   },
+  CourtSizecolor: {
+    btc: "#40B484",
+    bt: "#FFFFFF",
+    border: "#344C5C"
+  }
 };
 
-const theme = extendTheme(styles, config, colors);
+const components = {
+  CourtSize: {
+    baseStyle: () => ({
+      width: "255",
+      height: "205",
+      p: "reletive",
+      border: "4px solid #344C5C",
+      fontSize: "lg",
+      fontWeight: "semibold",
+      color: "#344C5C",
+      textAlign: "center"
+    }),
+  },
+
+}
+
+const theme = extendTheme({ styles, config, colors, components });
+
 
 export default theme;
