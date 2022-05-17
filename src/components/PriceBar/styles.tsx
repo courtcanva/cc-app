@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { PageItemWrapper as FooterItemWrapper } from "../helpers/ItemWrapper";
 
 export const Container = styled.div`
-  // width: 100%;
   background-color: white;
   color: black;
   position: relative;
@@ -63,7 +62,6 @@ export const PriceWrapper = styled.div`
   right: 1em;
 `;
 export const PriceText = styled.p`
-  // border: 1px solid red;
   font-size: 1em;
   text-align: right;
 `;
