@@ -17,7 +17,6 @@ import {
 import { HiOutlineZoomIn, HiOutlineZoomOut, HiOutlineInformationCircle } from "react-icons/hi";
 
 import { AiOutlineDown } from "react-icons/ai";
-
 import { FormControl, FormLabel, Switch } from "@chakra-ui/react";
 
 const TilesInfo: React.FC = () => {
@@ -49,7 +48,6 @@ const PriceBar: React.FC = () => {
         <OpenCloseButton>
           <AiOutlineDown />
         </OpenCloseButton>
-
         <TilesInfo />
 
         <PriceWrapper>
