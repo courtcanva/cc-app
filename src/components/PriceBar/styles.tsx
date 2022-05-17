@@ -126,4 +126,4 @@ export const OpenCloseButton = styled.div`
   box-shadow: 1px 1px 10px lightgrey;
   -webkit-transform: perspective(50px) rotateX(20deg);
   z-index: -1;
-`
+`;
