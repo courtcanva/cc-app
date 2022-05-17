@@ -9,8 +9,6 @@ import {
   changeCounter,
 } from "../store/reducer/counterSlice";
 import HeaderLayout from "../layouts/HeaderLayout";
-import ThemeToggleButton from "../components/ThemeToggleButton";
-import ScaleFadeEx from "@/components/ChangeCourtSize/ChangeCourtSize";
 import EditorSideBar from "@/components/EditorSideBar";
 import { Button, Box, Flex, Heading, Text } from "@chakra-ui/react";
 
@@ -23,8 +21,6 @@ const Home: NextPage = () => {
         <Heading mt="24px" mb={4}>
           Welcome to CourtCanva
         </Heading>
-        <ThemeToggleButton />
-        <ScaleFadeEx />
         <Button mt="24px" aria-label="Clear value" onClick={() => dispatch(clear())}>
           Clear
         </Button>
