@@ -24,7 +24,7 @@ const Home: NextPage = () => {
           Welcome to CourtCanva
         </Heading>
         <ThemeToggleButton />
-        <ScaleFadeEx/>
+        <ScaleFadeEx />
         <Button mt="24px" aria-label="Clear value" onClick={() => dispatch(clear())}>
           Clear
         </Button>
