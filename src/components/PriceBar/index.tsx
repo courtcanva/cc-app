@@ -67,7 +67,7 @@ const PriceBar: React.FC = () => {
             <FormLabel htmlFor="ruler-on" mb={0}>
               Ruler On
             </FormLabel>
-            <Switch id="ruler-on" colorScheme={"blue"}/>
+            <Switch id="ruler-on" colorScheme={"blue"} />
           </FormControl>
 
           <HiOutlineInformationCircle />
