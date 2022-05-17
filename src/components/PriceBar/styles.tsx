@@ -38,12 +38,12 @@ export const Text = styled.span`
   margin-left: 1em;
 
   @media only screen and (max-width: 1180px) {
-    font-size: 0.9em
+    font-size: 0.9em;
   }
 
   @media only screen and (max-width: 872px) {
-    font-size: 0.8em
-  }  
+    font-size: 0.8em;
+  }
 `;
 
 export const ColorText = styled(Text)`
@@ -66,7 +66,6 @@ export const PriceText = styled.p`
   // border: 1px solid red;
   font-size: 1em;
   text-align: right;
-
 `;
 export const BoldText = styled(PriceText)`
   font-weight: 700;
@@ -96,7 +95,6 @@ export const LightText = styled(PriceText)`
   @media only screen and (max-width: 872px) {
     font-size: 0.5em;
   }
-
 `;
 
 export const ContainerFooter = styled.div`
@@ -108,6 +106,7 @@ export const ContainerFooter = styled.div`
   padding: 0.5em;
   width: 100%;
   font-size: 1.1em;
+  margin-left: 98px;
   border-top: 1px solid black;
 `;
 export const Wrapper = styled(FooterItemWrapper)`
