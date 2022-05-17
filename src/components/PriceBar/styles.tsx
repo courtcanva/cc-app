@@ -6,6 +6,8 @@ export const Container = styled.div`
   color: black;
   position: relative;
   margin-left: 98px;
+  margin-top: 30px;
+  box-shadow: 2px 2px 8px lightgrey;
 `;
 
 export const WrapperOuter = styled.div`
@@ -104,7 +106,6 @@ export const ContainerFooter = styled.div`
   padding: 0.5em;
   font-size: 1.1em;
   margin-left: 98px;
-  border-top: 1px solid black;
 `;
 export const Wrapper = styled(FooterItemWrapper)`
   display: flex;
@@ -113,3 +114,16 @@ export const Wrapper = styled(FooterItemWrapper)`
   flex-direction: row;
   align-items: center;
 `;
+
+export const OpenCloseButton = styled.div`
+  color: lightgrey;
+  position: absolute;
+  padding-left: 22px;
+  top: -15px;
+  left: 43%;
+  width: 60px;
+  height: 15px;
+  box-shadow: 1px 1px 10px lightgrey;
+  -webkit-transform: perspective(50px) rotateX(20deg);
+  z-index: -1;
+`
