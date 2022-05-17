@@ -1,6 +1,6 @@
 import React from "react";
 
-interface Props {
+interface PageItemWrapperProps {
   className?: string;
   display?: string;
   flexDirection?: string;
@@ -10,6 +10,6 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export const PageItemWrapper: React.FC<Props> = ({ className, children }) => {
+export const PageItemWrapper: React.FC<PageItemWrapperProps> = ({ className, children }) => {
   return <div className={className}>{children}</div>;
 };

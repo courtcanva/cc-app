@@ -13,7 +13,6 @@ export const WrapperOuter = styled.div`
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  // border: 1px solid purple;
   padding: 0.7em 0;
 
   @media only screen and (max-width: 1121px) {
@@ -25,13 +24,11 @@ export const WrapperOuter = styled.div`
   }
 `;
 export const TextWrapper = styled.div`
-  // border: 1px solid green;
   width: 50%;
   padding: 0.2em 0 0.2em 0.7em;
 `;
 
 export const Text = styled.span`
-  // border: 1px solid red;
   font-size: 1em;
   margin-left: 1em;
 

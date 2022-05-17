@@ -59,7 +59,7 @@ const PriceBar: React.FC = () => {
 
         <Wrapper>
           <FormControl display="flex" alignItems="center">
-            <FormLabel htmlFor="ruler-on" mb="0">
+            <FormLabel htmlFor="ruler-on" mb={0}>
               Ruler On
             </FormLabel>
             <Switch id="ruler-on" />
