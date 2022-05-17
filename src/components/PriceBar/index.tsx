@@ -11,10 +11,12 @@ import {
   LightText,
   ContainerFooter,
   Wrapper,
+  OpenCloseButton,
 } from "./styles";
 
 import { HiOutlineZoomIn, HiOutlineZoomOut, HiOutlineInformationCircle } from "react-icons/hi";
 
+import { AiOutlineDown } from "react-icons/ai";
 import { FormControl, FormLabel, Switch } from "@chakra-ui/react";
 
 const TilesInfo: React.FC = () => {
@@ -43,6 +45,9 @@ const PriceBar: React.FC = () => {
   return (
     <>
       <Container>
+        <OpenCloseButton>
+          <AiOutlineDown />
+        </OpenCloseButton>
         <TilesInfo />
 
         <PriceWrapper>
@@ -62,7 +67,7 @@ const PriceBar: React.FC = () => {
             <FormLabel htmlFor="ruler-on" mb={0}>
               Ruler On
             </FormLabel>
-            <Switch id="ruler-on" />
+            <Switch id="ruler-on" colorScheme={"blue"}/>
           </FormControl>
 
           <HiOutlineInformationCircle />
