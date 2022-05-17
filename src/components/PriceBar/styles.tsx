@@ -102,7 +102,6 @@ export const ContainerFooter = styled.div`
   color: black;
   background-color: white;
   padding: 0.5em;
-  width: 100%;
   font-size: 1.1em;
   margin-left: 98px;
   border-top: 1px solid black;
