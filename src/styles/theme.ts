@@ -1,4 +1,6 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
+import { StyleFunctionProps } from "@chakra-ui/theme-tools";
+import buttonStyles from "./components/buttonStyles";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -7,8 +9,7 @@ const config: ThemeConfig = {
 
 const styles = {
   styles: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    global: (props: any) => ({
+    global: (props: StyleFunctionProps) => ({
       "html, body": {
         bg: props.colorMode === "dark" ? "gray.800" : "orange.50",
       },
@@ -18,14 +19,20 @@ const styles = {
 
 const colors = {
   brand: {
-    900: "#1a365d",
-    800: "#153e75",
-    700: "#2a69ac",
+    primary: "#344C5C",
+    secondary: "#40B484",
+    primaryLight: "#496A80",
   },
   CourtSizecolor: {
     btc: "#40B484",
     bt: "#FFFFFF",
     border: "#344C5C"
+  },
+  background:{
+    primary : "#2C3333"
+  },
+  fontcolor:{
+    primary : "#C8C5C5",
   }
 };
 
@@ -34,7 +41,6 @@ const components = {
     baseStyle: () => ({
       width: "255",
       height: "205",
-      p: "reletive",
       border: "4px solid #344C5C",
       fontSize: "lg",
       fontWeight: "semibold",
@@ -42,10 +48,9 @@ const components = {
       textAlign: "center"
     }),
   },
+  Button: { ...buttonStyles },
+};
 
-}
-
-const theme = extendTheme({ styles, config, colors, components });
-
+const theme = extendTheme({ colors, config, styles, components });
 
 export default theme;

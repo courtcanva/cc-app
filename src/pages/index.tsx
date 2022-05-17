@@ -10,7 +10,8 @@ import {
 } from "../store/reducer/counterSlice";
 import HeaderLayout from "../layouts/HeaderLayout";
 import ThemeToggleButton from "../components/ThemeToggleButton";
-import ScaleFadeEx from "../components/ChangeCourtSize/ChangeCourtSize";
+import ScaleFadeEx from "@/components/ChangeCourtSize/ChangeCourtSize";
+import EditorSideBar from "@/components/EditorSideBar";
 import { Button, Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 const Home: NextPage = () => {
@@ -49,7 +50,7 @@ const Home: NextPage = () => {
           Plus 100
         </Button>
       </Flex>
-      {/* select court size */}
+      <EditorSideBar />
     </HeaderLayout>
   );
 };

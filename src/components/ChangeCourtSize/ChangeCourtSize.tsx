@@ -16,7 +16,7 @@ function ScaleFadeEx() {
         bgColor={isOpen ? "CourtSizecolor.btc" : "White"}
         _after={{
           content: `${
-            isOpen ? "url(./courtSize/en-sort-up.svg)" : "url(./courtSize/en-sort-down.svg)"
+            isOpen ? "url(@/assets/svg/en-sort-up.svg)" : "url(@/assets/svg/en-sort-down.svg)"
           }`,
           m: "3",
           mb: "2",
@@ -29,10 +29,10 @@ function ScaleFadeEx() {
         <ModalOverlay />
         <ModalContent>
           <Box
-            w="1115px"
-            h="704px"
+            w="70rem"
+            h="44rem"
             color="white"
-            mt="95"
+            mt="170"
             left="-336"
             bg="White"
             rounded="md"
