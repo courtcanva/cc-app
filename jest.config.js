@@ -16,10 +16,12 @@ const customJestConfig = {
   testMatch: ["<rootDir>/src/__tests__/**/**/*.{spec,test}.{js,jsx,ts,tsx}"],
   moduleNameMapper: {
     "^@/components/(.*)$": "<rootDir>/src/components/$1",
+    "^@/constants/(.*)$": "<rootDir>/src/constants/$1",
   },
   collectCoverageFrom: [
     "<rootDir>/src/**/*.{tsx,ts}",
     "!<rootDir>/src/styles/*.{tsx,ts}",
+    "!<rootDir>/src/styles/components/*.{tsx,ts}",
     "!<rootDir>/src/pages/_app.tsx",
     "!<rootDir>/src/pages/_document.tsx",
     "!<rootDir>/node_modules/",
@@ -38,5 +40,17 @@ const customJestConfig = {
   },
 };
 
-// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-module.exports = createJestConfig(customJestConfig);
+const jestConfig = async () => {
+  // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+  const nextJestConfig = await createJestConfig(customJestConfig)();
+  return {
+    ...nextJestConfig,
+    moduleNameMapper: {
+      // Workaround to put our SVG stub first
+      "\\.svg$": "<rootDir>/__mocks__/svgMock.js",
+      ...nextJestConfig.moduleNameMapper,
+    },
+  };
+};
+
+module.exports = jestConfig;

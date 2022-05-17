@@ -23,6 +23,12 @@ const colors = {
     secondary: "#40B484",
     primaryLight: "#496A80",
   },
+  background:{
+    primary : "#2C3333"
+  },
+  fontcolor:{
+    primary : "#C8C5C5",
+  }
 };
 
 const components = {

@@ -2,10 +2,11 @@ import styled from "styled-components";
 import { PageItemWrapper as FooterItemWrapper } from "../helpers/ItemWrapper";
 
 export const Container = styled.div`
-  width: 100%;
+  // width: 100%;
   background-color: white;
   color: black;
   position: relative;
+  margin-left: 98px;
 `;
 
 export const WrapperOuter = styled.div`
@@ -15,11 +16,15 @@ export const WrapperOuter = styled.div`
   flex-wrap: wrap;
   padding: 0.7em 0;
 
-  @media only screen and (max-width: 1121px) {
+  @media only screen and (max-width: 1220px) {
+    width: 35%;
+  }
+
+  @media only screen and (max-width: 1181px) {
     width: 40%;
   }
 
-  @media only screen and (max-width: 842px) {
+  @media only screen and (max-width: 872px) {
     width: 50%;
   }
 `;
@@ -32,11 +37,11 @@ export const Text = styled.span`
   font-size: 1em;
   margin-left: 1em;
 
-  @media only screen and (max-width: 1121px) {
+  @media only screen and (max-width: 1180px) {
     font-size: 0.9em
   }
 
-  @media only screen and (max-width: 842px) {
+  @media only screen and (max-width: 872px) {
     font-size: 0.8em
   }  
 `;
@@ -67,11 +72,11 @@ export const BoldText = styled(PriceText)`
   font-weight: 700;
   font-size: 1.5em;
 
-  @media only screen and (max-width: 1121px) {
+  @media only screen and (max-width: 1180px) {
     font-size: 1.2em;
   }
 
-  @media only screen and (max-width: 842px) {
+  @media only screen and (max-width: 872px) {
     font-size: 1em;
   }
 `;
@@ -84,11 +89,11 @@ export const LightText = styled(PriceText)`
     margin-right: 0.2em;
   }
 
-  @media only screen and (max-width: 1121px) {
+  @media only screen and (max-width: 1180px) {
     font-size: 0.6em;
   }
 
-  @media only screen and (max-width: 842px) {
+  @media only screen and (max-width: 872px) {
     font-size: 0.5em;
   }
 
