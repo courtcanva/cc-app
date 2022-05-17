@@ -28,6 +28,7 @@
     "**/*.ts",
     "**/*.tsx",
     "src/styles/Chakra.ts",
-    "**/*.spec.tsx"
+    "**/*.spec.tsx",
+    "globals.d.ts"
   ]
 }
