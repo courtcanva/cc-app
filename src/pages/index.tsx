@@ -9,7 +9,6 @@ import {
   changeCounter,
 } from "../store/reducer/counterSlice";
 import HeaderLayout from "../layouts/HeaderLayout";
-import EditorSideBar from "@/components/EditorSideBar";
 import { Button, Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 const Home: NextPage = () => {
@@ -46,7 +45,6 @@ const Home: NextPage = () => {
           Plus 100
         </Button>
       </Flex>
-      <EditorSideBar />
     </HeaderLayout>
   );
 };
