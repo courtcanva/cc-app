@@ -12,8 +12,12 @@ const priceBarDrawer = {
   },
 };
 
+interface DrawerButtonProps {
+  isOpen: boolean;
+}
+
 export const DrawerButton = {
-  baseStyle: ({ isOpen }: any) => ({
+  baseStyle: ({ isOpen }: DrawerButtonProps) => ({
     position: "absolute",
     top: "-30px",
     left: isOpen ? "calc(48% - 49px)" : "48%",
