@@ -2,9 +2,10 @@ import { ReactNode } from "react";
 import { Box } from "@chakra-ui/react";
 import Header from "./Header";
 import Footer from "./Footer";
-import PriceBar from "../components/PriceBar";
 import NavigationBar from "../components/NavBar";
 import EditorSideBar from "../components/EditorSideBar";
+import BottomMenu from "@/components/BottomMenu";
+
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
@@ -16,7 +17,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
         {children}
         <Footer />
       </Box>
-      <PriceBar />
+      <BottomMenu />
     </>
   );
 };
