@@ -24,7 +24,7 @@ pipeline {
                    }
                     stage('Version Number') {
                           steps {
-			       echo "1.0.$Version_ID"
+			       echo "2.0.$Version_ID"
                           }
                    }
 	            stage('Upload Main Branch Artifact Repo') { 
