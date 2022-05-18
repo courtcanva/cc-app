@@ -35,7 +35,7 @@ const BottomMenu: React.FC = () => {
           }}
         >
           <Box onClick={onClose} sx={styles} />
-          <DrawerBody boxShadow="0px -5px 10px -5px lightgrey">
+          <DrawerBody boxShadow="0px -5px 10px -5px lightgrey" p="0">
             <Flex>
               <CourtTemplate />
               <Spacer />
