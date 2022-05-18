@@ -31,7 +31,7 @@
     "require-jsdoc": "off",
     // suppress errors for missing 'import React' in files
     "react/react-in-jsx-scope": "off",
-    "react/prop-types": 0,
+    "react/prop-types": 1,
     // we want to avoid extraneous spaces
     "no-multi-spaces": ["error"],
     "@typescript-eslint/no-unused-vars": "warn",
