@@ -30,7 +30,7 @@
     // do not require JSDoc for your functions
     "require-jsdoc": "off",
     // suppress errors for missing 'import React' in files
-    "react/react-in-jsx-scope": "on",
+    "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,
     // we want to avoid extraneous spaces
     "no-multi-spaces": ["error"],
