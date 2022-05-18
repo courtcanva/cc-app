@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, FormControl, Switch, FormLabel } from "@chakra-ui/react";
+import { Box, Flex, IconButton, FormControl, Switch, FormLabel,} from "@chakra-ui/react";
 import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
 import { BiHelpCircle } from "react-icons/bi";
 
@@ -17,13 +17,13 @@ const EditorFooter = () => {
         <IconButton
           aria-label="Revert edit"
           icon={<HiOutlineZoomOut />}
-          variant="navbarIconBtn"
+          variant="editorFooterIconBtn"
           color="brand.primary"
         />
         <IconButton
           aria-label="Forward edit"
           icon={<HiOutlineZoomIn />}
-          variant="navbarIconBtn"
+          variant="editorFooterIconBtn"
           color="brand.primary"
         />
       </Box>
@@ -32,12 +32,12 @@ const EditorFooter = () => {
           <FormLabel htmlFor="ruler-swith-btn" mb="0" color="brand.primary">
             Ruler On
           </FormLabel>
-          <Switch id="email-alerts" color="brand.secondary" isChecked />
+          <Switch id="email-alerts" colorScheme="teal" isChecked />
         </FormControl>
         <IconButton
           aria-label="Forward edit"
           icon={<BiHelpCircle />}
-          variant="navbarIconBtn"
+          variant="editorFooterIconBtn"
           color="brand.primary"
         />
       </Flex>
