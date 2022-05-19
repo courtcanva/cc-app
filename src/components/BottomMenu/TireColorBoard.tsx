@@ -26,7 +26,8 @@ const TireColorBoard: React.FC = () => {
           display="flex"
           alignItems="center"
           justifyContent="space-between"
-          marginLeft="6px"
+          marginLeft="9px"
+          marginRight="8px"
           textAlign="center"
           borderRadius="6px"
           boxShadow="
@@ -35,7 +36,7 @@ const TireColorBoard: React.FC = () => {
         >
           <Flex wrap="wrap" gap="4px" w="56px" h="35px" marginLeft="8px">
             {mockTireColors.map((color) => (
-              <Box key={color} bg={color} w="16px" h="16px" cursor="pointer" />
+              <Box key={color} bg={color} w="16px" h="16px" />
             ))}
           </Flex>
           <Text
