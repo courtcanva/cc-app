@@ -4,7 +4,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import PriceBar from "../components/PriceBar";
 import NavigationBar from "../components/NavBar";
-import EditorFooter from "../components/EditorFooter";
+import EditorSideBar from "../components/EditorSideBar";
+import EditorFooter from "@/components/EditorFooter";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
@@ -12,6 +13,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
       <Header />
       <Box as="main">
         <NavigationBar />
+        <EditorSideBar />
         {children}
         <Footer />
       </Box>

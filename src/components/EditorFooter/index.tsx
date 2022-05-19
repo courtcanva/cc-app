@@ -48,12 +48,14 @@ const EditorFooter = () => {
             id="email-alerts"
             colorScheme="footerSwitch"
             sx={{
-              "span": {
+              span: {
                 bgColor: "brand.primary",
               },
             }}
             defaultChecked
-            onChange={(e:React.ChangeEvent<HTMLInputElement>) => setRulerLabel(e.target.checked ? "Ruler on" : "Ruler off")}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setRulerLabel(e.target.checked ? "Ruler on" : "Ruler off")
+            }
             data-testid="switch-btn"
           />
         </FormControl>
