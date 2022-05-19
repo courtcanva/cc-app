@@ -9,10 +9,10 @@ describe("EditorFooter", () => {
   });
   it("should toggle between on and off", () => {
     const { getByTestId } = render(<EditorFooter />);
-    const toggleBtn = getByTestId("switch-btn");
-    fireEvent.click(toggleBtn);
+    const switchButton = getByTestId("switch-btn");
+    fireEvent.click(switchButton);
     expect(getByTestId("ruler-label")).toHaveTextContent("Ruler off");
-    fireEvent.click(toggleBtn);
+    fireEvent.click(switchButton);
     expect(getByTestId("ruler-label")).toHaveTextContent("Ruler on");
   });
   it("Each button in the navbar needs to display the correct text", () => {
