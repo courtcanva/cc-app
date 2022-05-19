@@ -52,7 +52,7 @@ const EditorFooter = () => {
                 bgColor: "brand.primary",
               },
             }}
-            checked
+            defaultChecked
             onChange={(e) => setRulerLabel(e.target.checked ? "Ruler on" : "Ruler off")}
             data-testid="switch-btn"
           />
