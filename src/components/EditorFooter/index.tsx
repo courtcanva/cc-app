@@ -36,7 +36,12 @@ const EditorFooter = () => {
       </Box>
       <Flex gap={8}>
         <FormControl display="flex" alignItems="center">
-          <FormLabel htmlFor="ruler-swith-btn" mb="0" color="brand.primary" data-testid="ruler-label">
+          <FormLabel
+            htmlFor="ruler-swith-btn"
+            mb="0"
+            color="brand.primary"
+            data-testid="ruler-label"
+          >
             {rulerLabel}
           </FormLabel>
           <Switch
