@@ -5,7 +5,6 @@ import Footer from "./Footer";
 import NavigationBar from "../components/NavBar";
 import EditorSideBar from "../components/EditorSideBar";
 import BottomMenu from "@/components/BottomMenu";
-import EditorFooter from "@/components/EditorFooter";
 
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -19,7 +18,6 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
         <Footer />
       </Box>
       <BottomMenu />
-      <EditorFooter />
     </>
   );
 };
