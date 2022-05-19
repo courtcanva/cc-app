@@ -1,7 +1,7 @@
 import { Box, Text, Flex, Icon } from "@chakra-ui/react";
 import React from "react";
-import AddCourt from "@/assets/svg/addcourt.svg";
-import CourtIcon from "@/assets/svg/courticon.svg";
+import AddCourt from "@/assets/svg/PriceBarSvg/addcourt.svg";
+import CourtIcon from "@/assets/svg/PriceBarSvg/courticon.svg";
 
 const CourtInfo: React.FC = () => {
   const courts = [
