@@ -17,7 +17,7 @@ const BottomMenu: React.FC = () => {
   const styles = useStyleConfig("DrawerButton", { isOpen });
 
   return (
-    <Box position="fixed" bottom="0px" width="100vw" marginBottom="34px">
+    <Box position="fixed" bottom="0px" width="100vw" marginBottom="40px">
       {!isOpen && <Box onClick={onOpen} sx={styles} as="button" />}
       <Drawer
         placement="bottom"
@@ -31,7 +31,7 @@ const BottomMenu: React.FC = () => {
           sx={{
             width: "calc(100% - 98px)",
             marginLeft: "98px",
-            marginBottom: "34px",
+            marginBottom: "40px",
           }}
         >
           <Box onClick={onClose} sx={styles} />
