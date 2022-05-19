@@ -18,7 +18,7 @@ const BottomMenu: React.FC = () => {
 
   return (
     <Box position="fixed" bottom="0px" width="100vw" marginBottom="34px">
-      {!isOpen && <Box onClick={onOpen} sx={styles} />}
+      {!isOpen && <Box onClick={onOpen} sx={styles} as="button" />}
       <Drawer
         placement="bottom"
         onClose={onClose}
