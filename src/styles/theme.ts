@@ -30,9 +30,25 @@ const colors = {
   fontcolor: {
     primary: "#C8C5C5",
   },
+  CourtSizecolor: {
+    btc: "#40B484",
+    bt: "#FFFFFF",
+    border: "#344C5C"
+  }
 };
 
 const components = {
+  CourtSize: {
+    baseStyle: () => ({
+      width: "255",
+      height: "205",
+      border: "4px solid #344C5C",
+      fontSize: "lg",
+      fontWeight: "semibold",
+      color: "#344C5C",
+      textAlign: "center"
+    }),
+  },
   Button: { ...buttonStyles },
   Drawer: { ...priceBarDrawer },
   DrawerButton,
