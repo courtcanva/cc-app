@@ -1,12 +1,12 @@
 import { Box, Text, Flex, Icon } from "@chakra-ui/react";
 import React from "react";
-import Addcourt from "@/assets/svg/addcourt.svg";
-import Courticon from "@/assets/svg/courticon.svg";
+import AddCourt from "@/assets/svg/addcourt.svg";
+import CourtIcon from "@/assets/svg/courticon.svg";
 
 const CourtInfo: React.FC = () => {
   const courts = [
-    { id: 1, name: "Example", icon: <Courticon /> },
-    { id: 2, name: "1", icon: <Courticon /> },
+    { id: 1, name: "Example", icon: <CourtIcon /> },
+    { id: 2, name: "1", icon: <CourtIcon /> },
   ];
 
   const listCourts = courts.map((court) => {
@@ -72,7 +72,7 @@ const CourtTemplate: React.FC = () => {
             color="fontcolor.primary"
             _groupActive={{ outline: "3px solid black" }}
           >
-            <Addcourt />
+            <AddCourt />
           </Icon>
         </Box>
       </Box>
