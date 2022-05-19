@@ -1,6 +1,7 @@
-import { Box, Flex, IconButton, FormControl, Switch, FormLabel } from "@chakra-ui/react";
+import { Box, Flex, IconButton, FormControl, Switch, FormLabel, Checkbox } from "@chakra-ui/react";
 import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
 import { BiHelpCircle } from "react-icons/bi";
+import { ContainerFooter } from "../PriceBar/styles";
 
 const EditorFooter = () => {
   return (
@@ -29,10 +30,12 @@ const EditorFooter = () => {
       </Box>
       <Flex gap={8}>
         <FormControl display="flex" alignItems="center">
-          <FormLabel htmlFor="ruler-swith-btn" mb="0" color="brand.primary">
+          <FormLabel htmlFor="ruler-swith-btn" mb="0">
             Ruler On
           </FormLabel>
-          <Switch id="email-alerts" color="brand.secondary" isChecked />
+          <Switch id="email-alerts" colorScheme="footerSwitch" sx={{"span:first-child":{
+            bgColor:"brand.primary",
+          }}}/>
         </FormControl>
         <IconButton
           aria-label="Forward edit"
