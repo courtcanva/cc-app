@@ -1,7 +1,6 @@
-import { Box, Flex, IconButton, FormControl, Switch, FormLabel, Checkbox } from "@chakra-ui/react";
+import { Box, Flex, IconButton, FormControl, Switch, FormLabel,} from "@chakra-ui/react";
 import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
 import { BiHelpCircle } from "react-icons/bi";
-import { ContainerFooter } from "../PriceBar/styles";
 
 const EditorFooter = () => {
   return (
@@ -18,13 +17,13 @@ const EditorFooter = () => {
         <IconButton
           aria-label="Revert edit"
           icon={<HiOutlineZoomOut />}
-          variant="navbarIconBtn"
+          variant="editorFooterIconBtn"
           color="brand.primary"
         />
         <IconButton
           aria-label="Forward edit"
           icon={<HiOutlineZoomIn />}
-          variant="navbarIconBtn"
+          variant="editorFooterIconBtn"
           color="brand.primary"
         />
       </Box>
@@ -40,7 +39,7 @@ const EditorFooter = () => {
         <IconButton
           aria-label="Forward edit"
           icon={<BiHelpCircle />}
-          variant="navbarIconBtn"
+          variant="editorFooterIconBtn"
           color="brand.primary"
         />
       </Flex>
