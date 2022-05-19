@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import EditorFooter from "../../../components/EditorFooter";
+import EditorFooter from "@/components/EditorFooter";
 
 describe("EditorFooter", () => {
   it("should see the switch button", () => {

@@ -48,7 +48,7 @@ const EditorFooter = () => {
             id="email-alerts"
             colorScheme="footerSwitch"
             sx={{
-              span: {
+              "span:first-child": {
                 bgColor: "brand.primary",
               },
             }}
