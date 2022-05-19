@@ -7,8 +7,6 @@ const CourtInfo: React.FC = () => {
   const courts = [
     { id: 1, name: "Example", icon: <Courticon /> },
     { id: 2, name: "1", icon: <Courticon /> },
-    { id: 3, name: "1", icon: <Courticon /> },
-    { id: 3, name: "1", icon: <Courticon /> },
   ];
 
   const listCourts = courts.map((court) => {
