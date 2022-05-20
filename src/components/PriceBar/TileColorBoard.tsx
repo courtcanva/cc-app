@@ -13,13 +13,7 @@ const TileColorBoard: React.FC = () => {
 
   return (
     <>
-      <Flex
-        w={[202, 202, 222, 292]}
-        h="64px"
-        alignItems="center"
-        justifyContent="center"
-        borderLeft="1px solid #ABABAD"
-      >
+      <Flex w={[252, 252, 272, 292]} h="64px" alignItems="center" borderLeft="1px solid #ABABAD">
         <Box
           w="275px"
           h="51px"
@@ -39,14 +33,10 @@ const TileColorBoard: React.FC = () => {
               <Box key={color} bg={color} w="16px" h="16px" />
             ))}
           </Flex>
-          <Text
-            marginRight="8px"
-            minW="105px"
-            textAlign="left"
-            fontWeight="800"
-            fontSize="11px"
-          >
-            Estimated Budget:<br/>From $ 1647
+          <Text marginRight="8px" minW="105px" textAlign="left" fontWeight="800" fontSize="11px">
+            Estimated Budget:
+            <br />
+            From $ 1647
           </Text>
         </Box>
       </Flex>
