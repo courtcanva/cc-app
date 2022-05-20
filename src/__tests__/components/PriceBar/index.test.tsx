@@ -1,16 +1,16 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import BottomMenu from "@/components/BottomMenu";
+import PriceBar from "@/components/PriceBar";
 
-describe("BottomMenu", () => {
+describe("PriceBar", () => {
   it("Should see the drawer opening button", () => {
-    render(<BottomMenu />);
+    render(<PriceBar />);
     const drawerOpenButton = screen.getByRole("button");
 
     expect(drawerOpenButton).toBeInTheDocument();
   });
 
   it("Should show the drawer when clicking the opening button", () => {
-    const { getByText } = render(<BottomMenu />);
+    const { getByText } = render(<PriceBar />);
     const drawerOpenButton = screen.getByRole("button");
 
     fireEvent.click(drawerOpenButton);

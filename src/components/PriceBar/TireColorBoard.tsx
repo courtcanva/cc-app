@@ -14,7 +14,7 @@ const TireColorBoard: React.FC = () => {
   return (
     <>
       <Flex
-        w={[192, 192, 222, 292]}
+        w={[202, 202, 222, 292]}
         h="64px"
         alignItems="center"
         justifyContent="center"

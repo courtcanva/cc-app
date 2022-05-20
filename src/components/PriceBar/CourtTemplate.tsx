@@ -9,9 +9,17 @@ const CourtInfo: React.FC = () => {
     { id: 2, name: "1", icon: <CourtIcon /> },
   ];
 
-  const listCourts = courts.map((court) => {
+  const listCourts: JSX.Element[] = courts.map((court) => {
     return (
-      <Box as="button" role="group" w="full" marginTop="1" marginRight="4" key={court.id}>
+      <Box
+        as="button"
+        role="group"
+        w="full"
+        marginTop="1"
+        marginRight="4"
+        key={court.id}
+        data-testid="courtTemplate"
+      >
         <Flex flexDirection="column" align="center" justify="flex-start">
           <Icon
             width="40px"
@@ -39,6 +47,7 @@ const CourtInfo: React.FC = () => {
       </Box>
     );
   });
+
   return <Box display="flex">{listCourts}</Box>;
 };
 
@@ -72,7 +81,7 @@ const CourtTemplate: React.FC = () => {
             color="fontcolor.primary"
             _groupActive={{ outline: "3px solid black" }}
           >
-            <AddCourt />
+            <AddCourt data-testid="addTemplateBtn" />
           </Icon>
         </Box>
       </Box>

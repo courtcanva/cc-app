@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import TireColorBoard from "@/components/BottomMenu/TireColorBoard";
+import TireColorBoard from "@/components/PriceBar/TireColorBoard";
 
 describe("TireColorBoard", () => {
   it("Should render estimated budget text", () => {

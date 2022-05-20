@@ -28,7 +28,7 @@ export const DrawerButton = {
     width: "100px",
     cursor: "pointer",
     _after: {
-      content: isOpen ? "'˅'" : "'˄'",
+      content: "''",
       paddingTop: "4px",
       textAlign: "center",
       position: "absolute",

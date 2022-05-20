@@ -4,7 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import NavigationBar from "../components/NavBar";
 import EditorSideBar from "../components/EditorSideBar";
-import BottomMenu from "@/components/BottomMenu";
+import PriceBar from "@/components/PriceBar";
 
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -17,7 +17,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
         {children}
         <Footer />
       </Box>
-      <BottomMenu />
+      <PriceBar />
     </>
   );
 };
