@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import TireColorBoard from "@/components/PriceBar/TireColorBoard";
+import TileColorBoard from "@/components/PriceBar/TileColorBoard";
 
-describe("TireColorBoard", () => {
+describe("TileColorBoard", () => {
   it("Should render estimated budget text", () => {
-    render(<TireColorBoard />);
+    render(<TileColorBoard />);
 
     const budgetTextElement = screen.getByText(/Estimated Budget:/i);
     expect(budgetTextElement).toBeInTheDocument();

@@ -1,8 +1,8 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
-const TireColorBoard: React.FC = () => {
-  const mockTireColors: string[] = [
+const TileColorBoard: React.FC = () => {
+  const mockTileColors: string[] = [
     "#1A1F51",
     "#643132",
     "#C96E55",
@@ -35,7 +35,7 @@ const TireColorBoard: React.FC = () => {
           inset 1px 1px 5px rgba(0, 0, 0, .4);"
         >
           <Flex wrap="wrap" gap="4px" w="56px" h="35px" marginLeft="8px">
-            {mockTireColors.map((color) => (
+            {mockTileColors.map((color) => (
               <Box key={color} bg={color} w="16px" h="16px" />
             ))}
           </Flex>
@@ -55,4 +55,4 @@ const TireColorBoard: React.FC = () => {
   );
 };
 
-export default TireColorBoard;
+export default TileColorBoard;

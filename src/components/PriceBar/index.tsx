@@ -12,15 +12,15 @@ import Down from "@/assets/svg/PriceBarSvg/down.svg";
 import Up from "@/assets/svg/PriceBarSvg/up.svg";
 import React from "react";
 import CourtTemplate from "./CourtTemplate";
-import TireColorBoard from "./TireColorBoard";
+import TileColorBoard from "./TileColorBoard";
 
 const PriceBar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const styles = useStyleConfig("DrawerButton", { isOpen });
+  const drawerBtnStyles = useStyleConfig("DrawerButton", { isOpen });
 
   const drawerButton = (onOffFunc: React.MouseEventHandler<HTMLDivElement | HTMLButtonElement>) => {
     return (
-      <Box onClick={onOffFunc} sx={styles} as="button">
+      <Box onClick={onOffFunc} sx={drawerBtnStyles} as="button">
         <Box pos="absolute" zIndex="1" top="50%" left="50%" transform="translate(-50%, -50%)">
           {isOpen ? <Down /> : <Up />}
         </Box>
@@ -51,7 +51,7 @@ const PriceBar: React.FC = () => {
             <Flex>
               <CourtTemplate />
               <Spacer />
-              <TireColorBoard />
+              <TileColorBoard />
             </Flex>
           </DrawerBody>
         </DrawerContent>
