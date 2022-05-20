@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import PriceBar from "../components/PriceBar";
 import NavigationBar from "../components/NavBar";
 import EditorSideBar from "../components/EditorSideBar";
+import EditorFooter from "@/components/EditorFooter";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
@@ -17,6 +18,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
         <Footer />
       </Box>
       <PriceBar />
+      <EditorFooter />
     </>
   );
 };

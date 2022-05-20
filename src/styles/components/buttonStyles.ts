@@ -17,6 +17,13 @@ const buttonStyles = {
       _hover: { bg: "brand.secondary", opacity: "0.60" },
       _active: { bg: "brand.secondary", opacity: "0.60" },
     },
+    editorFooterIconBtn: {
+      bg: "transparent",
+      color: "white",
+      fontSize: "xl",
+      _hover: { bg: "rgba(200, 197, 197, 0.6)"},
+      size: "sm",
+    },
   },
 };
 
