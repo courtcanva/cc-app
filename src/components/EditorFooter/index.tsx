@@ -45,7 +45,7 @@ const EditorFooter = () => {
             {rulerLabel}
           </FormLabel>
           <Switch
-            id="email-alerts"
+            id="ruler-swith-btn"
             colorScheme="footerSwitch"
             sx={{
               "span:first-child": {
