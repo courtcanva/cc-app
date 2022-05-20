@@ -40,14 +40,13 @@ const TileColorBoard: React.FC = () => {
             ))}
           </Flex>
           <Text
-            w="105px"
             marginRight="8px"
+            minW="105px"
             textAlign="left"
-            fontWeight="700"
-            fontSize="12px"
-            overflowWrap="break-word"
+            fontWeight="800"
+            fontSize="11px"
           >
-            Estimated Budget: From $ 1647
+            Estimated Budget:<br/>From $ 1647
           </Text>
         </Box>
       </Flex>
