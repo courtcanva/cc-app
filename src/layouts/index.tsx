@@ -17,7 +17,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
         {children}
         <Footer />
       </Box>
-      <PriceBar />
+      {/* <PriceBar /> */}
       <EditorFooter />
     </>
   );

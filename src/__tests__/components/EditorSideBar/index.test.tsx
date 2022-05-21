@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import EditorSideBar from "@/components/EditorSideBar";
+import { BiBluetooth } from "react-icons/bi";
 
 describe("EditorSideBar component", () => {
   test("Each box in the sidebar should render the correct text", () => {

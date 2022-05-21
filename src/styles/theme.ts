@@ -29,7 +29,8 @@ const colors = {
     border: "#344C5C"
   },
   background:{
-    primary : "#2C3333"
+    primary : "#2C3333",
+    secondary : "#4f5757",
   },
   fontcolor:{
     primary : "#C8C5C5",
