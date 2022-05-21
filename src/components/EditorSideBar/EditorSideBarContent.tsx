@@ -2,7 +2,11 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 
-const SideBarContainer = (props: any) => {
+interface Props {
+  iconClick: string;
+  onHandleCloseClick: () => void;
+}
+const SideBarContainer = (props: Props) => {
   return (
     <Box
       bg="background.secondary"
@@ -12,7 +16,10 @@ const SideBarContainer = (props: any) => {
       left="96px"
       position="fixed"
       z-index="10"
+      color="#fff"
+      p={6}
     >
+      {props.iconClick}
       <Box
         as="button"
         onClick={props.onHandleCloseClick}

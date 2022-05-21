@@ -10,7 +10,6 @@ const EditorSideBar = () => {
 
   const handleIconClick = (title: string) => {
     setIsOpen(true);
-    console.log(title);
     setIconClick(title);
   };
   const handleCloseClick = () => {

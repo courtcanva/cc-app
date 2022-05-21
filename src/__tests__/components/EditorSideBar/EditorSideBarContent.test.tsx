@@ -3,7 +3,14 @@ import EditorSideBarContent from "@/components/EditorSideBar/EditorSideBarConten
 
 describe("EditorSideBarContent", () => {
   it("Should render closing button", () => {
-    const { getByRole } = render(<EditorSideBarContent />);
+    const { getByRole } = render(
+      <EditorSideBarContent
+        iconClick="some title"
+        onHandleCloseClick={() => {
+          onclose;
+        }}
+      />
+    );
     expect(getByRole("button")).toBeInTheDocument();
   });
 });
