@@ -33,7 +33,10 @@ const colors = {
   },
   fontcolor:{
     primary : "#C8C5C5",
-  }
+  },
+  footerSwitch:{
+    500:"#8FE9C3",
+  },
 };
 
 const components = {
@@ -51,6 +54,6 @@ const components = {
   Button: { ...buttonStyles },
 };
 
-const theme = extendTheme({ colors, config, styles, components });
+const theme = extendTheme({ colors, config, styles, components});
 
 export default theme;

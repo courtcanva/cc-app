@@ -10,6 +10,7 @@ import {
 } from "../store/reducer/counterSlice";
 import HeaderLayout from "../layouts/HeaderLayout";
 import { Button, Box, Flex, Heading, Text } from "@chakra-ui/react";
+import ChangeCourtSize from "@/components/ChangeCourtSize";
 
 const Home: NextPage = () => {
   const count = useSelector(changeCounter);
@@ -20,6 +21,7 @@ const Home: NextPage = () => {
         <Heading mt="24px" mb={4}>
           Welcome to CourtCanva
         </Heading>
+        <ChangeCourtSize />
         <Button mt="24px" aria-label="Clear value" onClick={() => dispatch(clear())}>
           Clear
         </Button>
