@@ -29,7 +29,7 @@ const PriceBar: React.FC = () => {
   };
 
   return (
-    <Box position="fixed" bottom="0px" width="100vw" marginBottom="40px">
+    <Box position="fixed" bottom="0px" width="100vw" marginBottom="38px" zIndex="1600">
       {!isOpen && drawerButton(onOpen)}
       <Drawer
         placement="bottom"
@@ -43,7 +43,7 @@ const PriceBar: React.FC = () => {
           sx={{
             width: "calc(100% - 98px)",
             marginLeft: "98px",
-            marginBottom: "40px",
+            marginBottom: "42px",
           }}
         >
           {drawerButton(onClose)}
