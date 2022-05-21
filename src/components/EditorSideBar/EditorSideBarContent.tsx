@@ -3,7 +3,7 @@ import React from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 
 interface Props {
-  iconClick: string;
+  iconClickTitle: string;
   onHandleCloseClick: () => void;
 }
 const SideBarContainer = (props: Props) => {
@@ -19,7 +19,7 @@ const SideBarContainer = (props: Props) => {
       color="#fff"
       p={6}
     >
-      {props.iconClick}
+      {props.iconClickTitle}
       <Box
         as="button"
         onClick={props.onHandleCloseClick}

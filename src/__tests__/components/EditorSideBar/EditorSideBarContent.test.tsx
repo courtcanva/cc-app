@@ -5,7 +5,7 @@ describe("EditorSideBarContent", () => {
   it("Should render closing button", () => {
     const { getByRole } = render(
       <EditorSideBarContent
-        iconClick="some title"
+        iconClickTitle="some title"
         onHandleCloseClick={() => {
           onclose;
         }}

@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const EditorSideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [iconClick, setIconClick] = useState("");
+  const [iconClickTitle, setIconClick] = useState("");
 
   const handleIconClick = (title: string) => {
     setIsOpen(true);
@@ -18,7 +18,7 @@ const EditorSideBar = () => {
   };
 
   return (
-    <Box>
+    <Box >
       <Box bg="background.primary" w="98px" h="100vh" position="fixed" top="72px" left="0">
         <Flex align="center" justify="center" flexDirection="column" maxW="98px">
           {sideBarItemList.map((item) => (
@@ -27,13 +27,13 @@ const EditorSideBar = () => {
               title={item.title}
               icon={item.icon}
               onHandleIconClick={() => handleIconClick(item.title)}
-              iconClick={iconClick}
+              iconClickTitle={iconClickTitle}
             />
           ))}
         </Flex>
       </Box>
       {isOpen && (
-        <EditorSideBarContent iconClick={iconClick} onHandleCloseClick={handleCloseClick} />
+        <EditorSideBarContent iconClickTitle={iconClickTitle} onHandleCloseClick={handleCloseClick} />
       )}
     </Box>
   );
