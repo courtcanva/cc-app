@@ -1,79 +1,62 @@
-import React from "react";
-
 import {
-  Container,
-  WrapperOuter,
-  TextWrapper,
-  Text,
-  PriceWrapper,
-  ColorText,
-  BoldText,
-  LightText,
-  ContainerFooter,
-  Wrapper,
-  OpenCloseButton,
-} from "./styles";
-
-import { HiOutlineZoomIn, HiOutlineZoomOut, HiOutlineInformationCircle } from "react-icons/hi";
-
-import { AiOutlineDown } from "react-icons/ai";
-import { FormControl, FormLabel, Switch } from "@chakra-ui/react";
-
-const TilesInfo: React.FC = () => {
-  const tiles = [
-    { id: 1, tile: "#83DJ31", quantity: 1 },
-    { id: 2, tile: "#83DJ32", quantity: 2 },
-    { id: 3, tile: "#83DJ33", quantity: 3 },
-    { id: 4, tile: "#83DJ34", quantity: 4 },
-    { id: 5, tile: "#83DJ35", quantity: 1 },
-    { id: 6, tile: "#83DJ36", quantity: 2 },
-  ];
-
-  const listTiles = tiles.map((tile) => {
-    return (
-      <TextWrapper key={tile.id}>
-        <ColorText>{tile.tile}</ColorText>
-        <Text>tile*{tile.quantity}</Text>
-      </TextWrapper>
-    );
-  });
-
-  return <WrapperOuter>{listTiles}</WrapperOuter>;
-};
+  Box,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  Flex,
+  Spacer,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { useStyleConfig } from "@chakra-ui/react";
+import Down from "@/assets/svg/PriceBarSvg/down.svg";
+import Up from "@/assets/svg/PriceBarSvg/up.svg";
+import React from "react";
+import CourtTemplate from "./CourtTemplate";
+import TileColorBoard from "./TileColorBoard";
 
 const PriceBar: React.FC = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const drawerBtnStyles = useStyleConfig("DrawerButton", { isOpen });
+
+  const drawerButton = (onOffFunc: React.MouseEventHandler<HTMLDivElement | HTMLButtonElement>) => {
+    return (
+      <Box onClick={onOffFunc} sx={drawerBtnStyles} as="button">
+        <Box pos="absolute" zIndex="1" top="50%" left="50%" transform="translate(-50%, -50%)">
+          {isOpen ? <Down /> : <Up />}
+        </Box>
+      </Box>
+    );
+  };
+
   return (
-    <>
-      <Container>
-        <OpenCloseButton>
-          <AiOutlineDown />
-        </OpenCloseButton>
-        <TilesInfo />
-
-        <PriceWrapper>
-          <BoldText>Estimated Budget: From $ 1647</BoldText>
-          <LightText>Please note: Final total price may very from estimated budget.</LightText>
-        </PriceWrapper>
-      </Container>
-
-      <ContainerFooter>
-        <Wrapper>
-          <HiOutlineZoomOut />
-          <HiOutlineZoomIn />
-        </Wrapper>
-
-        <Wrapper>
-          <FormControl display="flex" alignItems="center">
-            <FormLabel htmlFor="ruler-on" mb={0}>
-              Ruler On
-            </FormLabel>
-            <Switch id="ruler-on" colorScheme={"blue"} />
-          </FormControl>
-
-          <HiOutlineInformationCircle />
-        </Wrapper>
-      </ContainerFooter>
-    </>
+    <Box position="fixed" bottom="0px" width="100vw" marginBottom="38px" zIndex="1600">
+      {!isOpen && drawerButton(onOpen)}
+      <Drawer
+        placement="bottom"
+        onClose={onClose}
+        isOpen={isOpen}
+        closeOnOverlayClick={false}
+        variant="alwaysOpen"
+      >
+        <DrawerContent
+          backgroundColor="#fff"
+          sx={{
+            width: "calc(100% - 98px)",
+            marginLeft: "98px",
+            marginBottom: "42px",
+          }}
+        >
+          {drawerButton(onClose)}
+          <DrawerBody boxShadow="0px -5px 10px -5px lightgrey" p="0">
+            <Flex>
+              <CourtTemplate />
+              <Spacer />
+              <TileColorBoard />
+            </Flex>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </Box>
   );
 };
 
