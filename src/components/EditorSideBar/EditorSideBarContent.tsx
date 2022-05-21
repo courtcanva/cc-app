@@ -8,7 +8,6 @@ const SideBarContainer = (props: any) => {
       bg="background.secondary"
       w="356px"
       h="calc(100vh - 72px)"
-      // border = "1px solid red"
       top="72px"
       left="96px"
       position="fixed"
@@ -16,7 +15,7 @@ const SideBarContainer = (props: any) => {
     >
       <Box
         as="button"
-        // onClick={props.onHandleCloseClick}
+        onClick={props.onHandleCloseClick}
         position="absolute"
         top="calc(48% - 84px)"
         right="-26px"

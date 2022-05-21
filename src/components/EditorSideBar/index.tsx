@@ -5,18 +5,18 @@ import EditorSideBarContent from "./EditorSideBarContent";
 import { useState } from "react";
 
 const EditorSideBar = () => {
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [iconClick, setIconClick] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [iconClick, setIconClick] = useState("");
 
-  // const handleIconClick = (title: string) => {
-  //   setIsOpen(true);
-  //   console.log(title);
-  //   setIconClick(title);
-  // };
-  // const handleCloseClick = () => {
-  //   setIsOpen(false);
-  //   setIconClick("");
-  // };
+  const handleIconClick = (title: string) => {
+    setIsOpen(true);
+    console.log(title);
+    setIconClick(title);
+  };
+  const handleCloseClick = () => {
+    setIsOpen(false);
+    setIconClick("");
+  };
 
   return (
     <Box>
@@ -27,16 +27,15 @@ const EditorSideBar = () => {
               key={item.title}
               title={item.title}
               icon={item.icon}
-              // onHandleIconClick={() => handleIconClick(item.title)}
-              // iconClick={iconClick}
+              onHandleIconClick={() => handleIconClick(item.title)}
+              iconClick={iconClick}
             />
           ))}
         </Flex>
       </Box>
-      <EditorSideBarContent />
-      {/* {isOpen && (
+      {isOpen && (
         <EditorSideBarContent iconClick={iconClick} onHandleCloseClick={handleCloseClick} />
-      )} */}
+      )}
     </Box>
   );
 };

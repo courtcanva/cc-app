@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import EditorSideBar from "@/components/EditorSideBar";
-import { BiBluetooth } from "react-icons/bi";
+import sideBarItemList from "@/components/EditorSideBar/const";
 
 describe("EditorSideBar component", () => {
   test("Each box in the sidebar should render the correct text", () => {
@@ -14,5 +14,20 @@ describe("EditorSideBar component", () => {
     expect(elementsText).toBeInTheDocument();
     expect(estimatorText).toBeInTheDocument();
     expect(previewText).toBeInTheDocument();
+  });
+
+  it("When clicking icon button and closing button should be working", () => {
+    render(<EditorSideBar />);
+
+    sideBarItemList.map((item) => {
+      const element = screen.getByText(item.title);
+
+      fireEvent.click(element);
+      const closingBtn = screen.getByRole("button");
+      expect(closingBtn).toBeInTheDocument();
+
+      fireEvent.click(closingBtn);
+      expect(closingBtn).not.toBeInTheDocument();
+    });
   });
 });
