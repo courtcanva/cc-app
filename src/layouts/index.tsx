@@ -11,15 +11,15 @@ import PriceBar from "@/components/PriceBar";
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <Box as="main">
         <NavigationBar />
-        {/* <EditorSideBar /> */}
+        <EditorSideBar />
         {children}
-        {/* <Footer /> */}
+        <Footer />
       </Box>
-      {/* <PriceBar /> */}
-      {/* <EditorFooter /> */}
+      <PriceBar />
+      <EditorFooter />
     </>
   );
 };
