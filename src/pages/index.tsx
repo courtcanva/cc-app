@@ -7,14 +7,17 @@ import {
   clear,
   incrementByAmount,
   changeCounter,
+  getTestData,
 } from "../store/reducer/counterSlice";
 import HeaderLayout from "../layouts/HeaderLayout";
 import { Button, Box, Flex, Heading, Text } from "@chakra-ui/react";
 import ChangeCourtSize from "@/components/ChangeCourtSize";
+import { AppDispatch } from "@/store";
 
 const Home: NextPage = () => {
   const count = useSelector(changeCounter);
-  const dispatch = useDispatch();
+  // const testData = useSelector();
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <HeaderLayout>
       <Flex align="center" justify="center" flexDirection="column">
@@ -45,6 +48,9 @@ const Home: NextPage = () => {
           onClick={() => dispatch(incrementByAmount(100))}
         >
           Plus 100
+        </Button>
+        <Button mt="12px" mb="24px" bg="teal" color="white" onClick={() => dispatch(getTestData())}>
+          Check
         </Button>
       </Flex>
     </HeaderLayout>

@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 import { RootState } from "..";
 
 export interface CounterState {
@@ -8,6 +9,11 @@ export interface CounterState {
 const initialState: CounterState = {
   value: 0,
 };
+
+export const getTestData = createAsyncThunk("test commu btw fe & be", async (state) => {
+  const response = await axios.get("http://localhost:8080/api/v1/test");
+  alert(response.data);
+});
 
 export const counterSlice = createSlice({
   name: "counter",
