@@ -58,17 +58,13 @@ pipeline {
                         sh 'aws s3 sync out ${UATS3Bucket}'
                 }                  
             }    
-            stage('Post Step') { 
-                 steps {    
-                       post { 
-                            success { 
-                                    echo "WellDone!" 
-                            } 
-                            failure { 
-                                    echo "Failed!" 
-                            }
-                      }         
-                 }
-           }            
-     } 
-}
+        }          
+        post { 
+               success { 
+                       echo "Well Done!" 
+               } 
+               failure { 
+                       echo "The pipeline Failed!" 
+               }         
+         }          
+    } 
