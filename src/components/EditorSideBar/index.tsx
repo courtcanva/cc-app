@@ -9,6 +9,11 @@ const EditorSideBar = () => {
   const [iconClickTitle, setIconClick] = useState("");
 
   const handleIconClick = (title: string) => {
+    if (iconClickTitle === title && isOpen) {
+      setIsOpen(false);
+      setIconClick("");
+      return;
+    }
     setIsOpen(true);
     setIconClick(title);
   };

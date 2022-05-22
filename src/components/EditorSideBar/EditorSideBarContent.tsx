@@ -15,7 +15,7 @@ const SideBarContainer = (props: Props) => {
       top="72px"
       left="96px"
       position="fixed"
-      z-index="10"
+      zIndex="2000"
       color="#fff"
       p={6}
     >
