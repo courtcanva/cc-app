@@ -7,4 +7,4 @@ test("button in the 404 page needs to display the correct text", () => {
   const homeButtonElement = screen.getByRole("button");
 
   expect(homeButtonElement).toBeInTheDocument();
-}); 
+});
