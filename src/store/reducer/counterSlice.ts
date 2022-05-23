@@ -11,8 +11,16 @@ const initialState: CounterState = {
 };
 
 export const getTestData = createAsyncThunk("test commu btw fe & be", async (state) => {
-  const response = await axios.get("http://localhost:8080/api/v1/test");
-  alert(response.data);
+  try {
+    const response = await axios.get("http://localhost:8080/api/v1/test");
+
+    const {
+      data: [{ description }],
+    } = await response;
+    alert(description);
+  } catch (e) {
+    alert("Cannot link to backend");
+  }
 });
 
 export const counterSlice = createSlice({
