@@ -13,9 +13,9 @@ export default function Custom404() {
         description={`404 Error page on CourtCanva`}
         canonical={`http://www.courtcanva.com/404`}
       />
-      <NavigationBar />
+      <NavigationBar/>
       <Flex direction="column" justify="center" align="center" h="calc(100vh - 106px)">
-        <UnSmile />
+        <UnSmile data-testid="unSmile"/>
         <Text fontWeight="bold" fontSize="8xl">
           404
         </Text>

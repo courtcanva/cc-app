@@ -12,7 +12,7 @@ import Custom404 from "@/pages/404";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
-  if(router?.pathname === "/404") {
+  if(router.pathname === "/404") {
     return (
       <Box as="main">
         <Custom404 />
