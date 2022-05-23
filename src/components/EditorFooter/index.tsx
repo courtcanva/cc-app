@@ -12,13 +12,14 @@ const EditorFooter = () => {
       justifyContent="space-between"
       alignItems="center"
       px={4}
-      w="100%"
+      w="calc(100vw - 98px)"
       bg="white"
-      boxShadow="xs"
+      boxShadow="dark-lg"
       lineHeight="34px"
-      zIndex={-1}
+      left="98px"
+      zIndex={1500}
     >
-      <Box ml="96px">
+      <Box>
         <IconButton
           aria-label="Revert edit"
           icon={<HiOutlineZoomOut />}
