@@ -12,12 +12,8 @@ const initialState: CounterState = {
 
 export const getTestData = createAsyncThunk("test commu btw fe & be", async (state) => {
   try {
-    const response = await axios.get("http://localhost:8080/api/v1/test");
-
-    const {
-      data: [{ description }],
-    } = await response;
-    alert(description);
+    await axios.get(process.env.NEXT_PUBLIC_TEST_API!);
+    alert("Link");
   } catch (e) {
     alert("Cannot link to backend");
   }
