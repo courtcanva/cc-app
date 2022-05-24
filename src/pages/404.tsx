@@ -3,7 +3,6 @@ import { Flex, Button, Text } from "@chakra-ui/react";
 import UnSmile from "@/assets/svg/404.svg";
 import HOME_PAGE_LINK from "../constants";
 import NextHeadSeo from "next-head-seo";
-import NavigationBar from "@/components/NavBar";
 
 export default function Custom404() {
   return (
@@ -13,7 +12,6 @@ export default function Custom404() {
         description={`404 Error page on CourtCanva`}
         canonical={`http://www.courtcanva.com/404`}
       />
-      <NavigationBar />
       <Flex direction="column" justify="center" align="center" h="calc(100vh - 106px)">
         <UnSmile data-testid="unSmile" />
         <Text fontWeight="bold" fontSize="8xl">

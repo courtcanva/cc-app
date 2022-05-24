@@ -7,17 +7,17 @@ import NavigationBar from "../components/NavBar";
 import EditorSideBar from "../components/EditorSideBar";
 import EditorFooter from "@/components/EditorFooter";
 import PriceBar from "@/components/PriceBar";
-import Custom404 from "@/pages/404";
-
+import { PAGE_NOT_FOUND } from "@/constants";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
-  if(router.pathname === "/404") {
+  if (router.pathname === PAGE_NOT_FOUND) {
     return (
       <Box as="main">
-        <Custom404 />
+        <NavigationBar />
+        {children}
       </Box>
-    )
+    );
   }
   return (
     <>
