@@ -7,7 +7,7 @@ import NavigationBar from "../components/NavBar";
 import EditorSideBar from "../components/EditorSideBar";
 import EditorFooter from "@/components/EditorFooter";
 import PriceBar from "@/components/PriceBar";
-import { PAGE_NOT_FOUND } from "@/constants";
+import { PAGE_NOT_FOUND } from "../../src/constants";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
