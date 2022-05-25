@@ -10,12 +10,12 @@ describe("TopBar", () => {
     expect(centerCourtTextElement).toHaveTextContent("Center court circle");
   });
 
-  it("should render border width text", () => {
+  it("should render width text", () => {
     render(<TopBar />);
-    const borderWidthTextElement = screen.getByText(/Border width/i);
+    const borderWidthTextElement = screen.getByText(/width/i);
 
     expect(borderWidthTextElement).toBeInTheDocument();
-    expect(borderWidthTextElement).toHaveTextContent("Border width");
+    expect(borderWidthTextElement).toHaveTextContent("width");
   });
 
   it("should render color select button", () => {

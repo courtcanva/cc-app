@@ -37,11 +37,11 @@ const TopBar = () => {
     >
       {/* left */}
       <Flex alignItems="center" justifyContent="space-around">
-        <Text fontSize="md" fontWeight="600">
+        <Text fontSize="md" fontWeight="600" display={{ base: "none", xl: "block" }} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
           510 m² Pro full court (17 m * 30 m)
         </Text>
         <Flex alignItems="center">
-          <Text fontWeight="700" fontSize="md">
+          <Text fontWeight="700" fontSize="md" whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
             Center court circle
           </Text>
           <IconButton
@@ -75,7 +75,13 @@ const TopBar = () => {
             icon={<UploadSvg />}
             data-testid="uploadBtn"
           />
-          <Text fontSize="md">Border width</Text>
+          <Flex fontSize="md" mr={{ base: "6", xl: "" }} whiteSpace="nowrap" textOverflow="ellipsis" alignItems="center" justifyContent="center">
+            Border
+            <Text fontSize="md" ml="1" display={{ base: "none", xl: "block" }} whiteSpace="nowrap" textOverflow="ellipsis">
+              width
+            </Text>
+          </Flex>
+
           <Slider aria-label="slider-ex-4" defaultValue={40} maxW="40">
             <SliderTrack h="9px" borderRadius="6px">
               <SliderFilledTrack bg="brand.primary" />
