@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+import { api } from "../../utils/axios";
 import { RootState } from "..";
 
 export interface CounterState {
@@ -11,12 +11,9 @@ const initialState: CounterState = {
 };
 
 export const getTestData = createAsyncThunk("test commu btw fe & be", async (state) => {
-  try {
-    await axios.get(process.env.NEXT_PUBLIC_TEST_API!);
-    alert("Link");
-  } catch (e) {
-    alert("Cannot link to backend");
-  }
+  api("/test", { method: "get" })
+    .then((response) => alert("OK" + response.data))
+    .catch((error) => alert("NO"));
 });
 
 export const counterSlice = createSlice({
