@@ -6,15 +6,16 @@ interface Props {
   iconClickTitle: string;
   onHandleCloseClick: () => void;
 }
-const showContainerItem = (iconClickTitle:string) =>{
-    switch (iconClickTitle) {
-      case "Blueprints": return <Blueprints /> 
-      default: return iconClickTitle;
-    }
+const showContainerItem = (iconClickTitle: string) => {
+  switch (iconClickTitle) {
+    case "Blueprints":
+      return <Blueprints />;
+    default:
+      return iconClickTitle;
   }
+};
 
 const SideBarContainer = (props: Props) => {
-
   return (
     <Box
       bg="background.secondary"

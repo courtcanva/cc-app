@@ -1,5 +1,9 @@
-.scrollbox {
-    overflow-y: scroll;
+.scrollbox{
+    overflow: hidden;
+}
+
+.scrollbox:hover{
+    overflow-y: auto;
     overscroll-behavior: contain;
     -ms-scroll-chaining: contain;
 }
