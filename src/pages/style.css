@@ -1,0 +1,15 @@
+.scrollbox {
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+    -ms-scroll-chaining: contain;
+}
+.scrollbox::-webkit-scrollbar {
+        width: 13px;
+        height: 15px;
+    }
+.scrollbox::-webkit-scrollbar-thumb  
+    {  
+    height: 15px;
+    border-radius: 5px;  
+    background-color: #ABABAD;  
+    }  

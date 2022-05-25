@@ -1,12 +1,20 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
-
+import Blueprints from "./Blueprints";
 interface Props {
   iconClickTitle: string;
   onHandleCloseClick: () => void;
 }
+const showContainerItem = (iconClickTitle:string) =>{
+    switch (iconClickTitle) {
+      case "Blueprints": return <Blueprints /> 
+      default: return iconClickTitle;
+    }
+  }
+
 const SideBarContainer = (props: Props) => {
+
   return (
     <Box
       bg="background.secondary"
@@ -17,9 +25,8 @@ const SideBarContainer = (props: Props) => {
       position="fixed"
       zIndex="2000"
       color="#fff"
-      p={6}
     >
-      {props.iconClickTitle}
+      {showContainerItem(props.iconClickTitle)}
       <Box
         as="button"
         onClick={props.onHandleCloseClick}
@@ -30,7 +37,7 @@ const SideBarContainer = (props: Props) => {
         w="56px"
         bg="background.secondary"
         clipPath="polygon(0% 0%, 100% 8%, 100% 92%, 0% 100%)"
-        z-index="1"
+        zIndex="-1"
       >
         <ChevronLeftIcon
           w={8}
