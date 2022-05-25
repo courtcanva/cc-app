@@ -12,7 +12,7 @@ import {
   PopoverAnchor,
 } from "@chakra-ui/react";
 
-import ColorPlate from "./color-plate";
+import ColorPlate from "./colorPlate";
 
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
@@ -56,10 +56,10 @@ const TopBar = () => {
           <PopoverTrigger>
             <IconButton aria-label="Rb" colorScheme="" icon={<RbSvg />} display="fixed" data-testid="colorSelectBtn" />
           </PopoverTrigger>
-          <PopoverContent w={300} h={168} mt={0.5}>
+          <PopoverContent w={300} h={168}>
             <PopoverArrow />
             <PopoverBody>
-              {/* color-plate */}
+
               <ColorPlate />
             </PopoverBody>
           </PopoverContent>
