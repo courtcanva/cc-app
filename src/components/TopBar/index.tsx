@@ -37,11 +37,24 @@ const TopBar = () => {
     >
       {/* left */}
       <Flex alignItems="center" justifyContent="space-around">
-        <Text fontSize="md" fontWeight="600" display={{ base: "none", xl: "block" }} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+        <Text
+          fontSize="md"
+          fontWeight="600"
+          display={{ base: "none", xl: "block" }}
+          whiteSpace="nowrap"
+          textOverflow="ellipsis"
+          overflow="hidden"
+        >
           510 m² Pro full court (17 m * 30 m)
         </Text>
         <Flex alignItems="center">
-          <Text fontWeight="700" fontSize="md" whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+          <Text
+            fontWeight="700"
+            fontSize="md"
+            whiteSpace="nowrap"
+            textOverflow="ellipsis"
+            overflow="hidden"
+          >
             Center court circle
           </Text>
           <IconButton
@@ -54,12 +67,17 @@ const TopBar = () => {
 
         <Popover closeOnBlur={false}>
           <PopoverTrigger>
-            <IconButton aria-label="Rb" colorScheme="" icon={<RbSvg />} display="fixed" data-testid="colorSelectBtn" />
+            <IconButton
+              aria-label="Rb"
+              colorScheme=""
+              icon={<RbSvg />}
+              display="fixed"
+              data-testid="colorSelectBtn"
+            />
           </PopoverTrigger>
           <PopoverContent w={300} h={168}>
             <PopoverArrow />
             <PopoverBody>
-
               <ColorPlate />
             </PopoverBody>
           </PopoverContent>
@@ -75,9 +93,22 @@ const TopBar = () => {
             icon={<UploadSvg />}
             data-testid="uploadBtn"
           />
-          <Flex fontSize="md" mr={{ base: "6", xl: "" }} whiteSpace="nowrap" textOverflow="ellipsis" alignItems="center" justifyContent="center">
+          <Flex
+            fontSize="md"
+            mr={{ base: "6", xl: "" }}
+            whiteSpace="nowrap"
+            textOverflow="ellipsis"
+            alignItems="center"
+            justifyContent="center"
+          >
             Border
-            <Text fontSize="md" ml="1" display={{ base: "none", xl: "block" }} whiteSpace="nowrap" textOverflow="ellipsis">
+            <Text
+              fontSize="md"
+              ml="1"
+              display={{ base: "none", xl: "block" }}
+              whiteSpace="nowrap"
+              textOverflow="ellipsis"
+            >
               width
             </Text>
           </Flex>

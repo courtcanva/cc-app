@@ -23,18 +23,31 @@ const ColorPlate: React.FC = () => {
     "#000000",
   ];
 
-  return <>
-    <Flex wrap="wrap" w="275px" h="150px" columnGap="15px" mt="9px" ml="9px" data-testid="colorPlate">
-      {mockPlateColors.map((color) => (
-        <Box key={color} bg={color} w="30px" h="30px" 
-          cursor="pointer"
-          _hover={{ border: "2px solid #40B484" }}
-          _active={{ border: "3px solid #40B484" }}
-        />
-      ))}
-    </Flex>
-
-  </>;
+  return (
+    <>
+      <Flex
+        wrap="wrap"
+        w="275px"
+        h="150px"
+        columnGap="15px"
+        mt="9px"
+        ml="9px"
+        data-testid="colorPlate"
+      >
+        {mockPlateColors.map((color) => (
+          <Box
+            key={color}
+            bg={color}
+            w="30px"
+            h="30px"
+            cursor="pointer"
+            _hover={{ border: "2px solid #40B484" }}
+            _active={{ border: "3px solid #40B484" }}
+          />
+        ))}
+      </Flex>
+    </>
+  );
 };
 
 export default ColorPlate;
