@@ -10,7 +10,7 @@ const initialState: CounterState = {
   value: 0,
 };
 
-export const getTestData = createAsyncThunk("test commu btw fe & be", async (state) => {
+export const getTestData = createAsyncThunk("test commu btw fe & be", async () => {
   api(process.env.NEXT_PUBLIC_TEST_API!, { method: "get" })
     .then((response) => alert("connection successful" + response.data))
     .catch((error) => alert("Connection failed"));
