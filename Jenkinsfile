@@ -2,7 +2,8 @@ pipeline {
         agent any
         environment {
       	           GIT_HASH = GIT_COMMIT.take(7)
-		   Version_ID = "$BUILD_NUMBER" + "-" + "$GIT_HASH" + "-" + "$BUILD_TIMESTAMP"	  
+		   Version_ID = "$BUILD_NUMBER" + "-" + "$GIT_HASH" + "-" + "$BUILD_TIMESTAMP"
+		   NEXT_PUBLIC_UAT_URL = 'uat.design.courtcanva.com'
         }
         stages{
                    stage('Install dependencies') {

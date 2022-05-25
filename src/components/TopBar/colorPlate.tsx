@@ -29,9 +29,9 @@ const ColorPlate: React.FC = () => {
         wrap="wrap"
         w="275px"
         h="150px"
-        columnGap="15px"
+        columnGap="18px"
         mt="9px"
-        ml="9px"
+        ml="2px"
         data-testid="colorPlate"
       >
         {mockPlateColors.map((color) => (
