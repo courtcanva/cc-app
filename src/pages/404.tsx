@@ -20,7 +20,7 @@ export default function Custom404() {
         <Text fontWeight="bold" fontSize="xl">
           Oops!Something went wrong
         </Text>
-        <Link href={process.env.NEXT_PUBLIC_UAT_URL} passHref>
+        <Link href={process.env.NEXT_PUBLIC_UAT_URL!} passHref>
           <Button mt="1rem" pl="2.5rem" pr="2.5rem" variant="shareBtn">
             Take me back to homepage
           </Button>
