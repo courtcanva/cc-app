@@ -16,7 +16,6 @@ import { AppDispatch } from "@/store";
 
 const Home: NextPage = () => {
   const count = useSelector(changeCounter);
-  // const testData = useSelector();
   const dispatch = useDispatch<AppDispatch>();
   return (
     <HeaderLayout>

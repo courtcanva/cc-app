@@ -11,9 +11,9 @@ const initialState: CounterState = {
 };
 
 export const getTestData = createAsyncThunk("test commu btw fe & be", async (state) => {
-  api("/test", { method: "get" })
-    .then((response) => alert("OK" + response.data))
-    .catch((error) => alert("NO"));
+  api(process.env.NEXT_PUBLIC_TEST_API!, { method: "get" })
+    .then((response) => alert("connection successful" + response.data))
+    .catch((error) => alert("Connection failed"));
 });
 
 export const counterSlice = createSlice({
