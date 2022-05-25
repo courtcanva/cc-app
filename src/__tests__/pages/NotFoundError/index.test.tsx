@@ -6,7 +6,7 @@ import Custom404 from "@/pages/404";
 describe("404 not found", () => {
   it("should render 404 page successfully", () => {
     renderWithMockedProvider(<Custom404 />);
-    expect(screen.getByText("Oops!Something went wrong")).toBeInTheDocument();
+    expect(screen.getByText("Oops! Something went wrong.")).toBeInTheDocument();
     expect(screen.getByText("404")).toBeInTheDocument();
   });
 

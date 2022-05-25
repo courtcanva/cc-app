@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Flex, Button, Text } from "@chakra-ui/react";
 import UnSmile from "@/assets/svg/404.svg";
 import NextHeadSeo from "next-head-seo";
-process.env.NEXT_PUBLIC_UAT_URL;
 
 export default function Custom404() {
   return (
@@ -18,7 +17,7 @@ export default function Custom404() {
           404
         </Text>
         <Text fontWeight="bold" fontSize="xl">
-          Oops!Something went wrong
+          Oops! Something went wrong.
         </Text>
         <Link href={process.env.NEXT_PUBLIC_UAT_URL as string} passHref>
           <Button mt="1rem" pl="2.5rem" pr="2.5rem" variant="shareBtn">
