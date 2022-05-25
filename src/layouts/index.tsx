@@ -13,10 +13,13 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
   if (router.pathname === PAGE_NOT_FOUND) {
     return (
-      <Box as="main">
-        <NavigationBar />
-        {children}
-      </Box>
+      <>
+        <Header />
+        <Box as="main">
+          <NavigationBar />
+          {children}
+        </Box>
+      </>
     );
   }
   return (

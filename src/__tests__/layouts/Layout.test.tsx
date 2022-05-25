@@ -1,16 +1,13 @@
 import Layout from "../../layouts";
 import { screen, render } from "@testing-library/react";
-import Custom404 from "@/pages/404";
 import { RouterContext } from "next/dist/shared/lib/router-context";
-import { createMockRouter } from "../../test-utils/createMockRouter";
+import { createMockRouter } from "../utils";
 
 describe("Header", () => {
-  it("should render the navBar and 404", () => {
+  it("should render the Layout", () => {
     render(
       <RouterContext.Provider value={createMockRouter({ pathname: "/404" })}>
-        <Layout>
-          <Custom404 />
-        </Layout>
+        <Layout> </Layout>
       </RouterContext.Provider>
     );
     const navBarBtn = screen.getByRole("button", { name: /Share/i });

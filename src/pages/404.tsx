@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Flex, Button, Text } from "@chakra-ui/react";
 import UnSmile from "@/assets/svg/404.svg";
-import HOME_PAGE_LINK from "../constants";
 import NextHeadSeo from "next-head-seo";
+process.env.NEXT_PUBLIC_UAT_URL;
 
 export default function Custom404() {
   return (
@@ -12,7 +12,7 @@ export default function Custom404() {
         description={`404 Error page on CourtCanva`}
         canonical={`http://www.courtcanva.com/404`}
       />
-      <Flex direction="column" justify="center" align="center" h="calc(100vh - 106px)">
+      <Flex direction="column" justify="center" align="center" h="calc(100vh - 72px)">
         <UnSmile data-testid="unSmile" />
         <Text fontWeight="bold" fontSize="8xl">
           404
@@ -20,7 +20,7 @@ export default function Custom404() {
         <Text fontWeight="bold" fontSize="xl">
           Oops!Something went wrong
         </Text>
-        <Link href={HOME_PAGE_LINK} passHref>
+        <Link href={process.env.NEXT_PUBLIC_UAT_URL} passHref>
           <Button mt="1rem" pl="2.5rem" pr="2.5rem" variant="shareBtn">
             Take me back to homepage
           </Button>
