@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useStoreDispatch, useStoreSelector } from "../store/hooks";
 import {
   decrement,
   increment,
@@ -14,8 +14,8 @@ import { Button, Box, Flex, Heading, Text } from "@chakra-ui/react";
 import ChangeCourtSize from "@/components/ChangeCourtSize";
 
 const Home: NextPage = () => {
-  const count = useAppSelector(changeCounter);
-  const dispatch = useAppDispatch();
+  const count = useStoreSelector(changeCounter);
+  const dispatch = useStoreDispatch();
   return (
     <HeaderLayout>
       <Flex align="center" justify="center" flexDirection="column">
