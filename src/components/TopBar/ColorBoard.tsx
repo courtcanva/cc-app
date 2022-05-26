@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import mockPlateColors from "./colorList";
 
-const ColorPlate: React.FC = () => {
+const ColorBoard: React.FC = () => {
   return (
     <Flex
       wrap="wrap"
@@ -29,4 +29,4 @@ const ColorPlate: React.FC = () => {
   );
 };
 
-export default ColorPlate;
+export default ColorBoard;

@@ -25,6 +25,7 @@ const customJestConfig = {
     "!<rootDir>/src/styles/components/*.{tsx,ts}",
     "!<rootDir>/src/pages/_app.tsx",
     "!<rootDir>/src/pages/_document.tsx",
+    "!<rootDir>/src/utils/axios.ts",
     "!<rootDir>/node_modules/",
     "!<rootDir>/**/__tests__/**",
     "!<rootDir>/**/*.d.ts",

@@ -1,20 +1,21 @@
 import type { NextPage } from "next";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useStoreDispatch, useStoreSelector } from "../store/hooks";
 import {
   decrement,
   increment,
   clear,
   incrementByAmount,
   changeCounter,
+  getTestData,
 } from "../store/reducer/counterSlice";
 import HeaderLayout from "../layouts/HeaderLayout";
 import { Button, Box, Flex, Heading, Text } from "@chakra-ui/react";
 import ChangeCourtSize from "@/components/ChangeCourtSize";
 
 const Home: NextPage = () => {
-  const count = useSelector(changeCounter);
-  const dispatch = useDispatch();
+  const count = useStoreSelector(changeCounter);
+  const dispatch = useStoreDispatch();
   return (
     <HeaderLayout>
       <Flex align="center" justify="center" flexDirection="column">
@@ -45,6 +46,9 @@ const Home: NextPage = () => {
           onClick={() => dispatch(incrementByAmount(100))}
         >
           Plus 100
+        </Button>
+        <Button mt="12px" mb="24px" bg="teal" color="white" onClick={() => dispatch(getTestData())}>
+          Check
         </Button>
       </Flex>
     </HeaderLayout>

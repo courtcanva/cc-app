@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import ColorPlate from "@/components/TopBar/ColorPlate";
+import ColorPlate from "@/components/TopBar/ColorBoard";
 import mockPlateColors from "@/components/TopBar/colorList";
 
 describe("ColorPlate", () => {
@@ -15,7 +15,7 @@ describe("ColorPlate", () => {
     for (let index = 0; index < mockPlateColors.length; index++) {
       const color = mockPlateColors[index];
       const colorElement = screen.getByTestId(color);
-      expect(colorElement).toHaveStyle({ "background-color": color });
+      expect(colorElement).toHaveStyle({ 'background-color': color });
     }
   });
 });

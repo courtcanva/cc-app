@@ -8,7 +8,7 @@ import {
   PopoverArrow,
 } from "@chakra-ui/react";
 
-import ColorPlate from "./ColorPlate";
+import ColorBoard from "./ColorBoard";
 
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
@@ -71,7 +71,7 @@ const TopBar = () => {
           <PopoverContent w={300} h={168}>
             <PopoverArrow />
             <PopoverBody>
-              <ColorPlate />
+              <ColorBoard />
             </PopoverBody>
           </PopoverContent>
         </Popover>

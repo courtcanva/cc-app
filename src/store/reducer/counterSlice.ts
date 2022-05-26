@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { api } from "../../utils/axios";
 import { RootState } from "..";
 
 export interface CounterState {
@@ -8,6 +9,12 @@ export interface CounterState {
 const initialState: CounterState = {
   value: 0,
 };
+
+export const getTestData = createAsyncThunk("test commu btw fe & be", async () => {
+  api(process.env.NEXT_PUBLIC_TEST_API!, { method: "get" })
+    .then((response) => alert("connection successful" + response.data))
+    .catch((error) => alert("Connection failed"));
+});
 
 export const counterSlice = createSlice({
   name: "counter",

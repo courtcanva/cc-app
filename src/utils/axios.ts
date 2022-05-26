@@ -1,4 +1,5 @@
 import axios from "axios";
+import _ from "lodash";
 
 // // AbortController
 // // Starting from v0.22.0 Axios supports AbortController to cancel requests in fetch API way:
@@ -8,16 +9,23 @@ import axios from "axios";
 // // cancel the request
 // controller.abort()
 
-const REQUEST_TIMEOUT = 10000;
+interface IConfig {
+  method: string;
+  params?: string;
+  requestData?: string;
+  token?: string;
+  headers?: { contentType: string };
+}
 
+const REQUEST_TIMEOUT = 10000;
 const axiosInstance = axios.create({
-  baseURL: apiUrl,
+  baseURL: process.env.NEXT_PUBLIC_API,
   timeout: REQUEST_TIMEOUT,
 });
 
 export const api = async (
-  endpoint,
-  { method, params, requestData, token, headers, ...customConfig }
+  endpoint: string,
+  { method, params, requestData, token, headers, ...customConfig }: IConfig
 ) => {
   const config = {
     method,
@@ -35,12 +43,11 @@ export const api = async (
   return response;
 };
 
-
 // For testing only, TODO: remove
-export async function fetchPost(id) {
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      resolve(`This is post ID ${id}`);
-    }, 500)
-  );
-}
+// export async function fetchPost(id) {
+//   return new Promise((resolve) =>
+//     setTimeout(() => {
+//       resolve(`This is post ID ${id}`);
+//     }, 500)
+//   );
+// }
