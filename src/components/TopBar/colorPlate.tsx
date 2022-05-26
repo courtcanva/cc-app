@@ -24,7 +24,6 @@ const ColorPlate: React.FC = () => {
   ];
 
   return (
-    <>
       <Flex
         wrap="wrap"
         w="275px"
@@ -46,7 +45,6 @@ const ColorPlate: React.FC = () => {
           />
         ))}
       </Flex>
-    </>
   );
 };
 

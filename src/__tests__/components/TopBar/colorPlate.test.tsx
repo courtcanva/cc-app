@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import ColorPlate from "../../../components/TopBar/colorPlate";
+import ColorPlate from "@/components/TopBar/colorPlate";
 
 describe("ColorPlate", () => {
   it("Should render color plate colors", () => {

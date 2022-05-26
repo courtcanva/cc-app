@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import TopBar from "../../../components/TopBar";
+import TopBar from "@/components/TopBar";
 
 describe("TopBar", () => {
   it("should render center court text", () => {

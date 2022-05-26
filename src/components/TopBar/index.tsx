@@ -25,7 +25,7 @@ const TopBar = () => {
       bg="white"
       boxShadow="dark-lg"
       left="98px"
-      mt="-356"
+      top="73"
       h="50px"
       pt={1}
       pb={1}
@@ -42,18 +42,14 @@ const TopBar = () => {
           510 m² Pro full court (17 m * 30 m)
         </Text>
         <Flex alignItems="center">
-          <Text
-            fontWeight="700"
-            fontSize="md"
-            whiteSpace="nowrap"
-            textOverflow="ellipsis"
-          >
+          <Text fontWeight="700" fontSize="md" whiteSpace="nowrap" textOverflow="ellipsis">
             Center court circle
           </Text>
           <IconButton
             aria-label="SmallCourt"
             icon={<ScSvg />}
             ml="8"
+            variant="editorFooterIconBtn"
             data-testid="smallCourtIcon"
           />
         </Flex>
@@ -65,6 +61,7 @@ const TopBar = () => {
               colorScheme="transparent"
               icon={<RbSvg />}
               display="fixed"
+              variant="editorFooterIconBtn"
               data-testid="colorSelectBtn"
             />
           </PopoverTrigger>
@@ -85,6 +82,7 @@ const TopBar = () => {
             colorScheme="transparent"
             icon={<UploadSvg />}
             data-testid="uploadBtn"
+            variant="editorFooterIconBtn"
           />
           <Flex
             fontSize="md"
@@ -106,7 +104,7 @@ const TopBar = () => {
             </Text>
           </Flex>
 
-          <Slider aria-label="slider-ex-4" defaultValue={40} maxW="40">
+          <Slider aria-label="slider" defaultValue={40} maxW="40">
             <SliderTrack h="9px" borderRadius="6px">
               <SliderFilledTrack bg="brand.primary" />
             </SliderTrack>
@@ -115,8 +113,17 @@ const TopBar = () => {
         </Flex>
 
         <Flex alignItems="center" justifyContent="flex-end" mr="3" gap="2">
-          <IconButton aria-label="DocSvg" colorScheme="transparent" icon={<DocSvg />} />
-          <IconButton aria-label="Bin" colorScheme="transparent" icon={<BinSvg />} />
+          <IconButton
+            aria-label="DocSvg"
+            colorScheme="transparent"
+            icon={<DocSvg />}
+            variant="editorFooterIconBtn"
+          />
+          <IconButton aria-label="Bin"
+            colorScheme="transparent"
+            icon={<BinSvg />}
+            variant="editorFooterIconBtn"
+          />
         </Flex>
       </SimpleGrid>
     </SimpleGrid>
