@@ -1,21 +1,21 @@
 import { render, screen } from "@testing-library/react";
-import ColorPlate from "@/components/TopBar/ColorBoard";
+import ColorBoard from "@/components/TopBar/ColorBoard";
 import mockPlateColors from "@/components/TopBar/colorList";
 
-describe("ColorPlate", () => {
+describe("ColorBoard", () => {
   it("Should render color plate", () => {
-    render(<ColorPlate />);
+    render(<ColorBoard />);
 
-    expect(screen.getByTestId("colorPlate")).toBeTruthy();
+    expect(screen.getByTestId("ColorBoard")).toBeTruthy();
   });
 
   it("Should render colors correctly", () => {
-    render(<ColorPlate />);
+    render(<ColorBoard />);
 
     for (let index = 0; index < mockPlateColors.length; index++) {
       const color = mockPlateColors[index];
       const colorElement = screen.getByTestId(color);
-      expect(colorElement).toHaveStyle({ 'background-color': color });
+      expect(colorElement).toHaveStyle({ "background-color": color });
     }
   });
 });

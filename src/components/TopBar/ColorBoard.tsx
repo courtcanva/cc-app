@@ -11,7 +11,7 @@ const ColorBoard: React.FC = () => {
       columnGap="18px"
       mt="9px"
       ml="2px"
-      data-testid="colorPlate"
+      data-testid="ColorBoard"
     >
       {mockPlateColors.map((color) => (
         <Box

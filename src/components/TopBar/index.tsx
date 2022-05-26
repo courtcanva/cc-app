@@ -25,7 +25,7 @@ const TopBar = () => {
       bg="white"
       boxShadow="dark-lg"
       left="98px"
-      top="73"
+      top="73px"
       h="50px"
       pt={1}
       pb={1}
