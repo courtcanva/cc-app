@@ -27,7 +27,6 @@ const TopBar = () => {
       left="98px"
       mt="-356"
       h="50px"
-      p={2}
       pt={1}
       pb={1}
     >
@@ -39,7 +38,6 @@ const TopBar = () => {
           display={{ base: "none", xl: "block" }}
           whiteSpace="nowrap"
           textOverflow="ellipsis"
-          overflow="hidden"
         >
           510 m² Pro full court (17 m * 30 m)
         </Text>
@@ -49,7 +47,6 @@ const TopBar = () => {
             fontSize="md"
             whiteSpace="nowrap"
             textOverflow="ellipsis"
-            overflow="hidden"
           >
             Center court circle
           </Text>
@@ -65,7 +62,7 @@ const TopBar = () => {
           <PopoverTrigger>
             <IconButton
               aria-label="Rb"
-              colorScheme=""
+              colorScheme="transparent"
               icon={<RbSvg />}
               display="fixed"
               data-testid="colorSelectBtn"
@@ -85,7 +82,7 @@ const TopBar = () => {
         <Flex alignItems="center" justifyContent="space-between">
           <IconButton
             aria-label="Upload"
-            colorScheme=""
+            colorScheme="transparent"
             icon={<UploadSvg />}
             data-testid="uploadBtn"
           />
@@ -118,8 +115,8 @@ const TopBar = () => {
         </Flex>
 
         <Flex alignItems="center" justifyContent="flex-end" mr="3" gap="2">
-          <IconButton aria-label="DocSvg" colorScheme="" icon={<DocSvg />} />
-          <IconButton aria-label="Bin" colorScheme="" icon={<BinSvg />} />
+          <IconButton aria-label="DocSvg" colorScheme="transparent" icon={<DocSvg />} />
+          <IconButton aria-label="Bin" colorScheme="transparent" icon={<BinSvg />} />
         </Flex>
       </SimpleGrid>
     </SimpleGrid>
