@@ -4,14 +4,13 @@ import Area from "./Area";
 import ThreePointArea from "./ThreePointArea";
 
 const BasketballCourt = () => {
-
-  const[scale,setScale] = useState<number>(5);
+  const [scale, setScale] = useState<number>(5);
   return (
-    <div style={{ background: "white"}}>
+    <div style={{ background: "white" }}>
       <Stage id="basketball-court" width={1000} height={1000} visible={true}>
         <Layer draggable>
-          <Area/>
-          <ThreePointArea/>
+          <Area />
+          <ThreePointArea />
         </Layer>
 
         <Layer draggable>

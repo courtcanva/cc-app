@@ -5,24 +5,22 @@ import { Shape } from "react-konva";
 const ThreePointArea = ({ color = "#375239" }) => {
   return (
     <Shape
-      sceneFunc={(context, shape) => {
+    sceneFunc={(context, shape) => { 
         context.beginPath();
         context.moveTo(0, 0); // Create a starting point
-        context.lineTo(40, 0); // Create a horizontal line
-        context._context.arcTo(83.25, 0, 83.25, 66, 67.5);
-        context._context.arcTo(83.25, 132, 40, 132, 67.5); // Create an arc
-        // context._context.arcTo(265, 285, 185, 285, 1.6.875); // Create an arc
+        context.lineTo(15.75, 0); // Create a horizontal line
+        context._context.arcTo(81.75, 0, 81.75, 66, 66); // Create an arc
+        context._context.arcTo(81.75, 132, 0, 132, 66); // Create an arc
         context.lineTo(0, 132); // Continue with vertical line
-
 
         context.closePath();
         // (!) Konva specific method, it is very important
         context.fillStrokeShape(shape);
-      }}
-      fill={color}
-      stroke="white"
-      strokeWidth={2}
-    />
+    }}
+    fill={color}
+    stroke="white"
+    strokeWidth={2}
+/>
   );
 };
 
