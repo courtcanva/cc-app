@@ -8,7 +8,7 @@ import {
   PopoverArrow,
 } from "@chakra-ui/react";
 
-import ColorPlate from "./colorPlate";
+import ColorPlate from "./ColorPlate";
 
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
@@ -122,7 +122,8 @@ const TopBar = () => {
             icon={<DocSvg />}
             variant="editorFooterIconBtn"
           />
-          <IconButton aria-label="Bin"
+          <IconButton
+            aria-label="Bin"
             colorScheme="transparent"
             icon={<BinSvg />}
             variant="editorFooterIconBtn"
