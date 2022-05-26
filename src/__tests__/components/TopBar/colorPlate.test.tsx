@@ -14,9 +14,8 @@ describe("ColorPlate", () => {
 
     for (let index = 0; index < mockPlateColors.length; index++) {
       const color = mockPlateColors[index];
-      const colorElement = screen.queryByTestId(color);
-      expect(colorElement).toHaveStyle({ bg: color });
-      
+      const colorElement = screen.getByTestId(color);
+      expect(colorElement).toHaveStyle({ "background-color": color });
     }
   });
 });
