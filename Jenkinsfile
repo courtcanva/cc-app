@@ -3,7 +3,9 @@ pipeline {
         environment {
       	           GIT_HASH = GIT_COMMIT.take(7)
 		   Version_ID = "$BUILD_NUMBER" + "-" + "$GIT_HASH" + "-" + "$BUILD_TIMESTAMP"
-		   NEXT_PUBLIC_UAT_URL = 'uat.design.courtcanva.com'
+		   NEXT_PUBLIC_UAT_URL = "$NEXT_PUBLIC_UAT_URL"
+		   NEXT_PUBLIC_TEST_API = "$NEXT_PUBLIC_TEST_API"
+		   NEXT_PUBLIC_API = "$NEXT_PUBLIC_API"		
         }
         stages{
                    stage('Install dependencies') {
