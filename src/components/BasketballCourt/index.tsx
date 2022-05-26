@@ -1,22 +1,17 @@
 import React, { useRef, useState } from "react";
 import { Stage, Layer, Text } from "react-konva"; // notice you can import from react-konva normally
+import Area from "./Area";
 import ThreePointArea from "./ThreePointArea";
-
 
 const BasketballCourt = () => {
 
+  const[scale,setScale] = useState<number>(5);
   return (
-    <div style={{ background: "white" }}>
-      <Stage
-        id="basketball-court"
-        width={1000}
-        height={500}
-        visible={true}
-      >
+    <div style={{ background: "white"}}>
+      <Stage id="basketball-court" width={1000} height={1000} visible={true}>
         <Layer draggable>
-
-          <ThreePointArea />
- 
+          <Area/>
+          <ThreePointArea/>
         </Layer>
 
         <Layer draggable>
