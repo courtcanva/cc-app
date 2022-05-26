@@ -1,11 +1,10 @@
 import React from "react";
 import { Shape } from "react-konva";
 
-
 const ThreePointArea = ({ color = "#375239" }) => {
   return (
     <Shape
-    sceneFunc={(context, shape) => { 
+      sceneFunc={(context, shape) => {
         context.beginPath();
         context.moveTo(0, 0); // Create a starting point
         context.lineTo(15.75, 0); // Create a horizontal line
@@ -16,11 +15,11 @@ const ThreePointArea = ({ color = "#375239" }) => {
         context.closePath();
         // (!) Konva specific method, it is very important
         context.fillStrokeShape(shape);
-    }}
-    fill={color}
-    stroke="white"
-    strokeWidth={2}
-/>
+      }}
+      fill={color}
+      stroke="white"
+      strokeWidth={2}
+    />
   );
 };
 
