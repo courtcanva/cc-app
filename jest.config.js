@@ -17,6 +17,7 @@ const customJestConfig = {
   moduleNameMapper: {
     "^@/components/(.*)$": "<rootDir>/src/components/$1",
     "^@/constants/(.*)$": "<rootDir>/src/constants/$1",
+    "^@/pages/(.*)$": "<rootDir>/src/pages/$1",
   },
   collectCoverageFrom: [
     "<rootDir>/src/**/*.{tsx,ts}",
