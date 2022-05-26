@@ -7,6 +7,7 @@ import NavigationBar from "../components/NavBar";
 import EditorSideBar from "../components/EditorSideBar";
 import EditorFooter from "@/components/EditorFooter";
 import PriceBar from "@/components/PriceBar";
+import TopBar from "@/components/TopBar";
 import { PAGE_NOT_FOUND } from "../../src/constants";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -29,6 +30,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
         <NavigationBar />
         <EditorSideBar />
         {children}
+        <TopBar />
         <Footer />
       </Box>
       <PriceBar />
