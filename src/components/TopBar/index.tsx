@@ -48,8 +48,11 @@ const TopBar = () => {
           <IconButton
             aria-label="SmallCourt"
             icon={<ScSvg />}
-            ml="8"
             variant="editorFooterIconBtn"
+            ml="8"
+            mt="-0.5"
+            w="76px"
+            h="46px"
             data-testid="smallCourtIcon"
           />
         </Flex>
