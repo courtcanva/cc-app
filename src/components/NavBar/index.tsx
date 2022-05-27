@@ -37,7 +37,7 @@ const NavigationBar = () => {
         </Flex>
       </Flex>
       <EditorDesignName />
-      <Flex alignItems="center" justifyContent="flex-end">
+      <Flex alignItems="center" justifyContent="flex-end" >
         <IconButton
           aria-label="User information"
           icon={<FaRegUser />}
