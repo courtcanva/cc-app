@@ -37,7 +37,7 @@ const DesignName = () => {
         onChange={(value)=> setValue(value)}
         value={value}
       >
-        <EditablePreview />
+        <EditablePreview p="8px"/> 
         <Input as={EditableInput} />
         <EditableControls />
       </Editable>
