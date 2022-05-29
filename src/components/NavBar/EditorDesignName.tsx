@@ -1,4 +1,4 @@
- import {
+import {
   Flex,
   IconButton,
   useEditableControls,
@@ -7,7 +7,7 @@
   Input,
   EditableInput,
 } from "@chakra-ui/react";
-import {useState} from "react";
+import { useState } from "react";
 
 import { BiStar, BiPencil } from "react-icons/bi";
 
@@ -23,7 +23,7 @@ const DesignName = () => {
         {...getEditButtonProps()}
       />
     );
-  }
+  };
 
   return (
     <Flex justifyContent="center" alignItems="center" fontSize="xl">
@@ -34,10 +34,10 @@ const DesignName = () => {
         fontSize="xl"
         textAlign="center"
         isPreviewFocusable={false}
-        onChange={(value)=> setValue(value)}
+        onChange={(value) => setValue(value)}
         value={value}
       >
-        <EditablePreview p="8px"/> 
+        <EditablePreview p="8px" />
         <Input as={EditableInput} />
         <EditableControls />
       </Editable>
