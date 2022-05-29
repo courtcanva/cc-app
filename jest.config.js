@@ -17,6 +17,7 @@ const customJestConfig = {
   moduleNameMapper: {
     "^@/components/(.*)$": "<rootDir>/src/components/$1",
     "^@/constants/(.*)$": "<rootDir>/src/constants/$1",
+    "^@/pages/(.*)$": "<rootDir>/src/pages/$1",
   },
   collectCoverageFrom: [
     "<rootDir>/src/**/*.{tsx,ts}",
@@ -24,6 +25,7 @@ const customJestConfig = {
     "!<rootDir>/src/styles/components/*.{tsx,ts}",
     "!<rootDir>/src/pages/_app.tsx",
     "!<rootDir>/src/pages/_document.tsx",
+    "!<rootDir>/src/utils/axios.ts",
     "!<rootDir>/node_modules/",
     "!<rootDir>/**/__tests__/**",
     "!<rootDir>/**/*.d.ts",
