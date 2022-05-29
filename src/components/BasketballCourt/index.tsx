@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
 import { Stage, Layer, Text } from "react-konva"; // notice you can import from react-konva normally
 import Area from "./Area";
+import { Box } from "@chakra-ui/react";
 import ThreePointArea from "./ThreePointArea";
 
 const BasketballCourt = () => {
   const [scale, setScale] = useState<number>(5);
   return (
-    <div style={{ background: "white" }}>
+    <Box w="792px" h="534px" m="150px auto">
       <Stage id="basketball-court" width={1000} height={1000} visible={true}>
         <Layer draggable>
           <Area />
@@ -18,7 +19,7 @@ const BasketballCourt = () => {
           <Text text="Court Test" fontFamily="Times New Roman" fontStyle="bold" fontSize={50} />
         </Layer>
       </Stage>
-    </div>
+    </Box>
   );
 };
 
