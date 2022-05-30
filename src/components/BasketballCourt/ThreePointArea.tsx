@@ -4,7 +4,6 @@ import { Shape } from "react-konva";
 import { useSelector } from "react-redux";
 import { useStoreDispatch, useStoreSelector } from "../../store/hooks";
 
-
 const ThreePointArea = ({ color = "#375239" }) => {
   const {
     startPointX,
@@ -27,8 +26,20 @@ const ThreePointArea = ({ color = "#375239" }) => {
         context.beginPath();
         context.moveTo(startPointX, startPointY); // Create a starting point
         context.lineTo(startPointX + cornerThreePointLineLength, startPointY); // Create a horizontal line
-        context._context.arcTo(controlPointOneX, controlPointOneY, controlPointTwoX, controlPointTwoY, threePointLineRadius); // Create an arc
-        context._context.arcTo(controlPointThreeX, controlPointThreeY, controlPointFourX, controlPointFourY, threePointLineRadius); // Create an arc
+        context._context.arcTo(
+          controlPointOneX,
+          controlPointOneY,
+          controlPointTwoX,
+          controlPointTwoY,
+          threePointLineRadius
+        ); // Create an arc
+        context._context.arcTo(
+          controlPointThreeX,
+          controlPointThreeY,
+          controlPointFourX,
+          controlPointFourY,
+          threePointLineRadius
+        ); // Create an arc
         context.lineTo(0, 132); // Continue with vertical line
 
         context.closePath();
