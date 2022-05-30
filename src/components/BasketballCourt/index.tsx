@@ -5,7 +5,6 @@ import { Box } from "@chakra-ui/react";
 import ThreePointArea from "./ThreePointArea";
 
 const BasketballCourt = () => {
-  const [scale, setScale] = useState<number>(5);
   return (
     <Box w="792px" h="534px" bg = "white" m="150px auto">
       <Stage id="basketball-court" width={1000} height={1000} visible={true}>

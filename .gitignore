@@ -45,10 +45,6 @@ yarn-error.log*
 
 next-env.d.ts
 
-<<<<<<< HEAD
-#.env
-=======
 #.env 
->>>>>>> main
 
 .env
