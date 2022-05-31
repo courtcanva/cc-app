@@ -1,18 +1,19 @@
 import React from "react";
 import { Stage, Layer, Text } from "react-konva"; // notice you can import from react-konva normally
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import ThreePointArea from "./ThreePointArea";
 import { ReactReduxContext, Provider } from "react-redux";
 
 const BasketballCourt = () => {
   return (
-    <Box w="792px" h="534px" bg="white" m="150px auto">
+    <Flex justifyContent="center" alignItems="center" w="792px" h="534px" bg="#eee" m="150px auto">
+      <Box w="140px" h="150px" bg="white">
       <ReactReduxContext.Consumer>
         {({ store }) => (
           <Stage
             id="basketball-court"
-            width={669}
-            height={369}
+            width={140}
+            height={150}
             visible={true}
             style={{ backgroundColor: "pink" }}
           >
@@ -22,18 +23,13 @@ const BasketballCourt = () => {
               </Layer>
               <Layer draggable>
                 {/* https://konvajs.org/api/Konva.Text.html#main */}
-                <Text
-                  text="Court Test"
-                  fontFamily="Times New Roman"
-                  fontStyle="bold"
-                  fontSize={50}
-                />
               </Layer>
             </Provider>
           </Stage>
         )}
       </ReactReduxContext.Consumer>
-    </Box>
+      </Box>
+    </Flex>
   );
 };
 

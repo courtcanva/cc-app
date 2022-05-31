@@ -18,16 +18,16 @@ interface ThreePointLineState {
 
 const initialState: ThreePointLineState = {
   startPointX: 0,
-  startPointY: 0,
+  startPointY: 9,
   cornerThreePointLineLength: 15.75,
   controlPointOneX: 81.75,
-  controlPointOneY: 0,
+  controlPointOneY: 9,
   controlPointTwoX: 81.75,
-  controlPointTwoY: 66,
+  controlPointTwoY: 75,
   controlPointThreeX: 81.75,
-  controlPointThreeY: 132,
+  controlPointThreeY: 141,
   controlPointFourX: 0,
-  controlPointFourY: 132,
+  controlPointFourY: 141,
   threePointLineRadius: 66,
 };
 

@@ -40,7 +40,7 @@ const ThreePointArea = ({ color = "#375239" }) => {
           controlPointFourY,
           threePointLineRadius
         ); // Create an arc
-        context.lineTo(0, 132); // Continue with vertical line
+        context.lineTo(0, 141); // Continue with vertical line
 
         context.closePath();
         // (!) Konva specific method, it is very important
