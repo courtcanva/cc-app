@@ -1,22 +1,23 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen} from "@testing-library/react";
 import EditorDesignName from "../../../components/NavBar/EditorDesignName";
+import userEvent from '@testing-library/user-event';
 
 describe("EditorDesignName", () => {
-  test("click the btn can edit the name", () => {
+  test("click the btn can show the input element", () => {
     render(<EditorDesignName />);
     const btnElement = screen.getByLabelText("Edit");
     const spanElement = screen.getByText("Court Canva 1");
     const inputElement = screen.getByDisplayValue("Court Canva 1");
 
-    fireEvent.click(btnElement);
+    userEvent.click(btnElement);
     expect(spanElement).toHaveAttribute("hidden");
     expect(inputElement).not.toHaveAttribute("hidden");
 
-    fireEvent.change(inputElement, { target: { value: "new design name" } });
-    expect(inputElement).toHaveDisplayValue("new design name");
+    userEvent.type(inputElement, 'new design name')
+    expect(inputElement).toHaveValue('new design name')
 
-    fireEvent.submit(inputElement);
+    userEvent.click(inputElement);
     expect(spanElement.hidden).toBeTruthy();
     expect(inputElement.hidden).toBeFalsy();
-  });
+  })
 });
