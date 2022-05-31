@@ -36,7 +36,7 @@ const DesignName = () => {
         display="flex"
         alignItems="center"
       >
-      <IconButton aria-label="Star" icon={<BiStar />} variant="navbarIconBtn" />
+        <IconButton aria-label="Star" icon={<BiStar />} variant="navbarIconBtn" />
         <EditablePreview p="0px 8px" />
         <Input as={EditableInput} />
         <EditableControls />

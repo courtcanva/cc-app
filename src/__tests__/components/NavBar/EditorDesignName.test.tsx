@@ -11,10 +11,10 @@ describe("EditorDesignName", () => {
     fireEvent.click(btnElement);
     expect(spanElement).toHaveAttribute("hidden");
     expect(inputElement).not.toHaveAttribute("hidden");
-    
+
     fireEvent.change(inputElement, { target: { value: "new design name" } });
     expect(inputElement).toHaveDisplayValue("new design name");
-    
+
     fireEvent.submit(inputElement);
     expect(spanElement.hidden).toBeTruthy();
     expect(inputElement.hidden).toBeFalsy();
