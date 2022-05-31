@@ -11,8 +11,8 @@ const BasketballCourt = () => {
         {({ store }) => (
           <Stage
             id="basketball-court"
-            width={1000}
-            height={1000}
+            width={669}
+            height={369}
             visible={true}
             style={{ backgroundColor: "pink" }}
           >

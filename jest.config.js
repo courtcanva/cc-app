@@ -18,6 +18,7 @@ const customJestConfig = {
     "^@/components/(.*)$": "<rootDir>/src/components/$1",
     "^@/constants/(.*)$": "<rootDir>/src/constants/$1",
     "^@/pages/(.*)$": "<rootDir>/src/pages/$1",
+    "^konva": "konva/konva",
   },
   collectCoverageFrom: [
     "<rootDir>/src/**/*.{tsx,ts}",
