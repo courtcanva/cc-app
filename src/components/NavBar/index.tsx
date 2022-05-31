@@ -6,7 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
-import EditorDesignName from "./EditorDesignName";
+import EditorDesignName from "@/components/NavBar/EditorDesignName";
 
 const NavigationBar = () => {
   return (

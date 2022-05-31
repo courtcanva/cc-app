@@ -7,11 +7,14 @@ describe("EditorDesignName", () => {
     const btnElement = screen.getByLabelText("Edit");
     const spanElement = screen.getByText("Court Canva 1");
     const inputElement = screen.getByDisplayValue("Court Canva 1");
+
     fireEvent.click(btnElement);
     expect(spanElement).toHaveAttribute("hidden");
     expect(inputElement).not.toHaveAttribute("hidden");
+    
     fireEvent.change(inputElement, { target: { value: "new design name" } });
     expect(inputElement).toHaveDisplayValue("new design name");
+    
     fireEvent.submit(inputElement);
     expect(spanElement.hidden).toBeTruthy();
     expect(inputElement.hidden).toBeFalsy();

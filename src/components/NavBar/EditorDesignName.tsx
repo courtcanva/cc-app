@@ -27,17 +27,17 @@ const DesignName = () => {
 
   return (
     <Flex justifyContent="center" alignItems="center" fontSize="xl">
-      <IconButton aria-label="Star" icon={<BiStar />} variant="navbarIconBtn" />
       <Editable
-        display="inline-block"
         color="white"
-        fontSize="xl"
         textAlign="center"
         isPreviewFocusable={false}
         onChange={(value) => setValue(value)}
         value={value}
+        display="flex"
+        alignItems="center"
       >
-        <EditablePreview p="8px" />
+      <IconButton aria-label="Star" icon={<BiStar />} variant="navbarIconBtn" />
+        <EditablePreview p="0px 8px" />
         <Input as={EditableInput} />
         <EditableControls />
       </Editable>
