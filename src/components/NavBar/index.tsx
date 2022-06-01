@@ -1,4 +1,6 @@
-import { Flex, Button, Text, IconButton, Grid, Menu, MenuButton } from "@chakra-ui/react";
+import { Flex, Button, Text, IconButton, Grid, useDisclosure } from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+import { Modal, ModalOverlay } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -8,7 +10,11 @@ import { BiStar, BiPencil } from "react-icons/bi";
 import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
 
+import MContent from "../Login";
+
 const NavigationBar = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Grid templateColumns="repeat(3, 1fr)" bg="brand.primary" p={4}>
       <Flex alignItems="center">
@@ -44,18 +50,33 @@ const NavigationBar = () => {
         <IconButton aria-label="Edit" icon={<BiPencil />} variant="navbarIconBtn" />
       </Flex>
       <Flex alignItems="center" justifyContent="flex-end">
-        <IconButton
-          aria-label="User information"
-          icon={<FaRegUser />}
-          variant="navbarIconBtn"
-          bg="white"
-          color="black"
-          marginRight="10px"
-          isRound
-        />
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            aria-label="User information"
+            icon={<FaRegUser />}
+            variant="navbarIconBtn"
+            bg="white"
+            color="black"
+            marginRight="10px"
+            isRound
+          >
+            Actions
+          </MenuButton>
+          <MenuList>
+            <MenuItem onClick={onOpen}>log in</MenuItem>
+            <MenuItem onClick={onOpen}>log up</MenuItem>
+          </MenuList>
+        </Menu>
+
+        <Modal isOpen={isOpen} onClose={onClose} isCentered size={"sm"}>
+          <ModalOverlay />
+          <MContent />
+        </Modal>
+
         <IconButton aria-label="Download design" icon={<FiDownload />} variant="navbarIconBtn" />
         <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
-        <Button variant="shareBtn" marginLeft="10px">
+        <Button variant="shareBtn" marginLeft="10px" onClick={onOpen}>
           Share
         </Button>
       </Flex>

@@ -21,9 +21,14 @@ const buttonStyles = {
       bg: "transparent",
       color: "white",
       fontSize: "xl",
-      _hover: { bg: "rgba(200, 197, 197, 0.6)"},
+      _hover: { bg: "rgba(200, 197, 197, 0.6)" },
       size: "sm",
     },
+    loginBtn: {
+      bg: "transparent",
+      color: "transparent",
+      _active: { bg: "transparent" },
+    }
   },
 };
 
