@@ -36,7 +36,7 @@ pipeline {
 		          }
 	                  steps{
 	                       echo 'Zip Artifact File' 
-		               sh 'zip "1.0.$Version_ID".zip ./out/*'
+		               sh 'cd out; zip -r ../"1.0.$Version_ID".zip .'
 		               echo 'Upload main branch artifact to front-end artifact repo'
 				  sh 'aws s3 cp "1.0.$Version_ID".zip ${FrontEndRepo}'
 		          }
