@@ -32,7 +32,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
         {children}
         <TopBar />
       </Box>
-      <Footer />
+      {/* <Footer /> */}
       <PriceBar />
       <EditorFooter />
     </>

@@ -10,7 +10,7 @@ import HOME_PAGE_LINK from "@/constants/index";
 
 const NavigationBar = () => {
   return (
-    <Grid templateColumns="repeat(3, 1fr)" bg="brand.primary" p={4}>
+    <Grid templateColumns="repeat(3, 1fr)" bg="brand.primary" p={4} width="100vw" position="fixed">
       <Flex alignItems="center">
         <Link href={HOME_PAGE_LINK} passHref>
           <Button leftIcon={<IoIosArrowBack />} pl="0" variant="navbarIconBtn">

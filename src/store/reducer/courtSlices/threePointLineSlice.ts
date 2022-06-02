@@ -17,17 +17,17 @@ export interface ThreePointLineState {
 }
 
 export const initialState: ThreePointLineState = {
-  startPointX: 0,
-  startPointY: 9,
+  startPointX: 30,
+  startPointY: 134,
   cornerThreePointLineLength: 15.75,
-  controlPointOneX: 81.75,
-  controlPointOneY: 9,
-  controlPointTwoX: 81.75,
-  controlPointTwoY: 75,
-  controlPointThreeX: 81.75,
-  controlPointThreeY: 141,
-  controlPointFourX: 0,
-  controlPointFourY: 141,
+  controlPointOneX: 111.75,
+  controlPointOneY: 134,
+  controlPointTwoX: 111.75,
+  controlPointTwoY: 200,
+  controlPointThreeX: 111.75,
+  controlPointThreeY: 266,
+  controlPointFourX: 45.7,
+  controlPointFourY: 266,
   threePointLineRadius: 66,
 };
 

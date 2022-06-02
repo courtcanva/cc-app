@@ -10,7 +10,6 @@ const BasketballCourt = () => {
       alignItems="center"
       w="792px"
       h="534px"
-      bg="#eee"
       m="150px auto"
       pos="absolute"
       top="50%"
@@ -19,23 +18,23 @@ const BasketballCourt = () => {
       zIndex="-1"
     >
       {/* <Box w="380px" h="300px" bg="white"> */}
-        <ReactReduxContext.Consumer>
-          {({ store }) => (
-            <Stage
-              id="basketball-court"
-              width={500}
-              height={500}
-              visible={true}
-              style={{ backgroundColor: "pink" }} // TODO: color should be changed later
-            >
-              <Provider store={store}>
-                <Layer>
-                  <ThreePointArea />
-                </Layer>
-              </Provider>
-            </Stage>
-          )}
-        </ReactReduxContext.Consumer>
+      <ReactReduxContext.Consumer>
+        {({ store }) => (
+          <Stage
+            id="basketball-court"
+            width={800}
+            height={400}
+            visible={true}
+            style={{ backgroundColor: "white"}} // TODO: color should be changed later
+          >
+            <Provider store={store}>
+              <Layer>
+                <ThreePointArea />
+              </Layer>
+            </Provider>
+          </Stage>
+        )}
+      </ReactReduxContext.Consumer>
       {/* </Box> */}
     </Flex>
   );

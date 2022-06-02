@@ -1,3 +1,7 @@
+html,body{
+    background-color: #EBECF0;
+}
+
 .scrollbox{
     overflow: hidden;
 }
