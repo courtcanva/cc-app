@@ -38,7 +38,7 @@ const ThreePointArea = ({ color = "#375239" }) => {
           threePointLineRadius
         );
         // Continue with vertical line which makes it a close shape
-        context.lineTo(30, 266); 
+        context.lineTo(30, 266);
 
         context.closePath();
         // (!) Konva specific method, it is very important

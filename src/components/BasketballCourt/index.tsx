@@ -1,5 +1,5 @@
 import { Stage, Layer } from "react-konva";
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import ThreePointArea from "./ThreePointArea";
 import { ReactReduxContext, Provider } from "react-redux";
 
@@ -17,7 +17,6 @@ const BasketballCourt = () => {
       transform="translate(-50%)"
       zIndex="-1"
     >
-      {/* <Box w="380px" h="300px" bg="white"> */}
       <ReactReduxContext.Consumer>
         {({ store }) => (
           <Stage
@@ -25,7 +24,7 @@ const BasketballCourt = () => {
             width={800}
             height={400}
             visible={true}
-            style={{ backgroundColor: "white"}} // TODO: color should be changed later
+            style={{ backgroundColor: "white" }} // TODO: color should be changed later
           >
             <Provider store={store}>
               <Layer>
@@ -35,7 +34,6 @@ const BasketballCourt = () => {
           </Stage>
         )}
       </ReactReduxContext.Consumer>
-      {/* </Box> */}
     </Flex>
   );
 };
