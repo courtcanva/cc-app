@@ -14,7 +14,6 @@ import GoogleSvg from "@/assets/svg/LoginSvg/gmail.svg";
 import EmailSvg from "@/assets/svg/LoginSvg/email.svg";
 
 function LoginModalContent(props: any) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Modal isOpen={props.isOpen} onClose={props.onClose} isCentered size={"sm"}>
       <ModalOverlay />
@@ -47,11 +46,11 @@ function LoginModalContent(props: any) {
         </ModalBody>
         <ModalFooter>
           <Text fontSize="sm">
-            By continuing, you agree to to CourtCanva&nbsp;
+            By continuing, you agree to to CourtCanva’s&nbsp;
             <Link href="#" textDecoration="underline" _hover={{ color: "CourtSizecolor.btc" }}>
-              Term of Use.&nbsp;
+              Term of Use.
             </Link>
-            Read our&nbsp;
+            &nbsp;Read our&nbsp;
             <Link href="#" textDecoration="underline" _hover={{ color: "CourtSizecolor.btc" }}>
               Privacy Policy.
             </Link>

@@ -127,6 +127,7 @@ const TopBar = () => {
             icon={<DocSvg />}
             variant="editorFooterIconBtn"
             onClick={onOpen}
+            data-testid="download-btn"
           />
           <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent>
           <IconButton

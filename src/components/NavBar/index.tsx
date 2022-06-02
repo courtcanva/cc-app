@@ -64,8 +64,12 @@ const NavigationBar = () => {
             Actions
           </MenuButton>
           <MenuList>
-            <MenuItem onClick={onOpen}>log in</MenuItem>
-            <MenuItem onClick={onOpen}>log up</MenuItem>
+            <MenuItem onClick={onOpen} data-testid="login-btn">
+              log in
+            </MenuItem>
+            <MenuItem onClick={onOpen} data-testid="logout-btn">
+              log up
+            </MenuItem>
           </MenuList>
         </Menu>
 
@@ -73,7 +77,7 @@ const NavigationBar = () => {
 
         <IconButton aria-label="Download design" icon={<FiDownload />} variant="navbarIconBtn" />
         <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
-        <Button variant="shareBtn" marginLeft="10px" onClick={onOpen}>
+        <Button variant="shareBtn" marginLeft="10px" onClick={onOpen} data-testid="share-btn">
           Share
         </Button>
       </Flex>
