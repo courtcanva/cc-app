@@ -17,6 +17,7 @@ const customJestConfig = {
   moduleNameMapper: {
     "^@/components/(.*)$": "<rootDir>/src/components/$1",
     "^@/constants/(.*)$": "<rootDir>/src/constants/$1",
+    "^@/store/(.*)$": "<rootDir>/src/store/$1",
     "^@/pages/(.*)$": "<rootDir>/src/pages/$1",
     "^konva": "konva/konva",
   },
@@ -27,6 +28,9 @@ const customJestConfig = {
     "!<rootDir>/src/pages/_app.tsx",
     "!<rootDir>/src/pages/_document.tsx",
     "!<rootDir>/src/utils/axios.ts",
+    "!<rootDir>/src/components/BasketballCourt/*", // exclude canvas
+    "!<rootDir>/src/store/reducer/counterSlice.ts", // should be deleted later
+    "!<rootDir>/src/store/hooks.ts", // exclude redux hooks
     "!<rootDir>/node_modules/",
     "!<rootDir>/**/__tests__/**",
     "!<rootDir>/**/*.d.ts",
@@ -36,8 +40,8 @@ const customJestConfig = {
   coverageThreshold: {
     global: {
       statements: 80,
-      branches: 0,
-      functions: 0,
+      branches: 80,
+      functions: 80,
       lines: 80,
     },
   },

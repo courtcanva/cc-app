@@ -1,8 +1,5 @@
-import { RootState } from "@/store";
-import React from "react";
 import { Shape } from "react-konva";
-import { useSelector } from "react-redux";
-import { useStoreDispatch, useStoreSelector } from "../../store/hooks";
+import { useStoreSelector } from "@/store/hooks";
 
 const ThreePointArea = ({ color = "#375239" }) => {
   const {
@@ -18,7 +15,7 @@ const ThreePointArea = ({ color = "#375239" }) => {
     controlPointFourX,
     controlPointFourY,
     threePointLineRadius,
-  } = useSelector((state: RootState) => state.threePointLine);
+  } = useStoreSelector((state) => state.threePointLine);
 
   return (
     <Shape

@@ -31,8 +31,8 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
         <EditorSideBar />
         {children}
         <TopBar />
-        <Footer />
       </Box>
+      <Footer />
       <PriceBar />
       <EditorFooter />
     </>

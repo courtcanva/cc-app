@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../..";
 
-interface ThreePointLineState {
+export interface ThreePointLineState {
   startPointX: number;
   startPointY: number;
   cornerThreePointLineLength: number;
@@ -16,7 +16,7 @@ interface ThreePointLineState {
   threePointLineRadius: number;
 }
 
-const initialState: ThreePointLineState = {
+export const initialState: ThreePointLineState = {
   startPointX: 0,
   startPointY: 9,
   cornerThreePointLineLength: 15.75,
@@ -35,9 +35,9 @@ export const threePointLineSlice = createSlice({
   name: "threePointLine",
   initialState,
   reducers: {
-    changeStartPoint: (state, action: PayloadAction) => {
-      // state.startPointX = action.payload;
-      // state.startPointY = action.payload;
+    changeStartPoint: (state: ThreePointLineState, action: PayloadAction) => {
+      // TODO:state.startPointX = action.payload;
+      // TODO:state.startPointY = action.payload;
     },
   },
 });
