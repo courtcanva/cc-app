@@ -6,63 +6,60 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  GridItem,
-  IconButton,
+  ModalFooter,
 } from "@chakra-ui/react";
-import { Flex, Text, Link, Spacer, Grid, SimpleGrid, useDisclosure } from "@chakra-ui/react";
+import { Flex, Text, Icon, Link, useDisclosure } from "@chakra-ui/react";
 
 import GoogleSvg from "@/assets/svg/LoginSvg/gmail.svg";
+import EmailSvg from "@/assets/svg/LoginSvg/email.svg";
 
-function MContent() {
+function LoginModalContent(props: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <>
+    <Modal isOpen={props.isOpen} onClose={props.onClose} isCentered size={"sm"}>
+      <ModalOverlay />
       <ModalContent>
-        <ModalHeader></ModalHeader>
+        <ModalHeader>
+          <Flex flexDir="column" mt="40px" mb="20px">
+            <Text fontSize="xl" fontWeight="bold">
+              Log in or sign up
+            </Text>
+            <Text fontSize="sm">Use your email or google account to continue with CourtCanva</Text>
+          </Flex>
+        </ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          <Flex flexDir="column" justifyContent="space-around" h="300px">
-            <Flex flexDir="column">
-              <Text fontSize="xl" fontWeight="bold">
-                Log in or sign up
-              </Text>
-              <Text fontSize="sm">
-                use your email or google account to continue with CourtCanva
-              </Text>
-            </Flex>
-
-            <Button cursor="pointer" _active={{ bgColor: "CourtSizecolor.btc" }}>
-              <IconButton
-                aria-label="Gmail"
-                colorScheme="transparent"
-                icon={<GoogleSvg />}
-                left="-50px"
-                variant="loginBtn"
-                isActive={true}
-                // isDisabled={true}
-              />
+        <ModalBody mb="20px">
+          <Flex flexDir="column" justifyContent="space-around" gap="25px">
+            <Button variant="loginBtn2" position="relative">
+              <Icon w="24px" h="24px" position="absolute" top="11px" left="20px">
+                <GoogleSvg />
+              </Icon>
               <Text>Continue with Google </Text>
             </Button>
 
-            <Button cursor="pointer" _active={{ bgColor: "CourtSizecolor.btc" }}>
-              <Text>Continue with email</Text>
+            <Button variant="loginBtn2" position="relative">
+              <Icon w="24px" h="24px" position="absolute" top="12px" left="20px">
+                <EmailSvg />
+              </Icon>
+              <Text>Continue with Email </Text>
             </Button>
-
-            <Text fontSize="sm">
-              By continuing, you agree to to CourtCanva’s&nbsp;
-              <Link href="#" textDecoration="underline" _hover={{ color: "CourtSizecolor.btc" }}>
-                Term of Use.&nbsp;
-              </Link>
-              Read our&nbsp;
-              <Link href="#" textDecoration="underline" _hover={{ color: "CourtSizecolor.btc" }}>
-                Privacy Policy.
-              </Link>
-            </Text>
           </Flex>
         </ModalBody>
+        <ModalFooter>
+          <Text fontSize="sm">
+            By continuing, you agree to to CourtCanva&nbsp;
+            <Link href="#" textDecoration="underline" _hover={{ color: "CourtSizecolor.btc" }}>
+              Term of Use.&nbsp;
+            </Link>
+            Read our&nbsp;
+            <Link href="#" textDecoration="underline" _hover={{ color: "CourtSizecolor.btc" }}>
+              Privacy Policy.
+            </Link>
+          </Text>
+        </ModalFooter>
       </ModalContent>
-    </>
+    </Modal>
   );
 }
 
-export default MContent;
+export default LoginModalContent;

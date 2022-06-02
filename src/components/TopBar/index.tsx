@@ -17,6 +17,7 @@ import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import RbSvg from "@/assets/svg/TopBarSvg/rainbow.svg";
 import ScSvg from "@/assets/svg/TopBarSvg/smallCourt.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
+import LoginModalContent from "../Login";
 
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -127,10 +128,7 @@ const TopBar = () => {
             variant="editorFooterIconBtn"
             onClick={onOpen}
           />
-          <Modal isOpen={isOpen} onClose={onClose} isCentered size={"sm"}>
-            <ModalOverlay />
-            <MContent />
-          </Modal>
+          <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent>
           <IconButton
             aria-label="Bin"
             colorScheme="transparent"

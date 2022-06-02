@@ -27,9 +27,11 @@ const colors = {
   background: {
     primary: "#2C3333",
     secondary : "#4f5757",
+    third:"#EDF2F7"
   },
   fontcolor: {
     primary: "#C8C5C5",
+    secondary:"#1A202C",
   },
   CourtSizecolor: {
     btc: "#40B484",

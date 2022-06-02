@@ -1,6 +1,6 @@
 import { Flex, Button, Text, IconButton, Grid, useDisclosure } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
-import { Modal, ModalOverlay } from "@chakra-ui/react";
+// import { Modal, ModalOverlay } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -10,7 +10,7 @@ import { BiStar, BiPencil } from "react-icons/bi";
 import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
 
-import MContent from "../Login";
+import LoginModalContent from "../Login";
 
 const NavigationBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -69,10 +69,7 @@ const NavigationBar = () => {
           </MenuList>
         </Menu>
 
-        <Modal isOpen={isOpen} onClose={onClose} isCentered size={"sm"}>
-          <ModalOverlay />
-          <MContent />
-        </Modal>
+        <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent>
 
         <IconButton aria-label="Download design" icon={<FiDownload />} variant="navbarIconBtn" />
         <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
