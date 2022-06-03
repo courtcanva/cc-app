@@ -8,7 +8,7 @@ body {
 }
 
 .scrollbox:hover {
-  overflow-y         : auto;
+  overflow-y: auto;
   overscroll-behavior: contain;
   -ms-scroll-chaining: contain;
 }
@@ -19,7 +19,7 @@ body {
 }
 
 .scrollbox::-webkit-scrollbar-thumb {
-  height          : 15px;
-  border-radius   : 5px;
+  height: 15px;
+  border-radius: 5px;
   background-color: #ABABAD;
 }
