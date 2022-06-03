@@ -12,7 +12,7 @@ const styles = {
   styles: {
     global: (props: StyleFunctionProps) => ({
       "html, body": {
-        bg: props.colorMode === "dark" ? "red.800" : "orange.50",
+        bg: props.colorMode === "dark" ? "gray.800" : "orange.50",
       },
     }),
   },
