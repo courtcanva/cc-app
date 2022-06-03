@@ -2,20 +2,21 @@ import { Stage, Layer } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import ThreePointArea from "./ThreePointArea";
 import { ReactReduxContext, Provider } from "react-redux";
+import { calcAxisDelta } from "framer-motion/types/projection/geometry/delta-calc";
 
 const BasketballCourt = () => {
   return (
     <Flex
+      position="fixed"
+      top="122px"
+      left="98px"
+      width="calc(100% - 98px)"
+      height="calc(100% - 162px)"
+      minWidth={800}
+      minHeight={400}
       justifyContent="center"
       alignItems="center"
-      w="792px"
-      h="534px"
-      m="150px auto"
-      pos="absolute"
-      top="50%"
-      left="50%"
-      transform="translate(-50%)"
-      zIndex="-1"
+      margin="auto"
     >
       <ReactReduxContext.Consumer>
         {({ store }) => (
