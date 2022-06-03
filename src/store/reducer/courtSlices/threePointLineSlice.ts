@@ -2,18 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../..";
 
 export interface ThreePointLineState {
-  startPointX: number;
-  startPointY: number;
-  cornerThreePointLineLength: number;
-  controlPointOneX: number;
-  controlPointOneY: number;
-  controlPointTwoX: number;
-  controlPointTwoY: number;
-  controlPointThreeX: number;
-  controlPointThreeY: number;
-  controlPointFourX: number;
-  controlPointFourY: number;
-  threePointLineRadius: number;
+  [prop: string]: number;
 }
 
 export const initialState: ThreePointLineState = {

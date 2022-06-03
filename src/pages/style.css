@@ -1,6 +1,6 @@
 html,
 body {
-  background-color: #ebecf0;
+  background-color: #EBECF0;
 }
 
 .scrollbox {
@@ -14,12 +14,21 @@ body {
 }
 
 .scrollbox::-webkit-scrollbar {
+<<<<<<< HEAD
   width: 13px;
+=======
+  width : 13px;
+>>>>>>> 2d3a417284622a7f151f74335cea25f54e8afc79
   height: 15px;
 }
 
 .scrollbox::-webkit-scrollbar-thumb {
   height: 15px;
   border-radius: 5px;
+<<<<<<< HEAD
   background-color: #ababad;
 }
+=======
+  background-color: #ABABAD;
+}
+>>>>>>> 2d3a417284622a7f151f74335cea25f54e8afc79
