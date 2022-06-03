@@ -61,14 +61,13 @@ const NavigationBar = () => {
             marginRight="10px"
             isRound
           >
-            Actions
           </MenuButton>
           <MenuList>
             <MenuItem onClick={onOpen} data-testid="login-btn">
               log in
             </MenuItem>
             <MenuItem onClick={onOpen} data-testid="logout-btn">
-              log up
+              sign up
             </MenuItem>
           </MenuList>
         </Menu>

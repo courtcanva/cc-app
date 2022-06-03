@@ -36,7 +36,7 @@ describe("TopBar", () => {
   it("Should render Share button", () => {
     render(<TopBar />);
 
-    const openButton = screen.getByTestId("download-btn");
-    expect(openButton).toBeInTheDocument();
+    const downloadButton = screen.getByTestId("download-btn");
+    expect(downloadButton).toBeInTheDocument();
   });
 });

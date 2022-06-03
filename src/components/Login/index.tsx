@@ -9,7 +9,7 @@ import {
   ModalFooter,
 } from "@chakra-ui/react";
 import { Flex, Text, Icon, Link, useDisclosure } from "@chakra-ui/react";
-
+import { FaGoogle, FaEnvelope } from "react-icons/fa";
 import GoogleSvg from "@/assets/svg/LoginSvg/gmail.svg";
 import EmailSvg from "@/assets/svg/LoginSvg/email.svg";
 
@@ -29,16 +29,16 @@ function LoginModalContent(props: any) {
         <ModalCloseButton />
         <ModalBody mb="20px">
           <Flex flexDir="column" justifyContent="space-around" gap="25px">
-            <Button variant="loginBtn2" position="relative">
-              <Icon w="24px" h="24px" position="absolute" top="11px" left="20px">
-                <GoogleSvg />
+            <Button variant="loginBtn" position="relative">
+              <Icon w="28px" h="28px" position="absolute" top="11px" left="20px">
+                <FaGoogle />
               </Icon>
               <Text>Continue with Google </Text>
             </Button>
 
-            <Button variant="loginBtn2" position="relative">
-              <Icon w="24px" h="24px" position="absolute" top="12px" left="20px">
-                <EmailSvg />
+            <Button variant="loginBtn" position="relative">
+              <Icon w="28px" h="28px" position="absolute" top="12px" left="20px">
+                <FaEnvelope />
               </Icon>
               <Text>Continue with Email </Text>
             </Button>
