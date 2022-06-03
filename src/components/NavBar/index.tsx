@@ -60,8 +60,7 @@ const NavigationBar = () => {
             color="black"
             marginRight="10px"
             isRound
-          >
-          </MenuButton>
+          ></MenuButton>
           <MenuList>
             <MenuItem onClick={onOpen} data-testid="login-btn">
               log in

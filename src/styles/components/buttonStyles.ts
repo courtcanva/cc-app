@@ -21,20 +21,20 @@ const buttonStyles = {
       bg: "transparent",
       color: "white",
       fontSize: "xl",
-      _hover: { bg: "rgba(200, 197, 197, 0.6)" },
+      _hover: { bg: "brand.secondary", opacity: "0.60" },
       size: "sm",
     },
-     loginBtn: {
+    loginBtn: {
       bg: "background.third",
       color: "fontcolor.secondary",
       size: "lg",
       fontSize: "16px",
       fontWeights: "bold",
       lineHeights: "40",
-      _hover: { bg: "brand.secondary"},
-      _active: { bg: "brand.secondary"},
-      _focus:{ boxShadow:""},
- },
+      _hover: { bg: "brand.secondary" },
+      _active: { bg: "brand.secondary" },
+      _focus: { boxShadow: "" },
+    },
   },
 };
 
