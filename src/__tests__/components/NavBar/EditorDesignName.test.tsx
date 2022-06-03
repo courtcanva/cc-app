@@ -1,6 +1,6 @@
-import { render, screen} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import EditorDesignName from "../../../components/NavBar/EditorDesignName";
-import userEvent from '@testing-library/user-event';
+import userEvent from "@testing-library/user-event";
 
 describe("EditorDesignName", () => {
   test("click the btn can show the input element", () => {
@@ -13,11 +13,11 @@ describe("EditorDesignName", () => {
     expect(spanElement).toHaveAttribute("hidden");
     expect(inputElement).not.toHaveAttribute("hidden");
 
-    userEvent.type(inputElement, 'new design name')
-    expect(inputElement).toHaveValue('new design name')
+    userEvent.type(inputElement, "new design name");
+    expect(inputElement).toHaveValue("new design name");
 
     userEvent.click(inputElement);
     expect(spanElement.hidden).toBeTruthy();
     expect(inputElement.hidden).toBeFalsy();
-  })
+  });
 });
