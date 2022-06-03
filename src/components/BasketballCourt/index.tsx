@@ -24,7 +24,7 @@ const BasketballCourt = () => {
             width={800}
             height={400}
             visible={true}
-            style={{ backgroundColor: "white" }} // TODO: color should be changed later
+            style={{ backgroundColor: "white" }}
           >
             <Provider store={store}>
               <Layer>

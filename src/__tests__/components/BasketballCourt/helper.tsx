@@ -2,7 +2,7 @@ import Konva from "konva";
 import React from "react";
 import ReactDOM from "react-dom";
 
-type Component = React.ReactNode
+type Component = React.ReactNode;
 interface AppProps {
   onUpdate: (prop: unknown) => void;
   children: Component;
