@@ -10,12 +10,24 @@ import {
 } from "@chakra-ui/react";
 import { Flex, Text, Icon, Link, useDisclosure } from "@chakra-ui/react";
 import { FaGoogle, FaEnvelope } from "react-icons/fa";
-import GoogleSvg from "@/assets/svg/LoginSvg/gmail.svg";
-import EmailSvg from "@/assets/svg/LoginSvg/email.svg";
+import React from "react";
 
-function LoginModalContent(props: any) {
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function LoginModalContent(props: Props) {
+  const initialRef = React.useRef(null);
+
   return (
-    <Modal isOpen={props.isOpen} onClose={props.onClose} isCentered size={"sm"}>
+    <Modal
+      isOpen={props.isOpen}
+      onClose={props.onClose}
+      isCentered
+      size={"sm"}
+      initialFocusRef={initialRef}
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
@@ -29,7 +41,7 @@ function LoginModalContent(props: any) {
         <ModalCloseButton />
         <ModalBody mb="20px">
           <Flex flexDir="column" justifyContent="space-around" gap="25px">
-            <Button variant="loginBtn" position="relative">
+            <Button variant="loginBtn" position="relative" ref={initialRef}>
               <Icon w="28px" h="28px" position="absolute" top="11px" left="20px">
                 <FaGoogle />
               </Icon>

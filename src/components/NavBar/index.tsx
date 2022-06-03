@@ -62,11 +62,11 @@ const NavigationBar = () => {
             isRound
           ></MenuButton>
           <MenuList>
-            <MenuItem onClick={onOpen} data-testid="login-btn">
-              log in
+            <MenuItem onClick={onOpen} data-testid="login-btn" _hover={{ bg: "brand.secondary" }}>
+              Log in
             </MenuItem>
-            <MenuItem onClick={onOpen} data-testid="logout-btn">
-              sign up
+            <MenuItem onClick={onOpen} data-testid="logout-btn" _hover={{ bg: "brand.secondary" }}>
+              Sign up
             </MenuItem>
           </MenuList>
         </Menu>

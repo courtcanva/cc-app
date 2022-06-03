@@ -33,7 +33,7 @@ const buttonStyles = {
       lineHeights: "40",
       _hover: { bg: "brand.secondary" },
       _active: { bg: "brand.secondary" },
-      _focus: { boxShadow: "" },
+      _focus: { bg: "brand.secondary", boxShadow: "" },
     },
   },
 };
