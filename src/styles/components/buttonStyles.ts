@@ -21,7 +21,7 @@ const buttonStyles = {
       bg: "transparent",
       color: "white",
       fontSize: "xl",
-      _hover: { bg: "brand.secondary", opacity: "0.60" },
+      _hover: { bg: "fontcolor.primary", opacity: "0.60" },
       size: "sm",
     },
     loginBtn: {
