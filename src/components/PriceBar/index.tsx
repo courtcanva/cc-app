@@ -26,7 +26,7 @@ const PriceBar: React.FC = () => {
   );
 
   return (
-    <Box position="fixed" bottom="42px" right="0px " width="calc(100% - 98px)" zIndex="1600">
+    <Box position="fixed" bottom="42px" right="0px" width="calc(100% - 98px)" zIndex="1600">
       {drawerButton}
       <Box backgroundColor="#fff">
         <Box boxShadow="0px -5px 10px -5px lightgrey" p="0">
