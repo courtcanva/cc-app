@@ -1,9 +1,5 @@
-interface DrawerButtonProps {
-  isOpen: boolean;
-}
-
 const drawerButtonStyles = {
-  baseStyle: ({ isOpen }: DrawerButtonProps) => ({
+  baseStyle: {
     position: "absolute",
     top: "-28px",
     left: "50%",
@@ -25,7 +21,7 @@ const drawerButtonStyles = {
       background: "#fff",
       boxShadow: "0px -6px 10px lightgrey",
     },
-  }),
+  },
 };
 
 export default drawerButtonStyles;
