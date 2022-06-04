@@ -8,7 +8,7 @@ import TileColorBoard from "./TileColorBoard";
 
 const PriceBar: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState<boolean>(true);
-  const drawerBtnStyles = useStyleConfig("drawerButtonStyles", { isOpen });
+  const drawerBtnStyles = useStyleConfig("drawerButtonStyles");
 
   const drawerButton = (
     <Box
