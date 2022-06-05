@@ -17,3 +17,7 @@
     border-radius: 5px;  
     background-color: #ABABAD;  
     }  
+
+.custom-switch .chakra-switch__track[data-focus]{
+    box-shadow: none;
+}

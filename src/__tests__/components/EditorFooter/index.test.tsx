@@ -7,15 +7,15 @@ describe("EditorFooter", () => {
     const switchButton = screen.getByTestId("switch-btn");
     expect(switchButton).toBeInTheDocument();
   });
-  // caz Ruler off/on no need
-  // it("should toggle between on and off", () => {
-  //   const { getByTestId } = render(<EditorFooter />);
-  //   const switchButton = getByTestId("switch-btn");
-  //   fireEvent.click(switchButton);
-  //   expect(getByTestId("ruler-label")).toHaveTextContent("Ruler off");
-  //   fireEvent.click(switchButton);
-  //   expect(getByTestId("ruler-label")).toHaveTextContent("Ruler on");
-  // });
+
+  it("should toggle between on and off", () => {
+    const { getByTestId } = render(<EditorFooter />);
+    const switchButton = getByTestId("switch-btn");
+    fireEvent.click(switchButton);
+    expect(getByTestId("ruler-label")).toHaveTextContent("Ruler off");
+    fireEvent.click(switchButton);
+    expect(getByTestId("ruler-label")).toHaveTextContent("Ruler on");
+  });
   it("Each button in the navbar needs to display the correct text", () => {
     render(<EditorFooter />);
 

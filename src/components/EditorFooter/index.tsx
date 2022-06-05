@@ -49,6 +49,7 @@ const EditorFooter = () => {
           <Switch
             id="ruler-switch-btn"
             colorScheme="footerSwitch"
+            className="custom-switch"
             sx={{
               "span:first-child": {
                 bgColor: "brand.primary",
