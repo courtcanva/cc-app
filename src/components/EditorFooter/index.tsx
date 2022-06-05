@@ -1,8 +1,10 @@
 import { Box, Flex, IconButton, FormControl, Switch, FormLabel } from "@chakra-ui/react";
 import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
 import { BiHelpCircle } from "react-icons/bi";
+import { useState } from "react";
 
 const EditorFooter = () => {
+  const [ruler, setRuler] = useState("Ruler On");
   return (
     <Flex
       position="fixed"
@@ -40,8 +42,9 @@ const EditorFooter = () => {
             mb="0"
             color="brand.primary"
             data-testid="ruler-label"
+            w="70px"
           >
-            Ruler
+            {ruler}
           </FormLabel>
           <Switch
             id="ruler-switch-btn"
@@ -53,6 +56,9 @@ const EditorFooter = () => {
             }}
             defaultChecked
             data-testid="switch-btn"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setRuler(e.target.checked ? "Ruler On" : "Ruler Off")
+            }
           />
         </FormControl>
         <IconButton
