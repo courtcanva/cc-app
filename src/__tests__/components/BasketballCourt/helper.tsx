@@ -1,14 +1,13 @@
 import Konva from "konva";
-import React from "react";
+import React, { ReactNode } from "react";
 import ReactDOM from "react-dom";
 
-type Component = React.ReactNode;
 interface AppProps {
   onUpdate: (prop: unknown) => void;
-  children: Component;
+  children: ReactNode;
 }
 
-const render = async (component: Component) => {
+const render = async (component: ReactNode) => {
   const node = document.createElement("div");
   const root = document.body.appendChild(node);
 
@@ -25,7 +24,7 @@ const render = async (component: Component) => {
 
   return {
     stage: Konva.stages[Konva.stages.length - 1],
-    rerender: async (component: Component) => {
+    rerender: async (component: ReactNode) => {
       await new Promise((resolve) => {
         ReactDOM.render(<App onUpdate={resolve}>{component}</App>, root);
       });

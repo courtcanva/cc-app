@@ -11,7 +11,7 @@ it("should return the initial state", () => {
 });
 
 it("should handle coordinates", () => {
-  // temporary solution, should be changed later
+  // TODO: temporary solution, should be changed later
   const previousState: ThreePointLineState = initialState;
   expect(reducer(previousState, changeStartPoint())).toEqual(initialState);
 });
