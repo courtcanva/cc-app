@@ -28,6 +28,10 @@ describe("EditorSideBar component", () => {
 
       fireEvent.click(closingBtn);
       expect(closingBtn).not.toBeInTheDocument();
+
+      fireEvent.click(element);
+      fireEvent.click(element);
+      expect(closingBtn).not.toBeInTheDocument();
     });
   });
 });

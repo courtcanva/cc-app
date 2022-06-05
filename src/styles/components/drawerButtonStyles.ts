@@ -1,26 +1,9 @@
-const priceBarDrawer = {
-  variants: {
-    alwaysOpen: {
-      parts: ["dialog, dialogContainer"],
-      dialog: {
-        pointerEvents: "auto",
-      },
-      dialogContainer: {
-        pointerEvents: "none",
-      },
-    },
-  },
-};
-
-interface DrawerButtonProps {
-  isOpen: boolean;
-}
-
-export const DrawerButton = {
-  baseStyle: ({ isOpen }: DrawerButtonProps) => ({
+const drawerButtonStyles = {
+  baseStyle: {
     position: "absolute",
-    top: "-30px",
-    left: isOpen ? "calc(48% - 49px)" : "48%",
+    top: "-28px",
+    left: "50%",
+    transform: "translateX(-50%)",
     rounded: "none",
     backgroundColor: "transparent",
     color: "black",
@@ -38,7 +21,7 @@ export const DrawerButton = {
       background: "#fff",
       boxShadow: "0px -6px 10px lightgrey",
     },
-  }),
+  },
 };
 
-export default priceBarDrawer;
+export default drawerButtonStyles;

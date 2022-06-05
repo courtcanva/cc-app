@@ -1,16 +1,23 @@
-import { Flex, Button, Text, IconButton, Grid, Menu, MenuButton } from "@chakra-ui/react";
+import { Flex, Button, IconButton, Grid, Menu, MenuButton } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
-import { BiStar, BiPencil } from "react-icons/bi";
 import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
+import EditorDesignName from "@/components/NavBar/EditorDesignName";
 
 const NavigationBar = () => {
   return (
-    <Grid templateColumns="repeat(3, 1fr)" bg="brand.primary" p={4}>
+    <Grid
+      templateColumns="repeat(3, 1fr)"
+      bg="brand.primary"
+      p={4}
+      minW="768px"
+      w="100vw"
+      position="fixed"
+    >
       <Flex alignItems="center">
         <Link href={HOME_PAGE_LINK} passHref>
           <Button leftIcon={<IoIosArrowBack />} pl="0" variant="navbarIconBtn">
@@ -36,13 +43,7 @@ const NavigationBar = () => {
           />
         </Flex>
       </Flex>
-      <Flex justifyContent="center" alignItems="center">
-        <IconButton aria-label="Star" icon={<BiStar />} variant="navbarIconBtn" />
-        <Text color="white" fontSize="xl">
-          CourtCanva1
-        </Text>
-        <IconButton aria-label="Edit" icon={<BiPencil />} variant="navbarIconBtn" />
-      </Flex>
+      <EditorDesignName />
       <Flex alignItems="center" justifyContent="flex-end">
         <IconButton
           aria-label="User information"
