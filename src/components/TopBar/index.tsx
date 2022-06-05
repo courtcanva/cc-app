@@ -1,6 +1,14 @@
-import { Slider, SliderTrack, SliderFilledTrack, SliderThumb } from "@chakra-ui/react";
-import { Flex, SimpleGrid, Text, IconButton, useDisclosure } from "@chakra-ui/react";
-import { Modal, ModalOverlay } from "@chakra-ui/react";
+import {
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  Flex,
+  SimpleGrid,
+  Text,
+  IconButton,
+  useDisclosure
+} from "@chakra-ui/react";
 import {
   Popover,
   PopoverTrigger,
@@ -9,7 +17,6 @@ import {
   PopoverArrow,
 } from "@chakra-ui/react";
 
-import MContent from "../Login";
 import ColorBoard from "./ColorBoard";
 
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
