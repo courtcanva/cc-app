@@ -51,7 +51,7 @@ const EditorFooter = () => {
             colorScheme="footerSwitch"
             className="custom-switch"
             sx={{
-              "span:first-child": {
+              "span .chakra-switch__thumb": {
                 bgColor: "brand.primary",
               },
             }}
