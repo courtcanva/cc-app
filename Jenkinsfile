@@ -51,10 +51,11 @@ pipeline {
 		               sh 'aws s3 sync out ${UATS3Bucket}'
                           }
                   }  
-		  stage('Clean Worksapce') {
-		          steps{
-			       cleanWs () 
-		          }
-	          }	  	
-        }
+	}	
+        post {
+	      always {
+                     cleanWs()
+             }
+	}	  	
+       
 }
