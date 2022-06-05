@@ -7,7 +7,7 @@ const BasketballCourt = dynamic(() => import("@/components/BasketballCourt"), { 
 const Home: NextPage = () => {
   return (
     <HeaderLayout>
-      <BasketballCourt />;
+      <BasketballCourt />
     </HeaderLayout>
   );
 };
