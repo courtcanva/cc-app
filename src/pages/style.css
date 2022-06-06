@@ -18,6 +18,6 @@
     background-color: #ABABAD;  
     }  
 
-.custom-switch .chakra-switch__track[data-focus]{
+/* .custom-switch .chakra-switch__track[data-focus]{
     box-shadow: none;
-}
+} */
