@@ -2,6 +2,7 @@ import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 import { StyleFunctionProps } from "@chakra-ui/theme-tools";
 import buttonStyles from "./components/buttonStyles";
 import priceBarDrawer, { DrawerButton } from "./components/priceBarDrawer";
+import modal from "./modal";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -57,6 +58,7 @@ const components = {
   },
   Button: { ...buttonStyles },
   Drawer: { ...priceBarDrawer },
+  Modal: { ...modal },
   DrawerButton,
 };
 

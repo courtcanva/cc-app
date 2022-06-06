@@ -7,7 +7,7 @@ import {
   SimpleGrid,
   Text,
   IconButton,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import {
   Popover,

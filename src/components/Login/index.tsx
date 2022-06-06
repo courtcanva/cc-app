@@ -8,7 +8,7 @@ import {
   Button,
   ModalFooter,
 } from "@chakra-ui/react";
-import { Flex, Text, Icon, Link, useDisclosure } from "@chakra-ui/react";
+import { Flex, Text, Icon, Link } from "@chakra-ui/react";
 import { FaGoogle, FaEnvelope } from "react-icons/fa";
 import React from "react";
 
