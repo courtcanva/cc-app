@@ -17,7 +17,9 @@ const customJestConfig = {
   moduleNameMapper: {
     "^@/components/(.*)$": "<rootDir>/src/components/$1",
     "^@/constants/(.*)$": "<rootDir>/src/constants/$1",
+    "^@/store/(.*)$": "<rootDir>/src/store/$1",
     "^@/pages/(.*)$": "<rootDir>/src/pages/$1",
+    "^konva": "konva/konva",
   },
   collectCoverageFrom: [
     "<rootDir>/src/**/*.{tsx,ts}",
@@ -26,6 +28,9 @@ const customJestConfig = {
     "!<rootDir>/src/pages/_app.tsx",
     "!<rootDir>/src/pages/_document.tsx",
     "!<rootDir>/src/utils/axios.ts",
+    "!<rootDir>/src/components/BasketballCourt/*", // exclude canvas
+    "!<rootDir>/src/store/reducer/counterSlice.ts", // should be deleted later
+    "!<rootDir>/src/store/hooks.ts", // exclude redux hooks
     "!<rootDir>/node_modules/",
     "!<rootDir>/**/__tests__/**",
     "!<rootDir>/**/*.d.ts",

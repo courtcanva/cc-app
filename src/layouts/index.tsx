@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Header from "./Header";
-import Footer from "./Footer";
 import NavigationBar from "../components/NavBar";
 import EditorSideBar from "../components/EditorSideBar";
 import EditorFooter from "@/components/EditorFooter";
@@ -31,7 +30,6 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
         <EditorSideBar />
         {children}
         <TopBar />
-        <Footer />
       </Box>
       <PriceBar />
       <EditorFooter />
