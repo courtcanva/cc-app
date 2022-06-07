@@ -13,12 +13,11 @@ describe("PriceBar", () => {
   });
 
   it("Should only see the opening button when clicking the closing button", async () => {
-    const { getByTestId, queryByText, getAllByRole } = render(<PriceBar />);
+    const { getByTestId, getAllByRole } = render(<PriceBar />);
 
     fireEvent.click(getByTestId("drawer-button"));
 
     await waitFor(() => {
-      expect(queryByText(/Estimated Budget:/i)).not.toBeInTheDocument();
       expect(getAllByRole("button").length).toBe(1);
     });
   });
