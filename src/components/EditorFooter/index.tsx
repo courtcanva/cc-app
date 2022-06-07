@@ -49,14 +49,13 @@ const EditorFooter = () => {
           <Switch
             id="ruler-switch-btn"
             colorScheme="footerSwitch"
-            // className="custom-switch"
             sx={{
               "span .chakra-switch__thumb": {
                 bgColor: "brand.primary",
               },
               "span.chakra-switch__track[data-focus]": {
                 boxShadow: "none",
-              }
+              },
             }}
             defaultChecked
             data-testid="switch-btn"
