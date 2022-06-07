@@ -2,7 +2,6 @@ import { Stage, Layer } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import ThreePointArea from "./ThreePointArea";
 import { ReactReduxContext, Provider } from "react-redux";
-import { calcAxisDelta } from "framer-motion/types/projection/geometry/delta-calc";
 
 const BasketballCourt = () => {
   return (
