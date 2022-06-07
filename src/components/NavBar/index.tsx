@@ -1,6 +1,5 @@
 import { Flex, Button, Text, IconButton, Grid, useDisclosure } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
-// import { Modal, ModalOverlay } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
