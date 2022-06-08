@@ -26,6 +26,10 @@ You can start editing the page by modifying `src/pages/index.tsx`. The page auto
 
 The `src/pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+### Prepare First Commit
+
+Add a file named .env at the root directory. Copy the JS from ticket [Frontend ENV](https://www.notion.so/CourtCanva-Boards-9a664c4a1114424080ed647b31873151?p=5c24cef3686b4426a7fd012b52d49fcd) and paste it in .env.
+
 ### Build for Deploy
 
 ```shell
