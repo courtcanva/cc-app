@@ -49,7 +49,7 @@ const NavigationBar = () => {
         </Flex>
       </Flex>
       <EditorDesignName />
-      <Flex alignItems="center" justifyContent="flex-end"> 
+      <Flex alignItems="center" justifyContent="flex-end">
         <Menu>
           <MenuButton
             as={IconButton}
@@ -61,8 +61,7 @@ const NavigationBar = () => {
             marginRight="10px"
             isRound
             onClick={onOpen}
-          >
-          </MenuButton>
+          ></MenuButton>
         </Menu>
         <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent>
         <IconButton aria-label="Download design" icon={<FiDownload />} variant="navbarIconBtn" />
