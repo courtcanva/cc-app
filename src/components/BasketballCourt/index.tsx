@@ -2,6 +2,7 @@ import { Stage, Layer } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import ThreePointArea from "./ThreePointArea";
 import { ReactReduxContext, Provider } from "react-redux";
+import CourtArea from "./CourtArea";
 
 const BasketballCourt = () => {
   return (
@@ -28,6 +29,7 @@ const BasketballCourt = () => {
           >
             <Provider store={store}>
               <Layer>
+                <CourtArea />
                 <ThreePointArea />
               </Layer>
             </Provider>
