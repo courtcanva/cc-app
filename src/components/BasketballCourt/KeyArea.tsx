@@ -2,21 +2,17 @@ import { Rect } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 
 const KeyArea = ({ color = "#1A1F51" }) => {
-  const {
-    startPointX,
-    startPointY,
-    controlPointFourY,
-  } = useStoreSelector((state) => state.threePointLine);
+  const { startPointX, startPointY, width, height } = useStoreSelector((state) => state.keyArea);
 
   return (
     <Rect
-      width={45}
-      height={controlPointFourY-startPointY-31.5}
+      width={width}
+      height={height}
       fill={color}
       stroke="white"
       strokeWidth={2}
       x={startPointX}
-      y={startPointY+15.75}
+      y={startPointY}
     />
   );
 };
