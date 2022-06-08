@@ -28,8 +28,7 @@ The `src/pages/api` directory is mapped to `/api/*`. Files in this directory are
 
 ### Prepare First Commit
 
-Add a file named .env at the root directory. Copy the JS from ticket [Frontend ENV](https://www.notion.so/CourtCanva-Boards-9a664c4a1114424080ed647b31873151?p=5c24cef3686b4426a7fd012b52d49fcd) and paste it in .env.
-
+Add a file named .env at the root directory. Copy the JS from Frontend ENV ticket on notion(Get notion access permission from the development group) and paste it in .env.
 
 ### Build for Deploy
 
