@@ -30,8 +30,8 @@ function LoginModalContent(props: Props) {
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>
-          <Flex flexDir="column" mt="40px" mb="20px">
+        <ModalHeader >
+          <Flex flexDir="column" mt="40px" mb="20px" >
             <Text fontSize="xl" fontWeight="bold">
               Log in or sign up
             </Text>

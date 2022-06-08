@@ -1,13 +1,13 @@
-import { Flex, Button, Text, IconButton, Grid, useDisclosure } from "@chakra-ui/react";
+import { Flex, Button, IconButton, Grid, useDisclosure } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
-import { BiStar, BiPencil } from "react-icons/bi";
 import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
+import EditorDesignName from "@/components/NavBar/EditorDesignName";
 
 import LoginModalContent from "../Login";
 
@@ -15,7 +15,14 @@ const NavigationBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Grid templateColumns="repeat(3, 1fr)" bg="brand.primary" p={4}>
+    <Grid
+      templateColumns="repeat(3, 1fr)"
+      bg="brand.primary"
+      p={4}
+      minW="768px"
+      w="100vw"
+      position="fixed"
+    >
       <Flex alignItems="center">
         <Link href={HOME_PAGE_LINK} passHref>
           <Button leftIcon={<IoIosArrowBack />} pl="0" variant="navbarIconBtn">
@@ -41,14 +48,8 @@ const NavigationBar = () => {
           />
         </Flex>
       </Flex>
-      <Flex justifyContent="center" alignItems="center">
-        <IconButton aria-label="Star" icon={<BiStar />} variant="navbarIconBtn" />
-        <Text color="white" fontSize="xl">
-          CourtCanva1
-        </Text>
-        <IconButton aria-label="Edit" icon={<BiPencil />} variant="navbarIconBtn" />
-      </Flex>
-      <Flex alignItems="center" justifyContent="flex-end">
+      <EditorDesignName />
+      <Flex alignItems="center" justifyContent="flex-end"> 
         <Menu>
           <MenuButton
             as={IconButton}
@@ -59,19 +60,11 @@ const NavigationBar = () => {
             color="black"
             marginRight="10px"
             isRound
-          ></MenuButton>
-          <MenuList>
-            <MenuItem onClick={onOpen} data-testid="login-btn" _hover={{ bg: "brand.secondary" }}>
-              Log in
-            </MenuItem>
-            <MenuItem onClick={onOpen} data-testid="logout-btn" _hover={{ bg: "brand.secondary" }}>
-              Sign up
-            </MenuItem>
-          </MenuList>
+            onClick={onOpen}
+          >
+          </MenuButton>
         </Menu>
-
         <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent>
-
         <IconButton aria-label="Download design" icon={<FiDownload />} variant="navbarIconBtn" />
         <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
         <Button variant="shareBtn" marginLeft="10px" onClick={onOpen} data-testid="share-btn">

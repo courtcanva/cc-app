@@ -1,10 +1,10 @@
-import React from "react";
 import { Box, Flex, IconButton, FormControl, Switch, FormLabel } from "@chakra-ui/react";
 import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
 import { BiHelpCircle } from "react-icons/bi";
+import { useState } from "react";
 
 const EditorFooter = () => {
-  const [rulerLabel, setRulerLabel] = React.useState("Ruler on");
+  const [ruler, setRuler] = useState("Ruler On");
   return (
     <Flex
       position="fixed"
@@ -38,26 +38,30 @@ const EditorFooter = () => {
       <Flex gap={8}>
         <FormControl display="flex" alignItems="center">
           <FormLabel
-            htmlFor="ruler-swith-btn"
+            htmlFor="ruler-switch-btn"
             mb="0"
             color="brand.primary"
             data-testid="ruler-label"
+            w="70px"
           >
-            {rulerLabel}
+            {ruler}
           </FormLabel>
           <Switch
-            id="ruler-swith-btn"
+            id="ruler-switch-btn"
             colorScheme="footerSwitch"
             sx={{
-              "span:first-child": {
+              "span .chakra-switch__thumb": {
                 bgColor: "brand.primary",
+              },
+              "span.chakra-switch__track[data-focus]": {
+                boxShadow: "none",
               },
             }}
             defaultChecked
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setRulerLabel(e.target.checked ? "Ruler on" : "Ruler off")
-            }
             data-testid="switch-btn"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setRuler(e.target.checked ? "Ruler On" : "Ruler Off")
+            }
           />
         </FormControl>
         <IconButton

@@ -1,4 +1,3 @@
-import { screen } from "@testing-library/react";
 import renderWithMockedProvider from "../utils";
 import HeaderLayout from "../../layouts/HeaderLayout";
 import Home from "../../pages";
@@ -10,6 +9,5 @@ describe("Header", () => {
         <Home />
       </HeaderLayout>
     );
-    expect(screen.getByText("Welcome to CourtCanva")).toBeInTheDocument();
   });
 });

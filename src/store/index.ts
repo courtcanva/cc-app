@@ -1,10 +1,10 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import counterReducer from "./reducer/counterSlice";
+import threePointLineReducer from "./reducer/courtSlices/threePointLineSlice";
 
 export const makeStore = () =>
   configureStore({
     reducer: {
-      counter: counterReducer,
+      threePointLine: threePointLineReducer,
     },
   });
 

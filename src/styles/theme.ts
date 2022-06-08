@@ -1,8 +1,8 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 import { StyleFunctionProps } from "@chakra-ui/theme-tools";
 import buttonStyles from "./components/buttonStyles";
-import priceBarDrawer, { DrawerButton } from "./components/priceBarDrawer";
 import modal from "./modal";
+import drawerButtonStyles from "./components/drawerButtonStyles";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -37,10 +37,10 @@ const colors = {
   CourtSizecolor: {
     btc: "#40B484",
     bt: "#FFFFFF",
-    border: "#344C5C"
+    border: "#344C5C",
   },
-  footerSwitch:{
-    500:"#8FE9C3",
+  footerSwitch: {
+    500: "#8FE9C3",
   },
 };
 
@@ -53,15 +53,15 @@ const components = {
       fontSize: "lg",
       fontWeight: "semibold",
       color: "#344C5C",
-      textAlign: "center"
+      textAlign: "center",
     }),
   },
   Button: { ...buttonStyles },
-  Drawer: { ...priceBarDrawer },
   Modal: { ...modal },
-  DrawerButton,
+  Drawer: { ...drawerButtonStyles },
+  drawerButtonStyles,
 };
 
-const theme = extendTheme({ colors, config, styles, components});
+const theme = extendTheme({ colors, config, styles, components });
 
 export default theme;

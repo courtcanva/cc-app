@@ -23,18 +23,4 @@ describe("NavigationBar", () => {
     const openButton = screen.getByTestId("share-btn");
     expect(openButton).toBeInTheDocument();
   });
-
-  it("Should render login button", () => {
-    render(<NavigationBar />);
-
-    const openButton = screen.getByTestId("login-btn");
-    expect(openButton).toBeInTheDocument();
-  });
-
-  it("Should render logout button", () => {
-    render(<NavigationBar />);
-
-    const openButton = screen.getByTestId("logout-btn");
-    expect(openButton).toBeInTheDocument();
-  });
 });

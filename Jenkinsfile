@@ -1,6 +1,7 @@
 pipeline {
         agent any
         environment {
+		   AWS_ACCESS_KEY=credentials('aws-creds-sl')
       	           GIT_HASH = GIT_COMMIT.take(7)
 		   Version_ID = "$BUILD_NUMBER" + "-" + "$GIT_HASH" + "-" + "$BUILD_TIMESTAMP"
 		   NEXT_PUBLIC_UAT_URL = "$NEXT_PUBLIC_UAT_URL"
@@ -36,7 +37,7 @@ pipeline {
 		          }
 	                  steps{
 	                       echo 'Zip Artifact File' 
-		               sh 'zip "1.0.$Version_ID".zip ./out/*'
+		               sh 'cd out; zip -r ../"1.0.$Version_ID".zip .'
 		               echo 'Upload main branch artifact to front-end artifact repo'
 				  sh 'aws s3 cp "1.0.$Version_ID".zip ${FrontEndRepo}'
 		          }
@@ -50,10 +51,11 @@ pipeline {
 		               sh 'aws s3 sync out ${UATS3Bucket}'
                           }
                   }  
-		  stage('Clean Worksapce') {
-		          steps{
-			       cleanWs () 
-		          }
-	          }	  	
-        }
+	}	
+        post {
+	      always {
+                     cleanWs()
+             }
+	}	  	
+       
 }
