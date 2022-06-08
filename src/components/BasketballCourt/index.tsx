@@ -31,8 +31,6 @@ const BasketballCourt = () => {
             <Provider store={store}>
               <Layer>
                 <ThreePointArea />
-              </Layer>
-              <Layer>
                 <KeyArea />
               </Layer>
             </Provider>
