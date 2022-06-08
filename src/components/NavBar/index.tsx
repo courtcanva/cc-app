@@ -1,4 +1,5 @@
-import { Flex, Button, IconButton, Grid, Menu, MenuButton } from "@chakra-ui/react";
+import { Flex, Button, IconButton, Grid, useDisclosure } from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -8,7 +9,11 @@ import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
 import EditorDesignName from "@/components/NavBar/EditorDesignName";
 
+import LoginModalContent from "../Login";
+
 const NavigationBar = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Grid
       templateColumns="repeat(3, 1fr)"
@@ -44,19 +49,25 @@ const NavigationBar = () => {
         </Flex>
       </Flex>
       <EditorDesignName />
-      <Flex alignItems="center" justifyContent="flex-end">
-        <IconButton
-          aria-label="User information"
-          icon={<FaRegUser />}
-          variant="navbarIconBtn"
-          bg="white"
-          color="black"
-          marginRight="10px"
-          isRound
-        />
+      <Flex alignItems="center" justifyContent="flex-end"> 
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            aria-label="User information"
+            icon={<FaRegUser />}
+            variant="navbarIconBtn"
+            bg="white"
+            color="black"
+            marginRight="10px"
+            isRound
+            onClick={onOpen}
+          >
+          </MenuButton>
+        </Menu>
+        <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent>
         <IconButton aria-label="Download design" icon={<FiDownload />} variant="navbarIconBtn" />
         <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
-        <Button variant="shareBtn" marginLeft="10px">
+        <Button variant="shareBtn" marginLeft="10px" onClick={onOpen} data-testid="share-btn">
           Share
         </Button>
       </Flex>

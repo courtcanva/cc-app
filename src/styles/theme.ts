@@ -1,6 +1,7 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 import { StyleFunctionProps } from "@chakra-ui/theme-tools";
 import buttonStyles from "./components/buttonStyles";
+import modal from "./modal";
 import drawerButtonStyles from "./components/drawerButtonStyles";
 
 const config: ThemeConfig = {
@@ -26,10 +27,12 @@ const colors = {
   },
   background: {
     primary: "#2C3333",
-    secondary: "#4f5757",
+    secondary : "#4f5757",
+    third:"#EDF2F7"
   },
   fontcolor: {
     primary: "#C8C5C5",
+    secondary:"#1A202C",
   },
   CourtSizecolor: {
     btc: "#40B484",
@@ -54,6 +57,7 @@ const components = {
     }),
   },
   Button: { ...buttonStyles },
+  Modal: { ...modal },
   Drawer: { ...drawerButtonStyles },
   drawerButtonStyles,
 };

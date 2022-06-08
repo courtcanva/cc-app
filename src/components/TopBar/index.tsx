@@ -1,5 +1,14 @@
-import { Slider, SliderTrack, SliderFilledTrack, SliderThumb } from "@chakra-ui/react";
-import { Flex, SimpleGrid, Text, IconButton } from "@chakra-ui/react";
+import {
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  Flex,
+  SimpleGrid,
+  Text,
+  IconButton,
+  useDisclosure,
+} from "@chakra-ui/react";
 import {
   Popover,
   PopoverTrigger,
@@ -15,8 +24,11 @@ import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import RbSvg from "@/assets/svg/TopBarSvg/rainbow.svg";
 import ScSvg from "@/assets/svg/TopBarSvg/smallCourt.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
+import LoginModalContent from "../Login";
 
 const TopBar = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <SimpleGrid
       columns={2}
@@ -121,7 +133,10 @@ const TopBar = () => {
             colorScheme="transparent"
             icon={<DocSvg />}
             variant="editorFooterIconBtn"
+            onClick={onOpen}
+            data-testid="download-btn"
           />
+          <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent>
           <IconButton
             aria-label="Bin"
             colorScheme="transparent"

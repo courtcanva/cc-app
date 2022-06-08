@@ -32,4 +32,11 @@ describe("TopBar", () => {
     render(<TopBar />);
     expect(screen.getByTestId("uploadBtn")).toBeTruthy();
   });
+
+  it("Should render Share button", () => {
+    render(<TopBar />);
+
+    const downloadButton = screen.getByTestId("download-btn");
+    expect(downloadButton).toBeInTheDocument();
+  });
 });
