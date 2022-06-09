@@ -5,6 +5,7 @@ import ThreePointArea from "./ThreePointArea";
 import KeyArea from "./KeyArea";
 import CourtArea from "./CourtArea";
 import TopKeyArea from "./TopKeyArea";
+import Border from "./Border";
 
 const BasketballCourt = () => {
   return (
@@ -31,6 +32,7 @@ const BasketballCourt = () => {
           >
             <Provider store={store}>
               <Layer>
+                <Border />
                 <CourtArea />
                 <ThreePointArea />
                 <KeyArea />
