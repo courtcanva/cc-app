@@ -1,6 +1,7 @@
 import { Stage, Layer } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import ThreePointArea from "./ThreePointArea";
+import KeyArea from "./KeyArea";
 import { ReactReduxContext, Provider } from "react-redux";
 import CourtArea from "./CourtArea";
 import Border from "./Border";
@@ -33,6 +34,7 @@ const BasketballCourt = () => {
                 <Border />
                 <CourtArea />
                 <ThreePointArea />
+                <KeyArea />
               </Layer>
             </Provider>
           </Stage>

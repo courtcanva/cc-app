@@ -26,6 +26,10 @@ You can start editing the page by modifying `src/pages/index.tsx`. The page auto
 
 The `src/pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+### Prepare First Commit
+
+Add a file named .env at the root directory. Copy the JS from Frontend ENV ticket on notion(Get notion access permission from the development group) and paste it in .env.
+
 ### Build for Deploy
 
 ```shell
