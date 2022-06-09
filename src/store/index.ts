@@ -9,7 +9,7 @@ export const makeStore = () =>
     reducer: {
       threePointLine: threePointLineReducer,
       courtArea: courtAreaReducer,
-      border:borderReducer,
+      border: borderReducer,
       keyArea: keyAreaReducer,
     },
   });
