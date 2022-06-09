@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import courtAreaReducer from "./reducer/courtSlices/courtAreaSlice";
 import threePointLineReducer from "./reducer/courtSlices/threePointLineSlice";
 import keyAreaReducer from "./reducer/courtSlices/keyAreaSlice";
+import circleAreaReducer from "./reducer/courtSlices/circleAreaSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -9,6 +10,7 @@ export const makeStore = () =>
       threePointLine: threePointLineReducer,
       courtArea: courtAreaReducer,
       keyArea: keyAreaReducer,
+      circleArea: circleAreaReducer,
     },
   });
 

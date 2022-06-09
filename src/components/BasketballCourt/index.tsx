@@ -4,6 +4,7 @@ import ThreePointArea from "./ThreePointArea";
 import KeyArea from "./KeyArea";
 import { ReactReduxContext, Provider } from "react-redux";
 import CourtArea from "./CourtArea";
+import CircleArea from "./CircleArea";
 
 const BasketballCourt = () => {
   return (
@@ -33,6 +34,7 @@ const BasketballCourt = () => {
                 <CourtArea />
                 <ThreePointArea />
                 <KeyArea />
+                <CircleArea />
               </Layer>
             </Provider>
           </Stage>
