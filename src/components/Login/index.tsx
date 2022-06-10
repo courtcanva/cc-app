@@ -9,7 +9,8 @@ import {
   ModalFooter,
 } from "@chakra-ui/react";
 import { Flex, Text, Icon, Link } from "@chakra-ui/react";
-import { FaGoogle, FaEnvelope } from "react-icons/fa";
+import { FaEnvelope } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import React from "react";
 
 interface Props {
@@ -31,11 +32,14 @@ function LoginModalContent(props: Props) {
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          <Flex flexDir="column" mt="40px" mb="20px">
-            <Text fontSize="xl" fontWeight="bold">
-              Log in or sign up
+          <Flex flexDir="column" alignItems="center" mt="40px" mb="20px">
+            <Text fontSize="xl" fontWeight="bold" color="brand.secondary">
+              CourtCanva
             </Text>
-            <Text fontSize="sm">Use your email or google account to continue with CourtCanva</Text>
+            <Text fontSize="xl">Log in or sign up in seconds</Text>
+            <Text fontSize="11px" textAlign="center" fontWeight="light">
+              Use your email or Google account to continue with CourtCanva!
+            </Text>
           </Flex>
         </ModalHeader>
         <ModalCloseButton />
@@ -43,7 +47,7 @@ function LoginModalContent(props: Props) {
           <Flex flexDir="column" justifyContent="space-around" gap="25px">
             <Button variant="loginBtn" position="relative" ref={initialRef}>
               <Icon w="28px" h="28px" position="absolute" top="11px" left="20px">
-                <FaGoogle />
+                <FcGoogle />
               </Icon>
               <Text>Continue with Google </Text>
             </Button>
@@ -52,19 +56,19 @@ function LoginModalContent(props: Props) {
               <Icon w="28px" h="28px" position="absolute" top="12px" left="20px">
                 <FaEnvelope />
               </Icon>
-              <Text>Continue with Email </Text>
+              <Text>Continue with email </Text>
             </Button>
           </Flex>
         </ModalBody>
         <ModalFooter>
-          <Text fontSize="sm">
-            By continuing, you agree to to CourtCanva’s&nbsp;
-            <Link href="#" textDecoration="underline" _hover={{ color: "CourtSizecolor.btc" }}>
-              Term of Use.
+          <Text fontSize="10px">
+            By continuing, you agree to CourtCanva’s&nbsp;
+            <Link href="#" textDecoration="underline" _hover={{ color: "fontcolor.third" }}>
+              Terms of Use
             </Link>
-            &nbsp;Read our&nbsp;
-            <Link href="#" textDecoration="underline" _hover={{ color: "CourtSizecolor.btc" }}>
-              Privacy Policy.
+            &nbsp;and read our&nbsp;
+            <Link href="#" textDecoration="underline" _hover={{ color: "fontcolor.third" }}>
+              Privacy Policy
             </Link>
           </Text>
         </ModalFooter>

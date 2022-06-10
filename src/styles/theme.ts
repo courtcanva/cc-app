@@ -27,17 +27,21 @@ const colors = {
   },
   background: {
     primary: "#2C3333",
-    secondary : "#4f5757",
-    third:"#EDF2F7"
+    secondary: "#4f5757",
+    third: "#EDF2F7",
   },
   fontcolor: {
     primary: "#C8C5C5",
-    secondary:"#1A202C",
+    secondary: "#1A202C",
+    third: "#4285f4",
   },
   CourtSizecolor: {
     btc: "#40B484",
     bt: "#FFFFFF",
     border: "#344C5C",
+  },
+  button: {
+    active: "#699D88",
   },
   footerSwitch: {
     500: "#8FE9C3",
