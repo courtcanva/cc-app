@@ -33,7 +33,7 @@ function LoginModalContent(props: Props) {
       <ModalContent>
         <ModalHeader>
           <Flex flexDir="column" alignItems="center" mt="40px" mb="20px">
-            <Text fontSize="xl" fontWeight="bold" color="brand.secondary">
+            <Text fontSize="2xl" fontWeight="bold" color="brand.secondary" mb="20px" role="logo">
               CourtCanva
             </Text>
             <Text fontSize="xl">Log in or sign up in seconds</Text>
