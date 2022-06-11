@@ -3,6 +3,7 @@ import courtAreaReducer from "./reducer/courtSlices/courtAreaSlice";
 import threePointLineReducer from "./reducer/courtSlices/threePointLineSlice";
 import borderReducer from "./reducer/courtSlices/borderSlice";
 import keyAreaReducer from "./reducer/courtSlices/keyAreaSlice";
+import circleAreaReducer from "./reducer/courtSlices/circleAreaSlice";
 import topKeyAreaReducer from "./reducer/courtSlices/topKeyAreaSlice";
 
 export const makeStore = () =>
@@ -12,6 +13,7 @@ export const makeStore = () =>
       courtArea: courtAreaReducer,
       border: borderReducer,
       keyArea: keyAreaReducer,
+      circleArea: circleAreaReducer,
       topKeyArea: topKeyAreaReducer,
     },
   });
