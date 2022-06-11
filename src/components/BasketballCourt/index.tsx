@@ -1,10 +1,12 @@
 import { Stage, Layer } from "react-konva";
 import { Flex } from "@chakra-ui/react";
+import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "./ThreePointArea";
 import KeyArea from "./KeyArea";
-import { ReactReduxContext, Provider } from "react-redux";
 import CourtArea from "./CourtArea";
 import CircleArea from "./CircleArea";
+import TopKeyArea from "./TopKeyArea";
+import Border from "./Border";
 
 const BasketballCourt = () => {
   return (
@@ -31,10 +33,12 @@ const BasketballCourt = () => {
           >
             <Provider store={store}>
               <Layer>
+                <Border />
                 <CourtArea />
                 <ThreePointArea />
                 <KeyArea />
                 <CircleArea />
+                <TopKeyArea />
               </Layer>
             </Provider>
           </Stage>

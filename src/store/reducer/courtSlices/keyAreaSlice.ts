@@ -7,9 +7,9 @@ export interface KeyAreaState {
 
 export const initialState: KeyAreaState = {
   startPointX: 30,
-  startPointY: 185,
-  width: 50,
-  height: 30,
+  startPointY: 176,
+  width: 57.9,
+  height: 48,
 };
 
 export const keyAreaSlice = createSlice({

@@ -10,6 +10,15 @@ $ npm i
 $ yarn
 ```
 
+### Set Environment Variables
+
+```bash
+$ cp .env.example .env. 
+```
+
+Note: Copy the value from Frontend ENV ticket on notion(Get notion access permission from the development group) and paste it in .env.
+
+
 ### Start the server
 
 ```bash
