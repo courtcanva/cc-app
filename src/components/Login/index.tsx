@@ -7,9 +7,13 @@ import {
   ModalCloseButton,
   Button,
   ModalFooter,
+  Flex,
+  Text,
+  Icon,
+  Link,
   useStyleConfig,
 } from "@chakra-ui/react";
-import { Flex, Text, Icon, Link } from "@chakra-ui/react";
+import { IconContext } from "react-icons";
 import { FaEnvelope } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import React from "react";
@@ -34,12 +38,12 @@ function LoginModalContent(props: Props) {
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          <Flex flexDir="column" alignItems="center" mt="40px" mb="20px">
+          <Flex flexDir="column" alignItems="center" mt="40px">
             <Text sx={logoStyles} fontSize="2xl" mb="20px" role="logo">
               CourtCanva
             </Text>
             <Text fontSize="xl">Log in or sign up in seconds</Text>
-            <Text fontSize="11px" textAlign="center" fontWeight="light">
+            <Text fontSize="11px" textAlign="center" fontWeight="light" mt="15px">
               Use your email or Google account to continue with CourtCanva!
             </Text>
           </Flex>
@@ -47,17 +51,18 @@ function LoginModalContent(props: Props) {
         <ModalCloseButton />
         <ModalBody mb="20px">
           <Flex flexDir="column" justifyContent="space-around" gap="25px">
-            <Button variant="loginBtn" position="relative" ref={initialRef}>
-              <Icon w="28px" h="28px" position="absolute" top="11px" left="20px">
+            <Button variant="loginBtn" position="relative">
+              <Icon w="32px" h="32px" position="absolute" top="8px" left="20px">
                 <FcGoogle />
               </Icon>
               <Text>Continue with Google </Text>
             </Button>
-
             <Button variant="loginBtn" position="relative">
-              <Icon w="28px" h="28px" position="absolute" top="12px" left="20px">
-                <FaEnvelope />
-              </Icon>
+              <IconContext.Provider value={{ color: "#FF5439", className: "global-class-name" }}>
+                <Icon w="32px" h="32px" position="absolute" top="8px" left="20px">
+                  <FaEnvelope />
+                </Icon>
+              </IconContext.Provider>
               <Text>Continue with email </Text>
             </Button>
           </Flex>
