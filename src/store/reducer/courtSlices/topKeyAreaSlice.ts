@@ -13,7 +13,7 @@ export interface TopKeyAreaState {
 }
 
 export const initialState: TopKeyAreaState = {
-  startPointX: 80,
+  startPointX: 87.9,
   startPointY: 200,
   innerRadius: 0,
   outerRadius: 15,
