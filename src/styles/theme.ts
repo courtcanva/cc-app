@@ -42,6 +42,7 @@ const colors = {
     border: "#344C5C",
   },
   button: {
+    hover: "#40B484",
     active: "#699D88",
   },
   footerSwitch: {
@@ -68,14 +69,16 @@ const components = {
   Logo: { ...logoStyles },
 };
 
+const fonts = {
+  body: `"Inter", sans-serif`,
+};
+
 const theme = extendTheme({
   colors,
   config,
   styles,
   components,
-  fonts: {
-    body: `"Inter", sans-serif`,
-  },
+  fonts,
 });
 
 export default theme;

@@ -33,9 +33,8 @@ const buttonStyles = {
       fontSize: "16px",
       fontWeights: "bold",
       lineHeights: "40",
-      _hover: { bg: "brand.secondary" },
+      _hover: { bg: "button.hover" },
       _active: { bg: "button.active" },
-      _focus: { bg: "brand.secondary", boxShadow: "none" },
     },
   },
 };
