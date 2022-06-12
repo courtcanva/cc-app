@@ -1,3 +1,6 @@
+import "@fontsource/inter";
+import "@fontsource/lobster-two";
+
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./theme";
 

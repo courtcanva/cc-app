@@ -7,6 +7,7 @@ import {
   ModalCloseButton,
   Button,
   ModalFooter,
+  useStyleConfig,
 } from "@chakra-ui/react";
 import { Flex, Text, Icon, Link } from "@chakra-ui/react";
 import { FaEnvelope } from "react-icons/fa";
@@ -20,6 +21,7 @@ interface Props {
 
 function LoginModalContent(props: Props) {
   const initialRef = React.useRef(null);
+  const logoStyles = useStyleConfig("Logo");
 
   return (
     <Modal
@@ -33,7 +35,7 @@ function LoginModalContent(props: Props) {
       <ModalContent>
         <ModalHeader>
           <Flex flexDir="column" alignItems="center" mt="40px" mb="20px">
-            <Text fontSize="2xl" fontWeight="bold" color="brand.secondary" mb="20px" role="logo">
+            <Text sx={logoStyles} fontSize="2xl" mb="20px" role="logo">
               CourtCanva
             </Text>
             <Text fontSize="xl">Log in or sign up in seconds</Text>
