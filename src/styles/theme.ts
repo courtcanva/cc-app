@@ -3,7 +3,6 @@ import { StyleFunctionProps } from "@chakra-ui/theme-tools";
 import buttonStyles from "./components/buttonStyles";
 import modal from "./modal";
 import drawerButtonStyles from "./components/drawerButtonStyles";
-import logoStyles from "./components/logoStyles";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -29,12 +28,12 @@ const colors = {
   background: {
     primary: "#2C3333",
     secondary: "#4f5757",
-    third: "#EDF2F7",
+    tertiary: "#EDF2F7",
   },
   fontcolor: {
     primary: "#C8C5C5",
     secondary: "#1A202C",
-    third: "#4285f4",
+    tertiary: "#4285f4",
   },
   CourtSizecolor: {
     btc: "#40B484",
@@ -66,7 +65,6 @@ const components = {
   Modal: { ...modal },
   Drawer: { ...drawerButtonStyles },
   drawerButtonStyles,
-  Logo: { ...logoStyles },
 };
 
 const fonts = {

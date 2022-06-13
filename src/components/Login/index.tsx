@@ -11,8 +11,8 @@ import {
   Text,
   Icon,
   Link,
-  useStyleConfig,
 } from "@chakra-ui/react";
+import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import { IconContext } from "react-icons";
 import { FaEnvelope } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -25,7 +25,6 @@ interface Props {
 
 function LoginModalContent(props: Props) {
   const initialRef = React.useRef(null);
-  const logoStyles = useStyleConfig("Logo");
 
   return (
     <Modal
@@ -38,20 +37,20 @@ function LoginModalContent(props: Props) {
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          <Flex flexDir="column" alignItems="center" mt="40px">
-            <Text sx={logoStyles} fontSize="2xl" mb="20px" role="logo">
-              CourtCanva
-            </Text>
+          <Flex flexDir="column" alignItems="center" marginTop="20px">
+            <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">
+              <MainLogoSvg />
+            </Icon>
             <Text fontSize="xl">Log in or sign up in seconds</Text>
-            <Text fontSize="11px" textAlign="center" fontWeight="light" mt="15px">
+            <Text fontSize="11px" textAlign="center" fontWeight="light" marginTop="15px">
               Use your email or Google account to continue with CourtCanva!
             </Text>
           </Flex>
         </ModalHeader>
-        <ModalCloseButton />
-        <ModalBody mb="20px">
-          <Flex flexDir="column" justifyContent="space-around" gap="25px">
-            <Button variant="loginBtn" position="relative">
+        <ModalCloseButton role="closeButton" />
+        <ModalBody>
+          <Flex flexDir="column" justifyContent="space-around" gap="25px" paddingX="20px">
+            <Button variant="loginBtn" position="relative" ref={initialRef}>
               <Icon w="32px" h="32px" position="absolute" top="8px" left="20px">
                 <FcGoogle />
               </Icon>
@@ -67,14 +66,14 @@ function LoginModalContent(props: Props) {
             </Button>
           </Flex>
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter marginBottom="60px">
           <Text fontSize="10px">
             By continuing, you agree to CourtCanva’s&nbsp;
-            <Link href="#" textDecoration="underline" _hover={{ color: "fontcolor.third" }}>
+            <Link href="#" textDecoration="underline" _hover={{ color: "fontcolor.tertiary" }}>
               Terms of Use
             </Link>
             &nbsp;and read our&nbsp;
-            <Link href="#" textDecoration="underline" _hover={{ color: "fontcolor.third" }}>
+            <Link href="#" textDecoration="underline" _hover={{ color: "fontcolor.tertiary" }}>
               Privacy Policy
             </Link>
           </Text>

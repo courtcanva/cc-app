@@ -1,5 +1,5 @@
 import LoginModalContent from "@/components/Login";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 describe("Login", () => {
   test("Each elements in the Login display the correct text", () => {
@@ -12,8 +12,15 @@ describe("Login", () => {
     expect(logoEl).toBeInTheDocument();
     expect(googleButtonEl).toBeInTheDocument();
     expect(emailButtonEl).toBeInTheDocument();
-    expect(logoEl).toHaveTextContent("CourtCanva");
     expect(googleButtonEl).toHaveTextContent("Continue with Google");
     expect(emailButtonEl).toHaveTextContent("Continue with email");
+  });
+
+  it("Should close Modal when click close button", async () => {
+    render(<LoginModalContent isOpen={true} onClose={() => void {}} />);
+    const closeButton = screen.getByRole("closeButton");
+    fireEvent.click(closeButton);
+    const loginModalDialog = screen.getByRole("dialog");
+    await waitFor(() => expect(loginModalDialog).not.toBeVisible());
   });
 });
