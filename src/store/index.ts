@@ -5,6 +5,7 @@ import borderReducer from "./reducer/courtSlices/borderSlice";
 import keyAreaReducer from "./reducer/courtSlices/keyAreaSlice";
 import circleAreaReducer from "./reducer/courtSlices/circleAreaSlice";
 import topKeyAreaReducer from "./reducer/courtSlices/topKeyAreaSlice";
+import proFullCourtReducer from "./reducer/courtSlices/proFullCourtSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -15,6 +16,7 @@ export const makeStore = () =>
       keyArea: keyAreaReducer,
       circleArea: circleAreaReducer,
       topKeyArea: topKeyAreaReducer,
+      proFullCourt: proFullCourtReducer,
     },
   });
 

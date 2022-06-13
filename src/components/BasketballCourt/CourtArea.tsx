@@ -1,11 +1,16 @@
 import { Shape } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 
-const CourtArea = ({ color = "#E18752" }) => {
-  const { startPointX, startPointY, courtAreaXLength, courtAreaYLength } = useStoreSelector(
-    (state) => state.courtArea
-  );
-
+const CourtArea = ({ color = "#B61313" }) => {
+  const { 
+    initPointX, 
+    initPointY, 
+    courtAreaXLength, 
+    courtAreaYLength,
+    strokeWidth,
+  } = useStoreSelector((state) => state.proFullCourt);
+  const startPointX = initPointX;
+  const startPointY = initPointY;
   return (
     <Shape
       sceneFunc={(context, shape) => {
@@ -19,7 +24,7 @@ const CourtArea = ({ color = "#E18752" }) => {
       }}
       fill={color}
       stroke="white"
-      strokeWidth={2}
+      strokeWidth={strokeWidth}
     />
   );
 };

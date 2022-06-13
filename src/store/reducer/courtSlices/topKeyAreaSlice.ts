@@ -16,7 +16,7 @@ export const initialState: TopKeyAreaState = {
   startPointX: 87.9,
   startPointY: 200,
   innerRadius: 0,
-  outerRadius: 15,
+  outerRadius: 18,
   angle: 180,
   strokeWidth: 0.5,
   rotation: 90,

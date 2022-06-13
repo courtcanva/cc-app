@@ -7,8 +7,8 @@ export interface CircleAreaState {
 
 export const initialState: CircleAreaState = {
   startPointX: 170,
-  startPointY: 185,
-  circleAreaRadius: 15,
+  startPointY: 182,
+  circleAreaRadius: 18,
 };
 
 export const circleAreaSlice = createSlice({

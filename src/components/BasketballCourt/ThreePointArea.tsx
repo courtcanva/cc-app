@@ -1,21 +1,25 @@
 import { Shape } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 
-const ThreePointArea = ({ color = "#375239" }) => {
+const ThreePointArea = ({ color = "#72818B" }) => {
   const {
-    startPointX,
-    startPointY,
+    initPointX, 
+    initPointY, 
+    threePointLineToCourtEdgeLenth,
     cornerThreePointLineLength,
-    controlPointOneX,
-    controlPointOneY,
-    controlPointTwoX,
-    controlPointTwoY,
-    controlPointThreeX,
-    controlPointThreeY,
-    controlPointFourX,
-    controlPointFourY,
     threePointLineRadius,
-  } = useStoreSelector((state) => state.threePointLine);
+    strokeWidth,
+  } = useStoreSelector((state) => state.proFullCourt);
+  const startPointX = initPointX;
+  const startPointY = initPointY + threePointLineToCourtEdgeLenth;
+  const controlPointOneX = initPointX + cornerThreePointLineLength + threePointLineRadius;
+  const controlPointOneY = startPointY;
+  const controlPointTwoX = controlPointOneX;
+  const controlPointTwoY = startPointY + threePointLineRadius;
+  const controlPointThreeX = controlPointOneX;
+  const controlPointThreeY = startPointY + threePointLineRadius * 2;
+  const controlPointFourX = initPointX + cornerThreePointLineLength;
+  const controlPointFourY = controlPointThreeY;
 
   return (
     <Shape
@@ -38,13 +42,13 @@ const ThreePointArea = ({ color = "#375239" }) => {
           threePointLineRadius
         );
         // Continue with vertical line which makes it a close shape
-        context.lineTo(30, 266);
+        context.lineTo(startPointX, controlPointThreeY);
         context.closePath();
         context.fillStrokeShape(shape);
       }}
       fill={color}
       stroke="white"
-      strokeWidth={2}
+      strokeWidth={strokeWidth}
     />
   );
 };

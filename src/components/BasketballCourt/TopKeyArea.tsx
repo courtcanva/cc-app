@@ -1,36 +1,45 @@
 import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 
-const ShootArea = ({ color = "#b59f7a" }) => {
-  const { startPointX, startPointY, innerRadius, outerRadius, angle, strokeWidth, rotation, dash } =
-    useStoreSelector((state) => state.topKeyArea);
+const ShootArea = ({ color = "#B61313" }) => {
+  const {
+    initPointX, 
+    initPointY, 
+    keyAreaWidth,
+    threePointLineToCourtEdgeLenth,
+    threePointLineRadius,
+    circleRadius,
+    strokeWidth,
+  } = useStoreSelector((state) => state.proFullCourt);
+  const startPointX = initPointX + keyAreaWidth;
+  const startPointY = initPointY + threePointLineToCourtEdgeLenth + threePointLineRadius;
 
   return (
     <>
       <Arc
         x={startPointX}
         y={startPointY}
-        innerRadius={innerRadius}
-        outerRadius={outerRadius}
-        angle={angle}
+        innerRadius={0}
+        outerRadius={circleRadius}
+        angle={180}
         fill={color}
         stroke="white"
-        strokeWidth={strokeWidth * 4}
+        strokeWidth={strokeWidth}
         clockwise
-        rotation={rotation}
+        rotation={90}
       />
       <Arc
         x={startPointX}
         y={startPointY}
-        innerRadius={innerRadius}
-        outerRadius={outerRadius}
-        angle={angle}
+        innerRadius={0}
+        outerRadius={circleRadius}
+        angle={180}
         fill="transparent"
         stroke="white"
-        strokeWidth={strokeWidth}
+        strokeWidth={strokeWidth / 4}
         clockwise
-        rotation={rotation * 3}
-        dash={dash}
+        rotation={270}
+        dash={[1, 1]}
       />
     </>
   );
