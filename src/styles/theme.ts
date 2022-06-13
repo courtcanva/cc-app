@@ -67,16 +67,11 @@ const components = {
   drawerButtonStyles,
 };
 
-const fonts = {
-  body: `"Inter", sans-serif`,
-};
-
 const theme = extendTheme({
   colors,
   config,
   styles,
   components,
-  fonts,
 });
 
 export default theme;
