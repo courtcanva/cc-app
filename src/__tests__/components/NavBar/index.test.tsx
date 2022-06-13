@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import NavigationBar from "@/components/NavBar";
 
 describe("NavigationBar", () => {
@@ -22,5 +22,13 @@ describe("NavigationBar", () => {
 
     const openButton = screen.getByTestId("share-btn");
     expect(openButton).toBeInTheDocument();
+  });
+
+  it("Should render login Modal when click button", async () => {
+    render(<NavigationBar />);
+    const shareButton = screen.getByTestId("share-btn");
+    fireEvent.click(shareButton);
+    const loginModalDialog = screen.getByRole("dialog");
+    await waitFor(() => expect(loginModalDialog).toBeVisible());
   });
 });
