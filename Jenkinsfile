@@ -57,7 +57,7 @@ pipeline {
                 }
                     steps {
                     script {
-                         timeout(time: 10, unit: 'MINUTES') {
+                         timeout(time: 30, unit: 'MINUTES') {
                               input(id: 'Deploy Gate', message: 'Deploy to PROD?', ok: 'Deploy')
                          }
                     }
