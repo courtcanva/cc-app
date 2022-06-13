@@ -2,13 +2,8 @@ import { Shape } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 
 const CourtArea = ({ color = "#B61313" }) => {
-  const { 
-    initPointX, 
-    initPointY, 
-    courtAreaXLength, 
-    courtAreaYLength,
-    strokeWidth,
-  } = useStoreSelector((state) => state.proFullCourt);
+  const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, strokeWidth } =
+    useStoreSelector((state) => state.proFullCourt);
   const startPointX = initPointX;
   const startPointY = initPointY;
   return (

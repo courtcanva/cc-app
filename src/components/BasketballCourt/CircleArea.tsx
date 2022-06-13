@@ -3,8 +3,8 @@ import { useStoreSelector } from "@/store/hooks";
 
 const CircleArea = ({ color = "#606F14" }) => {
   const {
-    initPointX, 
-    initPointY, 
+    initPointX,
+    initPointY,
     courtAreaXLength,
     threePointLineToCourtEdgeLenth,
     threePointLineRadius,
@@ -16,17 +16,17 @@ const CircleArea = ({ color = "#606F14" }) => {
 
   return (
     <Arc
-        x={startPointX}
-        y={startPointY}
-        innerRadius={0}
-        outerRadius={circleRadius}
-        angle={180}
-        fill={color}
-        stroke="white"
-        strokeWidth={strokeWidth}
-        clockwise
-        rotation={270}
-      />
+      x={startPointX}
+      y={startPointY}
+      innerRadius={0}
+      outerRadius={circleRadius}
+      angle={180}
+      fill={color}
+      stroke="white"
+      strokeWidth={strokeWidth}
+      clockwise
+      rotation={270}
+    />
   );
 };
 

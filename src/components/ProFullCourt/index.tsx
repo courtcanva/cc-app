@@ -1,4 +1,4 @@
-import { Stage, Layer, Group } from "react-konva";
+import { Stage, Layer} from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
@@ -40,9 +40,7 @@ const ProFullCourt = () => {
                 <CircleArea />
                 <TopKeyArea />
               </Layer>
-              <Layer
-                scaleX={-1}
-                x={380}>
+              <Layer scaleX={-1} x={380}>
                 <Border />
                 <CourtArea />
                 <ThreePointArea />
@@ -50,8 +48,6 @@ const ProFullCourt = () => {
                 <CircleArea />
                 <TopKeyArea />
               </Layer>
-
-              
             </Provider>
           </Stage>
         )}
@@ -60,4 +56,4 @@ const ProFullCourt = () => {
   );
 };
 
-export default ProFullCourt ;
+export default ProFullCourt;

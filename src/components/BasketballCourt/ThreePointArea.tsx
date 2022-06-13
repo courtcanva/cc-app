@@ -3,8 +3,8 @@ import { useStoreSelector } from "@/store/hooks";
 
 const ThreePointArea = ({ color = "#72818B" }) => {
   const {
-    initPointX, 
-    initPointY, 
+    initPointX,
+    initPointY,
     threePointLineToCourtEdgeLenth,
     cornerThreePointLineLength,
     threePointLineRadius,

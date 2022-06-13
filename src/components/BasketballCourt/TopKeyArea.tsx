@@ -3,8 +3,8 @@ import { useStoreSelector } from "@/store/hooks";
 
 const ShootArea = ({ color = "#B61313" }) => {
   const {
-    initPointX, 
-    initPointY, 
+    initPointX,
+    initPointY,
     keyAreaWidth,
     threePointLineToCourtEdgeLenth,
     threePointLineRadius,

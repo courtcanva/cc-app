@@ -3,8 +3,8 @@ import { useStoreSelector } from "@/store/hooks";
 
 const KeyArea = ({ color = "#2C4E8A" }) => {
   const {
-    initPointX, 
-    initPointY, 
+    initPointX,
+    initPointY,
     threePointLineToCourtEdgeLenth,
     threePointLineRadius,
     keyAreaWidth,
@@ -12,7 +12,8 @@ const KeyArea = ({ color = "#2C4E8A" }) => {
     strokeWidth,
   } = useStoreSelector((state) => state.proFullCourt);
   const startPointX = initPointX;
-  const startPointY = initPointY + threePointLineToCourtEdgeLenth + threePointLineRadius - (keyAreaHeight / 2);
+  const startPointY =
+    initPointY + threePointLineToCourtEdgeLenth + threePointLineRadius - keyAreaHeight / 2;
 
   return (
     <Rect
