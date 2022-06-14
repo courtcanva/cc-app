@@ -8,14 +8,6 @@
 $ npm i
 ```
 
-### Set Environment Variables
-
-```bash
-$ cp .env.example .env. 
-```
-
-Note: Copy the value from Frontend ENV ticket on notion(Get notion access permission from the development group) and paste it in .env.
-
 
 ### Start the server
 
@@ -31,7 +23,7 @@ The `src/pages/api` directory is mapped to `/api/*`. Files in this directory are
 
 ### Environment Variables
 
-Add a file named .env at the root directory. Copy the .env code from Frontend ENV ticket on notion(Get notion access permission from the development group) and paste it in .env. You can refer to the .env example file in the directory.
+Add a file named `.env` at the root directory. Copy the .env code from Frontend ENV ticket on notion(Get notion access permission from the development group) and paste it in .env. You can refer to the `.env.example` file in the directory and repo.
 
 ### Build for Deploy
 
