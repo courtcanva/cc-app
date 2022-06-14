@@ -217,7 +217,7 @@ References:
 </table>
 
 ## Frequent Issue Solutions:pill:
-If you find any issues which block you when your are working, please check this list or search on the Internet :mag: to look for potential solutions. Don't worry if you cannot find it :satisfied: , just put your questions in the group chat and discuss our team members and tutors. We will try our best to get you out :mortar_board: .
+If you find any issues which block you when your are working, please check this list or search on the Internet :mag: to look for potential solutions. Don't worry if you cannot find it :satisfied: , just put your questions in the group chat and discuss with our team members and tutors. We will try our best to help you fix it :mortar_board: .
 <table align="center" border=0>
    <tr>
       <td width="500"><b>Why cannot I start the server?</b></td>
