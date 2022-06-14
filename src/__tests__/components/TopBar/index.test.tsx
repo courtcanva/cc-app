@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import TopBar from "@/components/TopBar";
 
 describe("TopBar", () => {
@@ -38,5 +38,13 @@ describe("TopBar", () => {
 
     const downloadButton = screen.getByTestId("download-btn");
     expect(downloadButton).toBeInTheDocument();
+  });
+
+  it("Should render login Modal when click button", async () => {
+    render(<TopBar />);
+    const downloadButton = screen.getByTestId("download-btn");
+    fireEvent.click(downloadButton);
+    const loginModalDialog = screen.getByRole("dialog");
+    await waitFor(() => expect(loginModalDialog).toBeVisible());
   });
 });

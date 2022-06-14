@@ -7,9 +7,15 @@ import {
   ModalCloseButton,
   Button,
   ModalFooter,
+  Flex,
+  Text,
+  Icon,
+  Link,
 } from "@chakra-ui/react";
-import { Flex, Text, Icon, Link } from "@chakra-ui/react";
-import { FaGoogle, FaEnvelope } from "react-icons/fa";
+import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
+import { IconContext } from "react-icons";
+import { FaEnvelope } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import React from "react";
 
 interface Props {
@@ -31,40 +37,44 @@ function LoginModalContent(props: Props) {
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          <Flex flexDir="column" mt="40px" mb="20px">
-            <Text fontSize="xl" fontWeight="bold">
-              Log in or sign up
+          <Flex flexDir="column" alignItems="center" marginTop="20px">
+            <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">
+              <MainLogoSvg />
+            </Icon>
+            <Text fontSize="xl">Log in or sign up in seconds</Text>
+            <Text fontSize="11px" textAlign="center" fontWeight="light" marginTop="15px">
+              Use your email or Google account to continue with CourtCanva!
             </Text>
-            <Text fontSize="sm">Use your email or google account to continue with CourtCanva</Text>
           </Flex>
         </ModalHeader>
-        <ModalCloseButton />
-        <ModalBody mb="20px">
-          <Flex flexDir="column" justifyContent="space-around" gap="25px">
+        <ModalCloseButton role="closeButton" />
+        <ModalBody>
+          <Flex flexDir="column" justifyContent="space-around" gap="25px" paddingX="20px">
             <Button variant="loginBtn" position="relative" ref={initialRef}>
-              <Icon w="28px" h="28px" position="absolute" top="11px" left="20px">
-                <FaGoogle />
+              <Icon w="32px" h="32px" position="absolute" top="8px" left="20px">
+                <FcGoogle />
               </Icon>
               <Text>Continue with Google </Text>
             </Button>
-
             <Button variant="loginBtn" position="relative">
-              <Icon w="28px" h="28px" position="absolute" top="12px" left="20px">
-                <FaEnvelope />
-              </Icon>
-              <Text>Continue with Email </Text>
+              <IconContext.Provider value={{ color: "#FF5439", className: "global-class-name" }}>
+                <Icon w="32px" h="32px" position="absolute" top="8px" left="20px">
+                  <FaEnvelope />
+                </Icon>
+              </IconContext.Provider>
+              <Text>Continue with email </Text>
             </Button>
           </Flex>
         </ModalBody>
-        <ModalFooter>
-          <Text fontSize="sm">
-            By continuing, you agree to to CourtCanva’s&nbsp;
-            <Link href="#" textDecoration="underline" _hover={{ color: "CourtSizecolor.btc" }}>
-              Term of Use.
+        <ModalFooter marginBottom="60px">
+          <Text fontSize="10px">
+            By continuing, you agree to CourtCanva’s&nbsp;
+            <Link href="#" textDecoration="underline" _hover={{ color: "fontcolor.tertiary" }}>
+              Terms of Use
             </Link>
-            &nbsp;Read our&nbsp;
-            <Link href="#" textDecoration="underline" _hover={{ color: "CourtSizecolor.btc" }}>
-              Privacy Policy.
+            &nbsp;and read our&nbsp;
+            <Link href="#" textDecoration="underline" _hover={{ color: "fontcolor.tertiary" }}>
+              Privacy Policy
             </Link>
           </Text>
         </ModalFooter>
