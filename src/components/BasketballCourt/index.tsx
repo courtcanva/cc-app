@@ -8,6 +8,9 @@ import CircleArea from "./CircleArea";
 import TopKeyArea from "./TopKeyArea";
 import Border from "./Border";
 
+// TODO: Only for test
+import Check from "./Check-delete-soon";
+
 const BasketballCourt = () => {
   return (
     <Flex
@@ -44,6 +47,8 @@ const BasketballCourt = () => {
           </Stage>
         )}
       </ReactReduxContext.Consumer>
+      {/* TODO: Only for test */}
+      <Check />
     </Flex>
   );
 };
