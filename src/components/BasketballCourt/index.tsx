@@ -1,6 +1,7 @@
 import { Stage, Layer } from "react-konva";
-import { Flex } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
+import { useStoreSelector } from "@/store/hooks";
 import ThreePointArea from "./ThreePointArea";
 import KeyArea from "./KeyArea";
 import CourtArea from "./CourtArea";
@@ -9,6 +10,8 @@ import TopKeyArea from "./TopKeyArea";
 import Border from "./Border";
 
 const BasketballCourt = () => {
+  const { name: courtName } = useStoreSelector((state) => state.courtName);
+
   return (
     <Flex
       position="fixed"
@@ -20,8 +23,12 @@ const BasketballCourt = () => {
       minHeight={400}
       justifyContent="center"
       alignItems="center"
+      flexDirection="column"
       margin="auto"
     >
+      <Heading as="h2" transform="translateY(37px)" fontWeight="medium" fontSize="20px">
+        {courtName}
+      </Heading>
       <ReactReduxContext.Consumer>
         {({ store }) => (
           <Stage

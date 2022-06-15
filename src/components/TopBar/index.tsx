@@ -16,18 +16,20 @@ import {
   PopoverBody,
   PopoverArrow,
 } from "@chakra-ui/react";
+import { useStoreSelector } from "@/store/hooks";
 
 import ColorBoard from "./ColorBoard";
+import LoginModalContent from "../Login";
 
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import RbSvg from "@/assets/svg/TopBarSvg/rainbow.svg";
 import ScSvg from "@/assets/svg/TopBarSvg/smallCourt.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
-import LoginModalContent from "../Login";
 
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { name: courtName } = useStoreSelector((state) => state.courtName);
 
   return (
     <SimpleGrid
@@ -45,13 +47,14 @@ const TopBar = () => {
       {/* left */}
       <Flex alignItems="center" justifyContent="space-around">
         <Text
+          minWidth="250px"
           fontSize="md"
           fontWeight="600"
           display={{ base: "none", xl: "block" }}
           whiteSpace="nowrap"
           textOverflow="ellipsis"
         >
-          510 m² Pro full court (17 m * 30 m)
+          {courtName}
         </Text>
         <Flex alignItems="center">
           <Text fontWeight="700" fontSize="md" whiteSpace="nowrap" textOverflow="ellipsis">
