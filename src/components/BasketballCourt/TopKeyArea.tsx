@@ -42,10 +42,10 @@ const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio, color }) => {
         angle={180}
         fill="transparent"
         stroke="white"
-        strokeWidth={strokeWidth / 40}
+        strokeWidth={strokeWidth / 20}
         clockwise
         rotation={270}
-        dash={[1, 1]}
+        dash={[3, 3]}
       />
     </>
   );

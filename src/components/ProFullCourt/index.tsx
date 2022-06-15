@@ -1,4 +1,4 @@
-import { Stage, Layer, Group } from "react-konva";
+import { Stage, Layer, Group, Text } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
@@ -7,10 +7,12 @@ import CourtArea from "../BasketballCourt/CourtArea";
 import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
+import BorderDimensionLine from "../BasketballCourt/BorderDimensionLine";
+import ArrowLine from "../BasketballCourt/Arrow";
 import { useStoreSelector } from "@/store/hooks";
 
 const ProFullCourt = () => {
-  const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, borderLength } =
+  const { initPointX, courtAreaXLength, } =
     useStoreSelector((state) => state.courtSize);
   const courtRatio = 0.25;
   return (
@@ -37,8 +39,20 @@ const ProFullCourt = () => {
           >
             <Provider store={store}>
               <Layer>
+                <Text 
+                  width={850}
+                  height={100}
+                  text={"Pro Full Court: 510 ㎡ (17 * 30)"}
+                  fontSize={150 * courtRatio}
+                  align="center"
+                  fill="black"
+                  x={0}
+                  y={40}
+                />
                 <Border courtRatio={courtRatio} color={"#195955"} />
+                <ArrowLine courtRatio={courtRatio} arrowXEndLength={courtAreaXLength} />
                 <Group>
+                  <BorderDimensionLine courtRatio={courtRatio} />
                   <CourtArea courtRatio={courtRatio} color={"#B61313"} />
                   <ThreePointArea courtRatio={courtRatio} color={"#72818B"} />
                   <KeyArea courtRatio={courtRatio} color={"#2C4E8A"} />
@@ -46,6 +60,7 @@ const ProFullCourt = () => {
                   <TopKeyArea courtRatio={courtRatio} color={"#B61313"} />
                 </Group>
                 <Group scaleX={-1} x={initPointX * 2 + courtAreaXLength * 2 * courtRatio}>
+                  <BorderDimensionLine courtRatio={courtRatio} />
                   <CourtArea courtRatio={courtRatio} color={"#B61313"} />
                   <ThreePointArea courtRatio={courtRatio} color={"#72818B"} />
                   <KeyArea courtRatio={courtRatio} color={"#2C4E8A"} />

@@ -3,16 +3,14 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface BorderDimensionLineProps {
   courtRatio: number;
-  color: string;
 }
 
-const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ courtRatio, color }) => {
-  const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, borderLength, strokeWidth } =
+const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ courtRatio }) => {
+  const { initPointX, initPointY, courtAreaYLength, borderLength, strokeWidth } =
     useStoreSelector((state) => state.courtSize);
   const startPointX = initPointX - borderLength * courtRatio;
   const startPointY = initPointY - borderLength * courtRatio;
-  const borderWidth = (courtAreaXLength + borderLength) * 2 * courtRatio;
-  const borderHeight = (courtAreaYLength + borderLength * 2) * courtRatio;
+  const courtHeight = courtAreaYLength * courtRatio;
 
   return (
     <>
@@ -24,23 +22,23 @@ const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ courtRatio, c
           context.lineTo(initPointX, startPointY);
           context.fillStrokeShape(shape);
         }}
-        fill={color}
+        fill="transparent"
         stroke="white"
-        strokeWidth={strokeWidth / 10}
+        strokeWidth={strokeWidth / 20}
+        dash={[3, 3]}
       />
       <Shape
-        scaleY={-1}
-        y={initPointY * 2 + courtAreaXLength * 2 * courtRatio}
         sceneFunc={(context, shape) => {
           context.beginPath();
-          context.moveTo(startPointX, initPointY); // Create a starting point
-          context.lineTo(initPointX, initPointY);
-          context.lineTo(initPointX, startPointY);
+          context.moveTo(startPointX , initPointY + courtHeight); // Create a starting point
+          context.lineTo(initPointX, initPointY + courtHeight);
+          context.lineTo(initPointX, initPointY + courtHeight + borderLength * courtRatio);
           context.fillStrokeShape(shape);
         }}
-        fill={color}
+        fill="transparent"
         stroke="white"
-        strokeWidth={strokeWidth / 10}
+        strokeWidth={strokeWidth / 20}
+        dash={[3, 3]}
       />
     </>
   );

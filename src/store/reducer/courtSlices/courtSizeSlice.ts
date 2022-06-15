@@ -17,7 +17,7 @@ export const initialState: courtSizeState = {
   keyAreaHeight: 480,
   circleRadius: 180,
   strokeWidth: 20,
-  borderLength: 150,
+  borderLength: 100,
 };
 
 export const courtSizeSlice = createSlice({
