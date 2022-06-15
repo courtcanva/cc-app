@@ -6,7 +6,7 @@ interface ShootAreaProps {
   color: string;
 }
 
-const ShootArea: React.FC<ShootAreaProps> = ({courtRatio, color}) => {
+const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio, color }) => {
   const {
     initPointX,
     initPointY,
@@ -17,7 +17,8 @@ const ShootArea: React.FC<ShootAreaProps> = ({courtRatio, color}) => {
     strokeWidth,
   } = useStoreSelector((state) => state.courtSize);
   const startPointX = initPointX + keyAreaWidth * courtRatio;
-  const startPointY = initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
+  const startPointY =
+    initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
 
   return (
     <>

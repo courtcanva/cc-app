@@ -6,7 +6,7 @@ interface ThreePointAreaProps {
   color: string;
 }
 
-const ThreePointArea: React.FC<ThreePointAreaProps> = ({courtRatio, color}) => {
+const ThreePointArea: React.FC<ThreePointAreaProps> = ({ courtRatio, color }) => {
   const {
     initPointX,
     initPointY,
@@ -17,7 +17,8 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({courtRatio, color}) => {
   } = useStoreSelector((state) => state.courtSize);
   const startPointX = initPointX;
   const startPointY = initPointY + threePointLineToCourtEdgeLenth * courtRatio;
-  const controlPointOneX = initPointX + (cornerThreePointLineLength + threePointLineRadius) * courtRatio;
+  const controlPointOneX =
+    initPointX + (cornerThreePointLineLength + threePointLineRadius) * courtRatio;
   const controlPointOneY = startPointY;
   const controlPointTwoX = controlPointOneX;
   const controlPointTwoY = startPointY + threePointLineRadius * courtRatio;

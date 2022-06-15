@@ -6,7 +6,7 @@ interface KeyAreaProps {
   color: string;
 }
 
-const KeyArea: React.FC<KeyAreaProps> = ({courtRatio, color}) => {
+const KeyArea: React.FC<KeyAreaProps> = ({ courtRatio, color }) => {
   const {
     initPointX,
     initPointY,
@@ -17,7 +17,8 @@ const KeyArea: React.FC<KeyAreaProps> = ({courtRatio, color}) => {
     strokeWidth,
   } = useStoreSelector((state) => state.courtSize);
   const startPointY =
-    initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius - keyAreaHeight / 2) * courtRatio;
+    initPointY +
+    (threePointLineToCourtEdgeLenth + threePointLineRadius - keyAreaHeight / 2) * courtRatio;
 
   return (
     <Rect

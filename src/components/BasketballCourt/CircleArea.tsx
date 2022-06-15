@@ -6,7 +6,7 @@ interface CircleAreaProps {
   color: string;
 }
 
-const CircleArea: React.FC<CircleAreaProps> = ({courtRatio, color}) => {
+const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio, color }) => {
   const {
     initPointX,
     initPointY,
@@ -17,7 +17,8 @@ const CircleArea: React.FC<CircleAreaProps> = ({courtRatio, color}) => {
     strokeWidth,
   } = useStoreSelector((state) => state.courtSize);
   const startPointX = initPointX + courtAreaXLength * courtRatio;
-  const startPointY = initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
+  const startPointY =
+    initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
 
   return (
     <Arc

@@ -6,7 +6,7 @@ interface BorderDimensionLineProps {
   color: string;
 }
 
-const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({courtRatio, color}) => {
+const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ courtRatio, color }) => {
   const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, borderLength, strokeWidth } =
     useStoreSelector((state) => state.courtSize);
   const startPointX = initPointX - borderLength * courtRatio;
@@ -20,7 +20,7 @@ const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({courtRatio, co
         sceneFunc={(context, shape) => {
           context.beginPath();
           context.moveTo(startPointX, initPointY); // Create a starting point
-          context.lineTo(initPointX, initPointY); 
+          context.lineTo(initPointX, initPointY);
           context.lineTo(initPointX, startPointY);
           context.fillStrokeShape(shape);
         }}
@@ -28,12 +28,13 @@ const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({courtRatio, co
         stroke="white"
         strokeWidth={strokeWidth / 10}
       />
-      <Shape 
-        scaleY={-1} y={initPointY*2+courtAreaXLength*2*courtRatio}
+      <Shape
+        scaleY={-1}
+        y={initPointY * 2 + courtAreaXLength * 2 * courtRatio}
         sceneFunc={(context, shape) => {
           context.beginPath();
           context.moveTo(startPointX, initPointY); // Create a starting point
-          context.lineTo(initPointX, initPointY); 
+          context.lineTo(initPointX, initPointY);
           context.lineTo(initPointX, startPointY);
           context.fillStrokeShape(shape);
         }}

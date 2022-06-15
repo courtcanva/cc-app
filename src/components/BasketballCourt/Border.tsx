@@ -6,7 +6,7 @@ interface BorderProps {
   color: string;
 }
 
-const Border: React.FC<BorderProps> = ({courtRatio, color}) => {
+const Border: React.FC<BorderProps> = ({ courtRatio, color }) => {
   const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, borderLength } =
     useStoreSelector((state) => state.courtSize);
   const startPointX = initPointX - borderLength * courtRatio;
