@@ -23,6 +23,10 @@ const Border: React.FC<BorderProps> = ({ courtRatio, color }) => {
   let textColor;
   borderLength < 100 ? (textColor = "black") : (textColor = "white");
 
+  const color = useStoreSelector(
+    (state) => state.tile.find((tile) => tile.type === "border")?.color
+  );
+
   return (
     <>
       <Rect

@@ -1,47 +1,49 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import React from "react";
+import { useStoreSelector } from "@/store/hooks";
 
 const TileColorBoard: React.FC = () => {
-  const mockTileColors: string[] = [
-    "#1A1F51",
-    "#643132",
-    "#C96E55",
-    "#375239",
-    "#411920",
-    "#B59F7A",
-  ];
+  const tiles = useStoreSelector((state) => state.tile);
 
   return (
     <>
-      <Flex w={[252, 252, 272, 292]} h="64px" alignItems="center" borderLeft="1px solid #ABABAD">
+      <Flex
+        w={[252, 252, 272, 350]}
+        width="450px"
+        h="64px"
+        alignItems="flex-start"
+        borderLeft="1px solid #ABABAD"
+        paddingTop="15px"
+      >
+        <Text marginX="8px" minWidth="150px" textAlign="left" fontWeight="600" fontSize="11px">
+          Estimated Budget:
+          <br />
+          From $ xxxx
+        </Text>
+        <Text fontWeight="600" minWidth="100px" fontSize="11px">
+          Estimate Tiles:
+        </Text>
         <Box
           w="275px"
           h="51px"
           display="flex"
-          alignItems="center"
+          alignItems="flex-start"
           justifyContent="space-between"
           marginLeft="9px"
           marginRight="8px"
           textAlign="center"
           borderRadius="6px"
-          boxShadow="
-          inset -1px -1px 5px rgba(255, 255, 255, .9),
-          inset 1px 1px 5px rgba(0, 0, 0, .4);"
         >
-          <Flex wrap="wrap" gap="4px" w="56px" h="35px" marginLeft="8px">
-            {mockTileColors.map((color) => (
-              <Box key={color} bg={color} w="16px" h="16px" />
+          <Flex wrap="wrap" gap="8px" w="150px" h="35px" marginLeft="8px">
+            {tiles.map((tile) => (
+              <Box key={tile.type} bg={tile.color} w="40px" h="16px" fontSize="10px" color="white">
+                {tile.quantity}
+              </Box>
             ))}
           </Flex>
-          <Text marginRight="8px" minW="105px" textAlign="left" fontWeight="800" fontSize="11px">
-            Estimated Budget:
-            <br />
-            From $ 1647
-          </Text>
         </Box>
       </Flex>
     </>
   );
 };
-
 export default TileColorBoard;

@@ -27,6 +27,10 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ courtRatio, color }) =>
   const controlPointFourX = initPointX + cornerThreePointLineLength * courtRatio;
   const controlPointFourY = controlPointThreeY;
 
+  const color = useStoreSelector(
+    (state) => state.tile.find((tile) => tile.type === "threePoint")?.color
+  );
+
   return (
     <Shape
       sceneFunc={(context, shape) => {

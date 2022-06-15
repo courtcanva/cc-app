@@ -12,6 +12,10 @@ const CourtArea: React.FC<CourtAreaProps> = ({ courtRatio, color }) => {
   const borderWidth = courtAreaXLength * courtRatio;
   const borderHeight = courtAreaYLength * courtRatio;
 
+  const color = useStoreSelector(
+    (state) => state.tile.find((tile) => tile.type === "courtArea")?.color
+  );
+
   return (
     <Rect
       width={borderWidth}

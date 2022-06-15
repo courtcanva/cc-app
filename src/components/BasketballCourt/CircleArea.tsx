@@ -20,6 +20,10 @@ const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio, color }) => {
   const startPointY =
     initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
 
+  const color = useStoreSelector(
+    (state) => state.tile.find((tile) => tile.type === "circleArea")?.color
+  );
+
   return (
     <Arc
       x={startPointX}

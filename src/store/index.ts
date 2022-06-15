@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import courtReducer from "./reducer/courtSlices/courtSizeSlice";
+import tileReducer from "./reducer/tileSlice";
 
 export const makeStore = () =>
   configureStore({
     reducer: {
       courtSize: courtReducer,
+      tile: tileReducer,
     },
   });
 
