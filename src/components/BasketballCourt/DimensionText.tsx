@@ -9,9 +9,9 @@ interface DimensionTextProps {
   text: number;
 }
 
-const DimensionText: React.FC<DimensionTextProps> = ({ 
-  courtRatio, 
-  startPointX, 
+const DimensionText: React.FC<DimensionTextProps> = ({
+  courtRatio,
+  startPointX,
   startPointY,
   color,
   text,
@@ -22,7 +22,7 @@ const DimensionText: React.FC<DimensionTextProps> = ({
   borderLength <= 100 ? (border = 100 * courtRatio) : (border = borderLength * courtRatio);
 
   return (
-    <Text 
+    <Text
       width={border}
       height={border}
       text={text + `M`}

@@ -6,8 +6,9 @@ interface BorderDimensionLineProps {
 }
 
 const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ courtRatio }) => {
-  const { initPointX, initPointY, courtAreaYLength, borderLength, strokeWidth } =
-    useStoreSelector((state) => state.courtSize);
+  const { initPointX, initPointY, courtAreaYLength, borderLength, strokeWidth } = useStoreSelector(
+    (state) => state.courtSize
+  );
   const startPointX = initPointX - borderLength * courtRatio;
   const startPointY = initPointY - borderLength * courtRatio;
   const courtHeight = courtAreaYLength * courtRatio;
@@ -30,7 +31,7 @@ const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ courtRatio })
       <Shape
         sceneFunc={(context, shape) => {
           context.beginPath();
-          context.moveTo(startPointX , initPointY + courtHeight); // Create a starting point
+          context.moveTo(startPointX, initPointY + courtHeight); // Create a starting point
           context.lineTo(initPointX, initPointY + courtHeight);
           context.lineTo(initPointX, initPointY + courtHeight + borderLength * courtRatio);
           context.fillStrokeShape(shape);

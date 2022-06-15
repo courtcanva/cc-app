@@ -25,49 +25,55 @@ const Border: React.FC<BorderProps> = ({ courtRatio, color }) => {
 
   return (
     <>
-    <Rect width={borderWidth} height={borderHeight} fill={color} x={startPointX} y={startPointY} />
-    <DimensionText 
-      courtRatio={courtRatio} 
-      startPointX={textStartX} 
-      startPointY={textStartY} 
-      color={textColor} 
-      text={borderLength / 100}
-    />
-    <DimensionText 
-      courtRatio={courtRatio} 
-      startPointX={textStartX} 
-      startPointY={initPointY + courtAreaYLength * courtRatio} 
-      color={textColor}
-      text={borderLength / 100}
-    />
-    <DimensionText 
-      courtRatio={courtRatio} 
-      startPointX={initPointX + courtAreaXLength * 2 * courtRatio} 
-      startPointY={textStartY}
-      color={textColor}
-      text={borderLength / 100}
-    />
-    <DimensionText 
-      courtRatio={courtRatio} 
-      startPointX={initPointX + courtAreaXLength * 2 * courtRatio} 
-      startPointY={initPointY + courtAreaYLength * courtRatio}
-      color={textColor}
-      text={borderLength / 100}
-    />
-    <DimensionText 
-      courtRatio={courtRatio} 
-      startPointX={initPointX + courtAreaXLength * courtRatio - border / 2} 
-      startPointY={textStartY}
-      color={textColor}
-      text={courtAreaXLength / 50}
-    />
-    <DimensionText 
-      courtRatio={courtRatio} 
-      startPointX={textStartX} 
-      startPointY={initPointY + courtAreaYLength / 2 * courtRatio - border / 2}
-      color={textColor}
-      text={courtAreaYLength / 100}
-    />
+      <Rect
+        width={borderWidth}
+        height={borderHeight}
+        fill={color}
+        x={startPointX}
+        y={startPointY}
+      />
+      <DimensionText
+        courtRatio={courtRatio}
+        startPointX={textStartX}
+        startPointY={textStartY}
+        color={textColor}
+        text={borderLength / 100}
+      />
+      <DimensionText
+        courtRatio={courtRatio}
+        startPointX={textStartX}
+        startPointY={initPointY + courtAreaYLength * courtRatio}
+        color={textColor}
+        text={borderLength / 100}
+      />
+      <DimensionText
+        courtRatio={courtRatio}
+        startPointX={initPointX + courtAreaXLength * 2 * courtRatio}
+        startPointY={textStartY}
+        color={textColor}
+        text={borderLength / 100}
+      />
+      <DimensionText
+        courtRatio={courtRatio}
+        startPointX={initPointX + courtAreaXLength * 2 * courtRatio}
+        startPointY={initPointY + courtAreaYLength * courtRatio}
+        color={textColor}
+        text={borderLength / 100}
+      />
+      <DimensionText
+        courtRatio={courtRatio}
+        startPointX={initPointX + courtAreaXLength * courtRatio - border / 2}
+        startPointY={textStartY}
+        color={textColor}
+        text={courtAreaXLength / 50}
+      />
+      <DimensionText
+        courtRatio={courtRatio}
+        startPointX={textStartX}
+        startPointY={initPointY + (courtAreaYLength / 2) * courtRatio - border / 2}
+        color={textColor}
+        text={courtAreaYLength / 100}
+      />
     </>
   );
 };

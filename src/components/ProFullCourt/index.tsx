@@ -12,8 +12,7 @@ import ArrowLine from "../BasketballCourt/Arrow";
 import { useStoreSelector } from "@/store/hooks";
 
 const ProFullCourt = () => {
-  const { initPointX, courtAreaXLength, } =
-    useStoreSelector((state) => state.courtSize);
+  const { initPointX, courtAreaXLength } = useStoreSelector((state) => state.courtSize);
   const courtRatio = 0.25;
   return (
     <Flex
@@ -39,7 +38,7 @@ const ProFullCourt = () => {
           >
             <Provider store={store}>
               <Layer>
-                <Text 
+                <Text
                   width={850}
                   height={100}
                   text={"Pro Full Court: 510 ㎡ (17 * 30)"}
