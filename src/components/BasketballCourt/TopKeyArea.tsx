@@ -1,7 +1,12 @@
 import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 
-const ShootArea = ({ color = "#B61313" }) => {
+interface ShootAreaProps {
+  courtRatio: number;
+  color: string;
+}
+
+const ShootArea: React.FC<ShootAreaProps> = ({courtRatio, color}) => {
   const {
     initPointX,
     initPointY,
@@ -10,9 +15,9 @@ const ShootArea = ({ color = "#B61313" }) => {
     threePointLineRadius,
     circleRadius,
     strokeWidth,
-  } = useStoreSelector((state) => state.proFullCourt);
-  const startPointX = initPointX + keyAreaWidth;
-  const startPointY = initPointY + threePointLineToCourtEdgeLenth + threePointLineRadius;
+  } = useStoreSelector((state) => state.courtSize);
+  const startPointX = initPointX + keyAreaWidth * courtRatio;
+  const startPointY = initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
 
   return (
     <>
@@ -20,11 +25,11 @@ const ShootArea = ({ color = "#B61313" }) => {
         x={startPointX}
         y={startPointY}
         innerRadius={0}
-        outerRadius={circleRadius}
+        outerRadius={circleRadius * courtRatio}
         angle={180}
         fill={color}
         stroke="white"
-        strokeWidth={strokeWidth}
+        strokeWidth={strokeWidth / 10}
         clockwise
         rotation={90}
       />
@@ -32,11 +37,11 @@ const ShootArea = ({ color = "#B61313" }) => {
         x={startPointX}
         y={startPointY}
         innerRadius={0}
-        outerRadius={circleRadius}
+        outerRadius={circleRadius * courtRatio}
         angle={180}
         fill="transparent"
         stroke="white"
-        strokeWidth={strokeWidth / 4}
+        strokeWidth={strokeWidth / 40}
         clockwise
         rotation={270}
         dash={[1, 1]}

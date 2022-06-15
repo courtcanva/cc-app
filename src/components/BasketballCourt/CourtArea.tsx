@@ -1,25 +1,26 @@
-import { Shape } from "react-konva";
+import { Rect } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 
-const CourtArea = ({ color = "#B61313" }) => {
+interface CourtAreaProps {
+  courtRatio: number;
+  color: string;
+}
+
+const CourtArea: React.FC<CourtAreaProps> = ({courtRatio, color}) => {
   const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, strokeWidth } =
-    useStoreSelector((state) => state.proFullCourt);
-  const startPointX = initPointX;
-  const startPointY = initPointY;
+    useStoreSelector((state) => state.courtSize);
+  const borderWidth = courtAreaXLength * courtRatio;
+  const borderHeight = courtAreaYLength * courtRatio;
+
   return (
-    <Shape
-      sceneFunc={(context, shape) => {
-        context.beginPath();
-        context.moveTo(startPointX, startPointY); // Create a starting point
-        context.lineTo(startPointX + courtAreaXLength, startPointY); // Create a horizontal line
-        context.lineTo(startPointX + courtAreaXLength, startPointY + courtAreaYLength); // Create a horizontal line
-        context.lineTo(startPointX, startPointY + courtAreaYLength); // Create a horizontal line
-        context.closePath();
-        context.fillStrokeShape(shape);
-      }}
-      fill={color}
+    <Rect 
+      width={borderWidth} 
+      height={borderHeight} 
+      fill={color} 
+      x={initPointX} 
+      y={initPointY} 
       stroke="white"
-      strokeWidth={strokeWidth}
+      strokeWidth={strokeWidth / 10}
     />
   );
 };

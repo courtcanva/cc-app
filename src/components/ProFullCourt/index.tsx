@@ -1,4 +1,4 @@
-import { Stage, Layer} from "react-konva";
+import { Stage, Layer, Group} from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
@@ -7,8 +7,12 @@ import CourtArea from "../BasketballCourt/CourtArea";
 import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
+import { useStoreSelector } from "@/store/hooks";
 
 const ProFullCourt = () => {
+  const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, borderLength } =
+    useStoreSelector((state) => state.courtSize);
+  const courtRatio = 0.25;
   return (
     <Flex
       position="fixed"
@@ -16,8 +20,8 @@ const ProFullCourt = () => {
       left="98px"
       width="calc(100% - 98px)"
       height="calc(100% - 162px)"
-      minWidth={800}
-      minHeight={50}
+      minWidth={850}
+      minHeight={600}
       justifyContent="center"
       alignItems="center"
       margin="auto"
@@ -26,27 +30,28 @@ const ProFullCourt = () => {
         {({ store }) => (
           <Stage
             id="basketball-court"
-            width={800}
-            height={500}
+            width={850}
+            height={600}
             visible={true}
             style={{ backgroundColor: "white" }}
           >
             <Provider store={store}>
               <Layer>
-                <Border />
-                <CourtArea />
-                <ThreePointArea />
-                <KeyArea />
-                <CircleArea />
-                <TopKeyArea />
-              </Layer>
-              <Layer scaleX={-1} x={380}>
-                <Border />
-                <CourtArea />
-                <ThreePointArea />
-                <KeyArea />
-                <CircleArea />
-                <TopKeyArea />
+                <Border courtRatio={courtRatio} color={"#195955"} />
+                <Group>
+                  <CourtArea courtRatio={courtRatio} color={"#B61313"} />
+                  <ThreePointArea courtRatio={courtRatio} color={"#72818B"} />
+                  <KeyArea courtRatio={courtRatio} color={"#2C4E8A"} />
+                  <CircleArea courtRatio={courtRatio} color={"#606F14"} />
+                  <TopKeyArea courtRatio={courtRatio} color={"#B61313"} />
+                </Group>
+                <Group scaleX={-1} x={initPointX * 2+ courtAreaXLength * 2 * courtRatio}>
+                  <CourtArea courtRatio={courtRatio} color={"#B61313"} />
+                  <ThreePointArea courtRatio={courtRatio} color={"#72818B"} />
+                  <KeyArea courtRatio={courtRatio} color={"#2C4E8A"} />
+                  <CircleArea courtRatio={courtRatio} color={"#606F14"} />
+                  <TopKeyArea courtRatio={courtRatio} color={"#B61313"} />
+                </Group>
               </Layer>
             </Provider>
           </Stage>

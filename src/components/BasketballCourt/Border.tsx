@@ -1,13 +1,18 @@
 import { Rect } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 
-const Border = ({ color = "#195955" }) => {
-  const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, bordeLength } =
-    useStoreSelector((state) => state.proFullCourt);
-  const startPointX = initPointX - bordeLength;
-  const startPointY = initPointY - bordeLength;
-  const borderWidth = courtAreaXLength + bordeLength;
-  const borderHeight = courtAreaYLength + bordeLength * 2;
+interface BorderProps {
+  courtRatio: number;
+  color: string;
+}
+
+const Border: React.FC<BorderProps> = ({courtRatio, color}) => {
+  const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, borderLength } =
+    useStoreSelector((state) => state.courtSize);
+  const startPointX = initPointX - borderLength * courtRatio;
+  const startPointY = initPointY - borderLength * courtRatio;
+  const borderWidth = (courtAreaXLength + borderLength) * 2 * courtRatio;
+  const borderHeight = (courtAreaYLength + borderLength * 2) * courtRatio;
 
   return (
     <Rect width={borderWidth} height={borderHeight} fill={color} x={startPointX} y={startPointY} />

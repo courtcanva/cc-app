@@ -1,7 +1,12 @@
 import { Shape } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 
-const ThreePointArea = ({ color = "#72818B" }) => {
+interface ThreePointAreaProps {
+  courtRatio: number;
+  color: string;
+}
+
+const ThreePointArea: React.FC<ThreePointAreaProps> = ({courtRatio, color}) => {
   const {
     initPointX,
     initPointY,
@@ -9,16 +14,16 @@ const ThreePointArea = ({ color = "#72818B" }) => {
     cornerThreePointLineLength,
     threePointLineRadius,
     strokeWidth,
-  } = useStoreSelector((state) => state.proFullCourt);
+  } = useStoreSelector((state) => state.courtSize);
   const startPointX = initPointX;
-  const startPointY = initPointY + threePointLineToCourtEdgeLenth;
-  const controlPointOneX = initPointX + cornerThreePointLineLength + threePointLineRadius;
+  const startPointY = initPointY + threePointLineToCourtEdgeLenth * courtRatio;
+  const controlPointOneX = initPointX + (cornerThreePointLineLength + threePointLineRadius) * courtRatio;
   const controlPointOneY = startPointY;
   const controlPointTwoX = controlPointOneX;
-  const controlPointTwoY = startPointY + threePointLineRadius;
+  const controlPointTwoY = startPointY + threePointLineRadius * courtRatio;
   const controlPointThreeX = controlPointOneX;
-  const controlPointThreeY = startPointY + threePointLineRadius * 2;
-  const controlPointFourX = initPointX + cornerThreePointLineLength;
+  const controlPointThreeY = startPointY + threePointLineRadius * 2 * courtRatio;
+  const controlPointFourX = initPointX + cornerThreePointLineLength * courtRatio;
   const controlPointFourY = controlPointThreeY;
 
   return (
@@ -26,20 +31,20 @@ const ThreePointArea = ({ color = "#72818B" }) => {
       sceneFunc={(context, shape) => {
         context.beginPath();
         context.moveTo(startPointX, startPointY); // Create a starting point
-        context.lineTo(startPointX + cornerThreePointLineLength, startPointY); // Create a horizontal line
+        context.lineTo(startPointX + cornerThreePointLineLength * courtRatio, startPointY); // Create a horizontal line
         context._context.arcTo(
           controlPointOneX,
           controlPointOneY,
           controlPointTwoX,
           controlPointTwoY,
-          threePointLineRadius
+          threePointLineRadius * courtRatio
         ); // Create an arc
         context._context.arcTo(
           controlPointThreeX,
           controlPointThreeY,
           controlPointFourX,
           controlPointFourY,
-          threePointLineRadius
+          threePointLineRadius * courtRatio
         );
         // Continue with vertical line which makes it a close shape
         context.lineTo(startPointX, controlPointThreeY);
@@ -48,7 +53,7 @@ const ThreePointArea = ({ color = "#72818B" }) => {
       }}
       fill={color}
       stroke="white"
-      strokeWidth={strokeWidth}
+      strokeWidth={strokeWidth / 10}
     />
   );
 };

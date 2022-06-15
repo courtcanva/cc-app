@@ -1,7 +1,12 @@
 import { Rect } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 
-const KeyArea = ({ color = "#2C4E8A" }) => {
+interface KeyAreaProps {
+  courtRatio: number;
+  color: string;
+}
+
+const KeyArea: React.FC<KeyAreaProps> = ({courtRatio, color}) => {
   const {
     initPointX,
     initPointY,
@@ -10,19 +15,18 @@ const KeyArea = ({ color = "#2C4E8A" }) => {
     keyAreaWidth,
     keyAreaHeight,
     strokeWidth,
-  } = useStoreSelector((state) => state.proFullCourt);
-  const startPointX = initPointX;
+  } = useStoreSelector((state) => state.courtSize);
   const startPointY =
-    initPointY + threePointLineToCourtEdgeLenth + threePointLineRadius - keyAreaHeight / 2;
+    initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius - keyAreaHeight / 2) * courtRatio;
 
   return (
     <Rect
-      width={keyAreaWidth}
-      height={keyAreaHeight}
+      width={keyAreaWidth * courtRatio}
+      height={keyAreaHeight * courtRatio}
       fill={color}
       stroke="white"
-      strokeWidth={strokeWidth}
-      x={startPointX}
+      strokeWidth={strokeWidth / 10}
+      x={initPointX}
       y={startPointY}
     />
   );
