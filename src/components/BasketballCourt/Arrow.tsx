@@ -7,7 +7,7 @@ interface ArrowProps {
 }
 
 const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength }) => {
-  const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, borderLength, strokeWidth } =
+  const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, borderLength,} =
     useStoreSelector((state) => state.courtSize);
   let border;
   borderLength <= 100 ? (border = 100 * courtRatio) : (border = borderLength * courtRatio);

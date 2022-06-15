@@ -16,7 +16,7 @@ const DimensionText: React.FC<DimensionTextProps> = ({
   color,
   text,
 }) => {
-  const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, borderLength } =
+  const { borderLength } =
     useStoreSelector((state) => state.courtSize);
   let border;
   borderLength <= 100 ? (border = 100 * courtRatio) : (border = borderLength * courtRatio);
