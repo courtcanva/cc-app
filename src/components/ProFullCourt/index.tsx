@@ -11,6 +11,9 @@ import BorderDimensionLine from "../BasketballCourt/BorderDimensionLine";
 import ArrowLine from "../BasketballCourt/Arrow";
 import { useStoreSelector } from "@/store/hooks";
 
+// TODO: Only for test
+import Check from "../BasketballCourt/Check-delete-soon";
+
 const ProFullCourt = () => {
   const { initPointX, courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
     (state) => state.courtSize
@@ -89,6 +92,9 @@ const ProFullCourt = () => {
           </Stage>
         )}
       </ReactReduxContext.Consumer>
+
+      {/* TODO: Only for test */}
+      <Check />
     </Flex>
   );
 };
