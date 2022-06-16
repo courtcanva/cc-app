@@ -18,7 +18,7 @@ const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ courtRatio })
       <Shape
         sceneFunc={(context, shape) => {
           context.beginPath();
-          context.moveTo(startPointX, initPointY); 
+          context.moveTo(startPointX, initPointY);
           context.lineTo(initPointX, initPointY);
           context.lineTo(initPointX, startPointY);
           context.fillStrokeShape(shape);
@@ -31,7 +31,7 @@ const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ courtRatio })
       <Shape
         sceneFunc={(context, shape) => {
           context.beginPath();
-          context.moveTo(startPointX, initPointY + courtHeight); 
+          context.moveTo(startPointX, initPointY + courtHeight);
           context.lineTo(initPointX, initPointY + courtHeight);
           context.lineTo(initPointX, initPointY + courtHeight + borderLength * courtRatio);
           context.fillStrokeShape(shape);
