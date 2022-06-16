@@ -17,9 +17,6 @@ const variants = {
 const HeaderLayout: React.FC<HeaderLayoutProps> = ({ children, title }) => {
   const headName = `${title} | CourtCanva`;
   return (
-    <motion.article
-      className="absolute"
-    >
       <>
         {title && (
           <Head>
@@ -30,7 +27,6 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({ children, title }) => {
         )}
         {children}
       </>
-    </motion.article>
   );
 };
 
