@@ -3,10 +3,9 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface CircleAreaProps {
   courtRatio: number;
-  color: string;
 }
 
-const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio, color }) => {
+const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio }) => {
   const {
     initPointX,
     initPointY,

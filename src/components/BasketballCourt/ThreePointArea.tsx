@@ -3,10 +3,9 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface ThreePointAreaProps {
   courtRatio: number;
-  color: string;
 }
 
-const ThreePointArea: React.FC<ThreePointAreaProps> = ({ courtRatio, color }) => {
+const ThreePointArea: React.FC<ThreePointAreaProps> = ({ courtRatio }) => {
   const {
     initPointX,
     initPointY,

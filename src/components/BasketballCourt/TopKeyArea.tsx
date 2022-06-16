@@ -3,10 +3,9 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface ShootAreaProps {
   courtRatio: number;
-  color: string;
 }
 
-const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio, color }) => {
+const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio }) => {
   const {
     initPointX,
     initPointY,

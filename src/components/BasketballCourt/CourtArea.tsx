@@ -3,10 +3,9 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface CourtAreaProps {
   courtRatio: number;
-  color: string;
 }
 
-const CourtArea: React.FC<CourtAreaProps> = ({ courtRatio, color }) => {
+const CourtArea: React.FC<CourtAreaProps> = ({ courtRatio }) => {
   const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, strokeWidth } =
     useStoreSelector((state) => state.courtSize);
   const borderWidth = courtAreaXLength * courtRatio;

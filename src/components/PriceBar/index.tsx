@@ -1,9 +1,5 @@
-import { Box, Flex, Spacer, Collapse } from "@chakra-ui/react";
-import { useStyleConfig } from "@chakra-ui/react";
-import Down from "@/assets/svg/PriceBarSvg/down.svg";
-import Up from "@/assets/svg/PriceBarSvg/up.svg";
+import { Box } from "@chakra-ui/react";
 import React from "react";
-import CourtTemplate from "./CourtTemplate";
 import TileColorBoard from "./TileColorBoard";
 
 const PriceBar: React.FC = () => {

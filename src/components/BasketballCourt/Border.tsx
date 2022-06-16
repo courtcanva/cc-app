@@ -4,10 +4,9 @@ import DimensionText from "../BasketballCourt/DimensionText";
 
 interface BorderProps {
   courtRatio: number;
-  color: string;
 }
 
-const Border: React.FC<BorderProps> = ({ courtRatio, color }) => {
+const Border: React.FC<BorderProps> = ({ courtRatio }) => {
   const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, borderLength } =
     useStoreSelector((state) => state.courtSize);
   const startPointX = initPointX - borderLength * courtRatio;

@@ -2,14 +2,12 @@ import { fireEvent, render, waitFor } from "@testing-library/react";
 import PriceBar from "@/components/PriceBar";
 
 describe("PriceBar", () => {
-  it("Should show the drawer with correct content", () => {
-    const { getByText, getAllByTestId } = render(<PriceBar />);
+  it("Should show the price bar with correct content", () => {
+    const { getByText, getByTestId } = render(<PriceBar />);
 
-    // color board and budget
     expect(getByText(/Estimated Budget:/i)).toBeInTheDocument();
 
-    // court template
-    expect(getAllByTestId("courtTemplate")).toBeTruthy();
+    expect(getByTestId("tileBoard")).toBeTruthy();
   });
 
   it("Should only see the opening button when clicking the closing button", async () => {
