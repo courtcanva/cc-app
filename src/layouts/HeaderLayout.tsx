@@ -18,11 +18,6 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({ children, title }) => {
   const headName = `${title} | CourtCanva`;
   return (
     <motion.article
-      initial="hidden"
-      animate="enter"
-      exit="exit"
-      variants={variants}
-      transition={{ duration: 0.4, type: "easeInOut" }}
       className="absolute"
     >
       <>
