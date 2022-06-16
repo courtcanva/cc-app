@@ -3,7 +3,7 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface ArrowProps {
   courtRatio: number;
-  arrowXEndLength: number;
+  arrowXEndLength: number; // court x length has different calculations between full courts and single side courts
 }
 
 const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength }) => {
@@ -16,7 +16,7 @@ const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength }) => {
 
   return (
     <>
-      <Arrow
+      <Arrow // court x length left arrow
         pointerLength={5}
         pointerWidth={5}
         points={[
@@ -29,7 +29,7 @@ const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength }) => {
         stroke={color}
         strokeWidth={1}
       />
-      <Arrow
+      <Arrow // court x length right arrow
         scaleX={-1}
         x={initPointX * 2 + courtAreaXLength * 2 * courtRatio}
         pointerLength={5}
@@ -44,7 +44,7 @@ const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength }) => {
         stroke={color}
         strokeWidth={1}
       />
-      <Arrow
+      <Arrow // court Y length top arrow
         pointerLength={5}
         pointerWidth={5}
         points={[
@@ -57,7 +57,7 @@ const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength }) => {
         stroke={color}
         strokeWidth={1}
       />
-      <Arrow
+      <Arrow // court Y length bottom arrow
         scaleY={-1}
         y={initPointY * 2 + courtAreaYLength * courtRatio}
         pointerLength={5}

@@ -32,42 +32,42 @@ const Border: React.FC<BorderProps> = ({ courtRatio, color }) => {
         x={startPointX}
         y={startPointY}
       />
-      <DimensionText
+      <DimensionText // dimension at top left
         courtRatio={courtRatio}
         startPointX={textStartX}
         startPointY={textStartY}
         color={textColor}
         text={borderLength / 100}
       />
-      <DimensionText
+      <DimensionText // dimension at bottom left
         courtRatio={courtRatio}
         startPointX={textStartX}
         startPointY={initPointY + courtAreaYLength * courtRatio}
         color={textColor}
         text={borderLength / 100}
       />
-      <DimensionText
+      <DimensionText // dimension at top right
         courtRatio={courtRatio}
         startPointX={initPointX + courtAreaXLength * 2 * courtRatio}
         startPointY={textStartY}
         color={textColor}
         text={borderLength / 100}
       />
-      <DimensionText
+      <DimensionText // dimension at bottom right
         courtRatio={courtRatio}
         startPointX={initPointX + courtAreaXLength * 2 * courtRatio}
         startPointY={initPointY + courtAreaYLength * courtRatio}
         color={textColor}
         text={borderLength / 100}
       />
-      <DimensionText
+      <DimensionText // court X length demension
         courtRatio={courtRatio}
         startPointX={initPointX + courtAreaXLength * courtRatio - border / 2}
         startPointY={textStartY}
         color={textColor}
         text={courtAreaXLength / 50}
       />
-      <DimensionText
+      <DimensionText // court Y length demension
         courtRatio={courtRatio}
         startPointX={textStartX}
         startPointY={initPointY + (courtAreaYLength / 2) * courtRatio - border / 2}

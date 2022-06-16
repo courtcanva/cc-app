@@ -9,7 +9,7 @@ interface DimensionTextProps {
   text: number;
 }
 
-const DimensionText: React.FC<DimensionTextProps> = ({
+const DimensionText: React.FC<DimensionTextProps> = ({ // it can be used for court dimensions and border dimensions
   courtRatio,
   startPointX,
   startPointY,

@@ -12,8 +12,11 @@ import ArrowLine from "../BasketballCourt/Arrow";
 import { useStoreSelector } from "@/store/hooks";
 
 const ProFullCourt = () => {
-  const { initPointX, courtAreaXLength } = useStoreSelector((state) => state.courtSize);
-  const courtRatio = 0.25;
+  const { initPointX, courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector((state) => state.courtSize);
+  const courtRatio = 0.25; // (TBC)A flexible ratio based on stage size can adjust the whole court size easier.
+  const proFullCourtXLength = (courtAreaXLength + borderLength) * 2 / 100;
+  const proFullCourtYLength = (courtAreaYLength + borderLength * 2) / 100;
+
   return (
     <Flex
       position="fixed"
@@ -38,19 +41,23 @@ const ProFullCourt = () => {
           >
             <Provider store={store}>
               <Layer>
+                {/* court title */}
                 <Text
                   width={850}
                   height={100}
-                  text={"Pro Full Court: 510 ㎡ (17 * 30)"}
+                  text={`Pro Full Court: `+ (proFullCourtXLength * proFullCourtYLength) + `㎡ (`+ proFullCourtXLength +` * `+ proFullCourtYLength + `)`}
                   fontSize={150 * courtRatio}
                   align="center"
                   fill="black"
                   x={0}
                   y={40}
-                />
-                <Border courtRatio={courtRatio} color={"#195955"} />
+                /> 
+                {/* border only for pro full court size */}
+                <Border courtRatio={courtRatio} color={"#195955"} /> 
+                {/* arrowLine & dimensionText can be reuse for all courts*/}
                 <ArrowLine courtRatio={courtRatio} arrowXEndLength={courtAreaXLength} />
-                <Group>
+                {/* left side of pro full court*/}
+                <Group> 
                   <BorderDimensionLine courtRatio={courtRatio} />
                   <CourtArea courtRatio={courtRatio} color={"#B61313"} />
                   <ThreePointArea courtRatio={courtRatio} color={"#72818B"} />
@@ -58,6 +65,7 @@ const ProFullCourt = () => {
                   <CircleArea courtRatio={courtRatio} color={"#606F14"} />
                   <TopKeyArea courtRatio={courtRatio} color={"#B61313"} />
                 </Group>
+                {/* right side of pro full court(flip the left side)*/}
                 <Group scaleX={-1} x={initPointX * 2 + courtAreaXLength * 2 * courtRatio}>
                   <BorderDimensionLine courtRatio={courtRatio} />
                   <CourtArea courtRatio={courtRatio} color={"#B61313"} />

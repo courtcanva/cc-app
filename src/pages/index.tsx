@@ -7,7 +7,6 @@ const ProFullCourt = dynamic(() => import("@/components/ProFullCourt"), { ssr: f
 const Home: NextPage = () => {
   return (
     <HeaderLayout>
-      {/* <BasketballCourt /> */}
       <ProFullCourt />
     </HeaderLayout>
   );
