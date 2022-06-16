@@ -1,17 +1,17 @@
 import reducer, {
   changeStartPoint,
   initialState,
-  ThreePointLineState,
-} from "@/store/reducer/courtSlices/threePointLineSlice";
+  courtSizeState,
+} from "@/store/reducer/courtSlices/courtSizeSlice";
 import store from "@/store/index";
 
 it("should return the initial state", () => {
-  const state = store.getState().threePointLine;
+  const state = store.getState().courtSize;
   expect(state).toEqual(initialState);
 });
 
 it("should handle coordinates", () => {
   // TODO: temporary solution, should be changed later
-  const previousState: ThreePointLineState = initialState;
+  const previousState: courtSizeState = initialState;
   expect(reducer(previousState, changeStartPoint())).toEqual(initialState);
 });
