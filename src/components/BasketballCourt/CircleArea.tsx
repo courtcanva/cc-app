@@ -1,36 +1,37 @@
-import { Shape } from "react-konva";
+import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 
-const CircleArea = ({ color = "#606F14" }) => {
-  const { startPointX, startPointY, circleAreaRadius } = useStoreSelector(
-    (state) => state.circleArea
-  );
+interface CircleAreaProps {
+  courtRatio: number;
+  color: string;
+}
+
+const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio, color }) => {
+  const {
+    initPointX,
+    initPointY,
+    courtAreaXLength,
+    threePointLineToCourtEdgeLenth,
+    threePointLineRadius,
+    circleRadius,
+    strokeWidth,
+  } = useStoreSelector((state) => state.courtSize);
+  const startPointX = initPointX + courtAreaXLength * courtRatio;
+  const startPointY =
+    initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
 
   return (
-    <Shape
-      sceneFunc={(context, shape) => {
-        context.beginPath();
-        context.moveTo(startPointX, startPointY);
-        context._context.arcTo(
-          startPointX - circleAreaRadius,
-          startPointY,
-          startPointX - circleAreaRadius,
-          startPointY + circleAreaRadius,
-          circleAreaRadius
-        );
-        context._context.arcTo(
-          startPointX - circleAreaRadius,
-          startPointY + circleAreaRadius * 2,
-          startPointX,
-          startPointY + circleAreaRadius * 2,
-          circleAreaRadius
-        );
-        // context.closePath();
-        context.fillStrokeShape(shape);
-      }}
+    <Arc
+      x={startPointX}
+      y={startPointY}
+      innerRadius={0}
+      outerRadius={circleRadius * courtRatio}
+      angle={180}
       fill={color}
       stroke="white"
-      strokeWidth={2}
+      strokeWidth={strokeWidth / 10}
+      clockwise
+      rotation={270}
     />
   );
 };
