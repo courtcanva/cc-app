@@ -15,9 +15,7 @@ import { useStoreSelector } from "@/store/hooks";
 import Check from "../BasketballCourt/Check-delete-soon";
 
 const ProFullCourt = () => {
-  const { initPointX, courtAreaXLength } = useStoreSelector(
-    (state) => state.courtSize
-  );
+  const { initPointX, courtAreaXLength } = useStoreSelector((state) => state.courtSize);
   const courtRatio = 0.25; // (TBC)A flexible ratio based on stage size can adjust the whole court size easier.
 
   return (
@@ -39,7 +37,7 @@ const ProFullCourt = () => {
           <Stage
             id="basketball-court"
             width={850}
-            height={500}
+            height={550}
             visible={true}
             style={{ backgroundColor: "white" }}
           >
@@ -73,9 +71,9 @@ const ProFullCourt = () => {
         )}
       </ReactReduxContext.Consumer>
 
-      {/* TODO: Only for test */}
-    </Flex>
-    <Check />
+        {/* TODO: Only for test */}
+      </Flex>
+      <Check />
     </>
   );
 };
