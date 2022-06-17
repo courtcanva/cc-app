@@ -1,13 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
 
-export interface TileState {
+export interface tileState {
   type: string;
   color: string;
   quantity: number;
 }
 
-export const initialState: TileState[] = [
+export const initialState: tileState[] = [
   {
     type: "courtArea",
     color: "#72818B",
@@ -40,12 +40,18 @@ export const initialState: TileState[] = [
   },
 ];
 
-export const TileSlice = createSlice({
+export const tileSlice = createSlice({
   name: "tile",
   initialState,
-  reducers: {},
+  reducers: {
+    changeTileColor: (state, action: PayloadAction<string>) => {
+      // TODO COLOR CHANGE
+    },
+  },
 });
+
+export const { changeTileColor } = tileSlice.actions;
 
 export const TileData = (state: RootState) => state.tile;
 
-export default TileSlice.reducer;
+export default tileSlice.reducer;

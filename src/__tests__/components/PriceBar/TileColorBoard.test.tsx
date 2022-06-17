@@ -1,27 +1,17 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import TileColorBoard from "@/components/PriceBar/TileColorBoard";
-import { useStoreSelector } from "@/store/hooks";
+import renderWithMockedProvider from "../../utils";
 
 describe("TileColorBoard", () => {
   it("Should render estimated budget text", () => {
-    render(<TileColorBoard />);
-
-    const budgetTextElement = screen.getByText(/Estimated Budget:/i);
-    expect(budgetTextElement).toBeInTheDocument();
+    renderWithMockedProvider(<TileColorBoard />);
+    const budgetTextEl = screen.getByText(/Estimated Budget:/i);
+    expect(budgetTextEl).toBeInTheDocument();
   });
 
-  it("Should render colors of tile correctly", () => {
-    render(<TileColorBoard />);
-
-    const tiles = useStoreSelector((state) => state.tile);
-    const colors = [];
-    for (let i = 0; i < tiles.length; i++) {
-      colors.push(tiles[i].color);
-    }
-
-    for (const color of colors) {
-      const colorElement = screen.getByTestId("color");
-      expect(colorElement).toHaveStyle({ "background-color": color });
-    }
+  it("Should render tile blocks", () => {
+    renderWithMockedProvider(<TileColorBoard />);
+    const tileElements = screen.getAllByRole("tileBlock");
+    expect(tileElements.length).toBe(6);
   });
 });
