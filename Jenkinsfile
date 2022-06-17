@@ -4,7 +4,6 @@ pipeline {
           AWS_ACCESS_KEY = credentials('aws-creds-sl')
           GIT_HASH = GIT_COMMIT.take(7)
           Version_ID = "$BUILD_NUMBER" + '-' + "$GIT_HASH" + '-' + "$BUILD_TIMESTAMP"
-          EMAIL_INFORM = "wwwkiki0316@gmail.com,court.canva@gmail.com,live_now@live.cn"
      }
      stages {
          stage('Install dependencies') {
@@ -52,16 +51,11 @@ pipeline {
           }
          stage ('Approval') {
                 when {
-                    branch 'main'
+                    branch 'feature/CCD-0035-fix-env'
                 }
                     steps {
                     script {
-                         mail to: "${EMAIL_INFORM}",
-                         subject: "Approve Front-End deployment to PROD",
-                         body: "Approve Front-End deployment to PROD ?"
-                         timeout(time: 30, unit: 'MINUTES') {
-                              input(id: 'Deploy Gate', message: 'Deploy to PROD?', ok: 'Deploy')
-                         }
+                            input(id: 'Deploy Gate', message: 'Deploy to PROD?', ok: 'Deploy')
                     }
                     }
           }
