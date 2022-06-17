@@ -4,10 +4,9 @@ import DimensionText from "../BasketballCourt/DimensionText";
 
 interface BorderProps {
   courtRatio: number;
-  color: string;
 }
 
-const Border: React.FC<BorderProps> = ({ courtRatio, color }) => {
+const Border: React.FC<BorderProps> = ({ courtRatio }) => {
   const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, borderLength } =
     useStoreSelector((state) => state.courtSize);
   const startPointX = initPointX - borderLength * courtRatio;
@@ -22,6 +21,10 @@ const Border: React.FC<BorderProps> = ({ courtRatio, color }) => {
   borderLength <= 100 ? (textStartY = initPointY - 100 * courtRatio) : (textStartY = startPointY);
   let textColor;
   borderLength < 100 ? (textColor = "black") : (textColor = "white");
+
+  const color = useStoreSelector(
+    (state) => state.tile.find((tile) => tile.location.includes("border"))?.color
+  );
 
   return (
     <>

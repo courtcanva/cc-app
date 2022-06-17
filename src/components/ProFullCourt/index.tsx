@@ -66,26 +66,26 @@ const ProFullCourt = () => {
                   y={40}
                 />
                 {/* border only for pro full court size */}
-                <Border courtRatio={courtRatio} color={"#195955"} />
+                <Border courtRatio={courtRatio} />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}
                 <ArrowLine courtRatio={courtRatio} arrowXEndLength={courtAreaXLength} />
                 {/* left side of pro full court*/}
                 <Group>
                   <BorderDimensionLine courtRatio={courtRatio} />
-                  <CourtArea courtRatio={courtRatio} color={"#B61313"} />
-                  <ThreePointArea courtRatio={courtRatio} color={"#72818B"} />
-                  <KeyArea courtRatio={courtRatio} color={"#2C4E8A"} />
-                  <CircleArea courtRatio={courtRatio} color={"#606F14"} />
-                  <TopKeyArea courtRatio={courtRatio} color={"#B61313"} />
+                  <CourtArea courtRatio={courtRatio} />
+                  <ThreePointArea courtRatio={courtRatio} />
+                  <KeyArea courtRatio={courtRatio} />
+                  <CircleArea courtRatio={courtRatio} />
+                  <TopKeyArea courtRatio={courtRatio} />
                 </Group>
                 {/* right side of pro full court(flip the left side)*/}
                 <Group scaleX={-1} x={initPointX * 2 + courtAreaXLength * 2 * courtRatio}>
                   <BorderDimensionLine courtRatio={courtRatio} />
-                  <CourtArea courtRatio={courtRatio} color={"#B61313"} />
-                  <ThreePointArea courtRatio={courtRatio} color={"#72818B"} />
-                  <KeyArea courtRatio={courtRatio} color={"#2C4E8A"} />
-                  <CircleArea courtRatio={courtRatio} color={"#606F14"} />
-                  <TopKeyArea courtRatio={courtRatio} color={"#B61313"} />
+                  <CourtArea courtRatio={courtRatio} />
+                  <ThreePointArea courtRatio={courtRatio} />
+                  <KeyArea courtRatio={courtRatio} />
+                  <CircleArea courtRatio={courtRatio} />
+                  <TopKeyArea courtRatio={courtRatio} />
                 </Group>
               </Layer>
             </Provider>

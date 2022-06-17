@@ -3,10 +3,9 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface KeyAreaProps {
   courtRatio: number;
-  color: string;
 }
 
-const KeyArea: React.FC<KeyAreaProps> = ({ courtRatio, color }) => {
+const KeyArea: React.FC<KeyAreaProps> = ({ courtRatio }) => {
   const {
     initPointX,
     initPointY,
@@ -19,6 +18,10 @@ const KeyArea: React.FC<KeyAreaProps> = ({ courtRatio, color }) => {
   const startPointY =
     initPointY +
     (threePointLineToCourtEdgeLenth + threePointLineRadius - keyAreaHeight / 2) * courtRatio;
+
+  const color = useStoreSelector(
+    (state) => state.tile.find((tile) => tile.location.includes("keyArea"))?.color
+  );
 
   return (
     <Rect

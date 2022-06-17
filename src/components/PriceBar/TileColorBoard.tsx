@@ -1,47 +1,47 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Center, Flex, Text } from "@chakra-ui/react";
 import React from "react";
+import { useStoreSelector } from "@/store/hooks";
 
 const TileColorBoard: React.FC = () => {
-  const mockTileColors: string[] = [
-    "#1A1F51",
-    "#643132",
-    "#C96E55",
-    "#375239",
-    "#411920",
-    "#B59F7A",
-  ];
-
+  const tiles = useStoreSelector((state) => state.tile);
   return (
     <>
-      <Flex w={[252, 252, 272, 292]} h="64px" alignItems="center" borderLeft="1px solid #ABABAD">
-        <Box
-          w="275px"
-          h="51px"
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          marginLeft="9px"
-          marginRight="8px"
-          textAlign="center"
-          borderRadius="6px"
-          boxShadow="
-          inset -1px -1px 5px rgba(255, 255, 255, .9),
-          inset 1px 1px 5px rgba(0, 0, 0, .4);"
-        >
-          <Flex wrap="wrap" gap="4px" w="56px" h="35px" marginLeft="8px">
-            {mockTileColors.map((color) => (
-              <Box key={color} bg={color} w="16px" h="16px" />
-            ))}
-          </Flex>
-          <Text marginRight="8px" minW="105px" textAlign="left" fontWeight="800" fontSize="11px">
-            Estimated Budget:
-            <br />
-            From $ 1647
+      <Flex height="64px">
+        <Center width="100%" justifyContent="flex-start" marginLeft={{ base: "30px", xl: "60px" }}>
+          <Text fontSize="xs" fontWeight="600">
+            Estimated Tiles:
           </Text>
-        </Box>
+          <Center gap="8px" height="35px" marginLeft="8px" data-testid="tileBoard">
+            {tiles.map((tile) => (
+              <Center
+                key={tile.color}
+                backgroundColor={tile.color}
+                width={{ base: "40px", lg: "60px", xl: "85px" }}
+                height={{ base: "20px", lg: "25px", xl: "35px" }}
+                fontSize={{ base: "xs", xl: "sm" }}
+                color="white"
+                role="tileBlock"
+              >
+                {tile.quantity}
+              </Center>
+            ))}
+          </Center>
+        </Center>
+        <Center
+          width="350px"
+          justifyContent="flex-start"
+          borderLeft="1px solid #ABABAD"
+          paddingLeft="20px"
+        >
+          <Text fontSize="xs" fontWeight="600">
+            Estimated Budget:
+          </Text>
+          <Text fontSize="xs" fontWeight="800" marginLeft="6px">
+            From $ xxxx
+          </Text>
+        </Center>
       </Flex>
     </>
   );
 };
-
 export default TileColorBoard;

@@ -1,7 +1,7 @@
 import Layout from "../../layouts";
 import { screen, render } from "@testing-library/react";
 import { RouterContext } from "next/dist/shared/lib/router-context";
-import { createMockRouter } from "../utils";
+import renderWithMockedProvider, { createMockRouter } from "../utils";
 
 describe("Header", () => {
   it("should render the Layout", () => {
@@ -17,7 +17,7 @@ describe("Header", () => {
   });
 
   it("should render full layout", () => {
-    render(
+    renderWithMockedProvider(
       <RouterContext.Provider value={createMockRouter({})}>
         <Layout> </Layout>
       </RouterContext.Provider>
