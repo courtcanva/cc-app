@@ -1,7 +1,6 @@
 import courtList from "../ChangeCourtSize/CourtList";
 import { Image, Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-1;
 import { changeCourtName } from "@/store/reducer/courtNameSlice";
 import React from "react";
 

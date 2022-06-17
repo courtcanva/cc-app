@@ -1,22 +1,12 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import courtAreaReducer from "./reducer/courtSlices/courtAreaSlice";
-import threePointLineReducer from "./reducer/courtSlices/threePointLineSlice";
-import borderReducer from "./reducer/courtSlices/borderSlice";
-import keyAreaReducer from "./reducer/courtSlices/keyAreaSlice";
-import circleAreaReducer from "./reducer/courtSlices/circleAreaSlice";
-import topKeyAreaReducer from "./reducer/courtSlices/topKeyAreaSlice";
-import CourtNameReducer from "./reducer/courtNameSlice";
+import courtReducer from "./reducer/courtSlices/courtSizeSlice";
+import courtNameReducer from "./reducer/courtNameSlice";
 
 export const makeStore = () =>
   configureStore({
     reducer: {
-      threePointLine: threePointLineReducer,
-      courtArea: courtAreaReducer,
-      border: borderReducer,
-      keyArea: keyAreaReducer,
-      circleArea: circleAreaReducer,
-      topKeyArea: topKeyAreaReducer,
-      courtName: CourtNameReducer,
+      courtSize: courtReducer,
+      courtName: courtNameReducer,
     },
   });
 
