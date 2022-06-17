@@ -3,10 +3,9 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface ThreePointAreaProps {
   courtRatio: number;
-  color: string;
 }
 
-const ThreePointArea: React.FC<ThreePointAreaProps> = ({ courtRatio, color }) => {
+const ThreePointArea: React.FC<ThreePointAreaProps> = ({ courtRatio }) => {
   const {
     initPointX,
     initPointY,
@@ -26,6 +25,10 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ courtRatio, color }) =>
   const controlPointThreeY = startPointY + threePointLineRadius * 2 * courtRatio;
   const controlPointFourX = initPointX + cornerThreePointLineLength * courtRatio;
   const controlPointFourY = controlPointThreeY;
+
+  const color = useStoreSelector(
+    (state) => state.tile.find((tile) => tile.location.includes("threePoint"))?.color
+  );
 
   return (
     <Shape

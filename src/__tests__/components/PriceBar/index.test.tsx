@@ -1,24 +1,13 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import PriceBar from "@/components/PriceBar";
+import renderWithMockedProvider from "../../utils";
 
 describe("PriceBar", () => {
-  it("Should show the drawer with correct content", () => {
-    const { getByText, getAllByTestId } = render(<PriceBar />);
+  it("Should show the price bar with correct content", () => {
+    renderWithMockedProvider(<PriceBar />);
 
-    // color board and budget
-    expect(getByText(/Estimated Budget:/i)).toBeInTheDocument();
-
-    // court template
-    expect(getAllByTestId("courtTemplate")).toBeTruthy();
-  });
-
-  it("Should only see the opening button when clicking the closing button", async () => {
-    const { getByTestId, getAllByRole } = render(<PriceBar />);
-
-    fireEvent.click(getByTestId("drawer-button"));
-
-    await waitFor(() => {
-      expect(getAllByRole("button").length).toBe(1);
-    });
+    expect(screen.getByText(/Estimated Budget:/i)).toBeInTheDocument();
+    expect(screen.getByText(/Estimated Tiles:/i)).toBeInTheDocument();
+    expect(screen.getByTestId("tileBoard")).toBeTruthy();
   });
 });

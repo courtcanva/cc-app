@@ -3,10 +3,9 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface ShootAreaProps {
   courtRatio: number;
-  color: string;
 }
 
-const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio, color }) => {
+const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio }) => {
   const {
     initPointX,
     initPointY,
@@ -19,6 +18,10 @@ const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio, color }) => {
   const startPointX = initPointX + keyAreaWidth * courtRatio;
   const startPointY =
     initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
+
+  const color = useStoreSelector(
+    (state) => state.tile.find((tile) => tile.location.includes("topKeyArea"))?.color
+  );
 
   return (
     <>

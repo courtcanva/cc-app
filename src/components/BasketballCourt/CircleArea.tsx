@@ -3,10 +3,9 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface CircleAreaProps {
   courtRatio: number;
-  color: string;
 }
 
-const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio, color }) => {
+const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio }) => {
   const {
     initPointX,
     initPointY,
@@ -19,6 +18,10 @@ const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio, color }) => {
   const startPointX = initPointX + courtAreaXLength * courtRatio;
   const startPointY =
     initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
+
+  const color = useStoreSelector(
+    (state) => state.tile.find((tile) => tile.location.includes("circleArea"))?.color
+  );
 
   return (
     <Arc
