@@ -27,7 +27,7 @@ const ProFullCourt = () => {
       width="calc(100% - 98px)"
       height="calc(100% - 162px)"
       minWidth={850}
-      minHeight={550}
+      minHeight={500}
       justifyContent="center"
       alignItems="center"
       margin="auto"
@@ -37,7 +37,7 @@ const ProFullCourt = () => {
           <Stage
             id="basketball-court"
             width={850}
-            height={550}
+            height={500}
             visible={true}
             style={{ backgroundColor: "white" }}
           >
