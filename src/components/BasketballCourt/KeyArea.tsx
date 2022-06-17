@@ -20,7 +20,7 @@ const KeyArea: React.FC<KeyAreaProps> = ({ courtRatio }) => {
     (threePointLineToCourtEdgeLenth + threePointLineRadius - keyAreaHeight / 2) * courtRatio;
 
   const color = useStoreSelector(
-    (state) => state.tile.find((tile) => tile.type === "keyArea")?.color
+    (state) => state.tile.find((tile) => tile.location.includes("keyArea"))?.color
   );
 
   return (

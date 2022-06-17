@@ -20,7 +20,7 @@ const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio }) => {
     initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
 
   const color = useStoreSelector(
-    (state) => state.tile.find((tile) => tile.type === "topKeyArea")?.color
+    (state) => state.tile.find((tile) => tile.location.includes("topKeyArea"))?.color
   );
 
   return (

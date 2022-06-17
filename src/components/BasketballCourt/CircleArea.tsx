@@ -20,7 +20,7 @@ const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio }) => {
     initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
 
   const color = useStoreSelector(
-    (state) => state.tile.find((tile) => tile.type === "circleArea")?.color
+    (state) => state.tile.find((tile) => tile.location.includes("circleArea"))?.color
   );
 
   return (

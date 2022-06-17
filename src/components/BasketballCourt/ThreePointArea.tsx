@@ -27,7 +27,7 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ courtRatio }) => {
   const controlPointFourY = controlPointThreeY;
 
   const color = useStoreSelector(
-    (state) => state.tile.find((tile) => tile.type === "threePoint")?.color
+    (state) => state.tile.find((tile) => tile.location.includes("threePoint"))?.color
   );
 
   return (
