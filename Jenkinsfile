@@ -4,9 +4,7 @@ pipeline {
           AWS_ACCESS_KEY = credentials('aws-creds-sl')
           GIT_HASH = GIT_COMMIT.take(7)
           Version_ID = "$BUILD_NUMBER" + '-' + "$GIT_HASH" + '-' + "$BUILD_TIMESTAMP"
-          NEXT_PUBLIC_UAT_URL = "$NEXT_PUBLIC_UAT_URL"
-          NEXT_PUBLIC_TEST_API = "$NEXT_PUBLIC_TEST_API"
-          NEXT_PUBLIC_API = "$NEXT_PUBLIC_API"
+          EMAIL_INFORM = "wwwkiki0316@gmail.com,court.canva@gmail.com,live_now@live.cn"
      }
      stages {
          stage('Install dependencies') {
@@ -18,6 +16,7 @@ pipeline {
           }
          stage('Build') {
                steps {
+                    sh '. /var/jenkins_home/uat.env'
                     sh 'npm run build'
                }
                     }
@@ -39,7 +38,7 @@ pipeline {
                     echo 'Zip Artifact File'
                     sh 'cd out; zip -r ../"1.0.$Version_ID".zip .'
                     echo 'Upload main branch artifact to front-end artifact repo'
-                    sh 'aws s3 cp "1.0.$Version_ID".zip ${FrontEndRepo}'
+                    sh 'aws s3 cp "1.0.$Version_ID".zip ${UATFrontEndRepo}'
                }
                     }
          stage('Main Branch Deploy') {
@@ -57,12 +56,42 @@ pipeline {
                 }
                     steps {
                     script {
+                         mail to: "${EMAIL_INFORM}",
+                         subject: "Approve Front-End deployment to PROD",
+                         body: "Approve Front-End deployment to PROD ?"
                          timeout(time: 30, unit: 'MINUTES') {
                               input(id: 'Deploy Gate', message: 'Deploy to PROD?', ok: 'Deploy')
                          }
                     }
                     }
           }
+          stage('Build-Prod') {
+               steps {
+                    sh '. /var/jenkins_home/prod.env'
+                    sh 'npm run build'
+               }
+                    }
+         stage('Export-Prod') {
+               steps {
+                    sh 'npm run export'
+               }
+                    }
+         stage('Version Number-Prod') {
+               steps {
+                    echo "1.0.$Version_ID"
+               }
+                    }
+          stage('Upload Main Branch Artifact Repo to Prod') {
+               when {
+                    branch 'main'
+               }
+               steps {
+                    echo 'Zip Artifact File'
+                    sh 'cd out; zip -r ../"1.0.$Version_ID".zip .'
+                    echo 'Upload main branch artifact to front-end artifact repo'
+                    sh 'aws s3 cp "1.0.$Version_ID".zip ${FrontEndRepo}'
+               }
+                    }
           stage ('Deploy To Prod') {
                when {
                     branch 'main'
