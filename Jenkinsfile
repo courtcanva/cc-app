@@ -51,7 +51,7 @@ pipeline {
           }
          stage ('Approval') {
                 when {
-                    branch 'feature/CCD-0035-fix-env'
+                    branch 'main'
                 }
                     steps {
                     script {
