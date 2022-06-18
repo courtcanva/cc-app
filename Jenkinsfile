@@ -15,8 +15,7 @@ pipeline {
           }
          stage('Build') {
                steps {
-                    sh '. /var/jenkins_home/uat.env'
-                    sh 'npm run build'
+                    sh '. /var/jenkins_home/uat.env; npm run build'
                }
                     }
          stage('Export') {
@@ -61,8 +60,7 @@ pipeline {
           }
           stage('Build-Prod') {
                steps {
-                    sh '. /var/jenkins_home/prod.env'
-                    sh 'npm run build'
+                    sh '. /var/jenkins_home/prod.env; npm run build'
                }
                     }
          stage('Export-Prod') {
