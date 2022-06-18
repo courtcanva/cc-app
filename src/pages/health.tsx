@@ -1,13 +1,11 @@
-import { useState, useEffect } from "react";
 import { Flex, Button } from "@chakra-ui/react";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../utils/axios";
 import { useStoreDispatch } from "../store/hooks";
 
 const healthCheck = createAsyncThunk("Health Check", async () => {
   api(process.env.NEXT_PUBLIC_HEALTH_API as string, { method: "get" })
     .then((response) => {
-      console.log(response);
       return alert("Connect to BD and Service is " + response.data.status);
     })
     .catch((error) => alert("Connection failed"));
