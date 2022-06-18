@@ -1,9 +1,14 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import TopBar from "@/components/TopBar";
+import renderWithMockedProvider from "../../utils";
 
 describe("TopBar", () => {
+  it("should render court name", () => {
+    renderWithMockedProvider(<TopBar />);
+  });
+
   it("should render center court text", () => {
-    render(<TopBar />);
+    renderWithMockedProvider(<TopBar />);
     const centerCourtTextElement = screen.getByText(/Center court circle/i);
 
     expect(centerCourtTextElement).toBeInTheDocument();
@@ -11,7 +16,7 @@ describe("TopBar", () => {
   });
 
   it("should render width text", () => {
-    render(<TopBar />);
+    renderWithMockedProvider(<TopBar />);
     const borderWidthTextElement = screen.getByText(/width/i);
 
     expect(borderWidthTextElement).toBeInTheDocument();
@@ -19,29 +24,29 @@ describe("TopBar", () => {
   });
 
   it("should render color select button", () => {
-    render(<TopBar />);
+    renderWithMockedProvider(<TopBar />);
     expect(screen.getByTestId("colorSelectBtn")).toBeTruthy();
   });
 
   it("should render center court icon", () => {
-    render(<TopBar />);
+    renderWithMockedProvider(<TopBar />);
     expect(screen.getByTestId("smallCourtIcon")).toBeTruthy();
   });
 
   it("should render upload image btn", () => {
-    render(<TopBar />);
+    renderWithMockedProvider(<TopBar />);
     expect(screen.getByTestId("uploadBtn")).toBeTruthy();
   });
 
   it("Should render Share button", () => {
-    render(<TopBar />);
+    renderWithMockedProvider(<TopBar />);
 
     const downloadButton = screen.getByTestId("download-btn");
     expect(downloadButton).toBeInTheDocument();
   });
 
   it("Should render login Modal when click button", async () => {
-    render(<TopBar />);
+    renderWithMockedProvider(<TopBar />);
     const downloadButton = screen.getByTestId("download-btn");
     fireEvent.click(downloadButton);
     const loginModalDialog = screen.getByRole("dialog");
