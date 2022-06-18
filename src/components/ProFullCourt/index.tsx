@@ -1,4 +1,4 @@
-import { Stage, Layer, Group, Text } from "react-konva";
+import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
