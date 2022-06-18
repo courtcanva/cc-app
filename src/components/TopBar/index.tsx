@@ -36,7 +36,6 @@ const TopBar = () => {
       position="fixed"
       width="calc(100vw - 98px)"
       background="white"
-      boxShadow="dark-lg"
       left="98px"
       top="73px"
       height="50px"
