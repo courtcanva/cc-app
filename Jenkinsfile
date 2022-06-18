@@ -15,11 +15,7 @@ pipeline {
           }
          stage('Build') {
                steps {
-                    sh '. /var/jenkins_home/uat.env'
-                    echo '$NEXT_PUBLIC_API'
-                    echo '$NEXT_PUBLIC_DESIGN_UR'
-                    echo '$NEXT_PUBLIC_HEALTH_API'
-                    sh 'npm run build'
+                    sh '. /var/jenkins_home/uat.env; npm run build'
                }
                     }
          stage('Export') {
