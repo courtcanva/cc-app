@@ -59,16 +59,25 @@ pipeline {
                     }
           }
           stage('Build-Prod') {
+               when {
+                    branch 'main'
+               }
                steps {
                     sh '. /var/jenkins_home/prod.env; npm run build'
                }
                     }
          stage('Export-Prod') {
+              when {
+                    branch 'main'
+               }
                steps {
                     sh 'npm run export'
                }
                     }
          stage('Version Number-Prod') {
+              when {
+                    branch 'main'
+               }
                steps {
                     echo "1.0.$Version_ID"
                }
