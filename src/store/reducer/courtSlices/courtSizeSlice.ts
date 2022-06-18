@@ -7,7 +7,7 @@ export interface courtSizeState {
 
 export const initialState: courtSizeState = {
   initPointX: 75,
-  initPointY: 65,
+  initPointY: 75,
   courtAreaXLength: 1400,
   courtAreaYLength: 1500,
   threePointLineToCourtEdgeLenth: 90,
