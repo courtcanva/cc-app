@@ -1,4 +1,4 @@
-import { Stage, Layer, Group, Text } from "react-konva";
+import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
@@ -11,26 +11,19 @@ import BorderDimensionLine from "../BasketballCourt/BorderDimensionLine";
 import ArrowLine from "../BasketballCourt/Arrow";
 import { useStoreSelector } from "@/store/hooks";
 
-// TODO: Only for test
-import Check from "../BasketballCourt/Check-delete-soon";
-
 const ProFullCourt = () => {
-  const { initPointX, courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
-    (state) => state.courtSize
-  );
+  const { initPointX, courtAreaXLength } = useStoreSelector((state) => state.courtSize);
   const courtRatio = 0.25; // (TBC)A flexible ratio based on stage size can adjust the whole court size easier.
-  const proFullCourtXLength = ((courtAreaXLength + borderLength) * 2) / 100;
-  const proFullCourtYLength = (courtAreaYLength + borderLength * 2) / 100;
 
   return (
     <Flex
       position="fixed"
-      top="122px"
+      top="123px"
       left="98px"
       width="calc(100% - 98px)"
-      height="calc(100% - 162px)"
+      height="calc(100% - 220px)"
       minWidth={850}
-      minHeight={600}
+      minHeight={520}
       justifyContent="center"
       alignItems="center"
       margin="auto"
@@ -40,7 +33,7 @@ const ProFullCourt = () => {
           <Stage
             id="basketball-court"
             width={850}
-            height={600}
+            height={520}
             visible={true}
             style={{ backgroundColor: "white" }}
           >
@@ -73,9 +66,6 @@ const ProFullCourt = () => {
           </Stage>
         )}
       </ReactReduxContext.Consumer>
-
-      {/* TODO: Only for test */}
-      <Check />
     </Flex>
   );
 };
