@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import EditorSideBar from "@/components/EditorSideBar";
 import sideBarItemList from "@/components/EditorSideBar/const";
+import renderWithMockedProvider from "../../utils";
 
 describe("EditorSideBar component", () => {
   test("Each box in the sidebar should render the correct text", () => {
@@ -17,7 +18,7 @@ describe("EditorSideBar component", () => {
   });
 
   it("When clicking icon button and closing button should be working", () => {
-    render(<EditorSideBar />);
+    renderWithMockedProvider(<EditorSideBar />);
 
     sideBarItemList.map((item) => {
       const element = screen.getByText(item.title);

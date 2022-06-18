@@ -46,25 +46,6 @@ const ProFullCourt = () => {
           >
             <Provider store={store}>
               <Layer>
-                {/* court title */}
-                <Text
-                  width={850}
-                  height={100}
-                  text={
-                    `Pro Full Court: ` +
-                    proFullCourtXLength * proFullCourtYLength +
-                    `㎡ (` +
-                    proFullCourtXLength +
-                    ` * ` +
-                    proFullCourtYLength +
-                    `)`
-                  }
-                  fontSize={150 * courtRatio}
-                  align="center"
-                  fill="black"
-                  x={0}
-                  y={40}
-                />
                 {/* border only for pro full court size */}
                 <Border courtRatio={courtRatio} />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}
