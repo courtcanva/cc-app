@@ -18,10 +18,10 @@ const ProFullCourt = () => {
   return (
     <Flex
       position="fixed"
-      top="122px"
+      top="123px"
       left="98px"
       width="calc(100% - 98px)"
-      height="calc(100% - 215px)"
+      height="calc(100% - 220px)"
       minWidth={850}
       minHeight={520}
       justifyContent="center"
