@@ -54,13 +54,13 @@ pipeline {
             }
          steps {
              script {
-                     env.proceed = true
+                     env.PROCEED_TO_DEPLOY = 1
                  try {
                      timeout(time: 60, unit: 'SECONDS') {
                          input(message: 'Deploy this build to Prod?')
                      }
                  } catch (err) {
-                    env.proceed = false
+                    env.PROCEED_TO_DEPLOY = 0
                  }
              }
          }
@@ -68,7 +68,7 @@ pipeline {
          stage('Build-Prod') {
               when {
                   expression {
-                  proceed 'true'
+                  env.PROCEED_TO_DEPLOY '1'
               }
               }
               steps {
