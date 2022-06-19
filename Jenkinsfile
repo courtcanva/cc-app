@@ -56,7 +56,6 @@ pipeline {
                     input(id: 'Deploy Gate', message: 'Deploy to PROD?', ok: 'Deploy')
               }
           }
-          stages {
          stage('Install dependencies-prod') {
                          steps {
                               sh 'npm i'
