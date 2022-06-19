@@ -7,6 +7,7 @@ pipeline {
     }
     stages {
         stage('Install dependencies') {
+             agent { label 'linux' }
                         steps {
                              sh 'npm i'
                    echo 'Building..'
@@ -49,6 +50,9 @@ pipeline {
               }
          }
          stage('Approval') {
+             agent {
+              label "agent1"
+            }
             when {
                  branch 'test/devops'
             }
@@ -69,7 +73,7 @@ pipeline {
          stage('Build-Prod') {
               when {
                   expression {
-                  env.PROCEED_TO_DEPLOY == 0
+                  env.PROCEED_TO_DEPLOY == '1'
               }
               }
               steps {
@@ -80,7 +84,7 @@ pipeline {
         stage('Export-Prod') {
             when {
                 expression {
-                    env.PROCEED_TO_DEPLOY = 1
+                    env.PROCEED_TO_DEPLOY == '1'
                 }
             }
               steps {
