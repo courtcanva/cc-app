@@ -68,7 +68,7 @@ pipeline {
          stage('Build-Prod') {
               when {
                 expression {
-                    env.PROCEED_TO_DEPLOY == 1
+                    env.PROCEED_TO_DEPLOY = 1
                 }
               
               }
@@ -79,7 +79,7 @@ pipeline {
         stage('Export-Prod') {
             when {
                 expression {
-                    env.PROCEED_TO_DEPLOY == 1
+                    env.PROCEED_TO_DEPLOY = 1
                 }
             }
               steps {
