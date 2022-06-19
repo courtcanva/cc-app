@@ -50,17 +50,13 @@ pipeline {
           }
          stage ('Approval') {
                 when {
-                    branch 'main'
+                    branch 'test/devops'
                 }
-                    steps {
-                    script {
-                            input(id: 'Deploy Gate', message: 'Deploy to PROD?', ok: 'Deploy')
-                    }
-                    }
+                    input(id: 'Deploy Gate', message: 'Deploy to PROD?', ok: 'Deploy')
           }
           stage('Build-Prod') {
                when {
-                    branch 'main'
+                    branch 'test/devops'
                }
                steps {
                     sh '. /var/jenkins_home/prod.env; npm run build'
@@ -68,7 +64,7 @@ pipeline {
                     }
          stage('Export-Prod') {
               when {
-                    branch 'main'
+                    branch 'test/devops'
                }
                steps {
                     sh 'npm run export'
@@ -76,7 +72,7 @@ pipeline {
                     }
          stage('Version Number-Prod') {
               when {
-                    branch 'main'
+                    branch 'test/devops'
                }
                steps {
                     echo "1.0.$Version_ID"
