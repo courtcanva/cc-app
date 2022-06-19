@@ -30,7 +30,7 @@ pipeline {
                    }
         stage('Upload Main Branch Artifact Repo') {
               when {
-                   branch 'main'
+                   branch 'test-devops-sl'
               }
               steps {
                    echo 'Zip Artifact File'
@@ -41,7 +41,7 @@ pipeline {
                    }
         stage('Main Branch Deploy') {
               when {
-                   branch 'main'
+                   branch 'test-devops-sl'
               }
               steps {
                    echo 'Deploying artifact to UAT environment from main branch'
@@ -53,7 +53,7 @@ pipeline {
               label "agent1"
             }
             when {
-                 branch 'main'
+                 branch 'test-devops-sl'
             }
             
          steps {
