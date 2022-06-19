@@ -7,7 +7,6 @@ pipeline {
     }
     stages {
         stage('Install dependencies') {
-             agent { label 'linux' }
                         steps {
                              sh 'npm i'
                    echo 'Building..'
