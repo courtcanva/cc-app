@@ -48,14 +48,14 @@ pipeline {
                     sh 'aws s3 sync out ${UATS3Bucket}'
                }
           }
-         stage ('Approval') {
-                when {
-                    branch 'test/devops'
-                }
+     }
+              when {
+                    branch 'main'
+               }     
               timeout(time: 1, unit: "MINUTES") {
                     input(id: 'Deploy Gate', message: 'Deploy to PROD?', ok: 'Deploy')
               }
-          }
+         stages {
          stage('Install dependencies-prod') {
                          steps {
                               sh 'npm i'
