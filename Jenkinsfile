@@ -66,13 +66,14 @@ pipeline {
          }
      }
          stage('Build-Prod') {
-              if(proceed) {
-                  
+              when {
+                  proceed = true
+              }
               steps {
                    sh '. /var/jenkins_home/prod.env; npm run build'
               }
                    }
-         }
+         
         stage('Export-Prod') {
             when {
                 expression {
