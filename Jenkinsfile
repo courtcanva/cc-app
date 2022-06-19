@@ -53,7 +53,7 @@ pipeline {
               label "agent1"
             }
             when {
-                 branch 'test/devops'
+                 branch 'main'
             }
             
          steps {
