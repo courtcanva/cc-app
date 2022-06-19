@@ -90,21 +90,12 @@ pipeline {
                    sh 'npm run export'
               }
                    }
-        stage('Version Number-Prod') {
-
-            when {
-                expression {
-                    env.PROCEED_TO_DEPLOY == 1
-                }
-                 
-              }
-              steps {
-                   echo "1.0.$Version_ID"
-              }
-                   }
+      
          stage('Upload Main Branch Artifact Repo to Prod') {
-              when {
-                   branch 'main'
+            when {
+                  expression {
+                  env.PROCEED_TO_DEPLOY == '1'
+              }
               }
               steps {
                    echo 'Zip Artifact File'
@@ -114,8 +105,10 @@ pipeline {
               }
                    }
          stage ('Deploy To Prod') {
-              when {
-                   branch 'main'
+             when {
+                  expression {
+                  env.PROCEED_TO_DEPLOY == '1'
+              }
               }
               steps {
                    echo 'Deploying artifact to PROD environment from main branch'
