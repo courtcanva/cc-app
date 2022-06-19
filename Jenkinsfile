@@ -70,7 +70,7 @@ pipeline {
                 expression {
                     env.PROCEED_TO_DEPLOY == 1
                 }
-                   branch 'test/devops'
+              
               }
               steps {
                    sh '. /var/jenkins_home/prod.env; npm run build'
@@ -81,8 +81,7 @@ pipeline {
                 expression {
                     env.PROCEED_TO_DEPLOY == 1
                 }
-                   branch 'test/devops'
-              }
+            }
               steps {
                    sh 'npm run export'
               }
@@ -93,7 +92,7 @@ pipeline {
                 expression {
                     env.PROCEED_TO_DEPLOY == 1
                 }
-                   branch 'main'
+                 
               }
               steps {
                    echo "1.0.$Version_ID"
