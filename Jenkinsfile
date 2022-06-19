@@ -52,6 +52,9 @@ pipeline {
             when {
                  branch 'test/devops'
             }
+             agent {
+              label "linux"
+            }
          steps {
              script {
                      env.PROCEED_TO_DEPLOY = 1
@@ -68,7 +71,7 @@ pipeline {
          stage('Build-Prod') {
               when {
                   expression {
-                  env.PROCEED_TO_DEPLOY '1'
+                  env.PROCEED_TO_DEPLOY == 0
               }
               }
               steps {
