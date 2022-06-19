@@ -48,21 +48,28 @@ pipeline {
                     sh 'aws s3 sync out ${UATS3Bucket}'
                }
           }
-     }
-              when {
-                    branch 'main'
-               }     
-              timeout(time: 1, unit: "MINUTES") {
-                    input(id: 'Deploy Gate', message: 'Deploy to PROD?', ok: 'Deploy')
-              }
-         stages {
-         stage('Install dependencies-prod') {
-                         steps {
-                              sh 'npm i'
-                    echo 'Building..'
-                              echo "Running job: ${env.JOB_NAME}\n Build: ${env.BUILD_ID} - ${env.BUILD_URL}\nPepeline: ${env.RUN_DISPLAY_URL}"
-                         }
-          }
+         stage('Approval') {
+               when {
+                    branch 'test/devops'
+               }
+            steps {
+                script {
+                    def proceed = true
+                    try {
+                        timeout(time: 60, unit: 'SECONDS') {
+                            input(message: 'Deploy this build to Prod?')
+                        }
+                    } catch (err) {
+                        proceed = false
+                    }
+                    if(proceed) {
+                         
+                         
+                      }
+                }
+            }
+        }
+             
           stage('Build-Prod') {
                when {
                     branch 'test/devops'
