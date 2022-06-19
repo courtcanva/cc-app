@@ -52,9 +52,7 @@ pipeline {
             when {
                  branch 'test/devops'
             }
-             agent {
-              label "linux"
-            }
+            
          steps {
              script {
                      env.PROCEED_TO_DEPLOY = 1
