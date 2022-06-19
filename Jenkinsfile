@@ -67,7 +67,7 @@ pipeline {
      }
          stage('Build-Prod') {
               when {
-                  proceed = true
+                  proceed 'true'
               }
               steps {
                    sh '. /var/jenkins_home/prod.env; npm run build'
