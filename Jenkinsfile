@@ -63,58 +63,19 @@ pipeline {
                         proceed = false
                     }
                     if(proceed) {
-                         
-                         
+                         sh '. /var/jenkins_home/prod.env; npm run build'
+                         sh 'npm run export'
+                         echo 'Zip Artifact File'
+                         sh 'cd out; zip -r ../"1.0.$Version_ID".zip .'
+                         echo 'Upload main branch artifact to front-end artifact repo'
+                         sh 'aws s3 cp "1.0.$Version_ID".zip ${FrontEndRepo}'
+                         echo 'Deploying artifact to PROD environment from main branch'
+                         sh 'aws s3 sync out ${PRODS3Bucket}'
                       }
                 }
             }
         }
-             
-          stage('Build-Prod') {
-               when {
-                    branch 'test/devops'
-               }
-               steps {
-                    sh '. /var/jenkins_home/prod.env; npm run build'
-               }
-                    }
-         stage('Export-Prod') {
-              when {
-                    branch 'test/devops'
-               }
-               steps {
-                    sh 'npm run export'
-               }
-                    }
-         stage('Version Number-Prod') {
-              when {
-                    branch 'test/devops'
-               }
-               steps {
-                    echo "1.0.$Version_ID"
-               }
-                    }
-          stage('Upload Main Branch Artifact Repo to Prod') {
-               when {
-                    branch 'main'
-               }
-               steps {
-                    echo 'Zip Artifact File'
-                    sh 'cd out; zip -r ../"1.0.$Version_ID".zip .'
-                    echo 'Upload main branch artifact to front-end artifact repo'
-                    sh 'aws s3 cp "1.0.$Version_ID".zip ${FrontEndRepo}'
-               }
-                    }
-          stage ('Deploy To Prod') {
-               when {
-                    branch 'main'
-               }
-               steps {
-                    echo 'Deploying artifact to PROD environment from main branch'
-                    sh 'aws s3 sync out ${PRODS3Bucket}'
-               }
-          }
-     }
+            
      post {
           always {
                cleanWs()
