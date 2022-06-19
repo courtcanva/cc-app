@@ -52,7 +52,9 @@ pipeline {
                 when {
                     branch 'test/devops'
                 }
+              scripts{
                     input(id: 'Deploy Gate', message: 'Deploy to PROD?', ok: 'Deploy')
+              }
           }
           stage('Build-Prod') {
                when {
