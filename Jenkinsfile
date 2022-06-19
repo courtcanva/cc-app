@@ -56,35 +56,31 @@ pipeline {
                  branch 'test-devops-sl'
             }
             
-         steps {
-             script {
-                     env.PROCEED_TO_DEPLOY = 1
-                 try {
-                     timeout(time: 60, unit: 'SECONDS') {
-                         input(message: 'Deploy this build to Prod?')
-                     }
-                 } catch (err) {
-                    env.PROCEED_TO_DEPLOY = 0
-                 }
-             }
-         }
+          options {
+                timeout(time: 1, unit: 'MINUTES') 
+            }
+            steps {
+                input(message: "Deploy to production?")
+            }
      }
          stage('Build-Prod') {
-              when {
-                  expression {
-                  env.PROCEED_TO_DEPLOY == '1'
-              }
-              }
+              agent {
+              label "agent1"
+            }
+            when {
+                 branch 'test-devops-sl'
+            }
               steps {
                    sh '. /var/jenkins_home/prod.env; npm run build'
               }
                    }
          
         stage('Export-Prod') {
+           agent {
+              label "agent1"
+            }
             when {
-                expression {
-                    env.PROCEED_TO_DEPLOY == '1'
-                }
+                 branch 'test-devops-sl'
             }
               steps {
                    sh 'npm run export'
@@ -92,10 +88,12 @@ pipeline {
                    }
       
          stage('Upload Main Branch Artifact Repo to Prod') {
+            agent {
+              label "agent1"
+            }
             when {
-                  expression {
-                  env.PROCEED_TO_DEPLOY == '1'
-              }
+                 branch 'test-devops-sl'
+            }
               }
               steps {
                    echo 'Zip Artifact File'
@@ -105,10 +103,12 @@ pipeline {
               }
                    }
          stage ('Deploy To Prod') {
-             when {
-                  expression {
-                  env.PROCEED_TO_DEPLOY == '1'
-              }
+            agent {
+              label "agent1"
+            }
+            when {
+                 branch 'test-devops-sl'
+            }
               }
               steps {
                    echo 'Deploying artifact to PROD environment from main branch'
