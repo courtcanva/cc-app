@@ -67,10 +67,10 @@ pipeline {
      }
          stage('Build-Prod') {
               when {
-
-                    PROCEED_TO_DEPLOY = 1 
-              
-              }
+                    expression {
+                    env.PROCEED_TO_DEPLOY = 1
+                }
+            }
               steps {
                    sh '. /var/jenkins_home/prod.env; npm run build'
               }
