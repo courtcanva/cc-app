@@ -54,22 +54,21 @@ pipeline {
             }
          steps {
              script {
-                env.PROCEED_TO_DEPLOY = 1
+                  def PROCEED_TO_DEPLOY = 1
                  try {
                      timeout(time: 60, unit: 'SECONDS') {
                          input(message: 'Deploy this build to Prod?')
                      }
                  } catch (err) {
-                    env.PROCEED_TO_DEPLOY = 0
+                    PROCEED_TO_DEPLOY = 0
                  }
              }
          }
      }
          stage('Build-Prod') {
               when {
-                expression {
-                    env.PROCEED_TO_DEPLOY = 1
-                }
+
+                    PROCEED_TO_DEPLOY = 1 
               
               }
               steps {
