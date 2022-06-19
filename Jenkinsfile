@@ -52,9 +52,17 @@ pipeline {
                 when {
                     branch 'test/devops'
                 }
-              scripts{
+              timeout(time: 1, unit: "MINUTES") {
                     input(id: 'Deploy Gate', message: 'Deploy to PROD?', ok: 'Deploy')
               }
+          }
+          stages {
+         stage('Install dependencies-prod') {
+                         steps {
+                              sh 'npm i'
+                    echo 'Building..'
+                              echo "Running job: ${env.JOB_NAME}\n Build: ${env.BUILD_ID} - ${env.BUILD_URL}\nPepeline: ${env.RUN_DISPLAY_URL}"
+                         }
           }
           stage('Build-Prod') {
                when {
