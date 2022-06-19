@@ -54,27 +54,25 @@ pipeline {
             }
          steps {
              script {
-                  def PROCEED_TO_DEPLOY = 1
+                  def proceed = true
                  try {
                      timeout(time: 60, unit: 'SECONDS') {
                          input(message: 'Deploy this build to Prod?')
                      }
                  } catch (err) {
-                    PROCEED_TO_DEPLOY = 0
+                    proceed = false
                  }
              }
          }
      }
          stage('Build-Prod') {
-              when {
-                    expression {
-                    PROCEED_TO_DEPLOY = 1
-                }
-            }
+              if(proceed) {
+                  
               steps {
                    sh '. /var/jenkins_home/prod.env; npm run build'
               }
                    }
+         }
         stage('Export-Prod') {
             when {
                 expression {
