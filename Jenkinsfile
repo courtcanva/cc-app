@@ -4,7 +4,6 @@ pipeline {
          AWS_ACCESS_KEY = credentials('aws-creds-sl')
          GIT_HASH = GIT_COMMIT.take(7)
          Version_ID = "$BUILD_NUMBER" + '-' + "$GIT_HASH" + '-' + "$BUILD_TIMESTAMP"
-         Recepient = "wwwkiki0316@gmail.com"
     }
     stages {
         stage('Install dependencies') {
