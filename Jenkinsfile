@@ -53,7 +53,7 @@ pipeline {
               label "agent1"
             }
             when {
-                 branch 'feature/devops-fix-timeout'
+                 branch 'main'
             }
             
          steps {
