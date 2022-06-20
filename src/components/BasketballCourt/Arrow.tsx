@@ -3,16 +3,24 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface ArrowProps {
   courtRatio: number;
+  initPointX: number;
+  initPointY: number;
   arrowXEndLength: number; // court x length has different calculations between full courts and single side courts
 }
 
-const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength }) => {
-  const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, borderLength } =
-    useStoreSelector((state) => state.courtSize);
+const ArrowLine: React.FC<ArrowProps> = ({
+  courtRatio,
+  arrowXEndLength,
+  initPointX,
+  initPointY,
+}) => {
+  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
+    (state) => state.courtSize
+  );
   let border;
-  borderLength <= 100 ? (border = 100 * courtRatio) : (border = borderLength * courtRatio);
+  borderLength <= 1000 ? (border = 1000 * courtRatio) : (border = borderLength * courtRatio);
   let color;
-  borderLength <= 50 ? (color = "black") : (color = "white");
+  borderLength <= 500 ? (color = "black") : (color = "white");
 
   return (
     <>

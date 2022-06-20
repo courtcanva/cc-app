@@ -3,12 +3,12 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface ShootAreaProps {
   courtRatio: number;
+  initPointX: number;
+  initPointY: number;
 }
 
-const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio }) => {
+const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio, initPointX, initPointY }) => {
   const {
-    initPointX,
-    initPointY,
     keyAreaWidth,
     threePointLineToCourtEdgeLenth,
     threePointLineRadius,
@@ -33,7 +33,7 @@ const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio }) => {
         angle={180}
         fill={color}
         stroke="white"
-        strokeWidth={strokeWidth / 10}
+        strokeWidth={strokeWidth / 100}
         clockwise
         rotation={90}
       />
@@ -45,7 +45,7 @@ const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio }) => {
         angle={180}
         fill="transparent"
         stroke="white"
-        strokeWidth={strokeWidth / 20}
+        strokeWidth={strokeWidth / 200}
         clockwise
         rotation={270}
         dash={[3, 3]}

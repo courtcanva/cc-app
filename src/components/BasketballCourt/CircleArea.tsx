@@ -3,12 +3,12 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface CircleAreaProps {
   courtRatio: number;
+  initPointX: number;
+  initPointY: number;
 }
 
-const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio }) => {
+const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio, initPointX, initPointY }) => {
   const {
-    initPointX,
-    initPointY,
     courtAreaXLength,
     threePointLineToCourtEdgeLenth,
     threePointLineRadius,
@@ -32,7 +32,7 @@ const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio }) => {
       angle={180}
       fill={color}
       stroke="white"
-      strokeWidth={strokeWidth / 10}
+      strokeWidth={strokeWidth / 100}
       clockwise
       rotation={270}
     />
