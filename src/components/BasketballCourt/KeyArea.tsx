@@ -3,12 +3,12 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface KeyAreaProps {
   courtRatio: number;
+  initPointX: number;
+  initPointY: number;
 }
 
-const KeyArea: React.FC<KeyAreaProps> = ({ courtRatio }) => {
+const KeyArea: React.FC<KeyAreaProps> = ({ courtRatio, initPointX, initPointY }) => {
   const {
-    initPointX,
-    initPointY,
     threePointLineToCourtEdgeLenth,
     threePointLineRadius,
     keyAreaWidth,
@@ -29,7 +29,7 @@ const KeyArea: React.FC<KeyAreaProps> = ({ courtRatio }) => {
       height={keyAreaHeight * courtRatio}
       fill={color}
       stroke="white"
-      strokeWidth={strokeWidth / 10}
+      strokeWidth={strokeWidth / 100}
       x={initPointX}
       y={startPointY}
     />

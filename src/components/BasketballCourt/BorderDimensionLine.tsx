@@ -3,10 +3,16 @@ import { useStoreSelector } from "@/store/hooks";
 
 interface BorderDimensionLineProps {
   courtRatio: number;
+  initPointX: number;
+  initPointY: number;
 }
 
-const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ courtRatio }) => {
-  const { initPointX, initPointY, courtAreaYLength, borderLength, strokeWidth } = useStoreSelector(
+const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({
+  courtRatio,
+  initPointX,
+  initPointY,
+}) => {
+  const { courtAreaYLength, borderLength, strokeWidth } = useStoreSelector(
     (state) => state.courtSize
   );
   const startPointX = initPointX - borderLength * courtRatio;
@@ -25,7 +31,7 @@ const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ courtRatio })
         }}
         fill="transparent"
         stroke="white"
-        strokeWidth={strokeWidth / 20}
+        strokeWidth={strokeWidth / 200}
         dash={[3, 3]}
       />
       <Shape
@@ -38,7 +44,7 @@ const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ courtRatio })
         }}
         fill="transparent"
         stroke="white"
-        strokeWidth={strokeWidth / 20}
+        strokeWidth={strokeWidth / 200}
         dash={[3, 3]}
       />
     </>

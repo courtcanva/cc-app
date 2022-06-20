@@ -6,18 +6,16 @@ export interface courtSizeState {
 }
 
 export const initialState: courtSizeState = {
-  initPointX: 75,
-  initPointY: 75,
-  courtAreaXLength: 1400,
-  courtAreaYLength: 1500,
-  threePointLineToCourtEdgeLenth: 90,
-  cornerThreePointLineLength: 157.5,
-  threePointLineRadius: 660,
-  keyAreaWidth: 579,
-  keyAreaHeight: 480,
-  circleRadius: 180,
-  strokeWidth: 20,
-  borderLength: 100,
+  courtAreaXLength: 14000,
+  courtAreaYLength: 15000,
+  threePointLineToCourtEdgeLenth: 900,
+  cornerThreePointLineLength: 1575,
+  threePointLineRadius: 6600,
+  keyAreaWidth: 5790,
+  keyAreaHeight: 4800,
+  circleRadius: 1800,
+  strokeWidth: 200,
+  borderLength: 1000,
 };
 
 export const courtSizeSlice = createSlice({

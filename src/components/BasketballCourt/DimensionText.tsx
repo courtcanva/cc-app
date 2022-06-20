@@ -19,14 +19,14 @@ const DimensionText: React.FC<DimensionTextProps> = ({
 }) => {
   const { borderLength } = useStoreSelector((state) => state.courtSize);
   let border;
-  borderLength <= 100 ? (border = 100 * courtRatio) : (border = borderLength * courtRatio);
+  borderLength <= 1000 ? (border = 1000 * courtRatio) : (border = borderLength * courtRatio);
 
   return (
     <Text
       width={border}
       height={border}
       text={text + `M`}
-      fontSize={50 * courtRatio}
+      fontSize={500 * courtRatio}
       align="center"
       verticalAlign="middle"
       fill={color}
