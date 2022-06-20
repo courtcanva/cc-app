@@ -25,7 +25,7 @@ const DimensionText: React.FC<DimensionTextProps> = ({
     <Text
       width={border}
       height={border}
-      text={text + `M`}
+      text={text + `m`}
       fontSize={500 * courtRatio}
       align="center"
       verticalAlign="middle"
