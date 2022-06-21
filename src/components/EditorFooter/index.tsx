@@ -43,8 +43,8 @@ const EditorFooter = () => {
             color="brand.primary"
             data-testid="ruler-label"
             w="85px"
-            h='40px'
-            pt='3px'
+            h="40px"
+            pt="3px"
           >
             {ruler}
           </FormLabel>
