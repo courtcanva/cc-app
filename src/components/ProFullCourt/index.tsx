@@ -12,6 +12,8 @@ import BorderDimensionLine from "../BasketballCourt/BorderDimensionLine";
 import ArrowLine from "../BasketballCourt/Arrow";
 import { useStoreSelector } from "@/store/hooks";
 import { STAGE_MARGIN, START_POINT } from "@/constants/courtSize";
+import React, { useEffect, useRef } from "react";
+import { tileNumberCalculator } from "../../utils/tileNumberCalculator";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
@@ -44,6 +46,17 @@ const ProFullCourt = () => {
 
   const courtRatio = stageHeight / (courtAreaYLength + STAGE_MARGIN * 2);
 
+  const canvasRef = useRef(null);
+  let canvas: HTMLCanvasElement | null = null;
+  let ctx: CanvasRenderingContext2D | null = null;
+
+  useEffect(() => {
+    canvas = canvasRef.current as unknown as HTMLCanvasElement;
+    if (canvas) {
+      ctx = canvas.getContext("2d");
+      tileNumberCalculator(ctx);
+    }
+  }, []);
   return (
     <Flex
       position="fixed"
@@ -70,7 +83,7 @@ const ProFullCourt = () => {
             data-testid="stage"
           >
             <Provider store={store}>
-              <Layer>
+              <Layer ref={canvasRef}>
                 {/* border only for pro full court size */}
                 <Border />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}
