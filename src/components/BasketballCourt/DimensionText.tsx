@@ -1,7 +1,7 @@
 import { Text } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
-// import { minDimensionBox } from "../../constants/courtSize";
+import { minDimensionBox } from "../../constants/courtSize";
 
 interface DimensionTextProps {
   courtRatio: number;
@@ -18,7 +18,6 @@ const DimensionText: React.FC<DimensionTextProps> = ({
   text,
 }) => {
   const { borderLength } = useStoreSelector((state) => state.courtSize);
-  const minDimensionBox = 1000;
   const border =
     borderLength <= minDimensionBox ? minDimensionBox * courtRatio : borderLength * courtRatio;
   console.log(text / 1000);

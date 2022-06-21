@@ -2,7 +2,7 @@ import { Rect } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import DimensionText from "../BasketballCourt/DimensionText";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
-// import { minDimensionBox } from "../../constants/courtSize";
+import { minDimensionBox } from "../../constants/courtSize";
 
 interface BorderProps {
   courtRatio: number;
@@ -13,8 +13,8 @@ const Border: React.FC<BorderProps> = ({ courtRatio, startPoint }) => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
     (state) => state.courtSize
   );
-  const minDimensionBox = 1000;
-  const dimensionColor = "white";
+  
+  const dimensionColor = borderLength < 1000 ? ("black") : ("white");
   const startPointX = startPoint.X - borderLength * courtRatio;
   const startPointY = startPoint.Y - borderLength * courtRatio;
   const borderWidth = (courtAreaXLength + borderLength) * 2 * courtRatio;

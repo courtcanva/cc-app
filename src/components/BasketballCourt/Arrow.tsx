@@ -1,7 +1,7 @@
 import { Arrow } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
-// import { dimensionColor, minDimensionBox } from "../../constants/courtSize";
+import { minDimensionBox } from "../../constants/courtSize";
 
 interface ArrowProps {
   courtRatio: number;
@@ -13,8 +13,8 @@ const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength, startPoi
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
     (state) => state.courtSize
   );
-  const minDimensionBox = 1000;
-  const dimensionColor = "white";
+
+  const dimensionColor = borderLength < 1000 ? ("black") : ("white");
   const border =
     borderLength <= minDimensionBox ? minDimensionBox * courtRatio : borderLength * courtRatio;
 
