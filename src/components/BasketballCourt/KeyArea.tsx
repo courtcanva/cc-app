@@ -4,7 +4,7 @@ import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 
 interface KeyAreaProps {
   courtRatio: number;
-  startPoint: ICourtStartPoint
+  startPoint: ICourtStartPoint;
 }
 
 const KeyArea: React.FC<KeyAreaProps> = ({ courtRatio, startPoint }) => {

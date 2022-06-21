@@ -4,7 +4,7 @@ import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 
 interface CircleAreaProps {
   courtRatio: number;
-  startPoint: ICourtStartPoint
+  startPoint: ICourtStartPoint;
 }
 
 const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio, startPoint }) => {

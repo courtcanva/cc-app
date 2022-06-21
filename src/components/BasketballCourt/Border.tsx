@@ -6,7 +6,7 @@ import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 
 interface BorderProps {
   courtRatio: number;
-  startPoint: ICourtStartPoint
+  startPoint: ICourtStartPoint;
 }
 
 const Border: React.FC<BorderProps> = ({ courtRatio, startPoint }) => {
@@ -14,19 +14,22 @@ const Border: React.FC<BorderProps> = ({ courtRatio, startPoint }) => {
     (state) => state.courtSize
   );
   const minDimensionBox = 1000;
-  const dimensionColor ="white";
+  const dimensionColor = "white";
   const startPointX = startPoint.X - borderLength * courtRatio;
   const startPointY = startPoint.Y - borderLength * courtRatio;
   const borderWidth = (courtAreaXLength + borderLength) * 2 * courtRatio;
   const borderHeight = (courtAreaYLength + borderLength * 2) * courtRatio;
-  const border = borderLength <= minDimensionBox ? (minDimensionBox * courtRatio) : (borderLength * courtRatio);
-  const textStartX = borderLength <= minDimensionBox ? (startPoint.X - minDimensionBox * courtRatio) : (startPointX);
-  const textStartY = borderLength <= minDimensionBox ? (startPoint.Y - minDimensionBox * courtRatio) : (startPointY);
+  const border =
+    borderLength <= minDimensionBox ? minDimensionBox * courtRatio : borderLength * courtRatio;
+  const textStartX =
+    borderLength <= minDimensionBox ? startPoint.X - minDimensionBox * courtRatio : startPointX;
+  const textStartY =
+    borderLength <= minDimensionBox ? startPoint.Y - minDimensionBox * courtRatio : startPointY;
 
   const color = useStoreSelector(
     (state) => state.tile.find((tile) => tile.location.includes("border"))?.color
   );
-  
+
   const borderDimensionPosition = [
     {
       X: textStartX,
@@ -44,7 +47,7 @@ const Border: React.FC<BorderProps> = ({ courtRatio, startPoint }) => {
       X: startPoint.X + courtAreaXLength * 2 * courtRatio,
       Y: startPoint.Y + courtAreaYLength * courtRatio,
     },
-  ]
+  ];
   const courtDimensionPosition = [
     {
       startPoint: {
@@ -60,7 +63,7 @@ const Border: React.FC<BorderProps> = ({ courtRatio, startPoint }) => {
       },
       text: courtAreaYLength,
     },
-  ]
+  ];
 
   return (
     <>
@@ -73,7 +76,7 @@ const Border: React.FC<BorderProps> = ({ courtRatio, startPoint }) => {
       />
       {borderDimensionPosition.map((item: ICourtStartPoint) => (
         <div key={item.X}>
-          <DimensionText 
+          <DimensionText
             courtRatio={courtRatio}
             startPoint={item}
             color={dimensionColor}
@@ -81,9 +84,9 @@ const Border: React.FC<BorderProps> = ({ courtRatio, startPoint }) => {
           />
         </div>
       ))}
-      {courtDimensionPosition.map((item: { startPoint: ICourtStartPoint, text: number }) => (
+      {courtDimensionPosition.map((item: { startPoint: ICourtStartPoint; text: number }) => (
         <div key={item.text}>
-          <DimensionText 
+          <DimensionText
             courtRatio={courtRatio}
             startPoint={item.startPoint}
             color={dimensionColor}

@@ -4,7 +4,7 @@ import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 
 interface CourtAreaProps {
   courtRatio: number;
-  startPoint: ICourtStartPoint
+  startPoint: ICourtStartPoint;
 }
 
 const CourtArea: React.FC<CourtAreaProps> = ({ courtRatio, startPoint }) => {

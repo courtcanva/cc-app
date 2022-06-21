@@ -5,21 +5,18 @@ import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 
 interface ArrowProps {
   courtRatio: number;
-  startPoint: ICourtStartPoint
+  startPoint: ICourtStartPoint;
   arrowXEndLength: number; // court x length has different calculations between full courts and single side courts
 }
 
-const ArrowLine: React.FC<ArrowProps> = ({
-  courtRatio,
-  arrowXEndLength,
-  startPoint,
-}) => {
+const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength, startPoint }) => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
     (state) => state.courtSize
   );
   const minDimensionBox = 1000;
-  const dimensionColor ="white";
-  const border = borderLength <= minDimensionBox ? (minDimensionBox * courtRatio) : (borderLength * courtRatio);
+  const dimensionColor = "white";
+  const border =
+    borderLength <= minDimensionBox ? minDimensionBox * courtRatio : borderLength * courtRatio;
 
   return (
     <>

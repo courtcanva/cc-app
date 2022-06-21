@@ -5,7 +5,7 @@ import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 
 interface DimensionTextProps {
   courtRatio: number;
-  startPoint: ICourtStartPoint
+  startPoint: ICourtStartPoint;
   color: string;
   text: number;
 }
@@ -19,7 +19,8 @@ const DimensionText: React.FC<DimensionTextProps> = ({
 }) => {
   const { borderLength } = useStoreSelector((state) => state.courtSize);
   const minDimensionBox = 1000;
-  const border = borderLength <= minDimensionBox ? (minDimensionBox * courtRatio) : (borderLength * courtRatio);
+  const border =
+    borderLength <= minDimensionBox ? minDimensionBox * courtRatio : borderLength * courtRatio;
   console.log(text / 1000);
 
   return (

@@ -46,7 +46,7 @@ const ProFullCourt = () => {
   const startPoint = {
     X: stageWidth / 2 - courtAreaXLength * courtRatio,
     Y: stageHeight / 2 - (courtAreaYLength * courtRatio) / 2,
-    };
+  };
 
   return (
     <Flex
@@ -91,7 +91,7 @@ const ProFullCourt = () => {
                 </Group>
                 {/* right side of pro full court(flip the left side)*/}
                 <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength * 2 * courtRatio}>
-                <BorderDimensionLine courtRatio={courtRatio} startPoint={startPoint} />
+                  <BorderDimensionLine courtRatio={courtRatio} startPoint={startPoint} />
                   <CourtArea courtRatio={courtRatio} startPoint={startPoint} />
                   <ThreePointArea courtRatio={courtRatio} startPoint={startPoint} />
                   <KeyArea courtRatio={courtRatio} startPoint={startPoint} />

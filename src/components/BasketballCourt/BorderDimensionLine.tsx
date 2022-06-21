@@ -4,13 +4,10 @@ import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 
 interface BorderDimensionLineProps {
   courtRatio: number;
-  startPoint: ICourtStartPoint
+  startPoint: ICourtStartPoint;
 }
 
-const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({
-  courtRatio,
-  startPoint
-}) => {
+const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ courtRatio, startPoint }) => {
   const { courtAreaYLength, borderLength, strokeWidth } = useStoreSelector(
     (state) => state.courtSize
   );
