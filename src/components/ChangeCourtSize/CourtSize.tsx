@@ -10,20 +10,26 @@ const CourtSize = () => {
       columns={3}
       spacingX={{ base: 8, lg: 78 }}
       spacingY="95"
-      my={{ base: 50, lg: 78 }}
-      mx={{ base: 35, lg: 78 }}
+      marginY={{ base: 50, lg: 78 }}
+      marginX={{ base: 35, lg: 78 }}
     >
       {courtList.map((court) => {
-        const { des, des1, img } = court;
+        const { courtSizeName, courtSizeDetails, img } = court;
 
         return (
           <Box sx={styles} key={img}>
-            <Box w="255" h="205" display="flex" alignItems="center" justifyContent="center">
-              <Image src={img} objectFit={"contain"} px={{ base: 1, lg: 0 }} />
+            <Box
+              width="255"
+              height="205"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Image src={img} objectFit={"contain"} paddingX={{ base: 1, lg: 0 }} />
             </Box>
-            <Box mt="2">
-              <Text fontSize={{ base: "sm", lg: "md" }}>{des}</Text>
-              <Text fontSize={{ base: "xs", lg: "sm" }}>{des1}</Text>
+            <Box marginTop="2">
+              <Text fontSize={{ base: "sm", lg: "md" }}>{courtSizeName}</Text>
+              <Text fontSize={{ base: "xs", lg: "sm" }}>{courtSizeDetails}</Text>
             </Box>
           </Box>
         );

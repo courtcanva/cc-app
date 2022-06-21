@@ -7,26 +7,26 @@ import React from "react";
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
 
-  const handleCourtName = (des: string, des1: string): void => {
-    dispatch(changeCourtName(`${des} ${des1}`));
+  const handleCourtName = (courtSizeName: string, courtSizeDetails: string): void => {
+    dispatch(changeCourtName(`${courtSizeName} ${courtSizeDetails}`));
   };
 
   return (
-    <Box pl="24px" pt="24px" height="100%" className="scrollbox">
+    <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">
       {courtList.map((court) => {
-        const { img, des, des1 } = court;
+        const { img, courtSizeName, courtSizeDetails } = court;
         return (
           <Box
             key={img}
-            w="308px"
-            h="150px"
-            bg="#fff"
-            mb="18px"
+            width="308px"
+            height="150px"
+            background="#fff"
+            marginBottom="18px"
             display="flex"
             alignItems="center"
             justifyContent="center"
             cursor="pointer"
-            onClick={() => handleCourtName(des, des1)}
+            onClick={() => handleCourtName(courtSizeName, courtSizeDetails)}
             data-testid={img}
           >
             <Image src={img} objectFit={"contain"} />
