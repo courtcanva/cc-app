@@ -12,9 +12,9 @@ describe("EditorFooter", () => {
     const { getByTestId } = render(<EditorFooter />);
     const switchButton = getByTestId("switch-btn");
     fireEvent.click(switchButton);
-    expect(getByTestId("ruler-label")).toHaveTextContent("Ruler Off");
+    expect(getByTestId("ruler-label")).toHaveTextContent("RULER OFF");
     fireEvent.click(switchButton);
-    expect(getByTestId("ruler-label")).toHaveTextContent("Ruler On");
+    expect(getByTestId("ruler-label")).toHaveTextContent("RULER ON");
   });
   it("Each button in the navbar needs to display the correct text", () => {
     render(<EditorFooter />);

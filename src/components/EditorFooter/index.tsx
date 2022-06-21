@@ -4,7 +4,7 @@ import { BiHelpCircle } from "react-icons/bi";
 import { useState } from "react";
 
 const EditorFooter = () => {
-  const [ruler, setRuler] = useState("Ruler On");
+  const [ruler, setRuler] = useState("RULER ON");
   return (
     <Flex
       position="fixed"
@@ -42,7 +42,9 @@ const EditorFooter = () => {
             mb="0"
             color="brand.primary"
             data-testid="ruler-label"
-            w="70px"
+            w="85px"
+            h='40px'
+            pt='3px'
           >
             {ruler}
           </FormLabel>
@@ -60,7 +62,7 @@ const EditorFooter = () => {
             defaultChecked
             data-testid="switch-btn"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setRuler(e.target.checked ? "Ruler On" : "Ruler Off")
+              setRuler(e.target.checked ? "RULER ON" : "RULER OFF")
             }
           />
         </FormControl>
