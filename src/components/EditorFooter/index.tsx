@@ -42,9 +42,9 @@ const EditorFooter = () => {
             mb="0"
             color="brand.primary"
             data-testid="ruler-label"
-            w="85px"
-            h="40px"
-            pt="3px"
+            width="85px"
+            height="40px"
+            paddingTop="3px"
           >
             {ruler}
           </FormLabel>
