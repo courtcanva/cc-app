@@ -1,10 +1,11 @@
 import { Text } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
+import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
+// import { minDimensionBox } from "../../constants/courtSize";
 
 interface DimensionTextProps {
   courtRatio: number;
-  startPointX: number;
-  startPointY: number;
+  startPoint: ICourtStartPoint
   color: string;
   text: number;
 }
@@ -12,26 +13,26 @@ interface DimensionTextProps {
 const DimensionText: React.FC<DimensionTextProps> = ({
   // it can be used for court dimensions and border dimensions
   courtRatio,
-  startPointX,
-  startPointY,
+  startPoint,
   color,
   text,
 }) => {
   const { borderLength } = useStoreSelector((state) => state.courtSize);
-  let border;
-  borderLength <= 1000 ? (border = 1000 * courtRatio) : (border = borderLength * courtRatio);
+  const minDimensionBox = 1000;
+  const border = borderLength <= minDimensionBox ? (minDimensionBox * courtRatio) : (borderLength * courtRatio);
+  console.log(text / 1000);
 
   return (
     <Text
       width={border}
       height={border}
-      text={text + `m`}
+      text={text / 1000 + `m`}
       fontSize={500 * courtRatio}
       align="center"
       verticalAlign="middle"
       fill={color}
-      x={startPointX}
-      y={startPointY}
+      x={startPoint.X}
+      y={startPoint.Y}
     />
   );
 };

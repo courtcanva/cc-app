@@ -43,8 +43,10 @@ const ProFullCourt = () => {
   }
 
   const courtRatio = stageHeight / (courtAreaYLength + stageMargin * 2);
-  const initPointX = stageWidth / 2 - courtAreaXLength * courtRatio;
-  const initPointY = stageHeight / 2 - (courtAreaYLength * courtRatio) / 2;
+  const startPoint = {
+    X: stageWidth / 2 - courtAreaXLength * courtRatio,
+    Y: stageHeight / 2 - (courtAreaYLength * courtRatio) / 2,
+    };
 
   return (
     <Flex
@@ -53,8 +55,8 @@ const ProFullCourt = () => {
       left="98px"
       width="calc(100% - 98px)"
       height="calc(100% - 230px)"
-      minWidth={768 - 98}
-      minHeight={768 - 230}
+      minWidth={stageWidth}
+      minHeight={stageHeight}
       justifyContent="center"
       alignItems="center"
       margin="auto"
@@ -71,79 +73,30 @@ const ProFullCourt = () => {
             <Provider store={store}>
               <Layer>
                 {/* border only for pro full court size */}
-                <Border courtRatio={courtRatio} initPointX={initPointX} initPointY={initPointY} />
+                <Border courtRatio={courtRatio} startPoint={startPoint} />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}
                 <ArrowLine
                   courtRatio={courtRatio}
                   arrowXEndLength={courtAreaXLength}
-                  initPointX={initPointX}
-                  initPointY={initPointY}
+                  startPoint={startPoint}
                 />
                 {/* left side of pro full court*/}
                 <Group>
-                  <BorderDimensionLine
-                    courtRatio={courtRatio}
-                    initPointX={initPointX}
-                    initPointY={initPointY}
-                  />
-                  <CourtArea
-                    courtRatio={courtRatio}
-                    initPointX={initPointX}
-                    initPointY={initPointY}
-                  />
-                  <ThreePointArea
-                    courtRatio={courtRatio}
-                    initPointX={initPointX}
-                    initPointY={initPointY}
-                  />
-                  <KeyArea
-                    courtRatio={courtRatio}
-                    initPointX={initPointX}
-                    initPointY={initPointY}
-                  />
-                  <CircleArea
-                    courtRatio={courtRatio}
-                    initPointX={initPointX}
-                    initPointY={initPointY}
-                  />
-                  <TopKeyArea
-                    courtRatio={courtRatio}
-                    initPointX={initPointX}
-                    initPointY={initPointY}
-                  />
+                  <BorderDimensionLine courtRatio={courtRatio} startPoint={startPoint} />
+                  <CourtArea courtRatio={courtRatio} startPoint={startPoint} />
+                  <ThreePointArea courtRatio={courtRatio} startPoint={startPoint} />
+                  <KeyArea courtRatio={courtRatio} startPoint={startPoint} />
+                  <CircleArea courtRatio={courtRatio} startPoint={startPoint} />
+                  <TopKeyArea courtRatio={courtRatio} startPoint={startPoint} />
                 </Group>
                 {/* right side of pro full court(flip the left side)*/}
-                <Group scaleX={-1} x={initPointX * 2 + courtAreaXLength * 2 * courtRatio}>
-                  <BorderDimensionLine
-                    courtRatio={courtRatio}
-                    initPointX={initPointX}
-                    initPointY={initPointY}
-                  />
-                  <CourtArea
-                    courtRatio={courtRatio}
-                    initPointX={initPointX}
-                    initPointY={initPointY}
-                  />
-                  <ThreePointArea
-                    courtRatio={courtRatio}
-                    initPointX={initPointX}
-                    initPointY={initPointY}
-                  />
-                  <KeyArea
-                    courtRatio={courtRatio}
-                    initPointX={initPointX}
-                    initPointY={initPointY}
-                  />
-                  <CircleArea
-                    courtRatio={courtRatio}
-                    initPointX={initPointX}
-                    initPointY={initPointY}
-                  />
-                  <TopKeyArea
-                    courtRatio={courtRatio}
-                    initPointX={initPointX}
-                    initPointY={initPointY}
-                  />
+                <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength * 2 * courtRatio}>
+                <BorderDimensionLine courtRatio={courtRatio} startPoint={startPoint} />
+                  <CourtArea courtRatio={courtRatio} startPoint={startPoint} />
+                  <ThreePointArea courtRatio={courtRatio} startPoint={startPoint} />
+                  <KeyArea courtRatio={courtRatio} startPoint={startPoint} />
+                  <CircleArea courtRatio={courtRatio} startPoint={startPoint} />
+                  <TopKeyArea courtRatio={courtRatio} startPoint={startPoint} />
                 </Group>
               </Layer>
             </Provider>

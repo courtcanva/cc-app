@@ -1,13 +1,13 @@
 import { Rect } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
+import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 
 interface CourtAreaProps {
   courtRatio: number;
-  initPointX: number;
-  initPointY: number;
+  startPoint: ICourtStartPoint
 }
 
-const CourtArea: React.FC<CourtAreaProps> = ({ courtRatio, initPointX, initPointY }) => {
+const CourtArea: React.FC<CourtAreaProps> = ({ courtRatio, startPoint }) => {
   const { courtAreaXLength, courtAreaYLength, strokeWidth } = useStoreSelector(
     (state) => state.courtSize
   );
@@ -23,8 +23,8 @@ const CourtArea: React.FC<CourtAreaProps> = ({ courtRatio, initPointX, initPoint
       width={borderWidth}
       height={borderHeight}
       fill={color}
-      x={initPointX}
-      y={initPointY}
+      x={startPoint.X}
+      y={startPoint.Y}
       stroke="white"
       strokeWidth={strokeWidth / 100}
     />

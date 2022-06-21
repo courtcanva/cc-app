@@ -1,13 +1,13 @@
 import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
+import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 
 interface ShootAreaProps {
   courtRatio: number;
-  initPointX: number;
-  initPointY: number;
+  startPoint: ICourtStartPoint
 }
 
-const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio, initPointX, initPointY }) => {
+const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio, startPoint }) => {
   const {
     keyAreaWidth,
     threePointLineToCourtEdgeLenth,
@@ -15,9 +15,9 @@ const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio, initPointX, initPoint
     circleRadius,
     strokeWidth,
   } = useStoreSelector((state) => state.courtSize);
-  const startPointX = initPointX + keyAreaWidth * courtRatio;
+  const startPointX = startPoint.X + keyAreaWidth * courtRatio;
   const startPointY =
-    initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
+    startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
 
   const color = useStoreSelector(
     (state) => state.tile.find((tile) => tile.location.includes("topKeyArea"))?.color
