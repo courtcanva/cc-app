@@ -4,7 +4,6 @@ import { dimensionColor, borderSize } from "../../store/reducer/courtSizeSlice";
 import { useContext } from "react";
 import { START_POINT } from "@/constants/courtSize";
 
-
 function ArrowLine() {
   const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
   const startPoint = useContext(START_POINT);

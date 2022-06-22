@@ -30,7 +30,6 @@ const ProFullCourt = () => {
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  
   const convasWidth = courtAreaXLength + STAGE_MARGIN * 2; // actual court size plus reserved margin size (prepare for 2m border)
   const convasHeight = courtAreaYLength + STAGE_MARGIN * 2;
 
@@ -44,7 +43,6 @@ const ProFullCourt = () => {
   }
 
   const courtRatio = stageHeight / (courtAreaYLength + STAGE_MARGIN * 2);
-
 
   return (
     <Flex
@@ -80,9 +78,7 @@ const ProFullCourt = () => {
                 {/* left side of pro full court*/}
                 <Group>
                   <BorderDimensionLine />
-                  <CourtArea
-                    courtWidth={courtAreaXLength / 2}
-                  />
+                  <CourtArea courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea />
                   <KeyArea />
                   <CircleArea />

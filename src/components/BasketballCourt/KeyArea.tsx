@@ -4,7 +4,6 @@ import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
 import { useContext } from "react";
 import { START_POINT } from "@/constants/courtSize";
 
-
 function KeyArea() {
   const { threePointLineToCourtEdgeLenth, threePointLineRadius, keyAreaWidth, keyAreaHeight } =
     useStoreSelector((state) => state.courtSize);
