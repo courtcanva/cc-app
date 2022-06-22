@@ -3,16 +3,15 @@ import { useStoreSelector } from "@/store/hooks";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 
 interface CourtAreaProps {
-  courtRatio: number;
   startPoint: ICourtStartPoint;
 }
 
-const CourtArea: React.FC<CourtAreaProps> = ({ courtRatio, startPoint }) => {
+const CourtArea: React.FC<CourtAreaProps> = ({ startPoint }) => {
   const { courtAreaXLength, courtAreaYLength, strokeWidth } = useStoreSelector(
     (state) => state.courtSize
   );
-  const borderWidth = courtAreaXLength * courtRatio;
-  const borderHeight = courtAreaYLength * courtRatio;
+  const borderWidth = courtAreaXLength;
+  const borderHeight = courtAreaYLength;
 
   const color = useStoreSelector(
     (state) => state.tile.find((tile) => tile.location.includes("courtArea"))?.color
@@ -26,7 +25,7 @@ const CourtArea: React.FC<CourtAreaProps> = ({ courtRatio, startPoint }) => {
       x={startPoint.X}
       y={startPoint.Y}
       stroke="white"
-      strokeWidth={strokeWidth / 100}
+      strokeWidth={strokeWidth / 3}
     />
   );
 };

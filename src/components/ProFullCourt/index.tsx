@@ -30,22 +30,22 @@ const ProFullCourt = () => {
   }, []);
 
   const stageMargin = 2500;
-  const convaWidth = courtAreaXLength * 2 + stageMargin * 2; // actual court size plus reserved margin size (prepare for 2m border)
-  const convaHeight = courtAreaYLength + stageMargin * 2;
+  const convasWidth = courtAreaXLength * 2 + stageMargin * 2; // actual court size plus reserved margin size (prepare for 2m border)
+  const convasHeight = courtAreaYLength + stageMargin * 2;
 
   let stageHeight: number;
   size.height >= 768 ? (stageHeight = size.height - 250) : (stageHeight = 768 - 250);
-  let stageWidth = stageHeight * (convaWidth / convaHeight);
+  let stageWidth = stageHeight * (convasWidth / convasHeight);
 
-  if ((size.height - 250) / (size.width - 118) > convaHeight / convaWidth) {
+  if ((size.height - 250) / (size.width - 118) > convasHeight / convasWidth) {
     size.width >= 768 ? (stageWidth = size.width - 118) : (stageWidth = 768 - 118);
-    stageHeight = stageWidth * (convaHeight / convaWidth);
+    stageHeight = stageWidth * (convasHeight / convasWidth);
   }
 
   const courtRatio = stageHeight / (courtAreaYLength + stageMargin * 2);
   const startPoint = {
-    X: stageWidth / 2 - courtAreaXLength * courtRatio,
-    Y: stageHeight / 2 - (courtAreaYLength * courtRatio) / 2,
+    X: (courtAreaXLength * 2 + stageMargin * 2) / 2 -courtAreaXLength,
+    Y: (courtAreaYLength + stageMargin * 2) / 2 - courtAreaYLength / 2,
   };
 
   return (
@@ -67,13 +67,15 @@ const ProFullCourt = () => {
             id="basketball-court"
             height={stageHeight}
             width={stageWidth}
+            scaleX={courtRatio}
+            scaleY={courtRatio}
             visible={true}
             style={{ backgroundColor: "white" }}
           >
             <Provider store={store}>
               <Layer>
                 {/* border only for pro full court size */}
-                <Border courtRatio={courtRatio} startPoint={startPoint} />
+                <Border startPoint={startPoint} />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}
                 <ArrowLine
                   courtRatio={courtRatio}
@@ -82,21 +84,21 @@ const ProFullCourt = () => {
                 />
                 {/* left side of pro full court*/}
                 <Group>
-                  <BorderDimensionLine courtRatio={courtRatio} startPoint={startPoint} />
-                  <CourtArea courtRatio={courtRatio} startPoint={startPoint} />
-                  <ThreePointArea courtRatio={courtRatio} startPoint={startPoint} />
-                  <KeyArea courtRatio={courtRatio} startPoint={startPoint} />
-                  <CircleArea courtRatio={courtRatio} startPoint={startPoint} />
-                  <TopKeyArea courtRatio={courtRatio} startPoint={startPoint} />
+                  <BorderDimensionLine startPoint={startPoint} />
+                  <CourtArea startPoint={startPoint} />
+                  <ThreePointArea startPoint={startPoint} />
+                  <KeyArea startPoint={startPoint} />
+                  <CircleArea startPoint={startPoint} />
+                  <TopKeyArea startPoint={startPoint} />
                 </Group>
                 {/* right side of pro full court(flip the left side)*/}
-                <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength * 2 * courtRatio}>
-                  <BorderDimensionLine courtRatio={courtRatio} startPoint={startPoint} />
-                  <CourtArea courtRatio={courtRatio} startPoint={startPoint} />
-                  <ThreePointArea courtRatio={courtRatio} startPoint={startPoint} />
-                  <KeyArea courtRatio={courtRatio} startPoint={startPoint} />
-                  <CircleArea courtRatio={courtRatio} startPoint={startPoint} />
-                  <TopKeyArea courtRatio={courtRatio} startPoint={startPoint} />
+                <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength * 2}>
+                  <BorderDimensionLine startPoint={startPoint} />
+                  <CourtArea startPoint={startPoint} />
+                  <ThreePointArea startPoint={startPoint} />
+                  <KeyArea startPoint={startPoint} />
+                  <CircleArea startPoint={startPoint} />
+                  <TopKeyArea startPoint={startPoint} />
                 </Group>
               </Layer>
             </Provider>

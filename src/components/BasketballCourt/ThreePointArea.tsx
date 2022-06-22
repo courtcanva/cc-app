@@ -3,11 +3,10 @@ import { useStoreSelector } from "@/store/hooks";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 
 interface ThreePointAreaProps {
-  courtRatio: number;
   startPoint: ICourtStartPoint;
 }
 
-const ThreePointArea: React.FC<ThreePointAreaProps> = ({ courtRatio, startPoint }) => {
+const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
   const {
     threePointLineToCourtEdgeLenth,
     cornerThreePointLineLength,
@@ -15,15 +14,15 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ courtRatio, startPoint 
     strokeWidth,
   } = useStoreSelector((state) => state.courtSize);
   const startPointX = startPoint.X;
-  const startPointY = startPoint.Y + threePointLineToCourtEdgeLenth * courtRatio;
+  const startPointY = startPoint.Y + threePointLineToCourtEdgeLenth;
   const controlPointOneX =
-    startPoint.X + (cornerThreePointLineLength + threePointLineRadius) * courtRatio;
+    startPoint.X + (cornerThreePointLineLength + threePointLineRadius);
   const controlPointOneY = startPointY;
   const controlPointTwoX = controlPointOneX;
-  const controlPointTwoY = startPointY + threePointLineRadius * courtRatio;
+  const controlPointTwoY = startPointY + threePointLineRadius;
   const controlPointThreeX = controlPointOneX;
-  const controlPointThreeY = startPointY + threePointLineRadius * 2 * courtRatio;
-  const controlPointFourX = startPoint.X + cornerThreePointLineLength * courtRatio;
+  const controlPointThreeY = startPointY + threePointLineRadius * 2;
+  const controlPointFourX = startPoint.X + cornerThreePointLineLength;
   const controlPointFourY = controlPointThreeY;
 
   const color = useStoreSelector(
@@ -35,20 +34,20 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ courtRatio, startPoint 
       sceneFunc={(context, shape) => {
         context.beginPath();
         context.moveTo(startPointX, startPointY); // Create a starting point
-        context.lineTo(startPointX + cornerThreePointLineLength * courtRatio, startPointY); // Create a horizontal line
+        context.lineTo(startPointX + cornerThreePointLineLength, startPointY); // Create a horizontal line
         context._context.arcTo(
           controlPointOneX,
           controlPointOneY,
           controlPointTwoX,
           controlPointTwoY,
-          threePointLineRadius * courtRatio
+          threePointLineRadius
         ); // Create an arc
         context._context.arcTo(
           controlPointThreeX,
           controlPointThreeY,
           controlPointFourX,
           controlPointFourY,
-          threePointLineRadius * courtRatio
+          threePointLineRadius
         );
         // Continue with vertical line which makes it a close shape
         context.lineTo(startPointX, controlPointThreeY);
@@ -57,7 +56,7 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ courtRatio, startPoint 
       }}
       fill={color}
       stroke="white"
-      strokeWidth={strokeWidth / 100}
+      strokeWidth={strokeWidth / 3}
     />
   );
 };

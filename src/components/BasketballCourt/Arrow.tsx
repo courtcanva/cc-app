@@ -14,67 +14,69 @@ const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength, startPoi
     (state) => state.courtSize
   );
 
-  const dimensionColor = borderLength < 1000 ? ("black") : ("white");
+  const dimensionColor = borderLength < 1000 ? "black" : "white";
   const border =
-    borderLength <= minDimensionBox ? minDimensionBox * courtRatio : borderLength * courtRatio;
+    borderLength <= minDimensionBox ? minDimensionBox : borderLength;
+  const arrowSize = 100;
+  const arrowWeight = 50;
 
   return (
     <>
       <Arrow // court x length left arrow
-        pointerLength={5}
-        pointerWidth={5}
+        pointerLength={arrowSize}
+        pointerWidth={arrowSize}
         points={[
-          startPoint.X + arrowXEndLength * courtRatio - 20,
+          startPoint.X + arrowXEndLength - 1000,
           startPoint.Y - border / 2,
-          startPoint.X + 5,
+          startPoint.X + 250,
           startPoint.Y - border / 2,
         ]}
         fill={dimensionColor}
         stroke={dimensionColor}
-        strokeWidth={1}
+        strokeWidth={arrowWeight}
       />
       <Arrow // court x length right arrow
         scaleX={-1}
-        x={startPoint.X * 2 + courtAreaXLength * 2 * courtRatio}
-        pointerLength={5}
-        pointerWidth={5}
+        x={startPoint.X * 2 + courtAreaXLength * 2}
+        pointerLength={arrowSize}
+        pointerWidth={arrowSize}
         points={[
-          startPoint.X + arrowXEndLength * courtRatio - 20,
+          startPoint.X + arrowXEndLength - 1000,
           startPoint.Y - border / 2,
-          startPoint.X + 5,
+          startPoint.X + 250,
           startPoint.Y - border / 2,
         ]}
         fill={dimensionColor}
         stroke={dimensionColor}
-        strokeWidth={1}
+        strokeWidth={arrowWeight}
       />
       <Arrow // court Y length top arrow
-        pointerLength={5}
-        pointerWidth={5}
+        pointerLength={arrowSize}
+        pointerWidth={arrowSize}
         points={[
           startPoint.X - border / 2,
-          startPoint.Y + (courtAreaYLength / 2) * courtRatio - 15,
+          startPoint.Y + (courtAreaYLength / 2) - 750,
           startPoint.X - border / 2,
-          startPoint.Y + 5,
+          startPoint.Y + 250,
         ]}
         fill={dimensionColor}
         stroke={dimensionColor}
-        strokeWidth={1}
+        strokeWidth={arrowWeight}
       />
       <Arrow // court Y length bottom arrow
         scaleY={-1}
-        y={startPoint.Y * 2 + courtAreaYLength * courtRatio}
-        pointerLength={5}
-        pointerWidth={5}
+        y={startPoint.Y * 2 + courtAreaYLength}
+        pointerLength={arrowSize}
+        pointerWidth={arrowSize}
         points={[
           startPoint.X - border / 2,
-          startPoint.Y + (courtAreaYLength / 2) * courtRatio - 15,
+          startPoint.Y + (courtAreaYLength / 2) - 750,
           startPoint.X - border / 2,
-          startPoint.Y + 5,
+          startPoint.Y + 250,
         ]}
         fill={dimensionColor}
         stroke={dimensionColor}
-        strokeWidth={1}
+        strokeWidth={arrowWeight}
       />
     </>
   );

@@ -4,22 +4,19 @@ import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 import { minDimensionBox } from "../../constants/courtSize";
 
 interface DimensionTextProps {
-  courtRatio: number;
   startPoint: ICourtStartPoint;
   color: string;
   text: number;
 }
 
 const DimensionText: React.FC<DimensionTextProps> = ({
-  // it can be used for court dimensions and border dimensions
-  courtRatio,
   startPoint,
   color,
   text,
 }) => {
   const { borderLength } = useStoreSelector((state) => state.courtSize);
   const border =
-    borderLength <= minDimensionBox ? minDimensionBox * courtRatio : borderLength * courtRatio;
+    borderLength <= minDimensionBox ? minDimensionBox : borderLength;
   console.log(text / 1000);
 
   return (
@@ -27,7 +24,7 @@ const DimensionText: React.FC<DimensionTextProps> = ({
       width={border}
       height={border}
       text={text / 1000 + `m`}
-      fontSize={500 * courtRatio}
+      fontSize={500}
       align="center"
       verticalAlign="middle"
       fill={color}
