@@ -9,14 +9,9 @@ interface DimensionTextProps {
   text: number;
 }
 
-const DimensionText: React.FC<DimensionTextProps> = ({
-  startPoint,
-  color,
-  text,
-}) => {
+const DimensionText: React.FC<DimensionTextProps> = ({ startPoint, color, text }) => {
   const { borderLength } = useStoreSelector((state) => state.courtSize);
-  const border =
-    borderLength <= minDimensionBox ? minDimensionBox : borderLength;
+  const border = borderLength <= minDimensionBox ? minDimensionBox : borderLength;
   console.log(text / 1000);
 
   return (

@@ -15,8 +15,7 @@ const KeyArea: React.FC<KeyAreaProps> = ({ startPoint }) => {
     strokeWidth,
   } = useStoreSelector((state) => state.courtSize);
   const startPointY =
-    startPoint.Y +
-    threePointLineToCourtEdgeLenth + threePointLineRadius - keyAreaHeight / 2;
+    startPoint.Y + threePointLineToCourtEdgeLenth + threePointLineRadius - keyAreaHeight / 2;
 
   const color = useStoreSelector(
     (state) => state.tile.find((tile) => tile.location.includes("keyArea"))?.color

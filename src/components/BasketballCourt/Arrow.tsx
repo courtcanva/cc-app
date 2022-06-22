@@ -15,8 +15,7 @@ const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength, startPoi
   );
 
   const dimensionColor = borderLength < 1000 ? "black" : "white";
-  const border =
-    borderLength <= minDimensionBox ? minDimensionBox : borderLength;
+  const border = borderLength <= minDimensionBox ? minDimensionBox : borderLength;
   const arrowSize = 100;
   const arrowWeight = 50;
 
@@ -55,7 +54,7 @@ const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength, startPoi
         pointerWidth={arrowSize}
         points={[
           startPoint.X - border / 2,
-          startPoint.Y + (courtAreaYLength / 2) - 750,
+          startPoint.Y + courtAreaYLength / 2 - 750,
           startPoint.X - border / 2,
           startPoint.Y + 250,
         ]}
@@ -70,7 +69,7 @@ const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength, startPoi
         pointerWidth={arrowSize}
         points={[
           startPoint.X - border / 2,
-          startPoint.Y + (courtAreaYLength / 2) - 750,
+          startPoint.Y + courtAreaYLength / 2 - 750,
           startPoint.X - border / 2,
           startPoint.Y + 250,
         ]}

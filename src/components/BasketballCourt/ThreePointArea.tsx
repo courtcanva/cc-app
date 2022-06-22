@@ -15,8 +15,7 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
   } = useStoreSelector((state) => state.courtSize);
   const startPointX = startPoint.X;
   const startPointY = startPoint.Y + threePointLineToCourtEdgeLenth;
-  const controlPointOneX =
-    startPoint.X + (cornerThreePointLineLength + threePointLineRadius);
+  const controlPointOneX = startPoint.X + (cornerThreePointLineLength + threePointLineRadius);
   const controlPointOneY = startPointY;
   const controlPointTwoX = controlPointOneX;
   const controlPointTwoY = startPointY + threePointLineRadius;
