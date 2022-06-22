@@ -1,9 +1,11 @@
 import reducer, {
   initialState,
   CourtSizeState,
-  getCourtSize,
+  changeCourtSize,
+  dimensionColor,
 } from "@/store/reducer/courtSizeSlice";
 import store from "@/store/index";
+import { MIN_DIMENSION_BOX } from "@/constants/courtSize";
 
 it("should return the initial state", () => {
   const state = store.getState().courtSize;
@@ -12,5 +14,10 @@ it("should return the initial state", () => {
 
 it("should render court size", () => {
   const previousState: CourtSizeState = initialState;
-  expect(reducer(previousState, getCourtSize())).toEqual({ initialState });
+  expect(reducer(previousState, changeCourtSize(""))).toEqual(initialState);
+});
+
+it("should have white color", () => {
+  initialState.borderLength >= MIN_DIMENSION_BOX;
+  expect(dimensionColor).toEqual("white");
 });

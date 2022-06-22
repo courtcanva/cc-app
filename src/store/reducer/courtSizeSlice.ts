@@ -23,7 +23,7 @@ export const courtSizeSlice = createSlice({
   name: "courtSize",
   initialState,
   reducers: {
-    getCourtSize: (state: CourtSizeState, action: PayloadAction) => {
+    changeCourtSize: (state, action: PayloadAction<string>) => {
       // TODO
     },
   },
@@ -35,7 +35,7 @@ export const borderSize =
 export const courtWhiteLine = initialState.strokeWidth / 3;
 export const dashedWhiteLine = initialState.strokeWidth / 5;
 
-export const { getCourtSize } = courtSizeSlice.actions;
+export const { changeCourtSize } = courtSizeSlice.actions;
 export const courtSizeData = (state: RootState) => state.courtSize;
 
 export default courtSizeSlice.reducer;
