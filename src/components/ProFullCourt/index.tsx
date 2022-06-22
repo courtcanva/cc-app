@@ -43,8 +43,8 @@ const ProFullCourt = () => {
 
   const courtRatio = stageHeight / (courtAreaYLength + stageMargin * 2);
   const startPoint = {
-    X: courtAreaXLength + stageMargin - courtAreaXLength,
-    Y: (courtAreaYLength + stageMargin * 2) / 2 - courtAreaYLength / 2,
+    X: stageMargin,
+    Y: stageMargin,
   };
 
   return (
