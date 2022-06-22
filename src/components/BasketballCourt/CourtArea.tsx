@@ -1,6 +1,7 @@
 import { Rect } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
+import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
 
 interface CourtAreaProps {
   startPoint: ICourtStartPoint;
@@ -8,7 +9,7 @@ interface CourtAreaProps {
 }
 
 const CourtArea: React.FC<CourtAreaProps> = ({ startPoint, courtWidth }) => {
-  const { courtAreaYLength, strokeWidth } = useStoreSelector((state) => state.courtSize);
+  const { courtAreaYLength } = useStoreSelector((state) => state.courtSize);
 
   const color = useStoreSelector(
     (state) => state.tile.find((tile) => tile.location.includes("courtArea"))?.color
@@ -22,7 +23,7 @@ const CourtArea: React.FC<CourtAreaProps> = ({ startPoint, courtWidth }) => {
       x={startPoint.X}
       y={startPoint.Y}
       stroke="white"
-      strokeWidth={strokeWidth / 3}
+      strokeWidth={courtWhiteLine}
     />
   );
 };

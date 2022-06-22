@@ -9,9 +9,6 @@ interface DimensionTextProps {
 }
 
 const DimensionText: React.FC<DimensionTextProps> = ({ startPoint, color, text }) => {
-  console.log(borderSize);
-  console.log(text / 1000);
-
   return (
     <Text
       width={borderSize}

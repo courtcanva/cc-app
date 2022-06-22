@@ -70,6 +70,7 @@ const ProFullCourt = () => {
             scaleY={courtRatio}
             visible={true}
             style={{ backgroundColor: "white" }}
+            data-testid="stage"
           >
             <Provider store={store}>
               <Layer>
@@ -80,7 +81,11 @@ const ProFullCourt = () => {
                 {/* left side of pro full court*/}
                 <Group>
                   <BorderDimensionLine startPoint={startPoint} />
-                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
+                  <CourtArea
+                    startPoint={startPoint}
+                    courtWidth={courtAreaXLength / 2}
+                    data-testid="courtArea"
+                  />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
                   <CircleArea startPoint={startPoint} />

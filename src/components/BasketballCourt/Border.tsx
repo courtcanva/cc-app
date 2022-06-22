@@ -13,8 +13,6 @@ const Border: React.FC<BorderProps> = ({ startPoint }) => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
     (state) => state.courtSize
   );
-  const textColor = String(dimensionColor);
-  const border = Number(borderSize);
   const startPointX = startPoint.X - borderLength;
   const startPointY = startPoint.Y - borderLength;
   const borderWidth = courtAreaXLength + borderLength * 2;
@@ -61,7 +59,7 @@ const Border: React.FC<BorderProps> = ({ startPoint }) => {
   const courtDimensionPosition = [
     {
       startPoint: {
-        X: startPoint.X + courtAreaXLength / 2 - border / 2,
+        X: startPoint.X + courtAreaXLength / 2 - borderSize / 2,
         Y: textStartY,
       },
       text: courtAreaXLength,
@@ -69,7 +67,7 @@ const Border: React.FC<BorderProps> = ({ startPoint }) => {
     {
       startPoint: {
         X: textStartX,
-        Y: startPoint.Y + courtAreaYLength / 2 - border / 2,
+        Y: startPoint.Y + courtAreaYLength / 2 - borderSize / 2,
       },
       text: courtAreaYLength,
     },
@@ -86,12 +84,12 @@ const Border: React.FC<BorderProps> = ({ startPoint }) => {
       />
       {borderDimensionPosition.map((item: { startPoint: ICourtStartPoint; id: number }) => (
         <div key={item.id}>
-          <DimensionText startPoint={item.startPoint} color={textColor} text={borderLength} />
+          <DimensionText startPoint={item.startPoint} color={dimensionColor} text={borderLength} />
         </div>
       ))}
       {courtDimensionPosition.map((item: { startPoint: ICourtStartPoint; text: number }) => (
         <div key={item.text}>
-          <DimensionText startPoint={item.startPoint} color={textColor} text={item.text} />
+          <DimensionText startPoint={item.startPoint} color={dimensionColor} text={item.text} />
         </div>
       ))}
     </>

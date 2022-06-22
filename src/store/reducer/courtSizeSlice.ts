@@ -22,16 +22,20 @@ export const initialState: CourtSizeState = {
 export const courtSizeSlice = createSlice({
   name: "courtSize",
   initialState,
-  reducers: {},
+  reducers: {
+    getCourtSize: (state: CourtSizeState, action: PayloadAction) => {
+      // TODO
+    },
+  },
 });
-// export const dimensionColor = (state: CourtSizeState) => state.borderLength < MIN_DIMENSION_BOX ? "black" : "white" ;
-// export const borderSize = (state: CourtSizeState) => state.borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : state.borderLength;
-// export const { } = courtSizeSlice.actions;
 
 export const dimensionColor = initialState.borderLength < MIN_DIMENSION_BOX ? "black" : "white";
 export const borderSize =
   initialState.borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : initialState.borderLength;
+export const courtWhiteLine = initialState.strokeWidth / 3;
+export const dashedWhiteLine = initialState.strokeWidth / 5;
 
+export const { getCourtSize } = courtSizeSlice.actions;
 export const courtSizeData = (state: RootState) => state.courtSize;
 
 export default courtSizeSlice.reducer;
