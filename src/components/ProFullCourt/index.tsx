@@ -78,7 +78,6 @@ const ProFullCourt = () => {
                 <Border startPoint={startPoint} />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}
                 <ArrowLine
-                  courtRatio={courtRatio}
                   arrowXEndLength={courtAreaXLength}
                   startPoint={startPoint}
                 />

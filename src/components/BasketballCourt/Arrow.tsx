@@ -4,12 +4,11 @@ import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 import { minDimensionBox } from "../../constants/courtSize";
 
 interface ArrowProps {
-  courtRatio: number;
   startPoint: ICourtStartPoint;
   arrowXEndLength: number; // court x length has different calculations between full courts and single side courts
 }
 
-const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength, startPoint }) => {
+const ArrowLine: React.FC<ArrowProps> = ({ arrowXEndLength, startPoint }) => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
     (state) => state.courtSize
   );
