@@ -1,15 +1,13 @@
 import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { useContext } from "react";
+import { START_POINT } from "@/constants/courtSize";
 
-interface CircleAreaProps {
-  startPoint: ICourtStartPoint;
-}
-
-const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
+function CircleArea() {
   const { courtAreaXLength, threePointLineToCourtEdgeLenth, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
+  const startPoint = useContext(START_POINT);
   const startPointX = startPoint.X + courtAreaXLength / 2;
   const startPointY = startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius);
 
@@ -31,6 +29,6 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
       rotation={270}
     />
   );
-};
+}
 
 export default CircleArea;

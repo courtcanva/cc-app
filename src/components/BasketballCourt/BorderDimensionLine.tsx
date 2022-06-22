@@ -1,14 +1,12 @@
 import { Shape } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 import { dashedWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { useContext } from "react";
+import { START_POINT } from "@/constants/courtSize";
 
-interface BorderDimensionLineProps {
-  startPoint: ICourtStartPoint;
-}
-
-const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ startPoint }) => {
+function BorderDimensionLine() {
   const { courtAreaYLength, borderLength } = useStoreSelector((state) => state.courtSize);
+  const startPoint = useContext(START_POINT);
   const startPointX = startPoint.X - borderLength;
   const startPointY = startPoint.Y - borderLength;
   const courtHeight = courtAreaYLength;
@@ -43,6 +41,6 @@ const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ startPoint })
       />
     </>
   );
-};
+}
 
 export default BorderDimensionLine;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -11,10 +11,12 @@ import Border from "../BasketballCourt/Border";
 import BorderDimensionLine from "../BasketballCourt/BorderDimensionLine";
 import ArrowLine from "../BasketballCourt/Arrow";
 import { useStoreSelector } from "@/store/hooks";
+import { STAGE_MARGIN, START_POINT } from "@/constants/courtSize";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+  const startPoint = useContext(START_POINT);
 
   useEffect(() => {
     const checkSize = () => {
@@ -28,9 +30,9 @@ const ProFullCourt = () => {
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  const stageMargin = 2500;
-  const convasWidth = courtAreaXLength + stageMargin * 2; // actual court size plus reserved margin size (prepare for 2m border)
-  const convasHeight = courtAreaYLength + stageMargin * 2;
+  
+  const convasWidth = courtAreaXLength + STAGE_MARGIN * 2; // actual court size plus reserved margin size (prepare for 2m border)
+  const convasHeight = courtAreaYLength + STAGE_MARGIN * 2;
 
   let stageHeight: number;
   size.height >= 768 ? (stageHeight = size.height - 250) : (stageHeight = 768 - 250);
@@ -41,11 +43,8 @@ const ProFullCourt = () => {
     stageHeight = stageWidth * (convasHeight / convasWidth);
   }
 
-  const courtRatio = stageHeight / (courtAreaYLength + stageMargin * 2);
-  const startPoint = {
-    X: stageMargin,
-    Y: stageMargin,
-  };
+  const courtRatio = stageHeight / (courtAreaYLength + STAGE_MARGIN * 2);
+
 
   return (
     <Flex
@@ -75,30 +74,28 @@ const ProFullCourt = () => {
             <Provider store={store}>
               <Layer>
                 {/* border only for pro full court size */}
-                <Border startPoint={startPoint} />
+                <Border />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}
-                <ArrowLine startPoint={startPoint} />
+                <ArrowLine />
                 {/* left side of pro full court*/}
                 <Group>
-                  <BorderDimensionLine startPoint={startPoint} />
+                  <BorderDimensionLine />
                   <CourtArea
-                    startPoint={startPoint}
                     courtWidth={courtAreaXLength / 2}
-                    data-testid="courtArea"
                   />
-                  <ThreePointArea startPoint={startPoint} />
-                  <KeyArea startPoint={startPoint} />
-                  <CircleArea startPoint={startPoint} />
-                  <TopKeyArea startPoint={startPoint} />
+                  <ThreePointArea />
+                  <KeyArea />
+                  <CircleArea />
+                  <TopKeyArea />
                 </Group>
                 {/* right side of pro full court(flip the left side)*/}
                 <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
-                  <BorderDimensionLine startPoint={startPoint} />
-                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
-                  <ThreePointArea startPoint={startPoint} />
-                  <KeyArea startPoint={startPoint} />
-                  <CircleArea startPoint={startPoint} />
-                  <TopKeyArea startPoint={startPoint} />
+                  <BorderDimensionLine />
+                  <CourtArea courtWidth={courtAreaXLength / 2} />
+                  <ThreePointArea />
+                  <KeyArea />
+                  <CircleArea />
+                  <TopKeyArea />
                 </Group>
               </Layer>
             </Provider>

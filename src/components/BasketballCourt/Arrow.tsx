@@ -1,14 +1,13 @@
 import { Arrow } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { dimensionColor, borderSize } from "../../store/reducer/courtSizeSlice";
-import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
+import { useContext } from "react";
+import { START_POINT } from "@/constants/courtSize";
 
-interface ArrowProps {
-  startPoint: ICourtStartPoint;
-}
 
-const ArrowLine: React.FC<ArrowProps> = ({ startPoint }) => {
+function ArrowLine() {
   const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
+  const startPoint = useContext(START_POINT);
   const arrowSize = 100;
   const arrowWeight = 50;
   const arrowGap = 200;
@@ -73,6 +72,6 @@ const ArrowLine: React.FC<ArrowProps> = ({ startPoint }) => {
       />
     </>
   );
-};
+}
 
 export default ArrowLine;

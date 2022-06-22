@@ -3,16 +3,14 @@ import { useStoreSelector } from "@/store/hooks";
 import { dimensionColor, borderSize } from "../../store/reducer/courtSizeSlice";
 import DimensionText from "../BasketballCourt/DimensionText";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
-import { MIN_DIMENSION_BOX } from "../../constants/courtSize";
+import { MIN_DIMENSION_BOX, START_POINT } from "../../constants/courtSize";
+import { useContext } from "react";
 
-interface BorderProps {
-  startPoint: ICourtStartPoint;
-}
-
-const Border: React.FC<BorderProps> = ({ startPoint }) => {
+function Border() {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
     (state) => state.courtSize
   );
+  const startPoint = useContext(START_POINT);
   const startPointX = startPoint.X - borderLength;
   const startPointY = startPoint.Y - borderLength;
   const borderWidth = courtAreaXLength + borderLength * 2;
@@ -94,6 +92,6 @@ const Border: React.FC<BorderProps> = ({ startPoint }) => {
       ))}
     </>
   );
-};
+}
 
 export default Border;

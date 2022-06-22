@@ -1,15 +1,13 @@
 import { Shape } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { useContext } from "react";
+import { START_POINT } from "@/constants/courtSize";
 
-interface ThreePointAreaProps {
-  startPoint: ICourtStartPoint;
-}
-
-const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
+function ThreePointArea() {
   const { threePointLineToCourtEdgeLenth, cornerThreePointLineLength, threePointLineRadius } =
     useStoreSelector((state) => state.courtSize);
+  const startPoint = useContext(START_POINT);
   const startPointX = startPoint.X;
   const startPointY = startPoint.Y + threePointLineToCourtEdgeLenth;
   const controlPointOneX = startPoint.X + (cornerThreePointLineLength + threePointLineRadius);
@@ -55,6 +53,6 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
       strokeWidth={courtWhiteLine}
     />
   );
-};
+}
 
 export default ThreePointArea;
