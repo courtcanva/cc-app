@@ -1,22 +1,19 @@
 import { Arrow } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
+import { dimensionColor, borderSize } from "../../store/reducer/courtSizeSlice";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
-import { minDimensionBox } from "../../constants/courtSize";
 
 interface ArrowProps {
   startPoint: ICourtStartPoint;
-  arrowXEndLength: number; // court x length has different calculations between full courts and single side courts
 }
 
-const ArrowLine: React.FC<ArrowProps> = ({ arrowXEndLength, startPoint }) => {
-  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
-    (state) => state.courtSize
-  );
-
-  const dimensionColor = borderLength < 1000 ? "black" : "white";
-  const border = borderLength <= minDimensionBox ? minDimensionBox : borderLength;
+const ArrowLine: React.FC<ArrowProps> = ({ startPoint }) => {
+  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
+  const color = String(dimensionColor);
+  const border = Number(borderSize);
   const arrowSize = 100;
   const arrowWeight = 50;
+  const arrowGap = 200;
 
   return (
     <>
@@ -24,28 +21,28 @@ const ArrowLine: React.FC<ArrowProps> = ({ arrowXEndLength, startPoint }) => {
         pointerLength={arrowSize}
         pointerWidth={arrowSize}
         points={[
-          startPoint.X + arrowXEndLength - 1000,
+          startPoint.X + courtAreaXLength / 2 - 1000,
           startPoint.Y - border / 2,
-          startPoint.X + 250,
+          startPoint.X + arrowGap,
           startPoint.Y - border / 2,
         ]}
-        fill={dimensionColor}
-        stroke={dimensionColor}
+        fill={color}
+        stroke={color}
         strokeWidth={arrowWeight}
       />
       <Arrow // court x length right arrow
         scaleX={-1}
-        x={startPoint.X * 2 + courtAreaXLength * 2}
+        x={startPoint.X * 2 + courtAreaXLength}
         pointerLength={arrowSize}
         pointerWidth={arrowSize}
         points={[
-          startPoint.X + arrowXEndLength - 1000,
+          startPoint.X + courtAreaXLength / 2 - 1000,
           startPoint.Y - border / 2,
-          startPoint.X + 250,
+          startPoint.X + arrowGap,
           startPoint.Y - border / 2,
         ]}
-        fill={dimensionColor}
-        stroke={dimensionColor}
+        fill={color}
+        stroke={color}
         strokeWidth={arrowWeight}
       />
       <Arrow // court Y length top arrow
@@ -55,10 +52,10 @@ const ArrowLine: React.FC<ArrowProps> = ({ arrowXEndLength, startPoint }) => {
           startPoint.X - border / 2,
           startPoint.Y + courtAreaYLength / 2 - 750,
           startPoint.X - border / 2,
-          startPoint.Y + 250,
+          startPoint.Y + arrowGap,
         ]}
-        fill={dimensionColor}
-        stroke={dimensionColor}
+        fill={color}
+        stroke={color}
         strokeWidth={arrowWeight}
       />
       <Arrow // court Y length bottom arrow
@@ -70,10 +67,10 @@ const ArrowLine: React.FC<ArrowProps> = ({ arrowXEndLength, startPoint }) => {
           startPoint.X - border / 2,
           startPoint.Y + courtAreaYLength / 2 - 750,
           startPoint.X - border / 2,
-          startPoint.Y + 250,
+          startPoint.Y + arrowGap,
         ]}
-        fill={dimensionColor}
-        stroke={dimensionColor}
+        fill={color}
+        stroke={color}
         strokeWidth={arrowWeight}
       />
     </>

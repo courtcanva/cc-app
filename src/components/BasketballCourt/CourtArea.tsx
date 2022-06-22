@@ -4,14 +4,11 @@ import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 
 interface CourtAreaProps {
   startPoint: ICourtStartPoint;
+  courtWidth: number;
 }
 
-const CourtArea: React.FC<CourtAreaProps> = ({ startPoint }) => {
-  const { courtAreaXLength, courtAreaYLength, strokeWidth } = useStoreSelector(
-    (state) => state.courtSize
-  );
-  const borderWidth = courtAreaXLength;
-  const borderHeight = courtAreaYLength;
+const CourtArea: React.FC<CourtAreaProps> = ({ startPoint, courtWidth }) => {
+  const { courtAreaYLength, strokeWidth } = useStoreSelector((state) => state.courtSize);
 
   const color = useStoreSelector(
     (state) => state.tile.find((tile) => tile.location.includes("courtArea"))?.color
@@ -19,8 +16,8 @@ const CourtArea: React.FC<CourtAreaProps> = ({ startPoint }) => {
 
   return (
     <Rect
-      width={borderWidth}
-      height={borderHeight}
+      width={courtWidth}
+      height={courtAreaYLength}
       fill={color}
       x={startPoint.X}
       y={startPoint.Y}

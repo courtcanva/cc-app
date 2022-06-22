@@ -14,7 +14,7 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
     circleRadius,
     strokeWidth,
   } = useStoreSelector((state) => state.courtSize);
-  const startPointX = startPoint.X + courtAreaXLength;
+  const startPointX = startPoint.X + courtAreaXLength / 2;
   const startPointY = startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius);
 
   const color = useStoreSelector(

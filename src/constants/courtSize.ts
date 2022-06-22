@@ -1,1 +1,1 @@
-export const minDimensionBox = 1000;
+export const MIN_DIMENSION_BOX = 1000;

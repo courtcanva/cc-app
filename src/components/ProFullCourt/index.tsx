@@ -11,7 +11,6 @@ import Border from "../BasketballCourt/Border";
 import BorderDimensionLine from "../BasketballCourt/BorderDimensionLine";
 import ArrowLine from "../BasketballCourt/Arrow";
 import { useStoreSelector } from "@/store/hooks";
-import React from "react";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
@@ -30,7 +29,7 @@ const ProFullCourt = () => {
   }, []);
 
   const stageMargin = 2500;
-  const convasWidth = courtAreaXLength * 2 + stageMargin * 2; // actual court size plus reserved margin size (prepare for 2m border)
+  const convasWidth = courtAreaXLength + stageMargin * 2; // actual court size plus reserved margin size (prepare for 2m border)
   const convasHeight = courtAreaYLength + stageMargin * 2;
 
   let stageHeight: number;
@@ -44,7 +43,7 @@ const ProFullCourt = () => {
 
   const courtRatio = stageHeight / (courtAreaYLength + stageMargin * 2);
   const startPoint = {
-    X: (courtAreaXLength * 2 + stageMargin * 2) / 2 - courtAreaXLength,
+    X: courtAreaXLength + stageMargin - courtAreaXLength,
     Y: (courtAreaYLength + stageMargin * 2) / 2 - courtAreaYLength / 2,
   };
 
@@ -77,20 +76,20 @@ const ProFullCourt = () => {
                 {/* border only for pro full court size */}
                 <Border startPoint={startPoint} />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}
-                <ArrowLine arrowXEndLength={courtAreaXLength} startPoint={startPoint} />
+                <ArrowLine startPoint={startPoint} />
                 {/* left side of pro full court*/}
                 <Group>
                   <BorderDimensionLine startPoint={startPoint} />
-                  <CourtArea startPoint={startPoint} />
+                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
                   <CircleArea startPoint={startPoint} />
                   <TopKeyArea startPoint={startPoint} />
                 </Group>
                 {/* right side of pro full court(flip the left side)*/}
-                <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength * 2}>
+                <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
                   <BorderDimensionLine startPoint={startPoint} />
-                  <CourtArea startPoint={startPoint} />
+                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
                   <CircleArea startPoint={startPoint} />
