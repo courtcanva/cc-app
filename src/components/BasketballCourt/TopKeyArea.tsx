@@ -1,23 +1,15 @@
 import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
+import { courtWhiteLine, dashedWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { useContext } from "react";
+import { START_POINT } from "@/constants/courtSize";
 
-interface ShootAreaProps {
-  courtRatio: number;
-}
-
-const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio }) => {
-  const {
-    initPointX,
-    initPointY,
-    keyAreaWidth,
-    threePointLineToCourtEdgeLenth,
-    threePointLineRadius,
-    circleRadius,
-    strokeWidth,
-  } = useStoreSelector((state) => state.courtSize);
-  const startPointX = initPointX + keyAreaWidth * courtRatio;
-  const startPointY =
-    initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
+function ShootArea() {
+  const { keyAreaWidth, threePointLineToCourtEdgeLenth, threePointLineRadius, circleRadius } =
+    useStoreSelector((state) => state.courtSize);
+  const startPoint = useContext(START_POINT);
+  const startPointX = startPoint.X + keyAreaWidth;
+  const startPointY = startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius);
 
   const color = useStoreSelector(
     (state) => state.tile.find((tile) => tile.location.includes("topKeyArea"))?.color
@@ -29,11 +21,11 @@ const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio }) => {
         x={startPointX}
         y={startPointY}
         innerRadius={0}
-        outerRadius={circleRadius * courtRatio}
+        outerRadius={circleRadius}
         angle={180}
         fill={color}
         stroke="white"
-        strokeWidth={strokeWidth / 10}
+        strokeWidth={courtWhiteLine}
         clockwise
         rotation={90}
       />
@@ -41,17 +33,17 @@ const ShootArea: React.FC<ShootAreaProps> = ({ courtRatio }) => {
         x={startPointX}
         y={startPointY}
         innerRadius={0}
-        outerRadius={circleRadius * courtRatio}
+        outerRadius={circleRadius}
         angle={180}
         fill="transparent"
         stroke="white"
-        strokeWidth={strokeWidth / 20}
+        strokeWidth={dashedWhiteLine}
         clockwise
         rotation={270}
-        dash={[3, 3]}
+        dash={[50, 50]}
       />
     </>
   );
-};
+}
 
 export default ShootArea;

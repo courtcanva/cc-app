@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import courtReducer from "./reducer/courtSlices/courtSizeSlice";
+import courtReducer from "./reducer/courtSizeSlice";
 import courtNameReducer from "./reducer/courtNameSlice";
 import tileReducer from "./reducer/tileSlice";
 

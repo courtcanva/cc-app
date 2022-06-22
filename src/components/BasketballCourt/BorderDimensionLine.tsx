@@ -1,48 +1,46 @@
 import { Shape } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
+import { dashedWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { useContext } from "react";
+import { START_POINT } from "@/constants/courtSize";
 
-interface BorderDimensionLineProps {
-  courtRatio: number;
-}
-
-const BorderDimensionLine: React.FC<BorderDimensionLineProps> = ({ courtRatio }) => {
-  const { initPointX, initPointY, courtAreaYLength, borderLength, strokeWidth } = useStoreSelector(
-    (state) => state.courtSize
-  );
-  const startPointX = initPointX - borderLength * courtRatio;
-  const startPointY = initPointY - borderLength * courtRatio;
-  const courtHeight = courtAreaYLength * courtRatio;
+function BorderDimensionLine() {
+  const { courtAreaYLength, borderLength } = useStoreSelector((state) => state.courtSize);
+  const startPoint = useContext(START_POINT);
+  const startPointX = startPoint.X - borderLength;
+  const startPointY = startPoint.Y - borderLength;
+  const courtHeight = courtAreaYLength;
 
   return (
     <>
       <Shape
         sceneFunc={(context, shape) => {
           context.beginPath();
-          context.moveTo(startPointX, initPointY);
-          context.lineTo(initPointX, initPointY);
-          context.lineTo(initPointX, startPointY);
+          context.moveTo(startPointX, startPoint.Y);
+          context.lineTo(startPoint.X, startPoint.Y);
+          context.lineTo(startPoint.X, startPointY);
           context.fillStrokeShape(shape);
         }}
         fill="transparent"
         stroke="white"
-        strokeWidth={strokeWidth / 20}
-        dash={[3, 3]}
+        strokeWidth={dashedWhiteLine}
+        dash={[60, 60]}
       />
       <Shape
         sceneFunc={(context, shape) => {
           context.beginPath();
-          context.moveTo(startPointX, initPointY + courtHeight);
-          context.lineTo(initPointX, initPointY + courtHeight);
-          context.lineTo(initPointX, initPointY + courtHeight + borderLength * courtRatio);
+          context.moveTo(startPointX, startPoint.Y + courtHeight);
+          context.lineTo(startPoint.X, startPoint.Y + courtHeight);
+          context.lineTo(startPoint.X, startPoint.Y + courtHeight + borderLength);
           context.fillStrokeShape(shape);
         }}
         fill="transparent"
         stroke="white"
-        strokeWidth={strokeWidth / 20}
-        dash={[3, 3]}
+        strokeWidth={dashedWhiteLine}
+        dash={[60, 60]}
       />
     </>
   );
-};
+}
 
 export default BorderDimensionLine;

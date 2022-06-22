@@ -1,23 +1,15 @@
 import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
+import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { useContext } from "react";
+import { START_POINT } from "@/constants/courtSize";
 
-interface CircleAreaProps {
-  courtRatio: number;
-}
-
-const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio }) => {
-  const {
-    initPointX,
-    initPointY,
-    courtAreaXLength,
-    threePointLineToCourtEdgeLenth,
-    threePointLineRadius,
-    circleRadius,
-    strokeWidth,
-  } = useStoreSelector((state) => state.courtSize);
-  const startPointX = initPointX + courtAreaXLength * courtRatio;
-  const startPointY =
-    initPointY + (threePointLineToCourtEdgeLenth + threePointLineRadius) * courtRatio;
+function CircleArea() {
+  const { courtAreaXLength, threePointLineToCourtEdgeLenth, threePointLineRadius, circleRadius } =
+    useStoreSelector((state) => state.courtSize);
+  const startPoint = useContext(START_POINT);
+  const startPointX = startPoint.X + courtAreaXLength / 2;
+  const startPointY = startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius);
 
   const color = useStoreSelector(
     (state) => state.tile.find((tile) => tile.location.includes("circleArea"))?.color
@@ -28,15 +20,15 @@ const CircleArea: React.FC<CircleAreaProps> = ({ courtRatio }) => {
       x={startPointX}
       y={startPointY}
       innerRadius={0}
-      outerRadius={circleRadius * courtRatio}
+      outerRadius={circleRadius}
       angle={180}
       fill={color}
       stroke="white"
-      strokeWidth={strokeWidth / 10}
+      strokeWidth={courtWhiteLine}
       clockwise
       rotation={270}
     />
   );
-};
+}
 
 export default CircleArea;

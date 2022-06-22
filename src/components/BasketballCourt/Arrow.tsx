@@ -1,79 +1,76 @@
 import { Arrow } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
+import { dimensionColor, borderSize } from "../../store/reducer/courtSizeSlice";
+import { useContext } from "react";
+import { START_POINT } from "@/constants/courtSize";
 
-interface ArrowProps {
-  courtRatio: number;
-  arrowXEndLength: number; // court x length has different calculations between full courts and single side courts
-}
-
-const ArrowLine: React.FC<ArrowProps> = ({ courtRatio, arrowXEndLength }) => {
-  const { initPointX, initPointY, courtAreaXLength, courtAreaYLength, borderLength } =
-    useStoreSelector((state) => state.courtSize);
-  let border;
-  borderLength <= 100 ? (border = 100 * courtRatio) : (border = borderLength * courtRatio);
-  let color;
-  borderLength <= 50 ? (color = "black") : (color = "white");
+function ArrowLine() {
+  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
+  const startPoint = useContext(START_POINT);
+  const arrowSize = 100;
+  const arrowWeight = 50;
+  const arrowGap = 200;
 
   return (
     <>
       <Arrow // court x length left arrow
-        pointerLength={5}
-        pointerWidth={5}
+        pointerLength={arrowSize}
+        pointerWidth={arrowSize}
         points={[
-          initPointX + arrowXEndLength * courtRatio - 20,
-          initPointY - border / 2,
-          initPointX + 5,
-          initPointY - border / 2,
+          startPoint.X + courtAreaXLength / 2 - 1000,
+          startPoint.Y - borderSize / 2,
+          startPoint.X + arrowGap,
+          startPoint.Y - borderSize / 2,
         ]}
-        fill={color}
-        stroke={color}
-        strokeWidth={1}
+        fill={dimensionColor}
+        stroke={dimensionColor}
+        strokeWidth={arrowWeight}
       />
       <Arrow // court x length right arrow
         scaleX={-1}
-        x={initPointX * 2 + courtAreaXLength * 2 * courtRatio}
-        pointerLength={5}
-        pointerWidth={5}
+        x={startPoint.X * 2 + courtAreaXLength}
+        pointerLength={arrowSize}
+        pointerWidth={arrowSize}
         points={[
-          initPointX + arrowXEndLength * courtRatio - 20,
-          initPointY - border / 2,
-          initPointX + 5,
-          initPointY - border / 2,
+          startPoint.X + courtAreaXLength / 2 - 1000,
+          startPoint.Y - borderSize / 2,
+          startPoint.X + arrowGap,
+          startPoint.Y - borderSize / 2,
         ]}
-        fill={color}
-        stroke={color}
-        strokeWidth={1}
+        fill={dimensionColor}
+        stroke={dimensionColor}
+        strokeWidth={arrowWeight}
       />
       <Arrow // court Y length top arrow
-        pointerLength={5}
-        pointerWidth={5}
+        pointerLength={arrowSize}
+        pointerWidth={arrowSize}
         points={[
-          initPointX - border / 2,
-          initPointY + (courtAreaYLength / 2) * courtRatio - 15,
-          initPointX - border / 2,
-          initPointY + 5,
+          startPoint.X - borderSize / 2,
+          startPoint.Y + courtAreaYLength / 2 - 750,
+          startPoint.X - borderSize / 2,
+          startPoint.Y + arrowGap,
         ]}
-        fill={color}
-        stroke={color}
-        strokeWidth={1}
+        fill={dimensionColor}
+        stroke={dimensionColor}
+        strokeWidth={arrowWeight}
       />
       <Arrow // court Y length bottom arrow
         scaleY={-1}
-        y={initPointY * 2 + courtAreaYLength * courtRatio}
-        pointerLength={5}
-        pointerWidth={5}
+        y={startPoint.Y * 2 + courtAreaYLength}
+        pointerLength={arrowSize}
+        pointerWidth={arrowSize}
         points={[
-          initPointX - border / 2,
-          initPointY + (courtAreaYLength / 2) * courtRatio - 15,
-          initPointX - border / 2,
-          initPointY + 5,
+          startPoint.X - borderSize / 2,
+          startPoint.Y + courtAreaYLength / 2 - 750,
+          startPoint.X - borderSize / 2,
+          startPoint.Y + arrowGap,
         ]}
-        fill={color}
-        stroke={color}
-        strokeWidth={1}
+        fill={dimensionColor}
+        stroke={dimensionColor}
+        strokeWidth={arrowWeight}
       />
     </>
   );
-};
+}
 
 export default ArrowLine;

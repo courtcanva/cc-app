@@ -1,3 +1,4 @@
+import { useContext, useEffect, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -10,10 +11,38 @@ import Border from "../BasketballCourt/Border";
 import BorderDimensionLine from "../BasketballCourt/BorderDimensionLine";
 import ArrowLine from "../BasketballCourt/Arrow";
 import { useStoreSelector } from "@/store/hooks";
+import { STAGE_MARGIN, START_POINT } from "@/constants/courtSize";
 
 const ProFullCourt = () => {
-  const { initPointX, courtAreaXLength } = useStoreSelector((state) => state.courtSize);
-  const courtRatio = 0.25; // (TBC)A flexible ratio based on stage size can adjust the whole court size easier.
+  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
+  const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+  const startPoint = useContext(START_POINT);
+
+  useEffect(() => {
+    const checkSize = () => {
+      setSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", checkSize);
+    return () => window.removeEventListener("resize", checkSize);
+  }, []);
+
+  const convasWidth = courtAreaXLength + STAGE_MARGIN * 2; // actual court size plus reserved margin size (prepare for 2m border)
+  const convasHeight = courtAreaYLength + STAGE_MARGIN * 2;
+
+  let stageHeight: number;
+  size.height >= 768 ? (stageHeight = size.height - 250) : (stageHeight = 768 - 250);
+  let stageWidth = stageHeight * (convasWidth / convasHeight);
+
+  if ((size.height - 250) / (size.width - 118) > convasHeight / convasWidth) {
+    size.width >= 768 ? (stageWidth = size.width - 118) : (stageWidth = 768 - 118);
+    stageHeight = stageWidth * (convasHeight / convasWidth);
+  }
+
+  const courtRatio = stageHeight / (courtAreaYLength + STAGE_MARGIN * 2);
 
   return (
     <Flex
@@ -21,9 +50,9 @@ const ProFullCourt = () => {
       top="123px"
       left="98px"
       width="calc(100% - 98px)"
-      height="calc(100% - 220px)"
-      minWidth={850}
-      minHeight={520}
+      height="calc(100% - 230px)"
+      minWidth={stageWidth}
+      minHeight={stageHeight}
       justifyContent="center"
       alignItems="center"
       margin="auto"
@@ -32,34 +61,37 @@ const ProFullCourt = () => {
         {({ store }) => (
           <Stage
             id="basketball-court"
-            width={850}
-            height={520}
+            height={stageHeight}
+            width={stageWidth}
+            scaleX={courtRatio}
+            scaleY={courtRatio}
             visible={true}
             style={{ backgroundColor: "white" }}
+            data-testid="stage"
           >
             <Provider store={store}>
               <Layer>
                 {/* border only for pro full court size */}
-                <Border courtRatio={courtRatio} />
+                <Border />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}
-                <ArrowLine courtRatio={courtRatio} arrowXEndLength={courtAreaXLength} />
+                <ArrowLine />
                 {/* left side of pro full court*/}
                 <Group>
-                  <BorderDimensionLine courtRatio={courtRatio} />
-                  <CourtArea courtRatio={courtRatio} />
-                  <ThreePointArea courtRatio={courtRatio} />
-                  <KeyArea courtRatio={courtRatio} />
-                  <CircleArea courtRatio={courtRatio} />
-                  <TopKeyArea courtRatio={courtRatio} />
+                  <BorderDimensionLine />
+                  <CourtArea courtWidth={courtAreaXLength / 2} />
+                  <ThreePointArea />
+                  <KeyArea />
+                  <CircleArea />
+                  <TopKeyArea />
                 </Group>
                 {/* right side of pro full court(flip the left side)*/}
-                <Group scaleX={-1} x={initPointX * 2 + courtAreaXLength * 2 * courtRatio}>
-                  <BorderDimensionLine courtRatio={courtRatio} />
-                  <CourtArea courtRatio={courtRatio} />
-                  <ThreePointArea courtRatio={courtRatio} />
-                  <KeyArea courtRatio={courtRatio} />
-                  <CircleArea courtRatio={courtRatio} />
-                  <TopKeyArea courtRatio={courtRatio} />
+                <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
+                  <BorderDimensionLine />
+                  <CourtArea courtWidth={courtAreaXLength / 2} />
+                  <ThreePointArea />
+                  <KeyArea />
+                  <CircleArea />
+                  <TopKeyArea />
                 </Group>
               </Layer>
             </Provider>

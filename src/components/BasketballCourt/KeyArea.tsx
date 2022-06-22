@@ -1,23 +1,15 @@
 import { Rect } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
+import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { useContext } from "react";
+import { START_POINT } from "@/constants/courtSize";
 
-interface KeyAreaProps {
-  courtRatio: number;
-}
-
-const KeyArea: React.FC<KeyAreaProps> = ({ courtRatio }) => {
-  const {
-    initPointX,
-    initPointY,
-    threePointLineToCourtEdgeLenth,
-    threePointLineRadius,
-    keyAreaWidth,
-    keyAreaHeight,
-    strokeWidth,
-  } = useStoreSelector((state) => state.courtSize);
+function KeyArea() {
+  const { threePointLineToCourtEdgeLenth, threePointLineRadius, keyAreaWidth, keyAreaHeight } =
+    useStoreSelector((state) => state.courtSize);
+  const startPoint = useContext(START_POINT);
   const startPointY =
-    initPointY +
-    (threePointLineToCourtEdgeLenth + threePointLineRadius - keyAreaHeight / 2) * courtRatio;
+    startPoint.Y + threePointLineToCourtEdgeLenth + threePointLineRadius - keyAreaHeight / 2;
 
   const color = useStoreSelector(
     (state) => state.tile.find((tile) => tile.location.includes("keyArea"))?.color
@@ -25,15 +17,15 @@ const KeyArea: React.FC<KeyAreaProps> = ({ courtRatio }) => {
 
   return (
     <Rect
-      width={keyAreaWidth * courtRatio}
-      height={keyAreaHeight * courtRatio}
+      width={keyAreaWidth}
+      height={keyAreaHeight}
       fill={color}
       stroke="white"
-      strokeWidth={strokeWidth / 10}
-      x={initPointX}
+      strokeWidth={courtWhiteLine}
+      x={startPoint.X}
       y={startPointY}
     />
   );
-};
+}
 
 export default KeyArea;
