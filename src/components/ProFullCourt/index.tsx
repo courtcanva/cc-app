@@ -77,10 +77,7 @@ const ProFullCourt = () => {
                 {/* border only for pro full court size */}
                 <Border startPoint={startPoint} />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}
-                <ArrowLine
-                  arrowXEndLength={courtAreaXLength}
-                  startPoint={startPoint}
-                />
+                <ArrowLine arrowXEndLength={courtAreaXLength} startPoint={startPoint} />
                 {/* left side of pro full court*/}
                 <Group>
                   <BorderDimensionLine startPoint={startPoint} />
