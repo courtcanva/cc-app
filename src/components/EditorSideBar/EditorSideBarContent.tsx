@@ -18,9 +18,9 @@ const showContainerItem = (iconClickTitle: string) => {
 const SideBarContainer = (props: Props) => {
   return (
     <Box
-      bg="background.secondary"
+      background="background.secondary"
       width="280px"
-      h="calc(100vh - 72px)"
+      height="calc(100vh - 72px)"
       top="72px"
       left="96px"
       position="fixed"
@@ -34,15 +34,15 @@ const SideBarContainer = (props: Props) => {
         position="absolute"
         top="calc(48% - 84px)"
         right="-14px"
-        h="100px"
-        w="14px"
-        bg="background.secondary"
+        height="100px"
+        width="14px"
+        background="background.secondary"
         clipPath="polygon(0% 0%, 100% 8%, 100% 92%, 0% 100%)"
         zIndex="-1"
       >
         <ChevronLeftIcon
-          w={6}
-          h={6}
+          width={6}
+          height={6}
           color="#fff"
           position="absolute"
           top="calc(50% - 16px)"
