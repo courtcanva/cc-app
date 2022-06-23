@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -11,14 +11,19 @@ import Border from "../BasketballCourt/Border";
 import BorderDimensionLine from "../BasketballCourt/BorderDimensionLine";
 import ArrowLine from "../BasketballCourt/Arrow";
 import { useStoreSelector } from "@/store/hooks";
-import { STAGE_MARGIN, START_POINT } from "@/constants/courtSize";
-import React, { useEffect, useRef } from "react";
+import { STAGE_MARGIN, START_POINT, PX_TO_UNIT_CONVERSION } from "@/constants/courtSize";
 import { tileNumberCalculator } from "../../utils/tileNumberCalculator";
 
 const ProFullCourt = () => {
-  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
+  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
+    (state) => state.courtSize
+  );
   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
   const startPoint = useContext(START_POINT);
+
+  const canvasRef = useRef(null);
+  let canvas: HTMLCanvasElement | null = null;
+  let ctx: CanvasRenderingContext2D | null = null;
 
   useEffect(() => {
     const checkSize = () => {
@@ -27,7 +32,11 @@ const ProFullCourt = () => {
         height: window.innerHeight,
       });
     };
-
+    canvas = canvasRef.current as unknown as HTMLCanvasElement;
+    if (canvas) {
+      ctx = canvas.getContext("2d");
+      tileNumberCalculator(ctx, courtAndTileInfo);
+    }
     window.addEventListener("resize", checkSize);
     return () => window.removeEventListener("resize", checkSize);
   }, []);
@@ -45,18 +54,17 @@ const ProFullCourt = () => {
   }
 
   const courtRatio = stageHeight / (courtAreaYLength + STAGE_MARGIN * 2);
+  const courtAndTileInfo = {
+    beginPointX: (STAGE_MARGIN - borderLength) * courtRatio * PX_TO_UNIT_CONVERSION,
+    beginPointY: (STAGE_MARGIN - borderLength) * courtRatio * PX_TO_UNIT_CONVERSION,
+    endPointX:
+      (STAGE_MARGIN + courtAreaXLength + borderLength) * courtRatio * PX_TO_UNIT_CONVERSION,
+    endPointY:
+      (STAGE_MARGIN + courtAreaYLength + borderLength) * courtRatio * PX_TO_UNIT_CONVERSION,
+    // TO CHANGE LATER: tile size will be passed in instead of hard coding
+    tileSize: 300 * courtRatio * PX_TO_UNIT_CONVERSION,
+  };
 
-  const canvasRef = useRef(null);
-  let canvas: HTMLCanvasElement | null = null;
-  let ctx: CanvasRenderingContext2D | null = null;
-
-  useEffect(() => {
-    canvas = canvasRef.current as unknown as HTMLCanvasElement;
-    if (canvas) {
-      ctx = canvas.getContext("2d");
-      tileNumberCalculator(ctx);
-    }
-  }, []);
   return (
     <Flex
       position="fixed"
