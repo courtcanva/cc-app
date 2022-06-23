@@ -19,7 +19,7 @@ const SideBarContainer = (props: Props) => {
   return (
     <Box
       bg="background.secondary"
-      w="356px"
+      width="280px"
       h="calc(100vh - 72px)"
       top="72px"
       left="96px"
@@ -33,20 +33,20 @@ const SideBarContainer = (props: Props) => {
         onClick={props.onHandleCloseClick}
         position="absolute"
         top="calc(48% - 84px)"
-        right="-26px"
-        h="168px"
-        w="56px"
+        right="-14px"
+        h="100px"
+        w="14px"
         bg="background.secondary"
         clipPath="polygon(0% 0%, 100% 8%, 100% 92%, 0% 100%)"
         zIndex="-1"
       >
         <ChevronLeftIcon
-          w={8}
-          h={8}
+          w={6}
+          h={6}
           color="#fff"
           position="absolute"
           top="calc(50% - 16px)"
-          right="0px"
+          right="-4px"
         />
       </Box>
     </Box>
