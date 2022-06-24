@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState, useRef, useCallback } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -13,6 +13,7 @@ import ArrowLine from "../BasketballCourt/Arrow";
 import { useStoreSelector } from "@/store/hooks";
 import { STAGE_MARGIN, START_POINT } from "@/constants/courtSize";
 import { tileNumberCalculator } from "../../utils/tileNumberCalculator";
+import { debounce } from "lodash";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -25,6 +26,19 @@ const ProFullCourt = () => {
   let canvas: HTMLCanvasElement | null = null;
   let ctx: CanvasRenderingContext2D | null = null;
 
+  const debouncedCalculation = useCallback(
+    debounce(() => {
+      canvas = canvasRef.current as unknown as HTMLCanvasElement;
+      if (canvas) {
+        ctx = canvas.getContext("2d");
+        const tileNumResult = tileNumberCalculator(ctx, courtAndTileInfo);
+        // To Delete later, console for preview only
+        console.log(tileNumResult);
+      }
+    }, 500),
+    []
+  );
+
   useEffect(() => {
     const checkSize = () => {
       setSize({
@@ -32,15 +46,8 @@ const ProFullCourt = () => {
         height: window.innerHeight,
       });
     };
-    canvas = canvasRef.current as unknown as HTMLCanvasElement;
-    if (canvas) {
-      ctx = canvas.getContext("2d");
-      const tileNumResult = tileNumberCalculator(ctx, courtAndTileInfo);
-      // To Delete later, console for preview only
-      console.log(tileNumResult);
-    }
-
     window.addEventListener("resize", checkSize);
+    debouncedCalculation();
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
