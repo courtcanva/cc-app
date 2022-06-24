@@ -66,17 +66,6 @@ const ProFullCourt = () => {
     tileSize: 300 * courtRatio,
   };
 
-  const canvasRef = useRef(null);
-  let canvas: HTMLCanvasElement | null = null;
-  let ctx: CanvasRenderingContext2D | null = null;
-
-  useEffect(() => {
-    canvas = canvasRef.current as unknown as HTMLCanvasElement;
-    if (canvas) {
-      ctx = canvas.getContext("2d");
-      tileNumberCalculator(ctx);
-    }
-  }, []);
   return (
     <Flex
       position="fixed"
