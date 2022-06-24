@@ -1,18 +1,43 @@
 import { Arrow } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { dimensionColor, borderSize } from "../../store/reducer/courtSizeSlice";
-import { useContext } from "react";
-import { START_POINT } from "@/constants/courtSize";
+import { MIN_DIMENSION_BOX } from "@/constants/courtSize";
+import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
+import DimensionText from "./DimensionText";
 
-function ArrowLine() {
-  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
-  const startPoint = useContext(START_POINT);
+interface CourtDimensionProps {
+  startPoint: ICourtStartPoint;
+}
+const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint }) => {
+  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector((state) => state.courtSize);
+  const dimensionColor = borderLength < MIN_DIMENSION_BOX ? "black" : "white";
+  const borderSize = borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : borderLength;
   const arrowSize = 100;
   const arrowWeight = 50;
   const arrowGap = 200;
+  const courtDimensionPosition = [
+    {
+      startPoint: {
+        X: startPoint.X + courtAreaXLength / 2 - borderSize / 2,
+        Y: startPoint.Y - borderSize,
+      },
+      text: courtAreaXLength,
+    },
+    {
+      startPoint: {
+        X: startPoint.X - borderSize,
+        Y: startPoint.Y + courtAreaYLength / 2 - borderSize / 2,
+      },
+      text: courtAreaYLength,
+    },
+  ];
 
   return (
     <>
+      {courtDimensionPosition.map((item: { startPoint: ICourtStartPoint; text: number }) => (
+        <div key={item.text}>
+          <DimensionText startPoint={item.startPoint} text={item.text} />
+        </div>
+      ))}
       <Arrow // court x length left arrow
         pointerLength={arrowSize}
         pointerWidth={arrowSize}
@@ -71,6 +96,6 @@ function ArrowLine() {
       />
     </>
   );
-}
+};
 
-export default ArrowLine;
+export default CourtDimension;
