@@ -7,4 +7,3 @@ const startPoint = {
   Y: STAGE_MARGIN,
 };
 export const START_POINT = createContext(startPoint);
-export const PX_TO_UNIT_CONVERSION = 2;

@@ -11,7 +11,7 @@ import Border from "../BasketballCourt/Border";
 import BorderDimensionLine from "../BasketballCourt/BorderDimensionLine";
 import ArrowLine from "../BasketballCourt/Arrow";
 import { useStoreSelector } from "@/store/hooks";
-import { STAGE_MARGIN, START_POINT, PX_TO_UNIT_CONVERSION } from "@/constants/courtSize";
+import { STAGE_MARGIN, START_POINT } from "@/constants/courtSize";
 import { tileNumberCalculator } from "../../utils/tileNumberCalculator";
 
 const ProFullCourt = () => {
@@ -35,8 +35,11 @@ const ProFullCourt = () => {
     canvas = canvasRef.current as unknown as HTMLCanvasElement;
     if (canvas) {
       ctx = canvas.getContext("2d");
-      tileNumberCalculator(ctx, courtAndTileInfo);
+      const tileNumResult = tileNumberCalculator(ctx, courtAndTileInfo);
+      // To Delete later, console for preview only
+      console.log(tileNumResult);
     }
+
     window.addEventListener("resize", checkSize);
     return () => window.removeEventListener("resize", checkSize);
   }, []);
@@ -55,14 +58,12 @@ const ProFullCourt = () => {
 
   const courtRatio = stageHeight / (courtAreaYLength + STAGE_MARGIN * 2);
   const courtAndTileInfo = {
-    beginPointX: (STAGE_MARGIN - borderLength) * courtRatio * PX_TO_UNIT_CONVERSION,
-    beginPointY: (STAGE_MARGIN - borderLength) * courtRatio * PX_TO_UNIT_CONVERSION,
-    endPointX:
-      (STAGE_MARGIN + courtAreaXLength + borderLength) * courtRatio * PX_TO_UNIT_CONVERSION,
-    endPointY:
-      (STAGE_MARGIN + courtAreaYLength + borderLength) * courtRatio * PX_TO_UNIT_CONVERSION,
+    beginPointX: (STAGE_MARGIN - borderLength) * courtRatio,
+    beginPointY: (STAGE_MARGIN - borderLength) * courtRatio,
+    endPointX: (STAGE_MARGIN + courtAreaXLength + borderLength) * courtRatio,
+    endPointY: (STAGE_MARGIN + courtAreaYLength + borderLength) * courtRatio,
     // TO CHANGE LATER: tile size will be passed in instead of hard coding
-    tileSize: 300 * courtRatio * PX_TO_UNIT_CONVERSION,
+    tileSize: 300 * courtRatio,
   };
 
   return (
