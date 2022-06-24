@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -7,12 +7,16 @@ import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import { useStoreSelector } from "@/store/hooks";
-import { STAGE_MARGIN, START_POINT } from "@/constants/courtSize";
 
 const MediumCourt = () => {
   const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
-  const startPoint = useContext(START_POINT);
+  const stageMargin = 500;
+  const startPoint = {
+    X: stageMargin,
+    Y: stageMargin,
+  };
+
 
   useEffect(() => {
     const checkSize = () => {
@@ -26,8 +30,8 @@ const MediumCourt = () => {
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  const convasWidth = courtAreaXLength + STAGE_MARGIN * 2; // actual court size plus reserved margin size (prepare for 2m border)
-  const convasHeight = courtAreaYLength + STAGE_MARGIN * 2;
+  const convasWidth = courtAreaXLength + stageMargin * 2; // actual court size plus reserved margin size (prepare for 2m border)
+  const convasHeight = courtAreaYLength + stageMargin * 2;
 
   let stageHeight: number;
   size.height >= 768 ? (stageHeight = size.height - 250) : (stageHeight = 768 - 250);
@@ -38,7 +42,7 @@ const MediumCourt = () => {
     stageHeight = stageWidth * (convasHeight / convasWidth);
   }
 
-  const courtRatio = stageHeight / (courtAreaYLength + STAGE_MARGIN * 2);
+  const courtRatio = stageHeight / (courtAreaYLength + stageMargin * 2);
   const courtWidth = courtAreaXLength / 2.8;
   const mediumCourtDefaultScale = courtRatio * 2;
   console.log(courtRatio);
@@ -86,11 +90,11 @@ const MediumCourt = () => {
                   ctx.rect(0, 6500, 20000, 7000)
                   ctx.clip()
                 }}> */}
-                  <CourtArea courtWidth={courtWidth} />
-                  <ThreePointArea />
-                  <KeyArea />
+                  <CourtArea courtWidth={courtWidth} startPoint={startPoint} />
+                  <ThreePointArea startPoint={startPoint} />
+                  <KeyArea startPoint={startPoint} />
                   {/* <CircleArea /> */}
-                  <TopKeyArea />
+                  <TopKeyArea startPoint={startPoint} />
                 </Group>
               </Layer>
             </Provider>
