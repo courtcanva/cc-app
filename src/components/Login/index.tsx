@@ -16,7 +16,9 @@ import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import { IconContext } from "react-icons";
 import { FaEnvelope } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import React from "react";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 interface Props {
   isOpen: boolean;
@@ -25,6 +27,55 @@ interface Props {
 
 function LoginModalContent(props: Props) {
   const initialRef = React.useRef(null);
+
+  const [userObject, setUserObject] = useState();
+
+  // useEffect(() => {
+  //   axios({
+  //     method: "post",
+  //     url: "/auth/google",
+  //     data: {
+  //       firstName: "Fred",
+  //       lastName: "Flintstone",
+  //     },
+  //   }).then((res) => {
+  //     console.log(res);
+  //     if (res.data) {
+  //       setUserObject(res.data);
+  //     }
+  //   });
+  //   console.log(userObject);
+  // }, []);
+
+  const handleSuccess = (codeResponse: any) => {
+    axios({
+      method: "post",
+      url: "http://localhost:8080/auth/google",
+      data: {
+        code: codeResponse.code,
+      },
+    })
+      .then((res) => {
+        console.log("data---", res.data);
+        if (res.data) {
+          const data = res.data;
+          setUserObject(data);
+          localStorage.setItem("UserInfo", JSON.stringify(data));
+        }
+      })
+      .catch((err) => console.warn(err));
+    console.log(codeResponse);
+  };
+
+  const handleFailure = (result: any) => {
+    alert("fail");
+  };
+
+  const handleLogin = useGoogleLogin({
+    onSuccess: handleSuccess,
+    flow: "auth-code",
+    onError: () => console.log("fail"),
+  });
 
   return (
     <Modal
@@ -50,12 +101,25 @@ function LoginModalContent(props: Props) {
         <ModalCloseButton role="closeButton" />
         <ModalBody>
           <Flex flexDir="column" justifyContent="space-around" gap="25px" paddingX="20px">
-            <Button variant="loginBtn" position="relative" ref={initialRef}>
+            {/* <GoogleLogin
+              clientId="672677496991-2a0bq3n34a0c5johckgb9n4jggkh8e5d.apps.googleusercontent.com"
+              buttonText="test"
+              onSuccess={handleLogin}
+              onFailure={handleFailure}
+              cookiePolicy={'single_host_origin'}
+            ></GoogleLogin> */}
+            <Button
+              onClick={() => handleLogin()}
+              variant="loginBtn"
+              position="relative"
+              ref={initialRef}
+            >
               <Icon w="32px" h="32px" position="absolute" top="8px" left="20px">
                 <FcGoogle />
               </Icon>
               <Text>Continue with Google </Text>
             </Button>
+
             <Button variant="loginBtn" position="relative">
               <IconContext.Provider value={{ color: "#FF5439", className: "global-class-name" }}>
                 <Icon w="32px" h="32px" position="absolute" top="8px" left="20px">

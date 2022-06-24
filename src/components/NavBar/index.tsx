@@ -1,5 +1,5 @@
 import { Flex, Button, IconButton, Grid, useDisclosure } from "@chakra-ui/react";
-import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+import { Menu, MenuButton } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -63,6 +63,11 @@ const NavigationBar = () => {
             onClick={onOpen}
           ></MenuButton>
         </Menu>
+        <form action="http://localhost:8080/google/logout" method="post">
+          <button style={{ color: "white" }} type="submit">
+            Sign out
+          </button>
+        </form>
         <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent>
         <IconButton aria-label="Download design" icon={<FiDownload />} variant="navbarIconBtn" />
         <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
