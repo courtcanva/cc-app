@@ -8,7 +8,9 @@ interface CourtDimensionProps {
   startPoint: ICourtStartPoint;
 }
 const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint }) => {
-  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector((state) => state.courtSize);
+  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
+    (state) => state.courtSize
+  );
   const dimensionColor = borderLength < MIN_DIMENSION_BOX ? "black" : "white";
   const borderSize = borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : borderLength;
   const arrowSize = 100;

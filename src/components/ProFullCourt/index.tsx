@@ -15,13 +15,13 @@ import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimensionLine";
 
 const ProFullCourt = () => {
-  const { courtAreaXLength, courtAreaYLength} = useStoreSelector((state) => state.courtSize);
+  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
   const stageMargin = 2500;
-  const startPoint= {
+  const startPoint = {
     X: stageMargin,
     Y: stageMargin,
   };
-  
+
   const [court, setCourt] = useState({
     stageWidth: 0,
     stageHeight: 0,
@@ -29,7 +29,7 @@ const ProFullCourt = () => {
   });
 
   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
-  
+
   useLayoutEffect(() => {
     const checkSize = () => {
       setSize({
@@ -37,12 +37,18 @@ const ProFullCourt = () => {
         height: window.innerHeight,
       });
     };
-    window.addEventListener("resize", checkSize);    
-    return () => window.removeEventListener("resize", checkSize);   
+    window.addEventListener("resize", checkSize);
+    return () => window.removeEventListener("resize", checkSize);
   }, []);
-  
+
   useEffect(() => {
-    const courtData = {courtAreaX: courtAreaXLength, courtAreaY: courtAreaYLength, margin: stageMargin, windowHeight: size.height, windowWidth: size.width };
+    const courtData = {
+      courtAreaX: courtAreaXLength,
+      courtAreaY: courtAreaYLength,
+      margin: stageMargin,
+      windowHeight: size.height,
+      windowWidth: size.width,
+    };
     setCourt(courtRatio(courtData));
   }, [size]);
 

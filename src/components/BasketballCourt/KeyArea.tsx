@@ -10,7 +10,7 @@ interface KeyAreaTextProps {
 const KeyArea: React.FC<KeyAreaTextProps> = ({ startPoint }) => {
   const { threePointLineToCourtEdgeLenth, threePointLineRadius, keyAreaWidth, keyAreaHeight } =
     useStoreSelector((state) => state.courtSize);
-    
+
   const color = useStoreSelector(
     (state) => state.tile.find((tile) => tile.location.includes("keyArea"))?.color
   );

@@ -1,4 +1,4 @@
-import { Rect, } from "react-konva";
+import { Rect } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { courtWhiteLine } from "@/store/reducer/courtSizeSlice";
