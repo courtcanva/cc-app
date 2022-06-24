@@ -32,6 +32,10 @@ const customJestConfig = {
     "!<rootDir>/src/components/FullCourt/*", // exclude canvas
     "!<rootDir>/src/components/ProFullCourt/*", // exclude canvas
     "!<rootDir>/src/components/ProHalfCourt/*", // exclude canvas
+    "!<rootDir>/src/components/HalfCourt/*", // exclude canvas
+    "!<rootDir>/src/components/MediumCourt/*", // exclude canvas
+    "!<rootDir>/src/components/SmallCourt/*", // exclude canvas
+
 
     "!<rootDir>/src/store/reducer/counterSlice.ts", // should be deleted later
     "!<rootDir>/src/store/hooks.ts", // exclude redux hooks

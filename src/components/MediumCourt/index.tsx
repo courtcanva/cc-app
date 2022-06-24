@@ -9,7 +9,7 @@ import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import { useStoreSelector } from "@/store/hooks";
 import { STAGE_MARGIN, START_POINT } from "@/constants/courtSize";
 
-const HalfCourt = () => {
+const MediumCourt = () => {
   const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
   const startPoint = useContext(START_POINT);
@@ -39,7 +39,9 @@ const HalfCourt = () => {
   }
 
   const courtRatio = stageHeight / (courtAreaYLength + STAGE_MARGIN * 2);
-
+  const courtWidth = courtAreaXLength / 2.8;
+  const mediumCourtDefaultScale = courtRatio * 2;
+  console.log(courtRatio);
   return (
     <Flex
       position="fixed"
@@ -59,28 +61,37 @@ const HalfCourt = () => {
             id="basketball-court"
             height={stageHeight}
             width={stageWidth}
-            scaleX={courtRatio}
-            scaleY={courtRatio}
+            // scaleX={mediumCourtDefaultScale}
+            // scaleY={mediumCourtDefaultScale}
             visible={true}
             style={{ backgroundColor: "white" }}
             data-testid="stage"
           >
             <Provider store={store}>
               <Layer>
-                <Group x={9000}>
-                  <CourtArea courtWidth={courtAreaXLength / 2.8} />
+                <Group
+                  scaleX={mediumCourtDefaultScale}
+                  scaleY={mediumCourtDefaultScale}
+                  x={startPoint.X / 40}
+                  y={-startPoint.Y / 7.5}
+                  // scaleX={courtRatio*60} scaleY={courtRatio*60} y={-startPoint.Y*courtRatio*100}
+                  clipFunc={(ctx: any) => {
+                    ctx.beginPath();
+                    ctx.rect(0, 6500, 20000, 7000);
+                    ctx.clip();
+                  }}
+                >
+                  {/* <Group x={startPoint.X} y={startPoint.Y * mediumScale - startPoint.Y } clipFunc={(ctx) => {
+                  ctx.beginPath()
+                  ctx.rect(0, 6500, 20000, 7000)
+                  ctx.clip()
+                }}> */}
+                  <CourtArea courtWidth={courtWidth} />
                   <ThreePointArea />
                   <KeyArea />
                   {/* <CircleArea /> */}
                   <TopKeyArea />
                 </Group>
-                {/* <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
-                  <CourtArea courtWidth={courtAreaXLength / 2} />
-                  <ThreePointArea />
-                  <KeyArea />
-                  <CircleArea />
-                  <TopKeyArea />
-                </Group> */}
               </Layer>
             </Provider>
           </Stage>
@@ -90,4 +101,4 @@ const HalfCourt = () => {
   );
 };
 
-export default HalfCourt;
+export default MediumCourt;

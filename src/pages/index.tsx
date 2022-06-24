@@ -6,14 +6,18 @@ const ProFullCourt = dynamic(() => import("@/components/ProFullCourt"), { ssr: f
 const FullCourt = dynamic(() => import("@/components/FullCourt"), { ssr: false });
 const ProHalfCourt = dynamic(() => import("@/components/ProHalfCourt"), { ssr: false });
 const HalfCourt = dynamic(() => import("@/components/HalfCourt"), { ssr: false });
+const MediumCourt = dynamic(() => import("@/components/MediumCourt"), { ssr: false });
+const SmallCourt = dynamic(() => import("@/components/SmallCourt"), { ssr: false });
 
 const Home: NextPage = () => {
   return (
     <HeaderLayout>
-      {/* <ProFullCourt /> */}
-      {/* <FullCourt /> */}
+      <ProFullCourt />
+      <FullCourt />
       {/* <ProHalfCourt /> */}
-      <HalfCourt />
+      {/* <HalfCourt /> */}
+      {/* <MediumCourt /> */}
+      {/* <SmallCourt /> */}
     </HeaderLayout>
   );
 };

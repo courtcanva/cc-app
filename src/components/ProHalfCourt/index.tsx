@@ -14,6 +14,7 @@ const ProHalfCourt = () => {
   const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
   const startPoint = useContext(START_POINT);
+  // console.log(startPoint)
 
   useEffect(() => {
     const checkSize = () => {
@@ -68,7 +69,7 @@ const ProHalfCourt = () => {
           >
             <Provider store={store}>
               <Layer>
-                <Group>
+                <Group x={7000}>
                   <CourtArea courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea />
                   <KeyArea />
