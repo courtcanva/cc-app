@@ -1,46 +1,63 @@
-import { Shape } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { dashedWhiteLine } from "../../store/reducer/courtSizeSlice";
-import { useContext } from "react";
-import { START_POINT } from "@/constants/courtSize";
+import DimensionText from "../BasketballCourt/DimensionText";
+import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
+import { MIN_DIMENSION_BOX } from "../../constants/courtSize";
 
-function BorderDimensionLine() {
-  const { courtAreaYLength, borderLength } = useStoreSelector((state) => state.courtSize);
-  const startPoint = useContext(START_POINT);
+interface BorderDimensionProps {
+  startPoint: ICourtStartPoint;
+}
+const BorderDimension: React.FC<BorderDimensionProps> = ({ startPoint }) => {
+  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
+    (state) => state.courtSize
+  );
   const startPointX = startPoint.X - borderLength;
   const startPointY = startPoint.Y - borderLength;
-  const courtHeight = courtAreaYLength;
+
+  const textStartX =
+    borderLength <= MIN_DIMENSION_BOX ? startPoint.X - MIN_DIMENSION_BOX : startPointX;
+  const textStartY =
+    borderLength <= MIN_DIMENSION_BOX ? startPoint.Y - MIN_DIMENSION_BOX : startPointY;
+
+  const borderDimensionPosition = [
+    {
+      id: 1,
+      startPoint: {
+        X: textStartX,
+        Y: textStartY,
+      },
+    },
+    {
+      id: 2,
+      startPoint: {
+        X: textStartX,
+        Y: startPoint.Y + courtAreaYLength,
+      },
+    },
+    {
+      id: 3,
+      startPoint: {
+        X: startPoint.X + courtAreaXLength,
+        Y: textStartY,
+      },
+    },
+    {
+      id: 4,
+      startPoint: {
+        X: startPoint.X + courtAreaXLength,
+        Y: startPoint.Y + courtAreaYLength,
+      },
+    },
+  ];
 
   return (
     <>
-      <Shape
-        sceneFunc={(context, shape) => {
-          context.beginPath();
-          context.moveTo(startPointX, startPoint.Y);
-          context.lineTo(startPoint.X, startPoint.Y);
-          context.lineTo(startPoint.X, startPointY);
-          context.fillStrokeShape(shape);
-        }}
-        fill="transparent"
-        stroke="white"
-        strokeWidth={dashedWhiteLine}
-        dash={[60, 60]}
-      />
-      <Shape
-        sceneFunc={(context, shape) => {
-          context.beginPath();
-          context.moveTo(startPointX, startPoint.Y + courtHeight);
-          context.lineTo(startPoint.X, startPoint.Y + courtHeight);
-          context.lineTo(startPoint.X, startPoint.Y + courtHeight + borderLength);
-          context.fillStrokeShape(shape);
-        }}
-        fill="transparent"
-        stroke="white"
-        strokeWidth={dashedWhiteLine}
-        dash={[60, 60]}
-      />
+      {borderDimensionPosition.map((item: { startPoint: ICourtStartPoint; id: number }) => (
+        <div key={item.id}>
+          <DimensionText startPoint={item.startPoint} text={borderLength} />
+        </div>
+      ))}
     </>
   );
-}
+};
 
-export default BorderDimensionLine;
+export default BorderDimension;

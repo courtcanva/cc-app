@@ -1,7 +1,6 @@
+import { MIN_DIMENSION_BOX } from "@/constants/courtSize";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
-import { MIN_DIMENSION_BOX } from "../../constants/courtSize";
-
 export interface CourtSizeState {
   [prop: string]: number;
 }
@@ -29,9 +28,8 @@ export const courtSizeSlice = createSlice({
   },
 });
 
-export const dimensionColor = initialState.borderLength < MIN_DIMENSION_BOX ? "black" : "white";
-export const borderSize =
-  initialState.borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : initialState.borderLength;
+// export const borderSize = (state: CourtSizeState) =>
+//   state.borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : initialState.borderLength;
 export const courtWhiteLine = initialState.strokeWidth / 3;
 export const dashedWhiteLine = initialState.strokeWidth / 5;
 

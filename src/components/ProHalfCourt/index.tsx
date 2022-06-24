@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -8,13 +8,15 @@ import CourtArea from "../BasketballCourt/CourtArea";
 import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import { useStoreSelector } from "@/store/hooks";
-import { STAGE_MARGIN, START_POINT } from "@/constants/courtSize";
 
 const ProHalfCourt = () => {
   const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
-  const startPoint = useContext(START_POINT);
-  // console.log(startPoint)
+  const stageMargin = 500;
+  const startPoint = {
+    X: stageMargin,
+    Y: stageMargin,
+  };
 
   useEffect(() => {
     const checkSize = () => {
@@ -28,8 +30,8 @@ const ProHalfCourt = () => {
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  const convasWidth = courtAreaXLength + STAGE_MARGIN * 2; // actual court size plus reserved margin size (prepare for 2m border)
-  const convasHeight = courtAreaYLength + STAGE_MARGIN * 2;
+  const convasWidth = courtAreaXLength + stageMargin * 2; // actual court size plus reserved margin size (prepare for 2m border)
+  const convasHeight = courtAreaYLength + stageMargin * 2;
 
   let stageHeight: number;
   size.height >= 768 ? (stageHeight = size.height - 250) : (stageHeight = 768 - 250);
@@ -40,7 +42,7 @@ const ProHalfCourt = () => {
     stageHeight = stageWidth * (convasHeight / convasWidth);
   }
 
-  const courtRatio = stageHeight / (courtAreaYLength + STAGE_MARGIN * 2);
+  const courtRatio = stageHeight / (courtAreaYLength + stageMargin * 2);
 
   return (
     <Flex
@@ -70,11 +72,11 @@ const ProHalfCourt = () => {
             <Provider store={store}>
               <Layer>
                 <Group x={7000}>
-                  <CourtArea courtWidth={courtAreaXLength / 2} />
-                  <ThreePointArea />
-                  <KeyArea />
-                  <CircleArea />
-                  <TopKeyArea />
+                  <CourtArea courtWidth={courtAreaXLength / 2} startPoint={startPoint} />
+                  <ThreePointArea startPoint={startPoint} />
+                  <KeyArea startPoint={startPoint} />
+                  <CircleArea startPoint={startPoint} />
+                  <TopKeyArea startPoint={startPoint} />
                 </Group>
                 {/* <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
                   <CourtArea courtWidth={courtAreaXLength / 2} />

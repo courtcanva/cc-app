@@ -1,14 +1,18 @@
+import { MIN_DIMENSION_BOX } from "@/constants/courtSize";
+import { useStoreSelector } from "@/store/hooks";
 import { Text } from "react-konva";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
-import { borderSize } from "../../store/reducer/courtSizeSlice";
 
 interface DimensionTextProps {
   startPoint: ICourtStartPoint;
-  color: string;
   text: number;
 }
 
-const DimensionText: React.FC<DimensionTextProps> = ({ startPoint, color, text }) => {
+const DimensionText: React.FC<DimensionTextProps> = ({ startPoint, text }) => {
+  const { borderLength } = useStoreSelector((state) => state.courtSize);
+  const dimensionColor = borderLength < MIN_DIMENSION_BOX ? "black" : "white";
+  const borderSize = borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : borderLength;
+
   return (
     <Text
       width={borderSize}
@@ -17,7 +21,7 @@ const DimensionText: React.FC<DimensionTextProps> = ({ startPoint, color, text }
       fontSize={500}
       align="center"
       verticalAlign="middle"
-      fill={color}
+      fill={dimensionColor}
       x={startPoint.X}
       y={startPoint.Y}
     />
