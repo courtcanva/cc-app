@@ -17,7 +17,6 @@ const MediumCourt = () => {
     Y: stageMargin,
   };
 
-
   useEffect(() => {
     const checkSize = () => {
       setSize({

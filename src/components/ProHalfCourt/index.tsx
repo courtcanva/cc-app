@@ -18,7 +18,6 @@ const ProHalfCourt = () => {
     Y: stageMargin,
   };
 
-
   useEffect(() => {
     const checkSize = () => {
       setSize({
