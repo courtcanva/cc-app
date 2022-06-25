@@ -10,13 +10,20 @@ import courtRatio from "../../utils/courtRatio";
 import MediumCourtData from "../MockCourtData/MediumCourtData";
 
 const MediumCourt = () => {
-  const { courtAreaXLength, courtAreaYLength, threePointLineRadius, threePointLineToCourtEdgeLength} = MediumCourtData;
+  const {
+    courtAreaXLength,
+    courtAreaYLength,
+    threePointLineRadius,
+    threePointLineToCourtEdgeLength,
+  } = MediumCourtData;
   const stageMargin = 2500;
   const startPoint = {
     X: stageMargin,
-    // Y: stageMargin,
-    // X: 0,
-    Y: - ((threePointLineRadius + threePointLineToCourtEdgeLength) * 2 - (courtAreaYLength + stageMargin *2)) / 2
+    Y:
+      -(
+        (threePointLineRadius + threePointLineToCourtEdgeLength) * 2 -
+        (courtAreaYLength + stageMargin * 2)
+      ) / 2,
   };
 
   const [court, setCourt] = useState({
@@ -76,13 +83,13 @@ const MediumCourt = () => {
           >
             <Provider store={store}>
               <Layer>
-                <Group 
-                clipFunc={(ctx: any) => {
+                <Group
+                  clipFunc={(ctx: any) => {
                     ctx.beginPath();
                     ctx.rect(stageMargin, stageMargin, courtAreaXLength, courtAreaYLength);
                     ctx.clip();
                   }}
-                  >
+                >
                   <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
