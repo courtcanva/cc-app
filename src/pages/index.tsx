@@ -12,12 +12,12 @@ const SmallCourt = dynamic(() => import("@/components/SmallCourt"), { ssr: false
 const Home: NextPage = () => {
   return (
     <HeaderLayout>
-      {/* <ProFullCourt />
+      <ProFullCourt />
       <FullCourt />
-      <ProHalfCourt /> */}
+      <ProHalfCourt />
       <HalfCourt />
-      {/* <MediumCourt />
-      <SmallCourt /> */}
+      <MediumCourt />
+      {/* <SmallCourt /> */}
     </HeaderLayout>
   );
 };
