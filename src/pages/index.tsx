@@ -14,10 +14,10 @@ const Home: NextPage = () => {
     <HeaderLayout>
       <ProFullCourt />
       <FullCourt />
-      <ProHalfCourt />
+      {/* <ProHalfCourt />
       <HalfCourt />
       <MediumCourt />
-      <SmallCourt />
+      <SmallCourt /> */}
     </HeaderLayout>
   );
 };

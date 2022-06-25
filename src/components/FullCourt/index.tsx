@@ -7,12 +7,12 @@ import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
 import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
-import { useStoreSelector } from "@/store/hooks";
 import courtRatio from "../../utils/courtRatio";
+import FullCourtData from "../MockCourtData/FullCourtData";
 
 const FullCourt = () => {
-  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
-  const stageMargin = 500;
+  const { courtAreaXLength, courtAreaYLength } = FullCourtData;
+  const stageMargin = 2500;
   const startPoint = {
     X: stageMargin,
     Y: stageMargin,
