@@ -19,7 +19,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { api } from "@/utils/axios";
+import { api } from "../../utils/axios";
 
 interface Props {
   isOpen: boolean;
@@ -30,14 +30,13 @@ interface Props {
 function LoginModalContent(props: Props) {
   const initialRef = React.useRef(null);
 
-  const [userObject, setUserObject] = useState();
-
+  // Send request to backend after the request from front-end has been approved by Google
   const handleSuccess = (codeResponse: any) => {
     api(process.env.NEXT_PUBLIC_GOOGLE_AUTH_API!, { method: "post", requestData: codeResponse })
       .then((res) => {
         if (res.data) {
           const data = res.data;
-          setUserObject(data);
+          // Store user data into local storage after logging
           localStorage.setItem("UserInfo", JSON.stringify(data));
           props.updateLoginData(data);
           props.onClose();
@@ -46,9 +45,10 @@ function LoginModalContent(props: Props) {
       .catch((err) => console.warn(err));
   };
 
+  // Send authorization request to Google's Oauth server
   const handleLogin = useGoogleLogin({
-    onSuccess: handleSuccess,
-    flow: "auth-code",
+    onSuccess: handleSuccess, // The method which would execute after authorization
+    flow: "auth-code", // OAuth 2.0 flow between implicit and authorization flow
     onError: () => console.log("fail"),
   });
 
@@ -76,13 +76,6 @@ function LoginModalContent(props: Props) {
         <ModalCloseButton role="closeButton" />
         <ModalBody>
           <Flex flexDir="column" justifyContent="space-around" gap="25px" paddingX="20px">
-            {/* <GoogleLogin
-              clientId="672677496991-2a0bq3n34a0c5johckgb9n4jggkh8e5d.apps.googleusercontent.com"
-              buttonText="test"
-              onSuccess={handleLogin}
-              onFailure={handleFailure}
-              cookiePolicy={'single_host_origin'}
-            ></GoogleLogin> */}
             <Button
               onClick={() => handleLogin()}
               variant="loginBtn"
