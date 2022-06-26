@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -7,20 +7,12 @@ import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
 import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
-import Border from "../BasketballCourt/Border";
-import courtRatio from "../../utils/courtRatio";
-import CourtDimension from "../BasketballCourt/CourtDimension";
 import { useStoreSelector } from "@/store/hooks";
-import DashedLine from "../BasketballCourt/DashedLine";
-import BorderDimension from "../BasketballCourt/BorderDimensionLine";
-import { tileNumberCalculator } from "@/utils/tileNumberCalculator";
-import debounce from "lodash.debounce";
+import courtRatio from "../../utils/courtRatio";
 
-const ProFullCourt = () => {
-  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
-    (state) => state.courtSize
-  );
-  const stageMargin = 2500;
+const FullCourt = () => {
+  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
+  const stageMargin = 500;
   const startPoint = {
     X: stageMargin,
     Y: stageMargin,
@@ -34,32 +26,6 @@ const ProFullCourt = () => {
 
   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
 
-  const courtAndTileInfo = {
-    beginPointX: (stageMargin - borderLength) * court.courtRatio,
-    beginPointY: (stageMargin - borderLength) * court.courtRatio,
-    endPointX: (stageMargin + courtAreaXLength + borderLength) * court.courtRatio,
-    endPointY: (stageMargin + courtAreaYLength + borderLength) * court.courtRatio,
-    // TO CHANGE LATER: tile size will be passed in instead of hard coding
-    tileSize: 300 * court.courtRatio,
-  };
-  // console.log(courtAndTileInfo);
-  const canvasRef = useRef(null);
-  let canvas: HTMLCanvasElement | null = null;
-  let ctx: CanvasRenderingContext2D | null = null;
-
-  const debouncedCalculation = useCallback(
-    debounce(() => {
-      canvas = canvasRef.current as unknown as HTMLCanvasElement;
-      if (canvas) {
-        ctx = canvas.getContext("2d");
-        const tileNumResult = tileNumberCalculator(ctx, courtAndTileInfo);
-        // To Delete later, console for preview only
-        console.log(tileNumResult);
-      }
-    }, 500),
-    []
-  );
-
   useLayoutEffect(() => {
     const checkSize = () => {
       setSize({
@@ -68,7 +34,6 @@ const ProFullCourt = () => {
       });
     };
     window.addEventListener("resize", checkSize);
-    debouncedCalculation();
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
@@ -109,25 +74,16 @@ const ProFullCourt = () => {
             data-testid="stage"
           >
             <Provider store={store}>
-              <Layer ref={canvasRef}>
-                {/* border only for pro full court size */}
-                <Border startPoint={startPoint} />
-                {/* arrowLine & dimensionText can be reuse for all courts*/}
-                <CourtDimension startPoint={startPoint} />
-                <BorderDimension startPoint={startPoint} />
-                {/* left side of pro full court*/}
+              <Layer>
                 <Group>
-                  <DashedLine startPoint={startPoint} />
-                  <CourtArea courtWidth={courtAreaXLength / 2} startPoint={startPoint} />
+                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
                   <CircleArea startPoint={startPoint} />
                   <TopKeyArea startPoint={startPoint} />
                 </Group>
-                {/* right side of pro full court(flip the left side)*/}
                 <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
-                  <DashedLine startPoint={startPoint} />
-                  <CourtArea courtWidth={courtAreaXLength / 2} startPoint={startPoint} />
+                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
                   <CircleArea startPoint={startPoint} />
@@ -142,4 +98,4 @@ const ProFullCourt = () => {
   );
 };
 
-export default ProFullCourt;
+export default FullCourt;

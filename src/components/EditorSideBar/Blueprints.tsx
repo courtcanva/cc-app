@@ -2,13 +2,19 @@ import courtList from "../ChangeCourtSize/CourtList";
 import { Image, Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { changeCourtName } from "@/store/reducer/courtNameSlice";
-import React from "react";
+import React, { useState } from "react";
 
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
+  const [activateCourt, setActivateCourt] = useState<string>("");
 
-  const handleCourtName = (courtSizeName: string, courtSizeDetails: string): void => {
-    dispatch(changeCourtName(`${courtSizeName} ${courtSizeDetails}`));
+  const handleCourtSelecting = (
+    courtSizeName: string,
+    courtSizeDetails: string,
+    img: string
+  ): void => {
+    setActivateCourt(img);
+    dispatch(changeCourtName(`${courtSizeName} ${courtSizeDetails}`)); // change TopBar court size name
   };
 
   return (
@@ -18,7 +24,7 @@ const Blueprints: React.FC = () => {
         return (
           <Box
             key={img}
-            width="308px"
+            width="219px"
             height="150px"
             background="#fff"
             marginBottom="18px"
@@ -26,10 +32,12 @@ const Blueprints: React.FC = () => {
             alignItems="center"
             justifyContent="center"
             cursor="pointer"
-            onClick={() => handleCourtName(courtSizeName, courtSizeDetails)}
+            onClick={() => handleCourtSelecting(courtSizeName, courtSizeDetails, img)}
             data-testid={img}
+            _hover={{ border: "4px solid #40B484" }}
+            opacity={!activateCourt || activateCourt === img ? "1" : "0.4"}
           >
-            <Image src={img} objectFit={"contain"} />
+            <Image src={img} objectFit={"contain"} width="200px" height="140px" />
           </Box>
         );
       })}
