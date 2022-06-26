@@ -30,7 +30,6 @@ const ColorBoard: React.FC = () => {
           _hover={{ border: "2px solid #40B484" }}
           _active={{ border: "3px solid #40B484" }}
           onClick={() => handleChangeColor(color)}
-          // onClick={() => console.log(color)}
         />
       ))}
     </Flex>

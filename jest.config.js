@@ -35,7 +35,7 @@ const customJestConfig = {
     "!<rootDir>/src/components/HalfCourt/*", // exclude canvas
     "!<rootDir>/src/components/MediumCourt/*", // exclude canvas
     "!<rootDir>/src/components/SmallCourt/*", // exclude canvas
-    "!<rootDir>/src/components/TopBar/ColorBoard.test.tsx", //cc-0068 need test
+    "!<rootDir>/src/components/TopBar/ColorBoard.tsx", //test will be added soon from cc-0068 fix
     
 
 
@@ -49,10 +49,10 @@ const customJestConfig = {
   collectCoverage: true,
   coverageThreshold: {
     global: {
-      statements: 70,
-      branches: 70,
-      functions: 70,
-      lines: 70,
+      statements: 80,
+      branches: 80,
+      functions: 80,
+      lines: 80,
     },
   },
 };
