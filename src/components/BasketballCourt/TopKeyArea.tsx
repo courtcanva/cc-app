@@ -1,13 +1,15 @@
 import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { courtWhiteLine, dashedWhiteLine } from "../../store/reducer/courtSizeSlice";
-import { useContext } from "react";
-import { START_POINT } from "@/constants/courtSize";
+import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 
-function ShootArea() {
+interface ShootAreaProps {
+  startPoint: ICourtStartPoint;
+}
+
+const ShootArea: React.FC<ShootAreaProps> = ({ startPoint }) => {
   const { keyAreaWidth, threePointLineToCourtEdgeLenth, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
-  const startPoint = useContext(START_POINT);
   const startPointX = startPoint.X + keyAreaWidth;
   const startPointY = startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius);
 
@@ -44,6 +46,6 @@ function ShootArea() {
       />
     </>
   );
-}
+};
 
 export default ShootArea;
