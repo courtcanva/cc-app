@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -7,42 +7,46 @@ import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
 import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
-import { useStoreSelector } from "@/store/hooks";
+import courtRatio from "../../utils/courtRatio";
+import ProHalfCourtData from "../MockCourtData/ProHalfCourtData";
 
 const ProHalfCourt = () => {
-  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
-  const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
-  const stageMargin = 500;
+  const { courtAreaXLength, courtAreaYLength } = ProHalfCourtData;
+  const stageMargin = 2500;
   const startPoint = {
     X: stageMargin,
     Y: stageMargin,
   };
 
-  useEffect(() => {
+  const [court, setCourt] = useState({
+    stageWidth: 0,
+    stageHeight: 0,
+    courtRatio: 0,
+  });
+
+  const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+
+  useLayoutEffect(() => {
     const checkSize = () => {
       setSize({
         width: window.innerWidth,
         height: window.innerHeight,
       });
     };
-
     window.addEventListener("resize", checkSize);
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  const convasWidth = courtAreaXLength + stageMargin * 2; // actual court size plus reserved margin size (prepare for 2m border)
-  const convasHeight = courtAreaYLength + stageMargin * 2;
-
-  let stageHeight: number;
-  size.height >= 768 ? (stageHeight = size.height - 250) : (stageHeight = 768 - 250);
-  let stageWidth = stageHeight * (convasWidth / convasHeight);
-
-  if ((size.height - 250) / (size.width - 118) > convasHeight / convasWidth) {
-    size.width >= 768 ? (stageWidth = size.width - 118) : (stageWidth = 768 - 118);
-    stageHeight = stageWidth * (convasHeight / convasWidth);
-  }
-
-  const courtRatio = stageHeight / (courtAreaYLength + stageMargin * 2);
+  useEffect(() => {
+    const courtData = {
+      courtAreaX: courtAreaXLength,
+      courtAreaY: courtAreaYLength,
+      margin: stageMargin,
+      windowHeight: size.height,
+      windowWidth: size.width,
+    };
+    setCourt(courtRatio(courtData));
+  }, [size]);
 
   return (
     <Flex
@@ -51,8 +55,8 @@ const ProHalfCourt = () => {
       left="98px"
       width="calc(100% - 98px)"
       height="calc(100% - 230px)"
-      minWidth={stageWidth}
-      minHeight={stageHeight}
+      minWidth={court.stageWidth}
+      minHeight={court.stageHeight}
       justifyContent="center"
       alignItems="center"
       margin="auto"
@@ -61,30 +65,23 @@ const ProHalfCourt = () => {
         {({ store }) => (
           <Stage
             id="basketball-court"
-            height={stageHeight}
-            width={stageWidth}
-            scaleX={courtRatio}
-            scaleY={courtRatio}
+            height={court.stageHeight}
+            width={court.stageWidth}
+            scaleX={court.courtRatio}
+            scaleY={court.courtRatio}
             visible={true}
             style={{ backgroundColor: "white" }}
             data-testid="stage"
           >
             <Provider store={store}>
               <Layer>
-                <Group x={7000}>
-                  <CourtArea courtWidth={courtAreaXLength / 2} startPoint={startPoint} />
+                <Group>
+                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
                   <CircleArea startPoint={startPoint} />
                   <TopKeyArea startPoint={startPoint} />
                 </Group>
-                {/* <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
-                  <CourtArea courtWidth={courtAreaXLength / 2} />
-                  <ThreePointArea />
-                  <KeyArea />
-                  <CircleArea />
-                  <TopKeyArea />
-                </Group> */}
               </Layer>
             </Provider>
           </Stage>
