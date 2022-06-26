@@ -13,7 +13,7 @@ import ArrowLine from "../BasketballCourt/Arrow";
 import { useStoreSelector } from "@/store/hooks";
 import { STAGE_MARGIN, START_POINT } from "@/constants/courtSize";
 import { tileNumberCalculator } from "../../utils/tileNumberCalculator";
-import { debounce } from "lodash";
+import debounce from "lodash.debounce";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(

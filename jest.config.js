@@ -28,7 +28,9 @@ const customJestConfig = {
     "!<rootDir>/src/pages/_app.tsx",
     "!<rootDir>/src/pages/_document.tsx",
     "!<rootDir>/src/utils/axios.ts",
+    "!<rootDir>/src/utils/tileNumberCalculator.ts",
     "!<rootDir>/src/components/BasketballCourt/*", // exclude canvas
+    "!<rootDir>/src/components/ProFullCourt/*", // exclude canvas
     "!<rootDir>/src/store/reducer/counterSlice.ts", // should be deleted later
     "!<rootDir>/src/store/hooks.ts", // exclude redux hooks
     "!<rootDir>/node_modules/",
