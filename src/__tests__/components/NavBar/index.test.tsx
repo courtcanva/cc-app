@@ -1,9 +1,14 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import NavigationBar from "@/components/NavBar";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 describe("NavigationBar", () => {
   test("Each button in the navbar needs to display the correct text", () => {
-    render(<NavigationBar />);
+    render(
+      <GoogleOAuthProvider clientId="testid">
+        <NavigationBar />
+      </GoogleOAuthProvider>
+    );
 
     const homeButtonElement = screen.getByText(/Home/i);
     const fileButtonElement = screen.getByText(/File/i);
@@ -18,14 +23,22 @@ describe("NavigationBar", () => {
   });
 
   it("Should render Share button", () => {
-    render(<NavigationBar />);
+    render(
+      <GoogleOAuthProvider clientId="testid">
+        <NavigationBar />
+      </GoogleOAuthProvider>
+    );
 
     const openButton = screen.getByTestId("share-btn");
     expect(openButton).toBeInTheDocument();
   });
 
   it("Should render login Modal when click button", async () => {
-    render(<NavigationBar />);
+    render(
+      <GoogleOAuthProvider clientId="testid">
+        <NavigationBar />
+      </GoogleOAuthProvider>
+    );
     const shareButton = screen.getByTestId("share-btn");
     fireEvent.click(shareButton);
     const loginModalDialog = screen.getByRole("dialog");

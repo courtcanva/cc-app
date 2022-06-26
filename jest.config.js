@@ -22,8 +22,6 @@ const customJestConfig = {
     "^konva": "konva/konva",
   },
   collectCoverageFrom: [
-    //TODO: Delete this line after finish testing
-    "!<rootDir>/src/components/*.{tsx,ts}",
     "<rootDir>/src/**/*.{tsx,ts}",
     "!<rootDir>/src/styles/*.{tsx,ts}",
     "!<rootDir>/src/styles/components/*.{tsx,ts}",

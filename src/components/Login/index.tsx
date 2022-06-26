@@ -19,10 +19,12 @@ import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { api } from "@/utils/axios";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  updateLoginData: (data: any) => void;
 }
 
 function LoginModalContent(props: Props) {
@@ -30,45 +32,18 @@ function LoginModalContent(props: Props) {
 
   const [userObject, setUserObject] = useState();
 
-  // useEffect(() => {
-  //   axios({
-  //     method: "post",
-  //     url: "/auth/google",
-  //     data: {
-  //       firstName: "Fred",
-  //       lastName: "Flintstone",
-  //     },
-  //   }).then((res) => {
-  //     console.log(res);
-  //     if (res.data) {
-  //       setUserObject(res.data);
-  //     }
-  //   });
-  //   console.log(userObject);
-  // }, []);
-
   const handleSuccess = (codeResponse: any) => {
-    axios({
-      method: "post",
-      url: "http://localhost:8080/auth/google",
-      data: {
-        code: codeResponse.code,
-      },
-    })
+    api(process.env.NEXT_PUBLIC_GOOGLE_AUTH_API!, { method: "post", requestData: codeResponse })
       .then((res) => {
-        console.log("data---", res.data);
         if (res.data) {
           const data = res.data;
           setUserObject(data);
           localStorage.setItem("UserInfo", JSON.stringify(data));
+          props.updateLoginData(data);
+          props.onClose();
         }
       })
       .catch((err) => console.warn(err));
-    console.log(codeResponse);
-  };
-
-  const handleFailure = (result: any) => {
-    alert("fail");
   };
 
   const handleLogin = useGoogleLogin({

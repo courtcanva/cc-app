@@ -10,9 +10,34 @@ import HOME_PAGE_LINK from "@/constants/index";
 import EditorDesignName from "@/components/NavBar/EditorDesignName";
 
 import LoginModalContent from "../Login";
+import { useEffect, useState } from "react";
 
 const NavigationBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // TODO: Try using customHooks later:https://usehooks.com/useLocalStorage/
+  const [loginData, setLoginData] = useState(
+    typeof window !== "undefined"
+      ? localStorage.getItem("loginData")
+        ? JSON.parse(localStorage.getItem("loginData")!)
+        : null
+      : null
+  );
+
+  const updateLoginData = (loginData: any) => {
+    setLoginData(loginData);
+  };
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem("UserInfo");
+    if (userInfo) {
+      setLoginData(userInfo ? JSON.parse(userInfo) : null);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("UserInfo");
+  };
 
   return (
     <Grid
@@ -50,25 +75,32 @@ const NavigationBar = () => {
       </Flex>
       <EditorDesignName />
       <Flex alignItems="center" justifyContent="flex-end">
-        <Menu>
-          <MenuButton
-            as={IconButton}
-            aria-label="User information"
-            icon={<FaRegUser />}
-            variant="navbarIconBtn"
-            bg="white"
-            color="black"
-            marginRight="10px"
-            isRound
-            onClick={onOpen}
-          ></MenuButton>
-        </Menu>
-        <form action="http://localhost:8080/google/logout" method="post">
-          <button style={{ color: "white" }} type="submit">
-            Sign out
-          </button>
-        </form>
-        <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent>
+        {!loginData ? (
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="User information"
+              icon={<FaRegUser />}
+              variant="navbarIconBtn"
+              bg="white"
+              color="black"
+              marginRight="10px"
+              isRound
+              onClick={onOpen}
+            ></MenuButton>
+          </Menu>
+        ) : (
+          <form method="post">
+            <button onClick={handleLogout} style={{ color: "white" }} type="submit">
+              Sign out
+            </button>
+          </form>
+        )}
+        <LoginModalContent
+          isOpen={isOpen}
+          onClose={onClose}
+          updateLoginData={updateLoginData}
+        ></LoginModalContent>
         <IconButton aria-label="Download design" icon={<FiDownload />} variant="navbarIconBtn" />
         <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
         <Button variant="shareBtn" marginLeft="10px" onClick={onOpen} data-testid="share-btn">
