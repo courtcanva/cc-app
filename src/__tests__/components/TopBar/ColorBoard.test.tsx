@@ -26,14 +26,10 @@ describe("ColorBoard", () => {
     }
   });
 
-  it("should change color", () => {
+  it("should change store state color when the color border was clicked", () => {
     renderWithMockedProvider(<ColorBoard />);
-    // const previousState: CourtColorState = initialState;
-    // expect(reducer(previousState, changeCourtColor("#AA3A34"))).toEqual({ color: "#AA3A34" });
     act(() => user.click(screen.getByTestId("#AA3A34")));
-
     const state = store.getState().courtColor;
     expect(state.color).toEqual("#AA3A34");
-    // expect(courtImg).toHaveStyle("opacity: 1");
   });
 });
