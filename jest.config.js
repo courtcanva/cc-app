@@ -27,7 +27,9 @@ const customJestConfig = {
     "!<rootDir>/src/styles/components/*.{tsx,ts}",
     "!<rootDir>/src/pages/_app.tsx",
     "!<rootDir>/src/pages/_document.tsx",
+    "!<rootDir>/src/pages/index.tsx",
     "!<rootDir>/src/utils/axios.ts",
+    "!<rootDir>/src/utils/tileNumberCalculator.ts",
     "!<rootDir>/src/components/BasketballCourt/*", // exclude canvas
     "!<rootDir>/src/components/FullCourt/*", // exclude canvas
     "!<rootDir>/src/components/ProFullCourt/*", // exclude canvas
@@ -35,7 +37,6 @@ const customJestConfig = {
     "!<rootDir>/src/components/HalfCourt/*", // exclude canvas
     "!<rootDir>/src/components/MediumCourt/*", // exclude canvas
     "!<rootDir>/src/components/SmallCourt/*", // exclude canvas
-
 
     "!<rootDir>/src/store/reducer/counterSlice.ts", // should be deleted later
     "!<rootDir>/src/store/hooks.ts", // exclude redux hooks
@@ -47,10 +48,10 @@ const customJestConfig = {
   collectCoverage: true,
   coverageThreshold: {
     global: {
-      statements: 70,
-      branches: 70,
-      functions: 70,
-      lines: 70,
+      statements: 80,
+      branches: 80,
+      functions: 80,
+      lines: 80,
     },
   },
 };

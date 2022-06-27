@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useState, useRef, useCallback, useLayoutEffect } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -13,22 +13,39 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import { useStoreSelector } from "@/store/hooks";
 import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimensionLine";
+import { debouncedCalculation } from "@/utils/tileNumberCalculator";
 
 const ProFullCourt = () => {
-  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
+  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
+    (state) => state.courtSize
+  );
   const stageMargin = 2500;
   const startPoint = {
     X: stageMargin,
     Y: stageMargin,
   };
-
-  const [court, setCourt] = useState({
-    stageWidth: 0,
-    stageHeight: 0,
-    courtRatio: 0,
-  });
-
   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+  const courtData = {
+    courtAreaX: courtAreaXLength,
+    courtAreaY: courtAreaYLength,
+    margin: stageMargin,
+    windowHeight: size.height,
+    windowWidth: size.width,
+  };
+  const court = courtRatio(courtData);
+
+  const courtAndTileInfo = {
+    beginPointX: (stageMargin - borderLength) * court.courtRatio,
+    beginPointY: (stageMargin - borderLength) * court.courtRatio,
+    endPointX: (stageMargin + courtAreaXLength + borderLength) * court.courtRatio,
+    endPointY: (stageMargin + courtAreaYLength + borderLength) * court.courtRatio,
+    // TO CHANGE LATER: tile size will be passed in instead of hard coding
+    tileSize: 300 * court.courtRatio,
+  };
+
+  const canvasRef = useRef(null);
+
+  const tileCalculation = useCallback(debouncedCalculation, []);
 
   useLayoutEffect(() => {
     const checkSize = () => {
@@ -41,16 +58,7 @@ const ProFullCourt = () => {
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  useEffect(() => {
-    const courtData = {
-      courtAreaX: courtAreaXLength,
-      courtAreaY: courtAreaYLength,
-      margin: stageMargin,
-      windowHeight: size.height,
-      windowWidth: size.width,
-    };
-    setCourt(courtRatio(courtData));
-  }, [size]);
+  tileCalculation(canvasRef, courtAndTileInfo);
 
   return (
     <Flex
@@ -78,7 +86,7 @@ const ProFullCourt = () => {
             data-testid="stage"
           >
             <Provider store={store}>
-              <Layer>
+              <Layer ref={canvasRef}>
                 {/* border only for pro full court size */}
                 <Border startPoint={startPoint} />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}

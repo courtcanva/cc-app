@@ -6,12 +6,12 @@ import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
-import { useStoreSelector } from "@/store/hooks";
 import courtRatio from "../../utils/courtRatio";
+import HalfCourtData from "../MockCourtData/HalfCourtData";
 
 const HalfCourt = () => {
-  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
-  const stageMargin = 500;
+  const { courtAreaXLength, courtAreaYLength } = HalfCourtData;
+  const stageMargin = 2500;
   const startPoint = {
     X: stageMargin,
     Y: stageMargin,
@@ -74,20 +74,12 @@ const HalfCourt = () => {
           >
             <Provider store={store}>
               <Layer>
-                <Group x={9000}>
-                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2.8} />
+                <Group>
+                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
-                  {/* <CircleArea /> */}
                   <TopKeyArea startPoint={startPoint} />
                 </Group>
-                {/* <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
-                  <CourtArea courtWidth={courtAreaXLength / 2} />
-                  <ThreePointArea />
-                  <KeyArea />
-                  <CircleArea />
-                  <TopKeyArea />
-                </Group> */}
               </Layer>
             </Provider>
           </Stage>
