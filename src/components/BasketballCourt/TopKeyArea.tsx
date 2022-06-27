@@ -14,9 +14,6 @@ const ShootArea: React.FC<ShootAreaProps> = ({ startPoint }) => {
   const startPointX = startPoint.X + keyAreaWidth;
   const startPointY = startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius);
 
-  // const color = useStoreSelector(
-  //   (state) => state.tile.find((tile) => tile.location.includes("topKeyArea"))?.color
-  // );
   const currentColorBoardColor = useStoreSelector((state) => state.courtColor.color);
   const [topKeyAreaColor, setCourtAreaColor] = useState("#B61313");
 

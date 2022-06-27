@@ -11,9 +11,6 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
   const { courtAreaXLength, threePointLineToCourtEdgeLenth, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
 
-  // const color = useStoreSelector(
-  //   (state) => state.tile.find((tile) => tile.location.includes("circleArea"))?.color
-  // );
   const currentColorBoardColor = useStoreSelector((state) => state.courtColor.color);
   const [circleAreaColor, setCourtAreaColor] = useState("#606F14");
 

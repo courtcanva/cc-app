@@ -12,9 +12,6 @@ interface CourtAreaProps {
 const CourtArea: React.FC<CourtAreaProps> = ({ courtWidth, startPoint }) => {
   const { courtAreaYLength } = useStoreSelector((state) => state.courtSize);
 
-  // const color = useStoreSelector(
-  //   (state) => state.tile.find((tile) => tile.location.includes("courtArea"))?.color
-  // );
   const currentColorBoardColor = useStoreSelector((state) => state.courtColor.color);
   const [courtAreaColor, setCourtAreaColor] = useState("#B61313");
 

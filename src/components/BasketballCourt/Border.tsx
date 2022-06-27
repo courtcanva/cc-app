@@ -10,11 +10,6 @@ const Border: React.FC<BorderProps> = ({ startPoint }) => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
     (state) => state.courtSize
   );
-
-  // const color = useStoreSelector(
-  //   (state) => state.tile.find((tile) => tile.location.includes("border"))?.color
-  // );
-
   const currentColorBoardColor = useStoreSelector((state) => state.courtColor.color);
   const [courtBorderColor, setCourtAreaColor] = useState("#195955");
 

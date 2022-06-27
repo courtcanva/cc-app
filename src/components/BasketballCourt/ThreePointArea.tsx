@@ -22,9 +22,6 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
   const controlPointFourX = startPoint.X + cornerThreePointLineLength;
   const controlPointFourY = controlPointThreeY;
 
-  // const color = useStoreSelector(
-  //   (state) => state.tile.find((tile) => tile.location.includes("threePoint"))?.color
-  // );
   const currentColorBoardColor = useStoreSelector((state) => state.courtColor.color);
   const [courtThreePointColor, setCourtAreaColor] = useState("#72818B");
 
