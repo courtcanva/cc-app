@@ -5,7 +5,7 @@ export interface CourtNameState {
 }
 
 export const initialState: CourtNameState = {
-  name: "510 m² Pro Court (17 m × 30 m)"
+  name: "510 m² Pro Court (17 m × 30 m)",
 };
 
 export const courtNameSlice = createSlice({
