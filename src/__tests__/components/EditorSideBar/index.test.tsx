@@ -10,11 +10,13 @@ describe("EditorSideBar component", () => {
     const elementsText = screen.getByText("Elements");
     const estimatorText = screen.getByText("Estimator");
     const previewText = screen.getByText("Preview");
+    const folderText = screen.getByText("Folder");
 
     expect(bluePrintsText).toBeInTheDocument();
     expect(elementsText).toBeInTheDocument();
     expect(estimatorText).toBeInTheDocument();
     expect(previewText).toBeInTheDocument();
+    expect(folderText).toBeInTheDocument();
   });
 
   it("When clicking icon button and closing button should be working", () => {
