@@ -7,7 +7,7 @@ import React, { useState } from "react";
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
   // const [activateCourt, setActivateCourt] = useState<string>(courtList[0].img);
-  const [activateCourt, setActivateCourt] = useState<string>('');
+  const [activateCourt, setActivateCourt] = useState<string>("");
 
   const handleCourtSelecting = (
     courtSizeName: string,
