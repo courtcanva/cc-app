@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback, useLayoutEffect } from "react";
+import { useState, useRef, useCallback, useLayoutEffect } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -13,8 +13,7 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import { useStoreSelector } from "@/store/hooks";
 import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimensionLine";
-import { tileNumberCalculator } from "@/utils/tileNumberCalculator";
-import debounce from "lodash.debounce";
+import { debouncedCalculation } from "@/utils/tileNumberCalculator";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -25,14 +24,15 @@ const ProFullCourt = () => {
     X: stageMargin,
     Y: stageMargin,
   };
-
-  const [court, setCourt] = useState({
-    stageWidth: 0,
-    stageHeight: 0,
-    courtRatio: 0,
-  });
-
   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+  const courtData = {
+    courtAreaX: courtAreaXLength,
+    courtAreaY: courtAreaYLength,
+    margin: stageMargin,
+    windowHeight: size.height,
+    windowWidth: size.width,
+  };
+  const court = courtRatio(courtData);
 
   const courtAndTileInfo = {
     beginPointX: (stageMargin - borderLength) * court.courtRatio,
@@ -42,23 +42,10 @@ const ProFullCourt = () => {
     // TO CHANGE LATER: tile size will be passed in instead of hard coding
     tileSize: 300 * court.courtRatio,
   };
-  // console.log(courtAndTileInfo);
-  const canvasRef = useRef(null);
-  let canvas: HTMLCanvasElement | null = null;
-  let ctx: CanvasRenderingContext2D | null = null;
 
-  const debouncedCalculation = useCallback(
-    debounce(() => {
-      canvas = canvasRef.current as unknown as HTMLCanvasElement;
-      if (canvas) {
-        ctx = canvas.getContext("2d");
-        const tileNumResult = tileNumberCalculator(ctx, courtAndTileInfo);
-        // To Delete later, console for preview only
-        console.log(tileNumResult);
-      }
-    }, 500),
-    []
-  );
+  const canvasRef = useRef(null);
+
+  const tileCalculation = useCallback(debouncedCalculation, []);
 
   useLayoutEffect(() => {
     const checkSize = () => {
@@ -68,20 +55,10 @@ const ProFullCourt = () => {
       });
     };
     window.addEventListener("resize", checkSize);
-    debouncedCalculation();
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  useEffect(() => {
-    const courtData = {
-      courtAreaX: courtAreaXLength,
-      courtAreaY: courtAreaYLength,
-      margin: stageMargin,
-      windowHeight: size.height,
-      windowWidth: size.width,
-    };
-    setCourt(courtRatio(courtData));
-  }, [size]);
+  tileCalculation(canvasRef, courtAndTileInfo);
 
   return (
     <Flex
