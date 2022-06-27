@@ -17,8 +17,7 @@ import { IconContext } from "react-icons";
 import { FaEnvelope } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { api } from "../../utils/axios";
 
 interface Props {
@@ -49,7 +48,7 @@ function LoginModalContent(props: Props) {
   // Send authorization request to Google's Oauth server
   const handleLogin = useGoogleLogin({
     onSuccess: handleSuccess, // The method which would execute after authorization
-    flow: "auth-code", // OAuth 2.0 flow between implicit and authorization flow
+    flow: "auth-code", // Authorization flow
   });
 
   return (
