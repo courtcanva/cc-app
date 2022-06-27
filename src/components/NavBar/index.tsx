@@ -16,7 +16,7 @@ const NavigationBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // TODO: Try using customHooks later:https://usehooks.com/useLocalStorage/
-    /* istanbul ignore next */
+  /* istanbul ignore next */
   const [loginData, setLoginData] = useState(
     typeof window !== "undefined"
       ? localStorage.getItem("loginData")

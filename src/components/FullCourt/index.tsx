@@ -7,15 +7,11 @@ import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
 import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
-import Border from "../BasketballCourt/Border";
 import courtRatio from "../../utils/courtRatio";
-import CourtDimension from "../BasketballCourt/CourtDimension";
-import { useStoreSelector } from "@/store/hooks";
-import DashedLine from "../BasketballCourt/DashedLine";
-import BorderDimension from "../BasketballCourt/BorderDimensionLine";
+import FullCourtData from "../MockCourtData/FullCourtData";
 
-const ProFullCourt = () => {
-  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
+const FullCourt = () => {
+  const { courtAreaXLength, courtAreaYLength } = FullCourtData;
   const stageMargin = 2500;
   const startPoint = {
     X: stageMargin,
@@ -79,24 +75,15 @@ const ProFullCourt = () => {
           >
             <Provider store={store}>
               <Layer>
-                {/* border only for pro full court size */}
-                <Border startPoint={startPoint} />
-                {/* arrowLine & dimensionText can be reuse for all courts*/}
-                <CourtDimension startPoint={startPoint} />
-                <BorderDimension startPoint={startPoint} />
-                {/* left side of pro full court*/}
                 <Group>
-                  <DashedLine startPoint={startPoint} />
-                  <CourtArea courtWidth={courtAreaXLength / 2} startPoint={startPoint} />
+                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
                   <CircleArea startPoint={startPoint} />
                   <TopKeyArea startPoint={startPoint} />
                 </Group>
-                {/* right side of pro full court(flip the left side)*/}
                 <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
-                  <DashedLine startPoint={startPoint} />
-                  <CourtArea courtWidth={courtAreaXLength / 2} startPoint={startPoint} />
+                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
                   <CircleArea startPoint={startPoint} />
@@ -111,4 +98,4 @@ const ProFullCourt = () => {
   );
 };
 
-export default ProFullCourt;
+export default FullCourt;
