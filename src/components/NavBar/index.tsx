@@ -16,6 +16,7 @@ const NavigationBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // TODO: Try using customHooks later:https://usehooks.com/useLocalStorage/
+    /* istanbul ignore next */
   const [loginData, setLoginData] = useState(
     typeof window !== "undefined"
       ? localStorage.getItem("loginData")
@@ -24,10 +25,12 @@ const NavigationBar = () => {
       : null
   );
 
+  /* istanbul ignore next */
   const updateLoginData = (loginData: any) => {
     setLoginData(loginData);
   };
 
+  /* istanbul ignore next */
   useEffect(() => {
     const userInfo = localStorage.getItem("UserInfo");
     if (userInfo) {
@@ -35,6 +38,7 @@ const NavigationBar = () => {
     }
   }, []);
 
+  /* istanbul ignore next */
   const handleLogout = () => {
     localStorage.removeItem("UserInfo");
   };

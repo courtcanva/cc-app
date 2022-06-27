@@ -31,6 +31,7 @@ function LoginModalContent(props: Props) {
   const initialRef = React.useRef(null);
 
   // Send request to backend after the request from front-end has been approved by Google
+  /* istanbul ignore next */
   const handleSuccess = (codeResponse: any) => {
     api(process.env.NEXT_PUBLIC_GOOGLE_AUTH_API!, { method: "post", requestData: codeResponse })
       .then((res) => {
@@ -49,7 +50,6 @@ function LoginModalContent(props: Props) {
   const handleLogin = useGoogleLogin({
     onSuccess: handleSuccess, // The method which would execute after authorization
     flow: "auth-code", // OAuth 2.0 flow between implicit and authorization flow
-    onError: () => console.log("fail"),
   });
 
   return (
