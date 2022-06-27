@@ -10,7 +10,7 @@ it("should return the initial state", () => {
   expect(state).toEqual(initialState);
 });
 
-it("should render correct title", () => {
+it("should render correct color", () => {
   const previousState: CourtColorState = initialState;
   expect(reducer(previousState, changeCourtColor("#AA3A34"))).toEqual({ color: "#AA3A34" });
 });

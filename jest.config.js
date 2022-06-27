@@ -35,7 +35,7 @@ const customJestConfig = {
     "!<rootDir>/src/components/HalfCourt/*", // exclude canvas
     "!<rootDir>/src/components/MediumCourt/*", // exclude canvas
     "!<rootDir>/src/components/SmallCourt/*", // exclude canvas
-    "!<rootDir>/src/components/TopBar/ColorBoard.tsx", //test will be added soon from cc-0068 fix
+    // "!<rootDir>/src/components/TopBar/ColorBoard.tsx", //test will be added soon from cc-0068 fix
     
 
 

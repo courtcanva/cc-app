@@ -1,7 +1,14 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
+import user from "@testing-library/user-event";
 import ColorBoard from "@/components/TopBar/ColorBoard";
 import mockPlateColors from "@/components/TopBar/colorList";
 import renderWithMockedProvider from "../../utils";
+import store from "@/store/index";
+import reducer, {
+  changeCourtColor,
+  initialState,
+  CourtColorState,
+} from "@/store/reducer/courtColorSlice";
 
 describe("ColorBoard", () => {
   it("Should render color plate", () => {
@@ -17,5 +24,16 @@ describe("ColorBoard", () => {
       const colorElement = screen.getByTestId(color);
       expect(colorElement).toHaveStyle({ "background-color": color });
     }
+  });
+
+  it("should change color", () => {
+    renderWithMockedProvider(<ColorBoard />);
+    // const previousState: CourtColorState = initialState;
+    // expect(reducer(previousState, changeCourtColor("#AA3A34"))).toEqual({ color: "#AA3A34" });
+    act(() => user.click(screen.getByTestId("#AA3A34")));
+
+    const state = store.getState().courtColor;
+    expect(state.color).toEqual("#AA3A34");
+    // expect(courtImg).toHaveStyle("opacity: 1");
   });
 });
