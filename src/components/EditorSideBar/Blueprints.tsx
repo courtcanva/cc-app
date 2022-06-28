@@ -6,7 +6,6 @@ import React, { useState } from "react";
 
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
-  // const [activateCourt, setActivateCourt] = useState<string>(courtList[0].img);
   const [activateCourt, setActivateCourt] = useState<string>("");
 
   const handleCourtSelecting = (
@@ -36,7 +35,6 @@ const Blueprints: React.FC = () => {
             onClick={() => handleCourtSelecting(courtSizeName, courtSizeDetails, img)}
             data-testid={img}
             _hover={{ border: "4px solid #40B484" }}
-            // opacity={!activateCourt || activateCourt === img ? "1" : "0.4"}
             opacity={activateCourt === img ? "1" : "0.4"}
           >
             <Image src={img} objectFit={"contain"} width="200px" height="140px" />
