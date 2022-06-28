@@ -12,11 +12,11 @@ interface CourtAreaProps {
 const CourtArea: React.FC<CourtAreaProps> = ({ courtWidth, startPoint }) => {
   const { courtAreaYLength } = useStoreSelector((state) => state.courtSize);
 
-  const currentColorBoardColor = useStoreSelector((state) => state.courtColor.color);
+  const selectedColor = useStoreSelector((state) => state.courtColor.color);
   const [courtAreaColor, setCourtAreaColor] = useState("#B61313");
 
   const handleColorChange = () => {
-    setCourtAreaColor(currentColorBoardColor);
+    setCourtAreaColor(selectedColor);
   };
   return (
     <Rect

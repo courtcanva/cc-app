@@ -10,11 +10,11 @@ const Border: React.FC<BorderProps> = ({ startPoint }) => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
     (state) => state.courtSize
   );
-  const currentColorBoardColor = useStoreSelector((state) => state.courtColor.color);
-  const [courtBorderColor, setCourtAreaColor] = useState("#195955");
+  const selectedColor = useStoreSelector((state) => state.courtColor.color);
+  const [courtBorderColor, setCourtBorderColor] = useState("#195955");
 
   const handleColorChange = () => {
-    setCourtAreaColor(currentColorBoardColor);
+    setCourtBorderColor(selectedColor);
   };
 
   return (

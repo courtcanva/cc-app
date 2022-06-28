@@ -12,11 +12,11 @@ const KeyArea: React.FC<KeyAreaTextProps> = ({ startPoint }) => {
   const { threePointLineToCourtEdgeLenth, threePointLineRadius, keyAreaWidth, keyAreaHeight } =
     useStoreSelector((state) => state.courtSize);
 
-  const currentColorBoardColor = useStoreSelector((state) => state.courtColor.color);
-  const [keyAreaColor, setCourtAreaColor] = useState("#2C4E8A");
+  const selectedColor = useStoreSelector((state) => state.courtColor.color);
+  const [keyAreaColor, setKeyAreaColor] = useState("#2C4E8A");
 
   const handleColorChange = () => {
-    setCourtAreaColor(currentColorBoardColor);
+    setKeyAreaColor(selectedColor);
   };
   return (
     <Rect

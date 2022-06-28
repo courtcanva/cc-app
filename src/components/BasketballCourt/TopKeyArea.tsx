@@ -14,11 +14,11 @@ const ShootArea: React.FC<ShootAreaProps> = ({ startPoint }) => {
   const startPointX = startPoint.X + keyAreaWidth;
   const startPointY = startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius);
 
-  const currentColorBoardColor = useStoreSelector((state) => state.courtColor.color);
-  const [topKeyAreaColor, setCourtAreaColor] = useState("#B61313");
+  const selectedColor = useStoreSelector((state) => state.courtColor.color);
+  const [topKeyAreaColor, setKeyAreaColor] = useState("#B61313");
 
   const handleColorChange = () => {
-    setCourtAreaColor(currentColorBoardColor);
+    setKeyAreaColor(selectedColor);
   };
   return (
     <>

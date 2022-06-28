@@ -11,11 +11,11 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
   const { courtAreaXLength, threePointLineToCourtEdgeLenth, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
 
-  const currentColorBoardColor = useStoreSelector((state) => state.courtColor.color);
-  const [circleAreaColor, setCourtAreaColor] = useState("#606F14");
+  const selectedColor = useStoreSelector((state) => state.courtColor.color);
+  const [circleAreaColor, setCircleAreaColor] = useState("#606F14");
 
   const handleColorChange = () => {
-    setCourtAreaColor(currentColorBoardColor);
+    setCircleAreaColor(selectedColor);
   };
 
   return (

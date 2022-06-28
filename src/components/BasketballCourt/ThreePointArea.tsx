@@ -22,11 +22,11 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
   const controlPointFourX = startPoint.X + cornerThreePointLineLength;
   const controlPointFourY = controlPointThreeY;
 
-  const currentColorBoardColor = useStoreSelector((state) => state.courtColor.color);
-  const [courtThreePointColor, setCourtAreaColor] = useState("#72818B");
+  const selectedColor = useStoreSelector((state) => state.courtColor.color);
+  const [courtThreePointColor, setThreePointAreaColor] = useState("#72818B");
 
   const handleColorChange = () => {
-    setCourtAreaColor(currentColorBoardColor);
+    setThreePointAreaColor(selectedColor);
   };
   return (
     <Shape
