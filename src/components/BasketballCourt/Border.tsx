@@ -24,7 +24,7 @@ const Border: React.FC<BorderProps> = ({ startPoint }) => {
       fill={courtBorderColor}
       x={startPoint.X - borderLength}
       y={startPoint.Y - borderLength}
-      onClick={() => handleColorChange()}
+      onClick={handleColorChange}
     />
   );
 };

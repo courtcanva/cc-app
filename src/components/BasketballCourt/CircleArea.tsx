@@ -30,7 +30,7 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
       strokeWidth={courtWhiteLine}
       clockwise
       rotation={270}
-      onClick={() => handleColorChange()}
+      onClick={handleColorChange}
     />
   );
 };

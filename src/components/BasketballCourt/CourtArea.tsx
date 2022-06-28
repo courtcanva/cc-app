@@ -27,7 +27,7 @@ const CourtArea: React.FC<CourtAreaProps> = ({ courtWidth, startPoint }) => {
       y={startPoint.Y}
       stroke="white"
       strokeWidth={courtWhiteLine}
-      onClick={() => handleColorChange()}
+      onClick={handleColorChange}
     />
   );
 };

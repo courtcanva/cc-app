@@ -33,7 +33,7 @@ const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
         strokeWidth={courtWhiteLine}
         clockwise
         rotation={90}
-        onClick={() => handleColorChange()}
+        onClick={handleColorChange}
       />
       <Arc
         x={startPointX}
