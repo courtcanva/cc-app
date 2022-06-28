@@ -23,7 +23,7 @@ import LoginModalContent from "../Login";
 
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
-import RbSvg from "@/assets/svg/TopBarSvg/rainbow.svg";
+import ColorSvg from "@/assets/svg/TopBarSvg/color.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
@@ -67,7 +67,7 @@ const TopBar = () => {
             <IconButton
               aria-label="Rb"
               colorScheme="transparent"
-              icon={<RbSvg />}
+              icon={<ColorSvg />}
               display="fixed"
               variant="editorFooterIconBtn"
               data-testid="colorSelectBtn"
