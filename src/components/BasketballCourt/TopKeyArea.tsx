@@ -2,21 +2,24 @@ import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { courtWhiteLine, dashedWhiteLine } from "../../store/reducer/courtSizeSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
+import { useState } from "react";
 
-interface ShootAreaProps {
+interface TopKeyAreaProps {
   startPoint: ICourtStartPoint;
 }
 
-const ShootArea: React.FC<ShootAreaProps> = ({ startPoint }) => {
+const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
   const { keyAreaWidth, threePointLineToCourtEdgeLenth, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
   const startPointX = startPoint.X + keyAreaWidth;
   const startPointY = startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius);
 
-  const color = useStoreSelector(
-    (state) => state.tile.find((tile) => tile.location.includes("topKeyArea"))?.color
-  );
+  const selectedColor = useStoreSelector((state) => state.courtColor.color);
+  const [topKeyAreaColor, setKeyAreaColor] = useState("#B61313");
 
+  const handleColorChange = () => {
+    setKeyAreaColor(selectedColor);
+  };
   return (
     <>
       <Arc
@@ -25,11 +28,12 @@ const ShootArea: React.FC<ShootAreaProps> = ({ startPoint }) => {
         innerRadius={0}
         outerRadius={circleRadius}
         angle={180}
-        fill={color}
+        fill={topKeyAreaColor}
         stroke="white"
         strokeWidth={courtWhiteLine}
         clockwise
         rotation={90}
+        onClick={handleColorChange}
       />
       <Arc
         x={startPointX}
@@ -48,4 +52,4 @@ const ShootArea: React.FC<ShootAreaProps> = ({ startPoint }) => {
   );
 };
 
-export default ShootArea;
+export default TopKeyArea;
