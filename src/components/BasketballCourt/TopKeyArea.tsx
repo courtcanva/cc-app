@@ -4,11 +4,11 @@ import { courtWhiteLine, dashedWhiteLine } from "../../store/reducer/courtSizeSl
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useState } from "react";
 
-interface ShootAreaProps {
+interface TopKeyAreaProps {
   startPoint: ICourtStartPoint;
 }
 
-const ShootArea: React.FC<ShootAreaProps> = ({ startPoint }) => {
+const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
   const { keyAreaWidth, threePointLineToCourtEdgeLenth, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
   const startPointX = startPoint.X + keyAreaWidth;
@@ -52,4 +52,4 @@ const ShootArea: React.FC<ShootAreaProps> = ({ startPoint }) => {
   );
 };
 
-export default ShootArea;
+export default TopKeyArea;

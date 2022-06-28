@@ -4,11 +4,11 @@ import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useState } from "react";
 
-interface KeyAreaTextProps {
+interface KeyAreaProps {
   startPoint: ICourtStartPoint;
 }
 
-const KeyArea: React.FC<KeyAreaTextProps> = ({ startPoint }) => {
+const KeyArea: React.FC<KeyAreaProps> = ({ startPoint }) => {
   const { threePointLineToCourtEdgeLenth, threePointLineRadius, keyAreaWidth, keyAreaHeight } =
     useStoreSelector((state) => state.courtSize);
 
