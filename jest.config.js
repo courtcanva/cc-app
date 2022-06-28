@@ -27,6 +27,7 @@ const customJestConfig = {
     "!<rootDir>/src/styles/components/*.{tsx,ts}",
     "!<rootDir>/src/pages/_app.tsx",
     "!<rootDir>/src/pages/_document.tsx",
+    "!<rootDir>/src/pages/index.tsx",
     "!<rootDir>/src/utils/axios.ts",
     "!<rootDir>/src/utils/tileNumberCalculator.ts",
     "!<rootDir>/src/components/BasketballCourt/*", // exclude canvas
