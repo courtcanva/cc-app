@@ -9,13 +9,7 @@ import {
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverArrow,
-} from "@chakra-ui/react";
+import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 
 import ColorBoard from "./ColorBoard";
@@ -35,6 +29,8 @@ const TopBar = () => {
   const handleSelectedColor = () => {
     dispatch(changeSelectedColor(""));
   };
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
+
   return (
     <SimpleGrid
       columns={3}
@@ -66,15 +62,13 @@ const TopBar = () => {
           <PopoverTrigger>
             <IconButton
               aria-label="Rb"
-              colorScheme="transparent"
-              icon={<ColorSvg />}
+              icon={<ColorSvg fill={selectedColor} />}
               display="fixed"
               variant="editorFooterIconBtn"
               data-testid="colorSelectBtn"
             />
           </PopoverTrigger>
           <PopoverContent width={300} height={168}>
-            <PopoverArrow />
             <PopoverBody>
               <ColorBoard />
             </PopoverBody>

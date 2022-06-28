@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import mockPlateColors from "./colorList";
-import { useDispatch } from "react-redux";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
+import { useDispatch } from "react-redux";
 
 const ColorBoard: React.FC = () => {
   const dispatch = useDispatch();
-  const handleChangeColor = (color: string) => {
+  const [fillColor, setFillColor] = useState<string>("");
+  const handleChangeColor = (color: string): void => {
+    setFillColor(color);
     dispatch(changeSelectedColor(color));
   };
   return (
@@ -21,6 +23,7 @@ const ColorBoard: React.FC = () => {
     >
       {mockPlateColors.map((color) => (
         <Box
+          as="button"
           key={color}
           bg={color}
           data-testid={color}
