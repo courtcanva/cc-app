@@ -33,7 +33,7 @@ const NavigationBar = () => {
   /* istanbul ignore next */
   useEffect(() => {
     const userInfo = localStorage.getItem("UserInfo");
-    userInfo && setLoginData(JSON.parse(userInfo))
+    userInfo && setLoginData(JSON.parse(userInfo));
   }, []);
 
   /* istanbul ignore next */
