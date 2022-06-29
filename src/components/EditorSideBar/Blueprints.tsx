@@ -16,6 +16,7 @@ const Blueprints: React.FC = () => {
     setActivateCourt(img);
     dispatch(changeCourtName(`${courtSizeName} ${courtSizeDetails}`)); // change TopBar court size name
   };
+  
 
   return (
     <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">
