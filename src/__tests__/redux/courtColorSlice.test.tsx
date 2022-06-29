@@ -1,5 +1,5 @@
 import reducer, {
-  changeCourtColor,
+  changeSelectedColor,
   initialState,
   CourtColorState,
 } from "@/store/reducer/courtColorSlice";
@@ -12,5 +12,8 @@ it("should return the initial state", () => {
 
 it("should render correct color", () => {
   const previousState: CourtColorState = initialState;
-  expect(reducer(previousState, changeCourtColor("#AA3A34"))).toEqual({ color: "#AA3A34" });
+  expect(reducer(previousState, changeSelectedColor("#AA3A34"))).toEqual({
+    ...previousState,
+    selectedColor: "#AA3A34",
+  });
 });

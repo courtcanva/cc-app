@@ -2,7 +2,8 @@ import { Shape } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setThreePointAreaColor } from "@/store/reducer/courtColorSlice";
 
 interface ThreePointAreaProps {
   startPoint: ICourtStartPoint;
@@ -22,11 +23,12 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
   const controlPointFourX = startPoint.X + cornerThreePointLineLength;
   const controlPointFourY = controlPointThreeY;
 
-  const selectedColor = useStoreSelector((state) => state.courtColor.color);
-  const [courtThreePointColor, setThreePointAreaColor] = useState("#72818B");
-
+  const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
+  const threePointAreaColor = useStoreSelector((state) => state.courtColor.threePointAreaColor);
+  const dispatch = useDispatch();
   const handleColorChange = () => {
-    setThreePointAreaColor(selectedColor);
+    if (!selectedColor) return;
+    dispatch(setThreePointAreaColor(selectedColor));
   };
   return (
     <Shape
@@ -53,7 +55,7 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
         context.closePath();
         context.fillStrokeShape(shape);
       }}
-      fill={courtThreePointColor}
+      fill={threePointAreaColor}
       stroke="white"
       strokeWidth={courtWhiteLine}
       onClick={handleColorChange}

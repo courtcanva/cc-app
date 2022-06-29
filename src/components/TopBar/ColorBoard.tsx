@@ -2,12 +2,12 @@ import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import mockPlateColors from "./colorList";
 import { useDispatch } from "react-redux";
-import { changeCourtColor } from "@/store/reducer/courtColorSlice";
+import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 
 const ColorBoard: React.FC = () => {
   const dispatch = useDispatch();
   const handleChangeColor = (color: string) => {
-    dispatch(changeCourtColor(color));
+    dispatch(changeSelectedColor(color));
   };
   return (
     <Flex
