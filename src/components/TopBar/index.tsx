@@ -25,11 +25,16 @@ import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import RbSvg from "@/assets/svg/TopBarSvg/rainbow.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
+import { useDispatch } from "react-redux";
+import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { name: courtName } = useStoreSelector((state) => state.courtName);
-
+  const dispatch = useDispatch();
+  const handleSelectedColor = () => {
+    dispatch(changeSelectedColor(""));
+  };
   return (
     <SimpleGrid
       columns={3}
@@ -57,7 +62,7 @@ const TopBar = () => {
 
       {/* center */}
       <Flex alignItems="center" gap={{ base: "0", lg: "5" }}>
-        <Popover closeOnBlur={false}>
+        <Popover onClose={handleSelectedColor} closeOnBlur={false}>
           <PopoverTrigger>
             <IconButton
               aria-label="Rb"
