@@ -25,11 +25,46 @@ import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import RbSvg from "@/assets/svg/TopBarSvg/rainbow.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
+import { useDispatch } from "react-redux";
+// import { changeCourtName } from "@/store/reducer/courtNameSlice";
+import { changeBorderLength } from "@/store/reducer/courtSizeSlice";
 
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { name: courtName } = useStoreSelector((state) => state.courtName);
+  const dispatch = useDispatch();
 
+  const handleChange = (val: number) => {
+    console.log(val);
+    let newBorderlength = 0;
+    switch (val) {
+      case 0:
+        newBorderlength = 0;
+        break;
+      case 0.3:
+        newBorderlength = 300;
+        break;
+      case 0.6:
+        newBorderlength = 600;
+        break;
+      case 0.9:
+        newBorderlength = 900;
+        break;
+      case 1.2:
+        newBorderlength = 1200;
+        break;
+      case 1.5:
+        newBorderlength = 1500;
+        break;
+      case 1.8:
+        newBorderlength = 1800;
+        break;
+      default:
+        newBorderlength = 1800;
+        break;
+    }
+    dispatch(changeBorderLength(newBorderlength));
+  };
   return (
     <SimpleGrid
       columns={3}
@@ -101,7 +136,16 @@ const TopBar = () => {
             width
           </Text>
         </Flex>
-        <Slider aria-label="slider" defaultValue={40} maxW="40" minWidth="30">
+        <Slider
+          aria-label="slider"
+          defaultValue={1}
+          min={0}
+          max={1.8}
+          step={0.3}
+          maxW="40"
+          minWidth="30"
+          onChangeEnd={(val) => handleChange(val)}
+        >
           <SliderTrack height="9px" borderRadius="6px">
             <SliderFilledTrack background="brand.primary" />
           </SliderTrack>
