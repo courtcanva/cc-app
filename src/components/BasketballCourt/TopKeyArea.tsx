@@ -3,7 +3,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { courtWhiteLine, dashedWhiteLine } from "../../store/reducer/courtSizeSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
-import { setTopKeyAreaColor } from "@/store/reducer/courtColorSlice";
+import { changeTileColor } from "@/store/reducer/tileSlice";
 
 interface TopKeyAreaProps {
   startPoint: ICourtStartPoint;
@@ -16,11 +16,13 @@ const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
   const startPointY = startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius);
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
-  const topKeyAreaColor = useStoreSelector((state) => state.courtColor.topKeyAreaColor);
+  const topKeyAreaColor = useStoreSelector(
+    (state) => state.tile.find((tile) => tile.location.includes("topKeyArea"))?.color
+  );
   const dispatch = useDispatch();
   const handleColorChange = () => {
     if (!selectedColor) return;
-    dispatch(setTopKeyAreaColor(selectedColor));
+    dispatch(changeTileColor({ selectedColor, location: "topKeyArea" }));
   };
   return (
     <>

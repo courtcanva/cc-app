@@ -3,8 +3,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
-import { setCircleAreaColor } from "@/store/reducer/courtColorSlice";
-// import { useState } from "react";
+import { changeTileColor } from "@/store/reducer/tileSlice";
 interface CircleAreaProps {
   startPoint: ICourtStartPoint;
 }
@@ -14,11 +13,13 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
     useStoreSelector((state) => state.courtSize);
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
-  const circleAreaColor = useStoreSelector((state) => state.courtColor.circleAreaColor);
+  const circleAreaColor = useStoreSelector(
+    (state) => state.tile.find((tile) => tile.location.includes("circleArea"))?.color
+  );
   const dispatch = useDispatch();
   const handleColorChange = () => {
     if (!selectedColor) return;
-    dispatch(setCircleAreaColor(selectedColor));
+    dispatch(changeTileColor({ selectedColor, location: "circleArea" }));
   };
 
   return (
