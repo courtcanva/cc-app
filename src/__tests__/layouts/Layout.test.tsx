@@ -6,7 +6,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 describe("Header", () => {
   it("should render the Layout", () => {
-    render(
+    renderWithMockedProvider(
       <GoogleOAuthProvider clientId="testid">
         <RouterContext.Provider value={createMockRouter({ pathname: "/404" })}>
           <Layout> </Layout>

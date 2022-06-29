@@ -1,10 +1,11 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import NavigationBar from "@/components/NavBar";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import renderWithMockedProvider from "../../utils";
 
 describe("NavigationBar", () => {
   test("Each button in the navbar needs to display the correct text", () => {
-    render(
+    renderWithMockedProvider(
       <GoogleOAuthProvider clientId="testid">
         <NavigationBar />
       </GoogleOAuthProvider>
@@ -23,7 +24,7 @@ describe("NavigationBar", () => {
   });
 
   it("Should render Share button", () => {
-    render(
+    renderWithMockedProvider(
       <GoogleOAuthProvider clientId="testid">
         <NavigationBar />
       </GoogleOAuthProvider>
@@ -34,7 +35,7 @@ describe("NavigationBar", () => {
   });
 
   it("Should render login Modal when click button", async () => {
-    render(
+    renderWithMockedProvider(
       <GoogleOAuthProvider clientId="testid">
         <NavigationBar />
       </GoogleOAuthProvider>

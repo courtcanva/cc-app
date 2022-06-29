@@ -11,10 +11,10 @@ import EditorDesignName from "@/components/NavBar/EditorDesignName";
 
 import LoginModalContent from "../Login";
 import { useEffect, useState } from "react";
+import { useStoreSelector } from "@/store/hooks";
 
 const NavigationBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   // TODO: Try using customHooks later:https://usehooks.com/useLocalStorage/
   /* istanbul ignore next */
   const [loginData, setLoginData] = useState(
@@ -33,9 +33,7 @@ const NavigationBar = () => {
   /* istanbul ignore next */
   useEffect(() => {
     const userInfo = localStorage.getItem("UserInfo");
-    if (userInfo) {
-      setLoginData(userInfo ? JSON.parse(userInfo) : null);
-    }
+    userInfo && setLoginData(JSON.parse(userInfo))
   }, []);
 
   /* istanbul ignore next */

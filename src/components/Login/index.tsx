@@ -19,6 +19,9 @@ import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
 import React from "react";
 import { api } from "../../utils/axios";
+import { useDispatch } from "react-redux";
+import { useStoreSelector } from "@/store/hooks";
+import { updateUserInfo } from "@/store/reducer/userSlice";
 
 interface Props {
   isOpen: boolean;
@@ -28,11 +31,11 @@ interface Props {
 
 function LoginModalContent(props: Props) {
   const initialRef = React.useRef(null);
-
+  const dispatch = useDispatch();
   // Send request to backend after the request from front-end has been approved by Google
   /* istanbul ignore next */
   const handleSuccess = (codeResponse: any) => {
-    api(process.env.NEXT_PUBLIC_API_BASE_URI + "/google/auth"!, {
+    api(process.env.NEXT_PUBLIC_API_BASE_URI + "/auth/google"!, {
       method: "post",
       requestData: codeResponse,
     })
@@ -41,6 +44,7 @@ function LoginModalContent(props: Props) {
           const data = res.data;
           // Store user data into local storage after logging
           localStorage.setItem("UserInfo", JSON.stringify(data));
+          dispatch(updateUserInfo(data));
           props.updateLoginData(data);
           props.onClose();
         }

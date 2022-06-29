@@ -1,10 +1,11 @@
 import LoginModalContent from "@/components/Login";
+import renderWithMockedProvider from "../../utils";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 describe("Login", () => {
   test("Each elements in the Login display the correct text", () => {
-    render(
+    renderWithMockedProvider(
       <GoogleOAuthProvider clientId="testid">
         <LoginModalContent isOpen={true} onClose={() => void {}} updateLoginData={() => void {}} />
       </GoogleOAuthProvider>
@@ -22,7 +23,7 @@ describe("Login", () => {
   });
 
   it("Should close Modal when click close button", async () => {
-    render(
+    renderWithMockedProvider(
       <GoogleOAuthProvider clientId="testid">
         <LoginModalContent isOpen={true} onClose={() => void {}} updateLoginData={() => void {}} />
       </GoogleOAuthProvider>
