@@ -3,7 +3,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
-import { setKeyAreaColor } from "@/store/reducer/courtColorSlice";
+import { changeTileColor } from "@/store/reducer/tileSlice";
 
 interface KeyAreaProps {
   startPoint: ICourtStartPoint;
@@ -14,11 +14,13 @@ const KeyArea: React.FC<KeyAreaProps> = ({ startPoint }) => {
     useStoreSelector((state) => state.courtSize);
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
-  const keyAreaColor = useStoreSelector((state) => state.courtColor.keyAreaColor);
+  const keyAreaColor = useStoreSelector(
+    (state) => state.tile.find((tile) => tile.location.includes("keyArea"))?.color
+  );
   const dispatch = useDispatch();
   const handleColorChange = () => {
     if (!selectedColor) return;
-    dispatch(setKeyAreaColor(selectedColor));
+    dispatch(changeTileColor({ selectedColor, location: "keyArea" }));
   };
   return (
     <Rect

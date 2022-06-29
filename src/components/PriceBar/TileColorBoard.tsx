@@ -14,7 +14,7 @@ const TileColorBoard: React.FC = () => {
           <Center gap="8px" height="35px" marginLeft="8px" data-testid="tileBoard">
             {tiles.map((tile) => (
               <Center
-                key={tile.color}
+                key={tile.location}
                 backgroundColor={tile.color}
                 width={{ base: "40px", lg: "60px", xl: "85px" }}
                 height={{ base: "20px", lg: "25px", xl: "35px" }}
