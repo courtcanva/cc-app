@@ -9,5 +9,7 @@ it("should return the initial state", () => {
 it("should change tile color", () => {
   // TODO: temporary solution, should be changed later
   const previousState: tileState[] = initialState;
-  expect(reducer(previousState, changeTileColor(""))).toEqual(initialState);
+  expect(
+    reducer(previousState, changeTileColor({ location: "border", selectedColor: "#195955" }))
+  ).toEqual(previousState);
 });

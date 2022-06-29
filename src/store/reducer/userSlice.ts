@@ -1,4 +1,3 @@
-import { api } from "@/utils/axios";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
 export interface UserState {

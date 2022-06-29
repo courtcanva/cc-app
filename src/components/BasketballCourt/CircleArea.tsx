@@ -2,6 +2,8 @@ import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
+import { useDispatch } from "react-redux";
+import { changeTileColor } from "@/store/reducer/tileSlice";
 interface CircleAreaProps {
   startPoint: ICourtStartPoint;
 }
@@ -10,9 +12,15 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
   const { courtAreaXLength, threePointLineToCourtEdgeLenth, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
 
-  const color = useStoreSelector(
+  const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
+  const circleAreaColor = useStoreSelector(
     (state) => state.tile.find((tile) => tile.location.includes("circleArea"))?.color
   );
+  const dispatch = useDispatch();
+  const handleColorChange = () => {
+    if (!selectedColor) return;
+    dispatch(changeTileColor({ selectedColor, location: "circleArea" }));
+  };
 
   return (
     <Arc
@@ -21,11 +29,12 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
       innerRadius={0}
       outerRadius={circleRadius}
       angle={180}
-      fill={color}
+      fill={circleAreaColor}
       stroke="white"
       strokeWidth={courtWhiteLine}
       clockwise
       rotation={270}
+      onClick={handleColorChange}
     />
   );
 };
