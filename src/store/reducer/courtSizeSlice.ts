@@ -8,7 +8,7 @@ export interface CourtSizeState {
 export const initialState: CourtSizeState = {
   courtAreaXLength: 28000,
   courtAreaYLength: 15000,
-  threePointLineToCourtEdgeLenth: 900,
+  threePointLineToCourtEdgeLength: 900,
   cornerThreePointLineLength: 1575,
   threePointLineRadius: 6600,
   keyAreaWidth: 5790,

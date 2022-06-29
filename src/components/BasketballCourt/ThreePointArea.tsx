@@ -10,10 +10,10 @@ interface ThreePointAreaProps {
 }
 
 const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
-  const { threePointLineToCourtEdgeLenth, cornerThreePointLineLength, threePointLineRadius } =
+  const { threePointLineToCourtEdgeLength, cornerThreePointLineLength, threePointLineRadius } =
     useStoreSelector((state) => state.courtSize);
   const startPointX = startPoint.X;
-  const startPointY = startPoint.Y + threePointLineToCourtEdgeLenth;
+  const startPointY = startPoint.Y + threePointLineToCourtEdgeLength;
   const controlPointOneX = startPoint.X + (cornerThreePointLineLength + threePointLineRadius);
   const controlPointOneY = startPointY;
   const controlPointTwoX = controlPointOneX;
