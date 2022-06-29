@@ -25,11 +25,11 @@ import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { name: courtName } = useStoreSelector((state) => state.courtName);
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const dispatch = useDispatch();
   const handleSelectedColor = () => {
-    dispatch(changeSelectedColor(""));
+    dispatch(changeSelectedColor("none"));
   };
-  const { selectedColor } = useStoreSelector((state) => state.courtColor);
 
   return (
     <SimpleGrid
@@ -58,7 +58,13 @@ const TopBar = () => {
 
       {/* center */}
       <Flex alignItems="center" gap={{ base: "0", lg: "5" }}>
+<<<<<<< HEAD
         <Popover onClose={handleSelectedColor} closeOnBlur={false}>
+||||||| parent of ed954c8 (feat: cc-0067 mouse cursor return to auto)
+        <Popover closeOnBlur={false}>
+=======
+        <Popover onClose={() => handleSelectedColor()} closeOnBlur={false}>
+>>>>>>> ed954c8 (feat: cc-0067 mouse cursor return to auto)
           <PopoverTrigger>
             <IconButton
               aria-label="Rb"
