@@ -36,8 +36,9 @@ const ColorBoard: React.FC = () => {
       const iconUrl =
         `data:image/svg+xml;base64,` + window.btoa(unescape(encodeURIComponent(svgIcon)));
       document.body.style.cursor = `url(` + iconUrl + `) 24 24, auto`;
+    } else {
+      document.body.style.cursor = "auto";
     }
-    else {document.body.style.cursor = "auto";}
   }, [selectedColor]);
 
   return (
