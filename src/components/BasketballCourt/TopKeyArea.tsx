@@ -2,7 +2,8 @@ import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { courtWhiteLine, dashedWhiteLine } from "../../store/reducer/courtSizeSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setTopKeyAreaColor } from "@/store/reducer/courtColorSlice";
 
 interface TopKeyAreaProps {
   startPoint: ICourtStartPoint;
@@ -14,11 +15,12 @@ const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
   const startPointX = startPoint.X + keyAreaWidth;
   const startPointY = startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius);
 
-  const selectedColor = useStoreSelector((state) => state.courtColor.color);
-  const [topKeyAreaColor, setKeyAreaColor] = useState("#B61313");
-
+  const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
+  const topKeyAreaColor = useStoreSelector((state) => state.courtColor.topKeyAreaColor);
+  const dispatch = useDispatch();
   const handleColorChange = () => {
-    setKeyAreaColor(selectedColor);
+    if (!selectedColor) return;
+    dispatch(setTopKeyAreaColor(selectedColor));
   };
   return (
     <>

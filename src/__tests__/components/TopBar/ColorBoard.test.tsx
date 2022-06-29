@@ -5,7 +5,7 @@ import mockPlateColors from "@/components/TopBar/colorList";
 import renderWithMockedProvider from "../../utils";
 import store from "@/store/index";
 import reducer, {
-  changeCourtColor,
+  changeSelectedColor,
   initialState,
   CourtColorState,
 } from "@/store/reducer/courtColorSlice";
@@ -30,6 +30,6 @@ describe("ColorBoard", () => {
     renderWithMockedProvider(<ColorBoard />);
     act(() => user.click(screen.getByTestId("#AA3A34")));
     const state = store.getState().courtColor;
-    expect(state.color).toEqual("#AA3A34");
+    expect(state.selectedColor).toEqual("#AA3A34");
   });
 });
