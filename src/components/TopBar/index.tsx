@@ -16,6 +16,7 @@ import {
   PopoverBody,
   PopoverArrow,
 } from "@chakra-ui/react";
+import { TriangleUpIcon } from '@chakra-ui/icons';
 import { useStoreSelector } from "@/store/hooks";
 
 import ColorBoard from "./ColorBoard";
@@ -146,10 +147,11 @@ const TopBar = () => {
           minWidth="30"
           onChangeEnd={(val) => handleChange(val)}
         >
-          <SliderTrack height="9px" borderRadius="6px">
+          <SliderTrack height="9px" borderRadius="6px" background="brand.primary">
             <SliderFilledTrack background="brand.primary" />
           </SliderTrack>
-          <SliderThumb boxSize={5} />
+          <SliderThumb background="transparent" color="brand.primary" border="none" mt={3} as={TriangleUpIcon} boxShadow="none">
+          </SliderThumb>
         </Slider>
       </Flex>
 
