@@ -63,10 +63,7 @@ const TopBar = () => {
 
       {/* center */}
       <Flex alignItems="center" gap={{ base: "0", lg: "5" }}>
-        <Popover
-          onClose={() => handleSelectedColor()}
-          closeOnBlur={false}
-        >
+        <Popover onClose={() => handleSelectedColor()} closeOnBlur={false}>
           <PopoverTrigger>
             <IconButton
               aria-label="Rb"
