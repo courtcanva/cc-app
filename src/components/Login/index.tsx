@@ -16,15 +16,47 @@ import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import { IconContext } from "react-icons";
 import { FaEnvelope } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { useGoogleLogin } from "@react-oauth/google";
 import React from "react";
+import { api } from "../../utils/axios";
+import { useDispatch } from "react-redux";
+import { useStoreSelector } from "@/store/hooks";
+import { updateUserInfo } from "@/store/reducer/userSlice";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  updateLoginData: (data: any) => void;
 }
 
 function LoginModalContent(props: Props) {
   const initialRef = React.useRef(null);
+  const dispatch = useDispatch();
+  // Send request to backend after the request from front-end has been approved by Google
+  /* istanbul ignore next */
+  const handleSuccess = (codeResponse: any) => {
+    api(process.env.NEXT_PUBLIC_API_BASE_URI + "/auth/google"!, {
+      method: "post",
+      requestData: codeResponse,
+    })
+      .then((res) => {
+        if (res.data) {
+          const data = res.data;
+          // Store user data into local storage after logging
+          localStorage.setItem("UserInfo", JSON.stringify(data));
+          dispatch(updateUserInfo(data));
+          props.updateLoginData(data);
+          props.onClose();
+        }
+      })
+      .catch((err) => console.warn(err));
+  };
+
+  // Send authorization request to Google's Oauth server
+  const handleLogin = useGoogleLogin({
+    onSuccess: handleSuccess, // The method which would execute after authorization
+    flow: "auth-code", // Authorization flow
+  });
 
   return (
     <Modal
@@ -50,12 +82,18 @@ function LoginModalContent(props: Props) {
         <ModalCloseButton role="closeButton" />
         <ModalBody>
           <Flex flexDir="column" justifyContent="space-around" gap="25px" paddingX="20px">
-            <Button variant="loginBtn" position="relative" ref={initialRef}>
+            <Button
+              onClick={() => handleLogin()}
+              variant="loginBtn"
+              position="relative"
+              ref={initialRef}
+            >
               <Icon w="32px" h="32px" position="absolute" top="8px" left="20px">
                 <FcGoogle />
               </Icon>
               <Text>Continue with Google </Text>
             </Button>
+
             <Button variant="loginBtn" position="relative">
               <IconContext.Provider value={{ color: "#FF5439", className: "global-class-name" }}>
                 <Icon w="32px" h="32px" position="absolute" top="8px" left="20px">

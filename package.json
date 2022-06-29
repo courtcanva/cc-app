@@ -37,6 +37,7 @@
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@react-oauth/google": "^0.2.6",
     "@reduxjs/toolkit": "^1.8.2",
     "axios": "^0.27.2",
     "framer-motion": "^6",

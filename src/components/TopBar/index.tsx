@@ -119,7 +119,8 @@ const TopBar = () => {
           onClick={onOpen}
           data-testid="download-btn"
         />
-        <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent>
+        {/* TODO: Fetch user login state from redux */}
+        {/* <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent> */}
         <IconButton
           aria-label="Bin"
           colorScheme="transparent"

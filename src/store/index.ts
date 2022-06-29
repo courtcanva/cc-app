@@ -3,6 +3,7 @@ import courtReducer from "./reducer/courtSizeSlice";
 import courtNameReducer from "./reducer/courtNameSlice";
 import tileReducer from "./reducer/tileSlice";
 import courtColorReducer from "./reducer/courtColorSlice";
+import userReducer from "./reducer/userSlice";
 export const makeStore = () =>
   configureStore({
     reducer: {
@@ -10,6 +11,7 @@ export const makeStore = () =>
       courtName: courtNameReducer,
       tile: tileReducer,
       courtColor: courtColorReducer,
+      user: userReducer,
     },
   });
 
