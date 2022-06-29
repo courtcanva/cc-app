@@ -32,7 +32,10 @@ function LoginModalContent(props: Props) {
   // Send request to backend after the request from front-end has been approved by Google
   /* istanbul ignore next */
   const handleSuccess = (codeResponse: any) => {
-    api(process.env.NEXT_PUBLIC_GOOGLE_AUTH_API!, { method: "post", requestData: codeResponse })
+    api(process.env.NEXT_PUBLIC_API_BASE_URI + "/google/auth"!, {
+      method: "post",
+      requestData: codeResponse,
+    })
       .then((res) => {
         if (res.data) {
           const data = res.data;
