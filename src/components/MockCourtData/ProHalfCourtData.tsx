@@ -8,6 +8,7 @@ const ProHalfCourtData = {
   keyAreaHeight: 4800,
   circleRadius: 1800,
   strokeWidth: 200,
+  borderLength: 0,
 };
 
 export default ProHalfCourtData;

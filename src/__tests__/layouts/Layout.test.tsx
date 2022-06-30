@@ -2,13 +2,16 @@ import Layout from "../../layouts";
 import { screen, render } from "@testing-library/react";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import renderWithMockedProvider, { createMockRouter } from "../utils";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 describe("Header", () => {
   it("should render the Layout", () => {
-    render(
-      <RouterContext.Provider value={createMockRouter({ pathname: "/404" })}>
-        <Layout> </Layout>
-      </RouterContext.Provider>
+    renderWithMockedProvider(
+      <GoogleOAuthProvider clientId="testid">
+        <RouterContext.Provider value={createMockRouter({ pathname: "/404" })}>
+          <Layout> </Layout>
+        </RouterContext.Provider>
+      </GoogleOAuthProvider>
     );
     const navBarBtn = screen.getByRole("button", { name: /Share/i });
     expect(navBarBtn).toBeInTheDocument();
@@ -18,9 +21,11 @@ describe("Header", () => {
 
   it("should render full layout", () => {
     renderWithMockedProvider(
-      <RouterContext.Provider value={createMockRouter({})}>
-        <Layout> </Layout>
-      </RouterContext.Provider>
+      <GoogleOAuthProvider clientId="testid">
+        <RouterContext.Provider value={createMockRouter({})}>
+          <Layout> </Layout>
+        </RouterContext.Provider>
+      </GoogleOAuthProvider>
     );
     const budgetTextElement = screen.queryAllByText(/Estimated Budget:/i);
     expect(budgetTextElement).toHaveLength(1);

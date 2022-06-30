@@ -8,6 +8,7 @@ import CourtArea from "../BasketballCourt/CourtArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import courtRatio from "../../utils/courtRatio";
 import MediumCourtData from "../MockCourtData/MediumCourtData";
+import Border from "../BasketballCourt/Border";
 
 const MediumCourt = () => {
   const {
@@ -15,9 +16,11 @@ const MediumCourt = () => {
     courtAreaYLength,
     threePointLineRadius,
     threePointLineToCourtEdgeLength,
+    borderLength,
   } = MediumCourtData;
   const stageMargin = 2500;
-  const startPoint = {
+  // componentsStartPoint is different court area start point
+  const componentsStartPoint = {
     X: stageMargin,
     Y:
       -(
@@ -25,7 +28,10 @@ const MediumCourt = () => {
         (courtAreaYLength + stageMargin * 2)
       ) / 2,
   };
-
+  const courtStartPoint = {
+    X: stageMargin,
+    Y: stageMargin,
+  };
   const [court, setCourt] = useState({
     stageWidth: 0,
     stageHeight: 0,
@@ -83,6 +89,12 @@ const MediumCourt = () => {
           >
             <Provider store={store}>
               <Layer>
+                <Border
+                  startPoint={courtStartPoint}
+                  borderLength={borderLength}
+                  courtAreaXLength={courtAreaXLength}
+                  courtAreaYLength={courtAreaYLength}
+                />
                 <Group
                   clipFunc={(ctx: any) => {
                     ctx.beginPath();
@@ -90,10 +102,10 @@ const MediumCourt = () => {
                     ctx.clip();
                   }}
                 >
-                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength} />
-                  <ThreePointArea startPoint={startPoint} />
-                  <KeyArea startPoint={startPoint} />
-                  <TopKeyArea startPoint={startPoint} />
+                  <CourtArea startPoint={componentsStartPoint} courtWidth={courtAreaXLength} />
+                  <ThreePointArea startPoint={componentsStartPoint} />
+                  <KeyArea startPoint={componentsStartPoint} />
+                  <TopKeyArea startPoint={componentsStartPoint} />
                 </Group>
               </Layer>
             </Provider>

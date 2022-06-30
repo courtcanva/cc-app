@@ -28,9 +28,10 @@ import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import RbSvg from "@/assets/svg/TopBarSvg/rainbow.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
-// import { changeCourtName } from "@/store/reducer/courtNameSlice";
+
 import { changeBorderLength } from "@/store/reducer/courtSizeSlice";
 import {useState} from 'react';
+import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -69,6 +70,9 @@ const TopBar = () => {
         break;
     }
     dispatch(changeBorderLength(newBorderlength));
+  }
+  const handleSelectedColor = () => {
+    dispatch(changeSelectedColor(""));
   };
   return (
     <SimpleGrid
@@ -97,7 +101,7 @@ const TopBar = () => {
 
       {/* center */}
       <Flex alignItems="center" gap={{ base: "0", lg: "5" }}>
-        <Popover closeOnBlur={false}>
+        <Popover onClose={handleSelectedColor} closeOnBlur={false}>
           <PopoverTrigger>
             <IconButton
               aria-label="Rb"
@@ -180,7 +184,8 @@ const TopBar = () => {
           onClick={onOpen}
           data-testid="download-btn"
         />
-        <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent>
+        {/* TODO: Fetch user login state from redux */}
+        {/* <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent> */}
         <IconButton
           aria-label="Bin"
           colorScheme="transparent"
