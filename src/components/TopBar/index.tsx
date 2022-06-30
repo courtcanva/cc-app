@@ -17,7 +17,7 @@ import LoginModalContent from "../Login";
 
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
-import ColorSvg from "@/assets/svg/TopBarSvg/color.svg";
+import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import { useDispatch } from "react-redux";
@@ -58,11 +58,11 @@ const TopBar = () => {
 
       {/* center */}
       <Flex alignItems="center" gap={{ base: "0", lg: "5" }}>
-        <Popover onClose={() => handleSelectedColor()} closeOnBlur={false}>
+        <Popover onClose={handleSelectedColor} closeOnBlur={false}>
           <PopoverTrigger>
             <IconButton
               aria-label="Rb"
-              icon={<ColorSvg fill={selectedColor} />}
+              icon={<PaintBucketSvg fill={selectedColor} />}
               display="fixed"
               variant="editorFooterIconBtn"
               data-testid="colorSelectBtn"

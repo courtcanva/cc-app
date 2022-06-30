@@ -9,7 +9,7 @@ interface CircleAreaProps {
 }
 
 const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
-  const { courtAreaXLength, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
+  const { courtAreaXLength, threePointLineToCourtEdgeLenth, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
@@ -25,7 +25,7 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
   return (
     <Arc
       x={startPoint.X + courtAreaXLength / 2}
-      y={startPoint.Y + (threePointLineToCourtEdgeLength + threePointLineRadius)}
+      y={startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius)}
       innerRadius={0}
       outerRadius={circleRadius}
       angle={180}
