@@ -13,8 +13,6 @@ import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui
 import { useStoreSelector } from "@/store/hooks";
 
 import ColorBoard from "./ColorBoard";
-import LoginModalContent from "../Login";
-
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
