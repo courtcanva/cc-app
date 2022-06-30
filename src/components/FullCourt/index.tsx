@@ -7,11 +7,12 @@ import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
 import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
+import Border from "../BasketballCourt/Border";
 import courtRatio from "../../utils/courtRatio";
 import FullCourtData from "../MockCourtData/FullCourtData";
 
 const FullCourt = () => {
-  const { courtAreaXLength, courtAreaYLength } = FullCourtData;
+  const { courtAreaXLength, courtAreaYLength, borderLength } = FullCourtData;
   const stageMargin = 2500;
   const startPoint = {
     X: stageMargin,
@@ -75,6 +76,12 @@ const FullCourt = () => {
           >
             <Provider store={store}>
               <Layer>
+                <Border
+                  startPoint={startPoint}
+                  borderLength={borderLength}
+                  courtAreaXLength={courtAreaXLength}
+                  courtAreaYLength={courtAreaYLength}
+                />
                 <Group>
                   <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea startPoint={startPoint} />
