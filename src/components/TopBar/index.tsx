@@ -1,6 +1,7 @@
 import {
   Slider,
   SliderTrack,
+  SliderMark,
   SliderFilledTrack,
   SliderThumb,
   Flex,
@@ -29,14 +30,17 @@ import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
 // import { changeCourtName } from "@/store/reducer/courtNameSlice";
 import { changeBorderLength } from "@/store/reducer/courtSizeSlice";
+import {useState} from 'react';
 
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [sliderValue, setSliderValue] = useState(0.9);
   const { name: courtName } = useStoreSelector((state) => state.courtName);
   const dispatch = useDispatch();
 
   const handleChange = (val: number) => {
     console.log(val);
+    setSliderValue(val);
     let newBorderlength = 0;
     switch (val) {
       case 0:
@@ -147,6 +151,17 @@ const TopBar = () => {
           minWidth="30"
           onChangeEnd={(val) => handleChange(val)}
         >
+          <SliderMark
+            value={sliderValue}
+            textAlign='center'
+            color="brand.primary"
+            mt='-6'
+            ml='-5'
+            w='10'
+            fontSize="10px"
+          >
+            {sliderValue}m  
+          </ SliderMark>        
           <SliderTrack height="9px" borderRadius="6px" background="brand.primary">
             <SliderFilledTrack background="brand.primary" />
           </SliderTrack>
