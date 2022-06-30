@@ -6,18 +6,26 @@ import { changeTileColor } from "@/store/reducer/tileSlice";
 
 interface BorderProps {
   startPoint: ICourtStartPoint;
+  borderLength: number;
+  courtAreaXLength: number;
+  courtAreaYLength: number;
 }
-const Border: React.FC<BorderProps> = ({ startPoint }) => {
-  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
-    (state) => state.courtSize
-  );
+const Border: React.FC<BorderProps> = ({
+  startPoint,
+  borderLength,
+  courtAreaXLength,
+  courtAreaYLength,
+}) => {
+  // const { courtAreaXLength, courtAreaYLength} = useStoreSelector(
+  //   (state) => state.courtSize
+  // );
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const borderColor = useStoreSelector(
     (state) => state.tile.find((tile) => tile.location.includes("border"))?.color
   );
   const dispatch = useDispatch();
   const handleColorChange = () => {
-    if (!selectedColor) return;
+    if (selectedColor === "none") return;
     dispatch(changeTileColor({ selectedColor, location: "border" }));
   };
   return (

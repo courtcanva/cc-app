@@ -7,6 +7,7 @@ const HalfCourtData = {
   keyAreaWidth: 5790,
   keyAreaHeight: 4800,
   strokeWidth: 200,
+  borderLength: 0,
 };
 
 export default HalfCourtData;

@@ -9,9 +9,10 @@ import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import courtRatio from "../../utils/courtRatio";
 import ProHalfCourtData from "../MockCourtData/ProHalfCourtData";
+import Border from "../BasketballCourt/Border";
 
 const ProHalfCourt = () => {
-  const { courtAreaXLength, courtAreaYLength } = ProHalfCourtData;
+  const { courtAreaXLength, courtAreaYLength, borderLength } = ProHalfCourtData;
   const stageMargin = 2500;
   const startPoint = {
     X: stageMargin,
@@ -75,6 +76,12 @@ const ProHalfCourt = () => {
           >
             <Provider store={store}>
               <Layer>
+                <Border
+                  startPoint={startPoint}
+                  borderLength={borderLength}
+                  courtAreaXLength={courtAreaXLength}
+                  courtAreaYLength={courtAreaYLength}
+                />
                 <Group>
                   <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength} />
                   <ThreePointArea startPoint={startPoint} />

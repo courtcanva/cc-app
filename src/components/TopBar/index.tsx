@@ -9,26 +9,25 @@ import {
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverArrow,
-} from "@chakra-ui/react";
+import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 
 import ColorBoard from "./ColorBoard";
-import LoginModalContent from "../Login";
-
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
-import RbSvg from "@/assets/svg/TopBarSvg/rainbow.svg";
+import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
+import { useDispatch } from "react-redux";
+import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { name: courtName } = useStoreSelector((state) => state.courtName);
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
+  const dispatch = useDispatch();
+  const handleSelectedColor = () => {
+    dispatch(changeSelectedColor("none"));
+  };
 
   return (
     <SimpleGrid
@@ -57,19 +56,17 @@ const TopBar = () => {
 
       {/* center */}
       <Flex alignItems="center" gap={{ base: "0", lg: "5" }}>
-        <Popover closeOnBlur={false}>
+        <Popover onClose={handleSelectedColor} closeOnBlur={false}>
           <PopoverTrigger>
             <IconButton
               aria-label="Rb"
-              colorScheme="transparent"
-              icon={<RbSvg />}
+              icon={<PaintBucketSvg fill={selectedColor} />}
               display="fixed"
               variant="editorFooterIconBtn"
               data-testid="colorSelectBtn"
             />
           </PopoverTrigger>
           <PopoverContent width={300} height={168}>
-            <PopoverArrow />
             <PopoverBody>
               <ColorBoard />
             </PopoverBody>
@@ -119,7 +116,8 @@ const TopBar = () => {
           onClick={onOpen}
           data-testid="download-btn"
         />
-        <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent>
+        {/* TODO: Fetch user login state from redux */}
+        {/* <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent> */}
         <IconButton
           aria-label="Bin"
           colorScheme="transparent"

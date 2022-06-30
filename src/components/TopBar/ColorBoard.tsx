@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import mockPlateColors from "./colorList";
-import { useDispatch } from "react-redux";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
+import { useDispatch } from "react-redux";
+import { useStoreSelector } from "@/store/hooks";
+import svgIcon from "../../utils/svgIcon";
 
 const ColorBoard: React.FC = () => {
   const dispatch = useDispatch();
-  const handleChangeColor = (color: string) => {
-    dispatch(changeSelectedColor(color));
+  const [fillColor, setFillColor] = useState<string>("#344c5c");
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
+  const handleChangeColor = (paintColor: string): void => {
+    setFillColor(paintColor);
+    dispatch(changeSelectedColor(paintColor));
+    const iconUrl = // import svg string from utils and convert it to cur type (svg cannot be used as cursor directly)
+      `data:image/svg+xml;base64,` + window.btoa(unescape(encodeURIComponent(svgIcon(paintColor))));
+    document.body.style.cursor = `url(` + iconUrl + `) 24 24, auto`;
   };
+  if (typeof window !== "undefined" && selectedColor === "none") {
+    // check whether it is on browser, otherwise line 21 may cause error if it is on server.
+    document.body.style.cursor = "auto";
+  }
+
   return (
     <Flex
       wrap="wrap"
@@ -19,17 +32,17 @@ const ColorBoard: React.FC = () => {
       ml="2px"
       data-testid="ColorBoard"
     >
-      {mockPlateColors.map((color) => (
+      {mockPlateColors.map((paintColor) => (
         <Box
-          key={color}
-          bg={color}
-          data-testid={color}
+          as="button"
+          key={paintColor}
+          bg={paintColor}
+          data-testid={paintColor}
           w="30px"
           h="30px"
-          cursor="pointer"
-          _hover={{ border: "2px solid #40B484" }}
-          _active={{ border: "3px solid #40B484" }}
-          onClick={() => handleChangeColor(color)}
+          _hover={{ border: "2.5px solid #40B484" }}
+          _focus={{ border: "2.5px solid #40B484" }}
+          onClick={() => handleChangeColor(paintColor)}
         />
       ))}
     </Flex>
