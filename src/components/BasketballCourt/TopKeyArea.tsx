@@ -10,10 +10,10 @@ interface TopKeyAreaProps {
 }
 
 const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
-  const { keyAreaWidth, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
+  const { keyAreaWidth, threePointLineToCourtEdgeLenth, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
   const startPointX = startPoint.X + keyAreaWidth;
-  const startPointY = startPoint.Y + (threePointLineToCourtEdgeLength + threePointLineRadius);
+  const startPointY = startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius);
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const topKeyAreaColor = useStoreSelector(

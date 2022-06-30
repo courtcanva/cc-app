@@ -1,4 +1,3 @@
-import { MIN_DIMENSION_BOX } from "@/constants/courtSize";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
 export interface CourtSizeState {
@@ -8,7 +7,7 @@ export interface CourtSizeState {
 export const initialState: CourtSizeState = {
   courtAreaXLength: 28000,
   courtAreaYLength: 15000,
-  threePointLineToCourtEdgeLength: 900,
+  threePointLineToCourtEdgeLenth: 900,
   cornerThreePointLineLength: 1575,
   threePointLineRadius: 6600,
   keyAreaWidth: 5790,
