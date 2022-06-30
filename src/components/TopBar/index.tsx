@@ -29,13 +29,13 @@ import RbSvg from "@/assets/svg/TopBarSvg/rainbow.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
 
-import { changeBorderLength } from "@/store/reducer/courtSizeSlice";
+import { changeBorderLength, borderLength } from "@/store/reducer/courtSizeSlice";
 import {useState} from 'react';
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [sliderValue, setSliderValue] = useState(0.9);
+  const [sliderValue, setSliderValue] = useState(borderLength/1000);
   const { name: courtName } = useStoreSelector((state) => state.courtName);
   const dispatch = useDispatch();
 
@@ -147,7 +147,7 @@ const TopBar = () => {
         </Flex>
         <Slider
           aria-label="slider"
-          defaultValue={1}
+          defaultValue={sliderValue}
           min={0}
           max={1.8}
           step={0.3}

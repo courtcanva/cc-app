@@ -15,7 +15,7 @@ export const initialState: CourtSizeState = {
   keyAreaHeight: 4800,
   circleRadius: 1800,
   strokeWidth: 200,
-  borderLength: 1000,
+  borderLength: 1200,
 };
 
 export const courtSizeSlice = createSlice({
@@ -35,6 +35,7 @@ export const courtSizeSlice = createSlice({
 //   state.borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : initialState.borderLength;
 export const courtWhiteLine = initialState.strokeWidth / 3;
 export const dashedWhiteLine = initialState.strokeWidth / 5;
+export const borderLength = initialState.borderLength;
 
 export const { changeCourtSize, changeBorderLength } = courtSizeSlice.actions;
 export const courtSizeData = (state: RootState) => state.courtSize;
