@@ -32,24 +32,26 @@ interface Props {
 function LoginModalContent(props: Props) {
   const initialRef = React.useRef(null);
   const dispatch = useDispatch();
+  const { updateLoginData, onClose, isOpen } = props;
+
   // Send request to backend after the request from front-end has been approved by Google
   /* istanbul ignore next */
-  const handleSuccess = (codeResponse: any) => {
-    api(process.env.NEXT_PUBLIC_API_BASE_URI + "/auth/google"!, {
+  const handleSuccess = async (codeResponse: any) => {
+    const { data } = await api("/auth/google", {
       method: "post",
       requestData: codeResponse,
-    })
-      .then((res) => {
-        if (res.data) {
-          const data = res.data;
-          // Store user data into local storage after logging
-          localStorage.setItem("UserInfo", JSON.stringify(data));
-          dispatch(updateUserInfo(data));
-          props.updateLoginData(data);
-          props.onClose();
-        }
-      })
-      .catch((err) => console.warn(err));
+    });
+    try {
+      if (data) {
+        // Store user data into local storage after logging
+        localStorage.setItem("UserInfo", JSON.stringify(data));
+        dispatch(updateUserInfo(data));
+        updateLoginData(data);
+        onClose();
+      }
+    } catch (err) {
+      console.warn(err);
+    }
   };
 
   // Send authorization request to Google's Oauth server
@@ -60,8 +62,8 @@ function LoginModalContent(props: Props) {
 
   return (
     <Modal
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       isCentered
       size={"sm"}
       initialFocusRef={initialRef}
