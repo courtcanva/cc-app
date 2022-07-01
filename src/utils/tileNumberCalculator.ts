@@ -1,5 +1,5 @@
 import { MutableRefObject } from "react";
-interface hashObject {
+interface PixelColors {
   [prop: string]: number;
 }
 
@@ -18,10 +18,10 @@ interface IcolorResult {
 // refactor data to pixelColorInTile array,
 // each element is the an array contains [r,g,b,a] value of each pixel
 const refactorData = (data: number[]) => {
-  const array = [];
+  let array: string[] = [];
   for (let i = 0; i < data.length; i += 4) {
     const pixelColor = data.slice(i, i + 4).toString();
-    array.push(pixelColor);
+    array = array.concat([pixelColor]);
   }
   return array;
 };
@@ -29,23 +29,29 @@ const refactorData = (data: number[]) => {
 // set the color that takes most pixels as the tile color
 // by finding the most repeated element in pixelColorInTile array
 const determineTileColor = (arr: Array<string>) => {
-  const hash: hashObject = {};
-  let maxNum = 0;
-  let mostEle = null;
+  const singleTile: PixelColors = {};
+  let maxFrequency = 0;
+  let mostColor = null;
   for (let i = 0 as number; i < arr.length; i++) {
     // ignore white, black and blank color
-    arr[i] === "0,0,0,0" || arr[i] === "0,0,0,255" || arr[i] === "255,255,255,255"
-      ? (hash[arr[i]] = -1)
-      : hash[arr[i]] === undefined
-      ? (hash[arr[i]] = 1)
-      : hash[arr[i]]++;
+    if (["0,0,0,0", "0,0,0,255", "255,255,255,255"].includes(arr[i])) {
+      singleTile[arr[i]] = -1;
+    }
+    // if color occur for the first time
+    else if (singleTile[arr[i]] === undefined) {
+      singleTile[arr[i]] = 1;
+    }
+    // if color occurs repeatedly
+    else {
+      singleTile[arr[i]]++;
+    }
 
-    if (hash[arr[i]] > maxNum) {
-      mostEle = arr[i];
-      maxNum = hash[arr[i]];
+    if (singleTile[arr[i]] > maxFrequency) {
+      mostColor = arr[i];
+      maxFrequency = singleTile[arr[i]];
     }
   }
-  return mostEle;
+  return mostColor;
 };
 
 export const tileNumberCalculator = (
@@ -53,7 +59,7 @@ export const tileNumberCalculator = (
   courtAndTileInfo: IcourtAndTileInfo
 ) => {
   const { beginPointX, beginPointY, endPointX, endPointY, tileSize } = courtAndTileInfo;
-  const colorResult: IcolorResult[] = [];
+  let colorResult: IcolorResult[] = [];
   // scan horizontally
   for (let x = beginPointX; x < endPointX; x += tileSize) {
     // scan vertically
@@ -66,9 +72,9 @@ export const tileNumberCalculator = (
       const tileColor = determineTileColor(pixelColorInTile) as string;
       // sum up tile color in colorResult
       const colorIndex = colorResult.findIndex((obj) => obj.color === tileColor);
-      // if colorIndex does not exist, set quantity 1, otherwise quantity plus 1
+      // if colorIndex does not exist, this tile color occur the first time, set quantity 1, otherwise quantity plus 1
       !~colorIndex
-        ? colorResult.push({ color: tileColor, quantity: 1 })
+        ? (colorResult = colorResult.concat([{ color: tileColor, quantity: 1 }]))
         : (colorResult[colorIndex].quantity += 1);
     }
   }
