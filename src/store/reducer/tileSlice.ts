@@ -8,7 +8,6 @@ export interface TileState {
 export interface Court {
   location: string;
   color: string;
-  quantity: number;
 }
 
 export interface PriceBar {
@@ -20,32 +19,26 @@ export const initialState: TileState = {
     {
       location: "threePoint",
       color: "#72818B",
-      quantity: 1277,
     },
     {
       location: "courtArea",
       color: "#B61313",
-      quantity: 2472,
     },
     {
       location: "topKeyArea",
       color: "#B61313",
-      quantity: 104,
     },
     {
       location: "border",
       color: "#195955",
-      quantity: 1098,
     },
     {
       location: "keyArea",
       color: "#2C4E8A",
-      quantity: 637,
     },
     {
       location: "circleArea",
       color: "#606F14",
-      quantity: 130,
     },
   ],
   priceBar: [

@@ -1,5 +1,10 @@
 import store from "@/store/index";
-import reducer, { initialState, tileState, changeTileColor } from "@/store/reducer/tileSlice";
+import reducer, {
+  initialState,
+  changeTileColor,
+  TileState,
+  changeTileQuantity,
+} from "@/store/reducer/tileSlice";
 
 it("should return the initial state", () => {
   const state = store.getState().tile;
@@ -8,8 +13,28 @@ it("should return the initial state", () => {
 
 it("should change tile color", () => {
   // TODO: temporary solution, should be changed later
-  const previousState: tileState[] = initialState;
+  const previousState: TileState = initialState;
   expect(
     reducer(previousState, changeTileColor({ location: "border", selectedColor: "#195955" }))
   ).toEqual(previousState);
+});
+
+it("should change tile quantity", () => {
+  // TODO: temporary solution, should be changed later
+  const previousState: TileState = initialState;
+  expect(
+    reducer(
+      previousState,
+      changeTileQuantity([
+        { color: "#72818B", quantity: 1277 },
+        { color: "#B61313", quantity: 2576 },
+      ])
+    )
+  ).toEqual({
+    ...previousState,
+    priceBar: [
+      { color: "#72818B", quantity: 1277 },
+      { color: "#B61313", quantity: 2576 },
+    ],
+  });
 });

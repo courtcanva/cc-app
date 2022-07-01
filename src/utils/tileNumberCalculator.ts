@@ -92,7 +92,6 @@ export const debouncedCalculation = (
   if (canvas) {
     const ctx = canvas.getContext("2d");
     const tileNumResult = tileNumberCalculator(ctx, courtAndTileInfo);
-    console.log(tileNumResult);
     return tileNumResult;
   }
 };
