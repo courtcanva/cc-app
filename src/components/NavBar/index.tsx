@@ -93,9 +93,9 @@ const NavigationBar = () => {
             ></MenuButton>
           </Menu>
         ) : (
-            <button onClick={handleLogout} style={{ color: "white" }} >
-              Sign out
-            </button>
+          <button onClick={handleLogout} style={{ color: "white" }}>
+            Sign out
+          </button>
         )}
         <LoginModalContent
           isOpen={isOpen}
