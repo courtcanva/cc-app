@@ -1,15 +1,16 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import EditorFooter from "@/components/EditorFooter";
+import renderWithMockedProvider from "../../utils";
 
 describe("EditorFooter", () => {
   it("should see the switch button", () => {
-    render(<EditorFooter />);
+    renderWithMockedProvider(<EditorFooter />);
     const switchButton = screen.getByTestId("switch-btn");
     expect(switchButton).toBeInTheDocument();
   });
 
   it("should toggle between on and off", () => {
-    const { getByTestId } = render(<EditorFooter />);
+    const { getByTestId } = renderWithMockedProvider(<EditorFooter />);
     const switchButton = getByTestId("switch-btn");
     fireEvent.click(switchButton);
     expect(getByTestId("ruler-label")).toHaveTextContent("RULER OFF");
@@ -17,7 +18,7 @@ describe("EditorFooter", () => {
     expect(getByTestId("ruler-label")).toHaveTextContent("RULER ON");
   });
   it("Each button in the navbar needs to display the correct text", () => {
-    render(<EditorFooter />);
+    renderWithMockedProvider(<EditorFooter />);
 
     const zoomOutElement = screen.getByTestId("zoom-out-btn");
     const zoomInElement = screen.getByTestId("zoom-in-btn");
