@@ -12,16 +12,20 @@ import EditorDesignName from "@/components/NavBar/EditorDesignName";
 import LoginModalContent from "../Login";
 import { useEffect, useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
+import { userInfo } from "os";
 
 const NavigationBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  let userInfo;
-  if (typeof window !== "undefined") {
-    userInfo = JSON.parse(localStorage.getItem("UserInfos")!);
-  }
-  // TODO: Try using customHooks later:https://usehooks.com/useLocalStorage/
+
+  // Get user info from local storage
+  const getInfo = () => {
+    if (typeof window == "undefined") return;
+    const userInfo = JSON.parse(localStorage.getItem("UserInfo")!);
+    return userInfo;
+  };
+
   /* istanbul ignore next */
-  const [loginData, setLoginData] = useState(userInfo ? userInfo : null);
+  const [loginData, setLoginData] = useState(getInfo());
 
   /* istanbul ignore next */
   const updateLoginData = (loginData: any) => {
