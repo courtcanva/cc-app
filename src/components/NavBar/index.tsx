@@ -39,6 +39,7 @@ const NavigationBar = () => {
   /* istanbul ignore next */
   const handleLogout = () => {
     localStorage.removeItem("UserInfo");
+    setLoginData(null);
   };
 
   return (
@@ -92,11 +93,9 @@ const NavigationBar = () => {
             ></MenuButton>
           </Menu>
         ) : (
-          <form method="post">
-            <button onClick={handleLogout} style={{ color: "white" }} type="submit">
+            <button onClick={handleLogout} style={{ color: "white" }} >
               Sign out
             </button>
-          </form>
         )}
         <LoginModalContent
           isOpen={isOpen}

@@ -61,13 +61,7 @@ function LoginModalContent(props: Props) {
   });
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      isCentered
-      size={"sm"}
-      initialFocusRef={initialRef}
-    >
+    <Modal isOpen={isOpen} onClose={onClose} isCentered size={"sm"} initialFocusRef={initialRef}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
