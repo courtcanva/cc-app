@@ -16,14 +16,12 @@ import { useStoreSelector } from "@/store/hooks";
 const NavigationBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   let userInfo;
-  if(typeof window !== "undefined"){
-    userInfo = JSON.parse(localStorage.getItem("UserInfos")!)
+  if (typeof window !== "undefined") {
+    userInfo = JSON.parse(localStorage.getItem("UserInfos")!);
   }
   // TODO: Try using customHooks later:https://usehooks.com/useLocalStorage/
   /* istanbul ignore next */
-  const [loginData, setLoginData] = useState(
-    userInfo? userInfo : null
-  );
+  const [loginData, setLoginData] = useState(userInfo ? userInfo : null);
 
   /* istanbul ignore next */
   const updateLoginData = (loginData: any) => {
