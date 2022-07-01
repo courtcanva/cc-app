@@ -25,7 +25,7 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const threePointAreaColor = useStoreSelector(
-    (state) => state.tile.find((tile) => tile.location.includes("threePoint"))?.color
+    (state) => state.tile.court?.find((tile) => tile.location.includes("threePoint"))?.color
   );
   const dispatch = useDispatch();
   const handleColorChange = () => {

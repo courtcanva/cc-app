@@ -15,7 +15,7 @@ const KeyArea: React.FC<KeyAreaProps> = ({ startPoint }) => {
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const keyAreaColor = useStoreSelector(
-    (state) => state.tile.find((tile) => tile.location.includes("keyArea"))?.color
+    (state) => state.tile.court?.find((tile) => tile.location.includes("keyArea"))?.color
   );
   const dispatch = useDispatch();
   const handleColorChange = () => {

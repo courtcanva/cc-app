@@ -17,7 +17,7 @@ const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const topKeyAreaColor = useStoreSelector(
-    (state) => state.tile.find((tile) => tile.location.includes("topKeyArea"))?.color
+    (state) => state.tile.court?.find((tile) => tile.location.includes("topKeyArea"))?.color
   );
   const dispatch = useDispatch();
   const handleColorChange = () => {

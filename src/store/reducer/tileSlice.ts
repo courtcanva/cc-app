@@ -1,44 +1,76 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
 
-export interface tileState {
+export interface TileState {
+  court: Court[];
+  priceBar: PriceBar[];
+}
+export interface Court {
   location: string;
   color: string;
   quantity: number;
 }
 
-export const initialState: tileState[] = [
-  {
-    location: "threePoint",
-    color: "#72818B",
-    quantity: 230,
-  },
-  {
-    location: "courtArea",
-    color: "#B61313",
-    quantity: 130,
-  },
-  {
-    location: "topKeyArea",
-    color: "#B61313",
-    quantity: 130,
-  },
-  {
-    location: "border",
-    color: "#195955",
-    quantity: 110,
-  },
-  {
-    location: "keyArea",
-    color: "#2C4E8A",
-    quantity: 100,
-  },
-  {
-    location: "circleArea",
-    color: "#606F14",
-    quantity: 130,
-  },
-];
+export interface PriceBar {
+  color: string;
+  quantity: number;
+}
+export const initialState: TileState = {
+  court: [
+    {
+      location: "threePoint",
+      color: "#72818B",
+      quantity: 1277,
+    },
+    {
+      location: "courtArea",
+      color: "#B61313",
+      quantity: 2472,
+    },
+    {
+      location: "topKeyArea",
+      color: "#B61313",
+      quantity: 104,
+    },
+    {
+      location: "border",
+      color: "#195955",
+      quantity: 1098,
+    },
+    {
+      location: "keyArea",
+      color: "#2C4E8A",
+      quantity: 637,
+    },
+    {
+      location: "circleArea",
+      color: "#606F14",
+      quantity: 130,
+    },
+  ],
+  priceBar: [
+    {
+      color: "#72818B",
+      quantity: 1277,
+    },
+    {
+      color: "#B61313",
+      quantity: 2576,
+    },
+    {
+      color: "#195955",
+      quantity: 1098,
+    },
+    {
+      color: "#2C4E8A",
+      quantity: 637,
+    },
+    {
+      color: "#606F14",
+      quantity: 130,
+    },
+  ],
+};
 
 export const tileSlice = createSlice({
   name: "tile",
@@ -46,15 +78,18 @@ export const tileSlice = createSlice({
   reducers: {
     /* istanbul ignore next */
     changeTileColor: (state, action: PayloadAction<any>) => {
-      const selectedLocation = state.findIndex(
+      const selectedLocation = state.court.findIndex(
         (object) => object.location === action.payload.location
       );
-      state[selectedLocation].color = action.payload.selectedColor;
+      state.court[selectedLocation].color = action.payload.selectedColor;
+    },
+    changeTileQuantity: (state, action: PayloadAction<any>) => {
+      state.priceBar = action.payload;
     },
   },
 });
 
-export const { changeTileColor } = tileSlice.actions;
+export const { changeTileColor, changeTileQuantity } = tileSlice.actions;
 
 export const TileData = (state: RootState) => state.tile;
 

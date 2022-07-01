@@ -14,7 +14,7 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const circleAreaColor = useStoreSelector(
-    (state) => state.tile.find((tile) => tile.location.includes("circleArea"))?.color
+    (state) => state.tile.court?.find((tile) => tile.location.includes("circleArea"))?.color
   );
   const dispatch = useDispatch();
   const handleColorChange = () => {

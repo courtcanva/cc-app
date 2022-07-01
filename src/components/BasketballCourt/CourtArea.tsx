@@ -15,7 +15,7 @@ const CourtArea: React.FC<CourtAreaProps> = ({ courtWidth, startPoint }) => {
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const courtAreaColor = useStoreSelector(
-    (state) => state.tile.find((tile) => tile.location.includes("courtArea"))?.color
+    (state) => state.tile.court?.find((tile) => tile.location.includes("courtArea"))?.color
   );
   const dispatch = useDispatch();
   const handleColorChange = () => {

@@ -3,7 +3,7 @@ import React from "react";
 import { useStoreSelector } from "@/store/hooks";
 
 const TileColorBoard: React.FC = () => {
-  const tiles = useStoreSelector((state) => state.tile);
+  const tiles = useStoreSelector((state) => state.tile.priceBar);
   return (
     <>
       <Flex height="64px">
@@ -12,9 +12,9 @@ const TileColorBoard: React.FC = () => {
             Estimated Tiles:
           </Text>
           <Center gap="8px" height="35px" marginLeft="8px" data-testid="tileBoard">
-            {tiles.map((tile) => (
+            {tiles?.map((tile) => (
               <Center
-                key={tile.location}
+                key={tile.color}
                 backgroundColor={tile.color}
                 width={{ base: "40px", lg: "60px", xl: "85px" }}
                 height={{ base: "20px", lg: "25px", xl: "35px" }}
