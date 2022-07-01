@@ -13,10 +13,9 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import { useStoreSelector } from "@/store/hooks";
 import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimensionLine";
-import { debouncedCalculation } from "@/utils/tileNumberCalculator";
+import { calculation } from "@/utils/tileNumberCalculator";
 import { useDispatch } from "react-redux";
 import { changeTileQuantity } from "@/store/reducer/tileSlice";
-import { clearTimeout, setTimeout } from "timers";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -48,7 +47,7 @@ const ProFullCourt = () => {
 
   const canvasRef = useRef(null);
 
-  const tileCalculation = useCallback(debouncedCalculation, []);
+  const tileCalculation = useCallback(calculation, []);
 
   const tileColorState = useStoreSelector((state) => state.tile.court);
 
