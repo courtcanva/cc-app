@@ -12,18 +12,22 @@ import EditorDesignName from "@/components/NavBar/EditorDesignName";
 import LoginModalContent from "../Login";
 import { useEffect, useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
+import { userInfo } from "os";
 
 const NavigationBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // TODO: Try using customHooks later:https://usehooks.com/useLocalStorage/
+
+  // Get user info from local storage
+  const getInfo = () => {
+    if (typeof window !== "undefined") {
+      const userInfo = JSON.parse(localStorage.getItem("UserInfos")!);
+      return userInfo;
+    }
+    return;
+  };
+
   /* istanbul ignore next */
-  const [loginData, setLoginData] = useState(
-    typeof window !== "undefined"
-      ? localStorage.getItem("loginData")
-        ? JSON.parse(localStorage.getItem("loginData")!)
-        : null
-      : null
-  );
+  const [loginData, setLoginData] = useState(getInfo());
 
   /* istanbul ignore next */
   const updateLoginData = (loginData: any) => {
@@ -39,6 +43,7 @@ const NavigationBar = () => {
   /* istanbul ignore next */
   const handleLogout = () => {
     localStorage.removeItem("UserInfo");
+    setLoginData(null);
   };
 
   return (
@@ -92,11 +97,7 @@ const NavigationBar = () => {
             ></MenuButton>
           </Menu>
         ) : (
-          <form method="post">
-            <button onClick={handleLogout} style={{ color: "white" }} type="submit">
-              Sign out
-            </button>
-          </form>
+          <Button onClick={handleLogout}>Sign out</Button>
         )}
         <LoginModalContent
           isOpen={isOpen}
