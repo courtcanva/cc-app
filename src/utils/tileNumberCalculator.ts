@@ -33,8 +33,8 @@ const determineTileColor = (arr: Array<string>) => {
   let maxFrequency = 0;
   let mostColor = null;
   for (let i = 0 as number; i < arr.length; i++) {
-    // ignore white, black and blank color
-    if (["0,0,0,0", "0,0,0,255", "255,255,255,255"].includes(arr[i])) {
+    // ignore white and blank color
+    if (["0,0,0,0", "255,255,255,255"].includes(arr[i])) {
       singleTile[arr[i]] = -1;
     }
     // if color occur for the first time
@@ -90,7 +90,7 @@ export const tileNumberCalculator = (
   return filteredResult;
 };
 
-export const debouncedCalculation = (
+export const calculation = (
   canvasRef: MutableRefObject<null>,
   courtAndTileInfo: IcourtAndTileInfo
 ) => {
