@@ -100,7 +100,12 @@ const ProFullCourt = () => {
             <Provider store={store}>
               <Layer ref={canvasRef}>
                 {/* border only for pro full court size */}
-                <Border startPoint={startPoint} />
+                <Border
+                  startPoint={startPoint}
+                  borderLength={borderLength}
+                  courtAreaXLength={courtAreaXLength}
+                  courtAreaYLength={courtAreaYLength}
+                />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}
                 <CourtDimension startPoint={startPoint} />
                 <BorderDimension startPoint={startPoint} />

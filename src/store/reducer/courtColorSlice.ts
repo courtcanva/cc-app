@@ -5,7 +5,7 @@ export interface CourtColorState {
 }
 
 export const initialState: CourtColorState = {
-  selectedColor: "",
+  selectedColor: "none",
 };
 
 export const CourtColorSlice = createSlice({

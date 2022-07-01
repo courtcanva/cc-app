@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import courtReducer from "./reducer/courtSizeSlice";
 import courtNameReducer from "./reducer/courtNameSlice";
+import userReducer from "./reducer/userSlice";
 import tileReducer from "./reducer/tileSlice";
 import courtColorReducer from "./reducer/courtColorSlice";
 export const makeStore = () =>
@@ -10,6 +11,7 @@ export const makeStore = () =>
       courtName: courtNameReducer,
       tile: tileReducer,
       courtColor: courtColorReducer,
+      user: userReducer,
     },
   });
 
