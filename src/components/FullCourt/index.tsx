@@ -1,7 +1,7 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
-import { ReactReduxContext, Provider } from "react-redux";
+import { ReactReduxContext, Provider, useDispatch } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
@@ -11,6 +11,10 @@ import Border from "../BasketballCourt/Border";
 import courtRatio from "../../utils/courtRatio";
 import FullCourtData from "../MockCourtData/FullCourtData";
 import CourtDimension from "../BasketballCourt/CourtDimension";
+import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
+import { useStoreSelector } from "@/store/hooks";
+import { changeTileQuantity } from "@/store/reducer/tileSlice";
+import { calculation } from "@/utils/tileNumberCalculator";
 
 const FullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = FullCourtData;
@@ -20,13 +24,23 @@ const FullCourt = () => {
     Y: stageMargin,
   };
 
-  const [court, setCourt] = useState({
-    stageWidth: 0,
-    stageHeight: 0,
-    courtRatio: 0,
-  });
-
   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+
+  const courtAndInfo = getCourtAndTileInfo(
+    courtAreaXLength,
+    courtAreaYLength,
+    borderLength,
+    stageMargin,
+    size
+  );
+  const court = courtAndInfo.court;
+  const courtAndTileInfo = courtAndInfo.courtAndTileInfo;
+
+  const canvasRef = useRef(null);
+
+  const tileCalculation = useCallback(calculation, []);
+
+  const tileColorState = useStoreSelector((state) => state.tile.court);
 
   useLayoutEffect(() => {
     const checkSize = () => {
@@ -39,16 +53,14 @@ const FullCourt = () => {
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
+  const dispatch = useDispatch();
   useEffect(() => {
-    const courtData = {
-      courtAreaX: courtAreaXLength,
-      courtAreaY: courtAreaYLength,
-      margin: stageMargin,
-      windowHeight: size.height,
-      windowWidth: size.width,
-    };
-    setCourt(courtRatio(courtData));
-  }, [size]);
+    const timer = setTimeout(() => {
+      const tileNumberResult = tileCalculation(canvasRef, courtAndTileInfo);
+      dispatch(changeTileQuantity(tileNumberResult));
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [tileColorState]);
 
   return (
     <Flex
@@ -76,7 +88,7 @@ const FullCourt = () => {
             data-testid="stage"
           >
             <Provider store={store}>
-              <Layer>
+              <Layer ref={canvasRef}>
                 <Border
                   startPoint={startPoint}
                   borderLength={borderLength}
