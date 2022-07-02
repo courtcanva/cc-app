@@ -21,9 +21,6 @@ const Border: React.FC<BorderProps> = ({
   //   (state) => state.courtSize
   // );
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
-  // const borderColor = useStoreSelector(
-  //   (state) => state.tile.court?.find((tile) => tile.location.includes("border"))?.color
-  // );
   const borderColor = getColor("border");
   const dispatch = useDispatch();
   const handleColorChange = () => {
