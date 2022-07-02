@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useLayoutEffect } from "react";
+import { useState, useRef, useCallback, useLayoutEffect, useEffect } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -13,7 +13,9 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import { useStoreSelector } from "@/store/hooks";
 import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimension";
-import { debouncedCalculation } from "@/utils/tileNumberCalculator";
+import { calculation } from "@/utils/tileNumberCalculator";
+import { useDispatch } from "react-redux";
+import { changeTileQuantity } from "@/store/reducer/tileSlice";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -45,7 +47,9 @@ const ProFullCourt = () => {
 
   const canvasRef = useRef(null);
 
-  const tileCalculation = useCallback(debouncedCalculation, []);
+  const tileCalculation = useCallback(calculation, []);
+
+  const tileColorState = useStoreSelector((state) => state.tile.court);
 
   useLayoutEffect(() => {
     const checkSize = () => {
@@ -58,7 +62,14 @@ const ProFullCourt = () => {
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  tileCalculation(canvasRef, courtAndTileInfo);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const tileNumberResult = tileCalculation(canvasRef, courtAndTileInfo);
+      dispatch(changeTileQuantity(tileNumberResult));
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [tileColorState]);
 
   return (
     <Flex

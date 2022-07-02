@@ -4,6 +4,7 @@ import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { courtWhiteLine } from "@/store/reducer/courtSizeSlice";
 import { useDispatch } from "react-redux";
 import { changeTileColor } from "@/store/reducer/tileSlice";
+import { getColor } from "@/utils/getAreaColor";
 
 interface CourtAreaProps {
   startPoint: ICourtStartPoint;
@@ -14,9 +15,7 @@ const CourtArea: React.FC<CourtAreaProps> = ({ courtWidth, startPoint }) => {
   const { courtAreaYLength } = useStoreSelector((state) => state.courtSize);
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
-  const courtAreaColor = useStoreSelector(
-    (state) => state.tile.find((tile) => tile.location.includes("courtArea"))?.color
-  );
+  const courtAreaColor = getColor("courtArea");
   const dispatch = useDispatch();
   const handleColorChange = () => {
     if (selectedColor === "none") return;

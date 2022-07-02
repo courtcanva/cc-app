@@ -1,6 +1,5 @@
 import { MutableRefObject } from "react";
-import debounce from "lodash.debounce";
-interface hashObject {
+interface PixelColors {
   [prop: string]: number;
 }
 
@@ -12,13 +11,17 @@ interface IcourtAndTileInfo {
   tileSize: number;
 }
 
+interface IcolorResult {
+  color: string;
+  quantity: number;
+}
 // refactor data to pixelColorInTile array,
 // each element is the an array contains [r,g,b,a] value of each pixel
 const refactorData = (data: number[]) => {
-  const array = [];
+  let array: string[] = [];
   for (let i = 0; i < data.length; i += 4) {
     const pixelColor = data.slice(i, i + 4).toString();
-    array.push(pixelColor);
+    array = array.concat([pixelColor]);
   }
   return array;
 };
@@ -26,23 +29,29 @@ const refactorData = (data: number[]) => {
 // set the color that takes most pixels as the tile color
 // by finding the most repeated element in pixelColorInTile array
 const determineTileColor = (arr: Array<string>) => {
-  const hash: hashObject = {};
-  let maxNum = 0;
-  let mostEle = null;
+  const singleTile: PixelColors = {};
+  let maxFrequency = 0;
+  let mostColor = null;
   for (let i = 0 as number; i < arr.length; i++) {
-    // ignore white, black and blank color
-    arr[i] === "0,0,0,0" || arr[i] === "0,0,0,255" || arr[i] === "255,255,255,255"
-      ? (hash[arr[i]] = -1)
-      : hash[arr[i]] === undefined
-      ? (hash[arr[i]] = 1)
-      : hash[arr[i]]++;
+    // ignore white and blank color
+    if (["0,0,0,0", "255,255,255,255"].includes(arr[i])) {
+      singleTile[arr[i]] = -1;
+    }
+    // if color occur for the first time
+    else if (singleTile[arr[i]] === undefined) {
+      singleTile[arr[i]] = 1;
+    }
+    // if color occurs repeatedly
+    else {
+      singleTile[arr[i]]++;
+    }
 
-    if (hash[arr[i]] > maxNum) {
-      mostEle = arr[i];
-      maxNum = hash[arr[i]];
+    if (singleTile[arr[i]] > maxFrequency) {
+      mostColor = arr[i];
+      maxFrequency = singleTile[arr[i]];
     }
   }
-  return mostEle;
+  return mostColor;
 };
 
 export const tileNumberCalculator = (
@@ -50,7 +59,7 @@ export const tileNumberCalculator = (
   courtAndTileInfo: IcourtAndTileInfo
 ) => {
   const { beginPointX, beginPointY, endPointX, endPointY, tileSize } = courtAndTileInfo;
-  const rgbaResult: hashObject = {};
+  let colorResult: IcolorResult[] = [];
   // scan horizontally
   for (let x = beginPointX; x < endPointX; x += tileSize) {
     // scan vertically
@@ -61,23 +70,54 @@ export const tileNumberCalculator = (
       const pixelColorInTile = refactorData(data);
       // determine the color of unit tile
       const tileColor = determineTileColor(pixelColorInTile) as string;
-      // sum up tile color in rgbaResult
-      rgbaResult[tileColor] === undefined ? (rgbaResult[tileColor] = 1) : rgbaResult[tileColor]++;
+      // sum up tile color in colorResult
+      const colorIndex = colorResult.findIndex((obj) => obj.color === tileColor);
+      // if colorIndex does not exist, this tile color occur the first time, set quantity 1, otherwise quantity plus 1
+      !~colorIndex
+        ? (colorResult = colorResult.concat([{ color: tileColor, quantity: 1 }]))
+        : (colorResult[colorIndex].quantity += 1);
     }
   }
-  return rgbaResult;
+
+  // remove object in result that color is null
+  const filteredResult = colorResult.filter((obj) => obj.color);
+
+  // transfer rgba to hex of colorResult
+  filteredResult.forEach((obj) => {
+    obj.color && (obj.color = rgbaToHex(obj.color));
+  });
+
+  return filteredResult;
 };
 
-export const debouncedCalculation = debounce(
-  (canvasRef: MutableRefObject<null>, courtAndTileInfo: IcourtAndTileInfo) => {
-    const canvas = canvasRef.current as unknown as HTMLCanvasElement;
-    if (canvas) {
-      const ctx = canvas.getContext("2d");
-      const tileNumResult = tileNumberCalculator(ctx, courtAndTileInfo);
-      // To Delete later, console for preview only
-      console.log(tileNumResult);
-      return tileNumResult;
-    }
-  },
-  500
-);
+export const calculation = (
+  canvasRef: MutableRefObject<null>,
+  courtAndTileInfo: IcourtAndTileInfo
+) => {
+  const canvas = canvasRef.current as unknown as HTMLCanvasElement;
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    const tileNumResult = tileNumberCalculator(ctx, courtAndTileInfo);
+    return tileNumResult;
+  }
+};
+
+// transfer rgbaString to HexString, only for solid color
+const rgbaToHex = (rgbaString: string) => {
+  // separate numbers in rgbaString and put into an array
+  const rgbaArray = rgbaString.split(",").map((element) => Number(element));
+  let r = rgbaArray[0].toString(16);
+  let g = rgbaArray[1].toString(16);
+  let b = rgbaArray[2].toString(16);
+  const a = rgbaArray[3];
+  // only transfer solid color with a=255
+  if (a === 255) {
+    r.length === 1 ? (r = "0" + r) : r;
+    g.length === 1 ? (g = "0" + g) : g;
+    b.length === 1 ? (b = "0" + b) : b;
+    return "#" + r + g + b;
+  } else {
+    // otherwise return original rgbaString
+    return rgbaString;
+  }
+};
