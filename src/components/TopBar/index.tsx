@@ -17,7 +17,7 @@ import {
   PopoverBody,
   PopoverArrow,
 } from "@chakra-ui/react";
-import { TriangleUpIcon } from '@chakra-ui/icons';
+import { TriangleUpIcon } from "@chakra-ui/icons";
 import { useStoreSelector } from "@/store/hooks";
 
 import ColorBoard from "./ColorBoard";
@@ -30,47 +30,19 @@ import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
 
 import { changeBorderLength, borderLength } from "@/store/reducer/courtSizeSlice";
-import {useState} from 'react';
+import { useState } from "react";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [sliderValue, setSliderValue] = useState(borderLength/1000);
+  const [sliderValue, setSliderValue] = useState(borderLength / 1000);
   const { name: courtName } = useStoreSelector((state) => state.courtName);
   const dispatch = useDispatch();
 
   const handleChange = (val: number) => {
-    console.log(val);
     setSliderValue(val);
-    let newBorderlength = 0;
-    switch (val) {
-      case 0:
-        newBorderlength = 0;
-        break;
-      case 0.3:
-        newBorderlength = 300;
-        break;
-      case 0.6:
-        newBorderlength = 600;
-        break;
-      case 0.9:
-        newBorderlength = 900;
-        break;
-      case 1.2:
-        newBorderlength = 1200;
-        break;
-      case 1.5:
-        newBorderlength = 1500;
-        break;
-      case 1.8:
-        newBorderlength = 1800;
-        break;
-      default:
-        newBorderlength = 1800;
-        break;
-    }
-    dispatch(changeBorderLength(newBorderlength));
-  }
+    dispatch(changeBorderLength(val * 1000));
+  };
   const handleSelectedColor = () => {
     dispatch(changeSelectedColor(""));
   };
@@ -157,20 +129,26 @@ const TopBar = () => {
         >
           <SliderMark
             value={sliderValue}
-            textAlign='center'
+            textAlign="center"
             color="brand.primary"
-            mt='-6'
-            ml='-5'
-            w='10'
+            mt="-6"
+            ml="-5"
+            w="10"
             fontSize="10px"
           >
-            {sliderValue}m  
-          </ SliderMark>        
+            {sliderValue}m
+          </SliderMark>
           <SliderTrack height="9px" borderRadius="6px" background="brand.primary">
             <SliderFilledTrack background="brand.primary" />
           </SliderTrack>
-          <SliderThumb background="transparent" color="brand.primary" border="none" mt={3} as={TriangleUpIcon} boxShadow="none">
-          </SliderThumb>
+          <SliderThumb
+            background="transparent"
+            color="brand.primary"
+            border="none"
+            mt={3}
+            as={TriangleUpIcon}
+            boxShadow="none"
+          ></SliderThumb>
         </Slider>
       </Flex>
 
