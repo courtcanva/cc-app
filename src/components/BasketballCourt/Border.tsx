@@ -3,6 +3,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
 import { changeTileColor } from "@/store/reducer/tileSlice";
+import { getColor } from "@/utils/getAreaColor";
 
 interface BorderProps {
   startPoint: ICourtStartPoint;
@@ -20,9 +21,10 @@ const Border: React.FC<BorderProps> = ({
   //   (state) => state.courtSize
   // );
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
-  const borderColor = useStoreSelector(
-    (state) => state.tile.court?.find((tile) => tile.location.includes("border"))?.color
-  );
+  // const borderColor = useStoreSelector(
+  //   (state) => state.tile.court?.find((tile) => tile.location.includes("border"))?.color
+  // );
+  const borderColor = getColor("border");
   const dispatch = useDispatch();
   const handleColorChange = () => {
     if (selectedColor === "none") return;
