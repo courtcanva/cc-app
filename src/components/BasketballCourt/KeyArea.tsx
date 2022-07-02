@@ -10,7 +10,7 @@ interface KeyAreaProps {
 }
 
 const KeyArea: React.FC<KeyAreaProps> = ({ startPoint }) => {
-  const { threePointLineToCourtEdgeLenth, threePointLineRadius, keyAreaWidth, keyAreaHeight } =
+  const { threePointLineToCourtEdgeLength, threePointLineRadius, keyAreaWidth, keyAreaHeight } =
     useStoreSelector((state) => state.courtSize);
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
@@ -30,7 +30,7 @@ const KeyArea: React.FC<KeyAreaProps> = ({ startPoint }) => {
       stroke="white"
       strokeWidth={courtWhiteLine}
       x={startPoint.X}
-      y={startPoint.Y + threePointLineToCourtEdgeLenth + threePointLineRadius - keyAreaHeight / 2}
+      y={startPoint.Y + threePointLineToCourtEdgeLength + threePointLineRadius - keyAreaHeight / 2}
       onClick={handleColorChange}
     />
   );
