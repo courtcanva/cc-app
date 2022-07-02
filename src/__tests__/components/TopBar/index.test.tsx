@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import TopBar from "@/components/TopBar";
 import renderWithMockedProvider from "../../utils";
 
@@ -39,5 +39,11 @@ describe("TopBar", () => {
     // TODO: Add this test after finishing putting user login status into redux
     // const loginModalDialog = screen.getByRole("dialog");
     // await waitFor(() => expect(loginModalDialog).toBeVisible());
+  });
+
+  it("Should dispatch the action", () => {
+    const dispatchAction = jest.spyOn(document, "dispatch");
+    render(<TopBar />);
+    expect(dispatchAction).toHaveBeenCalled();
   });
 });

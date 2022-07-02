@@ -117,6 +117,7 @@ const TopBar = () => {
             width
           </Text>
         </Flex>
+        <Text fontSize="lg">0</Text>
         <Slider
           aria-label="slider"
           defaultValue={sliderValue}
@@ -125,7 +126,7 @@ const TopBar = () => {
           step={0.3}
           maxW="40"
           minWidth="30"
-          onChangeEnd={(val) => handleChange(val)}
+          onChange={(val: number) => handleChange(val)}
         >
           <SliderMark
             value={sliderValue}
@@ -150,6 +151,7 @@ const TopBar = () => {
             boxShadow="none"
           ></SliderThumb>
         </Slider>
+        <Text fontSize="lg">1.8</Text>
       </Flex>
 
       {/* right */}

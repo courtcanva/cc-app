@@ -96,7 +96,7 @@ const ProFullCourt = () => {
                 />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}
                 <CourtDimension startPoint={startPoint} />
-                <BorderDimension startPoint={startPoint} />
+                {/* <BorderDimension startPoint={startPoint} /> */}
                 {/* left side of pro full court*/}
                 <Group>
                   <DashedLine startPoint={startPoint} />
