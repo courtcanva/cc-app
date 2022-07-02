@@ -12,7 +12,7 @@ import courtRatio from "../../utils/courtRatio";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import { useStoreSelector } from "@/store/hooks";
 import DashedLine from "../BasketballCourt/DashedLine";
-import BorderDimension from "../BasketballCourt/BorderDimensionLine";
+import BorderDimension from "../BasketballCourt/BorderDimension";
 import { calculation } from "@/utils/tileNumberCalculator";
 import { useDispatch } from "react-redux";
 import { changeTileQuantity } from "@/store/reducer/tileSlice";

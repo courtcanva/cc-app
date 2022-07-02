@@ -10,6 +10,7 @@ interface DimensionTextProps {
 
 const DimensionText: React.FC<DimensionTextProps> = ({ startPoint, text }) => {
   const { borderLength } = useStoreSelector((state) => state.courtSize);
+  const { ruler } = useStoreSelector((state) => state.rulerControl);
   const dimensionColor = borderLength < MIN_DIMENSION_BOX ? "black" : "white";
   const borderSize = borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : borderLength;
 
@@ -24,6 +25,7 @@ const DimensionText: React.FC<DimensionTextProps> = ({ startPoint, text }) => {
       fill={dimensionColor}
       x={startPoint.X}
       y={startPoint.Y}
+      visible={ruler}
     />
   );
 };
