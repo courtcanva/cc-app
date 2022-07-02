@@ -10,22 +10,20 @@ import {
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
+import { TriangleUpIcon } from "@chakra-ui/icons";
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverBody,
   PopoverArrow,
+  PopoverBody,
 } from "@chakra-ui/react";
-import { TriangleUpIcon } from "@chakra-ui/icons";
 import { useStoreSelector } from "@/store/hooks";
 
 import ColorBoard from "./ColorBoard";
-import LoginModalContent from "../Login";
-
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
-import RbSvg from "@/assets/svg/TopBarSvg/rainbow.svg";
+import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
 
@@ -37,6 +35,7 @@ const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
   const { name: courtName } = useStoreSelector((state) => state.courtName);
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const dispatch = useDispatch();
 
   const handleChange = (val: number) => {
@@ -44,8 +43,9 @@ const TopBar = () => {
     dispatch(changeBorderLength(val * 1000));
   };
   const handleSelectedColor = () => {
-    dispatch(changeSelectedColor(""));
+    dispatch(changeSelectedColor("none"));
   };
+
   return (
     <SimpleGrid
       columns={3}
@@ -77,15 +77,13 @@ const TopBar = () => {
           <PopoverTrigger>
             <IconButton
               aria-label="Rb"
-              colorScheme="transparent"
-              icon={<RbSvg />}
+              icon={<PaintBucketSvg fill={selectedColor} />}
               display="fixed"
               variant="editorFooterIconBtn"
               data-testid="colorSelectBtn"
             />
           </PopoverTrigger>
           <PopoverContent width={300} height={168}>
-            <PopoverArrow />
             <PopoverBody>
               <ColorBoard />
             </PopoverBody>

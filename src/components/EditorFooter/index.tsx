@@ -2,9 +2,16 @@ import { Box, Flex, IconButton, FormControl, Switch, FormLabel } from "@chakra-u
 import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
 import { BiHelpCircle } from "react-icons/bi";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { switchRuler } from "@/store/reducer/rulerControlSlice";
 
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
+  const dispatch = useDispatch();
+  const handleRulerState = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRuler(e.target.checked ? "RULER ON" : "RULER OFF");
+    dispatch(switchRuler(e.target.checked));
+  };
   return (
     <Flex
       position="fixed"
@@ -61,9 +68,7 @@ const EditorFooter = () => {
             }}
             defaultChecked
             data-testid="switch-btn"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setRuler(e.target.checked ? "RULER ON" : "RULER OFF")
-            }
+            onChange={handleRulerState}
           />
         </FormControl>
         <IconButton

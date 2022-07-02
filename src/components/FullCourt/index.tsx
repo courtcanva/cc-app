@@ -10,6 +10,7 @@ import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
 import courtRatio from "../../utils/courtRatio";
 import FullCourtData from "../MockCourtData/FullCourtData";
+import CourtDimension from "../BasketballCourt/CourtDimension";
 
 const FullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = FullCourtData;
@@ -82,6 +83,7 @@ const FullCourt = () => {
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
+                <CourtDimension startPoint={startPoint} />
                 <Group>
                   <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea startPoint={startPoint} />

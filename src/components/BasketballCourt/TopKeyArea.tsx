@@ -21,7 +21,7 @@ const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
   );
   const dispatch = useDispatch();
   const handleColorChange = () => {
-    if (!selectedColor) return;
+    if (selectedColor === "none") return;
     dispatch(changeTileColor({ selectedColor, location: "topKeyArea" }));
   };
   return (

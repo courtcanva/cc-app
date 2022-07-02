@@ -29,7 +29,7 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
   );
   const dispatch = useDispatch();
   const handleColorChange = () => {
-    if (!selectedColor) return;
+    if (selectedColor === "none") return;
     dispatch(changeTileColor({ selectedColor, location: "threePoint" }));
   };
   return (
