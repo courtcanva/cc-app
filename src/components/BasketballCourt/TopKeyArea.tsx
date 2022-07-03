@@ -4,21 +4,20 @@ import { courtWhiteLine, dashedWhiteLine } from "../../store/reducer/courtSizeSl
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
 import { changeTileColor } from "@/store/reducer/tileSlice";
+import { getColor } from "@/utils/getAreaColor";
 
 interface TopKeyAreaProps {
   startPoint: ICourtStartPoint;
 }
 
 const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
-  const { keyAreaWidth, threePointLineToCourtEdgeLenth, threePointLineRadius, circleRadius } =
+  const { keyAreaWidth, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
   const startPointX = startPoint.X + keyAreaWidth;
-  const startPointY = startPoint.Y + (threePointLineToCourtEdgeLenth + threePointLineRadius);
+  const startPointY = startPoint.Y + (threePointLineToCourtEdgeLength + threePointLineRadius);
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
-  const topKeyAreaColor = useStoreSelector(
-    (state) => state.tile.find((tile) => tile.location.includes("topKeyArea"))?.color
-  );
+  const topKeyAreaColor = getColor("topKeyArea");
   const dispatch = useDispatch();
   const handleColorChange = () => {
     if (selectedColor === "none") return;
