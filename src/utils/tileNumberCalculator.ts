@@ -55,8 +55,8 @@ const determineTileColor = (arr: Array<string>) => {
 };
 
 export const tileNumberCalculator = (
-  ctx: CanvasRenderingContext2D | null,
-  courtAndTileInfo: IcourtAndTileInfo
+  ctx: CanvasRenderingContext2D | null, // Canva's context 2D information including pixel's color
+  courtAndTileInfo: IcourtAndTileInfo // Coordinates of important points of the specific area
 ) => {
   const { beginPointX, beginPointY, endPointX, endPointY, tileSize } = courtAndTileInfo;
   let colorResult: IcolorResult[] = [];
@@ -79,14 +79,13 @@ export const tileNumberCalculator = (
     }
   }
 
-  // remove object in result that color is null
-  const filteredResult = colorResult.filter((obj) => obj.color);
-
   // transfer rgba to hex of colorResult
-  filteredResult.forEach((obj) => {
+  colorResult.forEach((obj) => {
     obj.color && (obj.color = rgbaToHex(obj.color));
   });
 
+  // remove object in result that color is null
+  const filteredResult = colorResult.filter((obj) => obj.color && obj.color.includes("#"));
   return filteredResult;
 };
 

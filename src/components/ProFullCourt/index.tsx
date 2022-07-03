@@ -16,6 +16,7 @@ import BorderDimension from "../BasketballCourt/BorderDimension";
 import { calculation } from "@/utils/tileNumberCalculator";
 import { useDispatch } from "react-redux";
 import { changeTileQuantity } from "@/store/reducer/tileSlice";
+import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -27,23 +28,16 @@ const ProFullCourt = () => {
     Y: stageMargin,
   };
   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
-  const courtData = {
-    courtAreaX: courtAreaXLength,
-    courtAreaY: courtAreaYLength,
-    margin: stageMargin,
-    windowHeight: size.height,
-    windowWidth: size.width,
-  };
-  const court = courtRatio(courtData);
 
-  const courtAndTileInfo = {
-    beginPointX: (stageMargin - borderLength) * court.courtRatio,
-    beginPointY: (stageMargin - borderLength) * court.courtRatio,
-    endPointX: (stageMargin + courtAreaXLength + borderLength) * court.courtRatio,
-    endPointY: (stageMargin + courtAreaYLength + borderLength) * court.courtRatio,
-    // TO CHANGE LATER: tile size will be passed in instead of hard coding
-    tileSize: 300 * court.courtRatio,
-  };
+  const courtAndInfo = getCourtAndTileInfo(
+    courtAreaXLength,
+    courtAreaYLength,
+    borderLength,
+    stageMargin,
+    size
+  );
+  const court = courtAndInfo.court;
+  const courtAndTileInfo = courtAndInfo.courtAndTileInfo;
 
   const canvasRef = useRef(null);
 
