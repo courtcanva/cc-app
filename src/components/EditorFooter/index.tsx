@@ -30,14 +30,14 @@ const EditorFooter = () => {
         <IconButton
           aria-label="Revert edit"
           icon={<HiOutlineZoomOut />}
-          variant="editorFooterIconBtn"
+          variant="witheBackgroundIconBtn"
           color="brand.primary"
           data-testid="zoom-out-btn"
         />
         <IconButton
           aria-label="Forward edit"
           icon={<HiOutlineZoomIn />}
-          variant="editorFooterIconBtn"
+          variant="witheBackgroundIconBtn"
           color="brand.primary"
           data-testid="zoom-in-btn"
         />
@@ -74,7 +74,7 @@ const EditorFooter = () => {
         <IconButton
           aria-label="Forward edit"
           icon={<BiHelpCircle />}
-          variant="editorFooterIconBtn"
+          variant="witheBackgroundIconBtn"
           color="brand.primary"
           data-testid="help-btn"
         />

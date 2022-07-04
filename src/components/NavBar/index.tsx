@@ -1,7 +1,6 @@
 import { Flex, Button, IconButton, Grid, useDisclosure } from "@chakra-ui/react";
 import { Menu, MenuButton } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
-import { FiDownload } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
@@ -104,7 +103,6 @@ const NavigationBar = () => {
           onClose={onClose}
           updateLoginData={updateLoginData}
         ></LoginModalContent>
-        <IconButton aria-label="Download design" icon={<FiDownload />} variant="navbarIconBtn" />
         <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
         <Button variant="shareBtn" marginLeft="10px" onClick={onOpen} data-testid="share-btn">
           Share
