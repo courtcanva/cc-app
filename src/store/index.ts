@@ -5,6 +5,7 @@ import userReducer from "./reducer/userSlice";
 import tileReducer from "./reducer/tileSlice";
 import courtColorReducer from "./reducer/courtColorSlice";
 import rulerControlReducer from "./reducer/rulerControlSlice";
+import designNameReducer from "./reducer/designNameSlice";
 export const makeStore = () =>
   configureStore({
     reducer: {
@@ -14,6 +15,7 @@ export const makeStore = () =>
       courtColor: courtColorReducer,
       user: userReducer,
       rulerControl: rulerControlReducer,
+      designName: designNameReducer,
     },
   });
 
