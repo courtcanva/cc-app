@@ -21,6 +21,7 @@ import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 // import { FiDownload } from "react-icons/fi";
+import { downloadToPDF } from "../../utils/printPDF";
 
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -115,6 +116,7 @@ const TopBar = () => {
           colorScheme="transparent"
           icon={<DownloadSvg />}
           variant="witheBackgroundIconBtn"
+          onClick={downloadToPDF}
         />
         <IconButton
           aria-label="DocSvg"
