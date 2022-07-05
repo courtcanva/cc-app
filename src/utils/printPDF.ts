@@ -1,19 +1,19 @@
 import {jsPDF} from "jspdf";
 import html2canvas from "html2canvas";
 import { store } from "../store";
-const getCourtName = () => {
-  const state = store.getState();
-  return state.courtName.name;
-};
-const courtDescription = getCourtName() as string;
-
-const getDesignName = () => {
-  const state = store.getState();
-  return state.designName.name;
-};
-const designName = getDesignName() as string;
 
 export const downloadToPDF = () => {
+  const getCourtName = () => {
+    const state = store.getState();
+    return state.courtName.name;
+  };
+  const courtDescription = getCourtName() as string;
+  
+  const getDesignName = () => {
+    const state = store.getState();
+    return state.designName.name;
+  };
+  const designName = getDesignName() as string;
   const court = window.document.querySelector("canvas") as HTMLCanvasElement;
 
   html2canvas(court).then((canvas) => {
@@ -55,20 +55,17 @@ export const downloadToPDF = () => {
     doc.setFontSize(12);
     doc.text("With the CourtCanva web  you can design your court easily,", center, pageHeight - 90, {
         align: "center",
-      }
-    );
+    });
     doc.text("CourtCanva will help you estimate price for your design. ", center, pageHeight - 75, {
         align: "center",
-      }
-    );
+    });
     doc.setFillColor("#44BC86");
     doc.roundedRect(42, pageHeight - 60, 360, 37, 2, 2, 'F');
-    doc.setFontSize(18);
-    doc.textWithLink('uat.design.courtcanva.com', center, pageHeight - 40, {
+    doc.setFontSize(20);
+    doc.textWithLink('uat.design.courtcanva.com', center, pageHeight - 37, {
       url: "https://uat.design.courtcanva.com/",
       align: "center",
-    }
-    );
+    });
     doc.save("court_design.pdf");
   });
   // eslint-disable-next-line new-cap
