@@ -96,7 +96,7 @@ const SmallCourt = () => {
             width={court.stageWidth}
             scaleX={court.courtRatio}
             scaleY={court.courtRatio}
-            visible={true}
+            visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
           >

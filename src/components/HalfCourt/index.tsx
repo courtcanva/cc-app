@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { MutableRefObject, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider, useDispatch } from "react-redux";
@@ -34,7 +34,7 @@ const HalfCourt = () => {
   const court = courtAndInfo.court;
   const courtAndTileInfo = courtAndInfo.courtAndTileInfo;
 
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const tileCalculation = useCallback(calculation, []);
 
@@ -54,7 +54,10 @@ const HalfCourt = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const timer = setTimeout(() => {
-      const tileNumberResult = tileCalculation(canvasRef, courtAndTileInfo);
+      const tileNumberResult = tileCalculation(
+        canvasRef as MutableRefObject<HTMLCanvasElement>,
+        courtAndTileInfo
+      );
       dispatch(changeTileQuantity(tileNumberResult));
     }, 100);
     return () => clearTimeout(timer);
@@ -81,7 +84,7 @@ const HalfCourt = () => {
             width={court.stageWidth}
             scaleX={court.courtRatio}
             scaleY={court.courtRatio}
-            visible={true}
+            visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
           >

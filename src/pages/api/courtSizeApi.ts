@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const courtsApi: any = createApi({
+export const courtsApi = createApi({
   reducerPath: "courtData",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://uat.api.courtcanva.com/v1",
+    baseUrl: "https://uat.api.courtcanva.com/v1", // put into env
   }),
   endpoints: (builder) => ({
     getCourts: builder.query({

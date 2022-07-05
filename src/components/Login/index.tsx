@@ -20,7 +20,6 @@ import { useGoogleLogin } from "@react-oauth/google";
 import React from "react";
 import { api } from "../../utils/axios";
 import { useDispatch } from "react-redux";
-import { useStoreSelector } from "@/store/hooks";
 import { updateUserInfo } from "@/store/reducer/userSlice";
 
 interface Props {

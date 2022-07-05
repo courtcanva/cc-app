@@ -14,6 +14,18 @@ export interface PriceBar {
   color: string;
   quantity: number;
 }
+
+export interface ChangeTileColor {
+  court: Court[];
+  location: string;
+  selectedColor: string;
+}
+
+export interface ChangeTileQuantity {
+  court: Court[];
+  priceBar: PriceBar[];
+}
+
 export const initialState: TileState = {
   court: [
     {
@@ -70,7 +82,7 @@ export const tileSlice = createSlice({
   initialState,
   reducers: {
     /* istanbul ignore next */
-    changeTileColor: (state, action: PayloadAction<any>) => {
+    changeTileColor: (state, action: PayloadAction<ChangeTileColor>) => {
       const selectedLocation = state.court.findIndex(
         (object) => object.location === action.payload.location
       );

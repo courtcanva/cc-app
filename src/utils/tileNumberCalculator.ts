@@ -1,4 +1,5 @@
 import { MutableRefObject } from "react";
+
 interface PixelColors {
   [prop: string]: number;
 }
@@ -90,10 +91,10 @@ export const tileNumberCalculator = (
 };
 
 export const calculation = (
-  canvasRef: MutableRefObject<null>,
+  canvasRef: MutableRefObject<HTMLCanvasElement>,
   courtAndTileInfo: IcourtAndTileInfo
 ) => {
-  const canvas = canvasRef.current as unknown as HTMLCanvasElement;
+  const canvas = canvasRef?.current;
   if (canvas) {
     const ctx = canvas.getContext("2d");
     const tileNumResult = tileNumberCalculator(ctx, courtAndTileInfo);
@@ -101,6 +102,7 @@ export const calculation = (
   }
 };
 
+// https://css-tricks.com/converting-color-spaces-in-javascript/
 // transfer rgbaString to HexString, only for solid color
 const rgbaToHex = (rgbaString: string) => {
   // separate numbers in rgbaString and put into an array

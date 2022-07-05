@@ -3,7 +3,7 @@ import { Image, Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { changeCourtName } from "@/store/reducer/courtNameSlice";
 import React, { useState } from "react";
-import { useGetCourtsQuery, useGetCourtQuery } from "@/pages/api/courtSizeApi";
+// import { useGetCourtsQuery, useGetCourtQuery } from "@/pages/api/courtSizeApi";
 
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,13 +18,13 @@ const Blueprints: React.FC = () => {
     dispatch(changeCourtName(`${courtSizeName} ${courtSizeDetails}`)); // change TopBar court size name
   };
 
-  const { data, error, isLoading, isSuccess, isError } = useGetCourtsQuery();
-  console.log(data);
+  // TODO: use later
+  // const { data, error, isLoading, isSuccess, isError } = useGetCourtsQuery();
 
   return (
     <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">
       {courtList.map((court) => {
-        const { img, courtSizeName, courtSizeDetails } = court;
+        const { img, courtSizeName, courtSizeDetails } = court; // better rename to 'imgUrl'
         return (
           <Box
             key={img}
@@ -41,7 +41,7 @@ const Blueprints: React.FC = () => {
             _hover={{ border: "4px solid #40B484" }}
             opacity={!activateCourt || activateCourt === img ? "1" : "0.4"}
           >
-            <Image src={img} objectFit={"contain"} width="200px" height="140px" />
+            <Image src={img} objectFit="contain" width="200px" height="140px" />
           </Box>
         );
       })}

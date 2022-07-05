@@ -4,6 +4,18 @@ import { screen, render } from "@testing-library/react";
 import Custom404 from "@/pages/404";
 
 describe("404 not found", () => {
+  const OLD_ENV = process.env;
+
+  beforeEach(() => {
+    jest.resetModules(); // Most important - it clears the cache
+    process.env = { ...OLD_ENV }; // Make a copy
+    process.env.NEXT_PUBLIC_DESIGN_URL = "/";
+  });
+
+  afterAll(() => {
+    process.env = OLD_ENV; // Restore old environment
+  });
+
   it("should render 404 page successfully", () => {
     renderWithMockedProvider(<Custom404 />);
     expect(screen.getByText("Oops! Something went wrong.")).toBeInTheDocument();
