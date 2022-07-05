@@ -37,6 +37,8 @@ export const downloadToPDF = () => {
     doc.text(designName, center, 50, {
       align: "center"
     });
+    doc.setFillColor("#EBD935");
+    doc.rect(0, 90, pageWidth, 3, "F");
     // body
     doc.setTextColor("#000");
     doc.setFontSize(20);
@@ -66,6 +68,8 @@ export const downloadToPDF = () => {
       url: "https://uat.design.courtcanva.com/",
       align: "center",
     });
+    doc.setFillColor("#EBD935");
+    doc.rect(0, pageHeight - 3, pageWidth, 3, "F");
     doc.save("court_design.pdf");
   });
   // eslint-disable-next-line new-cap
