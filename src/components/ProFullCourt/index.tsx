@@ -1,5 +1,14 @@
-import { useState, useRef, useCallback, useLayoutEffect, useEffect } from "react";
-import { Stage, Layer, Group } from "react-konva";
+import {
+  useState,
+  useRef,
+  useCallback,
+  useLayoutEffect,
+  useEffect,
+  MutableRefObject,
+  LegacyRef,
+  MouseEventHandler,
+} from "react";
+import { Stage, Layer, Group, KonvaNodeComponent } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
@@ -8,7 +17,6 @@ import CourtArea from "../BasketballCourt/CourtArea";
 import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
-import courtRatio from "../../utils/courtRatio";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import { useStoreSelector } from "@/store/hooks";
 import DashedLine from "../BasketballCourt/DashedLine";
@@ -17,6 +25,7 @@ import { calculation } from "@/utils/tileNumberCalculator";
 import { useDispatch } from "react-redux";
 import { changeTileQuantity } from "@/store/reducer/tileSlice";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
+import svgIcon from "@/utils/svgIcon";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -65,8 +74,43 @@ const ProFullCourt = () => {
     return () => clearTimeout(timer);
   }, [tileColorState]);
 
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
+  useEffect(() => {
+    if (typeof window !== "undefined" && selectedColor === "none") {
+      document.body.style.cursor = "auto";
+    }
+  }, [selectedColor]);
+
+  // const ref = useRef<HTMLDivElement>(null);
+
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (ref?.current && !ref.current.contains(event.target)) {
+  //       dispatch(changeSelectedColor("none"));
+  //       document.body.style.cursor = "auto";
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [ref]);
+
+  const handleMouseEnter = () => {
+    if (selectedColor !== "none") {
+      const iconUrl = // import svg string from utils and convert it to cur type (svg cannot be used as cursor directly)
+        `data:image/svg+xml;base64,` +
+        window.btoa(unescape(encodeURIComponent(svgIcon(selectedColor))));
+      document.body.style.cursor = `url(` + iconUrl + `) 24 24, auto`;
+    }
+  };
+  const handleMouseLeave = () => {
+    document.body.style.cursor = "auto";
+  };
+
   return (
     <Flex
+      id="basketballCourt"
       position="fixed"
       top="123px"
       left="98px"
@@ -77,6 +121,9 @@ const ProFullCourt = () => {
       justifyContent="center"
       alignItems="center"
       margin="auto"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      // ref={ref}
     >
       <ReactReduxContext.Consumer>
         {({ store }) => (

@@ -5,22 +5,15 @@ import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
 import svgIcon from "../../utils/svgIcon";
+import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
 
 const ColorBoard: React.FC = () => {
   const dispatch = useDispatch();
-  const [fillColor, setFillColor] = useState<string>("#344c5c");
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const handleChangeColor = (paintColor: string): void => {
-    setFillColor(paintColor);
+    dispatch(usePaintBucket(false));
     dispatch(changeSelectedColor(paintColor));
-    const iconUrl = // import svg string from utils and convert it to cur type (svg cannot be used as cursor directly)
-      `data:image/svg+xml;base64,` + window.btoa(unescape(encodeURIComponent(svgIcon(paintColor))));
-    document.body.style.cursor = `url(` + iconUrl + `) 24 24, auto`;
   };
-  if (typeof window !== "undefined" && selectedColor === "none") {
-    // check whether it is on browser, otherwise line 21 may cause error if it is on server.
-    document.body.style.cursor = "auto";
-  }
 
   return (
     <Flex

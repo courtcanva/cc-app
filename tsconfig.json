@@ -31,5 +31,5 @@
     "**/*.spec.tsx",
     "globals.d.ts",
     "src/utils/axios.ts"
-  ]
+, "src/components/ProFullCourt/index.tsx"  ]
 }
