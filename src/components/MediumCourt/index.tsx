@@ -1,18 +1,15 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { MutableRefObject, useLayoutEffect, useRef, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
-import { ReactReduxContext, Provider, useDispatch } from "react-redux";
+import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
-import courtRatio from "../../utils/courtRatio";
 import MediumCourtData from "../MockCourtData/MediumCourtData";
 import Border from "../BasketballCourt/Border";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
-import { calculation } from "@/utils/tileNumberCalculator";
-import { useStoreSelector } from "@/store/hooks";
-import { changeTileQuantity } from "@/store/reducer/tileSlice";
+import { useTileCalculation } from "@/utils/hooks";
 
 const MediumCourt = () => {
   const {
@@ -47,13 +44,9 @@ const MediumCourt = () => {
     size
   );
   const court = courtAndInfo.court;
-  const courtAndTileInfo = courtAndInfo.courtAndTileInfo;
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const canvasRef = useRef(null);
-
-  const tileCalculation = useCallback(calculation, []);
-
-  const tileColorState = useStoreSelector((state) => state.tile.court);
+  useTileCalculation(courtAndInfo, canvasRef as MutableRefObject<HTMLCanvasElement>);
 
   useLayoutEffect(() => {
     const checkSize = () => {
@@ -65,15 +58,6 @@ const MediumCourt = () => {
     window.addEventListener("resize", checkSize);
     return () => window.removeEventListener("resize", checkSize);
   }, []);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const tileNumberResult = tileCalculation(canvasRef, courtAndTileInfo);
-      dispatch(changeTileQuantity(tileNumberResult));
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [tileColorState]);
 
   return (
     <Flex

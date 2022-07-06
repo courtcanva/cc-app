@@ -31,7 +31,6 @@ const FullCourt = () => {
     size
   );
   const court = courtAndInfo.court;
-
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useTileCalculation(courtAndInfo, canvasRef as MutableRefObject<HTMLCanvasElement>);

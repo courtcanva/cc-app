@@ -5,16 +5,13 @@ import { changeTileQuantity } from "@/store/reducer/tileSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { CourtAndTileInfoResult } from "@/utils/getCourtAndTileInfo";
 
-const dispatch = useDispatch();
-
-const tileCalculation = useCallback(calculation, []);
-
 export const useTileCalculation = (
   courtAndInfo: CourtAndTileInfoResult,
   canvasRef: MutableRefObject<HTMLCanvasElement>
 ) => {
+  const dispatch = useDispatch();
   const courtAndTileInfo = courtAndInfo.courtAndTileInfo;
-
+  const tileCalculation = useCallback(calculation, []);
   const tileColorState = useStoreSelector((state) => state.tile.court);
 
   useEffect(() => {
