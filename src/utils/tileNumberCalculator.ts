@@ -1,5 +1,6 @@
 import { PriceBar } from "@/store/reducer/tileSlice";
-import { MutableRefObject } from "react";
+import Konva from "konva";
+import { RefObject } from "react";
 
 interface PixelColors {
   [prop: string]: number;
@@ -88,11 +89,12 @@ export const tileNumberCalculator = (
 };
 
 export const calculation = (
-  canvasRef: MutableRefObject<HTMLCanvasElement>,
+  canvasRef: RefObject<Konva.Layer>,
   courtAndTileInfo: IcourtAndTileInfo
 ) => {
-  const canvas = canvasRef?.current;
+  const canvas = canvasRef.current;
   if (canvas) {
+    // TODO: 
     const ctx = canvas.getContext("2d");
     const tileNumResult = tileNumberCalculator(ctx, courtAndTileInfo);
     return tileNumResult;
