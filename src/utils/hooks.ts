@@ -6,9 +6,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { CourtAndTileInfoResult } from "@/utils/getCourtAndTileInfo";
 
 export const useTileCalculation = (
-  courtAndInfo: CourtAndTileInfoResult,
-  canvasRef: MutableRefObject<HTMLCanvasElement>
-) => {
+{ courtAndInfo, canvasRef }: { courtAndInfo: CourtAndTileInfoResult; canvasRef: MutableRefObject<HTMLCanvasElement>; }) => {
   const dispatch = useDispatch();
   const courtAndTileInfo = courtAndInfo.courtAndTileInfo;
   const tileCalculation = useCallback(calculation, []);
