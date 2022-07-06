@@ -16,14 +16,8 @@ export interface PriceBar {
 }
 
 export interface ChangeTileColor {
-  court: Court[];
   location: string;
   selectedColor: string;
-}
-
-export interface ChangeTileQuantity {
-  court: Court[];
-  priceBar: PriceBar[];
 }
 
 export const initialState: TileState = {
@@ -88,7 +82,7 @@ export const tileSlice = createSlice({
       );
       state.court[selectedLocation].color = action.payload.selectedColor;
     },
-    changeTileQuantity: (state, action: PayloadAction<any>) => {
+    changeTileQuantity: (state, action: PayloadAction<PriceBar[]>) => {
       state.priceBar = action.payload;
     },
   },

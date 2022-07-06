@@ -1,3 +1,4 @@
+import { PriceBar } from "@/store/reducer/tileSlice";
 import { MutableRefObject } from "react";
 
 interface PixelColors {
@@ -12,10 +13,6 @@ interface IcourtAndTileInfo {
   tileSize: number;
 }
 
-interface IcolorResult {
-  color: string;
-  quantity: number;
-}
 // refactor data to pixelColorInTile array,
 // each element is the an array contains [r,g,b,a] value of each pixel
 const refactorData = (data: number[]) => {
@@ -60,7 +57,7 @@ export const tileNumberCalculator = (
   courtAndTileInfo: IcourtAndTileInfo // Coordinates of important points of the specific area
 ) => {
   const { beginPointX, beginPointY, endPointX, endPointY, tileSize } = courtAndTileInfo;
-  let colorResult: IcolorResult[] = [];
+  let colorResult: PriceBar[] = [];
   // scan horizontally
   for (let x = beginPointX; x < endPointX; x += tileSize) {
     // scan vertically
