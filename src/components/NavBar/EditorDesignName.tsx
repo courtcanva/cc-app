@@ -11,9 +11,11 @@ import {
 import { useState } from "react";
 import { BiStar, BiPencil } from "react-icons/bi";
 import { useDispatch } from "react-redux";
+import { useStoreSelector } from "@/store/hooks";
 
 const DesignName = () => {
-  const [value, setValue] = useState("Court Canva 1");
+  const {name: initialDesignName} = useStoreSelector((state) => state.designName)
+  const [value, setValue] = useState(initialDesignName);
   const dispatch = useDispatch();
   const EditableControls = () => {
     const { isEditing, getEditButtonProps } = useEditableControls();
