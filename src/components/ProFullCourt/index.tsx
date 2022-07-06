@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect, MutableRefObject } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -14,6 +14,7 @@ import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimension";
 import { useTileCalculation } from "@/utils/hooks";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
+import Konva from "konva";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -34,9 +35,10 @@ const ProFullCourt = () => {
     size
   );
   const court = courtAndInfo.court;
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  // https://github.com/konvajs/react-konva/issues/316
+  const canvasRef = useRef<Konva.Layer>(null);
 
-  useTileCalculation(courtAndInfo, canvasRef as MutableRefObject<HTMLCanvasElement>);
+  useTileCalculation(courtAndInfo, canvasRef);
 
   useLayoutEffect(() => {
     const checkSize = () => {

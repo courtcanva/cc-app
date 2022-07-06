@@ -1,4 +1,4 @@
-import { MutableRefObject, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -10,6 +10,7 @@ import SmallCourtData from "../MockCourtData/SmallCourtData";
 import Border from "../BasketballCourt/Border";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { useTileCalculation } from "@/utils/hooks";
+import Konva from "konva";
 
 const SmallCourt = () => {
   const {
@@ -44,9 +45,10 @@ const SmallCourt = () => {
     size
   );
   const court = courtAndInfo.court;
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  // https://github.com/konvajs/react-konva/issues/316
+  const canvasRef = useRef<Konva.Layer>(null);
 
-  useTileCalculation(courtAndInfo, canvasRef as MutableRefObject<HTMLCanvasElement>);
+  useTileCalculation(courtAndInfo, canvasRef);
 
   useLayoutEffect(() => {
     const checkSize = () => {

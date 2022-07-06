@@ -1,5 +1,6 @@
 import { PriceBar } from "@/store/reducer/tileSlice";
 import Konva from "konva";
+import { Context } from "konva/lib/Context";
 import { RefObject } from "react";
 
 interface PixelColors {
@@ -54,7 +55,7 @@ const determineTileColor = (arr: Array<string>) => {
 };
 
 export const tileNumberCalculator = (
-  ctx: CanvasRenderingContext2D | null, // Canva's context 2D information including pixel's color
+  ctx: Context | null, // Canva's context 2D information including pixel's color
   courtAndTileInfo: IcourtAndTileInfo // Coordinates of important points of the specific area
 ) => {
   const { beginPointX, beginPointY, endPointX, endPointY, tileSize } = courtAndTileInfo;
@@ -94,8 +95,8 @@ export const calculation = (
 ) => {
   const canvas = canvasRef.current;
   if (canvas) {
-    // TODO: 
-    const ctx = canvas.getContext("2d");
+    // TODO:
+    const ctx = canvas.getContext();
     const tileNumResult = tileNumberCalculator(ctx, courtAndTileInfo);
     return tileNumResult;
   }
