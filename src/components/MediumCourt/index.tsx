@@ -21,7 +21,8 @@ const MediumCourt = () => {
     threePointLineRadius,
     threePointLineToCourtEdgeLength,
     borderLength,
-  } = MediumCourtData;
+  } = useStoreSelector((state) => state.courtSize);
+
   const stageMargin = 2500;
   // componentsStartPoint is different court area start point
   const componentsStartPoint = {
@@ -115,7 +116,7 @@ const MediumCourt = () => {
                     ctx.clip();
                   }}
                 >
-                  <CourtArea startPoint={componentsStartPoint} courtWidth={courtAreaXLength} />
+                  {/* <CourtArea startPoint={componentsStartPoint} courtWidth={courtAreaXLength} /> */}
                   <ThreePointArea startPoint={componentsStartPoint} />
                   <KeyArea startPoint={componentsStartPoint} />
                   <TopKeyArea startPoint={componentsStartPoint} />

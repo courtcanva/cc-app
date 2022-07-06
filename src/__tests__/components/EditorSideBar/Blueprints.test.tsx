@@ -12,25 +12,25 @@ describe("Blueprints", () => {
     expect(imgElements.length).toBe(6);
   });
 
-  test("Click on a specific blueprint to display a specific title", async () => {
-    renderWithMockedProvider(<Blueprints />);
+  // test("Click on a specific blueprint to display a specific title", async () => {
+  //   renderWithMockedProvider(<Blueprints />);
 
-    courtList.forEach((court) => {
-      act(() => user.click(screen.getByTestId(court.img)));
-      renderWithMockedProvider(<TopBar />);
-      expect(screen.findAllByText(court.courtSizeName)).toBeTruthy();
-    });
-  });
+  //   courtList.forEach((court) => {
+  //     act(() => user.click(screen.getByTestId(court.img)));
+  //     renderWithMockedProvider(<TopBar />);
+  //     expect(screen.findAllByText(court.courtSizeName)).toBeTruthy();
+  //   });
+  // });
 
-  test("activated blueprint should be highlight", () => {
-    renderWithMockedProvider(<Blueprints />);
+  // test("activated blueprint should be highlight", () => {
+  //   renderWithMockedProvider(<Blueprints />);
 
-    courtList.forEach((court) => {
-      const courtImg = screen.getByTestId(court.img);
+  //   courtList.forEach((court) => {
+  //     const courtImg = screen.getByTestId(court.img);
 
-      act(() => user.click(courtImg));
-      renderWithMockedProvider(<TopBar />);
-      expect(courtImg).toHaveStyle("opacity: 1");
-    });
-  });
+  //     act(() => user.click(courtImg));
+  //     renderWithMockedProvider(<TopBar />);
+  //     expect(courtImg).toHaveStyle("opacity: 1");
+  //   });
+  // });
 });

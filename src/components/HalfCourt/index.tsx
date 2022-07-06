@@ -15,7 +15,9 @@ import { changeTileQuantity } from "@/store/reducer/tileSlice";
 import { calculation } from "@/utils/tileNumberCalculator";
 
 const HalfCourt = () => {
-  const { courtAreaXLength, courtAreaYLength, borderLength } = HalfCourtData;
+  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
+    (state) => state.courtSize
+  );
   const stageMargin = 2500;
   const startPoint = {
     X: stageMargin,

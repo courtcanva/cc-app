@@ -23,7 +23,7 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
 
   return (
     <Arc
-      x={startPoint.X + courtAreaXLength / 2}
+      x={startPoint.X + courtAreaXLength}
       y={startPoint.Y + (threePointLineToCourtEdgeLength + threePointLineRadius)}
       innerRadius={0}
       outerRadius={circleRadius}
