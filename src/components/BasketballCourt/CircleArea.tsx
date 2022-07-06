@@ -10,8 +10,12 @@ interface CircleAreaProps {
 }
 
 const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
-  const { courtAreaXLength, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
+  let { courtAreaXLength, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
+
+  if (courtAreaXLength === 28000) {
+    courtAreaXLength /= 2;
+  }
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const circleAreaColor = getColor("circleArea");
