@@ -115,7 +115,7 @@ const SmallCourt = () => {
                     ctx.clip();
                   }}
                 >
-                  <CourtArea startPoint={componentsStartPoint} courtWidth={courtAreaXLength} />
+                  {/* <CourtArea startPoint={componentsStartPoint} courtWidth={courtAreaXLength} /> */}
                   <ThreePointArea startPoint={componentsStartPoint} />
                   <KeyArea startPoint={componentsStartPoint} />
                   <TopKeyArea startPoint={componentsStartPoint} />
