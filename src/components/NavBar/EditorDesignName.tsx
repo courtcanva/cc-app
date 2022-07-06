@@ -9,7 +9,6 @@ import {
   EditableInput,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import _ from "lodash";
 import { BiStar, BiPencil } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 
