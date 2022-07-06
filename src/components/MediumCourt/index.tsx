@@ -6,8 +6,6 @@ import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
-import courtRatio from "../../utils/courtRatio";
-import MediumCourtData from "../MockCourtData/MediumCourtData";
 import Border from "../BasketballCourt/Border";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { calculation } from "@/utils/tileNumberCalculator";

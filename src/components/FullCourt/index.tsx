@@ -8,8 +8,6 @@ import CourtArea from "../BasketballCourt/CourtArea";
 import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
-import courtRatio from "../../utils/courtRatio";
-import FullCourtData from "../MockCourtData/FullCourtData";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { useStoreSelector } from "@/store/hooks";
@@ -17,7 +15,9 @@ import { changeTileQuantity } from "@/store/reducer/tileSlice";
 import { calculation } from "@/utils/tileNumberCalculator";
 
 const FullCourt = () => {
-  const { courtAreaXLength, courtAreaYLength, borderLength } = FullCourtData;
+  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
+    (state) => state.courtSize
+  );
   const stageMargin = 2500;
   const startPoint = {
     X: stageMargin,

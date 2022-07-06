@@ -6,8 +6,6 @@ import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
-import courtRatio from "../../utils/courtRatio";
-import SmallCourtData from "../MockCourtData/SmallCourtData";
 import Border from "../BasketballCourt/Border";
 import { useStoreSelector } from "@/store/hooks";
 import { calculation } from "@/utils/tileNumberCalculator";
@@ -21,7 +19,7 @@ const SmallCourt = () => {
     threePointLineRadius,
     threePointLineToCourtEdgeLength,
     borderLength,
-  } = SmallCourtData;
+  } = useStoreSelector((state) => state.courtSize);
   const stageMargin = 2500;
   // componentsStartPoint is different court area start point
   const componentsStartPoint = {
