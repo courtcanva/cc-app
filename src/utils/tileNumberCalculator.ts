@@ -95,7 +95,6 @@ export const calculation = (
 ) => {
   const canvas = canvasRef.current;
   if (canvas) {
-    // TODO:
     const ctx = canvas.getContext();
     const tileNumResult = tileNumberCalculator(ctx, courtAndTileInfo);
     return tileNumResult;

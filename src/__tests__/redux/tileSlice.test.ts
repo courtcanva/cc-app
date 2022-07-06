@@ -20,7 +20,6 @@ it("should change tile color", () => {
 });
 
 it("should change tile quantity", () => {
-  // TODO: temporary solution, should be changed later
   const previousState: TileState = initialState;
   expect(
     reducer(

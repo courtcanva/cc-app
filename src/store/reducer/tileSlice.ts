@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
+import { useStoreSelector } from "../hooks";
 
 export interface TileState {
   court: Court[];
@@ -75,7 +76,6 @@ export const tileSlice = createSlice({
   name: "tile",
   initialState,
   reducers: {
-    /* istanbul ignore next */
     changeTileColor: (state, action: PayloadAction<ChangeTileColor>) => {
       const selectedLocation = state.court.findIndex(
         (object) => object.location === action.payload.location
@@ -91,5 +91,10 @@ export const tileSlice = createSlice({
 export const { changeTileColor, changeTileQuantity } = tileSlice.actions;
 
 export const TileData = (state: RootState) => state.tile;
+
+export const getColor = (location: string) =>
+  useStoreSelector(
+    (state) => state.tile.court?.find((tile) => tile.location.includes(location))?.color
+  );
 
 export default tileSlice.reducer;

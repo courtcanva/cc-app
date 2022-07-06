@@ -3,8 +3,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { courtWhiteLine } from "@/store/reducer/courtSizeSlice";
 import { useDispatch } from "react-redux";
-import { changeTileColor } from "@/store/reducer/tileSlice";
-import { getColor } from "@/utils/getAreaColor";
+import { changeTileColor, getColor } from "@/store/reducer/tileSlice";
 
 interface CourtAreaProps {
   startPoint: ICourtStartPoint;
