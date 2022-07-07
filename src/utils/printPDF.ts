@@ -1,14 +1,16 @@
-import {jsPDF} from "jspdf";
-import html2canvas from "html2canvas";
 import { store } from "../store";
 
-export const downloadToPDF = () => {
+export const downloadToPDF = async () => {
+  const { default: jsPDF } = await import(/* webpackChunkName: "jsPDF" */ "jspdf");
+  const { default: html2canvas } = await import(
+    /* webpackChunkName: "html2canvas" */ "html2canvas"
+  );
   const getCourtName = () => {
     const state = store.getState();
     return state.courtName.name;
   };
   const courtDescription = getCourtName() as string;
-  
+
   const getDesignName = () => {
     const state = store.getState();
     return state.designName.name;
@@ -25,7 +27,7 @@ export const downloadToPDF = () => {
     const ratio = court.clientWidth / court.clientHeight;
     const canvasHeight = 250;
     const canvasWidth = canvasHeight * ratio;
-    const center = pageWidth / 2 as number;
+    const center = (pageWidth / 2) as number;
     const marginX = (pageWidth - canvasWidth) / 2;
     const marginY = (pageHeight - canvasHeight) / 2;
 
@@ -35,14 +37,14 @@ export const downloadToPDF = () => {
     doc.setFontSize(36);
     doc.setTextColor("#EBD935");
     doc.text(designName, center, 50, {
-      align: "center"
+      align: "center",
     });
     doc.setFillColor("#EBD935");
     doc.rect(0, 90, pageWidth, 3, "F");
     // body
     doc.setTextColor("#000");
     doc.setFontSize(20);
-    doc.text(courtDescription, center, (pageHeight / 2 - canvasHeight / 2) - 15, {
+    doc.text(courtDescription, center, pageHeight / 2 - canvasHeight / 2 - 15, {
       align: "center",
     });
     doc.addImage(img, "png", marginX, marginY, canvasWidth, canvasHeight);
@@ -55,16 +57,21 @@ export const downloadToPDF = () => {
       align: "center",
     });
     doc.setFontSize(12);
-    doc.text("With the CourtCanva web  you can design your court easily,", center, pageHeight - 90, {
+    doc.text(
+      "With the CourtCanva web  you can design your court easily,",
+      center,
+      pageHeight - 90,
+      {
         align: "center",
-    });
+      }
+    );
     doc.text("CourtCanva will help you estimate price for your design. ", center, pageHeight - 75, {
-        align: "center",
+      align: "center",
     });
     doc.setFillColor("#44BC86");
-    doc.roundedRect(42, pageHeight - 60, 360, 37, 2, 2, 'F');
+    doc.roundedRect(42, pageHeight - 60, 360, 37, 2, 2, "F");
     doc.setFontSize(20);
-    doc.textWithLink('uat.design.courtcanva.com', center, pageHeight - 37, {
+    doc.textWithLink("uat.design.courtcanva.com", center, pageHeight - 37, {
       url: "https://uat.design.courtcanva.com/",
       align: "center",
     });
@@ -72,5 +79,4 @@ export const downloadToPDF = () => {
     doc.rect(0, pageHeight - 3, pageWidth, 3, "F");
     doc.save("court_design.pdf");
   });
-  // eslint-disable-next-line new-cap
 };
