@@ -12,6 +12,7 @@ const EditorFooter = () => {
     setRuler(e.target.checked ? "RULER ON" : "RULER OFF");
     dispatch(switchRuler(e.target.checked));
   };
+
   return (
     <Flex
       position="fixed"
