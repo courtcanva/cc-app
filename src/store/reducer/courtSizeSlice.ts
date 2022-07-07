@@ -28,12 +28,6 @@ export const initialState: CourtSizeState = {
   borderLength: 1000,
 };
 
-// full court id "62c432cfb8a9c5f61f038320"
-// pro half court id "62c432cfb8a9c5f61f038321"
-// Half Court id "62c432cfb8a9c5f61f038322"
-// medium court id "62c432cfb8a9c5f61f038323"
-// small court id "62c432cfb8a9c5f61f038324"
-
 export const courtSizeSlice = createSlice({
   name: "courtSize",
   initialState,

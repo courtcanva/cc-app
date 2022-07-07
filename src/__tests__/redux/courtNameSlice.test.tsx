@@ -12,5 +12,9 @@ it("should return the initial state", () => {
 
 it("should render correct title", () => {
   const previousState: CourtNameState = initialState;
-  expect(reducer(previousState, changeCourtName("blueprint"))).toEqual({ name: "blueprint" });
+  const chosenCourt: CourtNameState = {
+    name: "510 m² Pro Court (17 m × 30 m)",
+    courtId: "62c432cfb8a9c5f61f03831f",
+  };
+  expect(reducer(previousState, changeCourtName(chosenCourt))).toEqual(initialState);
 });
