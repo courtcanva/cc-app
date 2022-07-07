@@ -17,8 +17,7 @@ const useDispatchStrokeColor = () => (location: string) => {
 
   return {
     stroke: strokeColor,
-    onMouseEnter: () =>
-      dispatch(changeStrokeColor({ strokeColor: colors.brand.secondary, location })),
+    onMouseEnter: () => dispatch(changeStrokeColor({ strokeColor: colors.brand.secondary, location })),
     onMouseLeave: () => dispatch(changeStrokeColor({ strokeColor: initialColor, location })),
   };
 };
