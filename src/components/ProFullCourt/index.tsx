@@ -1,14 +1,5 @@
-import {
-  useState,
-  useRef,
-  useCallback,
-  useLayoutEffect,
-  useEffect,
-  MutableRefObject,
-  LegacyRef,
-  MouseEventHandler,
-} from "react";
-import { Stage, Layer, Group, KonvaNodeComponent } from "react-konva";
+import { useState, useRef, useCallback, useLayoutEffect, useEffect } from "react";
+import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
@@ -26,8 +17,6 @@ import { useDispatch } from "react-redux";
 import { changeTileQuantity } from "@/store/reducer/tileSlice";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import svgIcon from "@/utils/svgIcon";
-import useOnClickOutside from "@/utils/useOnClickOutside";
-import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -83,13 +72,6 @@ const ProFullCourt = () => {
     }
   }, [selectedColor]);
 
-  const ref = useRef(null); // click outside the canvas area can stop color changing
-  const handleClickOutside = () => {
-    dispatch(changeSelectedColor("none"));
-    document.body.style.cursor = "auto";
-  };
-  useOnClickOutside(ref, handleClickOutside);
-
   const handleMouseEnter = () => {
     if (selectedColor !== "none") {
       const iconUrl = // import svg string from utils and convert it to cur type (svg cannot be used as cursor directly)
@@ -117,7 +99,6 @@ const ProFullCourt = () => {
       margin="auto"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      ref={ref}
     >
       <ReactReduxContext.Consumer>
         {({ store }) => (
