@@ -13,6 +13,9 @@ export interface CourtSizeState {
   strokeWidth: number;
   borderLength: number;
 }
+export interface CourtSpecMapper {
+  [prop: string]: string;
+}
 
 export const initialState: CourtSizeState = {
   courtId: "62c432cfb8a9c5f61f03831f",

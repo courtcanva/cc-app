@@ -3,8 +3,8 @@ import { Image, Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { changeCourtName, CourtNameState } from "@/store/reducer/courtNameSlice";
 import React, { useState } from "react";
-import { useGetCourtsQuery } from "@/pages/api/courtSizeApi";
-import { changeCourtSize, CourtSizeState } from "@/store/reducer/courtSizeSlice";
+import { useGetCourtsQuery } from "../../redux/api/courtSizeApi";
+import { changeCourtSize, CourtSizeState, CourtSpecMapper } from "@/store/reducer/courtSizeSlice";
 
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const Blueprints: React.FC = () => {
   const handleCourtSelecting = (img: string, courtId: string): void => {
     setActivateCourt(img);
 
-    const selectedCourt = data.find((item: any) => item._id === courtId);
+    const selectedCourt = data.find((item: CourtSpecMapper) => item._id === courtId);
     const chosenCourt: CourtNameState = {
       name: `${
         ((selectedCourt.length + selectedCourt.sideBorderWidth * 2) *
@@ -27,7 +27,7 @@ const Blueprints: React.FC = () => {
     };
     dispatch(changeCourtName(chosenCourt));
 
-    const mappedCourtSpecs = data.map((item: any) => ({
+    const mappedCourtSpecs = data.map((item: CourtSpecMapper) => ({
       courtId: item._id,
       courtAreaXLength: item.length,
       courtAreaYLength: item.width,

@@ -6,7 +6,7 @@ import tileReducer from "./reducer/tileSlice";
 import courtColorReducer from "./reducer/courtColorSlice";
 import rulerControlReducer from "./reducer/rulerControlSlice";
 
-import { courtsApi } from "@/pages/api/courtSizeApi";
+import { courtsApi } from "../redux/api/courtSizeApi";
 
 export const makeStore = () =>
   configureStore({
