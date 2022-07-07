@@ -11,7 +11,6 @@ const MediumCourt = dynamic(() => import("@/components/MediumCourt"), { ssr: fal
 const SmallCourt = dynamic(() => import("@/components/SmallCourt"), { ssr: false });
 
 const Home: NextPage = () => {
-  // const { name: courtName } = useStoreSelector((state) => state.courtName);
   const { courtId } = useStoreSelector((state) => state.courtName);
   return (
     <HeaderLayout>
@@ -21,12 +20,6 @@ const Home: NextPage = () => {
       {courtId === "62c432cfb8a9c5f61f038322" && <HalfCourt />}
       {courtId === "62c432cfb8a9c5f61f038323" && <MediumCourt />}
       {courtId === "62c432cfb8a9c5f61f038324" && <SmallCourt />}
-      {/* {courtName === "510 m² Pro Full Court (30 m × 17 m)" && <ProFullCourt />}
-      {courtName === "420 m² Full Court (28 m × 15 m)" && <FullCourt />}
-      {courtName === "210 m² Pro Half Court (14 m × 15 m)" && <ProHalfCourt />}
-      {courtName === "150 m² Half Court (10 m × 15 m)" && <HalfCourt />}
-      {courtName === "70 m² Medium Court (10 m × 7 m)" && <MediumCourt />}
-      {courtName === "45 m² Small Court (9 m × 5 m)" && <SmallCourt />} */}
     </HeaderLayout>
   );
 };
