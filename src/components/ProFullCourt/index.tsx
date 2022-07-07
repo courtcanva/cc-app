@@ -73,7 +73,6 @@ const ProFullCourt = () => {
 
   return (
     <Flex
-      id="basketballCourt"
       position="fixed"
       top="123px"
       left="98px"

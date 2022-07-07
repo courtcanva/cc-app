@@ -37,13 +37,10 @@ const Home: NextPage = () => {
   const handleMouseLeave = () => {
     document.body.style.cursor = "auto";
   };
-  
+
   return (
     <HeaderLayout>
-      <div
-        ref={ref}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}>
+      <div ref={ref} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         {courtName === "510 m² Pro Court (17 m × 30 m)" && <ProFullCourt />}
         {courtName === "420 m² Full Court (15 m × 28 m)" && <FullCourt />}
         {courtName === "210 m² Pro Half Court (15 m × 14 m)" && <ProHalfCourt />}
