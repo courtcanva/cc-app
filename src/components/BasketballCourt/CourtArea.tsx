@@ -5,6 +5,7 @@ import { courtWhiteLine } from "@/store/reducer/courtSizeSlice";
 import { useDispatch } from "react-redux";
 import { changeTileColor } from "@/store/reducer/tileSlice";
 import { getColor } from "@/utils/getAreaColor";
+import useDispatchStrokeColor from "@/hooks/useDispatchStrokeColor";
 
 interface CourtAreaProps {
   startPoint: ICourtStartPoint;
@@ -13,14 +14,17 @@ interface CourtAreaProps {
 
 const CourtArea: React.FC<CourtAreaProps> = ({ courtWidth, startPoint }) => {
   const { courtAreaYLength } = useStoreSelector((state) => state.courtSize);
-
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
-  const courtAreaColor = getColor("courtArea");
   const dispatch = useDispatch();
+
+  const courtAreaColor = getColor("courtArea");
+  const hoverStrokeColor = useDispatchStrokeColor();
+
   const handleColorChange = () => {
     if (selectedColor === "none") return;
     dispatch(changeTileColor({ selectedColor, location: "courtArea" }));
   };
+
   return (
     <Rect
       width={courtWidth}
@@ -28,9 +32,9 @@ const CourtArea: React.FC<CourtAreaProps> = ({ courtWidth, startPoint }) => {
       fill={courtAreaColor}
       x={startPoint.X}
       y={startPoint.Y}
-      stroke="white"
       strokeWidth={courtWhiteLine}
       onClick={handleColorChange}
+      {...hoverStrokeColor("courtArea")}
     />
   );
 };

@@ -5,6 +5,7 @@ import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
 import { changeTileColor } from "@/store/reducer/tileSlice";
 import { getColor } from "@/utils/getAreaColor";
+import useDispatchStrokeColor from "@/hooks/useDispatchStrokeColor";
 interface CircleAreaProps {
   startPoint: ICourtStartPoint;
 }
@@ -12,10 +13,12 @@ interface CircleAreaProps {
 const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
   const { courtAreaXLength, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
-
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
-  const circleAreaColor = getColor("circleArea");
   const dispatch = useDispatch();
+
+  const circleAreaColor = getColor("circleArea");
+  const hoverStrokeColor = useDispatchStrokeColor();
+
   const handleColorChange = () => {
     if (selectedColor === "none") return;
     dispatch(changeTileColor({ selectedColor, location: "circleArea" }));
@@ -29,11 +32,11 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
       outerRadius={circleRadius}
       angle={180}
       fill={circleAreaColor}
-      stroke="white"
       strokeWidth={courtWhiteLine}
       clockwise
       rotation={270}
       onClick={handleColorChange}
+      {...hoverStrokeColor("circleArea")}
     />
   );
 };

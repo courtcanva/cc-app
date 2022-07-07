@@ -5,6 +5,7 @@ import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
 import { changeTileColor } from "@/store/reducer/tileSlice";
 import { getColor } from "@/utils/getAreaColor";
+import useDispatchStrokeColor from "@/hooks/useDispatchStrokeColor";
 
 interface TopKeyAreaProps {
   startPoint: ICourtStartPoint;
@@ -13,16 +14,20 @@ interface TopKeyAreaProps {
 const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
   const { keyAreaWidth, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
+  const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
+  const dispatch = useDispatch();
+
   const startPointX = startPoint.X + keyAreaWidth;
   const startPointY = startPoint.Y + (threePointLineToCourtEdgeLength + threePointLineRadius);
 
-  const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const topKeyAreaColor = getColor("topKeyArea");
-  const dispatch = useDispatch();
+  const hoverStrokeColor = useDispatchStrokeColor();
+
   const handleColorChange = () => {
     if (selectedColor === "none") return;
     dispatch(changeTileColor({ selectedColor, location: "topKeyArea" }));
   };
+
   return (
     <>
       <Arc
@@ -32,11 +37,11 @@ const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
         outerRadius={circleRadius}
         angle={180}
         fill={topKeyAreaColor}
-        stroke="white"
         strokeWidth={courtWhiteLine}
         clockwise
         rotation={90}
         onClick={handleColorChange}
+        {...hoverStrokeColor("topKeyArea")}
       />
       <Arc
         x={startPointX}

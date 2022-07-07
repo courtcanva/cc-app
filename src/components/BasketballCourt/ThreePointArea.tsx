@@ -5,6 +5,7 @@ import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
 import { changeTileColor } from "@/store/reducer/tileSlice";
 import { getColor } from "@/utils/getAreaColor";
+import useDispatchStrokeColor from "@/hooks/useDispatchStrokeColor";
 
 interface ThreePointAreaProps {
   startPoint: ICourtStartPoint;
@@ -13,6 +14,9 @@ interface ThreePointAreaProps {
 const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
   const { threePointLineToCourtEdgeLength, cornerThreePointLineLength, threePointLineRadius } =
     useStoreSelector((state) => state.courtSize);
+  const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
+  const dispatch = useDispatch();
+
   const startPointX = startPoint.X;
   const startPointY = startPoint.Y + threePointLineToCourtEdgeLength;
   const controlPointOneX = startPoint.X + (cornerThreePointLineLength + threePointLineRadius);
@@ -23,14 +27,15 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
   const controlPointThreeY = startPointY + threePointLineRadius * 2;
   const controlPointFourX = startPoint.X + cornerThreePointLineLength;
   const controlPointFourY = controlPointThreeY;
-
-  const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const threePointAreaColor = getColor("threePoint");
-  const dispatch = useDispatch();
+
+  const hoverStrokeColor = useDispatchStrokeColor();
+
   const handleColorChange = () => {
     if (selectedColor === "none") return;
     dispatch(changeTileColor({ selectedColor, location: "threePoint" }));
   };
+
   return (
     <Shape
       sceneFunc={(context, shape) => {
@@ -57,9 +62,9 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
         context.fillStrokeShape(shape);
       }}
       fill={threePointAreaColor}
-      stroke="white"
       strokeWidth={courtWhiteLine}
       onClick={handleColorChange}
+      {...hoverStrokeColor("threePoint")}
     />
   );
 };

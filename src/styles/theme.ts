@@ -19,7 +19,7 @@ const styles = {
   },
 };
 
-const colors = {
+export const colors = {
   brand: {
     primary: "#344C5C",
     secondary: "#40B484",

@@ -77,7 +77,10 @@ export const tileSlice = createSlice({
       state.court[selectedLocation].color = action.payload.selectedColor;
     },
     changeTileQuantity: (state, action: PayloadAction<any>) => {
-      state.priceBar = action.payload;
+      // avoid show the wrong data on priceBar when hovering over the court
+      const tilesNumberData = action.payload.filter((tileData: PriceBar) => tileData.quantity > 1);
+
+      state.priceBar = tilesNumberData;
     },
   },
 });
