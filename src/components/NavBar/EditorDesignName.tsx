@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
 
 const DesignName = () => {
-  const {name: initialDesignName} = useStoreSelector((state) => state.designName)
+  const { name: initialDesignName } = useStoreSelector((state) => state.designName);
   const [value, setValue] = useState(initialDesignName);
   const dispatch = useDispatch();
   const EditableControls = () => {
