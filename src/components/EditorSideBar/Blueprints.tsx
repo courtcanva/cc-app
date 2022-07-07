@@ -11,12 +11,7 @@ const Blueprints: React.FC = () => {
   const [activateCourt, setActivateCourt] = useState<string>("");
   const { data } = useGetCourtsQuery();
 
-  const handleCourtSelecting = (
-    // courtSizeName: string,
-    // courtSizeDetails: string,
-    img: string,
-    courtId: string
-  ): void => {
+  const handleCourtSelecting = (img: string, courtId: string): void => {
     setActivateCourt(img);
 
     const selectedCourt = data.find((item: any) => item._id === courtId);
@@ -31,8 +26,6 @@ const Blueprints: React.FC = () => {
       courtId: courtId,
     };
     dispatch(changeCourtName(chosenCourt));
-
-    // dispatch(changeCourtName(`${courtSizeName} ${courtSizeDetails}`)); // change TopBar court size name
 
     const mappedCourtSpecs = data.map((item: any) => ({
       courtId: item._id,
@@ -55,7 +48,6 @@ const Blueprints: React.FC = () => {
   return (
     <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">
       {courtList.map((court) => {
-        // const { img, courtSizeName, courtSizeDetails, courtId } = court;
         const { img, courtId } = court;
         return (
           <Box
