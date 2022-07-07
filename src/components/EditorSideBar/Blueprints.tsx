@@ -3,6 +3,7 @@ import { Image, Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { changeCourtName } from "@/store/reducer/courtNameSlice";
 import React, { useState } from "react";
+import { useGetCourtsQuery, useGetCourtQuery } from "@/pages/api/courtSizeApi";
 
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,9 @@ const Blueprints: React.FC = () => {
     setActivateCourt(img);
     dispatch(changeCourtName(`${courtSizeName} ${courtSizeDetails}`)); // change TopBar court size name
   };
+
+  const { data, error, isLoading, isSuccess, isError } = useGetCourtsQuery();
+  console.log(data);
 
   return (
     <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">

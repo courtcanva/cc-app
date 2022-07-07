@@ -17,7 +17,7 @@ const buttonStyles = {
       _hover: { bg: "brand.secondary", opacity: "0.60" },
       _active: { bg: "brand.secondary", opacity: "0.60" },
     },
-    editorFooterIconBtn: {
+    witheBackgroundIconBtn: {
       bg: "transparent",
       color: "white",
       fontSize: "xl",

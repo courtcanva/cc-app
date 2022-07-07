@@ -43,6 +43,10 @@ const customJestConfig = {
     "!<rootDir>/src/components/MockCourtData/*", // should be deleted later
     "!<rootDir>/src/store/reducer/counterSlice.ts", // should be deleted later
     "!<rootDir>/src/store/hooks.ts", // exclude redux hooks
+    "!<rootDir>/src/utils/getAreaColor.ts",
+    "!<rootDir>/src/utils/useEventListener.ts",
+    "!<rootDir>/src/utils/useIsomorphicLayoutEffect.ts",
+    "!<rootDir>/src/utils/useOnClickOutside.ts",
     "!<rootDir>/node_modules/",
     "!<rootDir>/**/__tests__/**",
     "!<rootDir>/**/*.d.ts",
@@ -51,10 +55,10 @@ const customJestConfig = {
   collectCoverage: true,
   coverageThreshold: {
     global: {
-      statements: 0,
-      branches: 0,
-      functions: 0,
-      lines: 0,
+      statements: 70,
+      branches: 70,
+      functions: 70,
+      lines: 70,
     },
   },
 };

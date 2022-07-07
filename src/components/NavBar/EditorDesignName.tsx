@@ -1,3 +1,4 @@
+import { changeDesignName } from "@/store/reducer/designNameSlice";
 import {
   Flex,
   IconButton,
@@ -8,11 +9,14 @@ import {
   EditableInput,
 } from "@chakra-ui/react";
 import { useState } from "react";
-
 import { BiStar, BiPencil } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { useStoreSelector } from "@/store/hooks";
 
 const DesignName = () => {
-  const [value, setValue] = useState("Court Canva 1");
+  const { name: initialDesignName } = useStoreSelector((state) => state.designName);
+  const [value, setValue] = useState(initialDesignName);
+  const dispatch = useDispatch();
   const EditableControls = () => {
     const { isEditing, getEditButtonProps } = useEditableControls();
     return isEditing ? null : (
@@ -35,6 +39,7 @@ const DesignName = () => {
         value={value}
         display="flex"
         alignItems="center"
+        onSubmit={() => dispatch(changeDesignName(value))}
       >
         <IconButton aria-label="Star" icon={<BiStar />} variant="navbarIconBtn" />
         <EditablePreview p="0px 8px" />

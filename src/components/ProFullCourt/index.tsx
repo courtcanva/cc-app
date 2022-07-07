@@ -64,6 +64,13 @@ const ProFullCourt = () => {
     return () => clearTimeout(timer);
   }, [tileColorState]);
 
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
+  useEffect(() => {
+    if (typeof window !== "undefined" && selectedColor === "none") {
+      document.body.style.cursor = "auto";
+    }
+  }, [selectedColor]);
+
   return (
     <Flex
       position="fixed"
