@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import useOnClickOutside from "@/utils/useOnClickOutside";
 import { useRef } from "react";
+import svgIcon from "@/utils/svgIcon";
 
 const ProFullCourt = dynamic(() => import("@/components/ProFullCourt"), { ssr: false });
 const FullCourt = dynamic(() => import("@/components/FullCourt"), { ssr: false });
@@ -16,6 +17,7 @@ const SmallCourt = dynamic(() => import("@/components/SmallCourt"), { ssr: false
 
 const Home: NextPage = () => {
   const { name: courtName } = useStoreSelector((state) => state.courtName);
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const dispatch = useDispatch();
   const ref = useRef(null); // click outside the canvas area can stop color changing
   const handleClickOutside = () => {
@@ -23,9 +25,25 @@ const Home: NextPage = () => {
     document.body.style.cursor = "auto";
   };
   useOnClickOutside(ref, handleClickOutside);
+
+  const handleMouseEnter = () => {
+    if (selectedColor !== "none") {
+      const iconUrl = // import svg string from utils and convert it to cur type (svg cannot be used as cursor directly)
+        `data:image/svg+xml;base64,` +
+        window.btoa(unescape(encodeURIComponent(svgIcon(selectedColor))));
+      document.body.style.cursor = `url(` + iconUrl + `) 24 24, auto`;
+    }
+  };
+  const handleMouseLeave = () => {
+    document.body.style.cursor = "auto";
+  };
+  
   return (
     <HeaderLayout>
-      <div ref={ref}>
+      <div
+        ref={ref}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}>
         {courtName === "510 m² Pro Court (17 m × 30 m)" && <ProFullCourt />}
         {courtName === "420 m² Full Court (15 m × 28 m)" && <FullCourt />}
         {courtName === "210 m² Pro Half Court (15 m × 14 m)" && <ProHalfCourt />}

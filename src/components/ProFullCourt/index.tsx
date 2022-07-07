@@ -16,7 +16,6 @@ import { calculation } from "@/utils/tileNumberCalculator";
 import { useDispatch } from "react-redux";
 import { changeTileQuantity } from "@/store/reducer/tileSlice";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
-import svgIcon from "@/utils/svgIcon";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -72,18 +71,6 @@ const ProFullCourt = () => {
     }
   }, [selectedColor]);
 
-  const handleMouseEnter = () => {
-    if (selectedColor !== "none") {
-      const iconUrl = // import svg string from utils and convert it to cur type (svg cannot be used as cursor directly)
-        `data:image/svg+xml;base64,` +
-        window.btoa(unescape(encodeURIComponent(svgIcon(selectedColor))));
-      document.body.style.cursor = `url(` + iconUrl + `) 24 24, auto`;
-    }
-  };
-  const handleMouseLeave = () => {
-    document.body.style.cursor = "auto";
-  };
-
   return (
     <Flex
       id="basketballCourt"
@@ -97,8 +84,6 @@ const ProFullCourt = () => {
       justifyContent="center"
       alignItems="center"
       margin="auto"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       <ReactReduxContext.Consumer>
         {({ store }) => (
