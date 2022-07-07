@@ -19,14 +19,16 @@ import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
+import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
 
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { name: courtName } = useStoreSelector((state) => state.courtName);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
+  const { paintPopover } = useStoreSelector((state) => state.paintBucket);
   const dispatch = useDispatch();
-  const handleSelectedColor = () => {
-    dispatch(changeSelectedColor("none"));
+  const handlePopoverOpen = () => {
+    dispatch(usePaintBucket(true));
   };
 
   return (
@@ -56,7 +58,7 @@ const TopBar = () => {
 
       {/* center */}
       <Flex alignItems="center" gap={{ base: "0", lg: "5" }}>
-        <Popover onClose={handleSelectedColor} closeOnBlur={false}>
+        <Popover isOpen={paintPopover} closeOnBlur={false}>
           <PopoverTrigger>
             <IconButton
               aria-label="Rb"
@@ -64,6 +66,7 @@ const TopBar = () => {
               display="fixed"
               variant="editorFooterIconBtn"
               data-testid="colorSelectBtn"
+              onClick={handlePopoverOpen}
             />
           </PopoverTrigger>
           <PopoverContent width={300} height={168}>
