@@ -12,7 +12,6 @@ import { PAGE_NOT_FOUND } from "../../src/constants";
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
 
-
   if (router.pathname === PAGE_NOT_FOUND) {
     return (
       <>
