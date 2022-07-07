@@ -6,7 +6,6 @@ import tileReducer from "./reducer/tileSlice";
 import courtColorReducer from "./reducer/courtColorSlice";
 import rulerControlReducer from "./reducer/rulerControlSlice";
 import paintBucketReducer from "./reducer/paintBucketSlice";
-import mouseTypeReducer from "./reducer/mouseTypeSlice";
 import { courtsApi } from "@/pages/api/courtSizeApi";
 
 export const makeStore = () =>
@@ -19,7 +18,6 @@ export const makeStore = () =>
       user: userReducer,
       rulerControl: rulerControlReducer,
       paintBucket: paintBucketReducer,
-      mouseType: mouseTypeReducer,
       [courtsApi.reducerPath]: courtsApi.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(courtsApi.middleware),

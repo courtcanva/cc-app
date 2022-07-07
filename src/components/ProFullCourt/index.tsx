@@ -26,6 +26,8 @@ import { useDispatch } from "react-redux";
 import { changeTileQuantity } from "@/store/reducer/tileSlice";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import svgIcon from "@/utils/svgIcon";
+import useOnClickOutside from "@/utils/useOnClickOutside";
+import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -81,20 +83,12 @@ const ProFullCourt = () => {
     }
   }, [selectedColor]);
 
-  // const ref = useRef<HTMLDivElement>(null);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (ref?.current && !ref.current.contains(event.target)) {
-  //       dispatch(changeSelectedColor("none"));
-  //       document.body.style.cursor = "auto";
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [ref]);
+  const ref = useRef(null); // click outside the canvas area can stop color changing
+  const handleClickOutside = () => {
+    dispatch(changeSelectedColor("none"));
+    document.body.style.cursor = "auto";
+  };
+  useOnClickOutside(ref, handleClickOutside);
 
   const handleMouseEnter = () => {
     if (selectedColor !== "none") {
@@ -123,7 +117,7 @@ const ProFullCourt = () => {
       margin="auto"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      // ref={ref}
+      ref={ref}
     >
       <ReactReduxContext.Consumer>
         {({ store }) => (
