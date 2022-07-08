@@ -3,6 +3,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
 import { changeTileColor, getColor } from "@/store/reducer/tileSlice";
+import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 
 interface BorderProps {
   startPoint: ICourtStartPoint;

@@ -1,12 +1,14 @@
 const svgIcon = (fillColor: string) => {
-  const paintColorIcon = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 1000 1000" xml:space="preserve">
-<g transform="matrix(48.1412 0 0 47.9491 499.9998 391.1016)" id="610803">
-  <path style="stroke:` + fillColor + `; fill: ` + fillColor + `; stroke-width: 1.4; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; is-custom-font: none; font-file-url: none; fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke" transform=" translate(-8.9991, -7.9793)" d="M 6.228 3.828 l 0.353 -0.353 l -0.353 -0.354 l -1.54 -1.54 a 0.413 0.413 0 0 1 0 -0.585 a 0.413 0.413 0 0 1 0.585 0 l 7.553 7.553 c 0.348 0.347 0.343 0.9 0.003 1.233 l -0.003 0.003 l -5.041 5.042 a 0.883 0.883 0 0 1 -0.618 0.257 a 0.883 0.883 0 0 1 -0.619 -0.257 L 1.507 9.785 l -0.003 -0.003 a 0.867 0.867 0 0 1 0.003 -1.233 l 4.72 -4.72 z M 2.422 8.814 l -0.853 0.853 H 12.764 l -0.853 -0.853 l -4.39 -4.391 l -0.354 -0.354 l -0.354 0.354 l -4.39 4.39 z m 12.995 2.496 c 0.15 0.184 0.329 0.414 0.508 0.667 c 0.22 0.313 0.432 0.65 0.588 0.974 c 0.16 0.333 0.237 0.606 0.237 0.8 c 0 0.732 -0.601 1.333 -1.334 1.333 a 1.339 1.339 0 0 1 -1.333 -1.333 c 0 -0.194 0.077 -0.467 0.237 -0.8 c 0.156 -0.324 0.368 -0.661 0.588 -0.974 c 0.18 -0.253 0.358 -0.483 0.508 -0.667 z" stroke-linecap="round"/>
-</g>
-<g transform="matrix(40.4762 0 0 32.5665 500.0001 873.2665)" id="194345">
-  <path style="stroke: ` + fillColor + `; fill: ` + fillColor + `; stroke-width: 1.4; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; is-custom-font: none; font-file-url: none; fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke" transform=" translate(-11, -2.1665)" d="M 1.833 0.833 h 18.334 c 0.732 0 1.333 0.601 1.333 1.333 c 0 0.733 -0.601 1.334 -1.333 1.334 H 1.833 A 1.339 1.339 0 0 1 0.5 2.166 c 0 -0.732 0.601 -1.333 1.333 -1.333 z" stroke-linecap="round"/>
-</g>
-</svg>`;
+  const paintColorIcon = `<svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" >
+     <feDropShadow dx="1" dy="1" stdDeviation="0" flood-color="#FFFFFF" flood-opacity="0.7"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+  <path fill="`+ fillColor +`" stroke="`+ fillColor +`" stroke-width="1.4" d="M6.22757 3.8282L6.58112 3.47465L6.22757 3.12109L4.68757 1.58109C4.52533 1.41886 4.52533 1.15794 4.68757 0.995702C4.84981 0.833464 5.11073 0.833464 5.27296 0.995702L12.8263 8.54904C13.1736 8.89629 13.1692 9.44817 12.8293 9.78225L12.8293 9.78224L12.8263 9.78526L7.78463 14.8269C7.61574 14.9958 7.38679 15.0838 7.16652 15.0838C6.94624 15.0838 6.7173 14.9958 6.5484 14.8269L1.50674 9.78526L1.50675 9.78525L1.5037 9.78225C1.16386 9.44817 1.15948 8.89629 1.50674 8.54904L6.22757 3.8282ZM2.42213 8.81359L1.56858 9.66715H2.77568H11.5574H12.7645L11.9109 8.81359L7.52007 4.42276L7.16652 4.06921L6.81296 4.42276L2.42213 8.81359ZM15.4165 11.3103C15.5666 11.4941 15.746 11.7241 15.9246 11.9774C16.1449 12.2896 16.3572 12.6275 16.5127 12.9513C16.6727 13.2844 16.7499 13.5568 16.7499 13.7505C16.7499 14.4827 16.1487 15.0838 15.4165 15.0838C14.6843 15.0838 14.0832 14.4827 14.0832 13.7505C14.0832 13.5568 14.1604 13.2844 14.3204 12.9513C14.4758 12.6275 14.6882 12.2896 14.9084 11.9774C15.0871 11.7241 15.2664 11.4941 15.4165 11.3103Z" />
+  </g>
+  </svg>`;
 
 return paintColorIcon;
 }

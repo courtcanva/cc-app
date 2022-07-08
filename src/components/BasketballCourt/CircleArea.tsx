@@ -9,8 +9,13 @@ interface CircleAreaProps {
 }
 
 const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
-  const { courtAreaXLength, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
+  let { courtAreaXLength, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
+
+  // coz pro full court is flipped, courtAreaXLength needs to be half of the court length
+  if (courtAreaXLength === 28000) {
+    courtAreaXLength /= 2;
+  }
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const circleAreaColor = getColor("circleArea");
@@ -22,7 +27,7 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
 
   return (
     <Arc
-      x={startPoint.X + courtAreaXLength / 2}
+      x={startPoint.X + courtAreaXLength}
       y={startPoint.Y + (threePointLineToCourtEdgeLength + threePointLineRadius)}
       innerRadius={0}
       outerRadius={circleRadius}

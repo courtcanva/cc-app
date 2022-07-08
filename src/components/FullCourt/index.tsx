@@ -8,14 +8,16 @@ import CourtArea from "../BasketballCourt/CourtArea";
 import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
-import FullCourtData from "../MockCourtData/FullCourtData";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { useTileCalculation } from "@/hooks/useTileCalculation";
 import Konva from "konva";
+import { useStoreSelector } from "@/store/hooks";
 
 const FullCourt = () => {
-  const { courtAreaXLength, courtAreaYLength, borderLength } = FullCourtData;
+  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
+    (state) => state.courtSize
+  );
   const stageMargin = 2500;
   const startPoint = {
     X: stageMargin,
