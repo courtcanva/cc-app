@@ -19,6 +19,7 @@ const customJestConfig = {
     "^@/constants/(.*)$": "<rootDir>/src/constants/$1",
     "^@/store/(.*)$": "<rootDir>/src/store/$1",
     "^@/pages/(.*)$": "<rootDir>/src/pages/$1",
+    "^@/utils/(.*)$": "<rootDir>/src/utils/$1",
     "^konva": "konva/konva",
   },
   collectCoverageFrom: [
@@ -41,6 +42,10 @@ const customJestConfig = {
     "!<rootDir>/src/components/MockCourtData/*", // should be deleted later
     "!<rootDir>/src/store/reducer/counterSlice.ts", // should be deleted later
     "!<rootDir>/src/store/hooks.ts", // exclude redux hooks
+    "!<rootDir>/src/utils/getAreaColor.ts",
+    "!<rootDir>/src/utils/useEventListener.ts",
+    "!<rootDir>/src/utils/useIsomorphicLayoutEffect.ts",
+    "!<rootDir>/src/utils/useOnClickOutside.ts",
     "!<rootDir>/node_modules/",
     "!<rootDir>/**/__tests__/**",
     "!<rootDir>/**/*.d.ts",
