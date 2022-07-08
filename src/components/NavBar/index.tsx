@@ -10,10 +10,9 @@ import EditorDesignName from "@/components/NavBar/EditorDesignName";
 
 import LoginModalContent from "../Login";
 import { useEffect, useState } from "react";
-import { useStoreSelector } from "@/store/hooks";
-import { userInfo } from "os";
 import { ActionCreators } from "redux-undo";
 import { useDispatch } from "react-redux";
+import { useStoreSelector } from "@/store/hooks";
 
 const NavigationBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -54,6 +53,9 @@ const NavigationBar = () => {
     dispatch(ActionCreators.redo());
   };
 
+  const isThingsToUndo = useStoreSelector((state) => state.tile.past).length;
+  const isThingsToRedo = useStoreSelector((state) => state.tile.future).length;
+
   return (
     <Grid
       templateColumns="repeat(3, 1fr)"
@@ -79,13 +81,14 @@ const NavigationBar = () => {
             aria-label="Revert edit"
             icon={<RiArrowGoBackLine />}
             variant="navbarIconBtn"
+            color={isThingsToUndo ? "white" : "#72818B"}
             onClick={handleUndo}
           />
           <IconButton
             aria-label="Forward edit"
             icon={<RiArrowGoForwardLine />}
             variant="navbarIconBtn"
-            color="#72818B"
+            color={isThingsToRedo ? "white" : "#72818B"}
             onClick={handleRedo}
           />
         </Flex>

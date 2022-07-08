@@ -8,11 +8,6 @@ it("should return the initial state", () => {
 });
 
 it("should change tile color", () => {
-  // TODO: temporary solution, should be changed later
-  // const previousState= initialState;
-  // expect(
-  //   reducer(previousState, changeTileColor({ location: "border", selectedColor: "#195955" }))
-  // ).toEqual(previousState);
   const previousState: StateWithHistory<TileState> = store.getState().tile;
   expect(
     reducer(previousState, changeTileColor({ selectedColor: "#8E9196", location: "threePoint" }))
