@@ -14,10 +14,10 @@ const CourtSize = () => {
       marginX={{ base: 35, lg: 78 }}
     >
       {courtList.map((court) => {
-        const { courtSizeName, courtSizeDetails, img } = court;
+        const { courtSizeName, courtSizeDetails, imgUrl } = court;
 
         return (
-          <Box sx={styles} key={img}>
+          <Box sx={styles} key={imgUrl}>
             <Box
               width="255"
               height="205"
@@ -25,7 +25,7 @@ const CourtSize = () => {
               alignItems="center"
               justifyContent="center"
             >
-              <Image src={img} objectFit={"contain"} paddingX={{ base: 1, lg: 0 }} />
+              <Image src={imgUrl} objectFit={"contain"} paddingX={{ base: 1, lg: 0 }} />
             </Box>
             <Box marginTop="2">
               <Text fontSize={{ base: "sm", lg: "md" }}>{courtSizeName}</Text>

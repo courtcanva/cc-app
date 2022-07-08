@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useLayoutEffect, useEffect } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -12,10 +12,9 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import { useStoreSelector } from "@/store/hooks";
 import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimension";
-import { calculation } from "@/utils/tileNumberCalculator";
-import { useDispatch } from "react-redux";
-import { changeTileQuantity } from "@/store/reducer/tileSlice";
+import { useTileCalculation } from "@/hooks/useTileCalculation";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
+import Konva from "konva";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -36,13 +35,10 @@ const ProFullCourt = () => {
     size
   );
   const court = courtAndInfo.court;
-  const courtAndTileInfo = courtAndInfo.courtAndTileInfo;
+  // https://github.com/konvajs/react-konva/issues/316
+  const canvasRef = useRef<Konva.Layer>(null);
 
-  const canvasRef = useRef(null);
-
-  const tileCalculation = useCallback(calculation, []);
-
-  const tileColorState = useStoreSelector((state) => state.tile.court);
+  useTileCalculation(courtAndInfo, canvasRef);
 
   useLayoutEffect(() => {
     const checkSize = () => {
@@ -54,22 +50,6 @@ const ProFullCourt = () => {
     window.addEventListener("resize", checkSize);
     return () => window.removeEventListener("resize", checkSize);
   }, []);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const tileNumberResult = tileCalculation(canvasRef, courtAndTileInfo);
-      dispatch(changeTileQuantity(tileNumberResult));
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [tileColorState]);
-
-  const { selectedColor } = useStoreSelector((state) => state.courtColor);
-  useEffect(() => {
-    if (typeof window !== "undefined" && selectedColor === "none") {
-      document.body.style.cursor = "auto";
-    }
-  }, [selectedColor]);
 
   return (
     <Flex
@@ -92,7 +72,7 @@ const ProFullCourt = () => {
             width={court.stageWidth}
             scaleX={court.courtRatio}
             scaleY={court.courtRatio}
-            visible={true}
+            visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
           >

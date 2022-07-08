@@ -1,4 +1,8 @@
-import { MutableRefObject } from "react";
+import { PriceBar } from "@/store/reducer/tileSlice";
+import Konva from "konva";
+import { Context } from "konva/lib/Context";
+import { RefObject } from "react";
+
 interface PixelColors {
   [prop: string]: number;
 }
@@ -11,10 +15,6 @@ interface IcourtAndTileInfo {
   tileSize: number;
 }
 
-interface IcolorResult {
-  color: string;
-  quantity: number;
-}
 // refactor data to pixelColorInTile array,
 // each element is the an array contains [r,g,b,a] value of each pixel
 const refactorData = (data: number[]) => {
@@ -55,11 +55,11 @@ const determineTileColor = (arr: Array<string>) => {
 };
 
 export const tileNumberCalculator = (
-  ctx: CanvasRenderingContext2D | null, // Canva's context 2D information including pixel's color
+  ctx: Context | null, // Canva's context 2D information including pixel's color
   courtAndTileInfo: IcourtAndTileInfo // Coordinates of important points of the specific area
 ) => {
   const { beginPointX, beginPointY, endPointX, endPointY, tileSize } = courtAndTileInfo;
-  let colorResult: IcolorResult[] = [];
+  let colorResult: PriceBar[] = [];
   // scan horizontally
   for (let x = beginPointX; x < endPointX; x += tileSize) {
     // scan vertically
@@ -90,17 +90,18 @@ export const tileNumberCalculator = (
 };
 
 export const calculation = (
-  canvasRef: MutableRefObject<null>,
+  canvasRef: RefObject<Konva.Layer>,
   courtAndTileInfo: IcourtAndTileInfo
 ) => {
-  const canvas = canvasRef.current as unknown as HTMLCanvasElement;
+  const canvas = canvasRef.current;
   if (canvas) {
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext();
     const tileNumResult = tileNumberCalculator(ctx, courtAndTileInfo);
     return tileNumResult;
   }
 };
 
+// https://css-tricks.com/converting-color-spaces-in-javascript/
 // transfer rgbaString to HexString, only for solid color
 const rgbaToHex = (rgbaString: string) => {
   // separate numbers in rgbaString and put into an array

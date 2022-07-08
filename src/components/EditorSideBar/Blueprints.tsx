@@ -9,7 +9,7 @@ import { changeCourtSize, CourtSizeState, CourtSpecMapper } from "@/store/reduce
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
   const [activateCourt, setActivateCourt] = useState<string>("");
-  const { data } = useGetCourtsQuery();
+  const { data } = useGetCourtsQuery(0); // arg 0 for satisfying arg requirement of useGetCourtsQuery
 
   const handleCourtSelecting = (img: string, courtId: string): void => {
     setActivateCourt(img);
@@ -48,10 +48,10 @@ const Blueprints: React.FC = () => {
   return (
     <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">
       {courtList.map((court) => {
-        const { img, courtId } = court;
+        const { imgUrl, courtId } = court;
         return (
           <Box
-            key={img}
+            key={imgUrl}
             width="219px"
             height="150px"
             background="#fff"
@@ -60,12 +60,12 @@ const Blueprints: React.FC = () => {
             alignItems="center"
             justifyContent="center"
             cursor="pointer"
-            onClick={() => handleCourtSelecting(img, courtId)}
-            data-testid={img}
+            onClick={() => handleCourtSelecting(imgUrl, courtId)}
+            data-testid={imgUrl}
             _hover={{ border: "4px solid #40B484" }}
-            opacity={!activateCourt || activateCourt === img ? "1" : "0.4"}
+            opacity={!activateCourt || activateCourt === imgUrl ? "1" : "0.4"}
           >
-            <Image src={img} objectFit={"contain"} width="200px" height="140px" />
+            <Image src={imgUrl} objectFit="contain" width="200px" height="140px" />
           </Box>
         );
       })}

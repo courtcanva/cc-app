@@ -32,6 +32,8 @@ const customJestConfig = {
     "!<rootDir>/src/utils/axios.ts",
     "!<rootDir>/src/utils/getCourtAndTileInfo.ts",
     "!<rootDir>/src/utils/tileNumberCalculator.ts",
+    "!<rootDir>/src/utils/printPDF.ts",
+    "!<rootDir>/src/hooks/*",
     "!<rootDir>/src/components/BasketballCourt/*", // exclude canvas
     "!<rootDir>/src/components/FullCourt/*", // exclude canvas
     "!<rootDir>/src/components/ProFullCourt/*", // exclude canvas
@@ -39,7 +41,6 @@ const customJestConfig = {
     "!<rootDir>/src/components/HalfCourt/*", // exclude canvas
     "!<rootDir>/src/components/MediumCourt/*", // exclude canvas
     "!<rootDir>/src/components/SmallCourt/*", // exclude canvas
-    "!<rootDir>/src/components/MockCourtData/*", // should be deleted later
     "!<rootDir>/src/store/reducer/counterSlice.ts", // should be deleted later
     "!<rootDir>/src/store/hooks.ts", // exclude redux hooks
     "!<rootDir>/src/utils/getAreaColor.ts",

@@ -2,8 +2,7 @@ import { Rect } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
-import { changeTileColor } from "@/store/reducer/tileSlice";
-import { getColor } from "@/utils/getAreaColor";
+import { changeTileColor, getColor } from "@/store/reducer/tileSlice";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 
 interface BorderProps {
