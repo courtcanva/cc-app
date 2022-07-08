@@ -53,6 +53,7 @@
     "react-icons": "^4.3.1",
     "react-konva": "^17.0.2-6",
     "react-redux": "^8.0.1",
+    "redux-undo": "^1.0.1",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {

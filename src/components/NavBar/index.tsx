@@ -12,6 +12,8 @@ import LoginModalContent from "../Login";
 import { useEffect, useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
 import { userInfo } from "os";
+import { ActionCreators } from "redux-undo";
+import { useDispatch } from "react-redux";
 
 const NavigationBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,6 +46,13 @@ const NavigationBar = () => {
     localStorage.removeItem("UserInfo");
     setLoginData(null);
   };
+  const dispatch = useDispatch();
+  const handleUndo = () => {
+    dispatch(ActionCreators.undo());
+  };
+  const handleRedo = () => {
+    dispatch(ActionCreators.redo());
+  };
 
   return (
     <Grid
@@ -70,12 +79,14 @@ const NavigationBar = () => {
             aria-label="Revert edit"
             icon={<RiArrowGoBackLine />}
             variant="navbarIconBtn"
+            onClick={handleUndo}
           />
           <IconButton
             aria-label="Forward edit"
             icon={<RiArrowGoForwardLine />}
             variant="navbarIconBtn"
             color="#72818B"
+            onClick={handleRedo}
           />
         </Flex>
       </Flex>
