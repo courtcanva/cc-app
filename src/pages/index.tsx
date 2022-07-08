@@ -16,7 +16,7 @@ const MediumCourt = dynamic(() => import("@/components/MediumCourt"), { ssr: fal
 const SmallCourt = dynamic(() => import("@/components/SmallCourt"), { ssr: false });
 
 const Home: NextPage = () => {
-  const { name: courtName } = useStoreSelector((state) => state.courtName);
+  const { courtId } = useStoreSelector((state) => state.courtName);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const dispatch = useDispatch();
   const ref = useRef(null); // click outside the canvas area can stop color changing
@@ -41,12 +41,12 @@ const Home: NextPage = () => {
   return (
     <HeaderLayout>
       <div ref={ref} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-        {courtName === "510 m² Pro Court (17 m × 30 m)" && <ProFullCourt />}
-        {courtName === "420 m² Full Court (15 m × 28 m)" && <FullCourt />}
-        {courtName === "210 m² Pro Half Court (15 m × 14 m)" && <ProHalfCourt />}
-        {courtName === "150 m² Half Court (15 m × 10 m)" && <HalfCourt />}
-        {courtName === "70 m² Medium Court (7 m × 10 m)" && <MediumCourt />}
-        {courtName === "45 m² Small Court (5 m × 9 m)" && <SmallCourt />}
+        {courtId === "62c432cfb8a9c5f61f03831f" && <ProFullCourt />}
+        {courtId === "62c432cfb8a9c5f61f038320" && <FullCourt />}
+        {courtId === "62c432cfb8a9c5f61f038321" && <ProHalfCourt />}
+        {courtId === "62c432cfb8a9c5f61f038322" && <HalfCourt />}
+        {courtId === "62c432cfb8a9c5f61f038323" && <MediumCourt />}
+        {courtId === "62c432cfb8a9c5f61f038324" && <SmallCourt />}
       </div>
     </HeaderLayout>
   );
