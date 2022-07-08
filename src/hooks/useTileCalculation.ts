@@ -1,6 +1,6 @@
 import { useEffect, useCallback, RefObject } from "react";
 import { useDispatch } from "react-redux";
-import { calculation } from "./tileNumberCalculator";
+import { calculation } from "../utils/tileNumberCalculator";
 import { changeTileQuantity, PriceBar } from "@/store/reducer/tileSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { CourtAndTileInfoResult } from "@/utils/getCourtAndTileInfo";

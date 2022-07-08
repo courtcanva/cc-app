@@ -16,7 +16,7 @@ describe("Blueprints", () => {
     renderWithMockedProvider(<Blueprints />);
 
     courtList.forEach((court) => {
-      act(() => user.click(screen.getByTestId(court.img)));
+      act(() => user.click(screen.getByTestId(court.imgUrl)));
       renderWithMockedProvider(<TopBar />);
       expect(screen.findAllByText(court.courtSizeName)).toBeTruthy();
     });
@@ -26,7 +26,7 @@ describe("Blueprints", () => {
     renderWithMockedProvider(<Blueprints />);
 
     courtList.forEach((court) => {
-      const courtImg = screen.getByTestId(court.img);
+      const courtImg = screen.getByTestId(court.imgUrl);
 
       act(() => user.click(courtImg));
       renderWithMockedProvider(<TopBar />);

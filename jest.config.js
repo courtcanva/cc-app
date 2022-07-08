@@ -31,7 +31,7 @@ const customJestConfig = {
     "!<rootDir>/src/utils/axios.ts",
     "!<rootDir>/src/utils/getCourtAndTileInfo.ts",
     "!<rootDir>/src/utils/tileNumberCalculator.ts",
-    "!<rootDir>/src/utils/hooks.ts",
+    "!<rootDir>/src/hooks/*",
     "!<rootDir>/src/components/BasketballCourt/*", // exclude canvas
     "!<rootDir>/src/components/FullCourt/*", // exclude canvas
     "!<rootDir>/src/components/ProFullCourt/*", // exclude canvas

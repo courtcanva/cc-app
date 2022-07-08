@@ -11,7 +11,7 @@ import Border from "../BasketballCourt/Border";
 import FullCourtData from "../MockCourtData/FullCourtData";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
-import { useTileCalculation } from "@/utils/hooks";
+import { useTileCalculation } from "@/hooks/useTileCalculation";
 import Konva from "konva";
 
 const FullCourt = () => {

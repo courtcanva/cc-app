@@ -9,7 +9,7 @@ import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import MediumCourtData from "../MockCourtData/MediumCourtData";
 import Border from "../BasketballCourt/Border";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
-import { useTileCalculation } from "@/utils/hooks";
+import { useTileCalculation } from "@/hooks/useTileCalculation";
 import Konva from "konva";
 
 const MediumCourt = () => {

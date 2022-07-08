@@ -12,7 +12,7 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import { useStoreSelector } from "@/store/hooks";
 import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimension";
-import { useTileCalculation } from "@/utils/hooks";
+import { useTileCalculation } from "@/hooks/useTileCalculation";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import Konva from "konva";
 
