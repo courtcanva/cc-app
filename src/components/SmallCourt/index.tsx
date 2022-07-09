@@ -6,13 +6,13 @@ import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
-import courtRatio from "../../utils/courtRatio";
-import SmallCourtData from "../MockCourtData/SmallCourtData";
 import Border from "../BasketballCourt/Border";
 import { useStoreSelector } from "@/store/hooks";
 import { calculation } from "@/utils/tileNumberCalculator";
 import { changeTileQuantity } from "@/store/reducer/tileSlice";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
+import { Line } from "react-konva";
+import { courtWhiteLine } from "@/store/reducer/courtSizeSlice";
 
 const SmallCourt = () => {
   const {
@@ -21,7 +21,7 @@ const SmallCourt = () => {
     threePointLineRadius,
     threePointLineToCourtEdgeLength,
     borderLength,
-  } = SmallCourtData;
+  } = useStoreSelector((state) => state.courtSize);
   const stageMargin = 2500;
   // componentsStartPoint is different court area start point
   const componentsStartPoint = {
@@ -108,6 +108,7 @@ const SmallCourt = () => {
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
+
                 <Group
                   clipFunc={(ctx: any) => {
                     ctx.beginPath();
@@ -116,10 +117,19 @@ const SmallCourt = () => {
                   }}
                 >
                   <CourtArea startPoint={componentsStartPoint} courtWidth={courtAreaXLength} />
+
                   <ThreePointArea startPoint={componentsStartPoint} />
                   <KeyArea startPoint={componentsStartPoint} />
                   <TopKeyArea startPoint={componentsStartPoint} />
                 </Group>
+                {/* create a line divide border and court  */}
+                <Line
+                  points={[2500, 2500, 11500, 2500, 11500, 7500, 2500, 7500]}
+                  stroke="white"
+                  strokeWidth={courtWhiteLine}
+                  visible
+                  closed
+                />
               </Layer>
             </Provider>
           </Stage>

@@ -8,7 +8,6 @@ import CourtArea from "../BasketballCourt/CourtArea";
 import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
-import courtRatio from "../../utils/courtRatio";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import { useStoreSelector } from "@/store/hooks";
 import DashedLine from "../BasketballCourt/DashedLine";
@@ -65,6 +64,13 @@ const ProFullCourt = () => {
     return () => clearTimeout(timer);
   }, [tileColorState]);
 
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
+  useEffect(() => {
+    if (typeof window !== "undefined" && selectedColor === "none") {
+      document.body.style.cursor = "auto";
+    }
+  }, [selectedColor]);
+
   return (
     <Flex
       position="fixed"
@@ -101,7 +107,7 @@ const ProFullCourt = () => {
                 />
                 {/* arrowLine & dimensionText can be reuse for all courts*/}
                 <CourtDimension startPoint={startPoint} />
-                {/* <BorderDimension startPoint={startPoint} /> */}
+                <BorderDimension startPoint={startPoint} />
                 {/* left side of pro full court*/}
                 <Group>
                   <DashedLine startPoint={startPoint} />

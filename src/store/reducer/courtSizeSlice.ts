@@ -1,10 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
 export interface CourtSizeState {
-  [prop: string]: number;
+  courtId: string;
+  courtAreaXLength: number;
+  courtAreaYLength: number;
+  threePointLineToCourtEdgeLength: number;
+  cornerThreePointLineLength: number;
+  threePointLineRadius: number;
+  keyAreaWidth: number;
+  keyAreaHeight: number;
+  circleRadius: number;
+  strokeWidth: number;
+  borderLength: number;
+}
+export interface CourtSpecMapper {
+  [prop: string]: string;
 }
 
 export const initialState: CourtSizeState = {
+  courtId: "62c432cfb8a9c5f61f03831f",
   courtAreaXLength: 28000,
   courtAreaYLength: 15000,
   threePointLineToCourtEdgeLength: 900,
@@ -14,15 +28,15 @@ export const initialState: CourtSizeState = {
   keyAreaHeight: 4800,
   circleRadius: 1800,
   strokeWidth: 200,
-  borderLength: 1200,
+  borderLength: 1000,
 };
 
 export const courtSizeSlice = createSlice({
   name: "courtSize",
   initialState,
   reducers: {
-    changeCourtSize: (state, action: PayloadAction<string>) => {
-      // TODO
+    changeCourtSize: (state: CourtSizeState, action: PayloadAction<CourtSizeState>) => {
+      return { ...state, ...action.payload };
     },
     changeBorderLength: (state: CourtSizeState, action: PayloadAction<number>) => {
       return { ...state, borderLength: action.payload };

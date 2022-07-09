@@ -13,7 +13,7 @@ it("should return the initial state", () => {
 
 it("should render court size", () => {
   const previousState: CourtSizeState = initialState;
-  expect(reducer(previousState, changeCourtSize(""))).toEqual(initialState);
+  expect(reducer(previousState, changeCourtSize(initialState))).toEqual(initialState);
 });
 
 it("should handle changeBorderLength", () => {

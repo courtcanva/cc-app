@@ -5,6 +5,10 @@ import userReducer from "./reducer/userSlice";
 import tileReducer from "./reducer/tileSlice";
 import courtColorReducer from "./reducer/courtColorSlice";
 import rulerControlReducer from "./reducer/rulerControlSlice";
+import { courtsApi } from "../redux/api/courtSizeApi";
+import designNameReducer from "./reducer/designNameSlice";
+import paintBucketReducer from "./reducer/paintBucketSlice";
+
 export const makeStore = () =>
   configureStore({
     reducer: {
@@ -14,7 +18,11 @@ export const makeStore = () =>
       courtColor: courtColorReducer,
       user: userReducer,
       rulerControl: rulerControlReducer,
+      designName: designNameReducer,
+      paintBucket: paintBucketReducer,
+      [courtsApi.reducerPath]: courtsApi.reducer,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(courtsApi.middleware),
   });
 
 export const store = makeStore();

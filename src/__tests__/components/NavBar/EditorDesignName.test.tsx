@@ -1,10 +1,11 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import EditorDesignName from "../../../components/NavBar/EditorDesignName";
 import userEvent from "@testing-library/user-event";
+import renderWithMockedProvider from "../../utils";
 
 describe("EditorDesignName", () => {
   test("click the btn can show the input element", () => {
-    render(<EditorDesignName />);
+    renderWithMockedProvider(<EditorDesignName />);
     const btnElement = screen.getByLabelText("Edit");
     const spanElement = screen.getByText("Court Canva 1");
     const inputElement = screen.getByDisplayValue("Court Canva 1");
