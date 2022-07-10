@@ -1,4 +1,4 @@
-import { PriceBar } from "@/store/reducer/tileSlice";
+import { PriceBar } from "@/store/reducer/priceBarSlice";
 import Konva from "konva";
 import { Context } from "konva/lib/Context";
 import { RefObject } from "react";

@@ -1,39 +1,43 @@
 import store from "@/store/index";
-import reducer, {
-  initialState,
-  changeTileColor,
-  TileState,
-  changeTileQuantity,
-} from "@/store/reducer/tileSlice";
+import reducer, { initialState, changeTileColor, TileState } from "@/store/reducer/tileSlice";
+import { StateWithHistory } from "redux-undo";
 
 it("should return the initial state", () => {
-  const state = store.getState().tile;
+  const state = store.getState().tile.present;
   expect(state).toEqual(initialState);
 });
 
 it("should change tile color", () => {
-  // TODO: temporary solution, should be changed later
-  const previousState: TileState = initialState;
+  const previousState: StateWithHistory<TileState> = store.getState().tile;
   expect(
-    reducer(previousState, changeTileColor({ location: "border", selectedColor: "#195955" }))
-  ).toEqual(previousState);
-});
-
-it("should change tile quantity", () => {
-  const previousState: TileState = initialState;
-  expect(
-    reducer(
-      previousState,
-      changeTileQuantity([
-        { color: "#72818B", quantity: 1277 },
-        { color: "#B61313", quantity: 2576 },
-      ])
-    )
+    reducer(previousState, changeTileColor({ selectedColor: "#8E9196", location: "threePoint" }))
+      .present
   ).toEqual({
-    ...previousState,
-    priceBar: [
-      { color: "#72818B", quantity: 1277 },
-      { color: "#B61313", quantity: 2576 },
+    court: [
+      {
+        location: "threePoint",
+        color: "#8E9196",
+      },
+      {
+        location: "courtArea",
+        color: "#B61313",
+      },
+      {
+        location: "topKeyArea",
+        color: "#B61313",
+      },
+      {
+        location: "border",
+        color: "#195955",
+      },
+      {
+        location: "keyArea",
+        color: "#2C4E8A",
+      },
+      {
+        location: "circleArea",
+        color: "#606F14",
+      },
     ],
   });
 });

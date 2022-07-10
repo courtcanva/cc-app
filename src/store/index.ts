@@ -8,6 +8,7 @@ import rulerControlReducer from "./reducer/rulerControlSlice";
 import { courtsApi } from "../redux/api/courtSizeApi";
 import designNameReducer from "./reducer/designNameSlice";
 import paintBucketReducer from "./reducer/paintBucketSlice";
+import priceBarSlice from "./reducer/priceBarSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -15,6 +16,7 @@ export const makeStore = () =>
       courtSize: courtReducer,
       courtName: courtNameReducer,
       tile: tileReducer,
+      priceBar: priceBarSlice,
       courtColor: courtColorReducer,
       user: userReducer,
       rulerControl: rulerControlReducer,
