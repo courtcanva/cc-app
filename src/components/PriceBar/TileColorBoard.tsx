@@ -1,9 +1,25 @@
 import { Center, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { useStoreSelector } from "@/store/hooks";
+// import priceCalculation from "./priceCalculation";
+import { useGetPriceQuery } from "@/redux/api/priceApi";
 
 const TileColorBoard: React.FC = () => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
+  const tiles = useStoreSelector((state) => state.tile.priceBar);
+  const { data } = useGetPriceQuery();
+  console.log(data);
+
+  let totalPrice = 0;
+
+  data?.tiles?.tilePrice.map((colorName: string, price: number) => {
+    tiles?.map((tile) => {
+      if (tile.color === colorName) {
+        totalPrice += price * tile.quantity;
+      }
+    });
+  });
+
   return (
     <>
       <Flex height="64px">
@@ -37,7 +53,7 @@ const TileColorBoard: React.FC = () => {
             Estimated Budget:
           </Text>
           <Text fontSize="xs" fontWeight="800" marginLeft="6px">
-            From $ xxxx
+            From $ {totalPrice}
           </Text>
         </Center>
       </Flex>

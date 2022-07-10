@@ -1,37 +1,37 @@
 const courtList = [
   {
     courtId: "62c432cfb8a9c5f61f03831f",
-    courtSizeName: "510 m² Pro Court",
+    courtSizeName: "Pro Full Court",
     courtSizeDetails: "(17 m × 30 m)",
     imgUrl: "./courtSize/Pro-Full-Court.png",
   },
   {
     courtId: "62c432cfb8a9c5f61f038320",
-    courtSizeName: "420 m² Full Court",
+    courtSizeName: "Full Court",
     courtSizeDetails: "(15 m × 28 m)",
     imgUrl: "./courtSize/Full-Court.png",
   },
   {
     courtId: "62c432cfb8a9c5f61f038324",
-    courtSizeName: "45 m² Small Court",
+    courtSizeName: "Small Court",
     courtSizeDetails: "(5 m × 9 m)",
     imgUrl: "./courtSize/Small-Court.png",
   },
   {
     courtId: "62c432cfb8a9c5f61f038321",
-    courtSizeName: "210 m² Pro Half Court",
+    courtSizeName: "Pro Half Court",
     courtSizeDetails: "(15 m × 14 m)",
     imgUrl: "./courtSize/Pro-Half-Court.png",
   },
   {
     courtId: "62c432cfb8a9c5f61f038322",
-    courtSizeName: "150 m² Half Court",
+    courtSizeName: "Half Court",
     courtSizeDetails: "(15 m × 10 m)",
     imgUrl: "./courtSize/Half-Court.png",
   },
   {
     courtId: "62c432cfb8a9c5f61f038323",
-    courtSizeName: "70 m² Medium Court",
+    courtSizeName: "Medium Court",
     courtSizeDetails: "(7 m × 10 m)",
     imgUrl: "./courtSize/Medium-Court.png",
   },

@@ -11,6 +11,8 @@ import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { useTileCalculation } from "@/hooks/useTileCalculation";
 import Konva from "konva";
 import { useStoreSelector } from "@/store/hooks";
+import { calculation } from "@/utils/tileNumberCalculator";
+import CourtDimension from "../BasketballCourt/CourtDimension";
 
 const HalfCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -81,6 +83,7 @@ const HalfCourt = () => {
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
+                <CourtDimension startPoint={startPoint} />
                 <Group>
                   <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength} />
                   <ThreePointArea startPoint={startPoint} />
