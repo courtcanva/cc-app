@@ -81,14 +81,14 @@ const NavigationBar = () => {
             aria-label="Revert edit"
             icon={<RiArrowGoBackLine />}
             variant="navbarIconBtn"
-            color={isThingsToUndo ? "white" : "#72818B"}
+            disabled={!isThingsToUndo}
             onClick={handleUndo}
           />
           <IconButton
             aria-label="Forward edit"
             icon={<RiArrowGoForwardLine />}
             variant="navbarIconBtn"
-            color={isThingsToRedo ? "white" : "#72818B"}
+            disabled={!isThingsToRedo}
             onClick={handleRedo}
           />
         </Flex>
