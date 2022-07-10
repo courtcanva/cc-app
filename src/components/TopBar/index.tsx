@@ -27,16 +27,21 @@ import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
 
-import { changeBorderLength, borderLength } from "@/store/reducer/courtSizeSlice";
-import { useState } from "react";
+import { changeBorderLength } from "@/store/reducer/courtSizeSlice";
+import { useEffect, useState } from "react";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
+import { courtSizeData } from "@/store/reducer/courtSizeSlice";
+import { FcCdLogo } from "react-icons/fc";
 
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [sliderValue, setSliderValue] = useState(borderLength / 1000);
   const { name: courtName } = useStoreSelector((state) => state.courtName);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
+  const borderLength = useStoreSelector((state) => state.courtSize.borderLength);
+  const [sliderValue, setSliderValue] = useState(borderLength / 1000);
   const dispatch = useDispatch();
+
+  useEffect(() => setSliderValue(borderLength / 1000), [borderLength]);
 
   const handleChange = (val: number) => {
     setSliderValue(val);
