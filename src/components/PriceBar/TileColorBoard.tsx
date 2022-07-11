@@ -1,24 +1,55 @@
 import { Center, Flex, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useStoreSelector } from "@/store/hooks";
-// import priceCalculation from "./priceCalculation";
+import { IPriceCalculation, ITilePrice, ICourts } from "../../interfaces/priceCalculation";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
+import { useDispatch } from "react-redux";
+import { changeTotalPrice } from "@/store/reducer/totalPriceSlice";
+import priceFormat from "@/utils/priceFormat";
 
 const TileColorBoard: React.FC = () => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
+  const dispatch = useDispatch();
   const tiles = useStoreSelector((state) => state.tile.priceBar);
+  const courts = useStoreSelector((state) => state.courtSize);
+  const budget = useStoreSelector((state) => state.totalPrice.budget);
   const { data } = useGetPriceQuery();
-  console.log(data);
 
-  let totalPrice = 0;
-
-  data?.tiles?.tilePrice.map((colorName: string, price: number) => {
-    tiles?.map((tile) => {
-      if (tile.color === colorName) {
-        totalPrice += price * tile.quantity;
+  useEffect(() => {
+    let tilePrice = 0;
+    let installPrice = 0;
+    let deliveryPrice = 0;
+    let totalQuantity = 0;
+    if (data) {
+      const priceList = data.find((item: IPriceCalculation) => !item.isDeleted);
+      if (priceList) {
+        // avoid undefined
+        tiles?.map((tile) => {
+          // tile price
+          const tileColor = tile.color.toUpperCase();
+          const tileList = priceList.tiles.tilePrice.find(
+            (item: ITilePrice) => item.color === tileColor
+          );
+          if (tileList) {
+            tilePrice += (tileList.price / 100) * tile.quantity;
+            totalQuantity += tile.quantity;
+          }
+        });
+        // delivery price (a fixed price per 1000 tiles)
+        deliveryPrice += (totalQuantity / 1000) * priceList.tiles.deliveryPrice;
+        // installation price (fixed prices for corresponding courts)
+        const courtList = priceList.court_spec.find(
+          (item: ICourts) => item.court === courts.courtName
+        );
+        if (courtList) {
+          installPrice += courtList.installationPrice / 100;
+        }
       }
-    });
-  });
+    }
+    // check price format
+    const totalPrice = priceFormat(tilePrice, deliveryPrice, installPrice);
+    dispatch(changeTotalPrice(totalPrice));
+  }, [tiles, courts]);
 
   return (
     <>
@@ -53,7 +84,7 @@ const TileColorBoard: React.FC = () => {
             Estimated Budget:
           </Text>
           <Text fontSize="xs" fontWeight="800" marginLeft="6px">
-            From $ {totalPrice}
+            From $ {budget}
           </Text>
         </Center>
       </Flex>

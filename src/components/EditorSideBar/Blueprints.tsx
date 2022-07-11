@@ -5,6 +5,7 @@ import { changeCourtName, CourtNameState } from "@/store/reducer/courtNameSlice"
 import React, { useState } from "react";
 import { useGetCourtsQuery } from "../../redux/api/courtSizeApi";
 import { changeCourtSize, CourtSizeState, CourtSpecMapper } from "@/store/reducer/courtSizeSlice";
+import { changeTotalPrice } from "@/store/reducer/totalPriceSlice";
 
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const Blueprints: React.FC = () => {
       courtId: courtId,
     };
     dispatch(changeCourtName(chosenCourt));
+    dispatch(changeTotalPrice("0"));
 
     const mappedCourtSpecs = data.map((item: CourtSpecMapper) => ({
       courtId: item._id,
