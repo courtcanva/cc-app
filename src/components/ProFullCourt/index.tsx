@@ -12,9 +12,10 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import { useStoreSelector } from "@/store/hooks";
 import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimension";
-import { useTileCalculation } from "@/hooks/useTileCalculation";
+// import { useTileCalculation } from "@/hooks/useTileCalculation";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import Konva from "konva";
+import { useTileCount } from "@/hooks/useTileCount";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -38,7 +39,8 @@ const ProFullCourt = () => {
   // https://github.com/konvajs/react-konva/issues/316
   const canvasRef = useRef<Konva.Layer>(null);
 
-  useTileCalculation(courtAndInfo, canvasRef);
+  // useTileCalculation(courtAndInfo, canvasRef);
+  useTileCount();
 
   useLayoutEffect(() => {
     const checkSize = () => {
