@@ -9,12 +9,8 @@ import { courtsApi } from "../redux/api/courtSizeApi";
 import { priceApi } from "../redux/api/priceApi";
 import designNameReducer from "./reducer/designNameSlice";
 import paintBucketReducer from "./reducer/paintBucketSlice";
-<<<<<<< HEAD
 import priceBarSlice from "./reducer/priceBarSlice";
-||||||| parent of 83e0546 (feat: cc-0088 price change and courtData env)
-=======
 import totalPriceReducer from "./reducer/totalPriceSlice";
->>>>>>> 83e0546 (feat: cc-0088 price change and courtData env)
 
 export const makeStore = () =>
   configureStore({

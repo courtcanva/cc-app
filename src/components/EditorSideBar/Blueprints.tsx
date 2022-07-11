@@ -31,6 +31,7 @@ const Blueprints: React.FC = () => {
 
     const mappedCourtSpecs = data.map((item: CourtSpecMapper) => ({
       courtId: item._id,
+      courtName: item.name,
       courtAreaXLength: item.length,
       courtAreaYLength: item.width,
       threePointLineToCourtEdgeLength: item.threePointLine,
@@ -43,7 +44,9 @@ const Blueprints: React.FC = () => {
       strokeWidth: item.lineBorderWidth,
     }));
 
-    const courtSpec = mappedCourtSpecs.find((item: CourtSizeState) => item.courtId === courtId);
+    const courtSpec = mappedCourtSpecs.find(
+      (item: CourtSizeState) => item.courtName === courtSizeName
+    );
     dispatch(changeCourtSize(courtSpec));
   };
 

@@ -10,10 +10,9 @@ import priceFormat from "@/utils/priceFormat";
 const TileColorBoard: React.FC = () => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
   const dispatch = useDispatch();
-  const tiles = useStoreSelector((state) => state.tile.priceBar);
   const courts = useStoreSelector((state) => state.courtSize);
   const budget = useStoreSelector((state) => state.totalPrice.budget);
-  const { data } = useGetPriceQuery();
+  const { data } = useGetPriceQuery(0);
 
   useEffect(() => {
     let tilePrice = 0;
@@ -21,10 +20,11 @@ const TileColorBoard: React.FC = () => {
     let deliveryPrice = 0;
     let totalQuantity = 0;
     if (data) {
+      // avoid undefined
       const priceList = data.find((item: IPriceCalculation) => !item.isDeleted);
       if (priceList) {
         // avoid undefined
-        tiles?.map((tile) => {
+        tileBlocks?.map((tile) => {
           // tile price
           const tileColor = tile.color.toUpperCase();
           const tileList = priceList.tiles.tilePrice.find(
@@ -49,7 +49,7 @@ const TileColorBoard: React.FC = () => {
     // check price format
     const totalPrice = priceFormat(tilePrice, deliveryPrice, installPrice);
     dispatch(changeTotalPrice(totalPrice));
-  }, [tiles, courts]);
+  }, [tileBlocks, courts]);
 
   return (
     <>
