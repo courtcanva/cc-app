@@ -30,7 +30,10 @@ export const downloadToPDF = async () => {
     const center = (pageWidth / 2) as number;
     const marginX = (pageWidth - canvasWidth) / 2;
     const marginY = (pageHeight - canvasHeight) / 2;
-
+    const linkUrl = process.env.NEXT_PUBLIC_DESIGN_URL as string;
+    const link = linkUrl.includes("https://")
+      ? (linkUrl.split("https://").pop() as string)
+      : linkUrl;
     // header
     doc.setFillColor("#344C5C");
     doc.rect(0, 0, pageWidth, 90, "F");
@@ -57,22 +60,17 @@ export const downloadToPDF = async () => {
       align: "center",
     });
     doc.setFontSize(12);
-    doc.text(
-      "With the CourtCanva web  you can design your court easily,",
-      center,
-      pageHeight - 90,
-      {
-        align: "center",
-      }
-    );
+    doc.text("With the CourtCanva web you can design your court easily,", center, pageHeight - 90, {
+      align: "center",
+    });
     doc.text("CourtCanva will help you estimate price for your design. ", center, pageHeight - 75, {
       align: "center",
     });
     doc.setFillColor("#44BC86");
     doc.roundedRect(42, pageHeight - 60, 360, 37, 2, 2, "F");
     doc.setFontSize(20);
-    doc.textWithLink("uat.design.courtcanva.com", center, pageHeight - 37, {
-      url: "https://uat.design.courtcanva.com/",
+    doc.textWithLink(link, center, pageHeight - 37, {
+      url: linkUrl,
       align: "center",
     });
     doc.setFillColor("#EBD935");
