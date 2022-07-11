@@ -46,7 +46,7 @@ const Blueprints: React.FC = () => {
     const courtSpec = mappedCourtSpecs.find((item: CourtSizeState) => item.courtId === courtId);
     dispatch(changeCourtSize(courtSpec));
 
-    const tileQtyOfSelectedCourt = mockTileData.find((item) => item.id === courtId)
+    const tileQtyOfSelectedCourt = mockTileData.find((item) => item.name === selectedCourt.name)
       ?.tileQty as AreaTileQty[];
     dispatch(changeCourtType(tileQtyOfSelectedCourt));
   };

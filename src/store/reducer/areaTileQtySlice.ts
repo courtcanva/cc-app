@@ -7,7 +7,7 @@ export interface AreaTileQty {
   quantity: number;
 }
 
-export const initialState = mockTileData.find((obj) => obj.name === "ProFullCourt")
+export const initialState = mockTileData.find((obj) => obj.name === "Pro Full Court")
   ?.tileQty as AreaTileQty[];
 
 export const areaTileQtySlice = createSlice({
@@ -17,8 +17,8 @@ export const areaTileQtySlice = createSlice({
     changeCourtType: (state, action: PayloadAction<AreaTileQty[]>) => {
       return action.payload;
     },
+    // TODO: changeBorderWidth
   },
-  // TODO: changeBorderWidth
 });
 
 export const { changeCourtType } = areaTileQtySlice.actions;

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -8,10 +8,8 @@ import CourtArea from "../BasketballCourt/CourtArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
-// import { useTileCalculation } from "@/hooks/useTileCalculation";
-import Konva from "konva";
 import { useStoreSelector } from "@/store/hooks";
-import { useTileCount } from "@/hooks/useTileCount";
+import { useTileCount } from "../../hooks/useTileCount";
 
 const HalfCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -33,10 +31,7 @@ const HalfCourt = () => {
     size
   );
   const court = courtAndInfo.court;
-  // https://github.com/konvajs/react-konva/issues/316
-  const canvasRef = useRef<Konva.Layer>(null);
 
-  // useTileCalculation(courtAndInfo, canvasRef);
   useTileCount();
 
   useLayoutEffect(() => {
@@ -76,7 +71,7 @@ const HalfCourt = () => {
             data-testid="stage"
           >
             <Provider store={store}>
-              <Layer ref={canvasRef}>
+              <Layer>
                 <Border
                   startPoint={startPoint}
                   borderLength={borderLength}

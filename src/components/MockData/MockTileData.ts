@@ -8,7 +8,7 @@ interface MockTileData {
 export const mockTileData: MockTileData[] = [
   {
     id: "62c432cfb8a9c5f61f038320",
-    name: "FullCourt",
+    name: "Full Court",
     tileQty: [
       {
         location: "courtArea",
@@ -38,7 +38,7 @@ export const mockTileData: MockTileData[] = [
   },
   {
     id: "62c432cfb8a9c5f61f03831f",
-    name: "ProFullCourt",
+    name: "Pro Full Court",
     tileQty: [
       {
         location: "courtArea",
@@ -68,7 +68,7 @@ export const mockTileData: MockTileData[] = [
   },
   {
     id: "62c432cfb8a9c5f61f038322",
-    name: "HalfCourt",
+    name: "Half Court",
     tileQty: [
       {
         location: "courtArea",
@@ -98,7 +98,7 @@ export const mockTileData: MockTileData[] = [
   },
   {
     id: "62c432cfb8a9c5f61f038321",
-    name: "ProHalfCourt",
+    name: "Pro Half Court",
     tileQty: [
       {
         location: "courtArea",
@@ -128,7 +128,7 @@ export const mockTileData: MockTileData[] = [
   },
   {
     id: "62c432cfb8a9c5f61f038324",
-    name: "SmallCourt",
+    name: "Small Court",
     tileQty: [
       {
         location: "courtArea",
@@ -158,7 +158,7 @@ export const mockTileData: MockTileData[] = [
   },
   {
     id: "62c432cfb8a9c5f61f038323",
-    name: "MediumCourt",
+    name: "Medium Court",
     tileQty: [
       {
         location: "courtArea",
