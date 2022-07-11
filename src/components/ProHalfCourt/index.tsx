@@ -9,9 +9,10 @@ import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
-import { useTileCalculation } from "@/hooks/useTileCalculation";
+// import { useTileCalculation } from "@/hooks/useTileCalculation";
 import Konva from "konva";
 import { useStoreSelector } from "@/store/hooks";
+import { useTileCount } from "@/hooks/useTileCount";
 
 const ProHalfCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -36,7 +37,8 @@ const ProHalfCourt = () => {
   // https://github.com/konvajs/react-konva/issues/316
   const canvasRef = useRef<Konva.Layer>(null);
 
-  useTileCalculation(courtAndInfo, canvasRef);
+  // useTileCalculation(courtAndInfo, canvasRef);
+  useTileCount();
 
   useLayoutEffect(() => {
     const checkSize = () => {

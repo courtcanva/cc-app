@@ -5,6 +5,8 @@ import { changeCourtName, CourtNameState } from "@/store/reducer/courtNameSlice"
 import React, { useState } from "react";
 import { useGetCourtsQuery } from "../../redux/api/courtSizeApi";
 import { changeCourtSize, CourtSizeState, CourtSpecMapper } from "@/store/reducer/courtSizeSlice";
+import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
+import { mockTileData } from "../MockData/MockTileData";
 
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
@@ -43,6 +45,10 @@ const Blueprints: React.FC = () => {
 
     const courtSpec = mappedCourtSpecs.find((item: CourtSizeState) => item.courtId === courtId);
     dispatch(changeCourtSize(courtSpec));
+
+    const tileQtyOfSelectedCourt = mockTileData.find((item) => item.id === courtId)
+      ?.tileQty as AreaTileQty[];
+    dispatch(changeCourtType(tileQtyOfSelectedCourt));
   };
 
   return (

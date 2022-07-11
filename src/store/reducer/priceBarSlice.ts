@@ -13,23 +13,23 @@ export const initialState: PriceBarState = {
   blocks: [
     {
       color: "#72818B",
-      quantity: 1277,
+      quantity: 1273,
     },
     {
       color: "#B61313",
-      quantity: 2576,
+      quantity: 2688,
     },
     {
       color: "#195955",
-      quantity: 1098,
+      quantity: 1000,
     },
     {
       color: "#2C4E8A",
-      quantity: 637,
+      quantity: 624,
     },
     {
       color: "#606F14",
-      quantity: 130,
+      quantity: 115,
     },
   ],
 };
