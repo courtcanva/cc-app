@@ -23,22 +23,22 @@ const TileColorBoard: React.FC = () => {
       const tileList = priceList?.tiles.tilePrice.find(
         (item: ITilePrice) => item.color === tileColor
       );
-        tilePrice += tileList?.price / 100 * tile.quantity;
-        totalQuantity += tile.quantity;
+      tilePrice += (tileList?.price / 100) * tile.quantity;
+      totalQuantity += tile.quantity;
     });
-    console.log(`tilePrice: ` + tilePrice)
-    console.log(`Quantity: `+ totalQuantity)
-      // delivery price (a fixed price per 1000 tiles)
+    console.log(`tilePrice: ` + tilePrice);
+    console.log(`Quantity: ` + totalQuantity);
+    // delivery price (a fixed price per 1000 tiles)
     deliveryPrice += Math.ceil(totalQuantity / 1000) * priceList?.tiles.deliveryPrice;
-    console.log(`delivery: `+deliveryPrice)
-      // installation price (fixed prices for corresponding courts)
+    console.log(`delivery: ` + deliveryPrice);
+    // installation price (fixed prices for corresponding courts)
     const courtList = priceList?.court_spec.find(
       (item: ICourts) => item.court === courts.courtName
     );
     if (courtList) {
       installPrice += courtList.installationPrice / 100;
     }
-    console.log(`installation: `+installPrice)
+    console.log(`installation: ` + installPrice);
     const price = tilePrice + deliveryPrice + installPrice;
     // check price format, type transfer to string
     const totalPrice = priceFormat(price);
