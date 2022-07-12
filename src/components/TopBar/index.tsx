@@ -124,6 +124,7 @@ const TopBar = () => {
         <Slider
           aria-label="slider"
           defaultValue={sliderValue}
+          value={sliderValue}
           min={0}
           max={1.8}
           step={0.3}
