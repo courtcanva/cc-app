@@ -6,6 +6,7 @@ import tileReducer from "./reducer/tileSlice";
 import courtColorReducer from "./reducer/courtColorSlice";
 import rulerControlReducer from "./reducer/rulerControlSlice";
 import { courtsApi } from "../redux/api/courtSizeApi";
+import { priceApi } from "../redux/api/priceApi";
 import designNameReducer from "./reducer/designNameSlice";
 import paintBucketReducer from "./reducer/paintBucketSlice";
 import priceBarSlice from "./reducer/priceBarSlice";
@@ -23,6 +24,7 @@ export const makeStore = () =>
       designName: designNameReducer,
       paintBucket: paintBucketReducer,
       [courtsApi.reducerPath]: courtsApi.reducer,
+      [priceApi.reducerPath]: priceApi.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(courtsApi.middleware),
   });

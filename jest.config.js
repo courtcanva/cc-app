@@ -20,6 +20,7 @@ const customJestConfig = {
     "^@/store/(.*)$": "<rootDir>/src/store/$1",
     "^@/pages/(.*)$": "<rootDir>/src/pages/$1",
     "^@/utils/(.*)$": "<rootDir>/src/utils/$1",
+    "^@/redux/(.*)$": "<rootDir>/src/redux/$1",
     "^konva": "konva/konva",
   },
   collectCoverageFrom: [
@@ -41,12 +42,14 @@ const customJestConfig = {
     "!<rootDir>/src/components/HalfCourt/*", // exclude canvas
     "!<rootDir>/src/components/MediumCourt/*", // exclude canvas
     "!<rootDir>/src/components/SmallCourt/*", // exclude canvas
+    "!<rootDir>/src/store/reducer/tileSlice.ts",
     "!<rootDir>/src/store/reducer/counterSlice.ts", // should be deleted later
     "!<rootDir>/src/store/hooks.ts", // exclude redux hooks
     "!<rootDir>/src/utils/getAreaColor.ts",
     "!<rootDir>/src/utils/useEventListener.ts",
     "!<rootDir>/src/utils/useIsomorphicLayoutEffect.ts",
     "!<rootDir>/src/utils/useOnClickOutside.ts",
+    "!<rootDir>/src/utils/priceFormat.ts",
     "!<rootDir>/node_modules/",
     "!<rootDir>/**/__tests__/**",
     "!<rootDir>/**/*.d.ts",
