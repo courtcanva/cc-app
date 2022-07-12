@@ -10,6 +10,8 @@ import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { useTileCalculation } from "@/hooks/useTileCalculation";
 import Konva from "konva";
 import { useStoreSelector } from "@/store/hooks";
+import CourtDimension from "../BasketballCourt/CourtDimension";
+import BorderDimension from "../BasketballCourt/BorderDimension";
 
 const MediumCourt = () => {
   const {
@@ -94,6 +96,8 @@ const MediumCourt = () => {
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
+                <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
+                <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <Group
                   clipFunc={(ctx: any) => {
                     ctx.beginPath();

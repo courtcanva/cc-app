@@ -6,9 +6,10 @@ import DimensionText from "./DimensionText";
 
 interface CourtDimensionProps {
   startPoint: ICourtStartPoint;
+  borderLength: number;
 }
-const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint }) => {
-  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
+const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint, borderLength }) => {
+  const { courtAreaXLength, courtAreaYLength } = useStoreSelector(
     (state) => state.courtSize
   );
   const { ruler } = useStoreSelector((state) => state.rulerControl);
@@ -38,7 +39,7 @@ const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint }) => {
     <>
       {courtDimensionPosition.map((item: { startPoint: ICourtStartPoint; text: number }) => (
         <div key={item.text}>
-          <DimensionText startPoint={item.startPoint} text={item.text} />
+          <DimensionText startPoint={item.startPoint} text={item.text} color={dimensionColor} />
         </div>
       ))}
       <Arrow // court x length left arrow

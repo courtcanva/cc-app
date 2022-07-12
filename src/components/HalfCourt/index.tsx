@@ -11,8 +11,9 @@ import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { useTileCalculation } from "@/hooks/useTileCalculation";
 import Konva from "konva";
 import { useStoreSelector } from "@/store/hooks";
-import { calculation } from "@/utils/tileNumberCalculator";
 import CourtDimension from "../BasketballCourt/CourtDimension";
+import BorderDimension from "../BasketballCourt/BorderDimension";
+import DashedLine from "../BasketballCourt/DashedLine";
 
 const HalfCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -83,13 +84,14 @@ const HalfCourt = () => {
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
-                <CourtDimension startPoint={startPoint} />
-                <Group>
-                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength} />
-                  <ThreePointArea startPoint={startPoint} />
-                  <KeyArea startPoint={startPoint} />
-                  <TopKeyArea startPoint={startPoint} />
-                </Group>
+                <CourtDimension startPoint={startPoint} borderLength={borderLength} />
+                <BorderDimension startPoint={startPoint} borderLength={borderLength} />
+                <DashedLine startPoint={startPoint} borderLength={borderLength} />
+                <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength} />
+                <ThreePointArea startPoint={startPoint} />
+                <KeyArea startPoint={startPoint} />
+                <TopKeyArea startPoint={startPoint} />
+                
               </Layer>
             </Provider>
           </Stage>

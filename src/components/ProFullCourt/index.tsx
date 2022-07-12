@@ -78,19 +78,16 @@ const ProFullCourt = () => {
           >
             <Provider store={store}>
               <Layer ref={canvasRef}>
-                {/* border only for pro full court size */}
                 <Border
                   startPoint={startPoint}
                   borderLength={borderLength}
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
-                {/* arrowLine & dimensionText can be reuse for all courts*/}
-                <CourtDimension startPoint={startPoint} />
-                <BorderDimension startPoint={startPoint} />
-                {/* left side of pro full court*/}
+                <CourtDimension startPoint={startPoint} borderLength={borderLength} />
+                <BorderDimension startPoint={startPoint} borderLength={borderLength} />
                 <Group>
-                  <DashedLine startPoint={startPoint} />
+                  <DashedLine startPoint={startPoint} borderLength={borderLength} />
                   <CourtArea courtWidth={courtAreaXLength / 2} startPoint={startPoint} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
@@ -99,7 +96,7 @@ const ProFullCourt = () => {
                 </Group>
                 {/* right side of pro full court(flip the left side)*/}
                 <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
-                  <DashedLine startPoint={startPoint} />
+                  <DashedLine startPoint={startPoint} borderLength={borderLength} />
                   <CourtArea courtWidth={courtAreaXLength / 2} startPoint={startPoint} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
