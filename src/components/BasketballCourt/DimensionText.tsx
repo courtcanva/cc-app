@@ -15,7 +15,6 @@ const DimensionText: React.FC<DimensionTextProps> = ({ startPoint, text, color }
   const { ruler } = useStoreSelector((state) => state.rulerControl);
   const borderSize = borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : borderLength;
 
-
   return (
     <Text
       width={borderSize}

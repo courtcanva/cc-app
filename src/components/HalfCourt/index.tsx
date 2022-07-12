@@ -91,7 +91,6 @@ const HalfCourt = () => {
                 <ThreePointArea startPoint={startPoint} />
                 <KeyArea startPoint={startPoint} />
                 <TopKeyArea startPoint={startPoint} />
-                
               </Layer>
             </Provider>
           </Stage>
