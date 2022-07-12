@@ -26,11 +26,8 @@ const TileColorBoard: React.FC = () => {
       tilePrice += (tileList?.price / 100) * tile.quantity;
       totalQuantity += tile.quantity;
     });
-    console.log(`tilePrice: ` + tilePrice);
-    console.log(`Quantity: ` + totalQuantity);
     // delivery price (a fixed price per 1000 tiles)
     deliveryPrice += Math.ceil(totalQuantity / 1000) * priceList?.tiles.deliveryPrice;
-    console.log(`delivery: ` + deliveryPrice);
     // installation price (fixed prices for corresponding courts)
     const courtList = priceList?.court_spec.find(
       (item: ICourts) => item.court === courts.courtName
@@ -38,7 +35,6 @@ const TileColorBoard: React.FC = () => {
     if (courtList) {
       installPrice += courtList.installationPrice / 100;
     }
-    console.log(`installation: ` + installPrice);
     const price = tilePrice + deliveryPrice + installPrice;
     // check price format, type transfer to string
     const totalPrice = priceFormat(price);
