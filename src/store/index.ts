@@ -10,7 +10,6 @@ import { priceApi } from "../redux/api/priceApi";
 import designNameReducer from "./reducer/designNameSlice";
 import paintBucketReducer from "./reducer/paintBucketSlice";
 import priceBarSlice from "./reducer/priceBarSlice";
-import totalPriceReducer from "./reducer/totalPriceSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -24,7 +23,6 @@ export const makeStore = () =>
       rulerControl: rulerControlReducer,
       designName: designNameReducer,
       paintBucket: paintBucketReducer,
-      totalPrice: totalPriceReducer,
       [courtsApi.reducerPath]: courtsApi.reducer,
       [priceApi.reducerPath]: priceApi.reducer,
     },

@@ -1,16 +1,18 @@
-
-const priceFormat = (tilePrice: number, deliveryPrice: number, installPrice: number ) => {
-  let totalPrice = (tilePrice + deliveryPrice + installPrice).toFixed(2);
-  let decimal = totalPrice.indexOf('.');
+const priceFormat = (price: number) => {
+  let formatPrice = (price).toFixed(2);
+  let decimal = formatPrice.indexOf(".");
+  if (isNaN(price)) { 
+    formatPrice = "0" 
+} 
   if (decimal < 0) { 
-    decimal = totalPrice.length; 
-    totalPrice += '.'; 
+    decimal = formatPrice.length; 
+    formatPrice += "."; 
   }
-  while (totalPrice.length <= decimal + 2) { 
-    totalPrice += '0'; 
+  while (formatPrice.length <= decimal + 2) { 
+    formatPrice += "0"; 
   } 
 
-  return totalPrice;
+  return formatPrice;
 }
 
 export default priceFormat;
