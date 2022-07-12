@@ -49,7 +49,8 @@ function LoginModalContent(props: Props) {
         onClose();
       }
     } catch (err) {
-      console.warn(err);
+      // TODO: error handler
+      return;
     }
   };
 
@@ -60,7 +61,7 @@ function LoginModalContent(props: Props) {
   });
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered size={"sm"} initialFocusRef={initialRef}>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered size="sm" initialFocusRef={initialRef}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>

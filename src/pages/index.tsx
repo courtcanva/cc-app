@@ -26,6 +26,7 @@ const Home: NextPage = () => {
   };
   useOnClickOutside(ref, handleClickOutside);
 
+  // TODO: remove deprecated function
   const handleMouseEnter = () => {
     if (selectedColor !== "none") {
       const iconUrl = // import svg string from utils and convert it to cur type (svg cannot be used as cursor directly)

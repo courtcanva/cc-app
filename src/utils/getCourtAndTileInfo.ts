@@ -54,7 +54,7 @@ export const getCourtAndTileInfo: getCourtAndTileInfo = (
     beginPointY: (stageMargin - borderLength) * court.courtRatio,
     endPointX: (stageMargin + courtAreaXLength + borderLength) * court.courtRatio,
     endPointY: (stageMargin + courtAreaYLength + borderLength) * court.courtRatio,
-    // TO CHANGE LATER: tile size will be passed in instead of hard coding
+    // TODO: tile size will be passed in instead of hard coding
     tileSize: 300 * court.courtRatio,
   };
 

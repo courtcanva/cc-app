@@ -54,6 +54,10 @@ const determineTileColor = (arr: Array<string>) => {
   return mostColor;
 };
 
+
+/**
+ * @deprecated
+ */
 export const tileNumberCalculator = (
   ctx: Context | null, // Canva's context 2D information including pixel's color
   courtAndTileInfo: IcourtAndTileInfo // Coordinates of important points of the specific area
@@ -80,9 +84,11 @@ export const tileNumberCalculator = (
   }
 
   // transfer rgba to hex of colorResult
-  colorResult.forEach((obj) => {
-    obj.color && (obj.color = rgbaToHex(obj.color));
-  });
+  // for loop
+  // TODO: use when rendering
+  // for (const result of colorResult) {
+  //   if (result.color) result.color = rgbaToHex(result.color);
+  // }
 
   // remove object in result that color is null
   const filteredResult = colorResult.filter((obj) => obj.color && obj.color.includes("#"));

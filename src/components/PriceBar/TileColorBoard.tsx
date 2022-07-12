@@ -1,5 +1,5 @@
 import { Center, Flex, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useStoreSelector } from "@/store/hooks";
 import { IPriceCalculation, ITilePrice, ICourts } from "../../interfaces/priceCalculation";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
@@ -11,21 +11,21 @@ const TileColorBoard: React.FC = () => {
   const { data } = useGetPriceQuery(0);
   const [useTotalPrice, setTotalPrice] = useState<string>("0.00");
 
+  // const calculateTiles = () => {
+  //   // for loop
+  // }
+
+  // const calculateTotalPrice = () => {
+  //   // for loop
+  // }
+
   useEffect(() => {
     let tilePrice = 0;
     let installPrice = 0;
     let deliveryPrice = 0;
     let totalQuantity = 0;
     const priceList = data?.find((item: IPriceCalculation) => !item.isDeleted);
-    tileBlocks?.map((tile) => {
-      // tile price
-      const tileColor = tile.color.toUpperCase();
-      const tileList = priceList?.tiles.tilePrice.find(
-        (item: ITilePrice) => item.color === tileColor
-      );
-      tilePrice += (tileList?.price / 100) * tile.quantity;
-      totalQuantity += tile.quantity;
-    });
+
     // delivery price (a fixed price per 1000 tiles)
     deliveryPrice += Math.ceil(totalQuantity / 1000) * priceList?.tiles.deliveryPrice;
     // installation price (fixed prices for corresponding courts)
@@ -41,6 +41,24 @@ const TileColorBoard: React.FC = () => {
     setTotalPrice(totalPrice);
   }, [tileBlocks, courts]);
 
+  const centers = useMemo(() => {
+    if (!tileBlocks) return null;
+
+    return tileBlocks.map(({ color, quantity }) => (
+      <Center
+        key={color}
+        backgroundColor={color}
+        width={{ base: "40px", lg: "60px", xl: "85px" }}
+        height={{ base: "20px", lg: "25px", xl: "35px" }}
+        fontSize={{ base: "xs", xl: "sm" }}
+        color="white"
+        role="tileBlock"
+      >
+        {quantity}
+      </Center>
+    ));
+  }, [tileBlocks]);
+
   return (
     <>
       <Flex height="64px">
@@ -49,19 +67,7 @@ const TileColorBoard: React.FC = () => {
             Estimated Tiles:
           </Text>
           <Center gap="8px" height="35px" marginLeft="8px" data-testid="tileBoard">
-            {tileBlocks?.map((tile) => (
-              <Center
-                key={tile.color}
-                backgroundColor={tile.color}
-                width={{ base: "40px", lg: "60px", xl: "85px" }}
-                height={{ base: "20px", lg: "25px", xl: "35px" }}
-                fontSize={{ base: "xs", xl: "sm" }}
-                color="white"
-                role="tileBlock"
-              >
-                {tile.quantity}
-              </Center>
-            ))}
+            {centers}
           </Center>
         </Center>
         <Center

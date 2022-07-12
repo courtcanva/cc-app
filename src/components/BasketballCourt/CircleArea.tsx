@@ -8,13 +8,17 @@ interface CircleAreaProps {
   startPoint: ICourtStartPoint;
 }
 
+const FULL_COURT_SIZE = 28000;
+
 const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
   let { courtAreaXLength, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
     useStoreSelector((state) => state.courtSize);
 
   // coz pro full court is flipped, courtAreaXLength needs to be half of the court length
-  if (courtAreaXLength === 28000) {
+  if (courtAreaXLength === FULL_COURT_SIZE) {
     courtAreaXLength /= 2;
+    // TODO:
+    // const newCourtAreaXLength = courtAreaXLength / 2;
   }
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);

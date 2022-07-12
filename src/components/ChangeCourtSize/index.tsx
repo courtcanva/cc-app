@@ -20,7 +20,7 @@ function ChangeCourtSize() {
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"6xl"}>
         <ModalOverlay />
-        <ModalContent maxWidth={"90vw"}>
+        <ModalContent maxWidth="90vw">
           <ModalCloseButton />
           <ModalBody>
             <Box
