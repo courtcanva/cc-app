@@ -26,7 +26,8 @@ export const makeStore = () =>
       [courtsApi.reducerPath]: courtsApi.reducer,
       [priceApi.reducerPath]: priceApi.reducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(courtsApi.middleware, priceApi.middleware),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(courtsApi.middleware, priceApi.middleware),
   });
 
 export const store = makeStore();
