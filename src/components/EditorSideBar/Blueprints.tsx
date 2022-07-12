@@ -13,10 +13,10 @@ const Blueprints: React.FC = () => {
   const [activateCourt, setActivateCourt] = useState<string>("");
   const { data } = useGetCourtsQuery(0); // arg 0 for satisfying arg requirement of useGetCourtsQuery
 
-  const handleCourtSelecting = (img: string, courtId: string): void => {
-    setActivateCourt(img);
+  const handleCourtSelecting = (imgUrl: string, courtId: string, courtSizeName: string): void => {
+    setActivateCourt(imgUrl);
 
-    const selectedCourt = data.find((item: CourtSpecMapper) => item._id === courtId);
+    const selectedCourt = data.find((item: CourtSpecMapper) => item.name === courtSizeName);
     const chosenCourt: CourtNameState = {
       name: `${
         ((selectedCourt.length + selectedCourt.sideBorderWidth * 2) *
@@ -31,6 +31,7 @@ const Blueprints: React.FC = () => {
 
     const mappedCourtSpecs = data.map((item: CourtSpecMapper) => ({
       courtId: item._id,
+      courtName: item.name,
       courtAreaXLength: item.length,
       courtAreaYLength: item.width,
       threePointLineToCourtEdgeLength: item.threePointLine,
@@ -43,7 +44,9 @@ const Blueprints: React.FC = () => {
       strokeWidth: item.lineBorderWidth,
     }));
 
-    const courtSpec = mappedCourtSpecs.find((item: CourtSizeState) => item.courtId === courtId);
+    const courtSpec = mappedCourtSpecs.find(
+      (item: CourtSizeState) => item.courtName === courtSizeName
+    );
     dispatch(changeCourtSize(courtSpec));
 
     const tileQtyOfSelectedCourt = mockTileData.find((item) => item.name === selectedCourt.name)
@@ -54,7 +57,7 @@ const Blueprints: React.FC = () => {
   return (
     <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">
       {courtList.map((court) => {
-        const { imgUrl, courtId } = court;
+        const { imgUrl, courtId, courtSizeName } = court;
         return (
           <Box
             key={imgUrl}
@@ -66,7 +69,7 @@ const Blueprints: React.FC = () => {
             alignItems="center"
             justifyContent="center"
             cursor="pointer"
-            onClick={() => handleCourtSelecting(imgUrl, courtId)}
+            onClick={() => handleCourtSelecting(imgUrl, courtId, courtSizeName)}
             data-testid={imgUrl}
             _hover={{ border: "4px solid #40B484" }}
             opacity={!activateCourt || activateCourt === imgUrl ? "1" : "0.4"}
