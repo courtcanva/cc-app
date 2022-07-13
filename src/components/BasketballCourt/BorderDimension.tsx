@@ -5,13 +5,18 @@ import { MIN_DIMENSION_BOX } from "../../constants/courtSize";
 
 interface BorderDimensionProps {
   startPoint: ICourtStartPoint;
+  borderLength: number;
 }
-const BorderDimension: React.FC<BorderDimensionProps> = ({ startPoint }) => {
-  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
-    (state) => state.courtSize
-  );
+const BorderDimension: React.FC<BorderDimensionProps> = ({ startPoint, borderLength }) => {
+  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
   const startPointX = startPoint.X - borderLength;
   const startPointY = startPoint.Y - borderLength;
+  let dimensionColor: string;
+  if (borderLength === 0) {
+    dimensionColor = "transparent";
+  } else {
+    dimensionColor = borderLength < MIN_DIMENSION_BOX ? "black" : "white";
+  }
 
   const textStartX =
     borderLength <= MIN_DIMENSION_BOX ? startPoint.X - MIN_DIMENSION_BOX : startPointX;
@@ -53,7 +58,7 @@ const BorderDimension: React.FC<BorderDimensionProps> = ({ startPoint }) => {
     <>
       {borderDimensionPosition.map((item: { startPoint: ICourtStartPoint; id: number }) => (
         <div key={item.id}>
-          <DimensionText startPoint={item.startPoint} text={borderLength} />
+          <DimensionText startPoint={item.startPoint} text={borderLength} color={dimensionColor} />
         </div>
       ))}
     </>

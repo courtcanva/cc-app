@@ -12,6 +12,8 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { useStoreSelector } from "@/store/hooks";
 import { useTileCount } from "../../hooks/useTileCount";
+import BorderDimension from "../BasketballCourt/BorderDimension";
+import DashedLine from "../BasketballCourt/DashedLine";
 
 const FullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -80,8 +82,10 @@ const FullCourt = () => {
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
-                <CourtDimension startPoint={startPoint} />
+                <CourtDimension startPoint={startPoint} borderLength={borderLength} />
+                <BorderDimension startPoint={startPoint} borderLength={borderLength} />
                 <Group>
+                  <DashedLine startPoint={startPoint} borderLength={borderLength} />
                   <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
@@ -89,6 +93,7 @@ const FullCourt = () => {
                   <TopKeyArea startPoint={startPoint} />
                 </Group>
                 <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
+                  <DashedLine startPoint={startPoint} borderLength={borderLength} />
                   <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />

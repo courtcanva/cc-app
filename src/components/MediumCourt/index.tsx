@@ -9,6 +9,8 @@ import Border from "../BasketballCourt/Border";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { useStoreSelector } from "@/store/hooks";
 import { useTileCount } from "../../hooks/useTileCount";
+import CourtDimension from "../BasketballCourt/CourtDimension";
+import BorderDimension from "../BasketballCourt/BorderDimension";
 
 const MediumCourt = () => {
   const {
@@ -91,6 +93,8 @@ const MediumCourt = () => {
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
+                <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
+                <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <Group
                   clipFunc={(ctx: any) => {
                     ctx.beginPath();
