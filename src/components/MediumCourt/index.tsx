@@ -11,6 +11,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { useTileCount } from "../../hooks/useTileCount";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
+import CourtArea from "../BasketballCourt/CourtArea";
 
 const MediumCourt = () => {
   const {
@@ -102,7 +103,7 @@ const MediumCourt = () => {
                     ctx.clip();
                   }}
                 >
-                  {/* <CourtArea startPoint={componentsStartPoint} courtWidth={courtAreaXLength} /> */}
+                  <CourtArea startPoint={componentsStartPoint} courtWidth={courtAreaXLength} />
                   <ThreePointArea startPoint={componentsStartPoint} />
                   <KeyArea startPoint={componentsStartPoint} />
                   <TopKeyArea startPoint={componentsStartPoint} />
