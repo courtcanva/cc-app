@@ -6,10 +6,12 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 const colorAndQtyResult = (tileColorState: Court[], areaTileQty: AreaTileQty[]) => {
+  // store results in the format of [{color:"#72818B",quantity:1273},{color:"#72818B",quantity:256}...]
   let colorAndQty: PriceBar[] = [];
-  // mapping over tileColorState and match with areaTileQty
-  // to obtain colorAndQty as [{color:"#72818B",quantity:1273},...] color is not unique
-  tileColorState.map((tileColor) => {
+  // loop over tileColorState and match with areaTileQty
+  // to obtain colorAndQty, color is not unique
+  for (let i = 0; i < tileColorState.length; i++) {
+    const tileColor = tileColorState[i];
     const matchAreaTileQty = areaTileQty.find((area) => area.location === tileColor.location);
     if (matchAreaTileQty) {
       const newColorAndQty = {
@@ -18,18 +20,20 @@ const colorAndQtyResult = (tileColorState: Court[], areaTileQty: AreaTileQty[]) 
       };
       colorAndQty = [...colorAndQty, newColorAndQty];
     }
-  });
+  }
 
+  // store results in the format of [{color:"#72818B",quantity:1273},...] with unique color
   let combinedColorAndQty: PriceBar[] = [];
-  // mapping over colorAndQty to remove replicate color and combine the quantity result
-  colorAndQty.map((result) => {
+  // loop over colorAndQty to remove replicate color and combine the quantity result
+  for (let i = 0; i < colorAndQty.length; i++) {
+    const result = colorAndQty[i];
     const duplicatedColor = combinedColorAndQty.findIndex((obj) => obj.color === result.color);
     if (duplicatedColor === -1) {
       combinedColorAndQty = [...combinedColorAndQty, result];
     } else {
       combinedColorAndQty[duplicatedColor].quantity += result.quantity;
     }
-  });
+  }
 
   return combinedColorAndQty;
 };
