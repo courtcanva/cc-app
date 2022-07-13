@@ -49,19 +49,22 @@ const TileColorBoard: React.FC = () => {
             Estimated Tiles:
           </Text>
           <Center gap="8px" height="35px" marginLeft="8px" data-testid="tileBoard">
-            {tileBlocks?.map((tile) => (
-              <Center
-                key={tile.color}
-                backgroundColor={tile.color}
-                width={{ base: "40px", lg: "60px", xl: "85px" }}
-                height={{ base: "20px", lg: "25px", xl: "35px" }}
-                fontSize={{ base: "xs", xl: "sm" }}
-                color="white"
-                role="tileBlock"
-              >
-                {tile.quantity}
-              </Center>
-            ))}
+            {tileBlocks?.map(
+              (tile) =>
+                tile.quantity !== 0 && (
+                  <Center
+                    key={tile.color}
+                    backgroundColor={tile.color}
+                    width={{ base: "40px", lg: "60px", xl: "85px" }}
+                    height={{ base: "20px", lg: "25px", xl: "35px" }}
+                    fontSize={{ base: "xs", xl: "sm" }}
+                    color="white"
+                    role="tileBlock"
+                  >
+                    {tile.quantity}
+                  </Center>
+                )
+            )}
           </Center>
         </Center>
         <Center

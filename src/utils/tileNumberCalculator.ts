@@ -79,6 +79,7 @@ export const tileNumberCalculator = (
     }
   }
 
+  // TODO: refactor, avoid using forEach
   // transfer rgba to hex of colorResult
   colorResult.forEach((obj) => {
     obj.color && (obj.color = rgbaToHex(obj.color));
