@@ -5,10 +5,11 @@ import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 
 interface DashedLineProps {
   startPoint: ICourtStartPoint;
+  borderLength: number;
 }
 
-const DashedLine: React.FC<DashedLineProps> = ({ startPoint }) => {
-  const { courtAreaYLength, borderLength } = useStoreSelector((state) => state.courtSize);
+const DashedLine: React.FC<DashedLineProps> = ({ startPoint, borderLength }) => {
+  const { courtAreaYLength } = useStoreSelector((state) => state.courtSize);
   const { ruler } = useStoreSelector((state) => state.rulerControl);
   const startPointX = startPoint.X - borderLength;
   const startPointY = startPoint.Y - borderLength;
