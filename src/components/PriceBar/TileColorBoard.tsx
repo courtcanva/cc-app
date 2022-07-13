@@ -9,37 +9,51 @@ const TileColorBoard: React.FC = () => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
   const courts = useStoreSelector((state) => state.courtSize);
   const { data } = useGetPriceQuery(0);
-  const [useTotalPrice, setTotalPrice] = useState<string>("0.00");
+  const priceList = data?.find((item: IPriceCalculation) => !item.isDeleted);
+  const [useTotalPrice, setTotalPrice] = useState<string>("Loading...");
+  const priceDetails = {
+    tilePrice: 0,
+    installPrice: 0,
+    deliveryPrice: 0,
+  };
 
-  useEffect(() => {
-    let tilePrice = 0;
-    let installPrice = 0;
-    let deliveryPrice = 0;
-    let totalQuantity = 0;
-    const priceList = data?.find((item: IPriceCalculation) => !item.isDeleted);
-    tileBlocks?.map((tile) => {
-      // tile price
+  const calculateTile = () => {
+    for (const tile of tileBlocks) {
       const tileColor = tile.color.toUpperCase();
       const tileList = priceList?.tiles.tilePrice.find(
         (item: ITilePrice) => item.color === tileColor
       );
-      tilePrice += (tileList?.price / 100) * tile.quantity;
+      priceDetails.tilePrice += (tileList?.price / 100) * tile.quantity;
+    }
+  };
+
+  const calculateDelivery = () => {
+    let totalQuantity = 0;
+    for (const tile of tileBlocks) {
       totalQuantity += tile.quantity;
-    });
-    // delivery price (a fixed price per 1000 tiles)
-    deliveryPrice += Math.ceil(totalQuantity / 1000) * priceList?.tiles.deliveryPrice;
-    // installation price (fixed prices for corresponding courts)
+    }
+    priceDetails.deliveryPrice += Math.ceil(totalQuantity / 1000) * priceList?.tiles.deliveryPrice;
+  };
+
+  const calculateInstallation = () => {
     const courtList = priceList?.court_spec.find(
       (item: ICourts) => item.court === courts.courtName
     );
     if (courtList) {
-      installPrice += courtList.installationPrice / 100;
+      priceDetails.installPrice += courtList.installationPrice / 100;
     }
-    const price = tilePrice + deliveryPrice + installPrice;
-    // check price format, type transfer to string
+  };
+
+  useEffect(() => {
+    if (data == undefined) return;
+    calculateTile();
+    calculateDelivery();
+    calculateInstallation();
+    console.log(priceDetails);
+    const price = priceDetails.tilePrice + priceDetails.deliveryPrice + priceDetails.installPrice;
     const totalPrice = priceFormat(price);
     setTotalPrice(totalPrice);
-  }, [tileBlocks, courts]);
+  }, [tileBlocks, courts, data]);
 
   return (
     <>
