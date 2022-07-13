@@ -5,7 +5,34 @@ interface ISize {
   height: number;
 }
 
-export const getCourtAndTileInfo = (
+interface Court {
+  stageWidth: number;
+  stageHeight: number;
+  courtRatio: number;
+}
+
+export interface CourtAndTileInfo {
+  beginPointX: number;
+  beginPointY: number;
+  endPointX: number;
+  endPointY: number;
+  tileSize: number;
+}
+
+export interface CourtAndTileInfoResult {
+  court: Court;
+  courtAndTileInfo: CourtAndTileInfo;
+}
+
+type getCourtAndTileInfo = (
+  courtAreaXLength: number,
+  courtAreaYLength: number,
+  borderLength: number,
+  stageMargin: number,
+  size: ISize
+) => CourtAndTileInfoResult;
+
+export const getCourtAndTileInfo: getCourtAndTileInfo = (
   courtAreaXLength: number,
   courtAreaYLength: number,
   borderLength: number,

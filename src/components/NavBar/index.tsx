@@ -7,11 +7,11 @@ import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
 import EditorDesignName from "@/components/NavBar/EditorDesignName";
-
 import LoginModalContent from "../Login";
 import { useEffect, useState } from "react";
+import { ActionCreators } from "redux-undo";
+import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
-import { userInfo } from "os";
 
 const NavigationBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,6 +44,16 @@ const NavigationBar = () => {
     localStorage.removeItem("UserInfo");
     setLoginData(null);
   };
+  const dispatch = useDispatch();
+  const handleUndo = () => {
+    dispatch(ActionCreators.undo());
+  };
+  const handleRedo = () => {
+    dispatch(ActionCreators.redo());
+  };
+
+  const isThingsToUndo = useStoreSelector((state) => state.tile.past).length;
+  const isThingsToRedo = useStoreSelector((state) => state.tile.future).length;
 
   return (
     <Grid
@@ -70,12 +80,15 @@ const NavigationBar = () => {
             aria-label="Revert edit"
             icon={<RiArrowGoBackLine />}
             variant="navbarIconBtn"
+            disabled={!isThingsToUndo}
+            onClick={handleUndo}
           />
           <IconButton
             aria-label="Forward edit"
             icon={<RiArrowGoForwardLine />}
             variant="navbarIconBtn"
-            color="#72818B"
+            disabled={!isThingsToRedo}
+            onClick={handleRedo}
           />
         </Flex>
       </Flex>

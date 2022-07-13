@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
 export interface CourtSizeState {
   courtId: string;
+  courtName: string;
   courtAreaXLength: number;
   courtAreaYLength: number;
   threePointLineToCourtEdgeLength: number;
@@ -19,6 +20,7 @@ export interface CourtSpecMapper {
 
 export const initialState: CourtSizeState = {
   courtId: "62c432cfb8a9c5f61f03831f",
+  courtName: "Pro Full Court",
   courtAreaXLength: 28000,
   courtAreaYLength: 15000,
   threePointLineToCourtEdgeLength: 900,

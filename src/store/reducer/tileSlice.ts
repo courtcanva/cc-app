@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
-
+import { useStoreSelector } from "../hooks";
+import undoable from "redux-undo";
 export interface TileState {
   court: Court[];
-  priceBar: PriceBar[];
 }
 export interface Court {
   location: string;
   color: string;
 }
-
-export interface PriceBar {
-  color: string;
-  quantity: number;
+export interface ChangeTileColor {
+  location: string;
+  selectedColor: string;
 }
+
 export const initialState: TileState = {
   court: [
     {
@@ -41,49 +41,28 @@ export const initialState: TileState = {
       color: "#606F14",
     },
   ],
-  priceBar: [
-    {
-      color: "#72818B",
-      quantity: 1277,
-    },
-    {
-      color: "#B61313",
-      quantity: 2576,
-    },
-    {
-      color: "#195955",
-      quantity: 1098,
-    },
-    {
-      color: "#2C4E8A",
-      quantity: 637,
-    },
-    {
-      color: "#606F14",
-      quantity: 130,
-    },
-  ],
 };
 
 export const tileSlice = createSlice({
   name: "tile",
   initialState,
   reducers: {
-    /* istanbul ignore next */
-    changeTileColor: (state, action: PayloadAction<any>) => {
+    changeTileColor: (state, action: PayloadAction<ChangeTileColor>) => {
       const selectedLocation = state.court.findIndex(
         (object) => object.location === action.payload.location
       );
       state.court[selectedLocation].color = action.payload.selectedColor;
     },
-    changeTileQuantity: (state, action: PayloadAction<any>) => {
-      state.priceBar = action.payload;
-    },
   },
 });
 
-export const { changeTileColor, changeTileQuantity } = tileSlice.actions;
+export const { changeTileColor } = tileSlice.actions;
 
-export const TileData = (state: RootState) => state.tile;
+export const TileData = (state: RootState) => state.tile.present;
 
-export default tileSlice.reducer;
+export const getColor = (location: string) =>
+  useStoreSelector(
+    (state) => state.tile.present.court?.find((tile) => tile.location.includes(location))?.color
+  );
+
+export default undoable(tileSlice.reducer);

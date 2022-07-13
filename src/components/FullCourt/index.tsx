@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
-import { ReactReduxContext, Provider, useDispatch } from "react-redux";
+import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
@@ -11,8 +11,9 @@ import Border from "../BasketballCourt/Border";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { useStoreSelector } from "@/store/hooks";
-import { changeTileQuantity } from "@/store/reducer/tileSlice";
-import { calculation } from "@/utils/tileNumberCalculator";
+import { useTileCount } from "../../hooks/useTileCount";
+import BorderDimension from "../BasketballCourt/BorderDimension";
+import DashedLine from "../BasketballCourt/DashedLine";
 
 const FullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -34,13 +35,8 @@ const FullCourt = () => {
     size
   );
   const court = courtAndInfo.court;
-  const courtAndTileInfo = courtAndInfo.courtAndTileInfo;
 
-  const canvasRef = useRef(null);
-
-  const tileCalculation = useCallback(calculation, []);
-
-  const tileColorState = useStoreSelector((state) => state.tile.court);
+  useTileCount();
 
   useLayoutEffect(() => {
     const checkSize = () => {
@@ -52,15 +48,6 @@ const FullCourt = () => {
     window.addEventListener("resize", checkSize);
     return () => window.removeEventListener("resize", checkSize);
   }, []);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const tileNumberResult = tileCalculation(canvasRef, courtAndTileInfo);
-      dispatch(changeTileQuantity(tileNumberResult));
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [tileColorState]);
 
   return (
     <Flex
@@ -83,20 +70,22 @@ const FullCourt = () => {
             width={court.stageWidth}
             scaleX={court.courtRatio}
             scaleY={court.courtRatio}
-            visible={true}
+            visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
           >
             <Provider store={store}>
-              <Layer ref={canvasRef}>
+              <Layer>
                 <Border
                   startPoint={startPoint}
                   borderLength={borderLength}
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
-                <CourtDimension startPoint={startPoint} />
+                <CourtDimension startPoint={startPoint} borderLength={borderLength} />
+                <BorderDimension startPoint={startPoint} borderLength={borderLength} />
                 <Group>
+                  <DashedLine startPoint={startPoint} borderLength={borderLength} />
                   <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
@@ -104,6 +93,7 @@ const FullCourt = () => {
                   <TopKeyArea startPoint={startPoint} />
                 </Group>
                 <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
+                  <DashedLine startPoint={startPoint} borderLength={borderLength} />
                   <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />

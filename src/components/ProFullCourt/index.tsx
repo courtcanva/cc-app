@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useLayoutEffect, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -12,10 +12,8 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import { useStoreSelector } from "@/store/hooks";
 import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimension";
-import { calculation } from "@/utils/tileNumberCalculator";
-import { useDispatch } from "react-redux";
-import { changeTileQuantity } from "@/store/reducer/tileSlice";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
+import { useTileCount } from "../../hooks/useTileCount";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -36,13 +34,8 @@ const ProFullCourt = () => {
     size
   );
   const court = courtAndInfo.court;
-  const courtAndTileInfo = courtAndInfo.courtAndTileInfo;
 
-  const canvasRef = useRef(null);
-
-  const tileCalculation = useCallback(calculation, []);
-
-  const tileColorState = useStoreSelector((state) => state.tile.court);
+  useTileCount();
 
   useLayoutEffect(() => {
     const checkSize = () => {
@@ -54,22 +47,6 @@ const ProFullCourt = () => {
     window.addEventListener("resize", checkSize);
     return () => window.removeEventListener("resize", checkSize);
   }, []);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const tileNumberResult = tileCalculation(canvasRef, courtAndTileInfo);
-      dispatch(changeTileQuantity(tileNumberResult));
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [tileColorState]);
-
-  const { selectedColor } = useStoreSelector((state) => state.courtColor);
-  useEffect(() => {
-    if (typeof window !== "undefined" && selectedColor === "none") {
-      document.body.style.cursor = "auto";
-    }
-  }, [selectedColor]);
 
   return (
     <Flex
@@ -92,25 +69,22 @@ const ProFullCourt = () => {
             width={court.stageWidth}
             scaleX={court.courtRatio}
             scaleY={court.courtRatio}
-            visible={true}
+            visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
           >
             <Provider store={store}>
-              <Layer ref={canvasRef}>
-                {/* border only for pro full court size */}
+              <Layer>
                 <Border
                   startPoint={startPoint}
                   borderLength={borderLength}
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
-                {/* arrowLine & dimensionText can be reuse for all courts*/}
-                <CourtDimension startPoint={startPoint} />
-                <BorderDimension startPoint={startPoint} />
-                {/* left side of pro full court*/}
+                <CourtDimension startPoint={startPoint} borderLength={borderLength} />
+                <BorderDimension startPoint={startPoint} borderLength={borderLength} />
                 <Group>
-                  <DashedLine startPoint={startPoint} />
+                  <DashedLine startPoint={startPoint} borderLength={borderLength} />
                   <CourtArea courtWidth={courtAreaXLength / 2} startPoint={startPoint} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />
@@ -119,7 +93,7 @@ const ProFullCourt = () => {
                 </Group>
                 {/* right side of pro full court(flip the left side)*/}
                 <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
-                  <DashedLine startPoint={startPoint} />
+                  <DashedLine startPoint={startPoint} borderLength={borderLength} />
                   <CourtArea courtWidth={courtAreaXLength / 2} startPoint={startPoint} />
                   <ThreePointArea startPoint={startPoint} />
                   <KeyArea startPoint={startPoint} />

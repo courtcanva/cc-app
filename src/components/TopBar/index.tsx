@@ -11,27 +11,17 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { TriangleUpIcon } from "@chakra-ui/icons";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverArrow,
-  PopoverBody,
-} from "@chakra-ui/react";
+import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
-
 import ColorBoard from "./ColorBoard";
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
-
 import { changeBorderLength } from "@/store/reducer/courtSizeSlice";
 import { useEffect, useState } from "react";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
-import { courtSizeData } from "@/store/reducer/courtSizeSlice";
-import { FcCdLogo } from "react-icons/fc";
 
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

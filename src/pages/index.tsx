@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
-import useOnClickOutside from "@/utils/useOnClickOutside";
+import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useRef } from "react";
 import svgIcon from "@/utils/svgIcon";
 
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
 
   const handleMouseEnter = () => {
     if (selectedColor !== "none") {
-      const iconUrl = // import svg string from utils and convert it to cur type (svg cannot be used as cursor directly)
+      const iconUrl =
         `data:image/svg+xml;base64,` +
         window.btoa(unescape(encodeURIComponent(svgIcon(selectedColor))));
       document.body.style.cursor = `url(` + iconUrl + `) 24 24, auto`;

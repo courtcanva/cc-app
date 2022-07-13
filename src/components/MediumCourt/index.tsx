@@ -1,17 +1,18 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Stage, Layer, Group, Line } from "react-konva";
+import { useLayoutEffect, useState } from "react";
 import { Flex } from "@chakra-ui/react";
-import { ReactReduxContext, Provider, useDispatch } from "react-redux";
+import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
-import CourtArea from "../BasketballCourt/CourtArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
-import { calculation } from "@/utils/tileNumberCalculator";
 import { useStoreSelector } from "@/store/hooks";
-import { changeTileQuantity } from "@/store/reducer/tileSlice";
 import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { useTileCount } from "../../hooks/useTileCount";
+import CourtDimension from "../BasketballCourt/CourtDimension";
+import BorderDimension from "../BasketballCourt/BorderDimension";
+import CourtArea from "../BasketballCourt/CourtArea";
 
 const MediumCourt = () => {
   const {
@@ -47,13 +48,8 @@ const MediumCourt = () => {
     size
   );
   const court = courtAndInfo.court;
-  const courtAndTileInfo = courtAndInfo.courtAndTileInfo;
 
-  const canvasRef = useRef(null);
-
-  const tileCalculation = useCallback(calculation, []);
-
-  const tileColorState = useStoreSelector((state) => state.tile.court);
+  useTileCount();
 
   useLayoutEffect(() => {
     const checkSize = () => {
@@ -65,15 +61,6 @@ const MediumCourt = () => {
     window.addEventListener("resize", checkSize);
     return () => window.removeEventListener("resize", checkSize);
   }, []);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const tileNumberResult = tileCalculation(canvasRef, courtAndTileInfo);
-      dispatch(changeTileQuantity(tileNumberResult));
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [tileColorState]);
 
   return (
     <Flex
@@ -96,18 +83,20 @@ const MediumCourt = () => {
             width={court.stageWidth}
             scaleX={court.courtRatio}
             scaleY={court.courtRatio}
-            visible={true}
+            visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
           >
             <Provider store={store}>
-              <Layer ref={canvasRef}>
+              <Layer>
                 <Border
                   startPoint={courtStartPoint}
                   borderLength={borderLength}
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
+                <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
+                <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <Group
                   clipFunc={(ctx: any) => {
                     ctx.beginPath();

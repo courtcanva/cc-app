@@ -20,6 +20,8 @@ const customJestConfig = {
     "^@/store/(.*)$": "<rootDir>/src/store/$1",
     "^@/pages/(.*)$": "<rootDir>/src/pages/$1",
     "^@/utils/(.*)$": "<rootDir>/src/utils/$1",
+    "^@/redux/(.*)$": "<rootDir>/src/redux/$1",
+    "^@/hooks/(.*)$": "<rootDir>/src/hooks/$1",
     "^konva": "konva/konva",
   },
   collectCoverageFrom: [
@@ -32,6 +34,8 @@ const customJestConfig = {
     "!<rootDir>/src/utils/axios.ts",
     "!<rootDir>/src/utils/getCourtAndTileInfo.ts",
     "!<rootDir>/src/utils/tileNumberCalculator.ts",
+    "!<rootDir>/src/utils/printPDF.ts",
+    "!<rootDir>/src/hooks/*",
     "!<rootDir>/src/components/BasketballCourt/*", // exclude canvas
     "!<rootDir>/src/components/FullCourt/*", // exclude canvas
     "!<rootDir>/src/components/ProFullCourt/*", // exclude canvas
@@ -39,13 +43,14 @@ const customJestConfig = {
     "!<rootDir>/src/components/HalfCourt/*", // exclude canvas
     "!<rootDir>/src/components/MediumCourt/*", // exclude canvas
     "!<rootDir>/src/components/SmallCourt/*", // exclude canvas
-    "!<rootDir>/src/components/MockCourtData/*", // should be deleted later
+    "!<rootDir>/src/store/reducer/tileSlice.ts",
     "!<rootDir>/src/store/reducer/counterSlice.ts", // should be deleted later
     "!<rootDir>/src/store/hooks.ts", // exclude redux hooks
     "!<rootDir>/src/utils/getAreaColor.ts",
     "!<rootDir>/src/utils/useEventListener.ts",
     "!<rootDir>/src/utils/useIsomorphicLayoutEffect.ts",
     "!<rootDir>/src/utils/useOnClickOutside.ts",
+    "!<rootDir>/src/utils/priceFormat.ts",
     "!<rootDir>/node_modules/",
     "!<rootDir>/**/__tests__/**",
     "!<rootDir>/**/*.d.ts",
