@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import mockPlateColors from "./colorList";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import { useDispatch } from "react-redux";
-import { useStoreSelector } from "@/store/hooks";
-import svgIcon from "../../utils/svgIcon";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
 
 const ColorBoard: React.FC = () => {
   const dispatch = useDispatch();
-  const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const handleChangeColor = (paintColor: string): void => {
-    dispatch(usePaintBucket(false));
     dispatch(changeSelectedColor(paintColor));
+    dispatch(usePaintBucket(false));
   };
 
   return (
