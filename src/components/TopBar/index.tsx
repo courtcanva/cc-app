@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
-
 import ColorBoard from "./ColorBoard";
 import DownloadSvg from "@/assets/svg/TopBarSvg/download.svg";
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
@@ -19,19 +18,17 @@ import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
-import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import { downloadToPDF } from "../../utils/printPDF";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
 
 const TopBar = () => {
   const { onOpen } = useDisclosure();
+  const dispatch = useDispatch();
+  const open = () => dispatch(usePaintBucket(true));
+  const close = () => dispatch(usePaintBucket(false));
   const { name: courtName } = useStoreSelector((state) => state.courtName);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const { paintPopover } = useStoreSelector((state) => state.paintBucket);
-  const dispatch = useDispatch();
-  const handlePopoverOpen = () => {
-    dispatch(usePaintBucket(true));
-  };
 
   return (
     <SimpleGrid
@@ -60,7 +57,7 @@ const TopBar = () => {
 
       {/* center */}
       <Flex alignItems="center" gap={{ base: "0", lg: "5" }}>
-        <Popover isOpen={paintPopover} closeOnBlur={false}>
+        <Popover isOpen={paintPopover} onOpen={open} onClose={close}>
           <PopoverTrigger>
             <IconButton
               aria-label="Rb"
@@ -68,7 +65,6 @@ const TopBar = () => {
               display="fixed"
               variant="witheBackgroundIconBtn"
               data-testid="colorSelectBtn"
-              onClick={handlePopoverOpen}
             />
           </PopoverTrigger>
           <PopoverContent width={300} height={168}>
