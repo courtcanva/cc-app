@@ -14,6 +14,8 @@ import { TriangleUpIcon } from "@chakra-ui/icons";
 import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import ColorBoard from "./ColorBoard";
+import SaveBoard from "./SaveBoard";
+import DownloadSvg from "@/assets/svg/TopBarSvg/download.svg";
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
@@ -23,9 +25,10 @@ import { useEffect, useState } from "react";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
 import { getCourtNameString, updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
 import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
+import { downloadToPDF } from "@/utils/printPDF";
 
 const TopBar = () => {
-  const { onOpen } = useDisclosure();
+  const { isOpen, onToggle, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const open = () => dispatch(usePaintBucket(true));
   const close = () => dispatch(usePaintBucket(false));
@@ -160,16 +163,34 @@ const TopBar = () => {
 
       {/* right */}
       <Flex alignItems="center" justifyContent="flex-end" marginRight="3" gap="2">
+
         <IconButton
-          aria-label="DocSvg"
+          aria-label="Download"
           colorScheme="transparent"
-          icon={<DocSvg />}
-          variant="editorFooterIconBtn"
-          onClick={onOpen}
-          data-testid="download-btn"
+          icon={<DownloadSvg />}
+          variant="witheBackgroundIconBtn"
+          onClick={downloadToPDF}
         />
+
         {/* TODO: Fetch user login state from redux */}
         {/* <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent> */}
+        <Popover isOpen={isOpen} onClose={onClose}>
+          <PopoverTrigger>
+            <IconButton
+              aria-label="DocSvg"
+              colorScheme="transparent"
+              icon={<DocSvg />}
+              variant="witheBackgroundIconBtn"
+              onClick={onToggle}
+              data-testid="download-btn"
+            />
+          </PopoverTrigger>
+          <PopoverContent w="176px" h="110px">
+            <PopoverBody>
+              <SaveBoard />
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
         <IconButton
           aria-label="Bin"
           colorScheme="transparent"
