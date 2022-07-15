@@ -45,11 +45,10 @@ const TileColorBoard: React.FC = () => {
   };
 
   useEffect(() => {
-    if (data == undefined) return;
+    if (data === undefined) return;
     calculateTile();
     calculateDelivery();
     calculateInstallation();
-    console.log(priceDetails);
     const price = priceDetails.tilePrice + priceDetails.deliveryPrice + priceDetails.installPrice;
     const totalPrice = priceFormat(price);
     setTotalPrice(totalPrice);
