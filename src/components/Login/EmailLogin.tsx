@@ -15,15 +15,43 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 
 export default function EmailLogin(props: any) {
-  const { initialRef, nextStep, prevStep } = props;
+  const { initialRef, nextStep, prevStep, checkUser } = props;
+
   const [input, setInput] = useState("");
-  const handleInputChange = (e) => setInput(e.target.value);
-  // TODO: change later
-  const isError = !input.includes("@");
+  const [isEmpty, setIsEmpty] = useState(true);
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
+
+  useEffect(() => {
+    setIsEmpty(!input);
+  }, [input]);
+
+  const validate = (email: string) => {
+    // regular expression from https://www.freakyjolly.com/react-form-custom-validation-with-error-message-example/
+    const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    return reg.test(email);
+  };
+
+  const handleEmailCheck = async () => {
+    // TODO: fake boolean value
+    const isExisted = true;
+    checkUser(isExisted);
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    const validation = validate(input);
+    setIsValidEmail(validation);
+    if (validation) {
+      handleEmailCheck();
+      nextStep();
+    }
+  };
+
   return (
     <ModalContent>
       <IconButton
@@ -49,8 +77,8 @@ export default function EmailLogin(props: any) {
       </ModalHeader>
       <ModalCloseButton role="closeButton" />
       <ModalBody>
-        <FormControl isInvalid={Boolean(isError)}>
-          {!isError ? (
+        <FormControl isInvalid={!isValidEmail} onSubmit={handleSubmit}>
+          {isValidEmail ? (
             <FormHelperText
               fontSize="11px"
               textAlign="center"
@@ -76,8 +104,20 @@ export default function EmailLogin(props: any) {
             paddingX="20px"
             marginBottom="40px"
           >
-            <Input id="email" type="email" required value={input} onChange={handleInputChange} />
-            <Button variant="loginBtn" position="relative" ref={initialRef}>
+            <Input
+              id="email"
+              type="email"
+              required
+              value={input}
+              ref={initialRef}
+              onChange={handleInputChange}
+            />
+            <Button
+              variant="loginBtn"
+              position="relative"
+              isDisabled={isEmpty}
+              onClick={handleSubmit}
+            >
               <Text>Continue</Text>
             </Button>
           </Flex>

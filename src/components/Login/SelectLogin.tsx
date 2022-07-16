@@ -20,7 +20,7 @@ import { api } from "../../utils/axios";
 import { useDispatch } from "react-redux";
 import { updateUserInfo } from "@/store/reducer/userSlice";
 
-export default function SelectLogin(props) {
+export default function SelectLogin(props: any) {
   const dispatch = useDispatch();
   const { updateLoginData, initialRef, nextStep } = props;
 

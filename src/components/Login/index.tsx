@@ -1,36 +1,9 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  Button,
-  ModalFooter,
-  Flex,
-  Text,
-  Icon,
-  Link,
-  IconButton,
-  Divider,
-  FormControl,
-  FormLabel,
-  Input,
-  FormHelperText,
-  FormErrorMessage,
-} from "@chakra-ui/react";
-import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
-import { IconContext } from "react-icons";
-import { FaEnvelope } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { useGoogleLogin } from "@react-oauth/google";
+import { Modal, ModalOverlay } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { api } from "../../utils/axios";
-import { useDispatch } from "react-redux";
-import { updateUserInfo } from "@/store/reducer/userSlice";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
 import SelectLogin from "./SelectLogin";
 import EmailLogin from "./EmailLogin";
+import LoginWithPwd from "./LoginWithPwd";
+import Register from "./Register";
 
 interface Props {
   isOpen: boolean;
@@ -44,20 +17,45 @@ function LoginModalContent(props: Props) {
   const { updateLoginData, onClose, isOpen } = props;
 
   const [step, setStep] = useState(1);
-
+  const [userExisted, setUserExisted] = useState(false);
   const nextStep = () => {
     setStep((step) => step + 1);
   };
   const prevStep = () => {
     setStep((step) => step - 1);
   };
+  const checkUser = (isUserExisted: boolean) => {
+    setUserExisted(isUserExisted);
+  };
 
   const modalContent = () => {
     switch (step) {
       case 1:
-        return <SelectLogin nextStep={nextStep} initialRef={initialRef} onClose={onClose} />;
+        return (
+          <SelectLogin
+            nextStep={nextStep}
+            initialRef={initialRef}
+            onClose={onClose}
+            updateLoginData={updateLoginData}
+          />
+        );
       case 2:
-        return <EmailLogin nextStep={nextStep} prevStep={prevStep} initialRef={initialRef} />;
+        return (
+          <EmailLogin
+            nextStep={nextStep}
+            prevStep={prevStep}
+            initialRef={initialRef}
+            checkUser={checkUser}
+          />
+        );
+      case 3:
+        return userExisted ? (
+          <LoginWithPwd nextStep={nextStep} prevStep={prevStep} initialRef={initialRef} />
+        ) : (
+          <Register nextStep={nextStep} prevStep={prevStep} initialRef={initialRef} />
+        );
+      case 4:
+      // TODO: success
     }
   };
 
