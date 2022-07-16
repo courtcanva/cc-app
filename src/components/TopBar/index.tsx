@@ -118,7 +118,7 @@ const TopBar = () => {
           min={0}
           max={1.8}
           step={0.3}
-          maxW="40"
+          maxWidth="40"
           minWidth="30"
           onChange={(val: number) => handleChange(val)}
         >
@@ -126,9 +126,9 @@ const TopBar = () => {
             value={sliderValue}
             textAlign="center"
             color="brand.primary"
-            mt="-6"
-            ml="-5"
-            w="10"
+            marginTop="-6"
+            marginLeft="-5"
+            width="10"
             fontSize="10px"
           >
             {sliderValue}m
@@ -140,7 +140,7 @@ const TopBar = () => {
             background="transparent"
             color="brand.primary"
             border="none"
-            mt={3}
+            marginTop={3}
             as={TriangleUpIcon}
             boxShadow="none"
           ></SliderThumb>
