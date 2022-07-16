@@ -1,5 +1,4 @@
 import {
-  ModalContent,
   ModalHeader,
   ModalBody,
   ModalCloseButton,
@@ -14,10 +13,11 @@ import React from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 
 export default function Register(props: any) {
-  const { prevStep } = props;
+  const { prevStep, userEmail } = props;
 
   return (
-    <ModalContent>
+    // TODO: in the scope of card 38
+    <>
       <IconButton
         aria-label="Go Back"
         icon={<ChevronLeftIcon />}
@@ -34,13 +34,14 @@ export default function Register(props: any) {
             <MainLogoSvg />
           </Icon>
           <Divider />
-          <Text fontSize="xl" marginTop="20px">
-            New User, register
+          <Text fontSize="sm" marginTop="20px">
+            {/* TODO: for temporary demo, change later */}
+            {userEmail} is a new user, please register
           </Text>
         </Flex>
       </ModalHeader>
       <ModalCloseButton role="closeButton" />
       <ModalBody></ModalBody>
-    </ModalContent>
+    </>
   );
 }

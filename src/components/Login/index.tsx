@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay } from "@chakra-ui/react";
+import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
 import React, { useState } from "react";
 import SelectLogin from "./SelectLogin";
 import EmailLogin from "./EmailLogin";
@@ -18,6 +18,7 @@ function LoginModalContent(props: Props) {
 
   const [step, setStep] = useState(1);
   const [userExisted, setUserExisted] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
   const nextStep = () => {
     setStep((step) => step + 1);
   };
@@ -46,13 +47,26 @@ function LoginModalContent(props: Props) {
             prevStep={prevStep}
             initialRef={initialRef}
             checkUser={checkUser}
+            inputEmail={(email: string) => {
+              setUserEmail(email);
+            }}
           />
         );
       case 3:
         return userExisted ? (
-          <LoginWithPwd nextStep={nextStep} prevStep={prevStep} initialRef={initialRef} />
+          <LoginWithPwd
+            nextStep={nextStep}
+            prevStep={prevStep}
+            initialRef={initialRef}
+            userEmail={userEmail}
+          />
         ) : (
-          <Register nextStep={nextStep} prevStep={prevStep} initialRef={initialRef} />
+          <Register
+            nextStep={nextStep}
+            prevStep={prevStep}
+            initialRef={initialRef}
+            userEmail={userEmail}
+          />
         );
       case 4:
       // TODO: success
@@ -62,7 +76,7 @@ function LoginModalContent(props: Props) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered size={"sm"} initialFocusRef={initialRef}>
       <ModalOverlay />
-      {modalContent()}
+      <ModalContent>{modalContent()}</ModalContent>
     </Modal>
   );
 }

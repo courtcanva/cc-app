@@ -1,5 +1,4 @@
 import {
-  ModalContent,
   ModalHeader,
   ModalBody,
   ModalCloseButton,
@@ -15,14 +14,21 @@ import { IconContext } from "react-icons";
 import { FaEnvelope } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
-import React, { useState } from "react";
+import React from "react";
 import { api } from "../../utils/axios";
 import { useDispatch } from "react-redux";
 import { updateUserInfo } from "@/store/reducer/userSlice";
 
-export default function SelectLogin(props: any) {
+interface Props {
+  onClose: () => void;
+  updateLoginData: (data: any) => void;
+  initialRef: React.LegacyRef<HTMLButtonElement> | undefined;
+  nextStep: () => void;
+}
+
+export default function SelectLogin(props: Props) {
   const dispatch = useDispatch();
-  const { updateLoginData, initialRef, nextStep } = props;
+  const { onClose, updateLoginData, initialRef, nextStep } = props;
 
   // Send request to backend after the request from front-end has been approved by Google
   /* istanbul ignore next */
@@ -37,7 +43,7 @@ export default function SelectLogin(props: any) {
         localStorage.setItem("UserInfo", JSON.stringify(data));
         dispatch(updateUserInfo(data));
         updateLoginData(data);
-        props.onClose();
+        onClose();
       }
     } catch (err) {
       console.warn(err);
@@ -50,7 +56,7 @@ export default function SelectLogin(props: any) {
     flow: "auth-code", // Authorization flow
   });
   return (
-    <ModalContent>
+    <>
       <ModalHeader>
         <Flex flexDir="column" alignItems="center" marginTop="20px">
           <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">
@@ -99,6 +105,6 @@ export default function SelectLogin(props: any) {
           </Link>
         </Text>
       </ModalFooter>
-    </ModalContent>
+    </>
   );
 }

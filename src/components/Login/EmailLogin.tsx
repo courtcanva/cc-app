@@ -1,5 +1,4 @@
 import {
-  ModalContent,
   ModalHeader,
   ModalBody,
   ModalCloseButton,
@@ -18,8 +17,16 @@ import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import React, { useEffect, useState } from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 
-export default function EmailLogin(props: any) {
-  const { initialRef, nextStep, prevStep, checkUser } = props;
+interface Props {
+  initialRef: React.LegacyRef<HTMLInputElement> | undefined;
+  nextStep: () => void;
+  prevStep: () => void;
+  checkUser: (isExisted: boolean) => void;
+  inputEmail: (input: string) => void;
+}
+
+export default function EmailLogin(props: Props) {
+  const { initialRef, nextStep, prevStep, checkUser, inputEmail } = props;
 
   const [input, setInput] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
@@ -48,12 +55,13 @@ export default function EmailLogin(props: any) {
     setIsValidEmail(validation);
     if (validation) {
       handleEmailCheck();
+      inputEmail(input);
       nextStep();
     }
   };
 
   return (
-    <ModalContent>
+    <>
       <IconButton
         aria-label="Go Back"
         icon={<ChevronLeftIcon />}
@@ -123,6 +131,6 @@ export default function EmailLogin(props: any) {
           </Flex>
         </FormControl>
       </ModalBody>
-    </ModalContent>
+    </>
   );
 }
