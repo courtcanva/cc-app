@@ -7,6 +7,11 @@ import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useRef } from "react";
 import svgIcon from "@/utils/svgIcon";
+import { useEffect } from "react";
+import { getCourtSpecData } from "@/store/reducer/courtSpecDataSlice";
+import { changeCourtSize, CourtSpecMapper } from "@/store/reducer/courtSizeSlice";
+import { useGetCourtsQuery } from "../redux/api/courtSizeApi";
+import { courtSpecMapping } from "../utils/courtSpecMapping";
 
 const ProFullCourt = dynamic(() => import("@/components/ProFullCourt"), { ssr: false });
 const FullCourt = dynamic(() => import("@/components/FullCourt"), { ssr: false });
@@ -19,6 +24,17 @@ const Home: NextPage = () => {
   const { courtId } = useStoreSelector((state) => state.courtName);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const dispatch = useDispatch();
+
+  const { data } = useGetCourtsQuery(0);
+
+  useEffect(() => {
+    if (data) {
+      const mappedCourtData = data.map((item: CourtSpecMapper) => courtSpecMapping(item));
+      dispatch(getCourtSpecData(mappedCourtData));
+      dispatch(changeCourtSize(mappedCourtData[0]));
+    }
+  }, [data]);
+
   const ref = useRef(null); // click outside the canvas area can stop color changing
   const handleClickOutside = () => {
     dispatch(changeSelectedColor("none"));
