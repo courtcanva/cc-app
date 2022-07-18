@@ -34,8 +34,9 @@ const Blueprints: React.FC = () => {
       dispatch(changeCourtName(chosenCourt));
     }
 
-    const tileQtyOfSelectedCourt = mockTileData.find((item) => item.name === selectedCourt?.courtName)
-      ?.tileQty as AreaTileQty[];
+    const tileQtyOfSelectedCourt = mockTileData.find(
+      (item) => item.name === selectedCourt?.courtName
+    )?.tileQty as AreaTileQty[];
     dispatch(changeCourtType(tileQtyOfSelectedCourt));
   };
 
