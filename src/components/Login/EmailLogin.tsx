@@ -17,7 +17,7 @@ import {
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import React, { useEffect, useState } from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
-import useAuthRequest from "@/hooks/useAuthRequest";
+import useAuthRequest from "@/components/Login/helpers/authRequest";
 
 interface Props {
   initialRef: React.LegacyRef<HTMLInputElement> | undefined;
@@ -80,6 +80,7 @@ export default function EmailLogin(props: Props) {
     <>
       <IconButton
         aria-label="Go Back"
+        role="goBack"
         icon={<ChevronLeftIcon />}
         margin="8px"
         size="sm"
@@ -134,6 +135,7 @@ export default function EmailLogin(props: Props) {
               required
               value={input}
               ref={initialRef}
+              role="emailInput"
               onChange={handleInputChange}
             />
             <Button
