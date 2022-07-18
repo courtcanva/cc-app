@@ -40,7 +40,7 @@ const TileColorBoard: React.FC = () => {
     if (data === undefined) return;
     calculateTile();
     calculateDelivery();
-    const price = priceDetails.tilePrice + priceDetails.deliveryPrice;
+    const price = (priceDetails.tilePrice + priceDetails.deliveryPrice) * 1.1;
     const totalPrice = priceFormat(price);
     setTotalPrice(totalPrice);
   }, [tileBlocks, court, data]);
