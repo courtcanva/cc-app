@@ -102,7 +102,7 @@ export default function EmailLogin(props: Props) {
       </ModalHeader>
       <ModalCloseButton role="closeButton" />
       <ModalBody>
-        <FormControl isInvalid={!isValidEmail} onSubmit={handleSubmit}>
+        <FormControl isInvalid={!isValidEmail}>
           {isValidEmail ? (
             <FormHelperText
               fontSize="11px"
@@ -137,6 +137,11 @@ export default function EmailLogin(props: Props) {
               ref={initialRef}
               role="emailInput"
               onChange={handleInputChange}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit(e);
+                }
+              }}
             />
             <Button
               variant="loginBtn"
