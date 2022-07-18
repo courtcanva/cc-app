@@ -1,9 +1,18 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "..";
-import { CourtSizeState } from "./courtSizeSlice";
+import { CourtSizeState, CourtSpecMapper } from "./courtSizeSlice";
+import { courtSpecMapping } from "../../utils/courtSpecMapping";
 
-export const initialState: CourtSizeState[] = [
-  {
+export interface CourtSpec {
+  courtsData: CourtSizeState[];
+  activeCourt: CourtSizeState;
+  isLoading: boolean;
+  isError: string;
+}
+
+export const initialState: CourtSpec = {
+  courtsData: [],
+  activeCourt: {
     courtId: "62c432cfb8a9c5f61f03831f",
     courtName: "Pro Full Court",
     courtAreaXLength: 28000,
@@ -17,20 +26,27 @@ export const initialState: CourtSizeState[] = [
     strokeWidth: 200,
     borderLength: 1000,
   },
-];
+  isLoading: true,
+  isError: "",
+};
 
 export const Slice = createSlice({
   name: "courtSpecData",
   initialState,
   reducers: {
     getCourtSpecData: (state, action: PayloadAction<CourtSizeState[]>) => {
-      state = [...action.payload];
+      state.courtsData = [...action.payload];
+      return state;
+    },
+    setActiveCourt: (state, action: PayloadAction<string>) => {
+      const index = state.courtsData.findIndex((item) => item.courtName === action.payload);
+      state.activeCourt = state.courtsData[index];
       return state;
     },
   },
 });
 
-export const { getCourtSpecData } = Slice.actions;
+export const { getCourtSpecData, setActiveCourt } = Slice.actions;
 export const courtSpecData = (state: RootState) => state.courtSpecData;
 
 export default Slice.reducer;
