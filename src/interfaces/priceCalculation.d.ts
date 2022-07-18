@@ -1,21 +1,11 @@
 export interface IPriceCalculation {
   _id: string;
-  tiles: ITiles
-  court_spec: Array<ICourts>;
-  createdAt: Date;
-  updatedAt: Date;
+  tilePrice: number;
+  deliveryPrice: IDeliveryPrice;
   isDeleted: boolean;
 }
-interface ITiles {
+interface IDeliveryPrice {
     tile_id: string;
-    deliveryPrice: number;
-    tilePrice: Array<ITilePrice>;
+    price: number;
 }
-export interface ITilePrice {
-  color: string;
-  price: number;
-}
-export interface ICourts {
-  court: string;
-  installationPrice: number;
-}
+

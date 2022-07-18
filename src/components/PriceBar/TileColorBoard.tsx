@@ -1,59 +1,46 @@
 import { Center, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
-import { IPriceCalculation, ITilePrice, ICourts } from "../../interfaces/priceCalculation";
+import { IPriceCalculation, IDeliveryPrice } from "../../interfaces/priceCalculation";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import priceFormat from "@/utils/priceFormat";
 
 const TileColorBoard: React.FC = () => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
-  const courts = useStoreSelector((state) => state.courtSize);
+  const court = useStoreSelector((state) => state.courtSize);
   const { data } = useGetPriceQuery(0);
   const priceList = data?.find((item: IPriceCalculation) => !item.isDeleted);
-  const [useTotalPrice, setTotalPrice] = useState<string>("Loading...");
+  const [useTotalPrice, setTotalPrice] = useState<string>("0.00");
 
   const priceDetails = {
     tilePrice: 0,
-    installPrice: 0,
     deliveryPrice: 0,
   };
-
-  const calculateTile = () => {
-    for (const tile of tileBlocks) {
-      const tileColor = tile.color.toUpperCase();
-      const tileList = priceList?.tiles.tilePrice.find(
-        (item: ITilePrice) => item.color === tileColor
-      );
-      priceDetails.tilePrice += (tileList?.price / 100) * tile.quantity;
-    }
-  };
-
+  
   const calculateDelivery = () => {
     let totalQuantity = 0;
     for (const tile of tileBlocks) {
       totalQuantity += tile.quantity;
     }
-    priceDetails.deliveryPrice += Math.ceil(totalQuantity / 1000) * priceList?.tiles.deliveryPrice;
+    const delivery = priceList?.deliveryPrice.find(
+      (item: IDeliveryPrice) => item.tile_id === "tile001"
+    );
+    priceDetails.deliveryPrice += Math.ceil(totalQuantity / 1000) * (delivery.price / 100);
   };
 
-  const calculateInstallation = () => {
-    const courtList = priceList?.court_spec.find(
-      (item: ICourts) => item.court === courts.courtName
-    );
-    if (courtList) {
-      priceDetails.installPrice += courtList.installationPrice / 100;
-    }
+  const calculateTile = () => {
+    const courtSize = (court.courtAreaXLength + court.borderLength * 2) / 1000 * (court.courtAreaYLength + court.borderLength * 2) / 1000
+    priceDetails.tilePrice = priceList?.tilePrice / 100 * courtSize;
   };
 
   useEffect(() => {
     if (data === undefined) return;
     calculateTile();
     calculateDelivery();
-    calculateInstallation();
-    const price = priceDetails.tilePrice + priceDetails.deliveryPrice + priceDetails.installPrice;
+    const price = priceDetails.tilePrice + priceDetails.deliveryPrice;
     const totalPrice = priceFormat(price);
     setTotalPrice(totalPrice);
-  }, [tileBlocks, courts, data]);
+  }, [tileBlocks, court, data]);
 
   return (
     <>
@@ -91,7 +78,7 @@ const TileColorBoard: React.FC = () => {
             Estimated Budget:
           </Text>
           <Text fontSize="xs" fontWeight="800" marginLeft="6px">
-            From $ {useTotalPrice}
+            From $ {useTotalPrice === "0.00" ? "Loading..." : (useTotalPrice)}
           </Text>
         </Center>
       </Flex>
