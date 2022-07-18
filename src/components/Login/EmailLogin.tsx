@@ -12,27 +12,32 @@ import {
   Input,
   FormHelperText,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import React, { useEffect, useState } from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
+import useAuthRequest from "@/hooks/useAuthRequest";
 
 interface Props {
   initialRef: React.LegacyRef<HTMLInputElement> | undefined;
   nextStep: () => void;
   prevStep: () => void;
-  checkUser: (isExisted: boolean) => void;
+  findUser: (isExisted: boolean) => void;
   inputEmail: (input: string) => void;
 }
 
 export default function EmailLogin(props: Props) {
-  const { initialRef, nextStep, prevStep, checkUser, inputEmail } = props;
+  const { initialRef, nextStep, prevStep, findUser, inputEmail } = props;
 
   const [input, setInput] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(true);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
 
+  const { checkEmail } = useAuthRequest();
+
+  const toast = useToast();
   useEffect(() => {
     setIsEmpty(!input);
   }, [input]);
@@ -44,9 +49,21 @@ export default function EmailLogin(props: Props) {
   };
 
   const handleEmailCheck = async () => {
-    // TODO: fake boolean value
-    const isExisted = true;
-    checkUser(isExisted);
+    try {
+      const { data } = await checkEmail(input);
+      if (data === 204) {
+        findUser(false);
+      } else if (data === 409) {
+        findUser(true);
+      }
+      data && nextStep();
+    } catch (err) {
+      toast({
+        title: "network error",
+        status: "error",
+        isClosable: true,
+      });
+    }
   };
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -54,9 +71,8 @@ export default function EmailLogin(props: Props) {
     const validation = validate(input);
     setIsValidEmail(validation);
     if (validation) {
-      handleEmailCheck();
       inputEmail(input);
-      nextStep();
+      handleEmailCheck();
     }
   };
 

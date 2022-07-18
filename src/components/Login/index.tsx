@@ -25,7 +25,7 @@ function LoginModalContent(props: Props) {
   const prevStep = () => {
     setStep((step) => step - 1);
   };
-  const checkUser = (isUserExisted: boolean) => {
+  const findUser = (isUserExisted: boolean) => {
     setUserExisted(isUserExisted);
   };
 
@@ -46,7 +46,7 @@ function LoginModalContent(props: Props) {
             nextStep={nextStep}
             prevStep={prevStep}
             initialRef={initialRef}
-            checkUser={checkUser}
+            findUser={findUser}
             inputEmail={(email: string) => {
               setUserEmail(email);
             }}
