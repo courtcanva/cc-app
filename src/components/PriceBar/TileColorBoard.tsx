@@ -16,7 +16,7 @@ const TileColorBoard: React.FC = () => {
     tilePrice: 0,
     deliveryPrice: 0,
   };
-  
+
   const calculateDelivery = () => {
     let totalQuantity = 0;
     for (const tile of tileBlocks) {
@@ -29,8 +29,11 @@ const TileColorBoard: React.FC = () => {
   };
 
   const calculateTile = () => {
-    const courtSize = (court.courtAreaXLength + court.borderLength * 2) / 1000 * (court.courtAreaYLength + court.borderLength * 2) / 1000
-    priceDetails.tilePrice = priceList?.tilePrice / 100 * courtSize;
+    const courtSize =
+      (((court.courtAreaXLength + court.borderLength * 2) / 1000) *
+        (court.courtAreaYLength + court.borderLength * 2)) /
+      1000;
+    priceDetails.tilePrice = (priceList?.tilePrice / 100) * courtSize;
   };
 
   useEffect(() => {
@@ -78,7 +81,7 @@ const TileColorBoard: React.FC = () => {
             Estimated Budget:
           </Text>
           <Text fontSize="xs" fontWeight="800" marginLeft="6px">
-            From $ {useTotalPrice === "0.00" ? "Loading..." : (useTotalPrice)}
+            From $ {useTotalPrice === "0.00" ? "Loading..." : useTotalPrice}
           </Text>
         </Center>
       </Flex>
