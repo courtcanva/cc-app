@@ -51,12 +51,8 @@ export default function EmailLogin(props: Props) {
   const handleEmailCheck = async () => {
     try {
       const { data } = await checkEmail(input);
-      if (data === 204) {
-        findUser(false);
-      } else if (data === 409) {
-        findUser(true);
-      }
-      data && nextStep();
+      data ? findUser(true) : findUser(false);
+      typeof data === "boolean" && nextStep();
     } catch (err) {
       toast({
         title: "network error",
