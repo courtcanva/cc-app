@@ -12,7 +12,7 @@ import { getCourtSpecData } from "@/store/reducer/courtSpecDataSlice";
 import { changeCourtSize, CourtSpecMapper, CourtSizeState } from "@/store/reducer/courtSizeSlice";
 import { useGetCourtsQuery } from "../redux/api/courtSizeApi";
 import { courtSpecMapping } from "../utils/courtSpecMapping";
-import LoadingPage from './loading';
+import LoadingPage from "./loading";
 
 const ProFullCourt = dynamic(() => import("@/components/ProFullCourt"), { ssr: false });
 const FullCourt = dynamic(() => import("@/components/FullCourt"), { ssr: false });
