@@ -1,4 +1,3 @@
-import { useLayoutEffect, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -6,62 +5,24 @@ import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
-import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { Line } from "react-konva";
 import { courtWhiteLine } from "@/store/reducer/courtSizeSlice";
-import { useStoreSelector } from "@/store/hooks";
-import { useTileCount } from "../../hooks/useTileCount";
 import CourtArea from "../BasketballCourt/CourtArea";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
 import DashedLine from "../BasketballCourt/DashedLine";
+import useCourt from "@/hooks/useCourt";
 
 const SmallCourt = () => {
   const {
     courtAreaXLength,
     courtAreaYLength,
-    threePointLineRadius,
-    threePointLineToCourtEdgeLength,
     borderLength,
-  } = useStoreSelector((state) => state.courtSize);
-  const stageMargin = 2500;
-  // componentsStartPoint is different court area start point
-  const componentsStartPoint = {
-    X: stageMargin,
-    Y:
-      -(
-        (threePointLineRadius + threePointLineToCourtEdgeLength) * 2 -
-        (courtAreaYLength + stageMargin * 2)
-      ) / 2,
-  };
-  const courtStartPoint = {
-    X: stageMargin,
-    Y: stageMargin,
-  };
-
-  const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
-
-  const courtAndInfo = getCourtAndTileInfo(
-    courtAreaXLength,
-    courtAreaYLength,
-    borderLength,
+    court,
     stageMargin,
-    size
-  );
-  const court = courtAndInfo.court;
-
-  useTileCount();
-
-  useLayoutEffect(() => {
-    const checkSize = () => {
-      setSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-    window.addEventListener("resize", checkSize);
-    return () => window.removeEventListener("resize", checkSize);
-  }, []);
+    courtStartPoint,
+    componentsStartPoint,
+  } = useCourt();
 
   return (
     <Flex
