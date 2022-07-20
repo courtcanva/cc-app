@@ -32,10 +32,10 @@ const Home: NextPage = () => {
     if (data) {
       const mappedCourtData = data.map((item: CourtSpecMapper) => courtSpecMapping(item));
       dispatch(getCourtSpecData(mappedCourtData));
-      const initailCourtIndex = mappedCourtData.findIndex(
+      const initialCourtIndex = mappedCourtData.findIndex(
         (item: CourtSizeState) => item.courtName === "Pro Full Court"
       );
-      dispatch(changeCourtSize(mappedCourtData[initailCourtIndex]));
+      dispatch(changeCourtSize(mappedCourtData[initialCourtIndex]));
     }
   }, [data]);
 
