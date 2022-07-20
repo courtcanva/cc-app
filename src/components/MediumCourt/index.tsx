@@ -1,5 +1,5 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import { Stage, Layer, Group } from "react-konva";
+import { Stage, Layer, Group, Line } from "react-konva";
+import { useLayoutEffect, useState } from "react";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
@@ -7,9 +7,12 @@ import KeyArea from "../BasketballCourt/KeyArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
-import { useTileCalculation } from "@/hooks/useTileCalculation";
-import Konva from "konva";
 import { useStoreSelector } from "@/store/hooks";
+import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { useTileCount } from "../../hooks/useTileCount";
+import CourtDimension from "../BasketballCourt/CourtDimension";
+import BorderDimension from "../BasketballCourt/BorderDimension";
+import CourtArea from "../BasketballCourt/CourtArea";
 
 const MediumCourt = () => {
   const {
@@ -45,10 +48,8 @@ const MediumCourt = () => {
     size
   );
   const court = courtAndInfo.court;
-  // https://github.com/konvajs/react-konva/issues/316
-  const canvasRef = useRef<Konva.Layer>(null);
 
-  useTileCalculation(courtAndInfo, canvasRef);
+  useTileCount();
 
   useLayoutEffect(() => {
     const checkSize = () => {
@@ -87,13 +88,15 @@ const MediumCourt = () => {
             data-testid="stage"
           >
             <Provider store={store}>
-              <Layer ref={canvasRef}>
+              <Layer>
                 <Border
                   startPoint={courtStartPoint}
                   borderLength={borderLength}
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
+                <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
+                <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <Group
                   clipFunc={(ctx: any) => {
                     ctx.beginPath();
@@ -101,11 +104,19 @@ const MediumCourt = () => {
                     ctx.clip();
                   }}
                 >
-                  {/* <CourtArea startPoint={componentsStartPoint} courtWidth={courtAreaXLength} /> */}
+                  <CourtArea startPoint={componentsStartPoint} courtWidth={courtAreaXLength} />
                   <ThreePointArea startPoint={componentsStartPoint} />
                   <KeyArea startPoint={componentsStartPoint} />
                   <TopKeyArea startPoint={componentsStartPoint} />
                 </Group>
+                {/* create a line divide border and court  */}
+                <Line
+                  points={[2500, 2500, 12500, 2520, 12500, 9500, 2500, 9500]}
+                  stroke="white"
+                  strokeWidth={courtWhiteLine}
+                  visible
+                  closed
+                />
               </Layer>
             </Provider>
           </Stage>

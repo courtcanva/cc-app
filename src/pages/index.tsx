@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
-import useOnClickOutside from "@/utils/useOnClickOutside";
+import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useRef } from "react";
 import svgIcon from "@/utils/svgIcon";
 

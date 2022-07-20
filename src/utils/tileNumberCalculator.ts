@@ -83,6 +83,7 @@ export const tileNumberCalculator = (
     }
   }
 
+  // TODO: refactor, avoid using forEach
   // transfer rgba to hex of colorResult
   // for loop
   // TODO: use when rendering
