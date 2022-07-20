@@ -14,7 +14,6 @@ import { useGetCourtsQuery } from "../redux/api/courtSizeApi";
 import { courtSpecMapping } from "../utils/courtSpecMapping";
 import LoadingPage from "@/components/LoadingPage";
 
-
 const ProFullCourt = dynamic(() => import("@/components/ProFullCourt"), { ssr: false });
 const FullCourt = dynamic(() => import("@/components/FullCourt"), { ssr: false });
 const ProHalfCourt = dynamic(() => import("@/components/ProHalfCourt"), { ssr: false });

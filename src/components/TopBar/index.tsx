@@ -20,7 +20,6 @@ import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
 import { downloadToPDF } from "../../utils/printPDF";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
-import { act } from "react-dom/test-utils";
 
 const TopBar = () => {
   const { onOpen } = useDisclosure();

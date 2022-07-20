@@ -20,15 +20,10 @@ const Blueprints: React.FC = () => {
     const selectedCourt = courtsData.find((item) => item.courtName === courtSizeName);
     if (selectedCourt) dispatch(changeCourtSize(selectedCourt));
     if (selectedCourt) {
+      const courtLength = (selectedCourt.courtAreaXLength + selectedCourt.borderLength * 2)/1000;
+      const courtWidth = (selectedCourt.courtAreaYLength + selectedCourt.borderLength * 2)/1000;
       const chosenCourt: CourtNameState = {
-        name: `${
-          ((selectedCourt.courtAreaXLength + selectedCourt.borderLength * 2) *
-            (selectedCourt.courtAreaYLength + selectedCourt.borderLength * 2)) /
-          1000000
-        } m² ${selectedCourt.courtName} (${
-          (selectedCourt.courtAreaXLength + selectedCourt.borderLength * 2) / 1000
-        } m × ${(selectedCourt.courtAreaYLength + selectedCourt.borderLength * 2) / 1000} m)`,
-        // courtId: selectedCourt.courtId
+        name: `{${courtLength} * ${courtWidth}} m² ${selectedCourt.courtName} ( ${courtLength} m × ${courtWidth} m)`,
         courtId: courtId,
       };
       dispatch(changeCourtName(chosenCourt));
