@@ -13,7 +13,7 @@ import { useTileCount } from "../../hooks/useTileCount";
 import CourtArea from "../BasketballCourt/CourtArea";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
-import DashedLine from "../BasketballCourt/DashedLine";
+import DashedLine from "../BasketballCourt/DashedLineTwo";
 
 const SmallCourt = () => {
   const {

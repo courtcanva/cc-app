@@ -12,7 +12,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { useTileCount } from "../../hooks/useTileCount";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
-import DashedLine from "../BasketballCourt/DashedLine";
+import DashedLine from "../BasketballCourt/DashedLineTwo";
 
 const HalfCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
