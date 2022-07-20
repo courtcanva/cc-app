@@ -1,11 +1,9 @@
 export interface IPriceCalculation {
   _id: string;
+  tile_id: string
   tilePrice: number;
-  deliveryPrice: IDeliveryPrice;
+  deliveryPrice: number;
   isDeleted: boolean;
 }
-interface IDeliveryPrice {
-    tile_id: string;
-    price: number;
-}
+
 

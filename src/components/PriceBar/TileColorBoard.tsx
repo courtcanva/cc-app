@@ -1,7 +1,7 @@
 import { Center, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
-import { IPriceCalculation, IDeliveryPrice } from "../../interfaces/priceCalculation";
+import { IPriceCalculation } from "../../interfaces/priceCalculation";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import priceFormat from "@/utils/priceFormat";
 
@@ -9,7 +9,7 @@ const TileColorBoard: React.FC = () => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
   const court = useStoreSelector((state) => state.courtSize);
   const { data } = useGetPriceQuery(0);
-  const priceList = data?.find((item: IPriceCalculation) => !item.isDeleted);
+  const priceList = data?.find((item: IPriceCalculation) => item.tile_id === "tile001");
   const [useTotalPrice, setTotalPrice] = useState<string>("0.00");
 
   const priceDetails = {
@@ -22,10 +22,8 @@ const TileColorBoard: React.FC = () => {
     for (const tile of tileBlocks) {
       totalQuantity += tile.quantity;
     }
-    const delivery = priceList?.deliveryPrice.find(
-      (item: IDeliveryPrice) => item.tile_id === "tile001"
-    );
-    priceDetails.deliveryPrice += Math.ceil(totalQuantity / 1000) * (delivery.price / 100);
+    const delivery = priceList?.deliveryPrice;
+    priceDetails.deliveryPrice += Math.ceil(totalQuantity / 1000) * (delivery / 100);
   };
 
   const calculateTile = () => {
