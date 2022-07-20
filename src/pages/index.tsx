@@ -21,14 +21,14 @@ const Home: NextPage = () => {
   const dispatch = useDispatch();
   const ref = useRef(null); // click outside the canvas area can stop color changing
   const handleClickOutside = () => {
-    dispatch(changeSelectedColor("none"));
+    dispatch(changeSelectedColor("transparent"));
     document.body.style.cursor = "auto";
   };
   useOnClickOutside(ref, handleClickOutside);
 
   // TODO: remove deprecated function
   const handleMouseEnter = () => {
-    if (selectedColor !== "none") {
+    if (selectedColor !== "transparent") {
       const iconUrl = // import svg string from utils and convert it to cur type (svg cannot be used as cursor directly)
         `data:image/svg+xml;base64,` +
         window.btoa(unescape(encodeURIComponent(svgIcon(selectedColor))));

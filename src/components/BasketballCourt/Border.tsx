@@ -20,8 +20,7 @@ const Border: React.FC<BorderProps> = ({
   const borderColor = getColor("border");
   const dispatch = useDispatch();
   const handleColorChange = () => {
-    // "transparent"
-    if (selectedColor === "none") return;
+    if (selectedColor === "transparent") return;
     dispatch(changeTileColor({ selectedColor, location: "border" }));
   };
   return (

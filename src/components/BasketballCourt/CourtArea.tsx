@@ -17,7 +17,7 @@ const CourtArea: React.FC<CourtAreaProps> = ({ courtWidth, startPoint }) => {
   const courtAreaColor = getColor("courtArea");
   const dispatch = useDispatch();
   const handleColorChange = () => {
-    if (selectedColor === "none") return;
+    if (selectedColor === "transparent") return;
     dispatch(changeTileColor({ selectedColor, location: "courtArea" }));
   };
   return (

@@ -17,7 +17,7 @@ const KeyArea: React.FC<KeyAreaProps> = ({ startPoint }) => {
   const keyAreaColor = getColor("keyArea");
   const dispatch = useDispatch();
   const handleColorChange = () => {
-    if (selectedColor === "none") return;
+    if (selectedColor === "transparent") return;
     dispatch(changeTileColor({ selectedColor, location: "keyArea" }));
   };
   return (

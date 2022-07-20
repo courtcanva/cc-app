@@ -27,7 +27,7 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
   const threePointAreaColor = getColor("threePoint");
   const dispatch = useDispatch();
   const handleColorChange = () => {
-    if (selectedColor === "none") return;
+    if (selectedColor === "transparent") return;
     dispatch(changeTileColor({ selectedColor, location: "threePoint" }));
   };
   return (
