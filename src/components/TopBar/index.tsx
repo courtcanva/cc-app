@@ -55,7 +55,6 @@ const TopBar = () => {
     dispatch(changeSelectedColor("none"));
   };
 
-
   return (
     <SimpleGrid
       columns={3}
