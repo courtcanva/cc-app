@@ -87,7 +87,7 @@ describe("Login", () => {
     fireEvent.change(inputEl, { target: { value: "test@gmail.com" } });
     fireEvent.click(continueButton);
     await waitFor(() => {
-      expect(screen.getByText("test@gmail.com is a new user, please register")).toBeInTheDocument();
+      expect(screen.getByText("Sign up with test@gmail.com")).toBeInTheDocument();
     });
   });
 
@@ -103,7 +103,7 @@ describe("Login", () => {
     fireEvent.change(inputEl, { target: { value: "test@gmail.com" } });
     fireEvent.keyPress(inputEl, { key: "Enter", code: "Enter", charCode: 13 });
     await waitFor(() => {
-      expect(screen.getByText("test@gmail.com is a new user, please register")).toBeInTheDocument();
+      expect(screen.getByText("Sign up with test@gmail.com")).toBeInTheDocument();
     });
   });
 });
