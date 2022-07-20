@@ -26,12 +26,11 @@ const Home: NextPage = () => {
   };
   useOnClickOutside(ref, handleClickOutside);
 
-  // TODO: remove deprecated function
   const handleMouseEnter = () => {
     if (selectedColor !== "transparent") {
       const iconUrl = // import svg string from utils and convert it to cur type (svg cannot be used as cursor directly)
         `data:image/svg+xml;base64,` +
-        window.btoa(unescape(encodeURIComponent(svgIcon(selectedColor))));
+        window.btoa(decodeURIComponent(encodeURIComponent(svgIcon(selectedColor)))); // replace escape with decodeURIComponent https://stackoverflow.com/questions/27926562/deprecation-of-javascript-function-unescape
       document.body.style.cursor = `url(` + iconUrl + `) 24 24, auto`;
     }
   };

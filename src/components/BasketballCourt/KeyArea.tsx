@@ -2,8 +2,8 @@ import { Rect } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
-import { useDispatch } from "react-redux";
-import { changeTileColor, getColor } from "@/store/reducer/tileSlice";
+import { getColor } from "@/store/reducer/tileSlice";
+import { useColorHandler } from "@/hooks/useColorHandler";
 
 interface KeyAreaProps {
   startPoint: ICourtStartPoint;
@@ -15,11 +15,8 @@ const KeyArea: React.FC<KeyAreaProps> = ({ startPoint }) => {
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const keyAreaColor = getColor("keyArea");
-  const dispatch = useDispatch();
-  const handleColorChange = () => {
-    if (selectedColor === "transparent") return;
-    dispatch(changeTileColor({ selectedColor, location: "keyArea" }));
-  };
+  const handleColorChange = useColorHandler(selectedColor, "keyArea");
+
   return (
     <Rect
       width={keyAreaWidth}

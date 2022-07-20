@@ -2,8 +2,8 @@ import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { courtWhiteLine, dashedWhiteLine } from "../../store/reducer/courtSizeSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
-import { useDispatch } from "react-redux";
-import { changeTileColor, getColor } from "@/store/reducer/tileSlice";
+import { getColor } from "@/store/reducer/tileSlice";
+import { useColorHandler } from "@/hooks/useColorHandler";
 
 interface TopKeyAreaProps {
   startPoint: ICourtStartPoint;
@@ -17,11 +17,8 @@ const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const topKeyAreaColor = getColor("topKeyArea");
-  const dispatch = useDispatch();
-  const handleColorChange = () => {
-    if (selectedColor === "transparent") return;
-    dispatch(changeTileColor({ selectedColor, location: "topKeyArea" }));
-  };
+  const handleColorChange = useColorHandler(selectedColor, "topKeyArea");
+
   return (
     <>
       <Arc

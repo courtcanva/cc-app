@@ -2,8 +2,8 @@ import { Rect } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { courtWhiteLine } from "@/store/reducer/courtSizeSlice";
-import { useDispatch } from "react-redux";
-import { changeTileColor, getColor } from "@/store/reducer/tileSlice";
+import { getColor } from "@/store/reducer/tileSlice";
+import { useColorHandler } from "@/hooks/useColorHandler";
 
 interface CourtAreaProps {
   startPoint: ICourtStartPoint;
@@ -12,20 +12,20 @@ interface CourtAreaProps {
 
 const CourtArea: React.FC<CourtAreaProps> = ({ courtWidth, startPoint }) => {
   const { courtAreaYLength } = useStoreSelector((state) => state.courtSize);
+  const MEDIUM_COURT_WIDTH = 7000;
+  const SMALL_COURT_WIDTH = 5000;
+  const MEDIUM_COURT_AREA_OFFSET = 4000;
+  const SMALL_COURT_AREA_OFFSET = 5000;
   let courtAreaOffset = 0;
   // if width from backend <15k, change it 15k to ensure CourtArea render correctly
-  if (courtAreaYLength === 7000) {
-    courtAreaOffset = 4000;
-  } else if (courtAreaYLength === 5000) {
-    courtAreaOffset = 5000;
+  if (courtAreaYLength === MEDIUM_COURT_WIDTH) {
+    courtAreaOffset = MEDIUM_COURT_AREA_OFFSET;
+  } else if (courtAreaYLength === SMALL_COURT_WIDTH) {
+    courtAreaOffset = SMALL_COURT_AREA_OFFSET;
   }
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const courtAreaColor = getColor("courtArea");
-  const dispatch = useDispatch();
-  const handleColorChange = () => {
-    if (selectedColor === "transparent") return;
-    dispatch(changeTileColor({ selectedColor, location: "courtArea" }));
-  };
+  const handleColorChange = useColorHandler(selectedColor, "courtArea");
 
   return (
     <Rect
