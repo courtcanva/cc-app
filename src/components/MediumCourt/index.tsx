@@ -1,5 +1,5 @@
+import { Stage, Layer, Group, Line } from "react-konva";
 import { useLayoutEffect, useState } from "react";
-import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
@@ -8,6 +8,7 @@ import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { useStoreSelector } from "@/store/hooks";
+import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
 import { useTileCount } from "../../hooks/useTileCount";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
@@ -108,6 +109,14 @@ const MediumCourt = () => {
                   <KeyArea startPoint={componentsStartPoint} />
                   <TopKeyArea startPoint={componentsStartPoint} />
                 </Group>
+                {/* create a line divide border and court  */}
+                <Line
+                  points={[2500, 2500, 12500, 2520, 12500, 9500, 2500, 9500]}
+                  stroke="white"
+                  strokeWidth={courtWhiteLine}
+                  visible
+                  closed
+                />
               </Layer>
             </Provider>
           </Stage>
