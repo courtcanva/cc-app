@@ -26,7 +26,21 @@ import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 const TopBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { name: courtName } = useStoreSelector((state) => state.courtName);
+  let nameString = "";
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
+
+  const { paintPopover } = useStoreSelector((state) => state.paintBucket);
+  const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
+  if (selectedCourt) {
+    nameString = `${
+      ((selectedCourt.courtAreaXLength + selectedCourt.borderLength * 2) *
+        (selectedCourt.courtAreaYLength + selectedCourt.borderLength * 2)) /
+      1000000
+    } m² ${selectedCourt.courtName} (${
+      (selectedCourt.courtAreaXLength + selectedCourt.borderLength * 2) / 1000
+    } m × ${(selectedCourt.courtAreaYLength + selectedCourt.borderLength * 2) / 1000} m)`;
+  }
+
   const borderLength = useStoreSelector((state) => state.courtSize.borderLength);
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
   const dispatch = useDispatch();
@@ -40,6 +54,7 @@ const TopBar = () => {
   const handleSelectedColor = () => {
     dispatch(changeSelectedColor("none"));
   };
+
 
   return (
     <SimpleGrid
@@ -62,7 +77,7 @@ const TopBar = () => {
           textOverflow="ellipsis"
           marginLeft="8"
         >
-          {courtName}
+          {nameString}
         </Text>
       </Flex>
 
