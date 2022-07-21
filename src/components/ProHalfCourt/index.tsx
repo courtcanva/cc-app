@@ -1,4 +1,4 @@
-import { Stage, Layer } from "react-konva";
+import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
@@ -50,6 +50,9 @@ const ProHalfCourt = () => {
                 <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                  <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                </Group>
                 <CourtArea startPoint={courtStartPoint} courtWidth={courtAreaXLength} />
                 <ThreePointArea startPoint={courtStartPoint} />
                 <KeyArea startPoint={courtStartPoint} />

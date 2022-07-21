@@ -5,10 +5,10 @@ import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
-import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
 import CourtArea from "../BasketballCourt/CourtArea";
+import DashedLine from "../BasketballCourt/DashedLine";
 import useCourt from "@/hooks/useCourt";
 
 const MediumCourt = () => {
@@ -56,6 +56,17 @@ const MediumCourt = () => {
                 />
                 <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
+                <Line
+                  points={[2500, 2500, 12500, 2520, 12500, 9500, 2500, 9500]}
+                  stroke="white"
+                  strokeWidth={140}
+                  visible
+                  closed
+                />
+                <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                  <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                </Group>
                 <Group
                   clipFunc={(ctx: any) => {
                     ctx.beginPath();
@@ -68,14 +79,6 @@ const MediumCourt = () => {
                   <KeyArea startPoint={componentsStartPoint} />
                   <TopKeyArea startPoint={componentsStartPoint} />
                 </Group>
-                {/* create a line divide border and court  */}
-                <Line
-                  points={[2500, 2500, 12500, 2520, 12500, 9500, 2500, 9500]}
-                  stroke="white"
-                  strokeWidth={courtWhiteLine}
-                  visible
-                  closed
-                />
               </Layer>
             </Provider>
           </Stage>

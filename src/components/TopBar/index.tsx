@@ -21,16 +21,18 @@ import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
 import { changeBorderLength } from "@/store/reducer/courtSizeSlice";
 import { useEffect, useState } from "react";
-import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
+import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
 
 const TopBar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { name: courtName } = useStoreSelector((state) => state.courtName);
+  const { onOpen } = useDisclosure();
+  const dispatch = useDispatch();
+  const open = () => dispatch(usePaintBucket(true));
+  const close = () => dispatch(usePaintBucket(false));
   let nameString = "";
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
-
   const { paintPopover } = useStoreSelector((state) => state.paintBucket);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
+
   if (selectedCourt) {
     nameString = `${
       ((selectedCourt.courtAreaXLength + selectedCourt.borderLength * 2) *
@@ -43,16 +45,12 @@ const TopBar = () => {
 
   const borderLength = useStoreSelector((state) => state.courtSize.borderLength);
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
-  const dispatch = useDispatch();
 
   useEffect(() => setSliderValue(borderLength / 1000), [borderLength]);
 
   const handleChange = (val: number) => {
     setSliderValue(val);
     dispatch(changeBorderLength(val * 1000));
-  };
-  const handleSelectedColor = () => {
-    dispatch(changeSelectedColor("none"));
   };
 
   return (
@@ -82,7 +80,7 @@ const TopBar = () => {
 
       {/* center */}
       <Flex alignItems="center" gap={{ base: "0", lg: "5" }}>
-        <Popover onClose={handleSelectedColor} closeOnBlur={false}>
+        <Popover isOpen={paintPopover} onOpen={open} onClose={close}>
           <PopoverTrigger>
             <IconButton
               aria-label="Rb"

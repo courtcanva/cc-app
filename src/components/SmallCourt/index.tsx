@@ -6,7 +6,6 @@ import KeyArea from "../BasketballCourt/KeyArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
 import { Line } from "react-konva";
-import { courtWhiteLine } from "@/store/reducer/courtSizeSlice";
 import CourtArea from "../BasketballCourt/CourtArea";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
@@ -60,6 +59,16 @@ const SmallCourt = () => {
                 <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                <Line
+                  points={[2500, 2500, 11500, 2500, 11500, 7500, 2500, 7500]}
+                  stroke="white"
+                  strokeWidth={140}
+                  visible
+                  closed
+                />
+                <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                  <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                </Group>
                 <Group
                   clipFunc={(ctx: any) => {
                     ctx.beginPath();
@@ -72,14 +81,6 @@ const SmallCourt = () => {
                   <KeyArea startPoint={componentsStartPoint} />
                   <TopKeyArea startPoint={componentsStartPoint} />
                 </Group>
-                {/* create a line divide border and court  */}
-                <Line
-                  points={[2500, 2500, 11500, 2500, 11500, 7500, 2500, 7500]}
-                  stroke="white"
-                  strokeWidth={courtWhiteLine}
-                  visible
-                  closed
-                />
               </Layer>
             </Provider>
           </Stage>
