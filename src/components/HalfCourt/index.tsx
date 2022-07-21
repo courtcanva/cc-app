@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState } from "react";
-import { Stage, Layer } from "react-konva";
+import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
@@ -12,7 +12,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { useTileCount } from "../../hooks/useTileCount";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
-import DashedLine from "../BasketballCourt/DashedLineTwo";
+import DashedLine from "../BasketballCourt/DashedLine";
 
 const HalfCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
@@ -84,6 +84,9 @@ const HalfCourt = () => {
                 <CourtDimension startPoint={startPoint} borderLength={borderLength} />
                 <BorderDimension startPoint={startPoint} borderLength={borderLength} />
                 <DashedLine startPoint={startPoint} borderLength={borderLength} />
+                <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
+                  <DashedLine startPoint={startPoint} borderLength={borderLength} />
+                </Group>
                 <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength} />
                 <ThreePointArea startPoint={startPoint} />
                 <KeyArea startPoint={startPoint} />

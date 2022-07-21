@@ -13,7 +13,7 @@ import { useTileCount } from "../../hooks/useTileCount";
 import CourtArea from "../BasketballCourt/CourtArea";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
-import DashedLine from "../BasketballCourt/DashedLineTwo";
+import DashedLine from "../BasketballCourt/DashedLine";
 
 const SmallCourt = () => {
   const {
@@ -105,6 +105,9 @@ const SmallCourt = () => {
                   visible
                   closed
                 />
+                <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                  <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                </Group>
                 <Group
                   clipFunc={(ctx: any) => {
                     ctx.beginPath();
