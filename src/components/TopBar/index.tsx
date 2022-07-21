@@ -163,13 +163,13 @@ const TopBar = () => {
 
       {/* right */}
       <Flex alignItems="center" justifyContent="flex-end" marginRight="3" gap="2">
-
         <IconButton
           aria-label="Download"
           colorScheme="transparent"
           icon={<DownloadSvg />}
           variant="witheBackgroundIconBtn"
           onClick={downloadToPDF}
+          data-testid="download-btn"
         />
 
         {/* TODO: Fetch user login state from redux */}
@@ -182,10 +182,10 @@ const TopBar = () => {
               icon={<DocSvg />}
               variant="witheBackgroundIconBtn"
               onClick={onToggle}
-              data-testid="download-btn"
+              data-testid="save-btn"
             />
           </PopoverTrigger>
-          <PopoverContent w="176px" h="110px">
+          <PopoverContent w="140px" h="110px">
             <PopoverBody>
               <SaveBoard />
             </PopoverBody>

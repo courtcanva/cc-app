@@ -5,6 +5,7 @@ import courtColorReducer from "./reducer/courtColorSlice";
 import rulerControlReducer from "./reducer/rulerControlSlice";
 import { courtsApi } from "../redux/api/courtSizeApi";
 import { priceApi } from "../redux/api/priceApi";
+import { designApi } from "../redux/api/designApi";
 import designNameReducer from "./reducer/designNameSlice";
 import paintBucketReducer from "./reducer/paintBucketSlice";
 import priceBarReducer from "./reducer/priceBarSlice";
@@ -24,10 +25,15 @@ export const makeStore = () =>
       courtSpecData: courtSpecDataReducer,
       [courtsApi.reducerPath]: courtsApi.reducer,
       [priceApi.reducerPath]: priceApi.reducer,
+      [designApi.reducerPath]: designApi.reducer,
       areaTileQty: areaTileQtyReducer,
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(courtsApi.middleware, priceApi.middleware),
+      getDefaultMiddleware().concat(
+        courtsApi.middleware,
+        priceApi.middleware,
+        designApi.middleware
+      ),
   });
 
 export const store = makeStore();

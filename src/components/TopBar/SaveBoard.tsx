@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonGroup, Flex, Input, Text } from "@chakra-ui/react";
+import { Box, ButtonGroup, Flex, Input, Text } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import SaveSvg from "@/assets/svg/TopBarSvg/save.svg";
@@ -24,26 +24,24 @@ const SaveBoard: React.FC = () => {
 
   return (
     <Flex data-testid="SaveBoard">
-      <ButtonGroup flexDirection={"column"}>
+      <Box display="flex" flexDirection="column" gap="1">
         <Button
           leftIcon={<SaveSvg />}
           aria-label="SaveSvg"
-          bg={"white"}
-          w="155px"
-          h="45px"
-          margin="0px"
-          alignItems="center"
+          bg="white"
+          w="115px"
+          h="44px"
+          justifyContent="left"
         >
           Save
         </Button>
         <Button
           leftIcon={<DocSvg />}
           aria-label="DocSvg"
-          bg={"white"}
-          w="155px"
-          h="45px"
-          margin="0px"
-          alignItems="center"
+          bg="white"
+          w="115px"
+          h="44px"
+          justifyContent="left"
           onClick={onOpen}
         >
           <AlertDialog
@@ -79,7 +77,7 @@ const SaveBoard: React.FC = () => {
           </AlertDialog>
           Save as
         </Button>
-      </ButtonGroup>
+      </Box>
     </Flex>
   );
 };

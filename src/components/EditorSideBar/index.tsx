@@ -1,5 +1,5 @@
 import EditorSideBarItem from "./EditorSideBarItem";
-import sideBarItemList from "./const";
+import sideBarItemList from "./SideBarItemList";
 import { Box, Flex } from "@chakra-ui/react";
 import EditorSideBarContent from "./EditorSideBarContent";
 import { useState } from "react";
