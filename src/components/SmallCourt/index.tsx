@@ -105,6 +105,9 @@ const SmallCourt = () => {
                   visible
                   closed
                 />
+                <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                  <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                </Group>
                 <Group
                   clipFunc={(ctx: any) => {
                     ctx.beginPath();
