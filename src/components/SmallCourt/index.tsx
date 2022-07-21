@@ -8,7 +8,6 @@ import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { Line } from "react-konva";
-import { courtWhiteLine } from "@/store/reducer/courtSizeSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { useTileCount } from "../../hooks/useTileCount";
 import CourtArea from "../BasketballCourt/CourtArea";
@@ -99,6 +98,13 @@ const SmallCourt = () => {
                 <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                <Line
+                  points={[2500, 2500, 11500, 2500, 11500, 7500, 2500, 7500]}
+                  stroke="white"
+                  strokeWidth={140}
+                  visible
+                  closed
+                />
                 <Group
                   clipFunc={(ctx: any) => {
                     ctx.beginPath();
@@ -111,14 +117,6 @@ const SmallCourt = () => {
                   <KeyArea startPoint={componentsStartPoint} />
                   <TopKeyArea startPoint={componentsStartPoint} />
                 </Group>
-                {/* create a line divide border and court  */}
-                <Line
-                  points={[2500, 2500, 11500, 2500, 11500, 7500, 2500, 7500]}
-                  stroke="white"
-                  strokeWidth={courtWhiteLine}
-                  visible
-                  closed
-                />
               </Layer>
             </Provider>
           </Stage>

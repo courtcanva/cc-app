@@ -52,7 +52,6 @@ const TopBar = () => {
     setSliderValue(val);
     dispatch(changeBorderLength(val * 1000));
   };
-
   return (
     <SimpleGrid
       columns={3}
