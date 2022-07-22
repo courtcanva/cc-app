@@ -18,17 +18,17 @@ const Blueprints: React.FC = () => {
     setActivateCourt(imgUrl);
     dispatch(setActiveCourt(courtSizeName));
     const selectedCourt = courtsData.find((item) => item.courtName === courtSizeName);
-    if (selectedCourt) {
-      dispatch(changeCourtSize(selectedCourt));
-      const { courtAreaXLength, courtAreaYLength, borderLength } = selectedCourt;
-      const courtLength = (courtAreaXLength + borderLength * 2) / 1000;
-      const courtWidth = (courtAreaYLength + borderLength * 2) / 1000;
-      const chosenCourt: CourtNameState = {
-        name: `{${courtLength} * ${courtWidth}} m² ${selectedCourt.courtName} ( ${courtLength} m × ${courtWidth} m)`,
-        courtId: courtId,
-      };
-      dispatch(changeCourtName(chosenCourt));
-    }
+    // if (selectedCourt) {
+    //   dispatch(changeCourtSize(selectedCourt));
+    //   const { courtAreaXLength, courtAreaYLength, borderLength } = selectedCourt;
+    //   const courtLength = (courtAreaXLength + borderLength * 2) / 1000;
+    //   const courtWidth = (courtAreaYLength + borderLength * 2) / 1000;
+    //   const chosenCourt: CourtNameState = {
+    //     name: `{${courtLength} * ${courtWidth}} m² ${selectedCourt.courtName} ( ${courtLength} m × ${courtWidth} m)`,
+    //     courtId: courtId,
+    //   };
+    //   dispatch(changeCourtName(chosenCourt));
+    // }
 
     const tileQtyOfSelectedCourt = mockTileData.find(
       (item) => item.name === selectedCourt?.courtName

@@ -10,7 +10,8 @@ interface CircleAreaProps {
 
 const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
   let { courtAreaXLength, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
-    useStoreSelector((state) => state.courtSize);
+    // useStoreSelector((state) => state.courtSize);
+    useStoreSelector((state) => state.courtSpecData.activeCourt);
 
   // coz pro full court is flipped, courtAreaXLength needs to be half of the court length
   if (courtAreaXLength === 28000) {

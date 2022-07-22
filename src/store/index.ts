@@ -16,8 +16,8 @@ import courtSpecDataReducer from "./reducer/courtSpecDataSlice";
 export const makeStore = () =>
   configureStore({
     reducer: {
-      courtSize: courtReducer,
-      courtName: courtNameReducer,
+      // courtSize: courtReducer,
+      // courtName: courtNameReducer,
       tile: tileReducer,
       priceBar: priceBarReducer,
       courtColor: courtColorReducer,

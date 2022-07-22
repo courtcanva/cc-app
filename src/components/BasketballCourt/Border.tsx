@@ -17,9 +17,6 @@ const Border: React.FC<BorderProps> = ({
   courtAreaXLength,
   courtAreaYLength,
 }) => {
-  // const { courtAreaXLength, courtAreaYLength} = useStoreSelector(
-  //   (state) => state.courtSize
-  // );
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const borderColor = getColor("border");
   const dispatch = useDispatch();

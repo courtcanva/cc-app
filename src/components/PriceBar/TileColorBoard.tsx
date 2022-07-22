@@ -7,7 +7,8 @@ import priceFormat from "@/utils/priceFormat";
 
 const TileColorBoard: React.FC = () => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
-  const court = useStoreSelector((state) => state.courtSize);
+  // const court = useStoreSelector((state) => state.courtSize);
+  const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
   const { data } = useGetPriceQuery(0);
   const priceList = data?.find((item: IPriceCalculation) => item.tile_id === "tile001");
   const [useTotalPrice, setTotalPrice] = useState<string>("0.00");

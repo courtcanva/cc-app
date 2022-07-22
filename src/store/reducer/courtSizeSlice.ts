@@ -53,6 +53,6 @@ export const dashedWhiteLine = initialState.strokeWidth / 5;
 // export const borderLength = initialState.borderLength;
 
 export const { changeCourtSize, changeBorderLength } = courtSizeSlice.actions;
-export const courtSizeData = (state: RootState) => state.courtSize;
+// export const courtSizeData = (state: RootState) => state.courtSize;
 
 export default courtSizeSlice.reducer;

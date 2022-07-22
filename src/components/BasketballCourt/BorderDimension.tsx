@@ -8,7 +8,10 @@ interface BorderDimensionProps {
   borderLength: number;
 }
 const BorderDimension: React.FC<BorderDimensionProps> = ({ startPoint, borderLength }) => {
-  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
+  // const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
+  const { courtAreaXLength, courtAreaYLength } = useStoreSelector(
+    (state) => state.courtSpecData.activeCourt
+  );
   const startPointX = startPoint.X - borderLength;
   const startPointY = startPoint.Y - borderLength;
   let dimensionColor: string;

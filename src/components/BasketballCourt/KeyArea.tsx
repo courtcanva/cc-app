@@ -11,7 +11,8 @@ interface KeyAreaProps {
 
 const KeyArea: React.FC<KeyAreaProps> = ({ startPoint }) => {
   const { threePointLineToCourtEdgeLength, threePointLineRadius, keyAreaWidth, keyAreaHeight } =
-    useStoreSelector((state) => state.courtSize);
+    // useStoreSelector((state) => state.courtSize);
+    useStoreSelector((state) => state.courtSpecData.activeCourt);
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const keyAreaColor = getColor("keyArea");
