@@ -25,7 +25,7 @@ const Blueprints: React.FC = () => {
       );
       dispatch(changeCourtSize(mappedCourtData[initailCourtIndex]));
     }
-    (isLoading) ? (dispatch(setLoading(true))) : (dispatch(setLoading(false)));
+    isLoading ? dispatch(setLoading(true)) : dispatch(setLoading(false));
   }, [data, isLoading]);
 
   const handleCourtSelecting = (imgUrl: string, courtId: string, courtSizeName: string): void => {
