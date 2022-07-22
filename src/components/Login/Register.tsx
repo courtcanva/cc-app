@@ -25,6 +25,10 @@ type Props = {
 const Register: React.FC<Props> = ({ nextStep, prevStep, initialRef, userEmail }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    nextStep()
+  };
   return (
     <>
       <IconButton
@@ -78,7 +82,12 @@ const Register: React.FC<Props> = ({ nextStep, prevStep, initialRef, userEmail }
               value={confirmPassword}
               onChange={(event) => setConfirmPassword(event?.currentTarget.value)}
             />
-            <Button variant="shareBtn" width="300px" marginTop="20px">
+            <Button 
+            variant="shareBtn"
+            width="300px"
+            marginTop="20px"
+            onClick={handleSubmit}
+            >
               Create Account
             </Button>
           </form>

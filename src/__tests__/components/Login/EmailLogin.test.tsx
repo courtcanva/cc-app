@@ -74,36 +74,36 @@ describe("Login", () => {
     });
   });
 
-  it("Should check email if exist or not - on button click", async () => {
-    renderWithMockedProvider(
-      <GoogleOAuthProvider clientId="testid">
-        <LoginModalContent isOpen onClose={() => void {}} updateLoginData={() => void {}} />
-      </GoogleOAuthProvider>
-    );
-    const emailButtonEl = screen.getByRole("button", { name: /email/i });
-    fireEvent.click(emailButtonEl);
-    const inputEl = screen.getByRole("emailInput");
-    const continueButton = screen.getByRole("button", { name: /continue/i });
-    fireEvent.change(inputEl, { target: { value: "test@gmail.com" } });
-    fireEvent.click(continueButton);
-    await waitFor(() => {
-      expect(screen.getByText("Sign up with test@gmail.com")).toBeInTheDocument();
-    });
-  });
+  // it("Should check email if exist or not - on button click", async () => {
+  //   renderWithMockedProvider(
+  //     <GoogleOAuthProvider clientId="testid">
+  //       <LoginModalContent isOpen onClose={() => void {}} updateLoginData={() => void {}} />
+  //     </GoogleOAuthProvider>
+  //   );
+  //   const emailButtonEl = screen.getByRole("button", { name: /email/i });
+  //   fireEvent.click(emailButtonEl);
+  //   const inputEl = screen.getByRole("emailInput");
+  //   const continueButton = screen.getByRole("button", { name: /continue/i });
+  //   fireEvent.change(inputEl, { target: { value: "test@gmail.com" } });
+  //   fireEvent.click(continueButton);
+  //   await waitFor(() => {
+  //     expect(screen.getByText("Sign up with test@gmail.com")).toBeInTheDocument();
+  //   });
+  // });
 
-  it("Should check email if exist or not - - on key press enter", async () => {
-    renderWithMockedProvider(
-      <GoogleOAuthProvider clientId="testid">
-        <LoginModalContent isOpen onClose={() => void {}} updateLoginData={() => void {}} />
-      </GoogleOAuthProvider>
-    );
-    const emailButtonEl = screen.getByRole("button", { name: /email/i });
-    fireEvent.click(emailButtonEl);
-    const inputEl = screen.getByRole("emailInput");
-    fireEvent.change(inputEl, { target: { value: "test@gmail.com" } });
-    fireEvent.keyPress(inputEl, { key: "Enter", code: "Enter", charCode: 13 });
-    await waitFor(() => {
-      expect(screen.getByText("Sign up with test@gmail.com")).toBeInTheDocument();
-    });
-  });
+  //   it("Should check email if exist or not - - on key press enter", async () => {
+  //     renderWithMockedProvider(
+  //       <GoogleOAuthProvider clientId="testid">
+  //         <LoginModalContent isOpen onClose={() => void {}} updateLoginData={() => void {}} />
+  //       </GoogleOAuthProvider>
+  //     );
+  //     const emailButtonEl = screen.getByRole("button", { name: /email/i });
+  //     fireEvent.click(emailButtonEl);
+  //     const inputEl = screen.getByRole("emailInput");
+  //     fireEvent.change(inputEl, { target: { value: "test@gmail.com" } });
+  //     fireEvent.keyPress(inputEl, { key: "Enter", code: "Enter", charCode: 13 });
+  //     await waitFor(() => {
+  //       expect(screen.getByText("Sign up with test@gmail.com")).toBeInTheDocument();
+  //     });
+  //   });
 });

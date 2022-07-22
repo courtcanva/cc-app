@@ -4,6 +4,7 @@ import SelectLogin from "./SelectLogin";
 import EmailLogin from "./EmailLogin";
 import LoginWithPwd from "./LoginWithPwd";
 import Register from "./Register";
+import EmailVerification from "./EmailVerification";
 
 interface Props {
   isOpen: boolean;
@@ -70,6 +71,14 @@ function LoginModalContent(props: Props) {
         );
       case 4:
       // TODO: success
+      return (
+        <EmailVerification 
+          nextStep={nextStep}
+          prevStep={prevStep}
+          initialRef={initialRef}
+          userEmail={userEmail}
+        />
+      )
     }
   };
 
