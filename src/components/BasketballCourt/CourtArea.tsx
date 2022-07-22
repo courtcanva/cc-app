@@ -26,6 +26,7 @@ const CourtArea: React.FC<CourtAreaProps> = ({ courtWidth, startPoint }) => {
     if (selectedColor === "none") return;
     dispatch(changeTileColor({ selectedColor, location: "courtArea" }));
   };
+
   return (
     <Rect
       width={courtWidth}

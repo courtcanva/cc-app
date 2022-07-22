@@ -1,6 +1,7 @@
 import {
   Slider,
   SliderTrack,
+  SliderMark,
   SliderFilledTrack,
   SliderThumb,
   Flex,
@@ -9,16 +10,17 @@ import {
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
+import { TriangleUpIcon } from "@chakra-ui/icons";
 import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import ColorBoard from "./ColorBoard";
-import DownloadSvg from "@/assets/svg/TopBarSvg/download.svg";
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
-import { downloadToPDF } from "../../utils/printPDF";
+import { changeBorderLength } from "@/store/reducer/courtSizeSlice";
+import { useEffect, useState } from "react";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
 
 const TopBar = () => {
@@ -26,10 +28,31 @@ const TopBar = () => {
   const dispatch = useDispatch();
   const open = () => dispatch(usePaintBucket(true));
   const close = () => dispatch(usePaintBucket(false));
-  const { name: courtName } = useStoreSelector((state) => state.courtName);
+  let nameString = "";
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const { paintPopover } = useStoreSelector((state) => state.paintBucket);
+  const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
 
+  if (selectedCourt) {
+    nameString = `${
+      ((selectedCourt.courtAreaXLength + selectedCourt.borderLength * 2) *
+        (selectedCourt.courtAreaYLength + selectedCourt.borderLength * 2)) /
+      1000000
+    } m² ${selectedCourt.courtName} (${
+      (selectedCourt.courtAreaXLength + selectedCourt.borderLength * 2) / 1000
+    } m × ${(selectedCourt.courtAreaYLength + selectedCourt.borderLength * 2) / 1000} m)`;
+  }
+
+  const borderLength = useStoreSelector((state) => state.courtSize.borderLength);
+  const [sliderValue, setSliderValue] = useState(borderLength / 1000);
+
+  useEffect(() => setSliderValue(borderLength / 1000), [borderLength]);
+
+  const handleChange = (val: number) => {
+    setSliderValue(val);
+    dispatch(changeBorderLength(val * 1000));
+  };
+  
   return (
     <SimpleGrid
       columns={3}
@@ -51,7 +74,7 @@ const TopBar = () => {
           textOverflow="ellipsis"
           marginLeft="8"
         >
-          {courtName}
+          {nameString}
         </Text>
       </Flex>
 
@@ -63,7 +86,7 @@ const TopBar = () => {
               aria-label="Rb"
               icon={<PaintBucketSvg fill={selectedColor} />}
               display="fixed"
-              variant="witheBackgroundIconBtn"
+              variant="editorFooterIconBtn"
               data-testid="colorSelectBtn"
             />
           </PopoverTrigger>
@@ -78,7 +101,7 @@ const TopBar = () => {
           colorScheme="transparent"
           icon={<UploadSvg />}
           data-testid="uploadBtn"
-          variant="witheBackgroundIconBtn"
+          variant="editorFooterIconBtn"
         />
         <Flex
           fontSize="md"
@@ -99,28 +122,51 @@ const TopBar = () => {
             width
           </Text>
         </Flex>
-        <Slider aria-label="slider" defaultValue={40} maxW="40" minWidth="30">
-          <SliderTrack height="9px" borderRadius="6px">
+        <Text fontSize="lg">0</Text>
+        <Slider
+          aria-label="slider"
+          defaultValue={sliderValue}
+          value={sliderValue}
+          min={0}
+          max={1.8}
+          step={0.3}
+          maxWidth="40"
+          minWidth="30"
+          onChange={(val: number) => handleChange(val)}
+        >
+          <SliderMark
+            value={sliderValue}
+            textAlign="center"
+            color="brand.primary"
+            marginTop="-6"
+            marginLeft="-5"
+            width="10"
+            fontSize="10px"
+          >
+            {sliderValue}m
+          </SliderMark>
+          <SliderTrack height="9px" borderRadius="6px" background="brand.primary">
             <SliderFilledTrack background="brand.primary" />
           </SliderTrack>
-          <SliderThumb boxSize={5} />
+          <SliderThumb
+            background="transparent"
+            color="brand.primary"
+            border="none"
+            marginTop={3}
+            as={TriangleUpIcon}
+            boxShadow="none"
+          ></SliderThumb>
         </Slider>
+        <Text fontSize="lg">1.8</Text>
       </Flex>
 
       {/* right */}
       <Flex alignItems="center" justifyContent="flex-end" marginRight="3" gap="2">
         <IconButton
-          aria-label="Download"
-          colorScheme="transparent"
-          icon={<DownloadSvg />}
-          variant="witheBackgroundIconBtn"
-          onClick={downloadToPDF}
-        />
-        <IconButton
           aria-label="DocSvg"
           colorScheme="transparent"
           icon={<DocSvg />}
-          variant="witheBackgroundIconBtn"
+          variant="editorFooterIconBtn"
           onClick={onOpen}
           data-testid="download-btn"
         />
@@ -130,7 +176,7 @@ const TopBar = () => {
           aria-label="Bin"
           colorScheme="transparent"
           icon={<BinSvg />}
-          variant="witheBackgroundIconBtn"
+          variant="editorFooterIconBtn"
         />
       </Flex>
     </SimpleGrid>

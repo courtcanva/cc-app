@@ -21,8 +21,8 @@ describe("ColorBoard", () => {
 
   it("should change store state color when the color border was clicked", () => {
     renderWithMockedProvider(<ColorBoard />);
-    act(() => user.click(screen.getByTestId("#AA3A34")));
+    act(() => user.click(screen.getByTestId("#B61313")));
     const state = store.getState().courtColor;
-    expect(state.selectedColor).toEqual("#AA3A34");
+    expect(state.selectedColor).toEqual("#B61313");
   });
 });

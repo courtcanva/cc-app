@@ -7,7 +7,6 @@ import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
 import EditorDesignName from "@/components/NavBar/EditorDesignName";
-
 import LoginModalContent from "../Login";
 import { useEffect, useState } from "react";
 import { ActionCreators } from "redux-undo";

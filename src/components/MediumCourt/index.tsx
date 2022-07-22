@@ -1,5 +1,5 @@
+import { Stage, Layer, Group, Line } from "react-konva";
 import { useLayoutEffect, useState } from "react";
-import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
@@ -12,6 +12,7 @@ import { useTileCount } from "../../hooks/useTileCount";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
 import CourtArea from "../BasketballCourt/CourtArea";
+import DashedLine from "../BasketballCourt/DashedLine";
 
 const MediumCourt = () => {
   const {
@@ -96,6 +97,17 @@ const MediumCourt = () => {
                 />
                 <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
+                <Line
+                  points={[2500, 2500, 12500, 2520, 12500, 9500, 2500, 9500]}
+                  stroke="white"
+                  strokeWidth={140}
+                  visible
+                  closed
+                />
+                <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                  <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                </Group>
                 <Group
                   clipFunc={(ctx: any) => {
                     ctx.beginPath();
