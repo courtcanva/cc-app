@@ -23,17 +23,19 @@ const SmallCourt = dynamic(() => import("@/components/SmallCourt"), { ssr: false
 const Home: NextPage = () => {
   const { courtName } = useStoreSelector((state) => state.courtSpecData.activeCourt);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
+  // const dispatch = useDispatch();
+
+  // const { data, isLoading } = useGetCourtsQuery(0);
+
+  // useEffect(() => {
+  //   if (data) {
+  //     const mappedCourtData = data.map((item: CourtSpecMapper) => courtSpecMapping(item));
+  //     dispatch(getCourtSpecData(mappedCourtData));
+  //   }
+  // }, [data]);
+  // const { isLoading } = useStoreSelector((state) => state.courtSpecData);
+
   const dispatch = useDispatch();
-
-  const { data, isLoading } = useGetCourtsQuery(0);
-
-  useEffect(() => {
-    if (data) {
-      const mappedCourtData = data.map((item: CourtSpecMapper) => courtSpecMapping(item));
-      dispatch(getCourtSpecData(mappedCourtData));
-    }
-  }, [data]);
-
   const ref = useRef(null); // click outside the canvas area can stop color changing
   const handleClickOutside = () => {
     dispatch(changeSelectedColor("none"));
@@ -54,7 +56,7 @@ const Home: NextPage = () => {
   return (
     <HeaderLayout>
       <div ref={ref} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-        {isLoading && <LoadingPage />}
+        {/* {isLoading && <LoadingPage />} */}
         {courtName === "Pro Full Court" && <ProFullCourt />}
         {courtName === "Full Court" && <FullCourt />}
         {courtName === "Pro Half Court" && <ProHalfCourt />}

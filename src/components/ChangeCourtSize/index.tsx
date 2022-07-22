@@ -4,6 +4,7 @@ import CourtSize from "./CourtSize";
 import UpSvg from "@/assets/svg/en-sort-up.svg";
 import DownSvg from "@/assets/svg/en-sort-down.svg";
 
+// TODO: delete unused function
 function ChangeCourtSize() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 

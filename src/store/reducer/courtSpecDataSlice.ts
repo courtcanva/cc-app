@@ -14,6 +14,7 @@ export interface CourtSizeState {
   circleRadius: number;
   strokeWidth: number;
   borderLength: number;
+  designName: string;
 }
 export interface CourtSpecMapper {
   [prop: string]: string;
@@ -41,6 +42,7 @@ export const initialState: CourtSpec = {
     circleRadius: 1800,
     strokeWidth: 200,
     borderLength: 1000,
+    designName: "Pro Full Court",
   },
   isLoading: true,
   isError: "",
@@ -54,6 +56,11 @@ export const Slice = createSlice({
       state.courtsData = [...action.payload];
       return state;
     },
+
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+      return state;
+    },
     setActiveCourt: (state: CourtSpec, action: PayloadAction<string>) => {
       const index = state.courtsData.findIndex((item) => item.courtName === action.payload);
       state.activeCourt = state.courtsData[index];
@@ -63,10 +70,15 @@ export const Slice = createSlice({
       state.activeCourt = { ...state.activeCourt, borderLength: action.payload };
       return state;
     },
+    setActiveDesign: (state, action: PayloadAction<string>) => {
+      const index = state.courtsData.findIndex((item) => item.courtId === action.payload);
+      state.activeCourt = state.courtsData[index];
+      return state;
+    },
   },
 });
 
-export const { getCourtSpecData, setActiveCourt, updateBorderLength } = Slice.actions;
+export const { getCourtSpecData, setLoading, setActiveCourt, updateBorderLength, setActiveDesign } = Slice.actions;
 export const courtWhiteLine = initialState.activeCourt.strokeWidth / 3;
 export const dashedWhiteLine = initialState.activeCourt.strokeWidth / 5;
 
