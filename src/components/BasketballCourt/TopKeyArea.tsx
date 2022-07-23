@@ -1,6 +1,6 @@
 import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { courtWhiteLine, dashedWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { courtWhiteLine, dashedWhiteLine } from "../../store/reducer/courtSpecDataSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
 import { changeTileColor, getColor } from "@/store/reducer/tileSlice";

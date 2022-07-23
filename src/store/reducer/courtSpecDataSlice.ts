@@ -1,6 +1,23 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
-import { CourtSizeState } from "./courtSizeSlice";
+
+export interface CourtSizeState {
+  courtId: string;
+  courtName: string;
+  courtAreaXLength: number;
+  courtAreaYLength: number;
+  threePointLineToCourtEdgeLength: number;
+  cornerThreePointLineLength: number;
+  threePointLineRadius: number;
+  keyAreaWidth: number;
+  keyAreaHeight: number;
+  circleRadius: number;
+  strokeWidth: number;
+  borderLength: number;
+}
+export interface CourtSpecMapper {
+  [prop: string]: string;
+}
 
 export interface CourtSpec {
   courtsData: CourtSizeState[];

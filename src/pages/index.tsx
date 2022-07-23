@@ -8,8 +8,7 @@ import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useRef } from "react";
 import svgIcon from "@/utils/svgIcon";
 import { useEffect } from "react";
-import { getCourtSpecData } from "@/store/reducer/courtSpecDataSlice";
-import { changeCourtSize, CourtSpecMapper, CourtSizeState } from "@/store/reducer/courtSizeSlice";
+import { getCourtSpecData, CourtSpecMapper } from "@/store/reducer/courtSpecDataSlice";
 import { useGetCourtsQuery } from "../redux/api/courtSizeApi";
 import { courtSpecMapping } from "../utils/courtSpecMapping";
 import LoadingPage from "@/components/LoadingPage";
@@ -32,10 +31,6 @@ const Home: NextPage = () => {
     if (data) {
       const mappedCourtData = data.map((item: CourtSpecMapper) => courtSpecMapping(item));
       dispatch(getCourtSpecData(mappedCourtData));
-      const initialCourtIndex = mappedCourtData.findIndex(
-        (item: CourtSizeState) => item.courtName === "Pro Full Court"
-      );
-      dispatch(changeCourtSize(mappedCourtData[initialCourtIndex]));
     }
   }, [data]);
 

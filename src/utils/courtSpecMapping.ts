@@ -1,4 +1,4 @@
-import { CourtSpecMapper } from "@/store/reducer/courtSizeSlice";
+import { CourtSpecMapper } from "@/store/reducer/courtSpecDataSlice";
 
 export const courtSpecMapping = (item: CourtSpecMapper) => ({
   courtId: item._id,

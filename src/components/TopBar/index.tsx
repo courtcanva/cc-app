@@ -39,14 +39,15 @@ const TopBar = () => {
   useEffect(() => setSliderValue(borderLength / 1000), [borderLength]);
 
   const handleChange = (val: number) => {
-    if (selectedCourt.courtName ==="Pro Full Court") return;
+    if (selectedCourt.courtName === "Pro Full Court") return;
     setSliderValue(val);
     dispatch(updateBorderLength(val * 1000));
     const borderTileQty =
       2 *
-      (Math.ceil(selectedCourt.courtAreaXLength / 300) + Math.ceil(selectedCourt.courtAreaYLength / 300)) *
-      Math.ceil(val * 1000 / 300) +
-      4 * Math.pow(Math.ceil(val * 1000 / 300), 2);
+        (Math.ceil(selectedCourt.courtAreaXLength / 300) +
+          Math.ceil(selectedCourt.courtAreaYLength / 300)) *
+        Math.ceil((val * 1000) / 300) +
+      4 * Math.pow(Math.ceil((val * 1000) / 300), 2);
     dispatch(updateBorderTileNumber(borderTileQty));
   };
 

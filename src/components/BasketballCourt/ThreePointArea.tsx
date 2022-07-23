@@ -1,6 +1,6 @@
 import { Shape } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { courtWhiteLine } from "../../store/reducer/courtSpecDataSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
 import { changeTileColor, getColor } from "@/store/reducer/tileSlice";
