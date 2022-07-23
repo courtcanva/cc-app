@@ -22,6 +22,7 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
 import { getCourtNameString, updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
+import { updateBorderTileNumber } from "@/store/reducer/areaTileQtySlice";
 
 const TopBar = () => {
   const { onOpen } = useDisclosure();
@@ -41,6 +42,12 @@ const TopBar = () => {
     if (selectedCourt.courtName ==="Pro Full Court") return;
     setSliderValue(val);
     dispatch(updateBorderLength(val * 1000));
+    const borderTileQty =
+      2 *
+      (Math.ceil(selectedCourt.courtAreaXLength / 300) + Math.ceil(selectedCourt.courtAreaYLength / 300)) *
+      Math.ceil(val * 1000 / 300) +
+      4 * Math.pow(Math.ceil(val * 1000 / 300), 2);
+    dispatch(updateBorderTileNumber(borderTileQty));
   };
 
   return (
