@@ -13,7 +13,11 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
-import { useAddDesignMutation, useGetDesignQuery, useUpdateDesignMutation } from "@/redux/api/designApi";
+import {
+  useAddDesignMutation,
+  useGetDesignQuery,
+  useUpdateDesignMutation,
+} from "@/redux/api/designApi";
 import { IDesign, ITileColor } from "@/interfaces/design";
 import { designCourtMapping, saveDesignMapping } from "@/utils/designMapping";
 import { changeDesignName } from "@/store/reducer/courtSizeSlice";
@@ -43,15 +47,15 @@ const SaveBoard: React.FC = () => {
   const [nameExist, setNameExist] = useState<boolean>(false);
 
   const tiles: ITileColor[] = [];
-    for (const tile of tileData.court) {
-      tiles.push(tile);
-    }
+  for (const tile of tileData.court) {
+    tiles.push(tile);
+  }
   const mappedcourtSize = saveDesignMapping(courtData);
   const saveDesign = {
     user_id: "user123",
     designName: courtData.designName,
     tileColor: tiles,
-    courtSize: mappedcourtSize
+    courtSize: mappedcourtSize,
   };
 
   useEffect(() => {
@@ -61,32 +65,31 @@ const SaveBoard: React.FC = () => {
 
   const [addDesign] = useAddDesignMutation();
   const [updateDesign] = useUpdateDesignMutation();
-  const handleSaveDesign = (e: { preventDefault: () => void; }) => {
+  const handleSaveDesign = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (nameExist) {
-      updateDesign({ _id: courtData.courtId, design: saveDesign })
-    }
-    else {
-      addDesign({ design: saveDesign })
+      updateDesign({ _id: courtData.courtId, design: saveDesign });
+    } else {
+      addDesign({ design: saveDesign });
       dispatch(addDesignNames(saveDesign.designName));
     }
     setDesignName(courtData.designName);
     setNameExist(true);
-  }
+  };
 
   const [useDesignName, setDesignName] = React.useState(courtData.designName);
   const [useNameError, setNameError] = React.useState("");
-  const handleCheckName = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+  const handleCheckName = (event: { target: { value: React.SetStateAction<string> } }) => {
     const editedName = String(event.target.value);
     setDesignName(event.target.value);
     const nameExist = checkName(editedName, designNames);
     setNameExist(nameExist);
-    setNameError(nameExist ? (" is already existed.") : (""));
+    setNameError(nameExist ? " is already existed." : "");
     if (!nameExist) {
       dispatch(changeDesignName(editedName));
     }
-  }
-  
+  };
+
   return (
     <Flex data-testid="SaveBoard">
       <Box display="flex" flexDirection="column" gap="1">
@@ -123,7 +126,10 @@ const SaveBoard: React.FC = () => {
               <AlertDialogCloseButton />
               <AlertDialogBody>
                 Your design will be saved in FOLDER.
-                <Text margin="5px 0" >Court Name: {useDesignName}{useNameError}</Text>
+                <Text margin="5px 0">
+                  Court Name: {useDesignName}
+                  {useNameError}
+                </Text>
                 <Input
                   value={useDesignName}
                   onChange={handleCheckName}
@@ -134,7 +140,13 @@ const SaveBoard: React.FC = () => {
                 <Button ref={cancelRef} onClick={onClose}>
                   Cancel
                 </Button>
-                <Button colorScheme="red" ml={3} disabled={nameExist} onClick={handleSaveDesign} ref={cancelRef}>
+                <Button
+                  colorScheme="red"
+                  ml={3}
+                  disabled={nameExist}
+                  onClick={handleSaveDesign}
+                  ref={cancelRef}
+                >
                   Save
                 </Button>
               </AlertDialogFooter>

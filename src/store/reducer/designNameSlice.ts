@@ -5,7 +5,7 @@ export interface DesignNameState {
 }
 
 export const initialState: DesignNameState = {
-  nameList: [ "Court Canva 1" ],
+  nameList: ["Court Canva 1"],
 };
 
 export const designNameSlice = createSlice({
@@ -16,7 +16,7 @@ export const designNameSlice = createSlice({
       return { ...state, nameList: action.payload };
     },
     addDesignNames: (state: DesignNameState, action: PayloadAction<string>) => {
-          state.nameList.push(action.payload)
+      state.nameList.push(action.payload);
     },
   },
 });
