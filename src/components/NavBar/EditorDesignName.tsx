@@ -13,9 +13,9 @@ import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
 
 const DesignName = () => {
-  const designName = useStoreSelector((state) => state.courtSize.designName);  
+  const designName = useStoreSelector((state) => state.courtSize.designName);
   const [value, setValue] = useState(designName);
-  
+
   useEffect(() => {
     setValue(designName);
   }, [designName]);
@@ -45,7 +45,6 @@ const DesignName = () => {
         alignItems="center"
         // onSubmit={() => dispatch(changeDesignName(value))}
       >
-        
         <EditablePreview p="0px 8px" />
         <Input as={EditableInput} />
         <EditableControls />

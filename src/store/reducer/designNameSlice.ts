@@ -5,7 +5,7 @@ export interface DesignNameState {
 }
 
 export interface Name {
-  name: string
+  name: string;
 }
 
 export const initialState: DesignNameState = {

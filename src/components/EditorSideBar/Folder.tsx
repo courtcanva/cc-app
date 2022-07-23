@@ -31,7 +31,7 @@ const Folder: React.FC = () => {
   const handleCourtSelecting = (courtId: string): void => {
     setActivateDesign(courtId);
     dispatch(setActiveDesign(courtId));
-    const selectedDesign = courtsData.find((item) => item.courtId === courtId);    
+    const selectedDesign = courtsData.find((item) => item.courtId === courtId);
     if (selectedDesign) {
       dispatch(changeCourtSize(selectedDesign));
     }

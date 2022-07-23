@@ -23,7 +23,6 @@ const SaveBoard: React.FC = () => {
   const courtSize = useStoreSelector((state) => state.courtSpecData.activeCourt);
   const designNames = useStoreSelector((state) => state.designName);
   console.log(designNames);
-  
 
   const [value, setValue] = React.useState("");
   const handleChange = (event: any) => setValue(event.target.value);
