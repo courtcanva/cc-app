@@ -38,8 +38,8 @@ const TopBar = () => {
   useEffect(() => setSliderValue(borderLength / 1000), [borderLength]);
 
   const handleChange = (val: number) => {
+    if (selectedCourt.courtName ==="Pro Full Court") return;
     setSliderValue(val);
-    // dispatch(changeBorderLength(val * 1000));
     dispatch(updateBorderLength(val * 1000));
   };
 
