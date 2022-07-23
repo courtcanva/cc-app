@@ -8,6 +8,8 @@ import {
   FormControl,
   Input,
   Button,
+  ModalFooter,
+  Link,
 } from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import ModalOperator from "../ModalOperater";
@@ -56,10 +58,9 @@ const EmailVerification: React.FC<Props> = ({
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            marginBottom: "30px",
             width: "300px",
           }}
-          // onSubmit={handleSubmit}
+          // TODO onSubmit={handleSubmit}
         >
           <FormControl width="5rem" isRequired>
             <Input name="verifyCode" type="number" htmlSize={4} width="5rem" textAlign="center" />
@@ -69,6 +70,14 @@ const EmailVerification: React.FC<Props> = ({
           </Button>
         </form>
       </ModalBody>
+      <ModalFooter marginBottom="20px">
+        <Text fontSize="10px">
+          Did not receive the email?
+          <Link href="#" textDecoration="underline" _hover={{ color: "fontcolor.tertiary" }}>
+            Resend
+          </Link>
+        </Text>
+      </ModalFooter>
     </>
   );
 };
