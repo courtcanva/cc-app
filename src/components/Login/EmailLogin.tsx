@@ -1,12 +1,10 @@
 import {
   ModalHeader,
   ModalBody,
-  ModalCloseButton,
   Button,
   Flex,
   Text,
   Icon,
-  IconButton,
   Divider,
   FormControl,
   Input,
@@ -16,11 +14,13 @@ import {
 } from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import React, { useEffect, useState } from "react";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
 import useAuthRequest from "@/components/Login/helpers/authRequest";
+import ModalOperator from "./ModalOperater";
 
 interface Props {
   initialRef: React.LegacyRef<HTMLInputElement> | undefined;
+  onClose: any;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
   nextStep: () => void;
   prevStep: () => void;
   findUser: (isExisted: boolean) => void;
@@ -28,7 +28,7 @@ interface Props {
 }
 
 export default function EmailLogin(props: Props) {
-  const { initialRef, nextStep, prevStep, findUser, inputEmail } = props;
+  const { initialRef, nextStep, prevStep, findUser, inputEmail, onClose, setStep } = props;
 
   const [input, setInput] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
@@ -71,23 +71,16 @@ export default function EmailLogin(props: Props) {
       handleEmailCheck();
     }
   };
-
+  const handleCloseModal = () => {
+    setStep(1);
+    onClose();
+  };
   return (
     <>
-      <IconButton
-        aria-label="Go Back"
-        role="goBack"
-        icon={<ChevronLeftIcon />}
-        margin="8px"
-        size="sm"
-        width="32px"
-        variant="witheBackgroundIconBtn"
-        color="black"
-        onClick={prevStep}
-      ></IconButton>
-      <ModalHeader>
-        <Flex flexDir="column" alignItems="center" marginTop="20px">
-          <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">
+      <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
+      <ModalHeader width="100%">
+        <Flex flexDir="column" alignItems="center" width="100%">
+          <Icon width="240px" height="180px" viewBox="120 0 600 600" role="logo">
             <MainLogoSvg />
           </Icon>
           <Divider />
@@ -96,8 +89,7 @@ export default function EmailLogin(props: Props) {
           </Text>
         </Flex>
       </ModalHeader>
-      <ModalCloseButton role="closeButton" />
-      <ModalBody>
+      <ModalBody width="100%">
         <FormControl isInvalid={!isValidEmail}>
           {isValidEmail ? (
             <FormHelperText

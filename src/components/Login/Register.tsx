@@ -1,11 +1,9 @@
 import {
   ModalHeader,
   ModalBody,
-  ModalCloseButton,
   Flex,
   Text,
   Icon,
-  IconButton,
   Divider,
   FormControl,
   FormLabel,
@@ -14,44 +12,41 @@ import {
 } from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import React, { useState } from "react";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
 import PwdInputGroup from "./PwdInputGroup";
+import ModalOperator from "./ModalOperater";
+
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
+  onClose: any;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   initialRef: React.MutableRefObject<null>;
 };
-const Register: React.FC<Props> = ({ nextStep, prevStep, initialRef, userEmail }) => {
+const Register: React.FC<Props> = ({ nextStep, prevStep, userEmail, onClose, setStep }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
     nextStep();
   };
+  const handleCloseModal = () => {
+    setStep(1);
+    onClose();
+  };
+
   return (
     <>
-      <IconButton
-        aria-label="Go Back"
-        icon={<ChevronLeftIcon />}
-        // margin="8px"
-        size="sm"
-        width="35px"
-        height="35px"
-        marginTop="5px"
-        marginLeft="5px"
-        variant="witheBackgroundIconBtn"
-        color="black"
-        onClick={prevStep}
-      ></IconButton>
-      <ModalCloseButton role="closeButton" />
-      <ModalHeader>
+      <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
+      <ModalHeader width="100%">
         <Flex flexDir="column" alignItems="center">
           <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">
             <MainLogoSvg />
           </Icon>
           <Text fontSize="sm" textAlign="center">
-            Sign up with <br /> {userEmail}
+            Sign up with
+            <Text color="brand.secondary">{userEmail}</Text>
           </Text>
           <Divider />
         </Flex>

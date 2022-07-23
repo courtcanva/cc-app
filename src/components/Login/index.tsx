@@ -21,7 +21,7 @@ function LoginModalContent(props: Props) {
   const [step, setStep] = useState(1);
   const [userExisted, setUserExisted] = useState(false);
   const [userEmail, setUserEmail] = useState("");
-  const [verified, setVerified] = useState(false);
+  const [verified, setVerified] = useState(true);
   const nextStep = () => {
     setStep((step) => step + 1);
   };
@@ -46,6 +46,8 @@ function LoginModalContent(props: Props) {
       case 2:
         return (
           <EmailLogin
+            setStep={setStep}
+            onClose={onClose}
             nextStep={nextStep}
             prevStep={prevStep}
             initialRef={initialRef}
@@ -58,13 +60,16 @@ function LoginModalContent(props: Props) {
       case 3:
         return userExisted ? (
           <LoginWithPwd
-            nextStep={nextStep}
+            setStep={setStep}
+            onClose={onClose}
             prevStep={prevStep}
             initialRef={initialRef}
             userEmail={userEmail}
           />
         ) : (
           <Register
+            setStep={setStep}
+            onClose={onClose}
             nextStep={nextStep}
             prevStep={prevStep}
             initialRef={initialRef}
@@ -76,6 +81,8 @@ function LoginModalContent(props: Props) {
           <EmailVerification
             nextStep={nextStep}
             prevStep={prevStep}
+            setStep={setStep}
+            onClose={onClose}
             initialRef={initialRef}
             userEmail={userEmail}
           />
@@ -95,7 +102,7 @@ function LoginModalContent(props: Props) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered size={"sm"} initialFocusRef={initialRef}>
       <ModalOverlay />
-      <ModalContent display="flex" flexDirection="column" alignItems="center" paddingY="30px">
+      <ModalContent display="flex" flexDirection="column" alignItems="center" padding="10px">
         {modalContent()}
       </ModalContent>
     </Modal>

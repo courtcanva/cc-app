@@ -58,8 +58,8 @@ export default function SelectLogin(props: Props) {
   return (
     <>
       <ModalHeader>
-        <Flex flexDir="column" alignItems="center" marginTop="20px">
-          <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">
+        <Flex flexDir="column" alignItems="center">
+          <Icon width="240px" height="180px" viewBox="120 0 550 550" role="logo">
             <MainLogoSvg />
           </Icon>
           <Text fontSize="xl">Log in or sign up in seconds</Text>
@@ -80,7 +80,7 @@ export default function SelectLogin(props: Props) {
             <Icon w="32px" h="32px" position="absolute" top="8px" left="20px">
               <FcGoogle />
             </Icon>
-            <Text>Continue with Google </Text>
+            <Text marginLeft="35px">Continue with Google </Text>
           </Button>
 
           <Button variant="loginBtn" position="relative" onClick={nextStep}>
@@ -89,11 +89,11 @@ export default function SelectLogin(props: Props) {
                 <FaEnvelope />
               </Icon>
             </IconContext.Provider>
-            <Text>Continue with email </Text>
+            <Text marginLeft="35px">Continue with email </Text>
           </Button>
         </Flex>
       </ModalBody>
-      <ModalFooter marginBottom="60px">
+      <ModalFooter marginBottom="20px">
         <Text fontSize="10px">
           By continuing, you agree to CourtCanva’s&nbsp;
           <Link href="#" textDecoration="underline" _hover={{ color: "fontcolor.tertiary" }}>

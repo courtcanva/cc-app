@@ -1,6 +1,7 @@
 import { ModalHeader, ModalBody, Text, Icon, Button, ModalFooter } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
+import ModalOperator from "../ModalOperater";
 
 type Props = {
   onClose: any;
@@ -9,7 +10,7 @@ type Props = {
   prevStep: () => void;
 };
 const VerificationResult: React.FC<Props> = ({ onClose, verified, setStep, prevStep }) => {
-  const handleFinalStep = () => {
+  const handleCloseModal = () => {
     setStep(1);
     onClose();
   };
@@ -18,7 +19,8 @@ const VerificationResult: React.FC<Props> = ({ onClose, verified, setStep, prevS
   };
   return (
     <>
-      <ModalHeader>
+      <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
+      <ModalHeader marginTop="10px">
         <Icon
           as={verified ? BsCheckCircleFill : BsXCircleFill}
           w="60px"
@@ -33,12 +35,12 @@ const VerificationResult: React.FC<Props> = ({ onClose, verified, setStep, prevS
             : "Ops! Account verification failed."}
         </Text>
       </ModalBody>
-      <ModalFooter>
+      <ModalFooter marginBottom="10px">
         <Button
           variant={verified ? "shareBtn" : "failedBtn"}
           width="300px"
           marginTop="20px"
-          onClick={verified ? handleFinalStep : handlePrevStep}
+          onClick={verified ? handleCloseModal : handlePrevStep}
           rightIcon={<ArrowForwardIcon />}
         >
           {verified ? "Continue to App" : "Try Again"}
