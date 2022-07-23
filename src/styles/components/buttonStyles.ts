@@ -17,6 +17,16 @@ const buttonStyles = {
       _hover: { bg: "brand.secondary", opacity: "0.60" },
       _active: { bg: "brand.secondary", opacity: "0.60" },
     },
+    failedBtn: {
+      bg: "red.500",
+      color: "white",
+      size: "lg",
+      fontSize: "lg",
+      fontWeights: "bold",
+      lineHeights: "22",
+      _hover: { bg: "red.500", opacity: "0.60" },
+      _active: { bg: "red.500", opacity: "0.60" },
+    },
     witheBackgroundIconBtn: {
       bg: "transparent",
       color: "white",

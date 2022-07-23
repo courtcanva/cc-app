@@ -5,6 +5,7 @@ import EmailLogin from "./EmailLogin";
 import LoginWithPwd from "./LoginWithPwd";
 import Register from "./Register";
 import EmailVerification from "./EmailVerification";
+import VerificationResult from "./EmailVerification/VerificationResult";
 
 interface Props {
   isOpen: boolean;
@@ -20,6 +21,7 @@ function LoginModalContent(props: Props) {
   const [step, setStep] = useState(1);
   const [userExisted, setUserExisted] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+  const [verified, setVerified] = useState(false);
   const nextStep = () => {
     setStep((step) => step + 1);
   };
@@ -70,22 +72,32 @@ function LoginModalContent(props: Props) {
           />
         );
       case 4:
-      // TODO: success
-      return (
-        <EmailVerification 
-          nextStep={nextStep}
-          prevStep={prevStep}
-          initialRef={initialRef}
-          userEmail={userEmail}
-        />
-      )
+        return (
+          <EmailVerification
+            nextStep={nextStep}
+            prevStep={prevStep}
+            initialRef={initialRef}
+            userEmail={userEmail}
+          />
+        );
+      case 5:
+        return (
+          <VerificationResult
+            onClose={onClose}
+            verified={verified}
+            prevStep={prevStep}
+            setStep={setStep}
+          />
+        );
     }
   };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered size={"sm"} initialFocusRef={initialRef}>
       <ModalOverlay />
-      <ModalContent>{modalContent()}</ModalContent>
+      <ModalContent display="flex" flexDirection="column" alignItems="center" paddingY="30px">
+        {modalContent()}
+      </ModalContent>
     </Modal>
   );
 }

@@ -15,7 +15,7 @@ import {
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import React, { useState } from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
-import PwdInputGroup from "./PwdInputGroup";
+import PwdInputGroup from "../PwdInputGroup";
 
 type Props = {
   nextStep: () => void;
@@ -23,10 +23,14 @@ type Props = {
   userEmail: string;
   initialRef: React.MutableRefObject<null>;
 };
-const EmailVerifation: React.FC<Props> = ({userEmail}) => {
-  const[inputCode, setInputCode] = useState<number>(0)
+const EmailVerification: React.FC<Props> = ({ userEmail, nextStep }) => {
+  const [inputCode, setInputCode] = useState<number>(0);
   // const[isDisabled, setIsDisable] = useState<boolean>(false)
   // inputCode.toString().length===4? setIsDisable(true):false
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    nextStep();
+  };
   return (
     <>
       <ModalCloseButton role="closeButton" />
@@ -47,19 +51,10 @@ const EmailVerifation: React.FC<Props> = ({userEmail}) => {
             style={{ marginBottom: "30px", width: "300px" }}
             // onSubmit={handleSubmit}
           >
-              <FormControl isRequired>
-                <Input 
-                name="verifyCode"
-                type="number"
-                htmlSize={4}
-                width="5rem" 
-                textAlign="center"
-                // value={inputCode}
-                onChange={(e) => setInputCode(+e.currentTarget.value)}
-                isDisabled={inputCode.toString().length>=4?true:false}
-                />
-              </FormControl>
-            <Button variant="shareBtn" width="300px" marginTop="20px">
+            <FormControl isRequired>
+              <Input name="verifyCode" type="number" htmlSize={4} width="5rem" textAlign="center" />
+            </FormControl>
+            <Button variant="shareBtn" width="300px" marginTop="20px" onClick={handleSubmit}>
               Verify
             </Button>
           </form>
@@ -69,4 +64,4 @@ const EmailVerifation: React.FC<Props> = ({userEmail}) => {
   );
 };
 
-export default EmailVerifation;
+export default EmailVerification;
