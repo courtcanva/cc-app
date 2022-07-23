@@ -29,3 +29,10 @@ export interface ICourtColor {
   designId: string;
   tileColor: ITileColor[];
 }
+
+export interface ISaveDesign {
+  user_id: string;
+  designName: string;
+  tileColor: ITileColor[];
+  courtSize: ICourtSize;
+}

@@ -7,20 +7,17 @@ import {
   Input,
   EditableInput,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { BiStar, BiPencil } from "react-icons/bi";
+import { BiPencil } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
+import { changeDesignName } from "@/store/reducer/courtSizeSlice";
 
 const DesignName = () => {
   const designName = useStoreSelector((state) => state.courtSize.designName);
-  const [value, setValue] = useState(designName);
-
-  useEffect(() => {
-    setValue(designName);
-  }, [designName]);
-
   const dispatch = useDispatch();
+  const handleNameChange = (editedName: string) => {
+    dispatch(changeDesignName(editedName));
+  };
   const EditableControls = () => {
     const { isEditing, getEditButtonProps } = useEditableControls();
     return isEditing ? null : (
@@ -39,11 +36,10 @@ const DesignName = () => {
         color="white"
         textAlign="center"
         isPreviewFocusable={false}
-        onChange={(value) => setValue(value)}
-        value={value}
+        value={designName}
         display="flex"
         alignItems="center"
-        // onSubmit={() => dispatch(changeDesignName(value))}
+        onChange={(editedName) => handleNameChange(editedName)}
       >
         <EditablePreview p="0px 8px" />
         <Input as={EditableInput} />

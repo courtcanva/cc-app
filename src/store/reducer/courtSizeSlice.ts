@@ -45,6 +45,9 @@ export const courtSizeSlice = createSlice({
     changeBorderLength: (state: CourtSizeState, action: PayloadAction<number>) => {
       return { ...state, borderLength: action.payload };
     },
+    changeDesignName: (state: CourtSizeState, action: PayloadAction<string>) => {
+      return { ...state, designName: action.payload };
+    },
   },
 });
 
@@ -54,6 +57,6 @@ export const courtWhiteLine = initialState.strokeWidth / 3;
 export const dashedWhiteLine = initialState.strokeWidth / 5;
 // export const borderLength = initialState.borderLength;
 
-export const { changeCourtSize, changeBorderLength } = courtSizeSlice.actions;
+export const { changeCourtSize, changeBorderLength, changeDesignName } = courtSizeSlice.actions;
 
 export default courtSizeSlice.reducer;

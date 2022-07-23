@@ -6,15 +6,15 @@ import { getCourtSpecData, setActiveDesign } from "@/store/reducer/courtSpecData
 import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
 import { changeCourtSize } from "@/store/reducer/courtSizeSlice";
-import { useGetDesignByUserQuery } from "@/redux/api/designApi";
+import { useGetDesignQuery } from "@/redux/api/designApi";
 import { IDesign, ICourtColor } from "@/interfaces/design";
-import { designCourtMapping, designNameMapping, designTileMapping } from "@/utils/designMapping";
+import { designCourtMapping, designTileMapping } from "@/utils/designMapping";
 import { changeTileColor } from "@/store/reducer/tileSlice";
 import { changeDesignNames } from "@/store/reducer/designNameSlice";
 
 const Folder: React.FC = () => {
   const dispatch = useDispatch();
-  const { data, isError } = useGetDesignByUserQuery("user123");
+  const { data } = useGetDesignQuery("user123");
   const [activateDesign, setActivateDesign] = useState<string>("");
   const [useCourtColor, setCourtColor] = useState<ICourtColor[]>();
   const { courtsData } = useStoreSelector((state) => state.courtSpecData);
@@ -24,8 +24,12 @@ const Folder: React.FC = () => {
     const mappedtileData = data.map((item: IDesign) => designTileMapping(item));
     setCourtColor(mappedtileData);
     dispatch(getCourtSpecData(mappedCourtData));
-    const mappeddesignNames = data.map((item: IDesign) => designNameMapping(item));
-    dispatch(changeDesignNames(mappeddesignNames));
+
+    const names: string[] = [];
+    for (const courtData of mappedCourtData) {
+      names.push(courtData.designName);
+    }
+    dispatch(changeDesignNames(names));
   }, [data]);
 
   const handleCourtSelecting = (courtId: string): void => {

@@ -1,25 +1,41 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IDesign } from "@/interfaces/design";
+import { ISaveDesign } from "@/interfaces/design";
 
 export const designApi = createApi({
   reducerPath: "designData",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URI,
   }),
-  tagTypes: ['IDesign'],
+  tagTypes: ['Design'],
   endpoints: (builder) => ({
-    getDesignByUser: builder.query({
-      query: (userId) => `/designs/${userId}`,
+    getDesign: builder.query({
+      query: (userId:string) => `/designs/${userId}`,
     }),
-    addDesign: builder.mutation<IDesign, Omit<IDesign, 'user_id'>>({
-      query: (body) => ({
+    addDesign: builder.mutation({
+      query: ( newDesign: { design: ISaveDesign }) => ({
         url: 'designs',
         method: 'POST',
-        body,
+        body: newDesign.design
       }),
-      invalidatesTags: ['IDesign']
+      invalidatesTags: ['Design']
+    }),
+    updateDesign: builder.mutation({
+      query: (changeDesign: { _id:string, design: ISaveDesign }) => ({
+          url: `/designs/${ changeDesign._id}`,
+          method: 'PUT',
+          body: changeDesign.design
+      }),
+      invalidatesTags: ['Design']
+    }),
+    deleteDesign: builder.mutation({
+        query: ( _id: string ) => ({
+            url: `/designs/${ _id }`,
+            method: 'DELETE',
+            body: _id
+        }),
+        invalidatesTags: ['Design']
     }),
   }),
 });
 
-export const { useGetDesignByUserQuery, useAddDesignMutation } = designApi;
+export const { useGetDesignQuery, useAddDesignMutation, useUpdateDesignMutation, useDeleteDesignMutation } = designApi;

@@ -1,4 +1,5 @@
-import { IDesign, ITileColor } from "@/interfaces/design";
+import { IDesign } from "@/interfaces/design";
+import { CourtSizeState } from "@/store/reducer/courtSizeSlice";
 
 export const designCourtMapping = (item: IDesign) => ({
   courtId: item._id,
@@ -21,7 +22,18 @@ export const designTileMapping = (item: IDesign) => ({
   tileColor: item.tileColor,
 });
 
-export const designNameMapping = (item: IDesign) => ({
+export const saveDesignMapping = (item: CourtSizeState) => ({
+  name: item.courtName,
+  length: item.courtAreaXLength,
+  width: item.courtAreaYLength,
+  threePointLine: item.threePointLineToCourtEdgeLength,
+  threePointRadius: item.threePointLineRadius,
+  centreCircleRadius: item.circleRadius,
+  restrictedAreaLength: item.keyAreaWidth,
+  restrictedAreaWidth: item.keyAreaHeight,
+  sideBorderWidth: item.borderLength,
+  lengthOfCorner: item.cornerThreePointLineLength,
+  lineBorderWidth: item.strokeWidth,
   designName: item.designName,
 });
 
