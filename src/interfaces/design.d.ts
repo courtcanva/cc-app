@@ -11,7 +11,7 @@ export interface ITileColor {
   color: string;
 }
 
-export interface ICourtSize {
+interface ICourtSize {
   name: string;
   length: number;
   width: number;
@@ -23,4 +23,9 @@ export interface ICourtSize {
   restrictedAreaWidth: number;
   sideBorderWidth: number;
   lineBorderWidth: number;
+}
+
+export interface ICourtColor {
+  designId: string;
+  tileColor: ITileColor[];
 }

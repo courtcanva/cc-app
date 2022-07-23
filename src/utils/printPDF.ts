@@ -14,7 +14,7 @@ export const downloadToPDF = async () => {
 
   const getDesignName = () => {
     const state = store.getState();
-    return state.designName.name;
+    return state.courtSpecData.activeCourt.designName;
   };
   const designName = getDesignName() as string;
   const court = window.document.querySelector("canvas") as HTMLCanvasElement;

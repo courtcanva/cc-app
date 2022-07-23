@@ -13,6 +13,7 @@ export const courtSpecMapping = (item: CourtSpecMapper) => ({
   borderLength: item.sideBorderWidth,
   cornerThreePointLineLength: item.lengthOfCorner,
   strokeWidth: item.lineBorderWidth,
+  // designName: item.description,
 });
 
 

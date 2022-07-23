@@ -1,23 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface DesignNameState {
-  name: string;
+  nameList: Name[];
+}
+
+export interface Name {
+  name: string
 }
 
 export const initialState: DesignNameState = {
-  name: "Court Canva 1",
+  nameList: [{ name: "" }],
 };
 
 export const designNameSlice = createSlice({
   name: "DesignName",
   initialState,
   reducers: {
-    changeDesignName: (state: DesignNameState, action: PayloadAction<string>) => {
-      return { ...state, name: action.payload };
+    changeDesignNames: (state: DesignNameState, action: PayloadAction<Name[]>) => {
+      return { ...state, nameList: action.payload };
     },
   },
 });
 
-export const { changeDesignName } = designNameSlice.actions;
+export const { changeDesignNames } = designNameSlice.actions;
 
 export default designNameSlice.reducer;

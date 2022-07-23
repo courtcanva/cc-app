@@ -4,10 +4,9 @@ import { useDispatch } from "react-redux";
 import { changeCourtName, CourtNameState } from "@/store/reducer/courtNameSlice";
 import React, { useEffect, useState } from "react";
 import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
-import { getCourtSpecData, setActiveCourt, setLoading } from "@/store/reducer/courtSpecDataSlice";
+import { CourtSizeState, CourtSpecMapper, getCourtSpecData, setActiveCourt, setLoading } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
-import { changeCourtSize, CourtSizeState, CourtSpecMapper } from "@/store/reducer/courtSizeSlice";
 import { useGetCourtsQuery } from "@/redux/api/courtSizeApi";
 import { courtSpecMapping } from "@/utils/courtSpecMapping";
 
@@ -23,7 +22,7 @@ const Blueprints: React.FC = () => {
       const initailCourtIndex = mappedCourtData.findIndex(
         (item: CourtSizeState) => item.courtName === "Pro Full Court"
       );
-      dispatch(changeCourtSize(mappedCourtData[initailCourtIndex]));
+      dispatch(setActiveCourt(mappedCourtData[initailCourtIndex]));
     }
     isLoading ? dispatch(setLoading(true)) : dispatch(setLoading(false));
   }, [data, isLoading]);

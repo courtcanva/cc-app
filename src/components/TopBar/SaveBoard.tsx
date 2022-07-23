@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, ButtonGroup, Flex, Input, Text } from "@chakra-ui/react";
+import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import SaveSvg from "@/assets/svg/TopBarSvg/save.svg";
@@ -13,11 +13,17 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
 } from "@chakra-ui/react";
+import { useStoreSelector } from "@/store/hooks";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
+  const tileColor = useStoreSelector((state) => state.tile.present);
+  const courtSize = useStoreSelector((state) => state.courtSpecData.activeCourt);
+  const designNames = useStoreSelector((state) => state.designName);
+  console.log(designNames);
+  
 
   const [value, setValue] = React.useState("");
   const handleChange = (event: any) => setValue(event.target.value);
