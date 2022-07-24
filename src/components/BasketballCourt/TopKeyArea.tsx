@@ -11,7 +11,6 @@ interface TopKeyAreaProps {
 
 const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
   const { keyAreaWidth, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
-    // useStoreSelector((state) => state.courtSize);
     useStoreSelector((state) => state.courtSpecData.activeCourt);
   const startPointX = startPoint.X + keyAreaWidth;
   const startPointY = startPoint.Y + (threePointLineToCourtEdgeLength + threePointLineRadius);
