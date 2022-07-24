@@ -11,7 +11,6 @@ interface CourtAreaProps {
 }
 
 const CourtArea: React.FC<CourtAreaProps> = ({ courtWidth, startPoint }) => {
-  // const { courtAreaYLength } = useStoreSelector((state) => state.courtSize);
   const { courtAreaYLength } = useStoreSelector((state) => state.courtSpecData.activeCourt);
   let courtAreaOffset = 0;
   // if width from backend <15k, change it 15k to ensure CourtArea render correctly

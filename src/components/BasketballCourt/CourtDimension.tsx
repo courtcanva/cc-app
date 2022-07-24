@@ -9,7 +9,6 @@ interface CourtDimensionProps {
   borderLength: number;
 }
 const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint, borderLength }) => {
-  // const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
   const { courtAreaXLength, courtAreaYLength } = useStoreSelector(
     (state) => state.courtSpecData.activeCourt
   );
