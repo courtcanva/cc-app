@@ -17,14 +17,14 @@ export const areaTileQtySlice = createSlice({
     changeCourtType: (state, action: PayloadAction<AreaTileQty[]>) => {
       return action.payload;
     },
-    updateBorderTileNumber: (state, action: PayloadAction<number>) => {
+    updateBorderTileQty: (state, action: PayloadAction<number>) => {
       state[5].quantity = action.payload;
       return state;
     },
   },
 });
 
-export const { changeCourtType, updateBorderTileNumber } = areaTileQtySlice.actions;
+export const { changeCourtType, updateBorderTileQty } = areaTileQtySlice.actions;
 
 export const areaTileQtyData = (state: RootState) => state.areaTileQty;
 
