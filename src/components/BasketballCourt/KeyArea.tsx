@@ -1,6 +1,6 @@
 import { Rect } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { courtWhiteLine } from "../../store/reducer/courtSpecDataSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
 import { changeTileColor, getColor } from "@/store/reducer/tileSlice";
@@ -11,7 +11,7 @@ interface KeyAreaProps {
 
 const KeyArea: React.FC<KeyAreaProps> = ({ startPoint }) => {
   const { threePointLineToCourtEdgeLength, threePointLineRadius, keyAreaWidth, keyAreaHeight } =
-    useStoreSelector((state) => state.courtSize);
+    useStoreSelector((state) => state.courtSpecData.activeCourt);
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const keyAreaColor = getColor("keyArea");

@@ -1,7 +1,23 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
-import { CourtSizeState, CourtSpecMapper } from "./courtSizeSlice";
-import { courtSpecMapping } from "../../utils/courtSpecMapping";
+
+export interface CourtSizeState {
+  courtId: string;
+  courtName: string;
+  courtAreaXLength: number;
+  courtAreaYLength: number;
+  threePointLineToCourtEdgeLength: number;
+  cornerThreePointLineLength: number;
+  threePointLineRadius: number;
+  keyAreaWidth: number;
+  keyAreaHeight: number;
+  circleRadius: number;
+  strokeWidth: number;
+  borderLength: number;
+}
+export interface CourtSpecMapper {
+  [prop: string]: string;
+}
 
 export interface CourtSpec {
   courtsData: CourtSizeState[];
@@ -38,15 +54,40 @@ export const Slice = createSlice({
       state.courtsData = [...action.payload];
       return state;
     },
-    setActiveCourt: (state, action: PayloadAction<string>) => {
+    setActiveCourt: (state: CourtSpec, action: PayloadAction<string>) => {
       const index = state.courtsData.findIndex((item) => item.courtName === action.payload);
       state.activeCourt = state.courtsData[index];
+      return state;
+    },
+    updateBorderLength: (state: CourtSpec, action: PayloadAction<number>) => {
+      state.activeCourt = { ...state.activeCourt, borderLength: action.payload };
       return state;
     },
   },
 });
 
-export const { getCourtSpecData, setActiveCourt } = Slice.actions;
+export const { getCourtSpecData, setActiveCourt, updateBorderLength } = Slice.actions;
+export const courtWhiteLine = initialState.activeCourt.strokeWidth / 3;
+export const dashedWhiteLine = initialState.activeCourt.strokeWidth / 5;
+
 export const courtSpecData = (state: RootState) => state.courtSpecData;
+export const getCourtNameString = (activeCourt: CourtSizeState) => {
+  const { courtAreaXLength, courtAreaYLength, courtName } = activeCourt;
+  let courtLength = 0;
+  let courtWidth = 0;
+  let courtArea = 0;
+  if (courtName === "Pro Full Court") {
+    courtLength = (courtAreaXLength + 1000 * 2) / 1000;
+    courtWidth = (courtAreaYLength + 1000 * 2) / 1000;
+  } else {
+    courtLength = courtAreaXLength / 1000;
+    courtWidth = courtAreaYLength / 1000;
+  }
+  courtArea = courtLength * courtWidth;
+
+  const name = `${courtArea} m² ${courtName} ( ${courtLength} m × ${courtWidth} m)`;
+
+  return name;
+};
 
 export default Slice.reducer;

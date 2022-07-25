@@ -19,40 +19,38 @@ import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
-import { changeBorderLength } from "@/store/reducer/courtSizeSlice";
 import { useEffect, useState } from "react";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
+import { getCourtNameString, updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
+import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
 
 const TopBar = () => {
   const { onOpen } = useDisclosure();
   const dispatch = useDispatch();
   const open = () => dispatch(usePaintBucket(true));
   const close = () => dispatch(usePaintBucket(false));
-  let nameString = "";
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const { paintPopover } = useStoreSelector((state) => state.paintBucket);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
-
-  if (selectedCourt) {
-    nameString = `${
-      ((selectedCourt.courtAreaXLength + selectedCourt.borderLength * 2) *
-        (selectedCourt.courtAreaYLength + selectedCourt.borderLength * 2)) /
-      1000000
-    } m² ${selectedCourt.courtName} (${
-      (selectedCourt.courtAreaXLength + selectedCourt.borderLength * 2) / 1000
-    } m × ${(selectedCourt.courtAreaYLength + selectedCourt.borderLength * 2) / 1000} m)`;
-  }
-
-  const borderLength = useStoreSelector((state) => state.courtSize.borderLength);
+  const nameString = getCourtNameString(selectedCourt);
+  const borderLength = selectedCourt.borderLength;
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
 
   useEffect(() => setSliderValue(borderLength / 1000), [borderLength]);
 
   const handleChange = (val: number) => {
+    if (selectedCourt.courtName === "Pro Full Court") return;
     setSliderValue(val);
-    dispatch(changeBorderLength(val * 1000));
+    dispatch(updateBorderLength(val * 1000));
+    const borderTileQty =
+      2 *
+        (Math.ceil(selectedCourt.courtAreaXLength / 300) +
+          Math.ceil(selectedCourt.courtAreaYLength / 300)) *
+        Math.ceil((val * 1000) / 300) +
+      4 * Math.pow(Math.ceil((val * 1000) / 300), 2);
+    dispatch(updateBorderTileQty(borderTileQty));
   };
-  
+
   return (
     <SimpleGrid
       columns={3}
@@ -128,8 +126,8 @@ const TopBar = () => {
           defaultValue={sliderValue}
           value={sliderValue}
           min={0}
-          max={1.8}
-          step={0.3}
+          max={2.0}
+          step={0.1}
           maxWidth="40"
           minWidth="30"
           onChange={(val: number) => handleChange(val)}
@@ -157,7 +155,7 @@ const TopBar = () => {
             boxShadow="none"
           ></SliderThumb>
         </Slider>
-        <Text fontSize="lg">1.8</Text>
+        <Text fontSize="lg">2</Text>
       </Flex>
 
       {/* right */}

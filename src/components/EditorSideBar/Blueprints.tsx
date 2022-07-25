@@ -1,13 +1,11 @@
 import courtList from "../ChangeCourtSize/CourtList";
 import { Image, Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { changeCourtName, CourtNameState } from "@/store/reducer/courtNameSlice";
 import React, { useState } from "react";
 import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
 import { setActiveCourt } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
-import { changeCourtSize } from "@/store/reducer/courtSizeSlice";
 
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,17 +16,6 @@ const Blueprints: React.FC = () => {
     setActivateCourt(imgUrl);
     dispatch(setActiveCourt(courtSizeName));
     const selectedCourt = courtsData.find((item) => item.courtName === courtSizeName);
-    if (selectedCourt) {
-      dispatch(changeCourtSize(selectedCourt));
-      const { courtAreaXLength, courtAreaYLength, borderLength } = selectedCourt;
-      const courtLength = (courtAreaXLength + borderLength * 2) / 1000;
-      const courtWidth = (courtAreaYLength + borderLength * 2) / 1000;
-      const chosenCourt: CourtNameState = {
-        name: `{${courtLength} * ${courtWidth}} m² ${selectedCourt.courtName} ( ${courtLength} m × ${courtWidth} m)`,
-        courtId: courtId,
-      };
-      dispatch(changeCourtName(chosenCourt));
-    }
 
     const tileQtyOfSelectedCourt = mockTileData.find(
       (item) => item.name === selectedCourt?.courtName

@@ -1,6 +1,6 @@
 import { Shape } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { courtWhiteLine } from "../../store/reducer/courtSpecDataSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
 import { changeTileColor, getColor } from "@/store/reducer/tileSlice";
@@ -11,7 +11,7 @@ interface ThreePointAreaProps {
 
 const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
   const { threePointLineToCourtEdgeLength, cornerThreePointLineLength, threePointLineRadius } =
-    useStoreSelector((state) => state.courtSize);
+    useStoreSelector((state) => state.courtSpecData.activeCourt);
   const startPointX = startPoint.X;
   const startPointY = startPoint.Y + threePointLineToCourtEdgeLength;
   const controlPointOneX = startPoint.X + (cornerThreePointLineLength + threePointLineRadius);

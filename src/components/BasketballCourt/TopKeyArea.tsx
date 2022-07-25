@@ -1,6 +1,6 @@
 import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { courtWhiteLine, dashedWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { courtWhiteLine, dashedWhiteLine } from "../../store/reducer/courtSpecDataSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useDispatch } from "react-redux";
 import { changeTileColor, getColor } from "@/store/reducer/tileSlice";
@@ -11,7 +11,7 @@ interface TopKeyAreaProps {
 
 const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
   const { keyAreaWidth, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
-    useStoreSelector((state) => state.courtSize);
+    useStoreSelector((state) => state.courtSpecData.activeCourt);
   const startPointX = startPoint.X + keyAreaWidth;
   const startPointY = startPoint.Y + (threePointLineToCourtEdgeLength + threePointLineRadius);
 
