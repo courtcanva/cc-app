@@ -70,11 +70,6 @@ const NavigationBar = () => {
             Home
           </Button>
         </Link>
-        <Menu>
-          <MenuButton as={Button} variant="navbarIconBtn">
-            File
-          </MenuButton>
-        </Menu>
         <Flex flex="1" justifyContent="center">
           <IconButton
             aria-label="Revert edit"
