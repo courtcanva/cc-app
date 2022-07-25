@@ -9,7 +9,8 @@ type Props = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   prevStep: () => void;
 };
-const VerificationResult: React.FC<Props> = ({ onClose, verified, setStep, prevStep }) => {
+const VerificationResult: React.FC<Props> = (props: Props) => {
+  const { onClose, verified, setStep, prevStep } = props;
   const handleCloseModal = () => {
     setStep(1);
     onClose();
@@ -17,6 +18,7 @@ const VerificationResult: React.FC<Props> = ({ onClose, verified, setStep, prevS
   const handlePrevStep = () => {
     prevStep();
   };
+  // TODO: auto login after successful verification
   return (
     <>
       <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />

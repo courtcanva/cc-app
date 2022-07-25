@@ -10,29 +10,60 @@ import {
   Button,
   ModalFooter,
   Link,
+  useToast,
 } from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import ModalOperator from "../ModalOperater";
+import useAuthRequest from "../helpers/authRequest";
+import React, { useState } from "react";
 
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
+  validation: (verified: boolean) => void;
   onClose: any;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
+  userId: string;
   initialRef: React.MutableRefObject<null>;
 };
-const EmailVerification: React.FC<Props> = ({
-  userEmail,
-  nextStep,
-  onClose,
-  setStep,
-  prevStep,
-}) => {
-  const handleSubmit = (event: React.FormEvent) => {
+const EmailVerification: React.FC<Props> = (props: Props) => {
+  const { userEmail, nextStep, onClose, setStep, prevStep, userId, validation } = props;
+  const [otp, setOtp] = useState("");
+  const { verifyOTP, resendOTP } = useAuthRequest();
+  const toast = useToast();
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    nextStep();
+    try {
+      const { data } = await verifyOTP(userId, otp);
+      if (data.status === "VERIFIED") {
+        validation(true);
+        nextStep();
+      } else {
+        validation(false);
+        nextStep();
+      }
+    } catch (err) {
+      toast({
+        title: "network error",
+        status: "error",
+        isClosable: true,
+      });
+    }
   };
+
+  const handleResend = async () => {
+    try {
+      await resendOTP(userId, userEmail);
+    } catch (err) {
+      toast({
+        title: "network error",
+        status: "error",
+        isClosable: true,
+      });
+    }
+  };
+
   const handleCloseModal = () => {
     setStep(1);
     onClose();
@@ -60,10 +91,18 @@ const EmailVerification: React.FC<Props> = ({
             alignItems: "center",
             width: "300px",
           }}
-          // TODO onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
         >
           <FormControl width="5rem" isRequired>
-            <Input name="verifyCode" type="number" htmlSize={4} width="5rem" textAlign="center" />
+            <Input
+              name="verifyCode"
+              type="number"
+              htmlSize={4}
+              width="5rem"
+              textAlign="center"
+              value={otp}
+              onChange={(event) => setOtp(event?.currentTarget.value)}
+            />
           </FormControl>
           <Button variant="shareBtn" width="300px" marginTop="20px" onClick={handleSubmit}>
             Verify
@@ -73,7 +112,13 @@ const EmailVerification: React.FC<Props> = ({
       <ModalFooter marginBottom="20px">
         <Text fontSize="10px">
           Did not receive the email?
-          <Link href="#" textDecoration="underline" _hover={{ color: "fontcolor.tertiary" }}>
+          {/* TODO: make resend UI with counting down and e.g. "re-sent" */}
+          <Link
+            href="#"
+            textDecoration="underline"
+            _hover={{ color: "fontcolor.tertiary" }}
+            onClick={handleResend}
+          >
             Resend
           </Link>
         </Text>

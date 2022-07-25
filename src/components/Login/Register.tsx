@@ -9,27 +9,55 @@ import {
   FormLabel,
   Input,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import React, { useState } from "react";
 import PwdInputGroup from "./PwdInputGroup";
 import ModalOperator from "./ModalOperater";
+import useAuthRequest from "./helpers/authRequest";
 
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
+  getUserId: (userId: string) => void;
   onClose: any;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   initialRef: React.MutableRefObject<null>;
 };
-const Register: React.FC<Props> = ({ nextStep, prevStep, userEmail, onClose, setStep }) => {
+
+const Register: React.FC<Props> = (props: Props) => {
+  const { nextStep, prevStep, userEmail, onClose, setStep, getUserId } = props;
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const handleSubmit = (event: React.FormEvent) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const { userRegister } = useAuthRequest();
+  const toast = useToast();
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    nextStep();
+    try {
+      const userInfo = {
+        email: userEmail,
+        password,
+        firstName,
+        lastName,
+      };
+      const { data } = await userRegister(userInfo);
+      if (data.status === "PENDING") {
+        getUserId(data.data.userId);
+        nextStep();
+      } else {
+        throw Error("Failed to send email.");
+      }
+    } catch (err) {
+      toast({
+        title: "network error",
+        status: "error",
+        isClosable: true,
+      });
+    }
   };
   const handleCloseModal = () => {
     setStep(1);
@@ -53,18 +81,23 @@ const Register: React.FC<Props> = ({ nextStep, prevStep, userEmail, onClose, set
       </ModalHeader>
       <ModalBody>
         <Flex flexDir="column" alignItems="center">
-          <form
-            style={{ marginBottom: "30px", width: "300px" }}
-            // onSubmit={handleSubmit}
-          >
+          <form style={{ marginBottom: "30px", width: "300px" }} onSubmit={handleSubmit}>
             <Flex gap="10px">
               <FormControl isRequired>
                 <FormLabel>First name</FormLabel>
-                <Input placeholder="First name" />
+                <Input
+                  placeholder="First name"
+                  value={firstName}
+                  onChange={(event) => setFirstName(event?.currentTarget.value)}
+                />
               </FormControl>
               <FormControl isRequired>
                 <FormLabel>Last name</FormLabel>
-                <Input placeholder="Last name" />
+                <Input
+                  placeholder="Last name"
+                  value={lastName}
+                  onChange={(event) => setLastName(event?.currentTarget.value)}
+                />
               </FormControl>
             </Flex>
             <PwdInputGroup

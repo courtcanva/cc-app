@@ -21,6 +21,7 @@ function LoginModalContent(props: Props) {
   const [step, setStep] = useState(1);
   const [userExisted, setUserExisted] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+  const [userId, setUserId] = useState("");
   const [verified, setVerified] = useState(true);
   const nextStep = () => {
     setStep((step) => step + 1);
@@ -65,6 +66,7 @@ function LoginModalContent(props: Props) {
             prevStep={prevStep}
             initialRef={initialRef}
             userEmail={userEmail}
+            updateLoginData={updateLoginData}
           />
         ) : (
           <Register
@@ -74,6 +76,9 @@ function LoginModalContent(props: Props) {
             prevStep={prevStep}
             initialRef={initialRef}
             userEmail={userEmail}
+            getUserId={(userId: string) => {
+              setUserId(userId);
+            }}
           />
         );
       case 4:
@@ -85,6 +90,10 @@ function LoginModalContent(props: Props) {
             onClose={onClose}
             initialRef={initialRef}
             userEmail={userEmail}
+            userId={userId}
+            validation={(verified: boolean) => {
+              setVerified(verified);
+            }}
           />
         );
       case 5:
