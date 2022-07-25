@@ -39,7 +39,6 @@ const TopBar = () => {
   useEffect(() => setSliderValue(borderLength / 1000), [borderLength]);
 
   const handleChange = (val: number) => {
-    if (selectedCourt.courtName === "Pro Full Court") return;
     setSliderValue(val);
     dispatch(updateBorderLength(val * 1000));
     const borderTileQty =
@@ -130,6 +129,7 @@ const TopBar = () => {
           step={0.1}
           maxWidth="40"
           minWidth="30"
+          isDisabled={selectedCourt.courtName === "Pro Full Court"}
           onChange={(val: number) => handleChange(val)}
         >
           <SliderMark
