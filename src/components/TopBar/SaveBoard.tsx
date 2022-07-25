@@ -41,7 +41,6 @@ const SaveBoard: React.FC = () => {
     dispatch(getCourtSpecData(mappedCourtData));
   }, [data]);
 
- 
   const tileData = useStoreSelector((state) => state.tile.present);
   const designNames = useStoreSelector((state) => state.designName.nameList);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -50,7 +49,7 @@ const SaveBoard: React.FC = () => {
   console.log(designNames);
   const [nameExist, setNameExist] = useState<boolean>(false);
   const [save, setSave] = useState<boolean>(false);
-  
+
   const tiles: ITileColor[] = [];
   for (const tile of tileData.court) {
     tiles.push(tile);
@@ -73,7 +72,7 @@ const SaveBoard: React.FC = () => {
   const handleSaveDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (nameExist) {
-     await updateDesign({ _id: courtData.courtId, design: saveDesign });
+      await updateDesign({ _id: courtData.courtId, design: saveDesign });
     } else {
       await addDesign({ design: saveDesign });
       dispatch(addDesignNames(saveDesign.designName));
@@ -81,14 +80,15 @@ const SaveBoard: React.FC = () => {
 
     setNameExist(true);
     setDesignName(courtData.designName);
-    const design = await axios.get("http://localhost:8080/v1/designs/user123").then((i) => {console.log(`i: `,i);
-    })
+    const design = await axios.get("http://localhost:8080/v1/designs/user123").then((i) => {
+      console.log(`i: `, i);
+    });
     // const mappedCourtData = design.data.map((item: IDesign) => designCourtMapping(item));
     // // console.log(mappedCourtData)
     // dispatch(getCourtSpecData(mappedCourtData));
     // console.log(mappedCourtData)
   };
-  console.log( useStoreSelector((state) => state.courtSpecData.courtsData))
+  console.log(useStoreSelector((state) => state.courtSpecData.courtsData));
 
   const [useDesignName, setDesignName] = React.useState(courtData.designName);
   const [useNameError, setNameError] = React.useState("");
