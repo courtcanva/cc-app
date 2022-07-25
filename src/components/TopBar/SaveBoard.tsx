@@ -19,11 +19,13 @@ import {
   useUpdateDesignMutation,
 } from "@/redux/api/designApi";
 import { IDesign, ITileColor } from "@/interfaces/design";
-import { designCourtMapping, saveDesignMapping } from "@/utils/designMapping";
+import { designCourtMapping, designTileMapping, saveDesignMapping } from "@/utils/designMapping";
 import { changeDesignName } from "@/store/reducer/courtSizeSlice";
 import { useDispatch } from "react-redux";
 import checkName from "@/utils/checkName";
 import { addDesignNames, changeDesignNames } from "@/store/reducer/designNameSlice";
+import { getCourtSpecData } from "@/store/reducer/courtSpecDataSlice";
+import axios from "axios";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();
@@ -36,8 +38,10 @@ const SaveBoard: React.FC = () => {
       names.push(courtData.designName);
     }
     dispatch(changeDesignNames(names));
+    dispatch(getCourtSpecData(mappedCourtData));
   }, [data]);
 
+ 
   const tileData = useStoreSelector((state) => state.tile.present);
   const designNames = useStoreSelector((state) => state.designName.nameList);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -45,7 +49,8 @@ const SaveBoard: React.FC = () => {
   const courtData = useStoreSelector((state) => state.courtSpecData.activeCourt);
   console.log(designNames);
   const [nameExist, setNameExist] = useState<boolean>(false);
-
+  const [save, setSave] = useState<boolean>(false);
+  
   const tiles: ITileColor[] = [];
   for (const tile of tileData.court) {
     tiles.push(tile);
@@ -65,17 +70,25 @@ const SaveBoard: React.FC = () => {
 
   const [addDesign] = useAddDesignMutation();
   const [updateDesign] = useUpdateDesignMutation();
-  const handleSaveDesign = (e: { preventDefault: () => void }) => {
+  const handleSaveDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (nameExist) {
-      updateDesign({ _id: courtData.courtId, design: saveDesign });
+     await updateDesign({ _id: courtData.courtId, design: saveDesign });
     } else {
-      addDesign({ design: saveDesign });
+      await addDesign({ design: saveDesign });
       dispatch(addDesignNames(saveDesign.designName));
     }
-    setDesignName(courtData.designName);
+
     setNameExist(true);
+    setDesignName(courtData.designName);
+    const design = await axios.get("http://localhost:8080/v1/designs/user123").then((i) => {console.log(`i: `,i);
+    })
+    // const mappedCourtData = design.data.map((item: IDesign) => designCourtMapping(item));
+    // // console.log(mappedCourtData)
+    // dispatch(getCourtSpecData(mappedCourtData));
+    // console.log(mappedCourtData)
   };
+  console.log( useStoreSelector((state) => state.courtSpecData.courtsData))
 
   const [useDesignName, setDesignName] = React.useState(courtData.designName);
   const [useNameError, setNameError] = React.useState("");
