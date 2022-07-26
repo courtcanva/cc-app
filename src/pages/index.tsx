@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useRef } from "react";
-import svgIcon from "@/utils/svgIcon";
+import { paintBucketIcon } from "@/utils/svgIcon";
 import { useEffect } from "react";
 import { getCourtSpecData, CourtSpecMapper } from "@/store/reducer/courtSpecDataSlice";
 import { useGetCourtsQuery } from "../redux/api/courtSizeApi";
@@ -43,10 +43,8 @@ const Home: NextPage = () => {
 
   const handleMouseEnter = () => {
     if (selectedColor !== "none") {
-      const iconUrl =
-        `data:image/svg+xml;base64,` +
-        window.btoa(unescape(encodeURIComponent(svgIcon(selectedColor))));
-      document.body.style.cursor = `url(` + iconUrl + `) 24 24, auto`;
+      const cursorUrl = paintBucketIcon(selectedColor);
+      document.body.style.cursor = `url(${cursorUrl}) 24 24, auto`;
     }
   };
   const handleMouseLeave = () => {

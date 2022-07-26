@@ -1,4 +1,5 @@
-const courtList = [
+// COURTS
+export const courtList = [
   {
     courtId: "62c432cfb8a9c5f61f03831f",
     courtSizeName: "Pro Full Court",

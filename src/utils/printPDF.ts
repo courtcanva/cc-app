@@ -1,3 +1,4 @@
+import { environment } from "@/constants/environment";
 import { store } from "../store";
 
 export const downloadToPDF = async () => {
@@ -7,7 +8,7 @@ export const downloadToPDF = async () => {
   );
   const getCourtName = () => {
     const state = store.getState();
-    return state.courtSpecData.activeCourt.courtName
+    return state.courtSpecData.activeCourt.courtName;
   };
   const courtDescription = getCourtName() as string;
 
@@ -30,7 +31,7 @@ export const downloadToPDF = async () => {
     const center = (pageWidth / 2) as number;
     const marginX = (pageWidth - canvasWidth) / 2;
     const marginY = (pageHeight - canvasHeight) / 2;
-    const linkUrl = process.env.NEXT_PUBLIC_DESIGN_URL as string;
+    const linkUrl = environment.designURL as string;
     const link = linkUrl.includes("https://")
       ? (linkUrl.split("https://").pop() as string)
       : linkUrl;

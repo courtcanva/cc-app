@@ -29,7 +29,7 @@
   "plugins": ["react", "@typescript-eslint", "jest"],
   "rules": {
     // do not require JSDoc for your functions
-    "require-jsdoc": "off",
+    "require-jsdoc": 1,
     // suppress errors for missing 'import React' in files
     "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,

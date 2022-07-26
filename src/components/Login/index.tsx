@@ -11,6 +11,7 @@ import {
   Text,
   Icon,
   Link,
+  useToast,
 } from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import { IconContext } from "react-icons";
@@ -28,7 +29,7 @@ interface Props {
   updateLoginData: (data: any) => void;
 }
 
-function LoginModalContent(props: Props) {
+const LoginModalContent = (props: Props) => {
   const initialRef = React.useRef(null);
   const dispatch = useDispatch();
   const { updateLoginData, onClose, isOpen } = props;
@@ -49,7 +50,13 @@ function LoginModalContent(props: Props) {
         onClose();
       }
     } catch (err) {
-      console.warn(err);
+      const toast = useToast();
+      toast({
+        title: "network error",
+        status: "error",
+        isClosable: true,
+      });
+      return;
     }
   };
 
@@ -60,7 +67,7 @@ function LoginModalContent(props: Props) {
   });
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered size={"sm"} initialFocusRef={initialRef}>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered size="sm" initialFocusRef={initialRef}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
@@ -114,6 +121,6 @@ function LoginModalContent(props: Props) {
       </ModalContent>
     </Modal>
   );
-}
+};
 
 export default LoginModalContent;

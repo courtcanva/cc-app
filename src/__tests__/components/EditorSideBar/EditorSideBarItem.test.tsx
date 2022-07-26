@@ -16,7 +16,7 @@ describe("EditorSideBarItem", () => {
         title={item.title}
         icon={item.icon}
         onHandleIconClick={() => item.onHandleIconClick(item.title)}
-        iconClickTitle={""}
+        iconClickTitle=""
       />
     );
 
