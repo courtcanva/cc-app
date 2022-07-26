@@ -56,7 +56,6 @@ const Home: NextPage = () => {
   return (
     <HeaderLayout>
       <div ref={ref} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-        {/* <LoadingPage /> */}
         {isLoading && <LoadingPage />}
         {courtName === "Pro Full Court" && <ProFullCourt />}
         {courtName === "Full Court" && <FullCourt />}
