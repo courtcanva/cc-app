@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Flex, Button, Text } from "@chakra-ui/react";
 import UnSmile from "@/assets/svg/404.svg";
 import NextHeadSeo from "next-head-seo";
+import { environment } from "@/constants/environment";
 
 export default function Custom404() {
   return (
@@ -19,7 +20,7 @@ export default function Custom404() {
         <Text fontWeight="bold" fontSize="xl">
           Oops! Something went wrong.
         </Text>
-        <Link href={process.env.NEXT_PUBLIC_DESIGN_URL as string} passHref>
+        <Link href={environment.designURL as string} passHref>
           <Button mt="1rem" pl="2.5rem" pr="2.5rem" variant="shareBtn">
             Take me back to homepage
           </Button>

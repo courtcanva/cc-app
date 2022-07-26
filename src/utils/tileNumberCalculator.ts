@@ -54,7 +54,7 @@ const determineTileColor = (arr: Array<string>) => {
   return mostColor;
 };
 
-
+// eslint-disable-next-line valid-jsdoc
 /**
  * @deprecated
  */
@@ -83,13 +83,12 @@ export const tileNumberCalculator = (
     }
   }
 
-  // TODO: refactor, avoid using forEach
   // transfer rgba to hex of colorResult
-  // for loop
-  // TODO: use when rendering
-  // for (const result of colorResult) {
-  //   if (result.color) result.color = rgbaToHex(result.color);
-  // }
+  for (const result of colorResult) {
+    if (result.color) {
+      result.color = rgbaToHex(result.color);
+    }
+  }
 
   // remove object in result that color is null
   const filteredResult = colorResult.filter((obj) => obj.color && obj.color.includes("#"));

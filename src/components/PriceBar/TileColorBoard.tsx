@@ -12,30 +12,6 @@ const TileColorBoard: React.FC = () => {
   const priceList = data?.find((item: IPriceCalculation) => item.tile_id === "tile001");
   const [useTotalPrice, setTotalPrice] = useState<string>("0.00");
 
-  // const calculateTiles = () => {
-  //   // for loop
-  // }
-
-  // const calculateTotalPrice = () => {
-  //   // for loop
-  // }
-
-  useEffect(() => {
-    let tilePrice = 0;
-    let installPrice = 0;
-    let deliveryPrice = 0;
-    let totalQuantity = 0;
-    const priceList = data?.find((item: IPriceCalculation) => !item.isDeleted);
-
-    // delivery price (a fixed price per 1000 tiles)
-    deliveryPrice += Math.ceil(totalQuantity / 1000) * priceList?.tiles.deliveryPrice;
-    // installation price (fixed prices for corresponding courts)
-    const courtList = priceList?.court_spec.find(
-      (item: ICourts) => item.court === courts.courtName
-    );
-    if (courtList) {
-      installPrice += courtList.installationPrice / 100;
-      // =======incoming====
   const priceDetails = {
     tilePrice: 0,
     deliveryPrice: 0,

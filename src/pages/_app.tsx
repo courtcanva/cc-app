@@ -6,11 +6,12 @@ import { Chakra } from "@/styles/Chakra";
 import Layout from "@/layouts";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import "./style.css";
+import { environment } from "@/constants/environment";
 
 function CourtCanvaApp({ Component, pageProps }: AppProps) {
   return (
     <Chakra>
-      <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}>
+      <GoogleOAuthProvider clientId={environment.googleClientId as string}>
         <Provider store={store}>
           <Layout>
             <Component {...pageProps} />

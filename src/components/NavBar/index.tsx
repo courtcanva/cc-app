@@ -19,7 +19,7 @@ const NavigationBar = () => {
   // Get user info from local storage
   const getInfo = () => {
     if (typeof window !== "undefined") {
-      const userInfo = JSON.parse(localStorage.getItem("UserInfos")!);
+      const userInfo = JSON.parse(localStorage.getItem("UserInfo")!);
       return userInfo;
     }
     return;

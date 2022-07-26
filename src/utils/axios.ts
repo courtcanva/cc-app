@@ -1,3 +1,4 @@
+import { environment } from "@/constants/environment";
 import axios from "axios";
 import omit from "lodash/omit";
 
@@ -19,7 +20,7 @@ interface IConfig {
 
 const REQUEST_TIMEOUT = 10000;
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URI,
+  baseURL: environment.apiBaseUrl,
   timeout: REQUEST_TIMEOUT,
 });
 

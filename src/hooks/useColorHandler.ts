@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 export const useColorHandler = (selectedColor: string, location: string) => {
   const dispatch = useDispatch();
   return () => {
-    if (selectedColor === "transparent") return;
+    if (selectedColor === "none") return;
     dispatch(changeTileColor({ selectedColor, location }));
   };
 };

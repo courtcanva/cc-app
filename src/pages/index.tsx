@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useRef } from "react";
-import svgIcon from "@/utils/svgIcon";
+import { paintBucketIcon } from "@/utils/svgIcon";
 import { useEffect } from "react";
 import { getCourtSpecData, CourtSpecMapper } from "@/store/reducer/courtSpecDataSlice";
 import { useGetCourtsQuery } from "../redux/api/courtSizeApi";
@@ -36,17 +36,15 @@ const Home: NextPage = () => {
 
   const ref = useRef(null); // click outside the canvas area can stop color changing
   const handleClickOutside = () => {
-    dispatch(changeSelectedColor("transparent"));
+    dispatch(changeSelectedColor("none"));
     document.body.style.cursor = "auto";
   };
   useOnClickOutside(ref, handleClickOutside);
 
   const handleMouseEnter = () => {
-    if (selectedColor !== "transparent") {
-      const iconUrl = // import svg string from utils and convert it to cur type (svg cannot be used as cursor directly)
-        `data:image/svg+xml;base64,` +
-        window.btoa(decodeURIComponent(encodeURIComponent(svgIcon(selectedColor)))); // replace escape with decodeURIComponent https://stackoverflow.com/questions/27926562/deprecation-of-javascript-function-unescape
-      document.body.style.cursor = `url(` + iconUrl + `) 24 24, auto`;
+    if (selectedColor !== "none") {
+      const cursorUrl = paintBucketIcon(selectedColor);
+      document.body.style.cursor = `url(${cursorUrl}) 24 24, auto`;
     }
   };
   const handleMouseLeave = () => {
