@@ -38,13 +38,12 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const res = await userLogin(userEmail, password);
-      if (res.status === 200) {
-        // TODO: Store user data into local storage after logging, NO userInfo returned
-        // localStorage.setItem("UserInfo", JSON.stringify(data));
-        // dispatch(updateUserInfo(data));
-        // updateLoginData(data);
-        // TODO: deal with return tokens
+      const { data } = await userLogin(userEmail, password);
+      if (data.tokens) {
+        //  Store user data into local storage after logging
+        localStorage.setItem("UserInfo", JSON.stringify(data));
+        dispatch(updateUserInfo(data));
+        updateLoginData(data);
         onClose();
       }
     } catch (err) {

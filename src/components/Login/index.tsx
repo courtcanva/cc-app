@@ -91,6 +91,7 @@ function LoginModalContent(props: Props) {
             initialRef={initialRef}
             userEmail={userEmail}
             userId={userId}
+            updateLoginData={updateLoginData}
             validation={(verified: boolean) => {
               setVerified(verified);
             }}

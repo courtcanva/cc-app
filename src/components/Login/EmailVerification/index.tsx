@@ -16,11 +16,14 @@ import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import ModalOperator from "../ModalOperater";
 import useAuthRequest from "../helpers/authRequest";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateUserInfo } from "@/store/reducer/userSlice";
 
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
   validation: (verified: boolean) => void;
+  updateLoginData: (data: any) => void;
   onClose: any;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
@@ -28,15 +31,21 @@ type Props = {
   initialRef: React.MutableRefObject<null>;
 };
 const EmailVerification: React.FC<Props> = (props: Props) => {
-  const { userEmail, nextStep, onClose, setStep, prevStep, userId, validation } = props;
+  const { userEmail, nextStep, onClose, setStep, prevStep, userId, validation, updateLoginData } =
+    props;
   const [otp, setOtp] = useState("");
   const { verifyOTP, resendOTP } = useAuthRequest();
   const toast = useToast();
+  const dispatch = useDispatch();
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
       const { data } = await verifyOTP(userId, otp);
-      if (data.status === "VERIFIED") {
+      if (data.tokens) {
+        //  Store user data into local storage after verification, equals login
+        localStorage.setItem("UserInfo", JSON.stringify(data));
+        dispatch(updateUserInfo(data));
+        updateLoginData(data);
         validation(true);
         nextStep();
       } else {
