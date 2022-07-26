@@ -7,7 +7,7 @@ export const downloadToPDF = async () => {
   );
   const getCourtName = () => {
     const state = store.getState();
-    return state.courtName.name;
+    return state.courtSpecData.activeCourt.courtName
   };
   const courtDescription = getCourtName() as string;
 

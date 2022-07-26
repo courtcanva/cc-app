@@ -1,6 +1,6 @@
 import { Arc } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { courtWhiteLine } from "../../store/reducer/courtSpecDataSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { getColor } from "@/store/reducer/tileSlice";
 import { useColorHandler } from "@/hooks/useColorHandler";
@@ -11,8 +11,8 @@ interface CircleAreaProps {
 const FULL_COURT_SIZE = 28000;
 
 const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
-  const { courtAreaXLength, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
-    useStoreSelector((state) => state.courtSize);
+  let { courtAreaXLength, threePointLineToCourtEdgeLength, threePointLineRadius, circleRadius } =
+    useStoreSelector((state) => state.courtSpecData.activeCourt);
 
   // coz pro full court is flipped, courtAreaXLength needs to be half of the court length
   const newCourtAreaXLength =

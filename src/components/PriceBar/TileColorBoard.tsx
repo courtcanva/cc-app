@@ -1,14 +1,15 @@
 import { Center, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState, useMemo } from "react";
 import { useStoreSelector } from "@/store/hooks";
-import { IPriceCalculation, ITilePrice, ICourts } from "../../interfaces/priceCalculation";
+import { IPriceCalculation } from "../../interfaces/priceCalculation";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import priceFormat from "@/utils/priceFormat";
 
 const TileColorBoard: React.FC = () => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
-  const courts = useStoreSelector((state) => state.courtSize);
+  const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
   const { data } = useGetPriceQuery(0);
+  const priceList = data?.find((item: IPriceCalculation) => item.tile_id === "tile001");
   const [useTotalPrice, setTotalPrice] = useState<string>("0.00");
 
   // const calculateTiles = () => {
@@ -34,12 +35,37 @@ const TileColorBoard: React.FC = () => {
     );
     if (courtList) {
       installPrice += courtList.installationPrice / 100;
+      // =======incoming====
+  const priceDetails = {
+    tilePrice: 0,
+    deliveryPrice: 0,
+  };
+
+  const calculateDelivery = () => {
+    let totalQuantity = 0;
+    for (const tile of tileBlocks) {
+      totalQuantity += tile.quantity;
     }
-    const price = tilePrice + deliveryPrice + installPrice;
-    // check price format, type transfer to string
+    const delivery = priceList?.deliveryPrice;
+    priceDetails.deliveryPrice += Math.ceil(totalQuantity / 1000) * (delivery / 100);
+  };
+
+  const calculateTile = () => {
+    const courtSize =
+      (((court.courtAreaXLength + court.borderLength * 2) / 1000) *
+        (court.courtAreaYLength + court.borderLength * 2)) /
+      1000;
+    priceDetails.tilePrice = (priceList?.tilePrice / 100) * courtSize;
+  };
+
+  useEffect(() => {
+    if (data === undefined) return;
+    calculateTile();
+    calculateDelivery();
+    const price = (priceDetails.tilePrice + priceDetails.deliveryPrice) * 1.1;
     const totalPrice = priceFormat(price);
     setTotalPrice(totalPrice);
-  }, [tileBlocks, courts]);
+  }, [tileBlocks, court, data]);
 
   const centers = useMemo(() => {
     if (!tileBlocks) return null;
@@ -80,7 +106,7 @@ const TileColorBoard: React.FC = () => {
             Estimated Budget:
           </Text>
           <Text fontSize="xs" fontWeight="800" marginLeft="6px">
-            From $ {useTotalPrice}
+            From $ {useTotalPrice === "0.00" ? "Loading..." : useTotalPrice}
           </Text>
         </Center>
       </Flex>

@@ -1,5 +1,4 @@
-import { useLayoutEffect, useState } from "react";
-import { Stage, Layer } from "react-konva";
+import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
@@ -8,47 +7,13 @@ import CourtArea from "../BasketballCourt/CourtArea";
 import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
-import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
-import { useStoreSelector } from "@/store/hooks";
-import { useTileCount } from "../../hooks/useTileCount";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
 import DashedLine from "../BasketballCourt/DashedLine";
+import useCourt from "@/hooks/useCourt";
 
 const ProHalfCourt = () => {
-  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
-    (state) => state.courtSize
-  );
-  const stageMargin = 2500;
-  const startPoint = {
-    X: stageMargin,
-    Y: stageMargin,
-  };
-
-  const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
-
-  const courtAndInfo = getCourtAndTileInfo(
-    courtAreaXLength,
-    courtAreaYLength,
-    borderLength,
-    stageMargin,
-    size
-  );
-  const court = courtAndInfo.court;
-
-  useTileCount();
-
-  useLayoutEffect(() => {
-    const checkSize = () => {
-      setSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-    window.addEventListener("resize", checkSize);
-    return () => window.removeEventListener("resize", checkSize);
-  }, []);
-
+  const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
   return (
     <Flex
       position="fixed"
@@ -77,19 +42,22 @@ const ProHalfCourt = () => {
             <Provider store={store}>
               <Layer>
                 <Border
-                  startPoint={startPoint}
+                  startPoint={courtStartPoint}
                   borderLength={borderLength}
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
-                <BorderDimension startPoint={startPoint} borderLength={borderLength} />
-                <CourtDimension startPoint={startPoint} borderLength={borderLength} />
-                <DashedLine startPoint={startPoint} borderLength={borderLength} />
-                <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength} />
-                <ThreePointArea startPoint={startPoint} />
-                <KeyArea startPoint={startPoint} />
-                <CircleArea startPoint={startPoint} />
-                <TopKeyArea startPoint={startPoint} />
+                <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
+                <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
+                <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                  <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                </Group>
+                <CourtArea startPoint={courtStartPoint} courtWidth={courtAreaXLength} />
+                <ThreePointArea startPoint={courtStartPoint} />
+                <KeyArea startPoint={courtStartPoint} />
+                <CircleArea startPoint={courtStartPoint} />
+                <TopKeyArea startPoint={courtStartPoint} />
               </Layer>
             </Provider>
           </Stage>

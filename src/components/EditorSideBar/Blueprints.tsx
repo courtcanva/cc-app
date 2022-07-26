@@ -1,56 +1,25 @@
 import courtList from "../ChangeCourtSize/CourtList";
 import { Image, Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { changeCourtName, CourtNameState } from "@/store/reducer/courtNameSlice";
 import React, { useState } from "react";
-import { useGetCourtsQuery } from "../../redux/api/courtSizeApi";
-import { changeCourtSize, CourtSizeState, CourtSpecMapper } from "@/store/reducer/courtSizeSlice";
 import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
+import { setActiveCourt } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
+import { useStoreSelector } from "@/store/hooks";
 
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
   const [activateCourt, setActivateCourt] = useState<string>("");
-  const { data } = useGetCourtsQuery(0); // arg 0 for satisfying arg requirement of useGetCourtsQuery
+  const { courtsData } = useStoreSelector((state) => state.courtSpecData);
 
   const handleCourtSelecting = (imgUrl: string, courtId: string, courtSizeName: string): void => {
     setActivateCourt(imgUrl);
+    dispatch(setActiveCourt(courtSizeName));
+    const selectedCourt = courtsData.find((item) => item.courtName === courtSizeName);
 
-    const selectedCourt = data.find((item: CourtSpecMapper) => item.name === courtSizeName);
-    const chosenCourt: CourtNameState = {
-      name: `${
-        ((selectedCourt.length + selectedCourt.sideBorderWidth * 2) *
-          (selectedCourt.width + selectedCourt.sideBorderWidth * 2)) /
-        1000000
-      } m² ${selectedCourt.name} (${
-        (selectedCourt.length + selectedCourt.sideBorderWidth * 2) / 1000
-      } m × ${(selectedCourt.width + selectedCourt.sideBorderWidth * 2) / 1000} m)`,
-      courtId: courtId,
-    };
-    dispatch(changeCourtName(chosenCourt));
-
-    const mappedCourtSpecs = data.map((item: CourtSpecMapper) => ({
-      courtId: item._id,
-      courtName: item.name,
-      courtAreaXLength: item.length,
-      courtAreaYLength: item.width,
-      threePointLineToCourtEdgeLength: item.threePointLine,
-      threePointLineRadius: item.threePointRadius,
-      circleRadius: item.centreCircleRadius,
-      keyAreaWidth: item.restrictedAreaLength,
-      keyAreaHeight: item.restrictedAreaWidth,
-      borderLength: item.sideBorderWidth,
-      cornerThreePointLineLength: item.lengthOfCorner,
-      strokeWidth: item.lineBorderWidth,
-    }));
-
-    const courtSpec = mappedCourtSpecs.find(
-      (item: CourtSizeState) => item.courtName === courtSizeName
-    );
-    dispatch(changeCourtSize(courtSpec));
-
-    const tileQtyOfSelectedCourt = mockTileData.find((item) => item.name === selectedCourt.name)
-      ?.tileQty as AreaTileQty[];
+    const tileQtyOfSelectedCourt = mockTileData.find(
+      (item) => item.name === selectedCourt?.courtName
+    )?.tileQty as AreaTileQty[];
     dispatch(changeCourtType(tileQtyOfSelectedCourt));
   };
 

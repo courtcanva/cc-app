@@ -9,7 +9,9 @@ interface CourtDimensionProps {
   borderLength: number;
 }
 const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint, borderLength }) => {
-  const { courtAreaXLength, courtAreaYLength } = useStoreSelector((state) => state.courtSize);
+  const { courtAreaXLength, courtAreaYLength } = useStoreSelector(
+    (state) => state.courtSpecData.activeCourt
+  );
   const { ruler } = useStoreSelector((state) => state.rulerControl);
   const dimensionColor = borderLength < MIN_DIMENSION_BOX ? "black" : "white";
   const borderSize = borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : borderLength;

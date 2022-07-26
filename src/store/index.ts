@@ -1,6 +1,4 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import courtReducer from "./reducer/courtSizeSlice";
-import courtNameReducer from "./reducer/courtNameSlice";
 import userReducer from "./reducer/userSlice";
 import tileReducer from "./reducer/tileSlice";
 import courtColorReducer from "./reducer/courtColorSlice";
@@ -11,12 +9,11 @@ import designNameReducer from "./reducer/designNameSlice";
 import paintBucketReducer from "./reducer/paintBucketSlice";
 import priceBarReducer from "./reducer/priceBarSlice";
 import areaTileQtyReducer from "./reducer/areaTileQtySlice";
+import courtSpecDataReducer from "./reducer/courtSpecDataSlice";
 
 export const makeStore = () =>
   configureStore({
     reducer: {
-      courtSize: courtReducer,
-      courtName: courtNameReducer,
       tile: tileReducer,
       priceBar: priceBarReducer,
       courtColor: courtColorReducer,
@@ -24,6 +21,7 @@ export const makeStore = () =>
       rulerControl: rulerControlReducer,
       designName: designNameReducer,
       paintBucket: paintBucketReducer,
+      courtSpecData: courtSpecDataReducer,
       [courtsApi.reducerPath]: courtsApi.reducer,
       [priceApi.reducerPath]: priceApi.reducer,
       areaTileQty: areaTileQtyReducer,

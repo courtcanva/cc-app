@@ -19,26 +19,35 @@ import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
-import { changeBorderLength } from "@/store/reducer/courtSizeSlice";
 import { useEffect, useState } from "react";
-import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
+import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
+import { getCourtNameString, updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
+import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
 
 const TopBar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { name: courtName } = useStoreSelector((state) => state.courtName);
-  const { selectedColor } = useStoreSelector((state) => state.courtColor);
-  const borderLength = useStoreSelector((state) => state.courtSize.borderLength);
-  const [sliderValue, setSliderValue] = useState(borderLength / 1000);
+  const { onOpen } = useDisclosure();
   const dispatch = useDispatch();
+  const open = () => dispatch(usePaintBucket(true));
+  const close = () => dispatch(usePaintBucket(false));
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
+  const { paintPopover } = useStoreSelector((state) => state.paintBucket);
+  const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
+  const nameString = getCourtNameString(selectedCourt);
+  const borderLength = selectedCourt.borderLength;
+  const [sliderValue, setSliderValue] = useState(borderLength / 1000);
 
   useEffect(() => setSliderValue(borderLength / 1000), [borderLength]);
 
   const handleChange = (val: number) => {
     setSliderValue(val);
-    dispatch(changeBorderLength(val * 1000));
-  };
-  const handleSelectedColor = () => {
-    dispatch(changeSelectedColor("none"));
+    dispatch(updateBorderLength(val * 1000));
+    const borderTileQty =
+      2 *
+        (Math.ceil(selectedCourt.courtAreaXLength / 300) +
+          Math.ceil(selectedCourt.courtAreaYLength / 300)) *
+        Math.ceil((val * 1000) / 300) +
+      4 * Math.pow(Math.ceil((val * 1000) / 300), 2);
+    dispatch(updateBorderTileQty(borderTileQty));
   };
 
   return (
@@ -62,13 +71,13 @@ const TopBar = () => {
           textOverflow="ellipsis"
           marginLeft="8"
         >
-          {courtName}
+          {nameString}
         </Text>
       </Flex>
 
       {/* center */}
       <Flex alignItems="center" gap={{ base: "0", lg: "5" }}>
-        <Popover onClose={handleSelectedColor} closeOnBlur={false}>
+        <Popover isOpen={paintPopover} onOpen={open} onClose={close}>
           <PopoverTrigger>
             <IconButton
               aria-label="Rb"
@@ -116,10 +125,11 @@ const TopBar = () => {
           defaultValue={sliderValue}
           value={sliderValue}
           min={0}
-          max={1.8}
-          step={0.3}
+          max={2.0}
+          step={0.1}
           maxWidth="40"
           minWidth="30"
+          isDisabled={selectedCourt.courtName === "Pro Full Court"}
           onChange={(val: number) => handleChange(val)}
         >
           <SliderMark
@@ -145,7 +155,7 @@ const TopBar = () => {
             boxShadow="none"
           ></SliderThumb>
         </Slider>
-        <Text fontSize="lg">1.8</Text>
+        <Text fontSize="lg">2</Text>
       </Flex>
 
       {/* right */}

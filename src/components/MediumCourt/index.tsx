@@ -1,67 +1,26 @@
 import { Stage, Layer, Group, Line } from "react-konva";
-import { useLayoutEffect, useState } from "react";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
-import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
-import { useStoreSelector } from "@/store/hooks";
-import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
-import { useTileCount } from "../../hooks/useTileCount";
 import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
 import CourtArea from "../BasketballCourt/CourtArea";
+import DashedLine from "../BasketballCourt/DashedLine";
+import useCourt from "@/hooks/useCourt";
 
 const MediumCourt = () => {
   const {
     courtAreaXLength,
     courtAreaYLength,
-    threePointLineRadius,
-    threePointLineToCourtEdgeLength,
     borderLength,
-  } = useStoreSelector((state) => state.courtSize);
-
-  const stageMargin = 2500;
-  // componentsStartPoint is different court area start point
-  const componentsStartPoint = {
-    X: stageMargin,
-    Y:
-      -(
-        (threePointLineRadius + threePointLineToCourtEdgeLength) * 2 -
-        (courtAreaYLength + stageMargin * 2)
-      ) / 2,
-  };
-  const courtStartPoint = {
-    X: stageMargin,
-    Y: stageMargin,
-  };
-
-  const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
-
-  const courtAndInfo = getCourtAndTileInfo(
-    courtAreaXLength,
-    courtAreaYLength,
-    borderLength,
+    court,
     stageMargin,
-    size
-  );
-  const court = courtAndInfo.court;
-
-  useTileCount();
-
-  useLayoutEffect(() => {
-    const checkSize = () => {
-      setSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-    window.addEventListener("resize", checkSize);
-    return () => window.removeEventListener("resize", checkSize);
-  }, []);
-
+    courtStartPoint,
+    componentsStartPoint,
+  } = useCourt();
   return (
     <Flex
       position="fixed"
@@ -97,6 +56,17 @@ const MediumCourt = () => {
                 />
                 <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
+                <Line
+                  points={[2500, 2500, 12500, 2520, 12500, 9500, 2500, 9500]}
+                  stroke="white"
+                  strokeWidth={140}
+                  visible
+                  closed
+                />
+                <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                  <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                </Group>
                 <Group
                   clipFunc={(ctx: any) => {
                     ctx.beginPath();
@@ -109,14 +79,6 @@ const MediumCourt = () => {
                   <KeyArea startPoint={componentsStartPoint} />
                   <TopKeyArea startPoint={componentsStartPoint} />
                 </Group>
-                {/* create a line divide border and court  */}
-                <Line
-                  points={[2500, 2500, 12500, 2520, 12500, 9500, 2500, 9500]}
-                  stroke="white"
-                  strokeWidth={courtWhiteLine}
-                  visible
-                  closed
-                />
               </Layer>
             </Provider>
           </Stage>
