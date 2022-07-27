@@ -62,7 +62,7 @@ const NavigationBar = () => {
     localStorage.removeItem("UserInfo");
     setLoginData(null);
   };
- 
+
   const handleUndo = () => {
     dispatch(ActionCreators.undo());
   };

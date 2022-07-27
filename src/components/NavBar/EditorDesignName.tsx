@@ -11,19 +11,13 @@ import { BiPencil } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
 import { changeDesignName } from "@/store/reducer/courtSpecDataSlice";
-import checkName from "@/utils/checkName";
-import { useState } from "react";
 
 const DesignName = () => {
   const designName = useStoreSelector((state) => state.courtSpecData.activeCourt.designName);
-  const designNames = useStoreSelector((state) => state.designName.nameList);
-  const [useDesignName, setDesignName] = useState(designName);
   const dispatch = useDispatch();
 
   const handleNameChange = (editedName: string) => {
-    setDesignName(editedName);
-    const nameCheck = checkName(editedName, designNames);
-    nameCheck === "blank" ? (setDesignName(designName)) : (dispatch(changeDesignName(editedName)));
+    dispatch(changeDesignName(editedName));
   };
 
   const EditableControls = () => {
@@ -44,7 +38,7 @@ const DesignName = () => {
         color="white"
         textAlign="center"
         isPreviewFocusable={false}
-        value={useDesignName}
+        value={designName}
         display="flex"
         alignItems="center"
         onChange={(editedName) => handleNameChange(editedName)}

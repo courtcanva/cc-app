@@ -13,7 +13,11 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
-import { getDesignData, useAddDesignMutation, useUpdateDesignMutation } from "@/redux/api/designApi";
+import {
+  getDesignData,
+  useAddDesignMutation,
+  useUpdateDesignMutation,
+} from "@/redux/api/designApi";
 import { ITileColor } from "@/interfaces/design";
 import { designMapping, saveDesignMapping } from "@/utils/designMapping";
 import { useDispatch } from "react-redux";
@@ -49,8 +53,8 @@ const SaveBoard: React.FC = () => {
     designName: courtData.designName,
     tileColor: tiles,
     courtSize: mappedcourtSize,
-  }
-  
+  };
+
   const errorMessage = (nameCheck: string) => {
     switch (nameCheck) {
       case "existed":
@@ -65,7 +69,7 @@ const SaveBoard: React.FC = () => {
         return " is already existed.";
     }
   };
-  
+
   const mappedDesignData = async () => {
     const design = await getDesignData("user123");
     const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(design.data);
