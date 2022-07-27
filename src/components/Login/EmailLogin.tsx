@@ -77,20 +77,20 @@ export default function EmailLogin(props: Props) {
   return (
     <>
       <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
-      <ModalHeader width="100%">
+      <ModalHeader width="100%" marginTop="-20px">
         <Flex flexDir="column" alignItems="center" width="100%">
           <Icon width="240px" height="180px" viewBox="120 0 600 600" role="logo">
             <MainLogoSvg />
           </Icon>
-          <Divider />
-          <Text fontSize="md" marginTop="20px">
+          <Text fontSize="md" marginTop="10px">
             Continue with Email
           </Text>
+          <Divider />      
         </Flex>
       </ModalHeader>
-      <ModalBody width="100%" marginBottom="20px">
+      <ModalBody width="100%" marginTop="10px" marginBottom="30px">
         <FormControl display="flex" flexDirection="column">
-          <FormLabel size="4px" color={isValidEmail ? "black" : "red.500"}>
+          <FormLabel fontSize="sm" color={isValidEmail ? "black" : "red.500"}>
             {isValidEmail ? "Enter your email address!" : "Please enter a valid email!"}
           </FormLabel>
           <Input

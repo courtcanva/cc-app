@@ -15,7 +15,7 @@ import {
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import ModalOperator from "../ModalOperater";
 import useAuthRequest from "../helpers/authRequest";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateUserInfo } from "@/store/reducer/userSlice";
 
@@ -31,18 +31,25 @@ type Props = {
   initialRef: React.MutableRefObject<null>;
 };
 const EmailVerification: React.FC<Props> = (props: Props) => {
-  const { userEmail, nextStep, onClose, setStep, prevStep, userId, validation, updateLoginData } =
-    props;
-  const [otp, setOtp] = useState("");
-  const { verifyOTP, resendOTP } = useAuthRequest();
   const toast = useToast();
+  const [otp, setOtp] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [timer, setTimer] = useState(60)
   const dispatch = useDispatch();
+  const { verifyOTP, resendOTP } = useAuthRequest();
+  const { userEmail, nextStep, onClose, setStep, prevStep, userId, validation, updateLoginData } = props;
+  const CODELENGTH = 6;
+  
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    resetTimer()
+    if(otp.length < CODELENGTH){
+      setErrorMessage("Please Input a 6 digit number!")
+      return
+    }
     try {
       const { data } = await verifyOTP(userId, otp);
       if (data.tokens) {
-        //  Store user data into local storage after verification, equals login
         localStorage.setItem("UserInfo", JSON.stringify(data));
         dispatch(updateUserInfo(data));
         updateLoginData(data);
@@ -62,6 +69,7 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
   };
 
   const handleResend = async () => {
+    if(timer >0) return;
     try {
       await resendOTP(userId, userEmail);
     } catch (err) {
@@ -72,11 +80,24 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
       });
     }
   };
-
+  const handleOtpInput = (value: string) => {
+    const verificationCode = value.length > CODELENGTH? value.substring(0, 6) : value;
+    setOtp(verificationCode)
+  }
   const handleCloseModal = () => {
     setStep(1);
     onClose();
   };
+  const resetTimer = () => setTimer(60);
+
+  const x = setInterval(() => {
+    if( timer < 1) {
+      clearInterval(x)
+    }else {
+      setTimer(timer => timer - 1)
+    }
+  }, 1000)
+   
   return (
     <>
       <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
@@ -86,10 +107,13 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
             <MainLogoSvg />
           </Icon>
           <Text fontSize="sm" textAlign="center">
-            Please enter the 4-digit code sent to
+            Please enter the 6-digit code sent to
             <Text color="brand.secondary">{userEmail}</Text>
           </Text>
           <Divider />
+          <Text fontSize="md" color="red.500">
+            {errorMessage}
+          </Text>
         </Flex>
       </ModalHeader>
       <ModalBody>
@@ -102,15 +126,14 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
           }}
           onSubmit={handleSubmit}
         >
-          <FormControl width="5rem" isRequired>
+          <FormControl width="100px" isRequired>
             <Input
               name="verifyCode"
               type="number"
-              htmlSize={4}
-              width="5rem"
+              // fontSize="1rem"
               textAlign="center"
               value={otp}
-              onChange={(event) => setOtp(event?.currentTarget.value)}
+              onChange={(event) => handleOtpInput(event?.currentTarget.value)}
             />
           </FormControl>
           <Button variant="shareBtn" width="300px" marginTop="20px" onClick={handleSubmit}>
@@ -118,19 +141,20 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
           </Button>
         </form>
       </ModalBody>
-      <ModalFooter marginBottom="20px">
+      <ModalFooter marginBottom="20px" display="flex" flexDirection="column">
         <Text fontSize="10px">
-          Did not receive the email?
-          {/* TODO: make resend UI with counting down and e.g. "re-sent" */}
-          <Link
-            href="#"
-            textDecoration="underline"
-            _hover={{ color: "fontcolor.tertiary" }}
-            onClick={handleResend}
-          >
-            Resend
-          </Link>
+          Did not receive the email? You can resend it in {timer} { timer >= 1? "seconds": "second" }
         </Text>
+        <Link
+          href="#"
+          fontSize="xs"
+          textDecoration="underline"
+          cursor={ timer >= 1? "not-allowed" : "pointer"}
+          _hover={ timer >= 1? { color: "black" } : { color: "brand.secondary" }}
+          onClick={handleResend}
+        >
+          Resend
+        </Link>
       </ModalFooter>
     </>
   );

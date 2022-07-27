@@ -61,7 +61,7 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
   return (
     <>
       <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
-      <ModalHeader>
+      <ModalHeader width="100%" marginTop="-20px">
         <Flex flexDir="column" alignItems="center">
           <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">
             <MainLogoSvg />

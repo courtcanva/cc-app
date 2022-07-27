@@ -44,7 +44,7 @@ const Register: React.FC<Props> = (props: Props) => {
       return;
     }
     if (password !== confirmPassword) {
-      setErrorMessage("Password does not match password!");
+      setErrorMessage("Password does not match!");
       return;
     }
     try {
@@ -76,7 +76,7 @@ const Register: React.FC<Props> = (props: Props) => {
   return (
     <>
       <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
-      <ModalHeader width="100%">
+      <ModalHeader width="100%" marginTop="-20px">
         <Flex flexDir="column" alignItems="center">
           <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">
             <MainLogoSvg />
