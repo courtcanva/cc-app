@@ -8,8 +8,6 @@ import {
   Divider,
   FormControl,
   Input,
-  FormHelperText,
-  FormErrorMessage,
   useToast,
   FormLabel,
 } from "@chakra-ui/react";
@@ -85,7 +83,7 @@ export default function EmailLogin(props: Props) {
             <MainLogoSvg />
           </Icon>
           <Divider />
-          <Text fontSize="xl" marginTop="20px">
+          <Text fontSize="md" marginTop="20px">
             Continue with Email
           </Text>
         </Flex>

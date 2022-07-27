@@ -16,6 +16,7 @@ import React, { useState } from "react";
 import PwdInputGroup from "./PwdInputGroup";
 import ModalOperator from "./ModalOperater";
 import useAuthRequest from "./helpers/authRequest";
+import { repeat } from "lodash";
 
 type Props = {
   nextStep: () => void;
@@ -33,10 +34,19 @@ const Register: React.FC<Props> = (props: Props) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const { userRegister } = useAuthRequest();
   const toast = useToast();
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (firstName === "" || lastName === "" || password === "" || confirmPassword === "") {
+      setErrorMessage("Please fill all felids with asterisk!");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setErrorMessage("Password does not match password!");
+      return;
+    }
     try {
       const userInfo = {
         email: userEmail,
@@ -76,6 +86,9 @@ const Register: React.FC<Props> = (props: Props) => {
             <Text color="brand.secondary">{userEmail}</Text>
           </Text>
           <Divider />
+          <Text fontSize="md" color="red.500">
+            {errorMessage}
+          </Text>
         </Flex>
       </ModalHeader>
       <ModalBody>

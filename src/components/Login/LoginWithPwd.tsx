@@ -57,7 +57,6 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
     } catch (err) {
       setIsLoginFail(true);
     }
-
   };
   return (
     <>
@@ -72,16 +71,14 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
             <Text color="brand.secondary">{userEmail}</Text>
           </Text>
           <Divider />
-          <Text size="4px" color={isLoginFail ? "red.500" : "black"}>
+          <Text fontSize="md" color={isLoginFail ? "red.500" : "black"}>
             {isLoginFail ? "Incorrect Password!" : ""}
           </Text>
         </Flex>
       </ModalHeader>
       <ModalBody>
         <Flex flexDir="column" alignItems="center">
-          <form 
-          style={{ marginBottom: "30px", width: "300px" }} 
-          onSubmit={handleSubmit}>
+          <form style={{ marginBottom: "30px", width: "300px" }} onSubmit={handleSubmit}>
             <PwdInputGroup
               label="Password"
               value={password}
