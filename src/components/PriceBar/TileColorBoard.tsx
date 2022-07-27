@@ -46,19 +46,23 @@ const TileColorBoard: React.FC = () => {
   const centers = useMemo(() => {
     if (!tileBlocks) return null;
 
-    return tileBlocks.map(({ color, quantity }) => (
-      <Center
-        key={color}
-        backgroundColor={color}
-        width={{ base: "40px", lg: "60px", xl: "85px" }}
-        height={{ base: "20px", lg: "25px", xl: "35px" }}
-        fontSize={{ base: "xs", xl: "sm" }}
-        color="white"
-        role="tileBlock"
-      >
-        {quantity}
-      </Center>
-    ));
+    return tileBlocks.map(({ color, quantity }) => {
+      if (quantity !== 0) {
+        return (
+          <Center
+            key={color}
+            backgroundColor={color}
+            width={{ base: "40px", lg: "60px", xl: "85px" }}
+            height={{ base: "20px", lg: "25px", xl: "35px" }}
+            fontSize={{ base: "xs", xl: "sm" }}
+            color="white"
+            role="tileBlock"
+          >
+            {quantity}
+          </Center>
+        );
+      }
+    });
   }, [tileBlocks]);
 
   return (
