@@ -22,6 +22,7 @@ export interface CourtSpecMapper {
 
 export interface CourtSpec {
   courtsData: CourtSizeState[];
+  designsData: CourtSizeState[];
   activeCourt: CourtSizeState;
   isLoading: boolean;
   isError: string;
@@ -29,6 +30,7 @@ export interface CourtSpec {
 
 export const initialState: CourtSpec = {
   courtsData: [],
+  designsData: [],
   activeCourt: {
     courtId: "62c432cfb8a9c5f61f03831f",
     courtName: "Pro Full Court",
@@ -42,7 +44,7 @@ export const initialState: CourtSpec = {
     circleRadius: 1800,
     strokeWidth: 200,
     borderLength: 1000,
-    designName: "Pro Full Court",
+    designName: "Court Canva 1",
   },
   isLoading: true,
   isError: "",
@@ -56,9 +58,8 @@ export const Slice = createSlice({
       state.courtsData = [...action.payload];
       return state;
     },
-
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
+    getDesignsData: (state, action: PayloadAction<CourtSizeState[]>) => {
+      state.designsData = [...action.payload];
       return state;
     },
     setActiveCourt: (state: CourtSpec, action: PayloadAction<string>) => {
@@ -71,14 +72,25 @@ export const Slice = createSlice({
       return state;
     },
     setActiveDesign: (state, action: PayloadAction<string>) => {
-      const index = state.courtsData.findIndex((item) => item.courtId === action.payload);
-      state.activeCourt = state.courtsData[index];
+      const index = state.designsData.findIndex((item) => item.courtId === action.payload);
+      state.activeCourt = state.designsData[index];
+      return state;
+    },
+    changeDesignName: (state: CourtSpec, action: PayloadAction<string>) => {
+      state.activeCourt = { ...state.activeCourt, designName: action.payload };
       return state;
     },
   },
 });
 
-export const { getCourtSpecData, setLoading, setActiveCourt, updateBorderLength, setActiveDesign } = Slice.actions;
+export const {
+  getCourtSpecData,
+  getDesignsData,
+  setActiveCourt,
+  updateBorderLength,
+  setActiveDesign,
+  changeDesignName,
+} = Slice.actions;
 export const courtWhiteLine = initialState.activeCourt.strokeWidth / 3;
 export const dashedWhiteLine = initialState.activeCourt.strokeWidth / 5;
 

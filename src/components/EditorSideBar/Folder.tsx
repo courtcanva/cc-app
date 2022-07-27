@@ -1,47 +1,25 @@
 import { Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
-import { getCourtSpecData, setActiveDesign } from "@/store/reducer/courtSpecDataSlice";
+import { setActiveDesign } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
-import { changeCourtSize } from "@/store/reducer/courtSizeSlice";
-import { useGetDesignQuery } from "@/redux/api/designApi";
-import { IDesign, ICourtColor } from "@/interfaces/design";
-import { designCourtMapping, designTileMapping } from "@/utils/designMapping";
 import { changeTileColor } from "@/store/reducer/tileSlice";
-import { changeDesignNames } from "@/store/reducer/designNameSlice";
 
 const Folder: React.FC = () => {
   const dispatch = useDispatch();
-  const { data } = useGetDesignQuery("user123");
-  const [activateDesign, setActivateDesign] = useState<string>("");
-  const [useCourtColor, setCourtColor] = useState<ICourtColor[]>();
-  const { courtsData } = useStoreSelector((state) => state.courtSpecData);
-  useEffect(() => {
-    if (data === undefined) return;
-    const mappedCourtData = data.map((item: IDesign) => designCourtMapping(item));
-    const mappedtileData = data.map((item: IDesign) => designTileMapping(item));
-    setCourtColor(mappedtileData);
-    dispatch(getCourtSpecData(mappedCourtData));
 
-    const names: string[] = [];
-    for (const courtData of mappedCourtData) {
-      names.push(courtData.designName);
-    }
-    dispatch(changeDesignNames(names));
-  }, [data]);
+  const [activateDesign, setActivateDesign] = useState<string>("");
+  const { designsData } = useStoreSelector((state) => state.courtSpecData);
+  const { designTileList } = useStoreSelector((state) => state.tile.present);
 
   const handleCourtSelecting = (courtId: string): void => {
     setActivateDesign(courtId);
     dispatch(setActiveDesign(courtId));
-    const selectedDesign = courtsData.find((item) => item.courtId === courtId);
-    if (selectedDesign) {
-      dispatch(changeCourtSize(selectedDesign));
-    }
-
-    if (useCourtColor === undefined) return;
-    const selectedDesignColor = useCourtColor.find((item) => item.designId === courtId);
+    const selectedDesign = designsData.find((item) => item.courtId === courtId);
+    if (designTileList === undefined) return;
+    const selectedDesignColor = designTileList.find((item) => item.courtId === courtId);
     if (selectedDesignColor === undefined) return;
     for (const tile of selectedDesignColor.tileColor) {
       const selectedColor = tile.color;
@@ -55,8 +33,8 @@ const Folder: React.FC = () => {
 
   return (
     <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">
-      {courtsData.map((court) => {
-        const { courtId, courtName, designName } = court;
+      {designsData.map((design) => {
+        const { courtId, courtName, designName } = design;
         return (
           <Box
             key={courtId}

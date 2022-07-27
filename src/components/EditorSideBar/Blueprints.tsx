@@ -1,48 +1,20 @@
 import courtList from "../ChangeCourtSize/CourtList";
 import { Image, Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { changeCourtName, CourtNameState } from "@/store/reducer/courtNameSlice";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
-import { CourtSizeState, CourtSpecMapper, getCourtSpecData, setActiveCourt, setLoading } from "@/store/reducer/courtSpecDataSlice";
+import { setActiveCourt } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
-import { useGetCourtsQuery } from "@/redux/api/courtSizeApi";
-import { courtSpecMapping } from "@/utils/courtSpecMapping";
-
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
   const [activateCourt, setActivateCourt] = useState<string>("");
   const { courtsData } = useStoreSelector((state) => state.courtSpecData);
-  const { data, isLoading } = useGetCourtsQuery(0);
-  useEffect(() => {
-    if (data) {
-      const mappedCourtData = data.map((item: CourtSpecMapper) => courtSpecMapping(item));
-      dispatch(getCourtSpecData(mappedCourtData));
-      const initailCourtIndex = mappedCourtData.findIndex(
-        (item: CourtSizeState) => item.courtName === "Pro Full Court"
-      );
-      dispatch(setActiveCourt(mappedCourtData[initailCourtIndex]));
-    }
-    isLoading ? dispatch(setLoading(true)) : dispatch(setLoading(false));
-  }, [data, isLoading]);
 
   const handleCourtSelecting = (imgUrl: string, courtId: string, courtSizeName: string): void => {
     setActivateCourt(imgUrl);
     dispatch(setActiveCourt(courtSizeName));
     const selectedCourt = courtsData.find((item) => item.courtName === courtSizeName);
-    if (selectedCourt) {
-      // dispatch(changeCourtSize(selectedCourt));
-      // TODO: delete unused code
-      const { courtAreaXLength, courtAreaYLength, borderLength } = selectedCourt;
-      const courtLength = (courtAreaXLength + borderLength * 2) / 1000;
-      const courtWidth = (courtAreaYLength + borderLength * 2) / 1000;
-      const chosenCourt: CourtNameState = {
-        name: `{${courtLength} * ${courtWidth}} m² ${selectedCourt.courtName} ( ${courtLength} m × ${courtWidth} m)`,
-        courtId: courtId,
-      };
-      dispatch(changeCourtName(chosenCourt));
-    }
 
     const tileQtyOfSelectedCourt = mockTileData.find(
       (item) => item.name === selectedCourt?.courtName

@@ -1,7 +1,7 @@
 import { CourtSpecMapper } from "@/store/reducer/courtSpecDataSlice";
 
-export const courtSpecMapping = (item: CourtSpecMapper) => ({
-  courtId: item._id,
+export const courtSpecMapping = (item: CourtSpecMapper, designName: string, courtId: string) => ({
+  courtId: courtId,
   courtName: item.name,
   courtAreaXLength: item.length,
   courtAreaYLength: item.width,
@@ -13,7 +13,7 @@ export const courtSpecMapping = (item: CourtSpecMapper) => ({
   borderLength: item.sideBorderWidth,
   cornerThreePointLineLength: item.lengthOfCorner,
   strokeWidth: item.lineBorderWidth,
-  // designName: item.description,
+  designName: designName,
 });
 
 

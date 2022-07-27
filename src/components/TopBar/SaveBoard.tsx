@@ -3,7 +3,7 @@ import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import SaveSvg from "@/assets/svg/TopBarSvg/save.svg";
 import { useRef } from "react";
-import { AlertDialogCloseButton, Button, useDisclosure } from "@chakra-ui/react";
+import { AlertDialogCloseButton, Button } from "@chakra-ui/react";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -13,94 +13,109 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
-import {
-  useAddDesignMutation,
-  useGetDesignQuery,
-  useUpdateDesignMutation,
-} from "@/redux/api/designApi";
-import { IDesign, ITileColor } from "@/interfaces/design";
-import { designCourtMapping, designTileMapping, saveDesignMapping } from "@/utils/designMapping";
-import { changeDesignName } from "@/store/reducer/courtSizeSlice";
+import { getDesignData, useAddDesignMutation, useUpdateDesignMutation } from "@/redux/api/designApi";
+import { ITileColor } from "@/interfaces/design";
+import { designMapping, saveDesignMapping } from "@/utils/designMapping";
 import { useDispatch } from "react-redux";
 import checkName from "@/utils/checkName";
-import { addDesignNames, changeDesignNames } from "@/store/reducer/designNameSlice";
-import { getCourtSpecData } from "@/store/reducer/courtSpecDataSlice";
-import axios from "axios";
+import { changeDesignName, getDesignsData } from "@/store/reducer/courtSpecDataSlice";
+import { getDesignsTileData } from "@/store/reducer/tileSlice";
+import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();
-  const { data } = useGetDesignQuery("user123");
-  useEffect(() => {
-    if (data === undefined) return;
-    const mappedCourtData = data.map((item: IDesign) => designCourtMapping(item));
-    const names: string[] = [];
-    for (const courtData of mappedCourtData) {
-      names.push(courtData.designName);
-    }
-    dispatch(changeDesignNames(names));
-    dispatch(getCourtSpecData(mappedCourtData));
-  }, [data]);
-
+  const courtData = useStoreSelector((state) => state.courtSpecData.activeCourt);
   const tileData = useStoreSelector((state) => state.tile.present);
   const designNames = useStoreSelector((state) => state.designName.nameList);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
-  const courtData = useStoreSelector((state) => state.courtSpecData.activeCourt);
-  console.log(designNames);
-  const [nameExist, setNameExist] = useState<boolean>(false);
-  const [save, setSave] = useState<boolean>(false);
+  const [nameCheck, setNameCheck] = useState<string>("exsited");
+  const [useDesignName, setDesignName] = useState(courtData.designName);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [useNameError, setNameError] = useState("");
 
   const tiles: ITileColor[] = [];
   for (const tile of tileData.court) {
     tiles.push(tile);
   }
   const mappedcourtSize = saveDesignMapping(courtData);
-  const saveDesign = {
+
+  useEffect(() => {
+    const nameCheck = checkName(courtData.designName, designNames);
+    setNameCheck(nameCheck);
+  }, [designNames, courtData.designName]);
+
+  const designData = {
     user_id: "user123",
     designName: courtData.designName,
     tileColor: tiles,
     courtSize: mappedcourtSize,
+  }
+  
+  const errorMessage = (nameCheck: string) => {
+    switch (nameCheck) {
+      case "existed":
+        return " is already existed.";
+      case "blank":
+        return "Please enter a name.";
+      case "incorrect":
+        return " is a incorrect name type.";
+      case "passCheck":
+        return "";
+      default:
+        return " is already existed.";
+    }
   };
-
-  useEffect(() => {
-    const nameExist = checkName(courtData.designName, designNames);
-    setNameExist(nameExist);
-  }, [designNames, courtData.designName]);
+  
+  const mappedDesignData = async () => {
+    const design = await getDesignData("user123");
+    const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(design.data);
+    dispatch(getDesignsData(mappedDesignsData));
+    dispatch(getDesignsTileData(mappedtileData));
+    dispatch(changeDesignNameList(MappedNameList));
+  };
 
   const [addDesign] = useAddDesignMutation();
   const [updateDesign] = useUpdateDesignMutation();
+
   const handleSaveDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (nameExist) {
-      await updateDesign({ _id: courtData.courtId, design: saveDesign });
-    } else {
-      await addDesign({ design: saveDesign });
-      dispatch(addDesignNames(saveDesign.designName));
+    if (nameCheck === "existed" || nameCheck === "passCheck") {
+      nameCheck === "existed"
+        ? await updateDesign({ _id: courtData.courtId, design: designData })
+        : await addDesign({ design: designData });
     }
-
-    setNameExist(true);
-    setDesignName(courtData.designName);
-    const design = await axios.get("http://localhost:8080/v1/designs/user123").then((i) => {
-      console.log(`i: `, i);
-    });
-    // const mappedCourtData = design.data.map((item: IDesign) => designCourtMapping(item));
-    // // console.log(mappedCourtData)
-    // dispatch(getCourtSpecData(mappedCourtData));
-    // console.log(mappedCourtData)
+    setNameCheck("existed");
+    mappedDesignData();
   };
-  console.log(useStoreSelector((state) => state.courtSpecData.courtsData));
 
-  const [useDesignName, setDesignName] = React.useState(courtData.designName);
-  const [useNameError, setNameError] = React.useState("");
+  const open = () => {
+    setDialogOpen(true);
+    const nameCheck = checkName(useDesignName, designNames);
+    setNameCheck(nameCheck);
+    setNameError(errorMessage(nameCheck));
+  };
+  const close = () => {
+    setDialogOpen(false);
+    setDesignName(courtData.designName);
+    setNameCheck("existed");
+  };
+
   const handleCheckName = (event: { target: { value: React.SetStateAction<string> } }) => {
     const editedName = String(event.target.value);
     setDesignName(event.target.value);
-    const nameExist = checkName(editedName, designNames);
-    setNameExist(nameExist);
-    setNameError(nameExist ? " is already existed." : "");
-    if (!nameExist) {
-      dispatch(changeDesignName(editedName));
-    }
+    const nameCheck = checkName(editedName, designNames);
+    setNameCheck(nameCheck);
+    setNameError(errorMessage(nameCheck));
+  };
+
+  const handleSaveAsDesign = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    designData.designName = useDesignName;
+    await addDesign({ design: designData });
+    setNameCheck("existed");
+    dispatch(changeDesignName(useDesignName));
+    mappedDesignData();
+    setDialogOpen(false);
   };
 
   return (
@@ -124,13 +139,13 @@ const SaveBoard: React.FC = () => {
           w="115px"
           h="44px"
           justifyContent="left"
-          onClick={onOpen}
+          onClick={open}
         >
           <AlertDialog
             motionPreset="slideInBottom"
             leastDestructiveRef={cancelRef}
-            onClose={onClose}
-            isOpen={isOpen}
+            onClose={close}
+            isOpen={dialogOpen}
             isCentered
           >
             <AlertDialogOverlay />
@@ -150,14 +165,14 @@ const SaveBoard: React.FC = () => {
                 />
               </AlertDialogBody>
               <AlertDialogFooter>
-                <Button ref={cancelRef} onClick={onClose}>
+                <Button ref={cancelRef} onClick={close}>
                   Cancel
                 </Button>
                 <Button
                   colorScheme="red"
                   ml={3}
-                  disabled={nameExist}
-                  onClick={handleSaveDesign}
+                  disabled={nameCheck === "passCheck" ? false : true}
+                  onClick={handleSaveAsDesign}
                   ref={cancelRef}
                 >
                   Save

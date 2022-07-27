@@ -12,8 +12,16 @@ import { useEffect, useState } from "react";
 import { ActionCreators } from "redux-undo";
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
+import { useGetDesignQuery } from "@/redux/api/designApi";
+import { designMapping } from "@/utils/designMapping";
+import { getDesignsData } from "@/store/reducer/courtSpecDataSlice";
+import { getDesignsTileData } from "@/store/reducer/tileSlice";
+import { changeDesignNameList } from "@/store/reducer/designNameSlice";
+import { updateUserInfo } from "@/store/reducer/userSlice";
+import { IDesign } from "@/interfaces/design";
 
 const NavigationBar = () => {
+  const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // Get user info from local storage
@@ -27,6 +35,16 @@ const NavigationBar = () => {
 
   /* istanbul ignore next */
   const [loginData, setLoginData] = useState(getInfo());
+
+  const { data } = useGetDesignQuery("user123");
+
+  useEffect(() => {
+    if (data === undefined) return;
+    const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(data);
+    dispatch(getDesignsData(mappedDesignsData));
+    dispatch(getDesignsTileData(mappedtileData));
+    dispatch(changeDesignNameList(MappedNameList));
+  }, [data]);
 
   /* istanbul ignore next */
   const updateLoginData = (loginData: any) => {
@@ -44,7 +62,7 @@ const NavigationBar = () => {
     localStorage.removeItem("UserInfo");
     setLoginData(null);
   };
-  const dispatch = useDispatch();
+ 
   const handleUndo = () => {
     dispatch(ActionCreators.undo());
   };
