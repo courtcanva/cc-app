@@ -11,6 +11,7 @@ import {
   FormHelperText,
   FormErrorMessage,
   useToast,
+  FormLabel,
 } from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import React, { useEffect, useState } from "react";
@@ -89,57 +90,34 @@ export default function EmailLogin(props: Props) {
           </Text>
         </Flex>
       </ModalHeader>
-      <ModalBody width="100%">
-        <FormControl isInvalid={!isValidEmail}>
-          {isValidEmail ? (
-            <FormHelperText
-              fontSize="11px"
-              textAlign="center"
-              fontWeight="light"
-              marginBottom="15px"
-            >
-              Enter your email address!
-            </FormHelperText>
-          ) : (
-            <FormErrorMessage
-              fontSize="11px"
-              justifyContent="center"
-              fontWeight="light"
-              marginBottom="15px"
-            >
-              Please enter a valid email!
-            </FormErrorMessage>
-          )}
-          <Flex
-            flexDir="column"
-            justifyContent="space-around"
-            gap="25px"
-            paddingX="20px"
-            marginBottom="40px"
+      <ModalBody width="100%" marginBottom="20px">
+        <FormControl display="flex" flexDirection="column">
+          <FormLabel size="4px" color={isValidEmail ? "black" : "red.500"}>
+            {isValidEmail ? "Enter your email address!" : "Please enter a valid email!"}
+          </FormLabel>
+          <Input
+            id="email"
+            type="email"
+            required
+            value={input}
+            ref={initialRef}
+            role="emailInput"
+            onChange={handleInputChange}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit(e);
+              }
+            }}
+          />
+          <Button
+            variant="loginBtn"
+            position="relative"
+            marginY="10px"
+            isDisabled={isEmpty}
+            onClick={handleSubmit}
           >
-            <Input
-              id="email"
-              type="email"
-              required
-              value={input}
-              ref={initialRef}
-              role="emailInput"
-              onChange={handleInputChange}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  handleSubmit(e);
-                }
-              }}
-            />
-            <Button
-              variant="loginBtn"
-              position="relative"
-              isDisabled={isEmpty}
-              onClick={handleSubmit}
-            >
-              <Text>Continue</Text>
-            </Button>
-          </Flex>
+            Continue
+          </Button>
         </FormControl>
       </ModalBody>
     </>

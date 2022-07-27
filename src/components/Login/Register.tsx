@@ -45,12 +45,11 @@ const Register: React.FC<Props> = (props: Props) => {
         lastName,
       };
       const { data } = await userRegister(userInfo);
-      if (data.status === "PENDING") {
-        getUserId(data.data.userId);
-        nextStep();
-      } else {
+      if (data.status !== "PENDING") {
         throw Error("Failed to send email.");
       }
+      getUserId(data.data.userId);
+      nextStep();
     } catch (err) {
       toast({
         title: "network error",

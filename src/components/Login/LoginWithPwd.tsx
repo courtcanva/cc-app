@@ -7,6 +7,8 @@ import {
   Divider,
   Button,
   useToast,
+  FormHelperText,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import React, { useState } from "react";
@@ -27,34 +29,36 @@ type Props = {
 const LoginWithPwd: React.FC<Props> = (props: Props) => {
   const { prevStep, userEmail, onClose, setStep, updateLoginData } = props;
   const [password, setPassword] = useState("");
+  const [isLoginFail, setIsLoginFail] = useState(false);
   const { userLogin } = useAuthRequest();
-  const toast = useToast();
   const dispatch = useDispatch();
 
   const handleCloseModal = () => {
     setStep(1);
     onClose();
   };
+  const handlePassword = (value: string) => {
+    setIsLoginFail(false);
+    setPassword(value);
+  };
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const { data } = await userLogin(userEmail, password);
-      if (data.tokens) {
-        //  Store user data into local storage after logging
-        localStorage.setItem("UserInfo", JSON.stringify(data));
-        dispatch(updateUserInfo(data));
-        updateLoginData(data);
-        onClose();
+      const response = await userLogin(userEmail, password);
+      if (response.status !== 200) {
+        throw Error("Failed to send email.");
       }
+      const data = response.data;
+      localStorage.setItem("UserInfo", JSON.stringify(data));
+      dispatch(updateUserInfo(data));
+      updateLoginData(data);
+      setStep(1);
+      onClose();
     } catch (err) {
-      toast({
-        title: "network error",
-        status: "error",
-        isClosable: true,
-      });
+      setIsLoginFail(true);
     }
-  };
 
+  };
   return (
     <>
       <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
@@ -64,18 +68,24 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
             <MainLogoSvg />
           </Icon>
           <Text fontSize="sm" textAlign="center">
-            Sign up with <br /> {userEmail}
+            Login with
+            <Text color="brand.secondary">{userEmail}</Text>
           </Text>
           <Divider />
+          <Text size="4px" color={isLoginFail ? "red.500" : "black"}>
+            {isLoginFail ? "Incorrect Password!" : ""}
+          </Text>
         </Flex>
       </ModalHeader>
       <ModalBody>
         <Flex flexDir="column" alignItems="center">
-          <form style={{ marginBottom: "30px", width: "300px" }} onSubmit={handleSubmit}>
+          <form 
+          style={{ marginBottom: "30px", width: "300px" }} 
+          onSubmit={handleSubmit}>
             <PwdInputGroup
               label="Password"
               value={password}
-              onChange={(event) => setPassword(event?.currentTarget.value)}
+              onChange={(event) => handlePassword(event?.currentTarget.value)}
             />
             <Button variant="shareBtn" width="300px" marginTop="20px" type="submit">
               Continue Login
