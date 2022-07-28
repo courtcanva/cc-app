@@ -31,5 +31,4 @@ describe("TopBar", () => {
     const downloadButton = screen.getByTestId("download-btn");
     expect(downloadButton).toBeInTheDocument();
   });
-
 });
