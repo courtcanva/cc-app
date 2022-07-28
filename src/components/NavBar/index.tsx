@@ -12,9 +12,11 @@ import { useEffect, useState } from "react";
 import { ActionCreators } from "redux-undo";
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
+import { initialState, updateUserInfo } from "@/store/reducer/userSlice";
 
 const NavigationBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
 
   // Get user info from local storage
   const getInfo = () => {
@@ -43,8 +45,8 @@ const NavigationBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("UserInfo");
     setLoginData(null);
+    dispatch(updateUserInfo(initialState));
   };
-  const dispatch = useDispatch();
   const handleUndo = () => {
     dispatch(ActionCreators.undo());
   };
