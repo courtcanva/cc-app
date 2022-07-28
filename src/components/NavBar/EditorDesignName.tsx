@@ -28,14 +28,12 @@ const DesignName = () => {
   const saveNameChange = () => {
     const nameCheck = checkName(useDesignName, designNames);
     setNameCheck(nameCheck);
-    if ( nameCheck !== "blank")
-    dispatch(changeDesignName(useDesignName));
+    if (nameCheck !== "blank") dispatch(changeDesignName(useDesignName));
   };
-  
 
   const EditableControls = () => {
     const { isEditing, getEditButtonProps } = useEditableControls();
-    return isEditing ? null: (
+    return isEditing ? null : (
       <IconButton
         aria-label="Edit"
         icon={<BiPencil />}
@@ -51,7 +49,7 @@ const DesignName = () => {
         color="white"
         textAlign="center"
         isPreviewFocusable={false}
-        value={nameCheck==="blank"? (designName) : (useDesignName)}
+        value={nameCheck === "blank" ? designName : useDesignName}
         display="flex"
         alignItems="center"
         onChange={(editedName) => handleNameChange(editedName)}
