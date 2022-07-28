@@ -25,6 +25,7 @@ import checkName from "@/utils/checkName";
 import {
   changeDesignName,
   getDesignsData,
+  setActiveDesign,
   setNewDesignActive,
 } from "@/store/reducer/courtSpecDataSlice";
 import { getDesignsTileData } from "@/store/reducer/tileSlice";
@@ -40,6 +41,7 @@ const SaveBoard: React.FC = () => {
   const cancelRef = useRef(null);
   const [nameCheck, setNameCheck] = useState<string>("exsited");
   const [useDesignName, setDesignName] = useState(courtData.designName);
+  const [useCourtId, setCourtId] = useState(courtData.courtId);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [useNameError, setNameError] = useState("");
 
@@ -50,14 +52,15 @@ const SaveBoard: React.FC = () => {
   const mappedcourtSize = saveDesignMapping(courtData);
 
   useEffect(() => {
+    setCourtId(courtData.courtId);
     const nameCheck = checkName(courtData.designName, designNames);
     setNameCheck(nameCheck);
     setDesignName(courtData.designName);
-  }, [designNames, courtData.designName]);
+  }, [designNames, courtData]);
 
   const designData = {
     user_id: "user123",
-    designName: courtData.designName,
+    designName: useDesignName,
     tileColor: tiles,
     courtSize: mappedcourtSize,
   };
@@ -77,7 +80,7 @@ const SaveBoard: React.FC = () => {
   const handleSaveDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (nameCheck === "existed") {
-      await updateDesign({ _id: courtData.courtId, design: designData });
+      await updateDesign({ _id: useCourtId, design: designData });
     }
     if (nameCheck === "passCheck") {
       await addDesign({ design: designData });
