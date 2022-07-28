@@ -52,7 +52,7 @@ const SaveBoard: React.FC = () => {
   useEffect(() => {
     const nameCheck = checkName(courtData.designName, designNames);
     setNameCheck(nameCheck);
-    setDesignName(courtData.designName)
+    setDesignName(courtData.designName);
   }, [designNames, courtData.designName]);
 
   const designData = {
@@ -61,7 +61,7 @@ const SaveBoard: React.FC = () => {
     tileColor: tiles,
     courtSize: mappedcourtSize,
   };
-  
+
   const mappedDesignData = async (designName: string) => {
     const design = await refetchDesignData("user123");
     const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(design.data);
