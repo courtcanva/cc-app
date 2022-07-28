@@ -2,12 +2,16 @@ import React, { useEffect, useState, useRef } from "react";
 import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import SaveSvg from "@/assets/svg/TopBarSvg/save.svg";
-import { AlertDialogCloseButton, AlertDialog,
+import {
+  AlertDialogCloseButton,
+  AlertDialog,
   AlertDialogBody,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogContent,
-  AlertDialogOverlay, Button } from "@chakra-ui/react";
+  AlertDialogOverlay,
+  Button,
+} from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import {
   getDesignData,
