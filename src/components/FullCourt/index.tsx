@@ -1,4 +1,3 @@
-import { useLayoutEffect, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider } from "react-redux";
@@ -9,45 +8,12 @@ import CircleArea from "../BasketballCourt/CircleArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
 import Border from "../BasketballCourt/Border";
 import CourtDimension from "../BasketballCourt/CourtDimension";
-import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
-import { useStoreSelector } from "@/store/hooks";
-import { useTileCount } from "../../hooks/useTileCount";
 import BorderDimension from "../BasketballCourt/BorderDimension";
 import DashedLine from "../BasketballCourt/DashedLine";
+import useCourt from "@/hooks/useCourt";
 
 const FullCourt = () => {
-  const { courtAreaXLength, courtAreaYLength, borderLength } = useStoreSelector(
-    (state) => state.courtSize
-  );
-  const stageMargin = 2500;
-  const startPoint = {
-    X: stageMargin,
-    Y: stageMargin,
-  };
-
-  const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
-
-  const courtAndInfo = getCourtAndTileInfo(
-    courtAreaXLength,
-    courtAreaYLength,
-    borderLength,
-    stageMargin,
-    size
-  );
-  const court = courtAndInfo.court;
-
-  useTileCount();
-
-  useLayoutEffect(() => {
-    const checkSize = () => {
-      setSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-    window.addEventListener("resize", checkSize);
-    return () => window.removeEventListener("resize", checkSize);
-  }, []);
+  const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
 
   return (
     <Flex
@@ -77,28 +43,28 @@ const FullCourt = () => {
             <Provider store={store}>
               <Layer>
                 <Border
-                  startPoint={startPoint}
+                  startPoint={courtStartPoint}
                   borderLength={borderLength}
                   courtAreaXLength={courtAreaXLength}
                   courtAreaYLength={courtAreaYLength}
                 />
-                <CourtDimension startPoint={startPoint} borderLength={borderLength} />
-                <BorderDimension startPoint={startPoint} borderLength={borderLength} />
+                <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
+                <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
                 <Group>
-                  <DashedLine startPoint={startPoint} borderLength={borderLength} />
-                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
-                  <ThreePointArea startPoint={startPoint} />
-                  <KeyArea startPoint={startPoint} />
-                  <CircleArea startPoint={startPoint} />
-                  <TopKeyArea startPoint={startPoint} />
+                  <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                  <CourtArea startPoint={courtStartPoint} courtWidth={courtAreaXLength / 2} />
+                  <ThreePointArea startPoint={courtStartPoint} />
+                  <KeyArea startPoint={courtStartPoint} />
+                  <CircleArea startPoint={courtStartPoint} />
+                  <TopKeyArea startPoint={courtStartPoint} />
                 </Group>
-                <Group scaleX={-1} x={startPoint.X * 2 + courtAreaXLength}>
-                  <DashedLine startPoint={startPoint} borderLength={borderLength} />
-                  <CourtArea startPoint={startPoint} courtWidth={courtAreaXLength / 2} />
-                  <ThreePointArea startPoint={startPoint} />
-                  <KeyArea startPoint={startPoint} />
-                  <CircleArea startPoint={startPoint} />
-                  <TopKeyArea startPoint={startPoint} />
+                <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                  <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                  <CourtArea startPoint={courtStartPoint} courtWidth={courtAreaXLength / 2} />
+                  <ThreePointArea startPoint={courtStartPoint} />
+                  <KeyArea startPoint={courtStartPoint} />
+                  <CircleArea startPoint={courtStartPoint} />
+                  <TopKeyArea startPoint={courtStartPoint} />
                 </Group>
               </Layer>
             </Provider>

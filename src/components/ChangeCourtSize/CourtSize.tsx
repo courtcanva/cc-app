@@ -25,7 +25,7 @@ const CourtSize = () => {
               alignItems="center"
               justifyContent="center"
             >
-              <Image src={imgUrl} objectFit={"contain"} paddingX={{ base: 1, lg: 0 }} />
+              <Image src={imgUrl} objectFit="contain" paddingX={{ base: 1, lg: 0 }} />
             </Box>
             <Box marginTop="2">
               <Text fontSize={{ base: "sm", lg: "md" }}>{courtSizeName}</Text>

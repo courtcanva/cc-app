@@ -1,9 +1,9 @@
 import { Shape } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { courtWhiteLine } from "../../store/reducer/courtSizeSlice";
+import { courtWhiteLine } from "../../store/reducer/courtSpecDataSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
-import { useDispatch } from "react-redux";
-import { changeTileColor, getColor } from "@/store/reducer/tileSlice";
+import { getColor } from "@/store/reducer/tileSlice";
+import { useColorHandler } from "@/hooks/useColorHandler";
 
 interface ThreePointAreaProps {
   startPoint: ICourtStartPoint;
@@ -11,7 +11,7 @@ interface ThreePointAreaProps {
 
 const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
   const { threePointLineToCourtEdgeLength, cornerThreePointLineLength, threePointLineRadius } =
-    useStoreSelector((state) => state.courtSize);
+    useStoreSelector((state) => state.courtSpecData.activeCourt);
   const startPointX = startPoint.X;
   const startPointY = startPoint.Y + threePointLineToCourtEdgeLength;
   const controlPointOneX = startPoint.X + (cornerThreePointLineLength + threePointLineRadius);
@@ -25,11 +25,8 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
 
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
   const threePointAreaColor = getColor("threePoint");
-  const dispatch = useDispatch();
-  const handleColorChange = () => {
-    if (selectedColor === "none") return;
-    dispatch(changeTileColor({ selectedColor, location: "threePoint" }));
-  };
+  const handleColorChange = useColorHandler(selectedColor, "threePoint");
+
   return (
     <Shape
       sceneFunc={(context, shape) => {

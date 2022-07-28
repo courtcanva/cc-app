@@ -19,7 +19,7 @@ const NavigationBar = () => {
   // Get user info from local storage
   const getInfo = () => {
     if (typeof window !== "undefined") {
-      const userInfo = JSON.parse(localStorage.getItem("UserInfos")!);
+      const userInfo = JSON.parse(localStorage.getItem("UserInfo")!);
       return userInfo;
     }
     return;
@@ -70,11 +70,6 @@ const NavigationBar = () => {
             Home
           </Button>
         </Link>
-        <Menu>
-          <MenuButton as={Button} variant="navbarIconBtn">
-            File
-          </MenuButton>
-        </Menu>
         <Flex flex="1" justifyContent="center">
           <IconButton
             aria-label="Revert edit"

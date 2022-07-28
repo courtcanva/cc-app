@@ -13,7 +13,7 @@ interface Props {
   updateLoginData: (data: any) => void;
 }
 
-function LoginModalContent(props: Props) {
+const LoginModalContent = (props: Props) => {
   const initialRef = React.useRef(null);
 
   const { updateLoginData, onClose, isOpen } = props;
@@ -110,13 +110,13 @@ function LoginModalContent(props: Props) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered size={"sm"} initialFocusRef={initialRef}>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered size="sm" initialFocusRef={initialRef}>
       <ModalOverlay />
       <ModalContent display="flex" flexDirection="column" alignItems="center" padding="10px">
         {modalContent()}
       </ModalContent>
     </Modal>
   );
-}
+};
 
 export default LoginModalContent;

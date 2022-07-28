@@ -14,7 +14,7 @@ const render = async (component: ReactNode) => {
   const App = ({ onUpdate, children }: AppProps) => {
     React.useEffect(() => {
       onUpdate(null);
-    });
+    }, [onUpdate]);
     return children as JSX.Element;
   };
 

@@ -1,7 +1,4 @@
-// import { ColorModeScript } from "@chakra-ui/react";
-// Import styled components ServerStyleSheet
 import { ServerStyleSheet } from "styled-components";
-// import theme from "./theme";
 import Document, { DocumentContext, DocumentInitialProps } from "next/document";
 
 export default class MyDocument extends Document {
