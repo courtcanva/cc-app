@@ -15,7 +15,7 @@ import {
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import ModalOperator from "../ModalOperater";
 import useAuthRequest from "../helpers/authRequest";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateUserInfo } from "@/store/reducer/userSlice";
 
@@ -34,18 +34,18 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
   const toast = useToast();
   const [otp, setOtp] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [timer, setTimer] = useState(60)
+  const [timer, setTimer] = useState(60);
   const dispatch = useDispatch();
   const { verifyOTP, resendOTP } = useAuthRequest();
-  const { userEmail, nextStep, onClose, setStep, prevStep, userId, validation, updateLoginData } = props;
+  const { userEmail, nextStep, onClose, setStep, prevStep, userId, validation, updateLoginData } =
+    props;
   const CODELENGTH = 6;
-  
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    resetTimer()
-    if(otp.length < CODELENGTH){
-      setErrorMessage("Please Input a 6 digit number!")
-      return
+    if (otp.length < CODELENGTH) {
+      setErrorMessage("Please Input a 6 digits number!");
+      return;
     }
     try {
       const { data } = await verifyOTP(userId, otp);
@@ -69,7 +69,7 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
   };
 
   const handleResend = async () => {
-    if(timer >0) return;
+    if (timer > 0) return;
     try {
       await resendOTP(userId, userEmail);
     } catch (err) {
@@ -79,25 +79,30 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
         isClosable: true,
       });
     }
+    resetTimer();
   };
   const handleOtpInput = (value: string) => {
-    const verificationCode = value.length > CODELENGTH? value.substring(0, 6) : value;
-    setOtp(verificationCode)
-  }
+    const verificationCode = value.length > CODELENGTH ? value.substring(0, CODELENGTH) : value;
+    setOtp(verificationCode);
+  };
   const handleCloseModal = () => {
     setStep(1);
     onClose();
   };
   const resetTimer = () => setTimer(60);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (timer < 1) {
+        clearInterval(interval);
+        return;
+      }
+      setTimer((timer) => timer - 1);
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [timer]);
 
-  const x = setInterval(() => {
-    if( timer < 1) {
-      clearInterval(x)
-    }else {
-      setTimer(timer => timer - 1)
-    }
-  }, 1000)
-   
   return (
     <>
       <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
@@ -107,7 +112,7 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
             <MainLogoSvg />
           </Icon>
           <Text fontSize="sm" textAlign="center">
-            Please enter the 6-digit code sent to
+            Please enter the 6 digits code sent to
             <Text color="brand.secondary">{userEmail}</Text>
           </Text>
           <Divider />
@@ -143,14 +148,15 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
       </ModalBody>
       <ModalFooter marginBottom="20px" display="flex" flexDirection="column">
         <Text fontSize="10px">
-          Did not receive the email? You can resend it in {timer} { timer >= 1? "seconds": "second" }
+          Did not receive the email? You can resend it in {timer}
+          {timer >= 1 ? " seconds" : " second"}
         </Text>
         <Link
           href="#"
           fontSize="xs"
           textDecoration="underline"
-          cursor={ timer >= 1? "not-allowed" : "pointer"}
-          _hover={ timer >= 1? { color: "black" } : { color: "brand.secondary" }}
+          cursor={timer >= 1 ? "not-allowed" : "pointer"}
+          _hover={timer >= 1 ? { color: "black" } : { color: "brand.secondary" }}
           onClick={handleResend}
         >
           Resend

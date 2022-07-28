@@ -85,7 +85,7 @@ export default function EmailLogin(props: Props) {
           <Text fontSize="md" marginTop="10px">
             Continue with Email
           </Text>
-          <Divider />      
+          <Divider />
         </Flex>
       </ModalHeader>
       <ModalBody width="100%" marginTop="10px" marginBottom="30px">
