@@ -53,7 +53,7 @@ const DesignName = () => {
         color="white"
         textAlign="center"
         isPreviewFocusable={false}
-        value={(nameCheck === "blank" || nameCheck === "existed") ? designName : useDesignName}
+        value={nameCheck === "blank" || nameCheck === "existed" ? designName : useDesignName}
         display="flex"
         alignItems="center"
         onChange={(editedName) => handleNameChange(editedName)}

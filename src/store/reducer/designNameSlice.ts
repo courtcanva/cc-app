@@ -16,9 +16,9 @@ export const designNameSlice = createSlice({
       return { ...state, nameList: action.payload };
     },
     deleteNameFromList: (state: DesignNameState, action: PayloadAction<string>) => {
-      const deleteName = state.nameList.filter(function(names){
+      const deleteName = state.nameList.filter(function (names) {
         return names !== action.payload;
-    });
+      });
       state.nameList = deleteName;
     },
   },

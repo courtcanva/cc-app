@@ -23,7 +23,13 @@ import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
-import { getCourtNameString, updateBorderLength, getDesignsData, setDefaultCourt, defaultCourt } from "@/store/reducer/courtSpecDataSlice";
+import {
+  getCourtNameString,
+  updateBorderLength,
+  getDesignsData,
+  setDefaultCourt,
+  defaultCourt,
+} from "@/store/reducer/courtSpecDataSlice";
 import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
 import { downloadToPDF } from "@/utils/printPDF";
 import { refetchDesignData, useDeleteDesignMutation } from "@/redux/api/designApi";
@@ -39,14 +45,12 @@ const TopBar = () => {
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const { paintPopover } = useStoreSelector((state) => state.paintBucket);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
-  
+
   const nameString = getCourtNameString(selectedCourt);
   const borderLength = selectedCourt.borderLength;
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
 
-
   useEffect(() => setSliderValue(borderLength / 1000), [borderLength]);
-
 
   const handleChange = (val: number) => {
     setSliderValue(val);
@@ -63,7 +67,7 @@ const TopBar = () => {
   const [deleteDesign] = useDeleteDesignMutation();
   const handleDeleteDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if(selectedCourt.courtId === "") return
+    if (selectedCourt.courtId === "") return;
     await deleteDesign(selectedCourt.courtId);
     dispatch(setDefaultCourt(defaultCourt));
     const design = await refetchDesignData("user123");

@@ -22,14 +22,18 @@ import { ITileColor } from "@/interfaces/design";
 import { designMapping, saveDesignMapping } from "@/utils/designMapping";
 import { useDispatch } from "react-redux";
 import checkName from "@/utils/checkName";
-import { changeDesignName, getDesignsData, setNewDesignActive } from "@/store/reducer/courtSpecDataSlice";
+import {
+  changeDesignName,
+  getDesignsData,
+  setNewDesignActive,
+} from "@/store/reducer/courtSpecDataSlice";
 import { getDesignsTileData } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();
   const courtData = useStoreSelector((state) => state.courtSpecData.activeCourt);
-  
+
   const tileData = useStoreSelector((state) => state.tile.present);
   const designNames = useStoreSelector((state) => state.designName.nameList);
   const cancelRef = useRef(null);
@@ -43,8 +47,6 @@ const SaveBoard: React.FC = () => {
     tiles.push(tile);
   }
   const mappedcourtSize = saveDesignMapping(courtData);
-
-
 
   useEffect(() => {
     const nameCheck = checkName(courtData.designName, designNames);
@@ -90,10 +92,10 @@ const SaveBoard: React.FC = () => {
     if (nameCheck === "existed") {
       await updateDesign({ _id: courtData.courtId, design: designData });
     }
-    if (nameCheck === "passCheck" ) {
+    if (nameCheck === "passCheck") {
       await addDesign({ design: designData });
       setNameCheck("existed");
-  }
+    }
     mappedDesignData(designData.designName);
   };
 
