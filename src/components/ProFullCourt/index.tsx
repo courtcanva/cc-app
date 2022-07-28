@@ -58,7 +58,6 @@ const ProFullCourt = () => {
                   <CircleArea startPoint={courtStartPoint} />
                   <TopKeyArea startPoint={courtStartPoint} />
                 </Group>
-                {/* right side of pro full court(flip the left side)*/}
                 <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
                   <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
                   <CourtArea courtWidth={courtAreaXLength / 2} startPoint={courtStartPoint} />

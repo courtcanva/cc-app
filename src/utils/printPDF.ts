@@ -14,7 +14,7 @@ export const downloadToPDF = async () => {
 
   const getDesignName = () => {
     const state = store.getState();
-    return state.designName.name;
+    return state.courtSpecData.activeCourt.designName;
   };
   const designName = getDesignName() as string;
   const court = window.document.querySelector("canvas") as HTMLCanvasElement;
@@ -31,7 +31,7 @@ export const downloadToPDF = async () => {
     const center = (pageWidth / 2) as number;
     const marginX = (pageWidth - canvasWidth) / 2;
     const marginY = (pageHeight - canvasHeight) / 2;
-    const linkUrl = environment.designURL as string;
+    const linkUrl = "design.courtcanva.com";
     const link = linkUrl.includes("https://")
       ? (linkUrl.split("https://").pop() as string)
       : linkUrl;

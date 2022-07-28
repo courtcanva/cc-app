@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import Blueprints from "./Blueprints";
+import Folder from "./Folder";
 interface Props {
   iconClickTitle: string;
   onHandleCloseClick: () => void;
@@ -10,6 +11,8 @@ const showContainerItem = (iconClickTitle: string) => {
   switch (iconClickTitle) {
     case "Blueprints":
       return <Blueprints />;
+    case "Folder":
+      return <Folder />;
     default:
       return iconClickTitle;
   }

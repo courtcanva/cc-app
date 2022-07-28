@@ -14,6 +14,8 @@ import { TriangleUpIcon } from "@chakra-ui/icons";
 import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import ColorBoard from "./ColorBoard";
+import SaveBoard from "./SaveBoard";
+import DownloadSvg from "@/assets/svg/TopBarSvg/download.svg";
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
@@ -21,17 +23,29 @@ import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
-import { getCourtNameString, updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
+import {
+  getCourtNameString,
+  updateBorderLength,
+  getDesignsData,
+  setDefaultCourt,
+  defaultCourt,
+} from "@/store/reducer/courtSpecDataSlice";
 import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
+import { downloadToPDF } from "@/utils/printPDF";
+import { refetchDesignData, useDeleteDesignMutation } from "@/redux/api/designApi";
+import { designMapping } from "@/utils/designMapping";
+import { getDesignsTileData } from "@/store/reducer/tileSlice";
+import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 
 const TopBar = () => {
-  const { onOpen } = useDisclosure();
+  const { isOpen, onToggle, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const open = () => dispatch(usePaintBucket(true));
   const close = () => dispatch(usePaintBucket(false));
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const { paintPopover } = useStoreSelector((state) => state.paintBucket);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
+
   const nameString = getCourtNameString(selectedCourt);
   const borderLength = selectedCourt.borderLength;
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
@@ -48,6 +62,19 @@ const TopBar = () => {
         Math.ceil((val * 1000) / 300) +
       4 * Math.pow(Math.ceil((val * 1000) / 300), 2);
     dispatch(updateBorderTileQty(borderTileQty));
+  };
+
+  const [deleteDesign] = useDeleteDesignMutation();
+  const handleDeleteDesign = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (selectedCourt.courtId === "") return;
+    await deleteDesign(selectedCourt.courtId);
+    dispatch(setDefaultCourt(defaultCourt));
+    const design = await refetchDesignData("user123");
+    const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(design.data);
+    dispatch(getDesignsData(mappedDesignsData));
+    dispatch(getDesignsTileData(mappedtileData));
+    dispatch(changeDesignNameList(MappedNameList));
   };
 
   return (
@@ -161,20 +188,39 @@ const TopBar = () => {
       {/* right */}
       <Flex alignItems="center" justifyContent="flex-end" marginRight="3" gap="2">
         <IconButton
-          aria-label="DocSvg"
+          aria-label="Download"
           colorScheme="transparent"
-          icon={<DocSvg />}
-          variant="editorFooterIconBtn"
-          onClick={onOpen}
+          icon={<DownloadSvg />}
+          variant="witheBackgroundIconBtn"
+          onClick={downloadToPDF}
           data-testid="download-btn"
         />
+
         {/* TODO: Fetch user login state from redux */}
         {/* <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent> */}
+        <Popover isOpen={isOpen} onClose={onClose}>
+          <PopoverTrigger>
+            <IconButton
+              aria-label="DocSvg"
+              colorScheme="transparent"
+              icon={<DocSvg />}
+              variant="witheBackgroundIconBtn"
+              onClick={onToggle}
+              data-testid="save-btn"
+            />
+          </PopoverTrigger>
+          <PopoverContent w="140px" h="110px">
+            <PopoverBody>
+              <SaveBoard />
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
         <IconButton
           aria-label="Bin"
           colorScheme="transparent"
           icon={<BinSvg />}
           variant="editorFooterIconBtn"
+          onClick={handleDeleteDesign}
         />
       </Flex>
     </SimpleGrid>
