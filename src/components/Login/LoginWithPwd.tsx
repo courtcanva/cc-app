@@ -1,15 +1,4 @@
-import {
-  ModalHeader,
-  ModalBody,
-  Flex,
-  Text,
-  Icon,
-  Divider,
-  Button,
-  useToast,
-  FormHelperText,
-  FormErrorMessage,
-} from "@chakra-ui/react";
+import { ModalHeader, ModalBody, Flex, Text, Icon, Divider, Button } from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import React, { useState } from "react";
 import PwdInputGroup from "./PwdInputGroup";
@@ -19,18 +8,20 @@ import { useDispatch } from "react-redux";
 import { updateUserInfo } from "@/store/reducer/userSlice";
 type Props = {
   prevStep: () => void;
+  nextStep: () => void;
   onClose: any;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   initialRef: React.MutableRefObject<null>;
   updateLoginData: (data: any) => void;
+  getUserId: (userId: string) => void;
 };
 
 const LoginWithPwd: React.FC<Props> = (props: Props) => {
-  const { prevStep, userEmail, onClose, setStep, updateLoginData } = props;
+  const { prevStep, nextStep, userEmail, onClose, setStep, updateLoginData, getUserId } = props;
   const [password, setPassword] = useState("");
   const [isLoginFail, setIsLoginFail] = useState(false);
-  const { userLogin } = useAuthRequest();
+  const { userLogin, resendOTP } = useAuthRequest();
   const dispatch = useDispatch();
 
   const handleCloseModal = () => {
@@ -46,14 +37,20 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
     try {
       const response = await userLogin(userEmail, password);
       if (response.status !== 200) {
-        throw Error("Failed to send email.");
+        throw Error("Failed to login.");
       }
       const data = response.data;
-      localStorage.setItem("UserInfo", JSON.stringify(data));
-      dispatch(updateUserInfo(data));
-      updateLoginData(data);
-      setStep(1);
-      onClose();
+      getUserId(data.userId);
+      if (data.isActivated) {
+        localStorage.setItem("UserInfo", JSON.stringify(data));
+        dispatch(updateUserInfo(data));
+        updateLoginData(data);
+        setStep(1);
+        onClose();
+      } else {
+        await resendOTP(data.userId, userEmail);
+        nextStep();
+      }
     } catch (err) {
       setIsLoginFail(true);
     }

@@ -64,9 +64,13 @@ const LoginModalContent = (props: Props) => {
             setStep={setStep}
             onClose={onClose}
             prevStep={prevStep}
+            nextStep={nextStep}
             initialRef={initialRef}
             userEmail={userEmail}
             updateLoginData={updateLoginData}
+            getUserId={(userId: string) => {
+              setUserId(userId);
+            }}
           />
         ) : (
           <Register
