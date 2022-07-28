@@ -7,22 +7,35 @@ import {
   Input,
   EditableInput,
 } from "@chakra-ui/react";
-import { BiPencil } from "react-icons/bi";
+import { BiPencil, BiStar } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
 import { changeDesignName } from "@/store/reducer/courtSpecDataSlice";
+import { useState } from "react";
+import checkName from "@/utils/checkName";
 
 const DesignName = () => {
   const designName = useStoreSelector((state) => state.courtSpecData.activeCourt.designName);
+  const designNames = useStoreSelector((state) => state.designName.nameList);
+  const [useDesignName, setDesignName] = useState(designName);
+  const [nameCheck, setNameCheck] = useState<string>("passCheck");
   const dispatch = useDispatch();
 
   const handleNameChange = (editedName: string) => {
-    dispatch(changeDesignName(editedName));
+    setDesignName(editedName);
   };
+
+  const saveNameChange = () => {
+    const nameCheck = checkName(useDesignName, designNames);
+    setNameCheck(nameCheck);
+    if ( nameCheck !== "blank")
+    dispatch(changeDesignName(useDesignName));
+  };
+  
 
   const EditableControls = () => {
     const { isEditing, getEditButtonProps } = useEditableControls();
-    return isEditing ? null : (
+    return isEditing ? null: (
       <IconButton
         aria-label="Edit"
         icon={<BiPencil />}
@@ -38,10 +51,11 @@ const DesignName = () => {
         color="white"
         textAlign="center"
         isPreviewFocusable={false}
-        value={designName}
+        value={nameCheck==="blank"? (designName) : (useDesignName)}
         display="flex"
         alignItems="center"
         onChange={(editedName) => handleNameChange(editedName)}
+        onSubmit={() => saveNameChange()}
       >
         <EditablePreview p="0px 8px" />
         <Input as={EditableInput} />

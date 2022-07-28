@@ -25,7 +25,7 @@ const EditorSideBar = () => {
   return (
     <Box>
       <Box bg="background.primary" w="98px" h="100vh" position="fixed" top="72px" left="0">
-        <Flex align="end" justify="center" flexDirection="column" maxW="98px">
+        <Flex alignItems="center" justifyContent="center" flexDirection="column" maxW="98px" h="calc(100% - 305px)" >
           {sideBarItemList.map((item) => (
             <EditorSideBarItem
               key={item.title}

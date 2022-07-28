@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "..";
 import { useStoreSelector } from "../hooks";
 import undoable from "redux-undo";
 export interface TileState {
