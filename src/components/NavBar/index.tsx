@@ -17,8 +17,6 @@ import { designMapping } from "@/utils/designMapping";
 import { getDesignsData } from "@/store/reducer/courtSpecDataSlice";
 import { getDesignsTileData } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
-import { updateUserInfo } from "@/store/reducer/userSlice";
-import { IDesign } from "@/interfaces/design";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();

@@ -15,12 +15,15 @@ export const designNameSlice = createSlice({
     changeDesignNameList: (state: DesignNameState, action: PayloadAction<string[]>) => {
       return { ...state, nameList: action.payload };
     },
-    addDesignNameList: (state: DesignNameState, action: PayloadAction<string>) => {
-      state.nameList.push(action.payload);
+    deleteNameFromList: (state: DesignNameState, action: PayloadAction<string>) => {
+      const deleteName = state.nameList.filter(function(names){
+        return names !== action.payload;
+    });
+      state.nameList = deleteName;
     },
   },
 });
 
-export const { changeDesignNameList, addDesignNameList } = designNameSlice.actions;
+export const { changeDesignNameList, deleteNameFromList } = designNameSlice.actions;
 
 export default designNameSlice.reducer;

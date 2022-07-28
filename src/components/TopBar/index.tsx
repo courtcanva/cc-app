@@ -23,9 +23,13 @@ import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
-import { getCourtNameString, updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
+import { getCourtNameString, updateBorderLength, getDesignsData, setDefaultCourt, defaultCourt } from "@/store/reducer/courtSpecDataSlice";
 import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
 import { downloadToPDF } from "@/utils/printPDF";
+import { refetchDesignData, useDeleteDesignMutation } from "@/redux/api/designApi";
+import { designMapping } from "@/utils/designMapping";
+import { getDesignsTileData } from "@/store/reducer/tileSlice";
+import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 
 const TopBar = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
@@ -35,11 +39,14 @@ const TopBar = () => {
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const { paintPopover } = useStoreSelector((state) => state.paintBucket);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
+  
   const nameString = getCourtNameString(selectedCourt);
   const borderLength = selectedCourt.borderLength;
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
 
+
   useEffect(() => setSliderValue(borderLength / 1000), [borderLength]);
+
 
   const handleChange = (val: number) => {
     setSliderValue(val);
@@ -51,6 +58,19 @@ const TopBar = () => {
         Math.ceil((val * 1000) / 300) +
       4 * Math.pow(Math.ceil((val * 1000) / 300), 2);
     dispatch(updateBorderTileQty(borderTileQty));
+  };
+
+  const [deleteDesign] = useDeleteDesignMutation();
+  const handleDeleteDesign = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if(selectedCourt.courtId === "") return
+    await deleteDesign(selectedCourt.courtId);
+    dispatch(setDefaultCourt(defaultCourt));
+    const design = await refetchDesignData("user123");
+    const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(design.data);
+    dispatch(getDesignsData(mappedDesignsData));
+    dispatch(getDesignsTileData(mappedtileData));
+    dispatch(changeDesignNameList(MappedNameList));
   };
 
   return (
@@ -196,6 +216,7 @@ const TopBar = () => {
           colorScheme="transparent"
           icon={<BinSvg />}
           variant="editorFooterIconBtn"
+          onClick={handleDeleteDesign}
         />
       </Flex>
     </SimpleGrid>

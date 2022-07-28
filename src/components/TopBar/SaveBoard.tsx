@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import {
-  getDesignData,
+  refetchDesignData,
   useAddDesignMutation,
   useUpdateDesignMutation,
 } from "@/redux/api/designApi";
@@ -22,13 +22,14 @@ import { ITileColor } from "@/interfaces/design";
 import { designMapping, saveDesignMapping } from "@/utils/designMapping";
 import { useDispatch } from "react-redux";
 import checkName from "@/utils/checkName";
-import { changeDesignName, getDesignsData } from "@/store/reducer/courtSpecDataSlice";
+import { changeDesignName, getDesignsData, setNewDesignActive } from "@/store/reducer/courtSpecDataSlice";
 import { getDesignsTileData } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();
   const courtData = useStoreSelector((state) => state.courtSpecData.activeCourt);
+  
   const tileData = useStoreSelector((state) => state.tile.present);
   const designNames = useStoreSelector((state) => state.designName.nameList);
   const cancelRef = useRef(null);
@@ -42,6 +43,8 @@ const SaveBoard: React.FC = () => {
     tiles.push(tile);
   }
   const mappedcourtSize = saveDesignMapping(courtData);
+
+
 
   useEffect(() => {
     const nameCheck = checkName(courtData.designName, designNames);
@@ -70,12 +73,13 @@ const SaveBoard: React.FC = () => {
     }
   };
 
-  const mappedDesignData = async () => {
-    const design = await getDesignData("user123");
+  const mappedDesignData = async (designName: string) => {
+    const design = await refetchDesignData("user123");
     const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));
     dispatch(getDesignsTileData(mappedtileData));
     dispatch(changeDesignNameList(MappedNameList));
+    dispatch(setNewDesignActive(designName));
   };
 
   const [addDesign] = useAddDesignMutation();
@@ -83,13 +87,14 @@ const SaveBoard: React.FC = () => {
 
   const handleSaveDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (nameCheck === "existed" || nameCheck === "passCheck") {
-      nameCheck === "existed"
-        ? await updateDesign({ _id: courtData.courtId, design: designData })
-        : await addDesign({ design: designData });
+    if (nameCheck === "existed") {
+      await updateDesign({ _id: courtData.courtId, design: designData });
     }
-    setNameCheck("existed");
-    mappedDesignData();
+    if (nameCheck === "passCheck" ) {
+      await addDesign({ design: designData });
+      setNameCheck("existed");
+  }
+    mappedDesignData(designData.designName);
   };
 
   const open = () => {
@@ -118,7 +123,7 @@ const SaveBoard: React.FC = () => {
     await addDesign({ design: designData });
     setNameCheck("existed");
     dispatch(changeDesignName(useDesignName));
-    mappedDesignData();
+    mappedDesignData(designData.designName);
     setDialogOpen(false);
   };
 

@@ -31,7 +31,7 @@ export const downloadToPDF = async () => {
     const center = (pageWidth / 2) as number;
     const marginX = (pageWidth - canvasWidth) / 2;
     const marginY = (pageHeight - canvasHeight) / 2;
-    const linkUrl = environment.designURL as string;
+    const linkUrl = "design.courtcanva.com";
     const link = linkUrl.includes("https://")
       ? (linkUrl.split("https://").pop() as string)
       : linkUrl;

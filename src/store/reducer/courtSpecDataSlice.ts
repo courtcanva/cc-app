@@ -32,7 +32,7 @@ export const initialState: CourtSpec = {
   courtsData: [],
   designsData: [],
   activeCourt: {
-    courtId: "62c432cfb8a9c5f61f03831f",
+    courtId: "",
     courtName: "Pro Full Court",
     courtAreaXLength: 28000,
     courtAreaYLength: 15000,
@@ -76,8 +76,18 @@ export const Slice = createSlice({
       state.activeCourt = state.designsData[index];
       return state;
     },
+    setNewDesignActive: (state, action: PayloadAction<string>) => {
+      const index = state.designsData.findIndex((item) => item.designName === action.payload);
+      state.activeCourt = state.designsData[index];
+      return state;
+    },
     changeDesignName: (state: CourtSpec, action: PayloadAction<string>) => {
       state.activeCourt = { ...state.activeCourt, designName: action.payload };
+      return state;
+    },
+
+    setDefaultCourt: (state: CourtSpec, action: PayloadAction<CourtSizeState>) => {
+      state.activeCourt = action.payload;
       return state;
     },
   },
@@ -89,11 +99,14 @@ export const {
   setActiveCourt,
   updateBorderLength,
   setActiveDesign,
+  setNewDesignActive,
   changeDesignName,
+  setDefaultCourt,
 } = Slice.actions;
 export const courtWhiteLine = initialState.activeCourt.strokeWidth / 3;
 export const dashedWhiteLine = initialState.activeCourt.strokeWidth / 5;
 
+export const defaultCourt = initialState.activeCourt;
 export const courtSpecData = (state: RootState) => state.courtSpecData;
 export const getCourtNameString = (activeCourt: CourtSizeState) => {
   const { courtAreaXLength, courtAreaYLength, courtName } = activeCourt;

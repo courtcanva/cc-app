@@ -7,11 +7,11 @@ import {
   Input,
   EditableInput,
 } from "@chakra-ui/react";
-import { BiPencil, BiStar } from "react-icons/bi";
+import { BiPencil } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
 import { changeDesignName } from "@/store/reducer/courtSpecDataSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import checkName from "@/utils/checkName";
 
 const DesignName = () => {
@@ -21,6 +21,10 @@ const DesignName = () => {
   const [nameCheck, setNameCheck] = useState<string>("passCheck");
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    setDesignName(designName);
+  }, [designName]);
+
   const handleNameChange = (editedName: string) => {
     setDesignName(editedName);
   };
@@ -28,7 +32,7 @@ const DesignName = () => {
   const saveNameChange = () => {
     const nameCheck = checkName(useDesignName, designNames);
     setNameCheck(nameCheck);
-    if (nameCheck !== "blank") dispatch(changeDesignName(useDesignName));
+    if (nameCheck === "passCheck") dispatch(changeDesignName(useDesignName));
   };
 
   const EditableControls = () => {
@@ -49,7 +53,7 @@ const DesignName = () => {
         color="white"
         textAlign="center"
         isPreviewFocusable={false}
-        value={nameCheck === "blank" ? designName : useDesignName}
+        value={(nameCheck === "blank" || nameCheck === "existed") ? designName : useDesignName}
         display="flex"
         alignItems="center"
         onChange={(editedName) => handleNameChange(editedName)}

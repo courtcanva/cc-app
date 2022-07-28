@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
 import { setActiveDesign } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
@@ -9,10 +9,15 @@ import { changeTileColor } from "@/store/reducer/tileSlice";
 
 const Folder: React.FC = () => {
   const dispatch = useDispatch();
-
-  const [activateDesign, setActivateDesign] = useState<string>("");
   const { designsData } = useStoreSelector((state) => state.courtSpecData);
+  const { activeCourt } = useStoreSelector((state) => state.courtSpecData);
+  const [activateDesign, setActivateDesign] = useState<string>();
   const { designTileList } = useStoreSelector((state) => state.tile.present);
+
+  useEffect(() => {
+    if (designsData === undefined) return;
+    setActivateDesign(activeCourt.courtId);
+  }, [designsData]);
 
   const handleCourtSelecting = (courtId: string): void => {
     setActivateDesign(courtId);
