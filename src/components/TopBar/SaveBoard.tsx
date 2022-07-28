@@ -29,6 +29,7 @@ import {
 } from "@/store/reducer/courtSpecDataSlice";
 import { getDesignsTileData } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
+import errorMessage from "@/utils/setNameErrorMessage";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ const SaveBoard: React.FC = () => {
   useEffect(() => {
     const nameCheck = checkName(courtData.designName, designNames);
     setNameCheck(nameCheck);
+    setDesignName(courtData.designName)
   }, [designNames, courtData.designName]);
 
   const designData = {
@@ -59,22 +61,7 @@ const SaveBoard: React.FC = () => {
     tileColor: tiles,
     courtSize: mappedcourtSize,
   };
-
-  const errorMessage = (nameCheck: string) => {
-    switch (nameCheck) {
-      case "existed":
-        return " is already existed.";
-      case "blank":
-        return "Please enter a name.";
-      case "incorrect":
-        return " is a incorrect name type.";
-      case "passCheck":
-        return "";
-      default:
-        return " is already existed.";
-    }
-  };
-
+  
   const mappedDesignData = async (designName: string) => {
     const design = await refetchDesignData("user123");
     const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(design.data);
