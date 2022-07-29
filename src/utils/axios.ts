@@ -13,7 +13,7 @@ import omit from "lodash/omit";
 interface IConfig {
   method: string;
   params?: string;
-  requestData?: string;
+  requestData?: Record<string, unknown>;
   token?: string;
   headers?: { contentType: string };
 }

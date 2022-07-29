@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { ActionCreators } from "redux-undo";
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
+import { initialState, updateUserInfo } from "@/store/reducer/userSlice";
 import { useGetDesignQuery } from "@/redux/api/designApi";
 import { designMapping } from "@/utils/designMapping";
 import { getDesignsData } from "@/store/reducer/courtSpecDataSlice";
@@ -59,8 +60,8 @@ const NavigationBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("UserInfo");
     setLoginData(null);
+    dispatch(updateUserInfo(initialState));
   };
-
   const handleUndo = () => {
     dispatch(ActionCreators.undo());
   };
