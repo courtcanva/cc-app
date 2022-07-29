@@ -8,20 +8,22 @@ import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
 import EditorDesignName from "@/components/NavBar/EditorDesignName";
 import LoginModalContent from "../Login";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ActionCreators } from "redux-undo";
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
 import { initialState, updateUserInfo } from "@/store/reducer/userSlice";
 import { useGetDesignQuery } from "@/redux/api/designApi";
 import { designMapping } from "@/utils/designMapping";
-import { getDesignsData } from "@/store/reducer/courtSpecDataSlice";
+import { defaultCourt, getDesignsData, setDefaultCourt } from "@/store/reducer/courtSpecDataSlice";
 import { getDesignsTileData } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const userData = useStoreSelector((state) => state.user);
+  
 
   // Get user info from local storage
   const getInfo = () => {
@@ -31,11 +33,21 @@ const NavigationBar = () => {
     }
     return;
   };
-
-  /* istanbul ignore next */
   const [loginData, setLoginData] = useState(getInfo());
 
-  const { data } = useGetDesignQuery("user123");
+  useMemo(() => {
+    if (loginData === null) {
+      dispatch(updateUserInfo(initialState));
+      dispatch(setDefaultCourt(defaultCourt));
+      dispatch(getDesignsData([]));
+      return;
+    }
+    dispatch(updateUserInfo(loginData));
+  }, [loginData]);
+
+  /* istanbul ignore next */
+  
+  const { data } = useGetDesignQuery(userData.googleId);
 
   useEffect(() => {
     if (data === undefined) return;
@@ -60,7 +72,6 @@ const NavigationBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("UserInfo");
     setLoginData(null);
-    dispatch(updateUserInfo(initialState));
   };
   const handleUndo = () => {
     dispatch(ActionCreators.undo());

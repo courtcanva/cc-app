@@ -42,6 +42,7 @@ const TopBar = () => {
   const dispatch = useDispatch();
   const open = () => dispatch(usePaintBucket(true));
   const close = () => dispatch(usePaintBucket(false));
+  const userData = useStoreSelector((state) => state.user);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const { paintPopover } = useStoreSelector((state) => state.paintBucket);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
@@ -49,8 +50,12 @@ const TopBar = () => {
   const nameString = getCourtNameString(selectedCourt);
   const borderLength = selectedCourt.borderLength;
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
+  const [useUserId, setUserId] = useState(userData.googleId);
 
-  useEffect(() => setSliderValue(borderLength / 1000), [borderLength]);
+  useEffect(() => {
+    setSliderValue(borderLength / 1000);
+    setUserId(userData.googleId);
+  }, [borderLength, userData]);
 
   const handleChange = (val: number) => {
     setSliderValue(val);
@@ -70,7 +75,8 @@ const TopBar = () => {
     if (selectedCourt.courtId === "") return;
     await deleteDesign(selectedCourt.courtId);
     dispatch(setDefaultCourt(defaultCourt));
-    const design = await refetchDesignData("user123");
+    const design = await refetchDesignData(useUserId);
+    if (design.data === undefined) return;
     const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));
     dispatch(getDesignsTileData(mappedtileData));

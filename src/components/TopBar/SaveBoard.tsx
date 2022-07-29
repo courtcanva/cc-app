@@ -25,7 +25,6 @@ import checkName from "@/utils/checkName";
 import {
   changeDesignName,
   getDesignsData,
-  setActiveDesign,
   setNewDesignActive,
 } from "@/store/reducer/courtSpecDataSlice";
 import { getDesignsTileData } from "@/store/reducer/tileSlice";
@@ -34,39 +33,46 @@ import errorMessage from "@/utils/setNameErrorMessage";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();
+  const userData = useStoreSelector((state) => state.user);
   const courtData = useStoreSelector((state) => state.courtSpecData.activeCourt);
-
-  const tileData = useStoreSelector((state) => state.tile.present);
+  const tileData = useStoreSelector((state) => state.tile.present.court);
+  
+  
   const designNames = useStoreSelector((state) => state.designName.nameList);
   const cancelRef = useRef(null);
   const [nameCheck, setNameCheck] = useState<string>("exsited");
   const [useDesignName, setDesignName] = useState(courtData.designName);
   const [useCourtId, setCourtId] = useState(courtData.courtId);
+  const [useUserId, setUserId] = useState("user...");
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [useNameError, setNameError] = useState("");
 
   const tiles: ITileColor[] = [];
-  for (const tile of tileData.court) {
+  for (const tile of tileData) {
     tiles.push(tile);
   }
+  
   const mappedcourtSize = saveDesignMapping(courtData);
 
   useEffect(() => {
+    setUserId(userData.googleId);
     setCourtId(courtData.courtId);
     const nameCheck = checkName(courtData.designName, designNames);
     setNameCheck(nameCheck);
     setDesignName(courtData.designName);
-  }, [designNames, courtData]);
+  }, [designNames, courtData, userData]);
 
   const designData = {
-    user_id: "user123",
+    user_id: useUserId,
     designName: useDesignName,
     tileColor: tiles,
     courtSize: mappedcourtSize,
   };
+  
 
   const mappedDesignData = async (designName: string) => {
-    const design = await refetchDesignData("user123");
+    const design = await refetchDesignData(useUserId);
+    if (design.data === undefined) return;
     const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));
     dispatch(getDesignsTileData(mappedtileData));
@@ -83,6 +89,7 @@ const SaveBoard: React.FC = () => {
       await updateDesign({ _id: useCourtId, design: designData });
     }
     if (nameCheck === "passCheck") {
+      console.log(designData);
       await addDesign({ design: designData });
       setNameCheck("existed");
     }
