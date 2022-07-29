@@ -20,8 +20,8 @@ const customJestConfig = {
     "^@/store/(.*)$": "<rootDir>/src/store/$1",
     "^@/pages/(.*)$": "<rootDir>/src/pages/$1",
     "^@/utils/(.*)$": "<rootDir>/src/utils/$1",
-    "^@/redux/(.*)$": "<rootDir>/src/redux/$1",
     "^@/hooks/(.*)$": "<rootDir>/src/hooks/$1",
+    "^@/redux/(.*)$": "<rootDir>/src/redux/$1",
     "^konva": "konva/konva",
   },
   collectCoverageFrom: [

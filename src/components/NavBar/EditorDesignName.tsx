@@ -1,4 +1,3 @@
-import { changeDesignName } from "@/store/reducer/designNameSlice";
 import {
   Flex,
   IconButton,
@@ -8,15 +7,34 @@ import {
   Input,
   EditableInput,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { BiStar, BiPencil } from "react-icons/bi";
+import { BiPencil } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
+import { changeDesignName } from "@/store/reducer/courtSpecDataSlice";
+import { useEffect, useState } from "react";
+import checkName from "@/utils/checkName";
 
 const DesignName = () => {
-  const { name: initialDesignName } = useStoreSelector((state) => state.designName);
-  const [value, setValue] = useState(initialDesignName);
+  const designName = useStoreSelector((state) => state.courtSpecData.activeCourt.designName);
+  const designNames = useStoreSelector((state) => state.designName.nameList);
+  const [useDesignName, setDesignName] = useState(designName);
+  const [nameCheck, setNameCheck] = useState<string>("passCheck");
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setDesignName(designName);
+  }, [designName]);
+
+  const handleNameChange = (editedName: string) => {
+    setDesignName(editedName);
+  };
+
+  const saveNameChange = () => {
+    const nameCheck = checkName(useDesignName, designNames);
+    setNameCheck(nameCheck);
+    if (nameCheck === "passCheck") dispatch(changeDesignName(useDesignName));
+  };
+
   const EditableControls = () => {
     const { isEditing, getEditButtonProps } = useEditableControls();
     return isEditing ? null : (
@@ -35,13 +53,12 @@ const DesignName = () => {
         color="white"
         textAlign="center"
         isPreviewFocusable={false}
-        onChange={(value) => setValue(value)}
-        value={value}
+        value={nameCheck === "blank" || nameCheck === "existed" ? designName : useDesignName}
         display="flex"
         alignItems="center"
-        onSubmit={() => dispatch(changeDesignName(value))}
+        onChange={(editedName) => handleNameChange(editedName)}
+        onSubmit={() => saveNameChange()}
       >
-        <IconButton aria-label="Star" icon={<BiStar />} variant="navbarIconBtn" />
         <EditablePreview p="0px 8px" />
         <Input as={EditableInput} />
         <EditableControls />

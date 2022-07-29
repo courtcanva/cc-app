@@ -1,5 +1,5 @@
 import EditorSideBarItem from "./EditorSideBarItem";
-import sideBarItemList from "./const";
+import sideBarItemList from "./SideBarItemList";
 import { Box, Flex } from "@chakra-ui/react";
 import EditorSideBarContent from "./EditorSideBarContent";
 import { useState } from "react";
@@ -25,7 +25,13 @@ const EditorSideBar = () => {
   return (
     <Box>
       <Box bg="background.primary" w="98px" h="100vh" position="fixed" top="72px" left="0">
-        <Flex align="center" justify="center" flexDirection="column" maxW="98px">
+        <Flex
+          alignItems="center"
+          justifyContent="center"
+          flexDirection="column"
+          maxW="98px"
+          h="calc(100% - 305px)"
+        >
           {sideBarItemList.map((item) => (
             <EditorSideBarItem
               key={item.title}

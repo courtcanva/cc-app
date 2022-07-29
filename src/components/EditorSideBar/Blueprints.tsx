@@ -6,7 +6,6 @@ import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
 import { setActiveCourt } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
-
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
   const [activateCourt, setActivateCourt] = useState<string>("");

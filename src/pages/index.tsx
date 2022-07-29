@@ -22,6 +22,8 @@ const SmallCourt = dynamic(() => import("@/components/SmallCourt"), { ssr: false
 
 const Home: NextPage = () => {
   const { courtName } = useStoreSelector((state) => state.courtSpecData.activeCourt);
+  const designName = useStoreSelector((state) => state.courtSpecData.activeCourt.designName);
+  const courtId = useStoreSelector((state) => state.courtSpecData.activeCourt.courtId);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const dispatch = useDispatch();
 
@@ -29,10 +31,12 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (data) {
-      const mappedCourtData = data.map((item: CourtSpecMapper) => courtSpecMapping(item));
+      const mappedCourtData = data.map((item: CourtSpecMapper) =>
+        courtSpecMapping(item, designName, courtId)
+      );
       dispatch(getCourtSpecData(mappedCourtData));
     }
-  }, [data]);
+  }, [data, designName]);
 
   const ref = useRef(null); // click outside the canvas area can stop color changing
   const handleClickOutside = () => {

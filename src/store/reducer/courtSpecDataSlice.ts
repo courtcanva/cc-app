@@ -14,6 +14,7 @@ export interface CourtSizeState {
   circleRadius: number;
   strokeWidth: number;
   borderLength: number;
+  designName: string;
 }
 export interface CourtSpecMapper {
   [prop: string]: string;
@@ -21,6 +22,7 @@ export interface CourtSpecMapper {
 
 export interface CourtSpec {
   courtsData: CourtSizeState[];
+  designsData: CourtSizeState[];
   activeCourt: CourtSizeState;
   isLoading: boolean;
   isError: string;
@@ -28,8 +30,9 @@ export interface CourtSpec {
 
 export const initialState: CourtSpec = {
   courtsData: [],
+  designsData: [],
   activeCourt: {
-    courtId: "62c432cfb8a9c5f61f03831f",
+    courtId: "",
     courtName: "Pro Full Court",
     courtAreaXLength: 28000,
     courtAreaYLength: 15000,
@@ -41,6 +44,7 @@ export const initialState: CourtSpec = {
     circleRadius: 1800,
     strokeWidth: 200,
     borderLength: 1000,
+    designName: "Court Canva 1",
   },
   isLoading: true,
   isError: "",
@@ -54,6 +58,10 @@ export const Slice = createSlice({
       state.courtsData = [...action.payload];
       return state;
     },
+    getDesignsData: (state, action: PayloadAction<CourtSizeState[]>) => {
+      state.designsData = [...action.payload];
+      return state;
+    },
     setActiveCourt: (state: CourtSpec, action: PayloadAction<string>) => {
       const index = state.courtsData.findIndex((item) => item.courtName === action.payload);
       state.activeCourt = state.courtsData[index];
@@ -63,13 +71,42 @@ export const Slice = createSlice({
       state.activeCourt = { ...state.activeCourt, borderLength: action.payload };
       return state;
     },
+    setActiveDesign: (state, action: PayloadAction<string>) => {
+      const index = state.designsData.findIndex((item) => item.courtId === action.payload);
+      state.activeCourt = state.designsData[index];
+      return state;
+    },
+    setNewDesignActive: (state, action: PayloadAction<string>) => {
+      const index = state.designsData.findIndex((item) => item.designName === action.payload);
+      state.activeCourt = state.designsData[index];
+      return state;
+    },
+    changeDesignName: (state: CourtSpec, action: PayloadAction<string>) => {
+      state.activeCourt = { ...state.activeCourt, designName: action.payload };
+      return state;
+    },
+
+    setDefaultCourt: (state: CourtSpec, action: PayloadAction<CourtSizeState>) => {
+      state.activeCourt = action.payload;
+      return state;
+    },
   },
 });
 
-export const { getCourtSpecData, setActiveCourt, updateBorderLength } = Slice.actions;
+export const {
+  getCourtSpecData,
+  getDesignsData,
+  setActiveCourt,
+  updateBorderLength,
+  setActiveDesign,
+  setNewDesignActive,
+  changeDesignName,
+  setDefaultCourt,
+} = Slice.actions;
 export const courtWhiteLine = initialState.activeCourt.strokeWidth / 3;
 export const dashedWhiteLine = initialState.activeCourt.strokeWidth / 5;
 
+export const defaultCourt = initialState.activeCourt;
 export const courtSpecData = (state: RootState) => state.courtSpecData;
 export const getCourtNameString = (activeCourt: CourtSizeState) => {
   const { courtAreaXLength, courtAreaYLength, courtName } = activeCourt;

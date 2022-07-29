@@ -31,19 +31,4 @@ describe("TopBar", () => {
     const downloadButton = screen.getByTestId("download-btn");
     expect(downloadButton).toBeInTheDocument();
   });
-
-  it("Should render login Modal when click button", async () => {
-    renderWithMockedProvider(<TopBar />);
-    const downloadButton = screen.getByTestId("download-btn");
-    fireEvent.click(downloadButton);
-    // TODO: Add this test after finishing putting user login status into redux
-    // const loginModalDialog = screen.getByRole("dialog");
-    // await waitFor(() => expect(loginModalDialog).toBeVisible());
-  });
-
-  // it("Should dispatch the action", () => {
-  //   const dispatchAction = jest.spyOn(redux, "useDispatch");
-  //   render(<TopBar />);
-  //   expect(dispatchAction).toHaveBeenCalled();
-  // });
 });
