@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import mockPlateColors from "./colorList";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import { useDispatch } from "react-redux";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
+import { useGetCourtColorQuery } from "@/redux/api/courtColorAPi";
 
 const ColorBoard: React.FC = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,9 @@ const ColorBoard: React.FC = () => {
     dispatch(usePaintBucket(false));
   };
 
+  const { data } = useGetCourtColorQuery(0);
+
+  console.log(data);
   return (
     <Flex
       wrap="wrap"
