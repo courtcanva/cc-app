@@ -32,7 +32,7 @@ import {
 } from "@/store/reducer/courtSpecDataSlice";
 import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
 import { downloadToPDF } from "@/utils/printPDF";
-import { refetchDesignData, useDeleteDesignMutation } from "@/redux/api/designApi";
+import { fetchDesignData, useDeleteDesignMutation } from "@/redux/api/designApi";
 import { designMapping } from "@/utils/designMapping";
 import { getDesignsTileData } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
@@ -75,7 +75,7 @@ const TopBar = () => {
     if (selectedCourt.courtId === "") return;
     await deleteDesign(selectedCourt.courtId);
     dispatch(setDefaultCourt(defaultCourt));
-    const design = await refetchDesignData(useUserId);
+    const design = await fetchDesignData(useUserId);
     if (design.data === undefined) return;
     const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));

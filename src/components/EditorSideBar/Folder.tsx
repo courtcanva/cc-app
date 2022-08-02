@@ -6,11 +6,12 @@ import { setActiveDesign } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
 import { changeTileColor } from "@/store/reducer/tileSlice";
+import LoginModalContent from "../Login";
 
 const Folder: React.FC = () => {
   const dispatch = useDispatch();
-  const { designsData } = useStoreSelector((state) => state.courtSpecData);
-  const { activeCourt } = useStoreSelector((state) => state.courtSpecData);
+  const { designsData, activeCourt } = useStoreSelector((state) => state.courtSpecData);
+  const userData = useStoreSelector((state) => state.user);
   const [activateDesign, setActivateDesign] = useState<string>(activeCourt.courtId);
   const { designTileList } = useStoreSelector((state) => state.tile.present);
 
@@ -37,31 +38,33 @@ const Folder: React.FC = () => {
   };
 
   return (
-    <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">
-      {designsData.map((design) => {
-        const { courtId, courtName, designName } = design;
-        return (
-          <Box
-            key={courtId}
-            width="230px"
-            height="25px"
-            background="transparent"
-            marginBottom="18px"
-            display="flex"
-            alignItems="center"
-            justifyContent="left"
-            cursor="pointer"
-            fontSize="14"
-            onClick={() => handleCourtSelecting(courtId)}
-            data-testid={courtId}
-            _hover={{ border: "2px solid #40B484" }}
-            opacity={!activateDesign || activateDesign === courtId ? "1" : "0.4"}
-          >
-            {designName} - {courtName}
-          </Box>
-        );
-      })}
-    </Box>
+    <>
+      <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">
+        {designsData.map((design) => {
+          const { courtId, courtName, designName } = design;
+          return (
+            <Box
+              key={courtId}
+              width="230px"
+              height="25px"
+              background="transparent"
+              marginBottom="18px"
+              display="flex"
+              alignItems="center"
+              justifyContent="left"
+              cursor="pointer"
+              fontSize="14"
+              onClick={() => handleCourtSelecting(courtId)}
+              data-testid={courtId}
+              _hover={{ border: "2px solid #40B484" }}
+              opacity={!activateDesign || activateDesign === courtId ? "1" : "0.4"}
+            >
+              {designName} - {courtName}
+            </Box>
+          );
+        })}
+      </Box>
+    </>
   );
 };
 

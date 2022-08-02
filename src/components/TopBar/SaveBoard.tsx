@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import {
-  refetchDesignData,
+  fetchDesignData,
   useAddDesignMutation,
   useUpdateDesignMutation,
 } from "@/redux/api/designApi";
@@ -36,8 +36,7 @@ const SaveBoard: React.FC = () => {
   const userData = useStoreSelector((state) => state.user);
   const courtData = useStoreSelector((state) => state.courtSpecData.activeCourt);
   const tileData = useStoreSelector((state) => state.tile.present.court);
-  
-  
+
   const designNames = useStoreSelector((state) => state.designName.nameList);
   const cancelRef = useRef(null);
   const [nameCheck, setNameCheck] = useState<string>("exsited");
@@ -51,7 +50,7 @@ const SaveBoard: React.FC = () => {
   for (const tile of tileData) {
     tiles.push(tile);
   }
-  
+
   const mappedcourtSize = saveDesignMapping(courtData);
 
   useEffect(() => {
@@ -68,10 +67,9 @@ const SaveBoard: React.FC = () => {
     tileColor: tiles,
     courtSize: mappedcourtSize,
   };
-  
 
   const mappedDesignData = async (designName: string) => {
-    const design = await refetchDesignData(useUserId);
+    const design = await fetchDesignData(useUserId);
     if (design.data === undefined) return;
     const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));
