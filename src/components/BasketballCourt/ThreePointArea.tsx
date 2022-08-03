@@ -56,6 +56,7 @@ const ThreePointArea: React.FC<ThreePointAreaProps> = ({ startPoint }) => {
       stroke="white"
       strokeWidth={courtWhiteLine}
       onClick={handleColorChange}
+      onTouchStart={handleColorChange}
     />
   );
 };
