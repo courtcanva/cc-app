@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ISaveDesign } from "@/interfaces/design";
 import axios from "axios";
 
-export const refetchDesignData = (userId: string) => {
+export const fetchDesignData = (userId: string) => {
   const design = axios.get(process.env.NEXT_PUBLIC_API_BASE_URI + `/designs/` + userId);
   return design;
 };

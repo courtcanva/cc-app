@@ -24,6 +24,7 @@ export const userSlice = createSlice({
   },
 });
 
+export const defaultUser = initialState;
 export const { updateUserInfo } = userSlice.actions;
 export const userData = (state: RootState) => state.user;
 
