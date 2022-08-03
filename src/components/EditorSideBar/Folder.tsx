@@ -6,12 +6,12 @@ import { setActiveDesign } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
 import { changeTileColor } from "@/store/reducer/tileSlice";
-import LoginModalContent from "../Login";
 
 const Folder: React.FC = () => {
   const dispatch = useDispatch();
   const { designsData, activeCourt } = useStoreSelector((state) => state.courtSpecData);
   const userData = useStoreSelector((state) => state.user);
+
   const [activateDesign, setActivateDesign] = useState<string>(activeCourt.courtId);
   const { designTileList } = useStoreSelector((state) => state.tile.present);
 

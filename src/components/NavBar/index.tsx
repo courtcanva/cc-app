@@ -19,11 +19,12 @@ import { defaultCourt, getDesignsData, setDefaultCourt } from "@/store/reducer/c
 import { defaultTile, getDesignsTileData, setTileColor } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { IDesign } from "@/interfaces/design";
+import { useLoginModal } from "@/store/reducer/loginModalSlice";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [designData, setDesignData] = useState<IDesign[]>([]);
+  const { loginModalOpen } = useStoreSelector((state) => state.loginModal);
 
   // Get user info from local storage
   const getInfo = () => {
@@ -33,7 +34,7 @@ const NavigationBar = () => {
     }
     return;
   };
-  const [loginData, setLoginData] = useState(getInfo());  
+  const [loginData, setLoginData] = useState(getInfo());
 
   useMemo(async () => {
     if (loginData === null || loginData === undefined) {
@@ -50,7 +51,7 @@ const NavigationBar = () => {
   }, [loginData]);
 
   /* istanbul ignore next */
-  
+
   useEffect(() => {
     if (designData === undefined) return;
     const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(designData);
@@ -60,7 +61,7 @@ const NavigationBar = () => {
   }, [designData]);
 
   /* istanbul ignore next */
-  const updateLoginData = (loginData: any) => {
+  const updateLoginData = (loginData: UserState) => {
     setLoginData(loginData);
   };
 
@@ -69,6 +70,13 @@ const NavigationBar = () => {
     const userInfo = localStorage.getItem("UserInfo");
     userInfo && setLoginData(JSON.parse(userInfo));
   }, []);
+
+  const handleLoginModalOpen = () => {
+    dispatch(useLoginModal(true));
+  };
+  const handleLoginModalClose = () => {
+    dispatch(useLoginModal(false));
+  };
 
   /* istanbul ignore next */
   const handleLogout = () => {
@@ -130,19 +138,24 @@ const NavigationBar = () => {
               color="black"
               marginRight="10px"
               isRound
-              onClick={onOpen}
+              onClick={handleLoginModalOpen}
             ></MenuButton>
           </Menu>
         ) : (
           <Button onClick={handleLogout}>Sign out</Button>
         )}
         <LoginModalContent
-          isOpen={isOpen}
-          onClose={onClose}
+          isOpen={loginModalOpen}
+          onClose={handleLoginModalClose}
           updateLoginData={updateLoginData}
         ></LoginModalContent>
         <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
-        <Button variant="shareBtn" marginLeft="10px" onClick={onOpen} data-testid="share-btn">
+        <Button
+          variant="shareBtn"
+          marginLeft="10px"
+          onClick={handleLoginModalOpen}
+          data-testid="share-btn"
+        >
           Share
         </Button>
       </Flex>

@@ -87,7 +87,6 @@ const SaveBoard: React.FC = () => {
       await updateDesign({ _id: useCourtId, design: designData });
     }
     if (nameCheck === "passCheck") {
-      console.log(designData);
       await addDesign({ design: designData });
       setNameCheck("existed");
     }

@@ -36,9 +36,9 @@ import { fetchDesignData, useDeleteDesignMutation } from "@/redux/api/designApi"
 import { designMapping } from "@/utils/designMapping";
 import { getDesignsTileData } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
+import { useLoginModal } from "@/store/reducer/loginModalSlice";
 
 const TopBar = () => {
-  const { isOpen, onToggle, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const open = () => dispatch(usePaintBucket(true));
   const close = () => dispatch(usePaintBucket(false));
@@ -51,6 +51,7 @@ const TopBar = () => {
   const borderLength = selectedCourt.borderLength;
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
   const [useUserId, setUserId] = useState(userData.googleId);
+  const [savePopoverOpen, setSavePopoverOpen] = useState(false);
 
   useEffect(() => {
     setSliderValue(borderLength / 1000);
@@ -69,9 +70,25 @@ const TopBar = () => {
     dispatch(updateBorderTileQty(borderTileQty));
   };
 
+  const handleSaveOpen = () => {
+    if (useUserId === "") {
+      dispatch(useLoginModal(true));
+      setSavePopoverOpen(false);
+      return;
+    }
+    setSavePopoverOpen(true);
+  };
+  const handleSaveClose = () => {
+    setSavePopoverOpen(false);
+  };
+
   const [deleteDesign] = useDeleteDesignMutation();
   const handleDeleteDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    if (useUserId === "") {
+      dispatch(useLoginModal(true));
+      return;
+    }
     if (selectedCourt.courtId === "") return;
     await deleteDesign(selectedCourt.courtId);
     dispatch(setDefaultCourt(defaultCourt));
@@ -202,16 +219,14 @@ const TopBar = () => {
           data-testid="download-btn"
         />
 
-        {/* TODO: Fetch user login state from redux */}
-        {/* <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent> */}
-        <Popover isOpen={isOpen} onClose={onClose}>
+        <Popover isOpen={savePopoverOpen} onClose={handleSaveClose}>
           <PopoverTrigger>
             <IconButton
               aria-label="DocSvg"
               colorScheme="transparent"
               icon={<DocSvg />}
               variant="witheBackgroundIconBtn"
-              onClick={onToggle}
+              onClick={handleSaveOpen}
               data-testid="save-btn"
             />
           </PopoverTrigger>
