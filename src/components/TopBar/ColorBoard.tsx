@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import { useDispatch } from "react-redux";
