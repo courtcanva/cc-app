@@ -12,13 +12,12 @@ import { useEffect, useMemo, useState } from "react";
 import { ActionCreators } from "redux-undo";
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
-import { defaultUser, initialState, updateUserInfo, UserState } from "@/store/reducer/userSlice";
+import { initialState, updateUserInfo, UserState } from "@/store/reducer/userSlice";
 import { fetchDesignData } from "@/redux/api/designApi";
 import { designMapping } from "@/utils/designMapping";
 import { defaultCourt, getDesignsData, setDefaultCourt } from "@/store/reducer/courtSpecDataSlice";
 import { defaultTile, getDesignsTileData, setTileColor } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
-import { IDesign } from "@/interfaces/design";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
 
 const NavigationBar = () => {
