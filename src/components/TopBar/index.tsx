@@ -129,7 +129,7 @@ const TopBar = () => {
           data-testid="uploadBtn"
           variant="editorFooterIconBtn"
         />
-        <Icon as={BsBorderWidth} color="brand.primary" />
+        <Icon as={BsBorderWidth} color="brand.primary" data-testid="borderIcon" />
         <Text fontSize="lg">0</Text>
         <Slider
           aria-label="slider"
