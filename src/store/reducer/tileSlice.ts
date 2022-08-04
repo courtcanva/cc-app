@@ -2,13 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useStoreSelector } from "../hooks";
 import undoable from "redux-undo";
 export interface TileState {
-  designTileList: DesignTileList[];
   court: Court[];
 }
-export interface DesignTileList {
-  courtId: string;
-  tileColor: Court[];
-}
+
 export interface Court {
   location: string;
   color: string;
@@ -19,7 +15,6 @@ export interface ChangeTileColor {
 }
 
 export const initialState: TileState = {
-  designTileList: [],
   court: [
     {
       location: "threePoint",
@@ -58,14 +53,10 @@ export const tileSlice = createSlice({
       );
       state.court[selectedLocation].color = action.payload.selectedColor;
     },
-    getDesignsTileData: (state, action: PayloadAction<DesignTileList[]>) => {
-      state.designTileList = [...action.payload];
-      return state;
-    },
   },
 });
 
-export const { changeTileColor, getDesignsTileData } = tileSlice.actions;
+export const { changeTileColor } = tileSlice.actions;
 
 export const getColor = (location: string) =>
   useStoreSelector(

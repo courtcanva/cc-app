@@ -4,6 +4,7 @@ import { FaRegUser } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
+import { BsArrowCounterclockwise } from "react-icons/bs";
 import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
 import EditorDesignName from "@/components/NavBar/EditorDesignName";
@@ -16,7 +17,7 @@ import { initialState, updateUserInfo } from "@/store/reducer/userSlice";
 import { useGetDesignQuery } from "@/redux/api/designApi";
 import { designMapping } from "@/utils/designMapping";
 import { getDesignsData } from "@/store/reducer/courtSpecDataSlice";
-import { getDesignsTileData } from "@/store/reducer/tileSlice";
+import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 
 const NavigationBar = () => {
@@ -68,9 +69,13 @@ const NavigationBar = () => {
   const handleRedo = () => {
     dispatch(ActionCreators.redo());
   };
+  const handleReset = () => {
+    dispatch(ActionCreators.jumpToPast(0));
+  };
 
   const isThingsToUndo = useStoreSelector((state) => state.tile.past).length;
   const isThingsToRedo = useStoreSelector((state) => state.tile.future).length;
+  const isThingsToReset = isThingsToUndo;
 
   return (
     <Grid
@@ -101,6 +106,13 @@ const NavigationBar = () => {
             variant="navbarIconBtn"
             disabled={!isThingsToRedo}
             onClick={handleRedo}
+          />
+          <IconButton
+            aria-label="Reset edit"
+            icon={<BsArrowCounterclockwise />}
+            variant="navbarIconBtn"
+            disabled={!isThingsToReset}
+            onClick={handleReset}
           />
         </Flex>
       </Flex>

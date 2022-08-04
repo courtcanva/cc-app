@@ -34,7 +34,7 @@ import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
 import { downloadToPDF } from "@/utils/printPDF";
 import { refetchDesignData, useDeleteDesignMutation } from "@/redux/api/designApi";
 import { designMapping } from "@/utils/designMapping";
-import { getDesignsTileData } from "@/store/reducer/tileSlice";
+import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 
 const TopBar = () => {

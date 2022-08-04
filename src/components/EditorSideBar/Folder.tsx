@@ -12,7 +12,7 @@ const Folder: React.FC = () => {
   const { designsData } = useStoreSelector((state) => state.courtSpecData);
   const { activeCourt } = useStoreSelector((state) => state.courtSpecData);
   const [activateDesign, setActivateDesign] = useState<string>(activeCourt.courtId);
-  const { designTileList } = useStoreSelector((state) => state.tile.present);
+  const { designTileList } = useStoreSelector((state) => state.designTileList);
 
   useEffect(() => {
     if (designsData === undefined) return;

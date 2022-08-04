@@ -11,6 +11,7 @@ import paintBucketReducer from "./reducer/paintBucketSlice";
 import priceBarReducer from "./reducer/priceBarSlice";
 import areaTileQtyReducer from "./reducer/areaTileQtySlice";
 import courtSpecDataReducer from "./reducer/courtSpecDataSlice";
+import designTileListReducer from "./reducer/designsTileListSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -21,6 +22,7 @@ export const makeStore = () =>
       user: userReducer,
       rulerControl: rulerControlReducer,
       designName: designNameReducer,
+      designTileList: designTileListReducer,
       paintBucket: paintBucketReducer,
       courtSpecData: courtSpecDataReducer,
       [courtsApi.reducerPath]: courtsApi.reducer,
