@@ -9,10 +9,10 @@ describe("TopBar", () => {
 
   it("should render width text", () => {
     renderWithMockedProvider(<TopBar />);
-    const borderWidthTextElement = screen.getByText(/width/i);
+    const borderWidthTextElement = screen.getByTestId("borderIcon");
 
     expect(borderWidthTextElement).toBeInTheDocument();
-    expect(borderWidthTextElement).toHaveTextContent("width");
+    expect(borderWidthTextElement).toBeInTheDocument();
   });
 
   it("should render color select button", () => {

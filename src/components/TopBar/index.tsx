@@ -9,12 +9,14 @@ import {
   Text,
   IconButton,
   useDisclosure,
+  Icon,
 } from "@chakra-ui/react";
 import { TriangleUpIcon } from "@chakra-ui/icons";
 import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import ColorBoard from "./ColorBoard";
 import SaveBoard from "./SaveBoard";
+import { BsBorderWidth } from "react-icons/bs";
 import DownloadSvg from "@/assets/svg/TopBarSvg/download.svg";
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
@@ -127,25 +129,7 @@ const TopBar = () => {
           data-testid="uploadBtn"
           variant="editorFooterIconBtn"
         />
-        <Flex
-          fontSize="md"
-          marginRight={{ base: "6", xl: "" }}
-          whiteSpace="nowrap"
-          textOverflow="ellipsis"
-          alignItems="center"
-          justifyContent="center"
-        >
-          Border
-          <Text
-            fontSize="md"
-            marginLeft="1"
-            display={{ base: "none", xl: "block" }}
-            whiteSpace="nowrap"
-            textOverflow="ellipsis"
-          >
-            width
-          </Text>
-        </Flex>
+        <Icon as={BsBorderWidth} color="brand.primary" />
         <Text fontSize="lg">0</Text>
         <Slider
           aria-label="slider"
@@ -196,8 +180,6 @@ const TopBar = () => {
           data-testid="download-btn"
         />
 
-        {/* TODO: Fetch user login state from redux */}
-        {/* <LoginModalContent isOpen={isOpen} onClose={onClose}></LoginModalContent> */}
         <Popover isOpen={isOpen} onClose={onClose}>
           <PopoverTrigger>
             <IconButton
