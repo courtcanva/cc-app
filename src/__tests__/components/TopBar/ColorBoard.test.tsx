@@ -1,7 +1,6 @@
 import { act, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 import ColorBoard from "@/components/TopBar/ColorBoard";
-import mockPlateColors from "@/components/TopBar/colorList";
 import renderWithMockedProvider from "../../utils";
 import store from "@/store/index";
 
