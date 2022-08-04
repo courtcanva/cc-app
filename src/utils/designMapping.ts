@@ -4,12 +4,12 @@ import { CourtSizeState } from "@/store/reducer/courtSpecDataSlice";
 export const designMapping = (design: IDesign[]) => {
   const mappedDesignsData = design.map((item: IDesign) => designCourtMapping(item));
   const mappedtileData = design.map((item: IDesign) => designTileMapping(item));
-  const MappedNameList: string[] = [];
+  const mappedNameList: string[] = [];
   for (const designData of mappedDesignsData) {
-    MappedNameList.push(designData.designName);
+    mappedNameList.push(designData.designName);
   }
 
-  return {mappedDesignsData, mappedtileData, MappedNameList}
+  return {mappedDesignsData, mappedtileData, mappedNameList}
 };
 
 const designCourtMapping = (item: IDesign) => ({

@@ -23,7 +23,7 @@ import { useLoginModal } from "@/store/reducer/loginModalSlice";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
-  const [designData, setDesignData] = useState<IDesign[]>([]);
+  const [designData, setDesignData] = useState<IDesign[]>();
   const { loginModalOpen } = useStoreSelector((state) => state.loginModal);
 
   // Get user info from local storage
@@ -42,7 +42,8 @@ const NavigationBar = () => {
       dispatch(setDefaultCourt(defaultCourt));
       dispatch(setTileColor(defaultTile));
       dispatch(getDesignsData([]));
-      dispatch(updateUserInfo(defaultUser));
+      dispatch(getDesignsTileData([]));
+      setDesignData([]);
       return;
     }
     dispatch(updateUserInfo(loginData));
@@ -53,11 +54,11 @@ const NavigationBar = () => {
   /* istanbul ignore next */
 
   useEffect(() => {
-    if (designData === undefined) return;
-    const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(designData);
+    if (designData === undefined || designData === []) return;
+    const { mappedDesignsData, mappedtileData, mappedNameList } = designMapping(designData);
     dispatch(getDesignsData(mappedDesignsData));
     dispatch(getDesignsTileData(mappedtileData));
-    dispatch(changeDesignNameList(MappedNameList));
+    dispatch(changeDesignNameList(mappedNameList));
   }, [designData]);
 
   /* istanbul ignore next */

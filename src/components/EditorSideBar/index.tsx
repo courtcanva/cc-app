@@ -16,6 +16,10 @@ const EditorSideBar = () => {
 
   useEffect(() => {
     setCheckUser(googleId);
+    if (iconClickTitle === "Folder" && googleId === "") {
+      setIsOpen(false);
+      setIconClick("");
+    }
   }, [googleId]);
 
   const handleIconClick = (title: string) => {
