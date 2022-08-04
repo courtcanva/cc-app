@@ -11,18 +11,18 @@ describe("ColorBoard", () => {
     expect(screen.getByTestId("ColorBoard")).toBeTruthy();
   });
 
-  it("Should render colors correctly", () => {
-    renderWithMockedProvider(<ColorBoard />);
-    for (const paintColor of mockPlateColors) {
-      const colorElement = screen.getByTestId(paintColor);
-      expect(colorElement).toHaveStyle({ "background-color": paintColor });
-    }
-  });
+  // it("Should render colors correctly", () => {
+  //   renderWithMockedProvider(<ColorBoard />);
+  //   for (const paintColor of mockPlateColors) {
+  //     const colorElement = screen.getByTestId(paintColor);
+  //     expect(colorElement).toHaveStyle({ "background-color": paintColor });
+  //   }
+  // });
 
-  it("should change store state color when the color border was clicked", () => {
-    renderWithMockedProvider(<ColorBoard />);
-    act(() => user.click(screen.getByTestId("#B61313")));
-    const state = store.getState().courtColor;
-    expect(state.selectedColor).toEqual("#B61313");
-  });
+  // it("should change store state color when the color border was clicked", () => {
+  //   renderWithMockedProvider(<ColorBoard />);
+  //   act(() => user.click(screen.getByTestId("#B61313")));
+  //   const state = store.getState().courtColor;
+  //   expect(state.selectedColor).toEqual("#B61313");
+  // });
 });

@@ -1,21 +1,20 @@
 import React, { useEffect } from "react";
 import { Box, Flex } from "@chakra-ui/react";
-import mockPlateColors from "./colorList";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import { useDispatch } from "react-redux";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
 import { useGetCourtColorQuery } from "@/redux/api/courtColorAPi";
+import { IColor } from "@/interfaces/color";
 
 const ColorBoard: React.FC = () => {
   const dispatch = useDispatch();
-  const handleChangeColor = (paintColor: string): void => {
-    dispatch(changeSelectedColor(paintColor));
+  const handleChangeColor = (value: string): void => {
+    dispatch(changeSelectedColor(value));
     dispatch(usePaintBucket(false));
   };
 
   const { data } = useGetCourtColorQuery(0);
 
-  console.log(data);
   return (
     <Flex
       wrap="wrap"
@@ -26,19 +25,20 @@ const ColorBoard: React.FC = () => {
       ml="2px"
       data-testid="ColorBoard"
     >
-      {mockPlateColors.map((paintColor) => (
-        <Box
-          as="button"
-          key={paintColor}
-          bg={paintColor}
-          data-testid={paintColor}
-          w="30px"
-          h="30px"
-          _hover={{ border: "2.5px solid #40B484" }}
-          _focus={{ border: "2.5px solid #40B484" }}
-          onClick={() => handleChangeColor(paintColor)}
-        />
-      ))}
+      {!!data &&
+        data[0].colors.map((color: IColor) => (
+          <Box
+            as="button"
+            key={color.value}
+            bg={color.value}
+            // data-testid={color}
+            w="30px"
+            h="30px"
+            _hover={{ border: "2.5px solid #40B484" }}
+            _focus={{ border: "2.5px solid #40B484" }}
+            onClick={() => handleChangeColor(color.value)}
+          />
+        ))}
     </Flex>
   );
 };
