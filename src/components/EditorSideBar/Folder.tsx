@@ -9,8 +9,8 @@ import { changeTileColor } from "@/store/reducer/tileSlice";
 
 const Folder: React.FC = () => {
   const dispatch = useDispatch();
-  const { designsData } = useStoreSelector((state) => state.courtSpecData);
-  const { activeCourt } = useStoreSelector((state) => state.courtSpecData);
+  const { designsData, activeCourt } = useStoreSelector((state) => state.courtSpecData);
+
   const [activateDesign, setActivateDesign] = useState<string>(activeCourt.courtId);
   const { designTileList } = useStoreSelector((state) => state.tile.present);
 

@@ -2,16 +2,36 @@ import EditorSideBarItem from "./EditorSideBarItem";
 import sideBarItemList from "./SideBarItemList";
 import { Box, Flex } from "@chakra-ui/react";
 import EditorSideBarContent from "./EditorSideBarContent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useStoreSelector } from "@/store/hooks";
+import { useDispatch } from "react-redux";
+import { useLoginModal } from "@/store/reducer/loginModalSlice";
 
 const EditorSideBar = () => {
+  const dispatch = useDispatch();
+  const { googleId } = useStoreSelector((state) => state.user);
   const [isOpen, setIsOpen] = useState(false);
   const [iconClickTitle, setIconClick] = useState("");
+  const [checkUser, setCheckUser] = useState(googleId);
+
+  useEffect(() => {
+    setCheckUser(googleId);
+    if (iconClickTitle === "Folder" && googleId === "") {
+      setIsOpen(false);
+      setIconClick("");
+    }
+  }, [googleId]);
 
   const handleIconClick = (title: string) => {
     if (iconClickTitle === title && isOpen) {
       setIsOpen(false);
       setIconClick("");
+      return;
+    }
+    if (title === "Folder" && checkUser === "") {
+      setIsOpen(false);
+      setIconClick("");
+      dispatch(useLoginModal(true));
       return;
     }
     setIsOpen(true);
