@@ -28,6 +28,7 @@ const Border: React.FC<BorderProps> = ({
       x={startPoint.X - borderLength}
       y={startPoint.Y - borderLength}
       onClick={handleColorChange}
+      onTouchStart={handleColorChange}
     />
   );
 };
