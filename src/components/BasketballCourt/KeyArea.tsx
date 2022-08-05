@@ -27,6 +27,7 @@ const KeyArea: React.FC<KeyAreaProps> = ({ startPoint }) => {
       x={startPoint.X}
       y={startPoint.Y + threePointLineToCourtEdgeLength + threePointLineRadius - keyAreaHeight / 2}
       onClick={handleColorChange}
+      onTouchStart={handleColorChange}
     />
   );
 };

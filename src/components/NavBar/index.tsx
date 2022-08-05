@@ -8,20 +8,21 @@ import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
 import EditorDesignName from "@/components/NavBar/EditorDesignName";
 import LoginModalContent from "../Login";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ActionCreators } from "redux-undo";
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
-import { initialState, updateUserInfo } from "@/store/reducer/userSlice";
-import { useGetDesignQuery } from "@/redux/api/designApi";
+import { initialState, updateUserInfo, UserState } from "@/store/reducer/userSlice";
+import { fetchDesignData } from "@/redux/api/designApi";
 import { designMapping } from "@/utils/designMapping";
-import { getDesignsData } from "@/store/reducer/courtSpecDataSlice";
-import { getDesignsTileData } from "@/store/reducer/tileSlice";
+import { defaultCourt, getDesignsData, setDefaultCourt } from "@/store/reducer/courtSpecDataSlice";
+import { defaultTile, getDesignsTileData, setTileColor } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
+import { useLoginModal } from "@/store/reducer/loginModalSlice";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { loginModalOpen } = useStoreSelector((state) => state.loginModal);
 
   // Get user info from local storage
   const getInfo = () => {
@@ -31,22 +32,28 @@ const NavigationBar = () => {
     }
     return;
   };
-
-  /* istanbul ignore next */
   const [loginData, setLoginData] = useState(getInfo());
 
-  const { data } = useGetDesignQuery("user123");
-
-  useEffect(() => {
-    if (data === undefined) return;
-    const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(data);
+  useMemo(async () => {
+    if (loginData === null || loginData === undefined) {
+      dispatch(updateUserInfo(initialState));
+      dispatch(setDefaultCourt(defaultCourt));
+      dispatch(setTileColor(defaultTile));
+      dispatch(getDesignsData([]));
+      dispatch(getDesignsTileData([]));
+      return;
+    }
+    dispatch(updateUserInfo(loginData));
+    const design = await fetchDesignData(loginData.googleId);
+    if (design.data === undefined) return;
+    const { mappedDesignsData, mappedtileData, mappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));
     dispatch(getDesignsTileData(mappedtileData));
-    dispatch(changeDesignNameList(MappedNameList));
-  }, [data]);
+    dispatch(changeDesignNameList(mappedNameList));
+  }, [loginData]);
 
   /* istanbul ignore next */
-  const updateLoginData = (loginData: any) => {
+  const updateLoginData = (loginData: UserState) => {
     setLoginData(loginData);
   };
 
@@ -56,11 +63,17 @@ const NavigationBar = () => {
     userInfo && setLoginData(JSON.parse(userInfo));
   }, []);
 
+  const handleLoginModalOpen = () => {
+    dispatch(useLoginModal(true));
+  };
+  const handleLoginModalClose = () => {
+    dispatch(useLoginModal(false));
+  };
+
   /* istanbul ignore next */
   const handleLogout = () => {
     localStorage.removeItem("UserInfo");
     setLoginData(null);
-    dispatch(updateUserInfo(initialState));
   };
   const handleUndo = () => {
     dispatch(ActionCreators.undo());
@@ -117,19 +130,24 @@ const NavigationBar = () => {
               color="black"
               marginRight="10px"
               isRound
-              onClick={onOpen}
+              onClick={handleLoginModalOpen}
             ></MenuButton>
           </Menu>
         ) : (
           <Button onClick={handleLogout}>Sign out</Button>
         )}
         <LoginModalContent
-          isOpen={isOpen}
-          onClose={onClose}
+          isOpen={loginModalOpen}
+          onClose={handleLoginModalClose}
           updateLoginData={updateLoginData}
         ></LoginModalContent>
         <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
-        <Button variant="shareBtn" marginLeft="10px" onClick={onOpen} data-testid="share-btn">
+        <Button
+          variant="shareBtn"
+          marginLeft="10px"
+          onClick={handleLoginModalOpen}
+          data-testid="share-btn"
+        >
           Share
         </Button>
       </Flex>
