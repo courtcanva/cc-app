@@ -5,7 +5,8 @@ import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
 import { setActiveDesign } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
-import { changeTileColor } from "@/store/reducer/tileSlice";
+import { changeWholeCourtColor } from "@/store/reducer/tileSlice";
+import { ActionCreators } from "redux-undo";
 
 const Folder: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,10 +27,8 @@ const Folder: React.FC = () => {
     if (designTileList === undefined) return;
     const selectedDesignColor = designTileList.find((item) => item.courtId === courtId);
     if (selectedDesignColor === undefined) return;
-    for (const tile of selectedDesignColor.tileColor) {
-      const selectedColor = tile.color;
-      dispatch(changeTileColor({ selectedColor, location: tile.location }));
-    }
+    dispatch(changeWholeCourtColor(selectedDesignColor.tileColor));
+    dispatch(ActionCreators.clearHistory());
     const tileQtyOfSelectedCourt = mockTileData.find(
       (item) => item.name === selectedDesign?.courtName
     )?.tileQty as AreaTileQty[];

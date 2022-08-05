@@ -1,4 +1,4 @@
-import { Flex, Button, IconButton, Grid, useDisclosure } from "@chakra-ui/react";
+import { Flex, Button, IconButton, Grid, useDisclosure, Tooltip } from "@chakra-ui/react";
 import { Menu, MenuButton } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -93,27 +93,33 @@ const NavigationBar = () => {
           </Button>
         </Link>
         <Flex flex="1" justifyContent="center">
-          <IconButton
-            aria-label="Revert edit"
-            icon={<RiArrowGoBackLine />}
-            variant="navbarIconBtn"
-            disabled={!isThingsToUndo}
-            onClick={handleUndo}
-          />
-          <IconButton
-            aria-label="Forward edit"
-            icon={<RiArrowGoForwardLine />}
-            variant="navbarIconBtn"
-            disabled={!isThingsToRedo}
-            onClick={handleRedo}
-          />
-          <IconButton
-            aria-label="Reset edit"
-            icon={<BsArrowCounterclockwise />}
-            variant="navbarIconBtn"
-            disabled={!isThingsToReset}
-            onClick={handleReset}
-          />
+          <Tooltip hasArrow shouldWrapChildren label="undo color edit" fontSize="sm">
+            <IconButton
+              aria-label="Revert edit"
+              icon={<RiArrowGoBackLine />}
+              variant="navbarIconBtn"
+              disabled={!isThingsToUndo}
+              onClick={handleUndo}
+            />
+          </Tooltip>
+          <Tooltip hasArrow shouldWrapChildren label="redo color edit" fontSize="sm">
+            <IconButton
+              aria-label="Forward edit"
+              icon={<RiArrowGoForwardLine />}
+              variant="navbarIconBtn"
+              disabled={!isThingsToRedo}
+              onClick={handleRedo}
+            />
+          </Tooltip>
+          <Tooltip hasArrow shouldWrapChildren label="reset all color edits" fontSize="sm">
+            <IconButton
+              aria-label="Reset edit"
+              icon={<BsArrowCounterclockwise />}
+              variant="navbarIconBtn"
+              disabled={!isThingsToReset}
+              onClick={handleReset}
+            />
+          </Tooltip>
         </Flex>
       </Flex>
       <EditorDesignName />
