@@ -116,6 +116,7 @@ const NavigationBar = () => {
               variant="navbarIconBtn"
               disabled={!isThingsToUndo}
               onClick={handleUndo}
+              marginX="10px"
             />
           </Tooltip>
           <Tooltip hasArrow shouldWrapChildren label="redo color edit" fontSize="sm">
@@ -125,6 +126,7 @@ const NavigationBar = () => {
               variant="navbarIconBtn"
               disabled={!isThingsToRedo}
               onClick={handleRedo}
+              marginX="10px"
             />
           </Tooltip>
           <Tooltip hasArrow shouldWrapChildren label="reset all color edits" fontSize="sm">
@@ -134,6 +136,7 @@ const NavigationBar = () => {
               variant="navbarIconBtn"
               disabled={!isThingsToReset}
               onClick={handleReset}
+              marginX="10px"
             />
           </Tooltip>
         </Flex>
