@@ -46,9 +46,9 @@ const NavigationBar = () => {
     dispatch(updateUserInfo(loginData));
     const design = await fetchDesignData(loginData.googleId);
     if (design.data === undefined) return;
-    const { mappedDesignsData, mappedtileData, mappedNameList } = designMapping(design.data);
+    const { mappedDesignsData, mappedTileData, mappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));
-    dispatch(getDesignsTileData(mappedtileData));
+    dispatch(getDesignsTileData(mappedTileData));
     dispatch(changeDesignNameList(mappedNameList));
   }, [loginData]);
 
