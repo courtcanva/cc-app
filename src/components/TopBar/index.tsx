@@ -8,7 +8,6 @@ import {
   SimpleGrid,
   Text,
   IconButton,
-  useDisclosure,
   Icon,
 } from "@chakra-ui/react";
 import { TriangleUpIcon } from "@chakra-ui/icons";
@@ -34,16 +33,17 @@ import {
 } from "@/store/reducer/courtSpecDataSlice";
 import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
 import { downloadToPDF } from "@/utils/printPDF";
-import { refetchDesignData, useDeleteDesignMutation } from "@/redux/api/designApi";
+import { fetchDesignData, useDeleteDesignMutation } from "@/redux/api/designApi";
 import { designMapping } from "@/utils/designMapping";
 import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
+import { useLoginModal } from "@/store/reducer/loginModalSlice";
 
 const TopBar = () => {
-  const { isOpen, onToggle, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const open = () => dispatch(usePaintBucket(true));
   const close = () => dispatch(usePaintBucket(false));
+  const userData = useStoreSelector((state) => state.user);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const { paintPopover } = useStoreSelector((state) => state.paintBucket);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
@@ -51,8 +51,13 @@ const TopBar = () => {
   const nameString = getCourtNameString(selectedCourt);
   const borderLength = selectedCourt.borderLength;
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
+  const [useUserId, setUserId] = useState(userData.googleId);
+  const [savePopoverOpen, setSavePopoverOpen] = useState(false);
 
-  useEffect(() => setSliderValue(borderLength / 1000), [borderLength]);
+  useEffect(() => {
+    setSliderValue(borderLength / 1000);
+    setUserId(userData.googleId);
+  }, [borderLength, userData]);
 
   const handleChange = (val: number) => {
     setSliderValue(val);
@@ -66,17 +71,34 @@ const TopBar = () => {
     dispatch(updateBorderTileQty(borderTileQty));
   };
 
+  const handleSaveOpen = () => {
+    if (useUserId === "") {
+      dispatch(useLoginModal(true));
+      setSavePopoverOpen(false);
+      return;
+    }
+    setSavePopoverOpen(true);
+  };
+  const handleSaveClose = () => {
+    setSavePopoverOpen(false);
+  };
+
   const [deleteDesign] = useDeleteDesignMutation();
   const handleDeleteDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    if (useUserId === "") {
+      dispatch(useLoginModal(true));
+      return;
+    }
     if (selectedCourt.courtId === "") return;
     await deleteDesign(selectedCourt.courtId);
     dispatch(setDefaultCourt(defaultCourt));
-    const design = await refetchDesignData("user123");
-    const { mappedDesignsData, mappedtileData, MappedNameList } = designMapping(design.data);
+    const design = await fetchDesignData(useUserId);
+    if (design.data === undefined) return;
+    const { mappedDesignsData, mappedtileData, mappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));
     dispatch(getDesignsTileData(mappedtileData));
-    dispatch(changeDesignNameList(MappedNameList));
+    dispatch(changeDesignNameList(mappedNameList));
   };
 
   return (
@@ -180,14 +202,14 @@ const TopBar = () => {
           data-testid="download-btn"
         />
 
-        <Popover isOpen={isOpen} onClose={onClose}>
+        <Popover isOpen={savePopoverOpen} onClose={handleSaveClose}>
           <PopoverTrigger>
             <IconButton
               aria-label="DocSvg"
               colorScheme="transparent"
               icon={<DocSvg />}
               variant="witheBackgroundIconBtn"
-              onClick={onToggle}
+              onClick={handleSaveOpen}
               data-testid="save-btn"
             />
           </PopoverTrigger>

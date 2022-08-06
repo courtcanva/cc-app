@@ -33,6 +33,7 @@ const TopKeyArea: React.FC<TopKeyAreaProps> = ({ startPoint }) => {
         clockwise
         rotation={90}
         onClick={handleColorChange}
+        onTouchStart={handleColorChange}
       />
       <Arc
         x={startPointX}

@@ -56,10 +56,15 @@ export const tileSlice = createSlice({
     changeWholeCourtColor: (state, action: PayloadAction<Court[]>) => {
       state.court = action.payload;
     },
+    setDefaultCourtColor: (state, action: PayloadAction<TileState>) => {
+      return action.payload;
+    },
   },
 });
 
-export const { changeTileColor, changeWholeCourtColor } = tileSlice.actions;
+export const defaultCourtColor = initialState;
+
+export const { changeTileColor, changeWholeCourtColor, setDefaultCourtColor } = tileSlice.actions;
 
 export const getColor = (location: string) =>
   useStoreSelector(

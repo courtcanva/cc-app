@@ -5,7 +5,7 @@ import renderWithMockedProvider from "../../utils";
 
 describe("EditorSideBar component", () => {
   test("Each box in the sidebar should render the correct text", () => {
-    render(<EditorSideBar />);
+    renderWithMockedProvider(<EditorSideBar />);
     const bluePrintsText = screen.getByText("Blueprints");
     const folderText = screen.getByText("Folder");
 
@@ -15,20 +15,17 @@ describe("EditorSideBar component", () => {
 
   it("When clicking icon button and closing button should be working", () => {
     renderWithMockedProvider(<EditorSideBar />);
+    const element = screen.getByText("Blueprints");
 
-    sideBarItemList.map((item) => {
-      const element = screen.getByText(item.title);
+    fireEvent.click(element);
+    const closingBtn = screen.getByRole("button");
+    expect(closingBtn).toBeInTheDocument();
 
-      fireEvent.click(element);
-      const closingBtn = screen.getByRole("button");
-      expect(closingBtn).toBeInTheDocument();
+    fireEvent.click(closingBtn);
+    expect(closingBtn).not.toBeInTheDocument();
 
-      fireEvent.click(closingBtn);
-      expect(closingBtn).not.toBeInTheDocument();
-
-      fireEvent.click(element);
-      fireEvent.click(element);
-      expect(closingBtn).not.toBeInTheDocument();
-    });
+    fireEvent.click(element);
+    fireEvent.click(element);
+    expect(closingBtn).not.toBeInTheDocument();
   });
 });

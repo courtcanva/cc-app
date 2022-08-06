@@ -1,7 +1,8 @@
 const checkName = (name: string, nameList: string[]) => {
   let nameCheck = "passCheck";
-  if (nameList.includes(name)) { nameCheck = "existed"; }
-  if (name === "" || name.replace(/(^\s*)|(\s*$)/g, "") === "") { nameCheck = "blank"; }
+  const checkStartEndSpace = /(^\s*)|(\s*$)/g;
+  if (nameList.includes(name) || nameList.includes(name.replace(checkStartEndSpace, ""))) { nameCheck = "existed"; }
+  if (name === "" || name.replace(checkStartEndSpace, "") === "") { nameCheck = "blank"; }
   // if () { nameCheck = "incorrect"; }
   return nameCheck;
 }
