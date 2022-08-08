@@ -1,9 +1,10 @@
-import { Flex, Button, IconButton, Grid, useDisclosure } from "@chakra-ui/react";
+import { Flex, Button, IconButton, Grid, Tooltip } from "@chakra-ui/react";
 import { Menu, MenuButton } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
+import { BsArrowCounterclockwise } from "react-icons/bs";
 import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
 import EditorDesignName from "@/components/NavBar/EditorDesignName";
@@ -15,8 +16,10 @@ import { useStoreSelector } from "@/store/hooks";
 import { initialState, updateUserInfo, UserState } from "@/store/reducer/userSlice";
 import { fetchDesignData } from "@/redux/api/designApi";
 import { designMapping } from "@/utils/designMapping";
-import { defaultCourt, getDesignsData, setDefaultCourt } from "@/store/reducer/courtSpecDataSlice";
-import { defaultTile, getDesignsTileData, setTileColor } from "@/store/reducer/tileSlice";
+import { getDesignsData } from "@/store/reducer/courtSpecDataSlice";
+import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
+import { defaultCourt, setDefaultCourt } from "@/store/reducer/courtSpecDataSlice";
+import { defaultCourtColor, setDefaultCourtColor } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
 
@@ -38,7 +41,8 @@ const NavigationBar = () => {
     if (loginData === null || loginData === undefined) {
       dispatch(updateUserInfo(initialState));
       dispatch(setDefaultCourt(defaultCourt));
-      dispatch(setTileColor(defaultTile));
+      dispatch(setDefaultCourtColor(defaultCourtColor));
+      dispatch(ActionCreators.clearHistory());
       dispatch(getDesignsData([]));
       dispatch(getDesignsTileData([]));
       return;
@@ -81,9 +85,13 @@ const NavigationBar = () => {
   const handleRedo = () => {
     dispatch(ActionCreators.redo());
   };
+  const handleReset = () => {
+    dispatch(ActionCreators.jumpToPast(0));
+  };
 
   const isThingsToUndo = useStoreSelector((state) => state.tile.past).length;
   const isThingsToRedo = useStoreSelector((state) => state.tile.future).length;
+  const isThingsToReset = isThingsToUndo;
 
   return (
     <Grid
@@ -101,20 +109,36 @@ const NavigationBar = () => {
           </Button>
         </Link>
         <Flex flex="1" justifyContent="center">
-          <IconButton
-            aria-label="Revert edit"
-            icon={<RiArrowGoBackLine />}
-            variant="navbarIconBtn"
-            disabled={!isThingsToUndo}
-            onClick={handleUndo}
-          />
-          <IconButton
-            aria-label="Forward edit"
-            icon={<RiArrowGoForwardLine />}
-            variant="navbarIconBtn"
-            disabled={!isThingsToRedo}
-            onClick={handleRedo}
-          />
+          <Tooltip hasArrow shouldWrapChildren label="undo color edit" fontSize="sm">
+            <IconButton
+              aria-label="Revert edit"
+              icon={<RiArrowGoBackLine />}
+              variant="navbarIconBtn"
+              disabled={!isThingsToUndo}
+              onClick={handleUndo}
+              marginX="10px"
+            />
+          </Tooltip>
+          <Tooltip hasArrow shouldWrapChildren label="redo color edit" fontSize="sm">
+            <IconButton
+              aria-label="Forward edit"
+              icon={<RiArrowGoForwardLine />}
+              variant="navbarIconBtn"
+              disabled={!isThingsToRedo}
+              onClick={handleRedo}
+              marginX="10px"
+            />
+          </Tooltip>
+          <Tooltip hasArrow shouldWrapChildren label="reset all color edits" fontSize="sm">
+            <IconButton
+              aria-label="Reset edit"
+              icon={<BsArrowCounterclockwise />}
+              variant="navbarIconBtn"
+              disabled={!isThingsToReset}
+              onClick={handleReset}
+              marginX="10px"
+            />
+          </Tooltip>
         </Flex>
       </Flex>
       <EditorDesignName />

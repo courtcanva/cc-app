@@ -13,7 +13,6 @@ it("should change tile color", () => {
     reducer(previousState, changeTileColor({ selectedColor: "#8E9196", location: "threePoint" }))
       .present
   ).toEqual({
-    designTileList: [],
     court: [
       {
         location: "threePoint",

@@ -8,13 +8,14 @@ import {
   SimpleGrid,
   Text,
   IconButton,
-  useDisclosure,
+  Icon,
 } from "@chakra-ui/react";
 import { TriangleUpIcon } from "@chakra-ui/icons";
 import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import ColorBoard from "./ColorBoard";
 import SaveBoard from "./SaveBoard";
+import { BsBorderWidth } from "react-icons/bs";
 import DownloadSvg from "@/assets/svg/TopBarSvg/download.svg";
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
@@ -34,7 +35,7 @@ import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
 import { downloadToPDF } from "@/utils/printPDF";
 import { fetchDesignData, useDeleteDesignMutation } from "@/redux/api/designApi";
 import { designMapping } from "@/utils/designMapping";
-import { getDesignsTileData } from "@/store/reducer/tileSlice";
+import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
 
@@ -150,25 +151,7 @@ const TopBar = () => {
           data-testid="uploadBtn"
           variant="editorFooterIconBtn"
         />
-        <Flex
-          fontSize="md"
-          marginRight={{ base: "6", xl: "" }}
-          whiteSpace="nowrap"
-          textOverflow="ellipsis"
-          alignItems="center"
-          justifyContent="center"
-        >
-          Border
-          <Text
-            fontSize="md"
-            marginLeft="1"
-            display={{ base: "none", xl: "block" }}
-            whiteSpace="nowrap"
-            textOverflow="ellipsis"
-          >
-            width
-          </Text>
-        </Flex>
+        <Icon as={BsBorderWidth} color="brand.primary" data-testid="borderIcon" />
         <Text fontSize="lg">0</Text>
         <Slider
           aria-label="slider"

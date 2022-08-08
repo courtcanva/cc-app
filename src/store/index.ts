@@ -12,6 +12,7 @@ import paintBucketReducer from "./reducer/paintBucketSlice";
 import priceBarReducer from "./reducer/priceBarSlice";
 import areaTileQtyReducer from "./reducer/areaTileQtySlice";
 import courtSpecDataReducer from "./reducer/courtSpecDataSlice";
+import designTileListReducer from "./reducer/designsTileListSlice";
 import loginModalReducer from "./reducer/loginModalSlice";
 
 export const makeStore = () =>
@@ -23,6 +24,7 @@ export const makeStore = () =>
       user: userReducer,
       rulerControl: rulerControlReducer,
       designName: designNameReducer,
+      designTileList: designTileListReducer,
       paintBucket: paintBucketReducer,
       loginModal: loginModalReducer,
       courtSpecData: courtSpecDataReducer,
