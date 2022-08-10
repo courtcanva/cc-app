@@ -132,7 +132,7 @@ const TopBar = () => {
         marginLeft="35px"
       >
         <Flex alignItems="center" gap="3" marginRight={{ base: "55px", lg: "50px", xl: "100px" }}>
-          <Tooltip hasArrow shouldWrapChildren label="Paint Bucket" fontSize="sm">
+          <Tooltip hasArrow shouldWrapChildren label="Paint Bucket" fontSize="sm" placement="top">
             <Popover isOpen={paintPopover} onOpen={open} onClose={close}>
               <PopoverTrigger>
                 <IconButton
@@ -150,7 +150,7 @@ const TopBar = () => {
               </PopoverContent>
             </Popover>
           </Tooltip>
-          <Tooltip hasArrow shouldWrapChildren label="Label Bucket" fontSize="sm">
+          <Tooltip hasArrow shouldWrapChildren label="Label Bucket" fontSize="sm" placement="top">
             <IconButton
               aria-label="Upload"
               colorScheme="transparent"
@@ -161,7 +161,7 @@ const TopBar = () => {
           </Tooltip>
         </Flex>
         <Flex alignItems="center" gap="2">
-          <Tooltip hasArrow shouldWrapChildren label="Border Slider" marginTop="9px" fontSize="sm">
+          <Tooltip hasArrow shouldWrapChildren label="Border Slider" marginBottom="9px" fontSize="sm" placement="top">
             <BorderSvg data-testid="borderIcon" />
           </Tooltip>
           <Text fontSize="lg" color="brand.primary">
