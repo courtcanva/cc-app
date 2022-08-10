@@ -161,7 +161,14 @@ const TopBar = () => {
           </Tooltip>
         </Flex>
         <Flex alignItems="center" gap="2">
-          <Tooltip hasArrow shouldWrapChildren label="Border Slider" marginBottom="9px" fontSize="sm" placement="top">
+          <Tooltip
+            hasArrow
+            shouldWrapChildren
+            label="Border Slider"
+            marginBottom="9px"
+            fontSize="sm"
+            placement="top"
+          >
             <BorderSvg data-testid="borderIcon" />
           </Tooltip>
           <Text fontSize="lg" color="brand.primary">
