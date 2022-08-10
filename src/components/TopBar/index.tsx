@@ -129,9 +129,9 @@ const TopBar = () => {
       <Flex
         alignItems="center"
         justifyContent={{ base: "flex-start", lg: "center" }}
-        marginLeft="25px"
+        marginLeft="35px"
       >
-        <Flex alignItems="center" gap="3" marginRight={{ base: "60px", lg: "50px", xl: "100px" }}>
+        <Flex alignItems="center" gap="3" marginRight={{ base: "55px", lg: "50px", xl: "100px" }}>
           <Tooltip hasArrow shouldWrapChildren label="Paint Bucket" fontSize="sm">
             <Popover isOpen={paintPopover} onOpen={open} onClose={close}>
               <PopoverTrigger>
