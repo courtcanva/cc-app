@@ -109,12 +109,7 @@ const NavigationBar = () => {
           </Button>
         </Link>
         <Flex flex="1" justifyContent="center">
-          <Tooltip
-            hasArrow
-            shouldWrapChildren
-            label="undo color edit"
-            fontSize="sm"
-          >
+          <Tooltip hasArrow shouldWrapChildren label="undo color edit" fontSize="sm">
             <IconButton
               aria-label="Revert edit"
               icon={<RiArrowGoBackLine />}
@@ -124,12 +119,7 @@ const NavigationBar = () => {
               marginX="10px"
             />
           </Tooltip>
-          <Tooltip
-            hasArrow
-            shouldWrapChildren
-            label="redo color edit"
-            fontSize="sm"
-          >
+          <Tooltip hasArrow shouldWrapChildren label="redo color edit" fontSize="sm">
             <IconButton
               aria-label="Forward edit"
               icon={<RiArrowGoForwardLine />}
@@ -139,12 +129,7 @@ const NavigationBar = () => {
               marginX="10px"
             />
           </Tooltip>
-          <Tooltip
-            hasArrow
-            shouldWrapChildren
-            label="reset all color edits"
-            fontSize="sm"
-          >
+          <Tooltip hasArrow shouldWrapChildren label="reset all color edits" fontSize="sm">
             <IconButton
               aria-label="Reset edit"
               icon={<BsArrowCounterclockwise />}
