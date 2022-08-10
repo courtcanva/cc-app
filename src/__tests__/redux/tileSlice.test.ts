@@ -20,15 +20,15 @@ it("should change tile color", () => {
       },
       {
         location: "courtArea",
-        color: "#B61313",
+        color: "#E18E11",
       },
       {
         location: "topKeyArea",
-        color: "#B61313",
+        color: "#B6B6B6",
       },
       {
         location: "border",
-        color: "#195955",
+        color: "#834085",
       },
       {
         location: "keyArea",
@@ -36,7 +36,7 @@ it("should change tile color", () => {
       },
       {
         location: "circleArea",
-        color: "#606F14",
+        color: "#B6B6B6",
       },
     ],
   });

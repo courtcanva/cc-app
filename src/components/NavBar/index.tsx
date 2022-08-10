@@ -96,7 +96,7 @@ const NavigationBar = () => {
   return (
     <Grid
       templateColumns="repeat(3, 1fr)"
-      bg="brand.primary"
+      bg="background.primary"
       p={4}
       minW="768px"
       w="100vw"
@@ -109,7 +109,12 @@ const NavigationBar = () => {
           </Button>
         </Link>
         <Flex flex="1" justifyContent="center">
-          <Tooltip hasArrow shouldWrapChildren label="undo color edit" fontSize="sm">
+          <Tooltip
+            hasArrow
+            shouldWrapChildren
+            label="undo color edit"
+            fontSize="sm"
+          >
             <IconButton
               aria-label="Revert edit"
               icon={<RiArrowGoBackLine />}
@@ -119,7 +124,12 @@ const NavigationBar = () => {
               marginX="10px"
             />
           </Tooltip>
-          <Tooltip hasArrow shouldWrapChildren label="redo color edit" fontSize="sm">
+          <Tooltip
+            hasArrow
+            shouldWrapChildren
+            label="redo color edit"
+            fontSize="sm"
+          >
             <IconButton
               aria-label="Forward edit"
               icon={<RiArrowGoForwardLine />}
@@ -129,7 +139,12 @@ const NavigationBar = () => {
               marginX="10px"
             />
           </Tooltip>
-          <Tooltip hasArrow shouldWrapChildren label="reset all color edits" fontSize="sm">
+          <Tooltip
+            hasArrow
+            shouldWrapChildren
+            label="reset all color edits"
+            fontSize="sm"
+          >
             <IconButton
               aria-label="Reset edit"
               icon={<BsArrowCounterclockwise />}
@@ -150,8 +165,8 @@ const NavigationBar = () => {
               aria-label="User information"
               icon={<FaRegUser />}
               variant="navbarIconBtn"
-              bg="white"
-              color="black"
+              bg="background.tertiary"
+              color="brand.primary"
               marginRight="10px"
               isRound
               onClick={handleLoginModalOpen}

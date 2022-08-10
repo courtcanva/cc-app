@@ -39,7 +39,7 @@ const Blueprints: React.FC = () => {
             cursor="pointer"
             onClick={() => handleCourtSelecting(imgUrl, courtId, courtSizeName)}
             data-testid={imgUrl}
-            _hover={{ border: "4px solid #40B484" }}
+            _hover={{ border: "4px solid button.hover" }}
             opacity={!activateCourt || activateCourt === imgUrl ? "1" : "0.4"}
           >
             <Image src={imgUrl} objectFit="contain" width="200px" height="140px" />

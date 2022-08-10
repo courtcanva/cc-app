@@ -44,7 +44,7 @@ const EditorSideBar = () => {
 
   return (
     <Box>
-      <Box bg="background.primary" w="98px" h="100vh" position="fixed" top="72px" left="0">
+      <Box bg="background.secondary" w="98px" h="100vh" position="fixed" top="72px" left="0">
         <Flex
           alignItems="center"
           justifyContent="center"
