@@ -27,7 +27,7 @@ import {
   getDesignsData,
   setNewDesignActive,
 } from "@/store/reducer/courtSpecDataSlice";
-import { getDesignsTileData } from "@/store/reducer/tileSlice";
+import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import errorMessage from "@/utils/setNameErrorMessage";
 
