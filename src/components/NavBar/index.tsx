@@ -36,6 +36,7 @@ const NavigationBar = () => {
     return;
   };
   const [loginData, setLoginData] = useState(getInfo());
+  const [loginState, setLoginState] = useState(false);
 
   useMemo(async () => {
     if (loginData === null || loginData === undefined) {
@@ -59,12 +60,14 @@ const NavigationBar = () => {
   /* istanbul ignore next */
   const updateLoginData = (loginData: UserState) => {
     setLoginData(loginData);
+    setLoginState(true);
   };
 
   /* istanbul ignore next */
   useEffect(() => {
     const userInfo = localStorage.getItem("UserInfo");
     userInfo && setLoginData(JSON.parse(userInfo));
+    userInfo && setLoginState(true);
   }, []);
 
   const handleLoginModalOpen = () => {
@@ -78,6 +81,7 @@ const NavigationBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("UserInfo");
     setLoginData(null);
+    setLoginState(false);
   };
   const handleUndo = () => {
     dispatch(ActionCreators.undo());
@@ -143,7 +147,7 @@ const NavigationBar = () => {
       </Flex>
       <EditorDesignName />
       <Flex alignItems="center" justifyContent="flex-end">
-        {!loginData ? (
+        {!loginState ? (
           <Menu>
             <MenuButton
               as={IconButton}
