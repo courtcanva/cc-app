@@ -10,8 +10,12 @@ interface Props {
 }
 
 const EditorSideBarItem = (props: Props) => {
-  const bg = props.iconClickTitle === props.title ? "background.secondary" : "background.primary";
-  const color = props.iconClickTitle === props.title ? "#fff" : "fontcolor.primary";
+  const bg =
+    props.iconClickTitle === props.title ? "background.secondaryLight" : "background.secondary";
+  const color =
+    props.iconClickTitle === props.title || props.iconClickTitle === ""
+      ? "fontcolor.primary"
+      : "fontcolor.quaternary";
   return (
     <Box
       as="button"
@@ -23,7 +27,7 @@ const EditorSideBarItem = (props: Props) => {
       onClick={props.onHandleIconClick}
     >
       <Flex flexDirection="column" align="center" justify="flex-start">
-        <Icon w="24px" h="24px" _groupHover={{ color: "White" }} color={color}>
+        <Icon w="24px" h="24px" _groupHover={{ color: "fontcolor.primary" }} color={color}>
           {props.icon}
         </Icon>
         <Text
@@ -33,7 +37,7 @@ const EditorSideBarItem = (props: Props) => {
           fontSize="md"
           fontWeight="bold"
           lineHeight="19px"
-          _groupHover={{ color: "white" }}
+          _groupHover={{ color: "fontcolor.primary" }}
         >
           {props.title}
         </Text>

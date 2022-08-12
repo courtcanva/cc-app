@@ -15,7 +15,7 @@ describe("Header", () => {
     );
     const navBarBtn = screen.getByRole("button", { name: /Share/i });
     expect(navBarBtn).toBeInTheDocument();
-    const budgetTextElement = screen.queryAllByText(/Estimated Budget:/i);
+    const budgetTextElement = screen.queryAllByText(/Estimated Budget/i);
     expect(budgetTextElement).toHaveLength(0);
   });
 
@@ -27,7 +27,7 @@ describe("Header", () => {
         </RouterContext.Provider>
       </GoogleOAuthProvider>
     );
-    const budgetTextElement = screen.queryAllByText(/Estimated Budget:/i);
+    const budgetTextElement = screen.queryAllByText(/Estimated Budget/i);
     expect(budgetTextElement).toHaveLength(1);
   });
 

@@ -5,22 +5,22 @@ import {
   SliderFilledTrack,
   SliderThumb,
   Flex,
-  SimpleGrid,
   Text,
   IconButton,
-  Icon,
+  Grid,
+  Tooltip,
 } from "@chakra-ui/react";
 import { TriangleUpIcon } from "@chakra-ui/icons";
 import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import ColorBoard from "./ColorBoard";
 import SaveBoard from "./SaveBoard";
-import { BsBorderWidth } from "react-icons/bs";
 import DownloadSvg from "@/assets/svg/TopBarSvg/download.svg";
 import BinSvg from "@/assets/svg/TopBarSvg/bin.svg";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import PaintBucketSvg from "@/assets/svg/TopBarSvg/paintBucket.svg";
 import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
+import BorderSvg from "@/assets/svg/TopBarSvg/border.svg";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
@@ -102,16 +102,15 @@ const TopBar = () => {
   };
 
   return (
-    <SimpleGrid
-      columns={3}
+    <Grid
+      gridTemplateColumns={{ base: "0 1fr 1fr", lg: "1fr 1fr 1fr" }}
       position="fixed"
       width="calc(100vw - 98px)"
-      background="white"
+      background="background.tertiary"
       left="98px"
       top="73px"
       height="50px"
     >
-      {/* left */}
       <Flex alignItems="center">
         <Text
           minWidth="250px"
@@ -121,74 +120,98 @@ const TopBar = () => {
           whiteSpace="nowrap"
           textOverflow="ellipsis"
           marginLeft="8"
+          color="brand.primary"
         >
           {nameString}
         </Text>
       </Flex>
 
-      {/* center */}
-      <Flex alignItems="center" gap={{ base: "0", lg: "5" }}>
-        <Popover isOpen={paintPopover} onOpen={open} onClose={close}>
-          <PopoverTrigger>
+      <Flex
+        alignItems="center"
+        justifyContent={{ base: "flex-start", lg: "center" }}
+        marginLeft="35px"
+      >
+        <Flex alignItems="center" gap="3" marginRight={{ base: "55px", lg: "50px", xl: "100px" }}>
+          <Tooltip hasArrow shouldWrapChildren label="Paint Bucket" fontSize="sm" placement="top">
+            <Popover isOpen={paintPopover} onOpen={open} onClose={close}>
+              <PopoverTrigger>
+                <IconButton
+                  aria-label="Rb"
+                  icon={<PaintBucketSvg fill={selectedColor} />}
+                  display="fixed"
+                  variant="editorFooterIconBtn"
+                  data-testid="colorSelectBtn"
+                />
+              </PopoverTrigger>
+              <PopoverContent width={300} height={168}>
+                <PopoverBody>
+                  <ColorBoard />
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+          </Tooltip>
+          <Tooltip hasArrow shouldWrapChildren label="Label Bucket" fontSize="sm" placement="top">
             <IconButton
-              aria-label="Rb"
-              icon={<PaintBucketSvg fill={selectedColor} />}
-              display="fixed"
+              aria-label="Upload"
+              colorScheme="transparent"
+              icon={<UploadSvg />}
+              data-testid="uploadBtn"
               variant="editorFooterIconBtn"
-              data-testid="colorSelectBtn"
             />
-          </PopoverTrigger>
-          <PopoverContent width={300} height={168}>
-            <PopoverBody>
-              <ColorBoard />
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
-        <IconButton
-          aria-label="Upload"
-          colorScheme="transparent"
-          icon={<UploadSvg />}
-          data-testid="uploadBtn"
-          variant="editorFooterIconBtn"
-        />
-        <Icon as={BsBorderWidth} color="brand.primary" data-testid="borderIcon" />
-        <Text fontSize="lg">0</Text>
-        <Slider
-          aria-label="slider"
-          defaultValue={sliderValue}
-          value={sliderValue}
-          min={0}
-          max={2.0}
-          step={0.1}
-          maxWidth="40"
-          minWidth="30"
-          isDisabled={selectedCourt.courtName === "Pro Full Court"}
-          onChange={(val: number) => handleChange(val)}
-        >
-          <SliderMark
-            value={sliderValue}
-            textAlign="center"
-            color="brand.primary"
-            marginTop="-6"
-            marginLeft="-5"
-            width="10"
-            fontSize="10px"
+          </Tooltip>
+        </Flex>
+        <Flex alignItems="center" gap="2">
+          <Tooltip
+            hasArrow
+            shouldWrapChildren
+            label="Border Slider"
+            marginBottom="9px"
+            fontSize="sm"
+            placement="top"
           >
-            {sliderValue}m
-          </SliderMark>
-          <SliderTrack height="9px" borderRadius="6px" background="brand.primary">
-            <SliderFilledTrack background="brand.primary" />
-          </SliderTrack>
-          <SliderThumb
-            background="transparent"
-            color="brand.primary"
-            border="none"
-            marginTop={3}
-            as={TriangleUpIcon}
-            boxShadow="none"
-          ></SliderThumb>
-        </Slider>
-        <Text fontSize="lg">2</Text>
+            <BorderSvg data-testid="borderIcon" />
+          </Tooltip>
+          <Text fontSize="lg" color="brand.primary">
+            0
+          </Text>
+          <Slider
+            aria-label="slider"
+            defaultValue={sliderValue}
+            value={sliderValue}
+            min={0}
+            max={2.0}
+            step={0.1}
+            w="180px"
+            isDisabled={selectedCourt.courtName === "Pro Full Court"}
+            onChange={(val: number) => handleChange(val)}
+          >
+            <SliderMark
+              value={sliderValue}
+              textAlign="center"
+              color="brand.primary"
+              marginTop="-6"
+              marginLeft="-5"
+              width="10"
+              fontSize="10px"
+            >
+              {sliderValue}m
+            </SliderMark>
+            <SliderTrack height="9px" borderRadius="6px" background="brand.primary">
+              <SliderFilledTrack background="brand.primary" />
+            </SliderTrack>
+            <SliderThumb
+              background="transparent"
+              color="brand.primary"
+              border="none"
+              marginTop={3}
+              as={TriangleUpIcon}
+              boxShadow="none"
+            ></SliderThumb>
+          </Slider>
+          <Text fontSize="lg" color="brand.primary">
+            2
+          </Text>
+        </Flex>
       </Flex>
 
       {/* right */}
@@ -201,7 +224,6 @@ const TopBar = () => {
           onClick={downloadToPDF}
           data-testid="download-btn"
         />
-
         <Popover isOpen={savePopoverOpen} onClose={handleSaveClose}>
           <PopoverTrigger>
             <IconButton
@@ -227,7 +249,7 @@ const TopBar = () => {
           onClick={handleDeleteDesign}
         />
       </Flex>
-    </SimpleGrid>
+    </Grid>
   );
 };
 

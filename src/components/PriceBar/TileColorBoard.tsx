@@ -52,11 +52,12 @@ const TileColorBoard: React.FC = () => {
           <Center
             key={color}
             backgroundColor={color}
-            width={{ base: "40px", lg: "60px", xl: "85px" }}
-            height={{ base: "20px", lg: "25px", xl: "35px" }}
+            width={{ base: "45px", lg: "60px", xl: "85px" }}
+            height={{ base: "25px", lg: "30px", xl: "35px" }}
             fontSize={{ base: "xs", xl: "sm" }}
-            color="white"
+            color="fontcolor.primary"
             role="tileBlock"
+            borderRadius="6px"
           >
             {quantity}
           </Center>
@@ -68,26 +69,45 @@ const TileColorBoard: React.FC = () => {
   return (
     <>
       <Flex height="64px">
-        <Center width="100%" justifyContent="flex-start" marginLeft={{ base: "30px", xl: "60px" }}>
-          <Text fontSize="xs" fontWeight="600">
-            Estimated Tiles:
+        <Center
+          width="100%"
+          justifyContent="flex-start"
+          marginLeft={{ base: "10px", lg: "35px", xl: "60px" }}
+        >
+          <Text fontSize={{ base: "xs", lg: "sm" }} fontWeight="600" color="brand.primary">
+            Estimated Tiles
           </Text>
           <Center gap="8px" height="35px" marginLeft="8px" data-testid="tileBoard">
             {centers}
           </Center>
         </Center>
         <Center
-          width="350px"
-          justifyContent="flex-start"
+          width="400px"
+          justifyContent={{ base: "flex-start", lg: "center" }}
+          paddingLeft={{ base: "10px", lg: "0px", xl: "0px" }}
           borderLeft="1px solid #ABABAD"
-          paddingLeft="20px"
+          alignItems="center"
+          color="brand.primary"
         >
-          <Text fontSize="xs" fontWeight="600">
-            Estimated Budget:
-          </Text>
-          <Text fontSize="xs" fontWeight="800" marginLeft="6px">
-            From $ {useTotalPrice === "0.00" ? "Loading..." : useTotalPrice}
-          </Text>
+          <Center alignItems="baseline">
+            <Text fontSize={{ base: "xs", lg: "sm" }} fontWeight="600">
+              Estimated Budget
+            </Text>
+            <Text
+              fontSize={{ base: "xs", lg: "sm" }}
+              fontWeight={{ base: "700", lg: "800" }}
+              marginLeft="8px"
+            >
+              From
+            </Text>
+            <Text
+              fontSize={{ base: "md", lg: "lg" }}
+              fontWeight={{ base: "700", lg: "800" }}
+              marginLeft="2px"
+            >
+              ${useTotalPrice === "0.00" ? "Loading..." : useTotalPrice}
+            </Text>
+          </Center>
         </Center>
       </Flex>
     </>
