@@ -18,19 +18,19 @@ export const initialState: TileState = {
   court: [
     {
       location: "threePoint",
-      color: "#72818B",
+      color: "#7088B1",
     },
     {
       location: "courtArea",
-      color: "#B61313",
+      color: "#E18E11",
     },
     {
       location: "topKeyArea",
-      color: "#B61313",
+      color: "#B6B6B6",
     },
     {
       location: "border",
-      color: "#195955",
+      color: "#834085",
     },
     {
       location: "keyArea",
@@ -38,7 +38,7 @@ export const initialState: TileState = {
     },
     {
       location: "circleArea",
-      color: "#606F14",
+      color: "#B6B6B6",
     },
   ],
 };

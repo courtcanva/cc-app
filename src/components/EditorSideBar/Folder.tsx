@@ -53,7 +53,7 @@ const Folder: React.FC = () => {
             fontSize="14"
             onClick={() => handleCourtSelecting(courtId)}
             data-testid={courtId}
-            _hover={{ border: "2px solid #40B484" }}
+            _hover={{ border: "2px solid button.hover" }}
             opacity={!activateDesign || activateDesign === courtId ? "1" : "0.4"}
           >
             {designName} - {courtName}

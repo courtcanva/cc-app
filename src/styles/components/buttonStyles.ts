@@ -14,6 +14,7 @@ const buttonStyles = {
       fontSize: "lg",
       fontWeights: "bold",
       lineHeights: "22",
+      borderRadius: "6px",
       _hover: { bg: "brand.secondary", opacity: "0.60" },
       _active: { bg: "brand.secondary", opacity: "0.60" },
     },
@@ -31,7 +32,7 @@ const buttonStyles = {
       bg: "transparent",
       color: "white",
       fontSize: "xl",
-      _hover: { bg: "fontcolor.primary", opacity: "0.60" },
+      _hover: { bg: "fontcolor.quaternary", opacity: "0.60" },
       size: "sm",
     },
     loginBtn: {

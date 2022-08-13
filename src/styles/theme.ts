@@ -22,18 +22,20 @@ const styles = {
 const colors = {
   brand: {
     primary: "#344C5C",
-    secondary: "#40B484",
-    primaryLight: "#496A80",
+    secondary: "#40B484", 
+    primaryLight: "#496A80", 
   },
   background: {
-    primary: "#2C3333",
-    secondary: "#4f5757",
-    tertiary: "#EDF2F7",
+    primary: "#2C4E8A",
+    secondary: "#7088B1",
+    tertiary: "#FFFFFF",
+    secondaryLight: "#2c5282",
   },
   fontcolor: {
-    primary: "#C8C5C5",
-    secondary: "#1A202C",
-    tertiary: "#4285f4",
+    primary: "#FFFFFF",
+    secondary: "#1A202C", 
+    tertiary: "#4285f4", 
+    quaternary: "#C8C5C5",
   },
   CourtSizecolor: {
     btc: "#40B484",
@@ -45,7 +47,7 @@ const colors = {
     active: "#699D88",
   },
   footerSwitch: {
-    500: "#8FE9C3",
+    500: "#40B484",
   },
 };
 

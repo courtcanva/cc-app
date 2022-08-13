@@ -1,6 +1,5 @@
 import { Box, Flex, IconButton, FormControl, Switch, FormLabel } from "@chakra-ui/react";
 import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
-import { BiHelpCircle } from "react-icons/bi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { switchRuler } from "@/store/reducer/rulerControlSlice";
@@ -43,25 +42,34 @@ const EditorFooter = () => {
           data-testid="zoom-in-btn"
         />
       </Box>
-      <Flex gap={8}>
-        <FormControl display="flex" alignItems="center">
+      <Flex alignItems="center" justifyContent="flex-end" marginRight="1">
+        <FormControl display="flex" alignItems="center" justifyContent="flex-end" w="150px">
           <FormLabel
             htmlFor="ruler-switch-btn"
             mb="0"
             color="brand.primary"
             data-testid="ruler-label"
-            width="85px"
+            width={{ base: "60px", lg: "70px" }}
             height="40px"
+            fontSize={{ base: "xs", lg: "sm" }}
             paddingTop="3px"
+            fontWeight="500"
           >
             {ruler}
           </FormLabel>
           <Switch
             id="ruler-switch-btn"
             colorScheme="footerSwitch"
+            size="lg"
             sx={{
+              "span.chakra-switch__track": {
+                width: "40px",
+                height: "18px",
+              },
               "span .chakra-switch__thumb": {
-                bgColor: "brand.primary",
+                bgColor: "background.tertiary",
+                width: "18px",
+                height: "18px",
               },
               "span.chakra-switch__track[data-focus]": {
                 boxShadow: "none",
@@ -72,13 +80,6 @@ const EditorFooter = () => {
             onChange={handleRulerState}
           />
         </FormControl>
-        <IconButton
-          aria-label="Forward edit"
-          icon={<BiHelpCircle />}
-          variant="witheBackgroundIconBtn"
-          color="brand.primary"
-          data-testid="help-btn"
-        />
       </Flex>
     </Flex>
   );

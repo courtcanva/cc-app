@@ -100,7 +100,7 @@ const NavigationBar = () => {
   return (
     <Grid
       templateColumns="repeat(3, 1fr)"
-      bg="brand.primary"
+      bg="background.primary"
       p={4}
       minW="768px"
       w="100vw"
@@ -154,8 +154,8 @@ const NavigationBar = () => {
               aria-label="User information"
               icon={<FaRegUser />}
               variant="navbarIconBtn"
-              bg="white"
-              color="black"
+              bg="background.tertiary"
+              color="brand.primary"
               marginRight="10px"
               isRound
               onClick={handleLoginModalOpen}

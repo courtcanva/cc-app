@@ -22,10 +22,8 @@ describe("EditorFooter", () => {
 
     const zoomOutElement = screen.getByTestId("zoom-out-btn");
     const zoomInElement = screen.getByTestId("zoom-in-btn");
-    const helpElement = screen.getByTestId("help-btn");
 
     expect(zoomOutElement).toBeInTheDocument();
     expect(zoomInElement).toBeInTheDocument();
-    expect(helpElement).toBeInTheDocument();
   });
 });

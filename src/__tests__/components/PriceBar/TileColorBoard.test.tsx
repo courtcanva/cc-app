@@ -6,7 +6,7 @@ import { initialState, PriceBar } from "@/store/reducer/priceBarSlice";
 describe("TileColorBoard", () => {
   it("Should render estimated budget text", () => {
     renderWithMockedProvider(<TileColorBoard />);
-    const budgetTextEl = screen.getByText(/Estimated Budget:/i);
+    const budgetTextEl = screen.getByText(/Estimated Budget/i);
     expect(budgetTextEl).toBeInTheDocument();
   });
 
