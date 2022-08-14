@@ -12,36 +12,42 @@ export const designApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URI,
   }),
-  tagTypes: ['Design'],
+  tagTypes: ["Design"],
   endpoints: (builder) => ({
     getDesign: builder.query({
-      query: (userId:string) => `/designs/${userId}`,
+      query: (userId: string) => `/designs/${userId}`,
     }),
+
     addDesign: builder.mutation({
-      query: ( newDesign: { design: ISaveDesign }) => ({
-        url: 'designs',
-        method: 'POST',
-        body: newDesign.design
+      query: (newDesign: { design: ISaveDesign }) => ({
+        url: "designs",
+        method: "POST",
+        body: newDesign.design,
       }),
-      invalidatesTags: ['Design']
+      invalidatesTags: ["Design"],
     }),
     updateDesign: builder.mutation({
-      query: (changeDesign: { _id:string, design: ISaveDesign }) => ({
-          url: `/designs/${ changeDesign._id}`,
-          method: 'PUT',
-          body: changeDesign.design
+      query: (changeDesign: { _id: string; design: ISaveDesign }) => ({
+        url: `/designs/${changeDesign._id}`,
+        method: "PUT",
+        body: changeDesign.design,
       }),
-      invalidatesTags: ['Design']
+      invalidatesTags: ["Design"],
     }),
     deleteDesign: builder.mutation({
-        query: ( _id: string ) => ({
-            url: `/designs/${ _id }`,
-            method: 'DELETE',
-            body: _id
-        }),
-        invalidatesTags: ['Design']
+      query: (_id: string) => ({
+        url: `/designs/${_id}`,
+        method: "DELETE",
+        body: _id,
+      }),
+      invalidatesTags: ["Design"],
     }),
   }),
 });
 
-export const { useGetDesignQuery, useAddDesignMutation, useUpdateDesignMutation, useDeleteDesignMutation } = designApi;
+export const {
+  useGetDesignQuery,
+  useAddDesignMutation,
+  useUpdateDesignMutation,
+  useDeleteDesignMutation,
+} = designApi;
