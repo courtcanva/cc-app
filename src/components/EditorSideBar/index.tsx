@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
+import { AiOutlineTeam } from "react-icons/ai";
 
 const EditorSideBar = () => {
   const dispatch = useDispatch();
@@ -62,7 +63,20 @@ const EditorSideBar = () => {
             />
           ))}
         </Flex>
+        <Flex
+          flexDirection="column"
+          alignItems="center"
+          margin="100px auto 0 auto"
+          color="fontcolor.primary"
+          fontWeight="bold"
+          as="a"
+          href="/team"
+        >
+          <AiOutlineTeam size="32px" />
+          Team
+        </Flex>
       </Box>
+
       {isOpen && (
         <EditorSideBarContent
           iconClickTitle={iconClickTitle}
