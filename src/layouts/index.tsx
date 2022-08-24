@@ -7,12 +7,12 @@ import EditorSideBar from "../components/EditorSideBar";
 import EditorFooter from "@/components/EditorFooter";
 import PriceBar from "@/components/PriceBar";
 import TopBar from "@/components/TopBar";
-import { PAGE_NOT_FOUND } from "../../src/constants";
+import { PAGE_NOT_FOUND, TEAM_PAGE } from "../../src/constants";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
 
-  if (router.pathname === PAGE_NOT_FOUND) {
+  if (router.pathname === PAGE_NOT_FOUND || router.pathname === TEAM_PAGE) {
     return (
       <>
         <Header />

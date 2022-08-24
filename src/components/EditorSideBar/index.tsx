@@ -1,11 +1,13 @@
 import EditorSideBarItem from "./EditorSideBarItem";
 import sideBarItemList from "./SideBarItemList";
-import { Box, Flex } from "@chakra-ui/react";
+import { Link, Box, Flex } from "@chakra-ui/react";
 import EditorSideBarContent from "./EditorSideBarContent";
 import { useEffect, useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
+import { AiOutlineTeam } from "react-icons/ai";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 const EditorSideBar = () => {
   const dispatch = useDispatch();
@@ -62,7 +64,21 @@ const EditorSideBar = () => {
             />
           ))}
         </Flex>
+        <Flex
+          flexDirection="column"
+          alignItems="center"
+          margin="180px auto 0 auto"
+          color="fontcolor.primary"
+          fontSize="x-small"
+          fontWeight="bold"
+        >
+          <AiOutlineTeam size="24px" />
+          <Link href="/team">
+            Our Team <ExternalLinkIcon mx="2px" />
+          </Link>
+        </Flex>
       </Box>
+
       {isOpen && (
         <EditorSideBarContent
           iconClickTitle={iconClickTitle}
