@@ -42,7 +42,7 @@ const DesignName = () => {
     }
     if (nameCheck === "existed") {
       setFeedbackModal(true);
-      setFeedback("This design name is existed.");
+      setFeedback(`Design name `+ useDesignName + ` is already existed.`);
       return;
     }
     if (nameCheck === "passCheck") {
@@ -82,10 +82,10 @@ const DesignName = () => {
         </Editable>
       </Flex>
       <NameChangeFeedback
-      isOpen={useFeedbackModal}
-      onClose={() => setFeedbackModal(false)}
-      updateFeedbackData={useFeedback}
-    ></NameChangeFeedback>
+        isOpen={useFeedbackModal}
+        onClose={() => setFeedbackModal(false)}
+        updateFeedbackData={useFeedback}
+      ></NameChangeFeedback>
     </>
   );
 };
