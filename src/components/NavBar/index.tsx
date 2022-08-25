@@ -22,6 +22,7 @@ import { defaultCourt, setDefaultCourt } from "@/store/reducer/courtSpecDataSlic
 import { defaultCourtColor, setDefaultCourtColor } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
+import { googleUserMapping } from "@/utils/userMapping";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -35,8 +36,10 @@ const NavigationBar = () => {
     }
     return;
   };
+
   const [loginData, setLoginData] = useState(getInfo());
   const [loginState, setLoginState] = useState(false);
+  
 
   useMemo(async () => {
     if (loginData === null || loginData === undefined) {
@@ -48,8 +51,9 @@ const NavigationBar = () => {
       dispatch(getDesignsTileData([]));
       return;
     }
-    dispatch(updateUserInfo(loginData));
-    const design = await fetchDesignData(loginData.googleId);
+    loginData.googleId?
+      dispatch(updateUserInfo(googleUserMapping(loginData))) : dispatch(updateUserInfo(loginData));
+    const design = loginData.googleId ? await fetchDesignData(loginData.googleId) : await fetchDesignData(loginData.userId) ;
     if (design.data === undefined) return;
     const { mappedDesignsData, mappedtileData, mappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));

@@ -38,7 +38,8 @@ export const makeStore = () =>
       getDefaultMiddleware().concat(
         courtsApi.middleware,
         priceApi.middleware,
-        designApi.middleware
+        designApi.middleware,
+        courtColorApi.middleware,
       ),
   });
 

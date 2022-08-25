@@ -1,6 +1,6 @@
 import { Arrow } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { MIN_DIMENSION_BOX } from "@/constants/courtSize";
+import { MIN_DIMENSION_BOX } from "@/constants/courtData";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import DimensionText from "./DimensionText";
 
