@@ -15,7 +15,6 @@ import {
 import { useStoreSelector } from "@/store/hooks";
 import {
   fetchDesignData,
-  updateDesignData,
   useAddDesignMutation,
   useUpdateDesignMutation,
 } from "@/redux/api/designApi";

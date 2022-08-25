@@ -1,18 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ISaveDesign, IDesign } from "@/interfaces/design";
+import { ISaveDesign } from "@/interfaces/design";
 import axios from "axios";
 
 export const fetchDesignData = (userId: string) => {
   const design = axios.get(process.env.NEXT_PUBLIC_API_BASE_URI + `/designs/` + userId);
   return design;
-};
-
-export const updateDesignData = (_id:string, design: ISaveDesign) => {
-  const res = axios.put(process.env.NEXT_PUBLIC_API_BASE_URI + `/designs/` + _id, { user_id: design.user_id,
-    designName: design.designName,
-    tileColor: design.tileColor,
-    courtSize: design.courtSize });
-  return res;
 };
 
 export const designApi = createApi({
