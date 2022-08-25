@@ -63,11 +63,12 @@ const SaveBoard: React.FC = () => {
     const nameCheck = checkName(courtData.designName, designNames);
     setNameCheck(nameCheck);
     setDesignName(courtData.designName);
-    if (courtData === defaultCourt && nameCheck === "existed") {
+    if (courtData.courtId === "" && nameCheck === "existed") {
       const index = designsData.findIndex((item) => item.designName === defaultCourt.designName);
       setCourtId(designsData[index]?.courtId);
       return;
     }
+    setCourtId(courtData.courtId);
   }, [designNames, courtData, userData]);
 
   const designData = {
@@ -105,7 +106,7 @@ const SaveBoard: React.FC = () => {
         });
     }
     if (nameCheck === "passCheck") {
-      if (designData.designName === defaultCourt.designName) {
+      if (courtData.courtId === "") {
         await addDesign({ design: designData })
           .unwrap()
           .then(() => {
@@ -117,18 +118,19 @@ const SaveBoard: React.FC = () => {
             setSaveDesignModal(true);
           });
         setNameCheck("existed");
-        return;
       }
-      await updateDesign({ _id: useCourtId, design: designData })
-        .unwrap()
-        .then(() => {
-          setFeedback("Your design has been updated.");
-          setSaveDesignModal(true);
-        })
-        .catch(() => {
-          setFeedback("Updated design failed, please try it again.");
-          setSaveDesignModal(true);
-        });
+      if (courtData.courtId !== "") {
+        await updateDesign({ _id: useCourtId, design: designData })
+          .unwrap()
+          .then(() => {
+            setFeedback("Your design has been updated.");
+            setSaveDesignModal(true);
+          })
+          .catch(() => {
+            setFeedback("Updated design failed, please try it again.");
+            setSaveDesignModal(true);
+          });
+      }
     }
     mappedDesignData(designData.designName);
   };
