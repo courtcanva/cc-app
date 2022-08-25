@@ -42,7 +42,7 @@ const DesignName = () => {
     }
     if (nameCheck === "existed") {
       setFeedbackModal(true);
-      setFeedback(`Design name `+ useDesignName + ` is already existed.`);
+      setFeedback(`Design name ` + useDesignName + ` is already existed.`);
       return;
     }
     if (nameCheck === "passCheck") {
