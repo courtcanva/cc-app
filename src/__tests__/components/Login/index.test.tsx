@@ -19,7 +19,7 @@ describe("Login", () => {
     expect(googleButtonEl).toBeInTheDocument();
     expect(emailButtonEl).toBeInTheDocument();
     expect(googleButtonEl).toHaveTextContent("Continue with Google");
-    expect(emailButtonEl).toHaveTextContent("Continue with email");
+    expect(emailButtonEl).toHaveTextContent("Continue with Email");
   });
 
   it("Should close Modal when click close button", async () => {

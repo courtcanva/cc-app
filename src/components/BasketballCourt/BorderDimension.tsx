@@ -1,7 +1,7 @@
 import { useStoreSelector } from "@/store/hooks";
 import DimensionText from "./DimensionText";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
-import { MIN_DIMENSION_BOX } from "../../constants/courtSize";
+import { MIN_DIMENSION_BOX } from "../../constants/courtData";
 
 interface BorderDimensionProps {
   startPoint: ICourtStartPoint;

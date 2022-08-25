@@ -1,4 +1,4 @@
-import { MIN_DIMENSION_BOX } from "@/constants/courtSize";
+import { MIN_DIMENSION_BOX } from "@/constants/courtData";
 import { useStoreSelector } from "@/store/hooks";
 import { Text } from "react-konva";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";

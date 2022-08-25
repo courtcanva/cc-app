@@ -11,18 +11,18 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 const EditorSideBar = () => {
   const dispatch = useDispatch();
-  const { googleId } = useStoreSelector((state) => state.user);
+  const { userId } = useStoreSelector((state) => state.user);
   const [isOpen, setIsOpen] = useState(false);
   const [iconClickTitle, setIconClick] = useState("");
-  const [checkUser, setCheckUser] = useState(googleId);
+  const [checkUser, setCheckUser] = useState(userId);
 
   useEffect(() => {
-    setCheckUser(googleId);
-    if (iconClickTitle === "Folder" && googleId === "") {
+    setCheckUser(userId);
+    if (iconClickTitle === "Folder" && userId === "") {
       setIsOpen(false);
       setIconClick("");
     }
-  }, [googleId]);
+  }, [userId]);
 
   const handleIconClick = (title: string) => {
     if (iconClickTitle === title && isOpen) {

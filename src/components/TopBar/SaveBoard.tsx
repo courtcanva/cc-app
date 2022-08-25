@@ -24,27 +24,32 @@ import { useDispatch } from "react-redux";
 import checkName from "@/utils/checkName";
 import {
   changeDesignName,
+  defaultCourt,
   getDesignsData,
   setNewDesignActive,
 } from "@/store/reducer/courtSpecDataSlice";
 import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import errorMessage from "@/utils/setNameErrorMessage";
+import { CHECK_START_END_SPACE } from "@/constants/courtData";
+import SaveDesignModal from "./SaveDesignModal";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();
   const userData = useStoreSelector((state) => state.user);
   const courtData = useStoreSelector((state) => state.courtSpecData.activeCourt);
   const tileData = useStoreSelector((state) => state.tile.present.court);
-
+  const designsData = useStoreSelector((state) => state.courtSpecData.designsData);
   const designNames = useStoreSelector((state) => state.designName.nameList);
   const cancelRef = useRef(null);
   const [nameCheck, setNameCheck] = useState<string>("exsited");
   const [useDesignName, setDesignName] = useState(courtData.designName);
   const [useCourtId, setCourtId] = useState(courtData.courtId);
-  const [useUserId, setUserId] = useState("user...");
+  const [useUserId, setUserId] = useState("");
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [useNameError, setNameError] = useState("");
+  const [useFeedback, setFeedback] = useState("");
+  const [useSaveDesignModal, setSaveDesignModal] = useState(false);
 
   const tiles: ITileColor[] = [];
   for (const tile of tileData) {
@@ -54,11 +59,15 @@ const SaveBoard: React.FC = () => {
   const mappedcourtSize = saveDesignMapping(courtData);
 
   useEffect(() => {
-    setUserId(userData.googleId);
-    setCourtId(courtData.courtId);
+    setUserId(userData.userId);
     const nameCheck = checkName(courtData.designName, designNames);
     setNameCheck(nameCheck);
     setDesignName(courtData.designName);
+    if (courtData === defaultCourt && nameCheck === "existed") {
+      const index = designsData.findIndex((item) => item.designName === defaultCourt.designName);
+      setCourtId(designsData[index]?.courtId);
+      return;
+    }
   }, [designNames, courtData, userData]);
 
   const designData = {
@@ -84,11 +93,42 @@ const SaveBoard: React.FC = () => {
   const handleSaveDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (nameCheck === "existed") {
-      await updateDesign({ _id: useCourtId, design: designData });
+      await updateDesign({ _id: useCourtId, design: designData })
+        .unwrap()
+        .then(() => {
+          setFeedback("Your design has been updated.");
+          setSaveDesignModal(true);
+        })
+        .catch(() => {
+          setFeedback("Updated design failed, please try it again.");
+          setSaveDesignModal(true);
+        });
     }
     if (nameCheck === "passCheck") {
-      await addDesign({ design: designData });
-      setNameCheck("existed");
+      if (designData.designName === defaultCourt.designName) {
+        await addDesign({ design: designData })
+          .unwrap()
+          .then(() => {
+            setFeedback("Your design has been saved.");
+            setSaveDesignModal(true);
+          })
+          .catch(() => {
+            setFeedback("Saved design failed, please try it again.");
+            setSaveDesignModal(true);
+          });
+        setNameCheck("existed");
+        return;
+      }
+      await updateDesign({ _id: useCourtId, design: designData })
+        .unwrap()
+        .then(() => {
+          setFeedback("Your design has been updated.");
+          setSaveDesignModal(true);
+        })
+        .catch(() => {
+          setFeedback("Updated design failed, please try it again.");
+          setSaveDesignModal(true);
+        });
     }
     mappedDesignData(designData.designName);
   };
@@ -115,8 +155,17 @@ const SaveBoard: React.FC = () => {
 
   const handleSaveAsDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    designData.designName = useDesignName;
-    await addDesign({ design: designData });
+    designData.designName = useDesignName.replace(CHECK_START_END_SPACE, "");
+    await addDesign({ design: designData })
+      .unwrap()
+      .then(() => {
+        setFeedback("Your design has been saved.");
+        setSaveDesignModal(true);
+      })
+      .catch(() => {
+        setFeedback("Saved design failed, please try it again.");
+        setSaveDesignModal(true);
+      });
     setNameCheck("existed");
     dispatch(changeDesignName(useDesignName));
     mappedDesignData(designData.designName);
@@ -164,21 +213,26 @@ const SaveBoard: React.FC = () => {
                   {useNameError}
                 </Text>
                 <Input
+                  marginTop="5px"
                   value={useDesignName}
                   onChange={handleCheckName}
                   placeholder="Make your unique court name."
                 />
               </AlertDialogBody>
               <AlertDialogFooter>
-                <Button ref={cancelRef} onClick={close}>
+                <Button ref={cancelRef} onClick={close} w="75px">
                   Cancel
                 </Button>
                 <Button
-                  colorScheme="red"
+                  bg="button.hover"
+                  color="fontcolor.primary"
+                  w="75px"
                   ml={3}
                   disabled={nameCheck === "passCheck" ? false : true}
                   onClick={handleSaveAsDesign}
                   ref={cancelRef}
+                  _hover={{ bg: "brand.secondary", opacity: "0.60" }}
+                  _active={{ bg: "brand.secondary", opacity: "0.60" }}
                 >
                   Save
                 </Button>
@@ -188,6 +242,11 @@ const SaveBoard: React.FC = () => {
           Save as
         </Button>
       </Box>
+      <SaveDesignModal
+        isOpen={useSaveDesignModal}
+        onClose={() => setSaveDesignModal(false)}
+        updateFeedbackData={useFeedback}
+      ></SaveDesignModal>
     </Flex>
   );
 };

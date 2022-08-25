@@ -89,7 +89,7 @@ export default function SelectLogin(props: Props) {
                 <FaEnvelope />
               </Icon>
             </IconContext.Provider>
-            <Text marginLeft="35px">Continue with email </Text>
+            <Text marginLeft="35px">Continue with Email </Text>
           </Button>
         </Flex>
       </ModalBody>
