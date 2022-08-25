@@ -39,7 +39,7 @@ export const makeStore = () =>
         courtsApi.middleware,
         priceApi.middleware,
         designApi.middleware,
-        courtColorApi.middleware,
+        courtColorApi.middleware
       ),
   });
 

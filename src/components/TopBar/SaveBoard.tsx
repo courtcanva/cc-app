@@ -64,7 +64,7 @@ const SaveBoard: React.FC = () => {
     const nameCheck = checkName(courtData.designName, designNames);
     setNameCheck(nameCheck);
     setDesignName(courtData.designName);
-    if (courtData === defaultCourt && nameCheck === "existed") { 
+    if (courtData === defaultCourt && nameCheck === "existed") {
       const index = designsData.findIndex((item) => item.designName === defaultCourt.designName);
       setCourtId(designsData[index]?.courtId);
       return;
@@ -93,7 +93,7 @@ const SaveBoard: React.FC = () => {
 
   const handleSaveDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (nameCheck === "existed" ) {
+    if (nameCheck === "existed") {
       await updateDesign({ _id: useCourtId, design: designData })
         .unwrap()
         .then(() => {
@@ -233,7 +233,7 @@ const SaveBoard: React.FC = () => {
                   onClick={handleSaveAsDesign}
                   ref={cancelRef}
                   _hover={{ bg: "brand.secondary", opacity: "0.60" }}
-                  _active= {{ bg: "brand.secondary", opacity: "0.60" }}
+                  _active={{ bg: "brand.secondary", opacity: "0.60" }}
                 >
                   Save
                 </Button>
@@ -244,10 +244,10 @@ const SaveBoard: React.FC = () => {
         </Button>
       </Box>
       <SaveDesignModal
-          isOpen={useSaveDesignModal}
-          onClose={() => setSaveDesignModal(false)}
-          updateFeedbackData={useFeedback}
-        ></SaveDesignModal>
+        isOpen={useSaveDesignModal}
+        onClose={() => setSaveDesignModal(false)}
+        updateFeedbackData={useFeedback}
+      ></SaveDesignModal>
     </Flex>
   );
 };

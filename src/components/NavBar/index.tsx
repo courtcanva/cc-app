@@ -39,7 +39,6 @@ const NavigationBar = () => {
 
   const [loginData, setLoginData] = useState(getInfo());
   const [loginState, setLoginState] = useState(false);
-  
 
   useMemo(async () => {
     if (loginData === null || loginData === undefined) {
@@ -51,9 +50,12 @@ const NavigationBar = () => {
       dispatch(getDesignsTileData([]));
       return;
     }
-    loginData.googleId?
-      dispatch(updateUserInfo(googleUserMapping(loginData))) : dispatch(updateUserInfo(loginData));
-    const design = loginData.googleId ? await fetchDesignData(loginData.googleId) : await fetchDesignData(loginData.userId) ;
+    loginData.googleId
+      ? dispatch(updateUserInfo(googleUserMapping(loginData)))
+      : dispatch(updateUserInfo(loginData));
+    const design = loginData.googleId
+      ? await fetchDesignData(loginData.googleId)
+      : await fetchDesignData(loginData.userId);
     if (design.data === undefined) return;
     const { mappedDesignsData, mappedtileData, mappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));
