@@ -43,7 +43,7 @@
     "framer-motion": "^6",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
-    "konva": "^8.3.9",
+    "konva": "8.3.12",
     "lodash": "^4.17.21",
     "next": "^12.1.5",
     "next-head-seo": "^0.1.3",
