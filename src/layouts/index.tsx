@@ -12,29 +12,40 @@ import { PAGE_NOT_FOUND, TEAM_PAGE } from "../../src/constants";
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
 
-  if (router.pathname === PAGE_NOT_FOUND || router.pathname === TEAM_PAGE) {
-    return (
-      <>
-        <Header />
-        <Box as="main">
-          <NavigationBar />
-          {children}
-        </Box>
-      </>
-    );
+  switch (router.pathname) {
+    case TEAM_PAGE:
+      return (
+        <>
+          <Header />
+          <Box as="main">{children}</Box>
+        </>
+      );
+
+    case PAGE_NOT_FOUND:
+      return (
+        <>
+          <Header />
+          <Box as="main">
+            <NavigationBar />
+            {children}
+          </Box>
+        </>
+      );
+
+    default:
+      return (
+        <>
+          <Header />
+          <Box as="main">
+            <NavigationBar />
+            <EditorSideBar />
+            {children}
+            <TopBar />
+          </Box>
+          <PriceBar />
+          <EditorFooter />
+        </>
+      );
   }
-  return (
-    <>
-      <Header />
-      <Box as="main">
-        <NavigationBar />
-        <EditorSideBar />
-        {children}
-        <TopBar />
-      </Box>
-      <PriceBar />
-      <EditorFooter />
-    </>
-  );
 };
 export default Layout;

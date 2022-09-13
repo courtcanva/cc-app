@@ -11,10 +11,10 @@ const Team = () => {
       <NextHeadSeo
         title={`Team members - Courtcanva`}
         description={`Introduction and contact information of team members of CourtCanva`}
-        canonical={`http://www.courtcanva.com/team`}
+        canonical={`http://design.courtcanva.com/team`}
       />
-      <Center paddingY="100px" flexDirection="column">
-        <Text fontSize="lg" fontWeight="bold">
+      <Center paddingY="80px" flexDirection="column">
+        <Text fontSize="32px" fontWeight="bold">
           Meet the Team
         </Text>
         <SimpleGrid columns={{ base: 2, lg: 3 }} spacing="20px" marginY="30px">
