@@ -1,26 +1,28 @@
 import EditorSideBarItem from "./EditorSideBarItem";
 import sideBarItemList from "./SideBarItemList";
-import { Box, Flex } from "@chakra-ui/react";
+import { Link, Box, Flex } from "@chakra-ui/react";
 import EditorSideBarContent from "./EditorSideBarContent";
 import { useEffect, useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
+import { AiOutlineTeam } from "react-icons/ai";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 const EditorSideBar = () => {
   const dispatch = useDispatch();
-  const { googleId } = useStoreSelector((state) => state.user);
+  const { userId } = useStoreSelector((state) => state.user);
   const [isOpen, setIsOpen] = useState(false);
   const [iconClickTitle, setIconClick] = useState("");
-  const [checkUser, setCheckUser] = useState(googleId);
+  const [checkUser, setCheckUser] = useState(userId);
 
   useEffect(() => {
-    setCheckUser(googleId);
-    if (iconClickTitle === "Folder" && googleId === "") {
+    setCheckUser(userId);
+    if (iconClickTitle === "Folder" && userId === "") {
       setIsOpen(false);
       setIconClick("");
     }
-  }, [googleId]);
+  }, [userId]);
 
   const handleIconClick = (title: string) => {
     if (iconClickTitle === title && isOpen) {
@@ -62,7 +64,21 @@ const EditorSideBar = () => {
             />
           ))}
         </Flex>
+        <Flex
+          flexDirection="column"
+          alignItems="center"
+          margin="180px auto 0 auto"
+          color="fontcolor.primary"
+          fontSize="x-small"
+          fontWeight="bold"
+        >
+          <AiOutlineTeam size="24px" />
+          <Link href="/team">
+            Our Team <ExternalLinkIcon mx="2px" />
+          </Link>
+        </Flex>
       </Box>
+
       {isOpen && (
         <EditorSideBarContent
           iconClickTitle={iconClickTitle}

@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
 export interface UserState {
-  googleId: string;
+  userId: string;
   email: string;
   firstName: string;
   lastName: string;
 }
 
 export const initialState: UserState = {
-  googleId: "",
+  userId: "",
   email: "",
   firstName: "",
   lastName: "",

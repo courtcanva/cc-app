@@ -51,12 +51,12 @@ const TopBar = () => {
   const nameString = getCourtNameString(selectedCourt);
   const borderLength = selectedCourt.borderLength;
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
-  const [useUserId, setUserId] = useState(userData.googleId);
+  const [useUserId, setUserId] = useState(userData.userId);
   const [savePopoverOpen, setSavePopoverOpen] = useState(false);
 
   useEffect(() => {
     setSliderValue(borderLength / 1000);
-    setUserId(userData.googleId);
+    setUserId(userData.userId);
   }, [borderLength, userData]);
 
   const handleChange = (val: number) => {

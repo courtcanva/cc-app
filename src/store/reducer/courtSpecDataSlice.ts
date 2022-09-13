@@ -85,7 +85,6 @@ export const Slice = createSlice({
       state.activeCourt = { ...state.activeCourt, designName: action.payload };
       return state;
     },
-
     setDefaultCourt: (state: CourtSpec, action: PayloadAction<CourtSizeState>) => {
       state.activeCourt = action.payload;
       return state;

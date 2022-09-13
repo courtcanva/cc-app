@@ -5,7 +5,7 @@ export interface DesignNameState {
 }
 
 export const initialState: DesignNameState = {
-  nameList: ["Court Canva 1"],
+  nameList: [],
 };
 
 export const designNameSlice = createSlice({
