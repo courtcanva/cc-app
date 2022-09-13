@@ -10,10 +10,12 @@ export const courtsApi = createApi({
     getCourts: builder.query({
       query: () => `/courts`,
     }),
-    getCourt: builder.query({
-      query: (id) => `/courts/${id}`,
-    }),
+
+    // future feature
+    // getCourt: builder.query({
+    //   query: (id) => `/courts/${id}`,
+    // }),
   }),
 });
 
-export const { useGetCourtsQuery, useGetCourtQuery } = courtsApi;
+export const { useGetCourtsQuery } = courtsApi;

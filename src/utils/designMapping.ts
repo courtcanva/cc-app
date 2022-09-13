@@ -3,16 +3,16 @@ import { CourtSizeState } from "@/store/reducer/courtSpecDataSlice";
 
 export const designMapping = (design: IDesign[]) => {
   const mappedDesignsData = design.map((item: IDesign) => designCourtMapping(item));
-  const mappedtileData = design.map((item: IDesign) => designTileMapping(item));
+  const mappedTileData = design.map((item: IDesign) => designTileMapping(item));
   const mappedNameList: string[] = [];
   for (const designData of mappedDesignsData) {
     mappedNameList.push(designData.designName);
   }
 
-  return {mappedDesignsData, mappedtileData, mappedNameList}
+  return { mappedDesignsData, mappedTileData, mappedNameList };
 };
 
-const designCourtMapping = (item: IDesign) => ({
+export const designCourtMapping = (item: IDesign) => ({
   courtId: item._id,
   courtName: item.courtSize.name,
   courtAreaXLength: item.courtSize.length,
@@ -28,7 +28,7 @@ const designCourtMapping = (item: IDesign) => ({
   designName: item.designName,
 });
 
-const designTileMapping = (item: IDesign) => ({
+export const designTileMapping = (item: IDesign) => ({
   courtId: item._id,
   tileColor: item.tileColor,
 });
@@ -47,5 +47,3 @@ export const saveDesignMapping = (item: CourtSizeState) => ({
   lineBorderWidth: item.strokeWidth,
   designName: item.designName,
 });
-
-
