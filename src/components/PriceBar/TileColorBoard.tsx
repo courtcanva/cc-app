@@ -1,9 +1,10 @@
-import { Center, Flex, Text } from "@chakra-ui/react";
+import { Button, Center, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState, useMemo } from "react";
 import { useStoreSelector } from "@/store/hooks";
-import { IPriceCalculation } from "../../interfaces/priceCalculation";
+import { IPriceCalculation } from "@/interfaces/priceCalculation";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import priceFormat from "@/utils/priceFormat";
+import { useAddToCartMutation } from "@/redux/api/cartAPi";
 
 const TileColorBoard: React.FC = () => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
@@ -11,6 +12,15 @@ const TileColorBoard: React.FC = () => {
   const { data } = useGetPriceQuery(0);
   const priceList = data?.find((item: IPriceCalculation) => item.tile_id === "tile001");
   const [useTotalPrice, setTotalPrice] = useState<string>("0.00");
+  // const userId = useStoreSelector((state) => state.user.userId);
+  const [addToCart] = useAddToCartMutation();
+  const newCartItem = {
+    id: 0,
+    name: "",
+    quotation: 0,
+    quotationDetails: "",
+    previewPic: "",
+  };
 
   const priceDetails = {
     tilePrice: 0,
@@ -32,6 +42,10 @@ const TileColorBoard: React.FC = () => {
         (court.courtAreaYLength + court.borderLength * 2)) /
       1000;
     priceDetails.tilePrice = (priceList?.tilePrice / 100) * courtSize;
+  };
+
+  const handleAddToCart = () => {
+    addToCart({ item: newCartItem });
   };
 
   useEffect(() => {
@@ -70,11 +84,16 @@ const TileColorBoard: React.FC = () => {
     <>
       <Flex height="64px">
         <Center
-          width="100%"
+          width="55%"
           justifyContent="flex-start"
           marginLeft={{ base: "10px", lg: "35px", xl: "60px" }}
         >
-          <Text fontSize={{ base: "xs", lg: "sm" }} fontWeight="600" color="brand.primary">
+          <Text
+            fontSize={{ base: "xs", lg: "sm" }}
+            fontWeight="600"
+            color="brand.primary"
+            marginRight="12px"
+          >
             Estimated Tiles
           </Text>
           <Center gap="8px" height="35px" marginLeft="8px" data-testid="tileBoard">
@@ -82,7 +101,7 @@ const TileColorBoard: React.FC = () => {
           </Center>
         </Center>
         <Center
-          width="400px"
+          width="45%"
           justifyContent={{ base: "flex-start", lg: "center" }}
           paddingLeft={{ base: "10px", lg: "0px", xl: "0px" }}
           borderLeft="1px solid #ABABAD"
@@ -90,7 +109,7 @@ const TileColorBoard: React.FC = () => {
           color="brand.primary"
         >
           <Center alignItems="baseline">
-            <Text fontSize={{ base: "xs", lg: "sm" }} fontWeight="600">
+            <Text fontSize={{ base: "xs", lg: "sm" }} fontWeight="600" marginLeft="20px">
               Estimated Budget
             </Text>
             <Text
@@ -108,6 +127,9 @@ const TileColorBoard: React.FC = () => {
               ${useTotalPrice === "0.00" ? "Loading..." : useTotalPrice}
             </Text>
           </Center>
+          <Button variant="shareBtn" marginLeft="30px" onClick={handleAddToCart} data-testid="">
+            Add to Cart
+          </Button>
         </Center>
       </Flex>
     </>
