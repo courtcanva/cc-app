@@ -9,8 +9,8 @@ import { useRef } from "react";
 import { paintBucketIcon } from "@/utils/svgIcon";
 import { useEffect } from "react";
 import { getCourtSpecData, CourtSpecMapper } from "@/store/reducer/courtSpecDataSlice";
-import { useGetCourtsQuery } from "../redux/api/courtSizeApi";
-import { courtSpecMapping } from "../utils/courtSpecMapping";
+import { useGetCourtsQuery } from "@/redux/api/courtSizeApi";
+import { courtSpecMapping } from "@/utils/courtSpecMapping";
 import LoadingPage from "@/components/LoadingPage";
 
 const ProFullCourt = dynamic(() => import("@/components/ProFullCourt"), { ssr: false });

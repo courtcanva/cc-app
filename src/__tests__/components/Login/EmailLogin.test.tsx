@@ -1,7 +1,7 @@
 import LoginModalContent from "@/components/Login";
 import renderWithMockedProvider from "../../utils";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { fireEvent, getByRole, screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 
 describe("Login", () => {
   it("Should display email login after clicking email button", async () => {
