@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { ICartItem } from "@/interfaces/cartItem";
 
 export const cartAPi = createApi({
   reducerPath: "shoppingCart",

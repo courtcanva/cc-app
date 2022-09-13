@@ -5,20 +5,24 @@ import { IPriceCalculation } from "@/interfaces/priceCalculation";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import priceFormat from "@/utils/priceFormat";
 import { useAddToCartMutation } from "@/redux/api/cartAPi";
+import { useGetDesignQuery } from "@/redux/api/designApi";
+import { ICartItem } from "@/interfaces/cartItem";
 
 const TileColorBoard: React.FC = () => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
   const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
   const { data } = useGetPriceQuery(0);
+  const userId = useStoreSelector((state) => state.user.userId);
   const priceList = data?.find((item: IPriceCalculation) => item.tile_id === "tile001");
   const [useTotalPrice, setTotalPrice] = useState<string>("0.00");
-  // const userId = useStoreSelector((state) => state.user.userId);
   const [addToCart] = useAddToCartMutation();
-  const newCartItem = {
-    id: 0,
-    name: "",
-    quotation: 0,
-    quotationDetails: "",
+  // get design info from database
+  const designItem = useGetDesignQuery(userId);
+
+  const newCartItem: ICartItem = {
+    designItem: designItem.data,
+    quotation: useTotalPrice,
+    quotationDetails: tileBlocks,
     previewPic: "",
   };
 
