@@ -10,7 +10,7 @@ const useCourt = () => {
     threePointLineRadius,
     threePointLineToCourtEdgeLength,
     borderLength,
-  // } = useStoreSelector((state) => state.courtSize);
+    // } = useStoreSelector((state) => state.courtSize);
   } = useStoreSelector((state) => state.courtSpecData.activeCourt);
   const stageMargin = 2500;
   // componentsStartPoint is different court area start point

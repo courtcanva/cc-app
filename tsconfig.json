@@ -30,6 +30,6 @@
     "src/styles/Chakra.ts",
     "**/*.spec.tsx",
     "globals.d.ts",
-    "src/utils/axios.ts",
+    "src/utils/axios.ts"
   ]
 }
