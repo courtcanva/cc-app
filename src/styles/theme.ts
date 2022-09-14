@@ -22,8 +22,8 @@ const styles = {
 const colors = {
   brand: {
     primary: "#344C5C",
-    secondary: "#40B484", 
-    primaryLight: "#496A80", 
+    secondary: "#40B484",
+    primaryLight: "#496A80",
   },
   background: {
     primary: "#2C4E8A",
@@ -33,8 +33,8 @@ const colors = {
   },
   fontcolor: {
     primary: "#FFFFFF",
-    secondary: "#1A202C", 
-    tertiary: "#4285f4", 
+    secondary: "#1A202C",
+    tertiary: "#4285f4",
     quaternary: "#C8C5C5",
   },
   CourtSizecolor: {

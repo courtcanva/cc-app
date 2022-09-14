@@ -13,10 +13,10 @@ phases:
       - NEXT_PUBLIC_API_BASE_URI=${NEXT_PUBLIC_API_BASE_URI}
       - NEXT_PUBLIC_GOOGLE_CLIENT_ID=${NEXT_PUBLIC_GOOGLE_CLIENT_ID}
       - npm i next
-      - npm run build 
+      - npm run build
       - npm run export
-  
+
 artifacts:
   base-directory: ./out
   files:
-    - '**/*'
+    - "**/*"
