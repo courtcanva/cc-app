@@ -15,5 +15,3 @@ export const courtSpecMapping = (item: CourtSpecMapper, designName: string, cour
   strokeWidth: item.lineBorderWidth,
   designName: designName,
 });
-
-

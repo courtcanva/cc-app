@@ -10,7 +10,7 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "eslint": "eslint . --ext .ts",
-    "prettier": "prettier -c .prettierrc \"src/{__tests__,pages,store,components}/**/*.{js,jsx,ts,tsx}\" --write",
+    "prettier": "prettier -c .prettierrc \"src/{__tests__,pages,store,components}/**/*.{js,jsx,ts,tsx}\" --write .",
     "test": "jest --colors --config jest.config.js --maxWorkers=50%",
     "test:watch": "jest --colors --config jest.config.js --watch --maxWorkers=25%",
     "test:ci": "CI=true jest --colors --config jest.config.js --runInBand --coverage",
@@ -80,11 +80,13 @@
     "eslint-config-next": "12.1.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^26.1.5",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.29.4",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "lint-staged": "^12.3.7",
     "prettier": "^2.6.2",
-    "typescript": "4.6.2"
+    "typescript": "4.6.2",
+    "whatwg-fetch": "^3.6.2"
   }
 }

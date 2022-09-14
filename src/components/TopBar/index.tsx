@@ -96,9 +96,9 @@ const TopBar = () => {
     dispatch(setDefaultCourt(defaultCourt));
     const design = await fetchDesignData(useUserId);
     if (design.data === undefined) return;
-    const { mappedDesignsData, mappedtileData, mappedNameList } = designMapping(design.data);
+    const { mappedDesignsData, mappedTileData, mappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));
-    dispatch(getDesignsTileData(mappedtileData));
+    dispatch(getDesignsTileData(mappedTileData));
     dispatch(changeDesignNameList(mappedNameList));
   };
 

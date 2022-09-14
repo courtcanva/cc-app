@@ -10,16 +10,16 @@ interface HeaderLayoutProps {
 const HeaderLayout: React.FC<HeaderLayoutProps> = ({ children, title }) => {
   const headName = `${title} | CourtCanva`;
   return (
-      <>
-        {title && (
-          <Head>
-            <title>{headName}</title>
-            <meta name="twitter:title" content={headName} />
-            <meta property="og:title" content={headName} />
-          </Head>
-        )}
-        {children}
-      </>
+    <>
+      {title && (
+        <Head>
+          <title>{headName}</title>
+          <meta name="twitter:title" content={headName} />
+          <meta property="og:title" content={headName} />
+        </Head>
+      )}
+      {children}
+    </>
   );
 };
 
