@@ -10,7 +10,7 @@ export const cartAPi = createApi({
   endpoints: (builder) => ({
     addToCart: builder.mutation({
       query: (newCartItem: { item: ICartItem }) => ({
-        url: "",
+        url: "shopping-cart",
         method: "POST",
         body: newCartItem.item,
       }),

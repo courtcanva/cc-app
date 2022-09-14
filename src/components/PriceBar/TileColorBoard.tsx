@@ -5,22 +5,30 @@ import { IPriceCalculation } from "@/interfaces/priceCalculation";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import priceFormat from "@/utils/priceFormat";
 import { useAddToCartMutation } from "@/redux/api/cartAPi";
-import { useGetDesignQuery } from "@/redux/api/designApi";
 import { ICartItem } from "@/interfaces/cartItem";
+import { saveDesignMapping } from "@/utils/designMapping";
+import { ITileColor } from "@/interfaces/design";
 
 const TileColorBoard: React.FC = () => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
   const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
+  const tileData = useStoreSelector((state) => state.tile.present.court);
   const { data } = useGetPriceQuery(0);
   const userId = useStoreSelector((state) => state.user.userId);
   const priceList = data?.find((item: IPriceCalculation) => item.tile_id === "tile001");
   const [useTotalPrice, setTotalPrice] = useState<string>("0.00");
   const [addToCart] = useAddToCartMutation();
-  // get design info from database
-  const designItem = useGetDesignQuery(userId);
-
+  const mappedCourtSize = saveDesignMapping(court);
+  const tiles: ITileColor[] = [];
+  for (const tile of tileData) {
+    tiles.push(tile);
+  }
   const newCartItem: ICartItem = {
-    designItem: designItem.data,
+    _id: court.courtId,
+    user_id: userId,
+    designName: court.designName,
+    courtSize: mappedCourtSize,
+    tileColor: tiles,
     quotation: useTotalPrice,
     quotationDetails: tileBlocks,
     previewPic: "",
@@ -49,6 +57,7 @@ const TileColorBoard: React.FC = () => {
   };
 
   const handleAddToCart = () => {
+    console.log(newCartItem);
     addToCart({ item: newCartItem });
   };
 
