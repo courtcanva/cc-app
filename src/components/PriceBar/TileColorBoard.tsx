@@ -57,7 +57,6 @@ const TileColorBoard: React.FC = () => {
   };
 
   const handleAddToCart = () => {
-    console.log(newCartItem);
     addToCart({ item: newCartItem });
   };
 
@@ -140,7 +139,12 @@ const TileColorBoard: React.FC = () => {
               ${useTotalPrice === "0.00" ? "Loading..." : useTotalPrice}
             </Text>
           </Center>
-          <Button variant="shareBtn" marginLeft="30px" onClick={handleAddToCart} data-testid="">
+          <Button
+            variant="shareBtn"
+            marginLeft="30px"
+            onClick={handleAddToCart}
+            data-testid="add-to-cart-button"
+          >
             Add to Cart
           </Button>
         </Center>
