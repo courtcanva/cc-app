@@ -96,7 +96,7 @@ const TileColorBoard: React.FC = () => {
     <>
       <Flex height="64px">
         <Center
-          width="55%"
+          width="60%"
           justifyContent="flex-start"
           marginLeft={{ base: "10px", lg: "35px", xl: "60px" }}
         >
@@ -113,15 +113,15 @@ const TileColorBoard: React.FC = () => {
           </Center>
         </Center>
         <Center
-          width="45%"
-          justifyContent={{ base: "flex-start", lg: "center" }}
+          width="50%"
+          justifyContent={{ base: "flex-start", lg: "flex-end" }}
           paddingLeft={{ base: "10px", lg: "0px", xl: "0px" }}
           borderLeft="1px solid #ABABAD"
           alignItems="center"
           color="brand.primary"
         >
           <Center alignItems="baseline">
-            <Text fontSize={{ base: "xs", lg: "sm" }} fontWeight="600" marginLeft="20px">
+            <Text fontSize={{ base: "xs", lg: "sm" }} fontWeight="600" marginLeft="50px">
               Estimated Budget
             </Text>
             <Text
@@ -134,14 +134,15 @@ const TileColorBoard: React.FC = () => {
             <Text
               fontSize={{ base: "md", lg: "lg" }}
               fontWeight={{ base: "700", lg: "800" }}
-              marginLeft="2px"
+              marginLeft="5px"
+              marginRight="20px"
             >
               ${useTotalPrice === "0.00" ? "Loading..." : useTotalPrice}
             </Text>
           </Center>
           <Button
             variant="shareBtn"
-            marginLeft="30px"
+            marginRight="30px"
             onClick={handleAddToCart}
             data-testid="add-to-cart-button"
           >
