@@ -9,19 +9,19 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "eslint": "eslint . --ext .ts",
+    "eslint": "eslint . --ext .ts --ext tsx --ext js",
     "prettier": "prettier -c .prettierrc \"src/{__tests__,pages,store,components}/**/*.{js,jsx,ts,tsx}\" --write .",
     "test": "jest --colors --config jest.config.js --maxWorkers=50%",
     "test:watch": "jest --colors --config jest.config.js --watch --maxWorkers=25%",
     "test:ci": "CI=true jest --colors --config jest.config.js --runInBand --coverage",
     "coverage": "jest --coverage",
-    "typecheck": "tsc --project tsconfig.json --pretty --noEmit",
+    "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "cypress": "cypress open",
     "cypress:headless": "cypress run",
     "e2e": "start-server-and-test start http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless",
     "prepare": "husky install",
-    "pre-commit": "yarn prettier && yarn lint && yarn typecheck && yarn test && npx --no-install lint-staged"
+    "pre-commit": "npm run prettier && npm run lint && npm run type-check && npm run test && npx --no-install lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,json,md}": [
