@@ -47,10 +47,7 @@ const ShoppingCartContainer = () => {
           </Thead>
           <Tbody>
             {mockCartData.map((cartRow) => (
-              <CartListItem 
-                key={cartRow.id} 
-                content={cartRow} 
-              />
+              <CartListItem key={cartRow.id} content={cartRow} />
             ))}
           </Tbody>
         </Table>

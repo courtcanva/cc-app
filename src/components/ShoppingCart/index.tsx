@@ -2,7 +2,6 @@ import { useStoreSelector } from "@/store/hooks";
 import { Flex } from "@chakra-ui/react";
 import ShoppingCartContainer from "./ShoppingCartContainer";
 
-
 const ShoppingCart = () => {
   const isOpen = useStoreSelector((state) => state.cartControl.isCartOpen);
 
