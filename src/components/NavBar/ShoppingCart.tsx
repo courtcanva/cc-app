@@ -16,7 +16,7 @@ const ShoppingCart: React.FC = () => {
       <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
       {quantity > 0 && (
         <Circle
-          background="background.tomato"
+          background="background.lightOrange"
           color="fontcolor.primary"
           fontSize="xs"
           position="absolute"
