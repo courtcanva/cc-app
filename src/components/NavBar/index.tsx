@@ -23,6 +23,8 @@ import { defaultCourtColor, setDefaultCourtColor } from "@/store/reducer/tileSli
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
 import { googleUserMapping } from "@/utils/userMapping";
+import { userData } from "@/store/reducer/userSlice";
+import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -103,6 +105,11 @@ const NavigationBar = () => {
   const isThingsToRedo = useStoreSelector((state) => state.tile.future).length;
   const isThingsToReset = isThingsToUndo;
 
+  // Get current useId
+  const curUserId = useStoreSelector(userData).userId;
+  const { data } = useGetItemQuantityQuery(curUserId);
+  const quantity = data?.length;
+
   return (
     <Grid
       templateColumns="repeat(3, 1fr)"
@@ -175,7 +182,7 @@ const NavigationBar = () => {
           onClose={handleLoginModalClose}
           updateLoginData={updateLoginData}
         ></LoginModalContent>
-        <ShoppingCart />
+        <ShoppingCart quantity={quantity} />
         <Button
           variant="shareBtn"
           marginLeft="10px"

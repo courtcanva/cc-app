@@ -1,16 +1,12 @@
 import React from "react";
 import { IconButton, Circle, Stack } from "@chakra-ui/react";
-import { useStoreSelector } from "@/store/hooks";
-import { userData } from "@/store/reducer/userSlice";
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
 
-const ShoppingCart: React.FC = () => {
-  const curUserId = useStoreSelector(userData).userId;
-  const { data } = useGetItemQuantityQuery(curUserId);
+interface Props {
+  quantity: number;
+}
 
-  const quantity = data?.length;
-
+const ShoppingCart = ({ quantity }: Props) => {
   return (
     <Stack position="relative">
       <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
@@ -24,6 +20,7 @@ const ShoppingCart: React.FC = () => {
           left="18px"
           textAlign="center"
           size="20px"
+          data-testid="quantity-box"
         >
           {quantity}
         </Circle>
