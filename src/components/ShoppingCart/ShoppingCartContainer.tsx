@@ -15,7 +15,6 @@ const ShoppingCartContainer = () => {
           borderColor="#DCDCDC"
           size="lg"
           sx={{ "table-layout": "fixed" }}
-          overflowY="auto"
         >
           <Thead>
             <Tr>
@@ -48,7 +47,10 @@ const ShoppingCartContainer = () => {
           </Thead>
           <Tbody>
             {mockCartData.map((cartRow) => (
-              <CartListItem key={cartRow.id} content={cartRow} />
+              <CartListItem 
+                key={cartRow.id} 
+                content={cartRow} 
+              />
             ))}
           </Tbody>
         </Table>
@@ -59,6 +61,8 @@ const ShoppingCartContainer = () => {
         marginBottom="20px"
         marginTop="20px"
         width="200px"
+        padding="10px"
+        data-testid="checkout-btn"
         // textAlign="center"
         // alignContent="center"
       >

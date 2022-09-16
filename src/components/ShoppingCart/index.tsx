@@ -1,21 +1,10 @@
 import { useStoreSelector } from "@/store/hooks";
-import { useLoginModal } from "@/store/reducer/loginModalSlice";
 import { Flex } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import ShoppingCartContainer from "./ShoppingCartContainer";
-import { getCartDisplayCondition } from "@/store/reducer/cartControlSlice";
 
-import { useSelector } from "react-redux";
 
 const ShoppingCart = () => {
-  const { userId } = useStoreSelector((state) => state.user);
-  const [checkUser, setCheckUser] = useState(userId);
-  // const isOpen = useSelector(getCartDisplayCondition);
   const isOpen = useStoreSelector((state) => state.cartControl.isCartOpen);
-
-  // useEffect(() => {
-  //   console.log("initial: ", isOpen);
-  // }, [isOpen]);
 
   return (
     <>

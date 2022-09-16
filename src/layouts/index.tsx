@@ -39,6 +39,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
           <Header />
           <Box as="main">
             <NavigationBar />
+            <ShoppingCart />
             <EditorSideBar />
             <ShoppingCart />
             {children}

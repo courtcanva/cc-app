@@ -28,6 +28,7 @@ import { switchCartDisplay } from "@/store/reducer/cartControlSlice";
 const NavigationBar = () => {
   const dispatch = useDispatch();
   const { loginModalOpen } = useStoreSelector((state) => state.loginModal);
+  const isCartOpen = useStoreSelector((state) => state.cartControl.isCartOpen);
 
   // Get user info from local storage
   const getInfo = () => {
@@ -87,7 +88,6 @@ const NavigationBar = () => {
   const handleCartPageOpen = () => {
     dispatch(switchCartDisplay());
   };
-  const isCartOpen = useStoreSelector((state) => state.cartControl.isCartOpen);
 
   /* istanbul ignore next */
   const handleLogout = () => {
@@ -188,6 +188,7 @@ const NavigationBar = () => {
           icon={<HiOutlineShoppingBag />}
           variant="navbarIconBtn"
           onClick={handleCartPageOpen}
+          data-testid="shoppingcart-button"
         />
         <Button
           variant="shareBtn"
