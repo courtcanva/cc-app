@@ -30,6 +30,7 @@ const colors = {
     secondary: "#7088B1",
     tertiary: "#FFFFFF",
     secondaryLight: "#2c5282",
+    tomato: "#FF6347",
   },
   fontcolor: {
     primary: "#FFFFFF",
