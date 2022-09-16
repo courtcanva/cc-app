@@ -1,4 +1,4 @@
-import { Flex, Button, IconButton, Grid, Tooltip } from "@chakra-ui/react";
+import { Flex, Button, IconButton, Grid, Tooltip, Box } from "@chakra-ui/react";
 import { Menu, MenuButton } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -23,10 +23,12 @@ import { defaultCourtColor, setDefaultCourtColor } from "@/store/reducer/tileSli
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
 import { googleUserMapping } from "@/utils/userMapping";
+import { switchCartDisplay } from "@/store/reducer/shoppingCartSlice";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
   const { loginModalOpen } = useStoreSelector((state) => state.loginModal);
+  const isCartOpen = useStoreSelector((state) => state.cartControl.isCartOpen);
 
   // Get user info from local storage
   const getInfo = () => {
@@ -82,6 +84,9 @@ const NavigationBar = () => {
   const handleLoginModalClose = () => {
     dispatch(useLoginModal(false));
   };
+  const handleCartPageOpen = () => {
+    dispatch(switchCartDisplay());
+  };
 
   /* istanbul ignore next */
   const handleLogout = () => {
@@ -119,39 +124,45 @@ const NavigationBar = () => {
           </Button>
         </Link>
         <Flex flex="1" justifyContent="center">
-          <Tooltip hasArrow shouldWrapChildren label="undo color edit" fontSize="sm">
-            <IconButton
-              aria-label="Revert edit"
-              icon={<RiArrowGoBackLine />}
-              variant="navbarIconBtn"
-              disabled={!isThingsToUndo}
-              onClick={handleUndo}
-              marginX="10px"
-            />
-          </Tooltip>
-          <Tooltip hasArrow shouldWrapChildren label="redo color edit" fontSize="sm">
-            <IconButton
-              aria-label="Forward edit"
-              icon={<RiArrowGoForwardLine />}
-              variant="navbarIconBtn"
-              disabled={!isThingsToRedo}
-              onClick={handleRedo}
-              marginX="10px"
-            />
-          </Tooltip>
-          <Tooltip hasArrow shouldWrapChildren label="reset all color edits" fontSize="sm">
-            <IconButton
-              aria-label="Reset edit"
-              icon={<BsArrowCounterclockwise />}
-              variant="navbarIconBtn"
-              disabled={!isThingsToReset}
-              onClick={handleReset}
-              marginX="10px"
-            />
-          </Tooltip>
+          {!isCartOpen && (
+            <>
+              <Tooltip hasArrow shouldWrapChildren label="undo color edit" fontSize="sm">
+                <IconButton
+                  aria-label="Revert edit"
+                  icon={<RiArrowGoBackLine />}
+                  variant="navbarIconBtn"
+                  disabled={!isThingsToUndo}
+                  onClick={handleUndo}
+                  marginX="10px"
+                />
+              </Tooltip>
+              <Tooltip hasArrow shouldWrapChildren label="redo color edit" fontSize="sm">
+                <IconButton
+                  aria-label="Forward edit"
+                  icon={<RiArrowGoForwardLine />}
+                  variant="navbarIconBtn"
+                  disabled={!isThingsToRedo}
+                  onClick={handleRedo}
+                  marginX="10px"
+                />
+              </Tooltip>
+              <Tooltip hasArrow shouldWrapChildren label="reset all color edits" fontSize="sm">
+                <IconButton
+                  aria-label="Reset edit"
+                  icon={<BsArrowCounterclockwise />}
+                  variant="navbarIconBtn"
+                  disabled={!isThingsToReset}
+                  onClick={handleReset}
+                  marginX="10px"
+                />
+              </Tooltip>
+            </>
+          )}
         </Flex>
       </Flex>
-      <EditorDesignName />
+
+      {!isCartOpen ? <EditorDesignName /> : <Box></Box>}
+
       <Flex alignItems="center" justifyContent="flex-end">
         {!loginState ? (
           <Menu>
@@ -175,7 +186,13 @@ const NavigationBar = () => {
           onClose={handleLoginModalClose}
           updateLoginData={updateLoginData}
         ></LoginModalContent>
-        <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
+        <IconButton
+          aria-label="Order"
+          icon={<HiOutlineShoppingBag />}
+          variant="navbarIconBtn"
+          data-testid="shoppingcart-button"
+          onClick={handleCartPageOpen}
+        />
         <Button
           variant="shareBtn"
           marginLeft="10px"

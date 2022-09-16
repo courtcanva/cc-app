@@ -14,6 +14,7 @@ import areaTileQtyReducer from "./reducer/areaTileQtySlice";
 import courtSpecDataReducer from "./reducer/courtSpecDataSlice";
 import designTileListReducer from "./reducer/designsTileListSlice";
 import loginModalReducer from "./reducer/loginModalSlice";
+import cartControlReducer from "./reducer/shoppingCartSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -33,6 +34,7 @@ export const makeStore = () =>
       [designApi.reducerPath]: designApi.reducer,
       [courtColorApi.reducerPath]: courtColorApi.reducer,
       areaTileQty: areaTileQtyReducer,
+      cartControl: cartControlReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
