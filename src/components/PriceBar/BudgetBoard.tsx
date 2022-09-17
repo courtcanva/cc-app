@@ -5,9 +5,11 @@ import { ICartItem } from "@/interfaces/cartItem";
 import { saveDesignMapping } from "@/utils/designMapping";
 import { IDesign, ITileColor } from "@/interfaces/design";
 
-type BudgetBoardprops = { useTotalPrice: string };
+interface IBudgetBoardprops {
+  useTotalPrice: string;
+}
 
-const BudgetBoard = (props: BudgetBoardprops) => {
+const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
   const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
   const tileData = useStoreSelector((state) => state.tile.present.court);
@@ -27,7 +29,7 @@ const BudgetBoard = (props: BudgetBoardprops) => {
   const newCartItem: ICartItem = {
     user_id: userId,
     design: currentDesign,
-    quotation: props.useTotalPrice,
+    quotation: useTotalPrice,
     quotationDetails: tileBlocks,
     previewPic: "",
   };
@@ -62,7 +64,7 @@ const BudgetBoard = (props: BudgetBoardprops) => {
           marginLeft="5px"
           marginRight="20px"
         >
-          ${props.useTotalPrice === "0.00" ? "Loading..." : props.useTotalPrice}
+          ${useTotalPrice === "0.00" ? "Loading..." : useTotalPrice}
         </Text>
       </Center>
       <Button variant="shareBtn" marginRight="30px" onClick={handleAddToCart}>
