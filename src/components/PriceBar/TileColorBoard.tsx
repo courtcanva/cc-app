@@ -7,7 +7,7 @@ import priceFormat from "@/utils/priceFormat";
 import { useAddToCartMutation } from "@/redux/api/cartAPi";
 import { ICartItem } from "@/interfaces/cartItem";
 import { saveDesignMapping } from "@/utils/designMapping";
-import { ITileColor } from "@/interfaces/design";
+import { IDesign, ITileColor } from "@/interfaces/design";
 
 const TileColorBoard: React.FC = () => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
@@ -23,12 +23,16 @@ const TileColorBoard: React.FC = () => {
   for (const tile of tileData) {
     tiles.push(tile);
   }
-  const newCartItem: ICartItem = {
+  const currentDesign: IDesign = {
     _id: court.courtId,
     user_id: userId,
     designName: court.designName,
     courtSize: mappedCourtSize,
     tileColor: tiles,
+  };
+
+  const newCartItem: ICartItem = {
+    design: currentDesign,
     quotation: useTotalPrice,
     quotationDetails: tileBlocks,
     previewPic: "",
