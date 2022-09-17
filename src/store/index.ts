@@ -7,6 +7,7 @@ import { courtsApi } from "@/redux/api/courtSizeApi";
 import { priceApi } from "@/redux/api/priceApi";
 import { designApi } from "@/redux/api/designApi";
 import { courtColorApi } from "@/redux/api/courtColorAPi";
+import { cartAPi } from "@/redux/api/cartAPi";
 import designNameReducer from "./reducer/designNameSlice";
 import paintBucketReducer from "./reducer/paintBucketSlice";
 import priceBarReducer from "./reducer/priceBarSlice";
@@ -32,6 +33,7 @@ export const makeStore = () =>
       [priceApi.reducerPath]: priceApi.reducer,
       [designApi.reducerPath]: designApi.reducer,
       [courtColorApi.reducerPath]: courtColorApi.reducer,
+      [cartAPi.reducerPath]: cartAPi.reducer,
       areaTileQty: areaTileQtyReducer,
     },
     middleware: (getDefaultMiddleware) =>
@@ -39,7 +41,8 @@ export const makeStore = () =>
         courtsApi.middleware,
         priceApi.middleware,
         designApi.middleware,
-        courtColorApi.middleware
+        courtColorApi.middleware,
+        cartAPi.middleware
       ),
   });
 

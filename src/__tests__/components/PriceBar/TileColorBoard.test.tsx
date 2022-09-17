@@ -1,4 +1,5 @@
-import { screen, fireEvent } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import TileColorBoard from "@/components/PriceBar/TileColorBoard";
 import renderWithMockedProvider from "../../utils";
 import { initialState, PriceBar } from "@/store/reducer/priceBarSlice";
@@ -17,16 +18,11 @@ describe("TileColorBoard", () => {
     expect(tileElements.length).toBe(previousState.length);
   });
 
-  it("Should render add-to-cart button", () => {
+  it("Should render the clickable add-to-cart button", () => {
     renderWithMockedProvider(<TileColorBoard />);
-    const cartBtn = screen.getByTestId("add-to-cart-button");
+    const cartBtn = screen.getByText(/Add to Cart/i);
     expect(cartBtn).toBeInTheDocument();
-  });
-
-  it("Should call the handleAddToCart function when the button is clicked", () => {
-    renderWithMockedProvider(<TileColorBoard />);
-    const cartBtn = screen.getByTestId("add-to-cart-button");
-    fireEvent.click(cartBtn);
+    userEvent.click(cartBtn);
     expect(cartBtn).toBeInTheDocument();
   });
 });

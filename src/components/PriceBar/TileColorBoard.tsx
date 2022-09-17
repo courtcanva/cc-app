@@ -1,42 +1,17 @@
-import { Button, Center, Flex, Text } from "@chakra-ui/react";
+import { Center, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState, useMemo } from "react";
 import { useStoreSelector } from "@/store/hooks";
 import { IPriceCalculation } from "@/interfaces/priceCalculation";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import priceFormat from "@/utils/priceFormat";
-import { useAddToCartMutation } from "@/redux/api/cartAPi";
-import { ICartItem } from "@/interfaces/cartItem";
-import { saveDesignMapping } from "@/utils/designMapping";
-import { IDesign, ITileColor } from "@/interfaces/design";
+import BudgetBoard from "./BudgetBoard";
 
 const TileColorBoard: React.FC = () => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
   const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
-  const tileData = useStoreSelector((state) => state.tile.present.court);
   const { data } = useGetPriceQuery(0);
-  const userId = useStoreSelector((state) => state.user.userId);
   const priceList = data?.find((item: IPriceCalculation) => item.tile_id === "tile001");
   const [useTotalPrice, setTotalPrice] = useState<string>("0.00");
-  const [addToCart] = useAddToCartMutation();
-  const mappedCourtSize = saveDesignMapping(court);
-  const tiles: ITileColor[] = [];
-  for (const tile of tileData) {
-    tiles.push(tile);
-  }
-  const currentDesign: IDesign = {
-    _id: court.courtId,
-    user_id: userId,
-    designName: court.designName,
-    courtSize: mappedCourtSize,
-    tileColor: tiles,
-  };
-
-  const newCartItem: ICartItem = {
-    design: currentDesign,
-    quotation: useTotalPrice,
-    quotationDetails: tileBlocks,
-    previewPic: "",
-  };
 
   const priceDetails = {
     tilePrice: 0,
@@ -58,10 +33,6 @@ const TileColorBoard: React.FC = () => {
         (court.courtAreaYLength + court.borderLength * 2)) /
       1000;
     priceDetails.tilePrice = (priceList?.tilePrice / 100) * courtSize;
-  };
-
-  const handleAddToCart = () => {
-    addToCart({ item: newCartItem });
   };
 
   useEffect(() => {
@@ -116,43 +87,7 @@ const TileColorBoard: React.FC = () => {
             {centers}
           </Center>
         </Center>
-        <Center
-          width="50%"
-          justifyContent={{ base: "flex-start", lg: "flex-end" }}
-          paddingLeft={{ base: "10px", lg: "0px", xl: "0px" }}
-          borderLeft="1px solid #ABABAD"
-          alignItems="center"
-          color="brand.primary"
-        >
-          <Center alignItems="baseline">
-            <Text fontSize={{ base: "xs", lg: "sm" }} fontWeight="600" marginLeft="50px">
-              Estimated Budget
-            </Text>
-            <Text
-              fontSize={{ base: "xs", lg: "sm" }}
-              fontWeight={{ base: "700", lg: "800" }}
-              marginLeft="8px"
-            >
-              From
-            </Text>
-            <Text
-              fontSize={{ base: "md", lg: "lg" }}
-              fontWeight={{ base: "700", lg: "800" }}
-              marginLeft="5px"
-              marginRight="20px"
-            >
-              ${useTotalPrice === "0.00" ? "Loading..." : useTotalPrice}
-            </Text>
-          </Center>
-          <Button
-            variant="shareBtn"
-            marginRight="30px"
-            onClick={handleAddToCart}
-            data-testid="add-to-cart-button"
-          >
-            Add to Cart
-          </Button>
-        </Center>
+        <BudgetBoard useTotalPrice={useTotalPrice} />
       </Flex>
     </>
   );
