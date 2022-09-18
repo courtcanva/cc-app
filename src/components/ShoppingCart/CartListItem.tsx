@@ -2,16 +2,7 @@ import { Box, Button, ButtonGroup, Flex, Td, Tr, Text } from "@chakra-ui/react";
 import React from "react";
 import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-
-interface CartData {
-  key: string;
-  content: {
-    id: string;
-    courtName: string;
-    quotation: string;
-    quotationDetails: string;
-  };
-}
+import { CartData } from ".";
 
 const CartListItem = (cartRow: CartData) => {
   // import cart information

@@ -1,10 +1,12 @@
-import { Table, Thead, Tbody, Tr, Th, TableContainer, Text, Button } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, TableContainer, Text, Button, Flex } from "@chakra-ui/react";
+import { userCartList } from ".";
 import CartListItem from "./CartListItem";
-import { mockCartData } from "../MockData/MockCartData";
+// import { mockCartData } from "../MockData/MockCartData";
 
-const ShoppingCartContainer = () => {
+const ShoppingCartContainer = (cartList: userCartList) => {
+  const cartItems = cartList.userShoppingCart;
   return (
-    <>
+    <Flex flexDirection="column" alignItems="center">
       <Text fontSize="18px" fontWeight="750" marginBottom="20px" marginTop="20px">
         CART
       </Text>
@@ -46,8 +48,8 @@ const ShoppingCartContainer = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {mockCartData.map((cartRow) => (
-              <CartListItem key={cartRow.id} content={cartRow} />
+            {cartItems.map((cartRow) => (
+              <CartListItem key={cartRow.key} content={cartRow.content} />
             ))}
           </Tbody>
         </Table>
@@ -60,12 +62,10 @@ const ShoppingCartContainer = () => {
         width="200px"
         padding="10px"
         data-testid="checkout-btn"
-        // textAlign="center"
-        // alignContent="center"
       >
         Proceed to Checkout
       </Button>
-    </>
+    </Flex>
   );
 };
 export default ShoppingCartContainer;
