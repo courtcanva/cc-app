@@ -8,7 +8,17 @@ export const cartApi = createApi({
   tagTypes: ["cartItems"],
   endpoints: (builder) => ({
     getItemQuantity: builder.query({
-      query: (userId) => `/shopping-cart/?user_id=${userId}`,
+      query: (userId) => `/shopping-cart?user_id=${userId}`,
+      async onQueryStarted(userId, { queryFulfilled }) {
+        try {
+          // "onSuccess!"
+          const { data } = await queryFulfilled;
+          console.log("success!", data);
+        } catch (err) {
+          // "onError"
+          console.log("error... ", err);
+        }
+      },
       providesTags: ["cartItems"],
     }),
   }),
