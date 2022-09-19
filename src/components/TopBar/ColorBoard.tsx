@@ -4,7 +4,7 @@ import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import { useDispatch } from "react-redux";
 import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
 import { useGetCourtColorQuery } from "@/redux/api/courtColorAPi";
-import { IColor, ITileColor } from "@/interfaces/color";
+import { IColor } from "@/interfaces/color";
 import { getColorList } from "@/store/reducer/colorListSlice";
 import { useStoreSelector } from "@/store/hooks";
 

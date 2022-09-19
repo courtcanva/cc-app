@@ -20,30 +20,30 @@ const TileColorBoard: React.FC<ITileColorBoard> = ({ setTotalPrice }) => {
     deliveryPrice: 0,
   };
 
-  const calculateDelivery = (priceList: { deliveryPrice: number }) => {
+  const calculateDelivery = (tilePricesList: { deliveryPrice: number }) => {
     let totalQuantity = 0;
     for (const tile of tileBlocks) {
       totalQuantity += tile.quantity;
     }
-    const delivery = priceList?.deliveryPrice;
+    const delivery = tilePricesList?.deliveryPrice;
     priceDetails.deliveryPrice += Math.ceil(totalQuantity / 1000) * (delivery / 100);
   };
 
-  const calculateTile = (priceList: { tilePrice: number }) => {
+  const calculateTile = (tilePricesList: { price: number }) => {
     const courtSize =
       (((court.courtAreaXLength + court.borderLength * 2) / 1000) *
         (court.courtAreaYLength + court.borderLength * 2)) /
       1000;
-    priceDetails.tilePrice = (priceList?.tilePrice / 100) * courtSize;
+    priceDetails.tilePrice = (tilePricesList?.price / 100) * courtSize;
   };
 
   useEffect(() => {
     if (data === undefined) return;
-    const priceList = data[0]?.tilesPrice?.find(
+    const tilePricesList = data[0]?.tilePrices?.find(
       (item: TilesPrice) => item.tileName === colorList[0]?.name
     );
-    calculateTile(priceList);
-    calculateDelivery(priceList);
+    calculateTile(tilePricesList);
+    calculateDelivery(tilePricesList);
     const price = (priceDetails.tilePrice + priceDetails.deliveryPrice) * 1.1;
     const totalPrice = priceFormat(price);
     setTotalPrice(totalPrice);
