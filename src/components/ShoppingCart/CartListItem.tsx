@@ -3,6 +3,7 @@ import React from "react";
 import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { CartData } from ".";
+import DropDownButton from "./dropDownButton";
 
 const CartListItem = (cartRow: CartData) => {
   // import cart information
@@ -25,9 +26,7 @@ const CartListItem = (cartRow: CartData) => {
         </Td>
         <Td padding="25px 40px" fontSize="13px" sx={{ "vertical-align": "top" }}>
           <Flex width="100%" height="120px" flexDirection="column" justifyContent="space-between">
-            <Text fontSize="13px" overflowX="auto">
-              {productDetails}
-            </Text>
+            <DropDownButton content={productDetails} />
             <ButtonGroup display="flex" justifyContent="flex-end" variant="outline" spacing="4">
               <Button fontSize="16px" colorScheme="whiteAlpha" variant="unstyled" size="xs">
                 <FaPen />

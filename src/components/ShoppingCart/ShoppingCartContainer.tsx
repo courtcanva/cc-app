@@ -10,7 +10,7 @@ const ShoppingCartContainer = (cartList: userCartList) => {
       <Text fontSize="18px" fontWeight="750" marginBottom="20px" marginTop="20px">
         CART
       </Text>
-      <TableContainer min-width="1080px" width="100%" overflowY="auto">
+      <TableContainer min-width="1080px" width="100%" overflowY="auto" whiteSpace="normal">
         <Table
           variant="simple"
           border="1px"
