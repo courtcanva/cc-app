@@ -28,7 +28,7 @@ import { switchCartDisplay } from "@/store/reducer/cartControlSlice";
 const NavigationBar = () => {
   const dispatch = useDispatch();
   const { loginModalOpen } = useStoreSelector((state) => state.loginModal);
-  const isCartOpen = useStoreSelector((state) => state.cartControl.isCartOpen);
+  const { isCartOpen } = useStoreSelector((state) => state.cartControl);
 
   // Get user info from local storage
   const getInfo = () => {

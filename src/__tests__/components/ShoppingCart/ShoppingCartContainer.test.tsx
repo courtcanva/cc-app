@@ -1,6 +1,7 @@
 import ShoppingCartContainer from "@/components/ShoppingCart/ShoppingCartContainer";
 import renderWithMockedProvider from "../../utils";
 import { render, screen, fireEvent, within } from "@testing-library/react";
+import { mockCartData } from "@/components/MockData/MockCartData";
 
 // Havent update mock data to the container
 
@@ -33,10 +34,17 @@ describe("ShoppingCart component", () => {
   // });
 
   it("Should render correct the item data of shopping cart list", () => {
-    renderWithMockedProvider(<ShoppingCartContainer userid={""} userShoppingCart={[]} />);
-    const listItems = screen.queryAllByRole("row");
-    for (let i = 1; i < listItems.length; i++) {
+    renderWithMockedProvider(
+      <ShoppingCartContainer
+        userid={mockCartData.userid}
+        userShoppingCart={mockCartData.userShoppingCart}
+      />
+    );
+    const listItems = screen.queryAllByRole("dataRow");
+    for (let i = 0; i < listItems.length; i++) {
       expect(within(listItems[i]).getByText("Tom's Basketball Court")).toBeVisible();
+      expect(within(listItems[i]).getByRole("button", { name: "cartDeleteBtn" })).toBeVisible();
+      expect(within(listItems[i]).getByRole("button", { name: "cartEditBtn" })).toBeVisible();
     }
   });
 });

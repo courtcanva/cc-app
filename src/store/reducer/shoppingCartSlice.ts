@@ -14,11 +14,13 @@ export const cartControlSlice = createSlice({
   reducers: {
     switchCartDisplay: (state: CartControlState) => {
       state.isCartOpen = !state.isCartOpen;
-      console.log(state.isCartOpen);
+    },
+    setCartDisplayState: (state: CartControlState, action: PayloadAction<boolean>) => {
+      state.isCartOpen = action.payload;
     },
   },
 });
 
-export const { switchCartDisplay } = cartControlSlice.actions;
+export const { switchCartDisplay, setCartDisplayState } = cartControlSlice.actions;
 
 export default cartControlSlice.reducer;

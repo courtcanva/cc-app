@@ -2,6 +2,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { Flex } from "@chakra-ui/react";
 import { mockCartData } from "../MockData/MockCartData";
 import ShoppingCartContainer from "./ShoppingCartContainer";
+import { useState, useEffect } from "react";
 
 export interface CartData {
   key: string;
@@ -22,6 +23,14 @@ const ShoppingCart = () => {
   const isCartOpen = useStoreSelector((state) => state.cartControl.isCartOpen);
   // Need to fetch the realdata to here.
   const cartInfo = mockCartData;
+
+  const [cartData, setCartData] = useState([]);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    // const fetchData = async () => {};
+    // fetchData();
+  }, [userId, cartData]);
 
   return (
     <>
