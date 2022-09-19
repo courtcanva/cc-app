@@ -4,12 +4,16 @@ import { useAddToCartMutation } from "@/redux/api/cartAPi";
 import { ICartItem } from "@/interfaces/cartItem";
 import { saveDesignMapping } from "@/utils/designMapping";
 import { IDesign, ITileColor } from "@/interfaces/design";
+import { useDispatch } from "react-redux";
+import { useLoginModal } from "@/store/reducer/loginModalSlice";
 
 interface IBudgetBoardprops {
   useTotalPrice: string;
 }
 
 const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
+  const dispatch = useDispatch();
+
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
   const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
   const tileData = useStoreSelector((state) => state.tile.present.court);
@@ -35,7 +39,7 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
   };
 
   const handleAddToCart = () => {
-    addToCart({ item: newCartItem });
+    userId ? addToCart({ item: newCartItem }) : dispatch(useLoginModal(true));
   };
 
   return (
