@@ -38,7 +38,6 @@ describe("ShoppingCart component", () => {
     );
     const listItems = screen.queryAllByRole("dataRow");
     listItems.forEach((item) => {
-      expect(within(item).getByText("Tom's Basketball Court")).toBeVisible();
       expect(within(item).getByRole("button", { name: "cartDeleteBtn" })).toBeVisible();
       expect(within(item).getByRole("button", { name: "cartEditBtn" })).toBeVisible();
     });
