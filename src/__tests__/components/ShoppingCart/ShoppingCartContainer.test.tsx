@@ -18,20 +18,16 @@ describe("ShoppingCart component", () => {
     expect(cartTitle).toBeVisible();
   });
 
-  // it("Should render shopping cart table elements correctly", () => {
-  //   renderWithMockedProvider(<ShoppingCartContainer userid={""} userShoppingCart={[]} />);
-  //   const productHead = screen.getByText("Product");
-  //   const quotationHead = screen.getByText("Quotation");
-  //   const quotationDetialHead = screen.getByText("Quotation Detials");
-  //   expect(productHead).toBeVisible();
-  //   expect(quotationHead).toBeVisible();
-  //   expect(quotationDetialHead).toBeVisible();
-  // });
-
-  // it("Should render shopping cart list items correctly", () => {
-  //   renderWithMockedProvider(<ShoppingCartContainer userid={""} userShoppingCart={[]} />);
-  //   expect(screen.queryAllByRole("row")).toHaveLength(8);
-  // });
+  it("Should render shopping cart list items correctly", () => {
+    renderWithMockedProvider(
+      <ShoppingCartContainer
+        userid={mockCartData.userid}
+        userShoppingCart={mockCartData.userShoppingCart}
+      />
+    );
+    const cartLength = mockCartData.userShoppingCart.length;
+    expect(screen.queryAllByRole("dataRow")).toHaveLength(cartLength);
+  });
 
   it("Should render correct the item data of shopping cart list", () => {
     renderWithMockedProvider(
@@ -41,10 +37,10 @@ describe("ShoppingCart component", () => {
       />
     );
     const listItems = screen.queryAllByRole("dataRow");
-    for (let i = 0; i < listItems.length; i++) {
-      expect(within(listItems[i]).getByText("Tom's Basketball Court")).toBeVisible();
-      expect(within(listItems[i]).getByRole("button", { name: "cartDeleteBtn" })).toBeVisible();
-      expect(within(listItems[i]).getByRole("button", { name: "cartEditBtn" })).toBeVisible();
-    }
+    listItems.forEach((item) => {
+      expect(within(item).getByText("Tom's Basketball Court")).toBeVisible();
+      expect(within(item).getByRole("button", { name: "cartDeleteBtn" })).toBeVisible();
+      expect(within(item).getByRole("button", { name: "cartEditBtn" })).toBeVisible();
+    });
   });
 });
