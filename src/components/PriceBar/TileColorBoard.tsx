@@ -1,7 +1,7 @@
 import { Center, Text } from "@chakra-ui/react";
 import React, { useEffect, useMemo, Dispatch, SetStateAction } from "react";
 import { useStoreSelector } from "@/store/hooks";
-import { IPriceCalculation } from "@/interfaces/priceCalculation";
+import { TilePrices } from "../../interfaces/priceCalculation";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import priceFormat from "@/utils/priceFormat";
 
@@ -12,39 +12,42 @@ interface ITileColorBoard {
 const TileColorBoard: React.FC<ITileColorBoard> = ({ setTotalPrice }) => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
   const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
+  const { colorList } = useStoreSelector((state) => state.colorList);
   const { data } = useGetPriceQuery(0);
-  const priceList = data?.find((item: IPriceCalculation) => item.tile_id === "tile001");
 
   const priceDetails = {
     tilePrice: 0,
     deliveryPrice: 0,
   };
 
-  const calculateDelivery = () => {
+  const calculateDelivery = (tilePricesList: { deliveryPrice: number }) => {
     let totalQuantity = 0;
     for (const tile of tileBlocks) {
       totalQuantity += tile.quantity;
     }
-    const delivery = priceList?.deliveryPrice;
+    const delivery = tilePricesList?.deliveryPrice;
     priceDetails.deliveryPrice += Math.ceil(totalQuantity / 1000) * (delivery / 100);
   };
 
-  const calculateTile = () => {
+  const calculateTile = (tilePricesList: { price: number }) => {
     const courtSize =
       (((court.courtAreaXLength + court.borderLength * 2) / 1000) *
         (court.courtAreaYLength + court.borderLength * 2)) /
       1000;
-    priceDetails.tilePrice = (priceList?.tilePrice / 100) * courtSize;
+    priceDetails.tilePrice = (tilePricesList?.price / 100) * courtSize;
   };
 
   useEffect(() => {
     if (data === undefined) return;
-    calculateTile();
-    calculateDelivery();
+    const tilePricesList = data[0]?.tilePrices?.find(
+      (item: TilePrices) => item.tileName === colorList[0]?.name
+    );
+    calculateTile(tilePricesList);
+    calculateDelivery(tilePricesList);
     const price = (priceDetails.tilePrice + priceDetails.deliveryPrice) * 1.1;
     const totalPrice = priceFormat(price);
     setTotalPrice(totalPrice);
-  }, [tileBlocks, court, data]);
+  }, [tileBlocks, court, data, colorList]);
 
   const centers = useMemo(() => {
     if (!tileBlocks) return null;
