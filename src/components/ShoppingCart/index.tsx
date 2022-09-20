@@ -42,7 +42,7 @@ const ShoppingCart = () => {
           left="98px"
           padding="20px 20px 80px 20px"
           color="rgb(58, 75, 92)"
-          width="calc(100vw-98px)"
+          width="calc(100vw - 98px)"
           height="100vh"
           zIndex={1600}
         >
