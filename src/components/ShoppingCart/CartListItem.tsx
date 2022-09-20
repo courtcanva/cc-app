@@ -3,6 +3,7 @@ import React from "react";
 import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { CartData } from ".";
+import { ICartItem } from "@/interfaces/cartItem";
 
 const CartListItem = (cartRow: CartData) => {
   // import cart information

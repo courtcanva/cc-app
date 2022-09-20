@@ -7,6 +7,7 @@ import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
 import { userData } from "@/store/reducer/userSlice";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import EmptyCart from "./EmptyCart";
+import { ICartItem } from "@/interfaces/cartItem";
 
 export interface CartData {
   key: string;
@@ -31,8 +32,8 @@ const ShoppingCart = () => {
   // Need to fetch the realdata to here.
   const cartInfo = mockCartData;
 
-  const [cartData, setCartData] = useState([]);
-  const [userId, setUserId] = useState("");
+  // const [cartData, setCartData] = useState([]);
+  // const [userId, setUserId] = useState("");
 
   return (
     <>
