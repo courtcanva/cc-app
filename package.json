@@ -21,16 +21,7 @@
     "e2e": "start-server-and-test start http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless",
     "prepare": "husky install",
-    "pre-commit": "npm run prettier && npm run lint && npm run type-check && npm run test && npx --no-install lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,css,json,md}": [
-      "git add ."
-    ],
-    "*.{js,jsx,ts,tsx}": [
-      "yarn eslint",
-      "git add ."
-    ]
+    "pre-commit": "npm run prettier && npm run lint && npm run type-check && npm run test && npx --no-install"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.7",
@@ -84,7 +75,6 @@
     "eslint-plugin-react": "^7.29.4",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
-    "lint-staged": "^12.3.7",
     "prettier": "^2.6.2",
     "typescript": "4.6.2",
     "whatwg-fetch": "^3.6.2"
