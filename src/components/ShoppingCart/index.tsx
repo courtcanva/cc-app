@@ -8,7 +8,6 @@ import { userData } from "@/store/reducer/userSlice";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import EmptyCart from "./EmptyCart";
 
-
 export interface CartData {
   key: string;
   content: {
@@ -33,7 +32,7 @@ const ShoppingCart = () => {
   const cartInfo = mockCartData;
 
   const [cartData, setCartData] = useState([]);
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState("");
 
   return (
     <>
@@ -49,13 +48,12 @@ const ShoppingCart = () => {
           height="100vh"
           zIndex={1600}
         >
-          {
-            quentity > 0 &&
+          {quentity > 0 && (
             <ShoppingCartContainer
               userid={cartInfo.userid}
               userShoppingCart={cartInfo.userShoppingCart}
             />
-          }
+          )}
           {quentity == 0 && <EmptyCart />}
         </Flex>
       )}

@@ -1,6 +1,8 @@
 import React from "react";
 import { IconButton, Circle, Stack } from "@chakra-ui/react";
 import { HiOutlineShoppingBag } from "react-icons/hi";
+import { switchCartDisplay } from "@/store/reducer/cartControlSlice";
+import { useDispatch } from "react-redux";
 
 interface Props {
   quantity: number;
@@ -8,9 +10,21 @@ interface Props {
 }
 
 const ShoppingCart = ({ quantity, loginState }: Props) => {
+  const dispatch = useDispatch();
+  const handleCartPageOpen = () => {
+    if (loginState) {
+      dispatch(switchCartDisplay());
+    }
+  };
+
   return (
     <Stack position="relative">
-      <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
+      <IconButton
+        aria-label="Order"
+        icon={<HiOutlineShoppingBag />}
+        variant="navbarIconBtn"
+        onClick={handleCartPageOpen}
+      />
       {quantity > 0 && loginState && (
         <Circle
           background="background.lightOrange"

@@ -26,7 +26,6 @@ import { googleUserMapping } from "@/utils/userMapping";
 import { userData } from "@/store/reducer/userSlice";
 import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
-import { switchCartDisplay } from "@/store/reducer/cartControlSlice";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -86,10 +85,6 @@ const NavigationBar = () => {
   };
   const handleLoginModalClose = () => {
     dispatch(useLoginModal(false));
-  };
-
-  const handleCartPageOpen = () => {
-    dispatch(switchCartDisplay());
   };
 
   /* istanbul ignore next */
