@@ -1,7 +1,7 @@
 import { Center, Text } from "@chakra-ui/react";
 import React, { useEffect, useMemo, Dispatch, SetStateAction } from "react";
 import { useStoreSelector } from "@/store/hooks";
-import { TilesPrice } from "../../interfaces/priceCalculation";
+import { TilePrices } from "../../interfaces/priceCalculation";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import priceFormat from "@/utils/priceFormat";
 
@@ -40,7 +40,7 @@ const TileColorBoard: React.FC<ITileColorBoard> = ({ setTotalPrice }) => {
   useEffect(() => {
     if (data === undefined) return;
     const tilePricesList = data[0]?.tilePrices?.find(
-      (item: TilesPrice) => item.tileName === colorList[0]?.name
+      (item: TilePrices) => item.tileName === colorList[0]?.name
     );
     calculateTile(tilePricesList);
     calculateDelivery(tilePricesList);

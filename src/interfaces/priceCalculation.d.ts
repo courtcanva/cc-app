@@ -1,9 +1,9 @@
 export interface IPriceCalculation {
   cementFloorPrice: number;
-  tilePrices: TilesPrice[];
+  tilePrices: TilePrices[];
 }
 
-export interface TilesPrice {
+export interface TilePrices {
   tile_id: string;
   tileName: string;
   deliveryPrice: number;
