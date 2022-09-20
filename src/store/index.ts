@@ -36,6 +36,7 @@ export const makeStore = () =>
       [cartApi.reducerPath]: cartApi.reducer,
       areaTileQty: areaTileQtyReducer,
     },
+
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
         courtsApi.middleware,

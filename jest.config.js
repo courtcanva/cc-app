@@ -50,6 +50,7 @@ const customJestConfig = {
     "!<rootDir>/src/utils/getAreaColor.ts",
     "!<rootDir>/src/store/reducer/areaTileQtySlice.ts",
     "!<rootDir>/src/components/PriceBar/TileColorBoard.tsx",
+    "!<rootDir>/src/redux/api/cartApi.ts",
     "!<rootDir>/node_modules/",
     "!<rootDir>/**/__tests__/**",
     "!<rootDir>/**/*.d.ts",

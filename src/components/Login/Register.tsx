@@ -16,7 +16,6 @@ import React, { useState } from "react";
 import PwdInputGroup from "./PwdInputGroup";
 import ModalOperator from "./ModalOperater";
 import useAuthRequest from "./helpers/authRequest";
-import { repeat } from "lodash";
 
 type Props = {
   nextStep: () => void;
@@ -35,6 +34,7 @@ const Register: React.FC<Props> = (props: Props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [weekPasswordMsg, setWeekPasswrodMsg] = useState("");
   const { userRegister } = useAuthRequest();
   const toast = useToast();
   const handleSubmit = async (event: React.FormEvent) => {
@@ -45,6 +45,14 @@ const Register: React.FC<Props> = (props: Props) => {
     }
     if (password !== confirmPassword) {
       setErrorMessage("Password does not match!");
+      return;
+    }
+    // regular expression from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+    const passwordRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    if (!passwordRegExp.test(password)) {
+      setWeekPasswrodMsg(
+        "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number!"
+      );
       return;
     }
     try {
@@ -122,6 +130,11 @@ const Register: React.FC<Props> = (props: Props) => {
               value={confirmPassword}
               onChange={(event) => setConfirmPassword(event?.currentTarget.value)}
             />
+            {weekPasswordMsg.length > 0 && (
+              <Text fontSize="xs" color="red.500">
+                {weekPasswordMsg}
+              </Text>
+            )}
             <Button variant="shareBtn" width="300px" marginTop="20px" onClick={handleSubmit}>
               Create Account
             </Button>
