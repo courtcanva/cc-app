@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ICartItem } from "@/interfaces/cartItem";
 
-export const cartAPi = createApi({
+export const cartApi = createApi({
   reducerPath: "shoppingCart",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URI,
@@ -19,4 +19,4 @@ export const cartAPi = createApi({
   }),
 });
 
-export const { useAddToCartMutation } = cartAPi;
+export const { useAddToCartMutation } = cartApi;

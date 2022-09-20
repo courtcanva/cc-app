@@ -1,6 +1,6 @@
 import { Button, Center, Text } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
-import { useAddToCartMutation } from "@/redux/api/cartAPi";
+import { useAddToCartMutation } from "@/redux/api/cartApi";
 import { ICartItem } from "@/interfaces/cartItem";
 import { saveDesignMapping } from "@/utils/designMapping";
 import { IDesign, ITileColor } from "@/interfaces/design";
