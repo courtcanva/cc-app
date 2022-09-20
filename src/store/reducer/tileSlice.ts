@@ -9,6 +9,7 @@ export interface Court {
   location: string;
   color: string;
 }
+
 export interface ChangeTileColor {
   location: string;
   selectedColor: string;

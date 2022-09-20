@@ -79,6 +79,7 @@ const TopBar = () => {
     }
     setSavePopoverOpen(true);
   };
+
   const handleSaveClose = () => {
     setSavePopoverOpen(false);
   };
