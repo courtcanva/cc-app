@@ -1,10 +1,14 @@
-import { Box } from "@chakra-ui/react";
-import React from "react";
+import { Flex } from "@chakra-ui/react";
+import React, { useState } from "react";
 import TileColorBoard from "./TileColorBoard";
+import BudgetBoard from "./BudgetBoard";
 
 const PriceBar: React.FC = () => {
+  const [useTotalPrice, setTotalPrice] = useState<string>("0.00");
+
   return (
-    <Box
+    <Flex
+      height="64px"
       backgroundColor="background.tertiary"
       position="fixed"
       bottom="42px"
@@ -12,8 +16,9 @@ const PriceBar: React.FC = () => {
       width="calc(100% - 98px)"
       zIndex="1500"
     >
-      <TileColorBoard />
-    </Box>
+      <TileColorBoard setTotalPrice={setTotalPrice} />
+      <BudgetBoard useTotalPrice={useTotalPrice} />
+    </Flex>
   );
 };
 

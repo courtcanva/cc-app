@@ -3,10 +3,11 @@ import userReducer from "./reducer/userSlice";
 import tileReducer from "./reducer/tileSlice";
 import courtColorReducer from "./reducer/courtColorSlice";
 import rulerControlReducer from "./reducer/rulerControlSlice";
-import { courtsApi } from "../redux/api/courtSizeApi";
-import { priceApi } from "../redux/api/priceApi";
-import { designApi } from "../redux/api/designApi";
+import { courtsApi } from "@/redux/api/courtSizeApi";
+import { priceApi } from "@/redux/api/priceApi";
+import { designApi } from "@/redux/api/designApi";
 import { courtColorApi } from "@/redux/api/courtColorAPi";
+import { cartApi } from "@/redux/api/cartApi";
 import designNameReducer from "./reducer/designNameSlice";
 import paintBucketReducer from "./reducer/paintBucketSlice";
 import priceBarReducer from "./reducer/priceBarSlice";
@@ -33,15 +34,18 @@ export const makeStore = () =>
       [priceApi.reducerPath]: priceApi.reducer,
       [designApi.reducerPath]: designApi.reducer,
       [courtColorApi.reducerPath]: courtColorApi.reducer,
+      [cartApi.reducerPath]: cartApi.reducer,
       areaTileQty: areaTileQtyReducer,
       cartControl: cartControlReducer,
     },
+
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
         courtsApi.middleware,
         priceApi.middleware,
         designApi.middleware,
-        courtColorApi.middleware
+        courtColorApi.middleware,
+        cartApi.middleware
       ),
   });
 

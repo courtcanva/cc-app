@@ -1,16 +1,19 @@
-import { Center, Flex, Text } from "@chakra-ui/react";
-import React, { useEffect, useState, useMemo } from "react";
+import { Center, Text } from "@chakra-ui/react";
+import React, { useEffect, useMemo, Dispatch, SetStateAction } from "react";
 import { useStoreSelector } from "@/store/hooks";
-import { IPriceCalculation } from "../../interfaces/priceCalculation";
+import { IPriceCalculation } from "@/interfaces/priceCalculation";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import priceFormat from "@/utils/priceFormat";
 
-const TileColorBoard: React.FC = () => {
+interface ITileColorBoard {
+  setTotalPrice: Dispatch<SetStateAction<string>>;
+}
+
+const TileColorBoard: React.FC<ITileColorBoard> = ({ setTotalPrice }) => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
   const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
   const { data } = useGetPriceQuery(0);
   const priceList = data?.find((item: IPriceCalculation) => item.tile_id === "tile001");
-  const [useTotalPrice, setTotalPrice] = useState<string>("0.00");
 
   const priceDetails = {
     tilePrice: 0,
@@ -68,48 +71,23 @@ const TileColorBoard: React.FC = () => {
 
   return (
     <>
-      <Flex height="64px">
-        <Center
-          width="100%"
-          justifyContent="flex-start"
-          marginLeft={{ base: "10px", lg: "35px", xl: "60px" }}
-        >
-          <Text fontSize={{ base: "xs", lg: "sm" }} fontWeight="600" color="brand.primary">
-            Estimated Tiles
-          </Text>
-          <Center gap="8px" height="35px" marginLeft="8px" data-testid="tileBoard">
-            {centers}
-          </Center>
-        </Center>
-        <Center
-          width="400px"
-          justifyContent={{ base: "flex-start", lg: "center" }}
-          paddingLeft={{ base: "10px", lg: "0px", xl: "0px" }}
-          borderLeft="1px solid #ABABAD"
-          alignItems="center"
+      <Center
+        width="60%"
+        justifyContent="flex-start"
+        marginLeft={{ base: "10px", lg: "35px", xl: "60px" }}
+      >
+        <Text
+          fontSize={{ base: "xs", lg: "sm" }}
+          fontWeight="600"
           color="brand.primary"
+          marginRight="12px"
         >
-          <Center alignItems="baseline">
-            <Text fontSize={{ base: "xs", lg: "sm" }} fontWeight="600">
-              Estimated Budget
-            </Text>
-            <Text
-              fontSize={{ base: "xs", lg: "sm" }}
-              fontWeight={{ base: "700", lg: "800" }}
-              marginLeft="8px"
-            >
-              From
-            </Text>
-            <Text
-              fontSize={{ base: "md", lg: "lg" }}
-              fontWeight={{ base: "700", lg: "800" }}
-              marginLeft="2px"
-            >
-              ${useTotalPrice === "0.00" ? "Loading..." : useTotalPrice}
-            </Text>
-          </Center>
+          Estimated Tiles
+        </Text>
+        <Center gap="8px" height="35px" marginLeft="8px" data-testid="tileBoard">
+          {centers}
         </Center>
-      </Flex>
+      </Center>
     </>
   );
 };
