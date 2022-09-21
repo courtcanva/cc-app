@@ -3,16 +3,9 @@ import { userCartList } from ".";
 import CartListItem from "./CartListItem";
 import { useDispatch } from "react-redux";
 import { switchCartDisplay } from "@/store/reducer/cartControlSlice";
-// import { mockCartData } from "../MockData/MockCartData";
+import { keyBy } from "lodash";
 
-const ShoppingCartContainer = (cartList: userCartList) => {
-  const cartItems = cartList.userShoppingCart;
-
-  const dispatch = useDispatch();
-  const handleReturnToDesign = () => {
-    dispatch(switchCartDisplay());
-  };
-
+const ShoppingCartContainer = ({ userShoppingCart }: userCartList) => {
   return (
     <Flex flexDirection="column" alignItems="center">
       <Text fontSize="18px" fontWeight="750" marginBottom="20px" marginTop="20px">
@@ -56,8 +49,15 @@ const ShoppingCartContainer = (cartList: userCartList) => {
             </Tr>
           </Thead>
           <Tbody>
-            {cartItems.map((cartRow) => (
-              <CartListItem key={cartRow.key} content={cartRow.content} />
+            {userShoppingCart.map((cartRow) => (
+              <CartListItem
+                key={cartRow.user_id}
+                user_id={cartRow.user_id}
+                design={cartRow.design}
+                quotation={cartRow.quotation}
+                quotationDetails={cartRow.quotationDetails}
+                previewPic={cartRow.previewPic}
+              />
             ))}
           </Tbody>
         </Table>
@@ -74,30 +74,6 @@ const ShoppingCartContainer = (cartList: userCartList) => {
         Proceed to Checkout
       </Button>
     </Flex>
-    // <Flex
-    //   width="100%"
-    //   justifyContent="center"
-    //   alignItems="center"
-    //   margin="80px 10px"
-    //   bg="#f3f6fb"
-    //   borderTop="5px solid #7088B1"
-    // >
-    //   <Flex flexDirection="column" justifyContent="space-evenly" alignItems="center" height="400px">
-    //     <Text fontSize="50px" fontWeight="700">
-    //       CART
-    //     </Text>
-    //     <Text fontSize="18px" fontWeight="500">
-    //       You currently have{" "}
-    //       <Text display="inline" fontWeight="900">
-    //         no items
-    //       </Text>{" "}
-    //       in your cart
-    //     </Text>
-    //     <Button variant="checkoutBtn" size="lg" padding="10px 20px" onClick={handleReturnToDesign}>
-    //       RETURN TO DESIGN
-    //     </Button>
-    //   </Flex>
-    // </Flex>
   );
 };
 export default ShoppingCartContainer;

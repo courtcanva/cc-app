@@ -2,14 +2,14 @@ import { Box, Button, ButtonGroup, Flex, Td, Tr, Text } from "@chakra-ui/react";
 import React from "react";
 import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-import { CartData } from ".";
 import { ICartItem } from "@/interfaces/cartItem";
 
-const CartListItem = (cartRow: CartData) => {
+const CartListItem = (props: ICartItem) => {
   // import cart information
-  const productName = cartRow.content.courtName;
-  const productQuotation = cartRow.content.quotation;
-  const productDetails = cartRow.content.quotationDetails;
+  const productName = props.design.designName;
+  const quotation = props.quotation;
+  const quotationDetails = props.quotationDetails;
+  const image = props.previewPic;
 
   return (
     <>
@@ -22,12 +22,12 @@ const CartListItem = (cartRow: CartData) => {
           {productName}
         </Td>
         <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }}>
-          {productQuotation}
+          AU${quotation}
         </Td>
         <Td padding="25px 40px" fontSize="13px" sx={{ "vertical-align": "top" }}>
           <Flex width="100%" height="120px" flexDirection="column" justifyContent="space-between">
             <Text fontSize="13px" overflowX="auto">
-              {productDetails}
+              {JSON.stringify(quotationDetails)}
             </Text>
             <ButtonGroup display="flex" justifyContent="flex-end" variant="outline" spacing="4">
               <Button
