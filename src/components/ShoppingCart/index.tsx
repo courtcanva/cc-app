@@ -26,7 +26,7 @@ const ShoppingCart = () => {
 
   return (
     <>
-      {isCartOpen && currentUserId != "" && (
+      {isCartOpen && currentUserId && (
         <Flex
           position="fixed"
           backgroundColor="#fff"

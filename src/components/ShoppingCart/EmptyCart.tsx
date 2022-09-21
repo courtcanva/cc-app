@@ -7,6 +7,7 @@ const EmptyCart = () => {
   const handleReturnToDesign = () => {
     disPatch(setCartDisplayState(false));
   };
+
   return (
     <Flex
       width="100%"
@@ -20,7 +21,7 @@ const EmptyCart = () => {
         <Text fontSize="50px" fontWeight="700">
           CART
         </Text>
-        <Text fontSize="18px" fontWeight="500">
+        <Text fontSize="18px" fontWeight="500" role="text" aria-label="paragraph">
           You currently have{" "}
           <Text display="inline" fontWeight="900">
             no items

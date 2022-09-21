@@ -1,6 +1,6 @@
 import EmptyCart from "@/components/ShoppingCart/EmptyCart";
 import renderWithMockedProvider from "../../utils";
-import { screen } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 
 describe("Empty cart components", () => {
   test("Should render all empty elements", () => {
@@ -9,11 +9,9 @@ describe("Empty cart components", () => {
     expect(checkOutButton).toBeInTheDocument();
     const cartTitle = screen.getByText("CART");
     expect(cartTitle).toBeVisible();
-    const cartInfoSub1 = screen.getByText("You currently have", { exact: false });
+    const cartInfoSub1 = screen.getByText("You currently have in your cart");
     expect(cartInfoSub1).toBeVisible();
-    const cartInfoSub2 = screen.getByText("no items", { exact: false });
-    expect(cartInfoSub2).toBeVisible();
-    const cartInfoSub3 = screen.getByText("in your cart", { exact: false });
-    expect(cartInfoSub3).toBeVisible();
+    const cartInfoSub2 = screen.getByRole("text", { name: "paragraph" });
+    expect(within(cartInfoSub2).getByText("no items")).toBeVisible();
   });
 });
