@@ -51,7 +51,7 @@ const ShoppingCartContainer = (cartList: userCartList) => {
                 padding="25px 40px"
                 sx={{ "text-transform": "capitalize" }}
               >
-                Quotation Detials
+                Quotation Details
               </Th>
             </Tr>
           </Thead>
