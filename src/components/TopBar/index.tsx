@@ -9,6 +9,7 @@ import {
   IconButton,
   Grid,
   Tooltip,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { TriangleUpIcon } from "@chakra-ui/icons";
 import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
@@ -38,6 +39,8 @@ import { designMapping } from "@/utils/designMapping";
 import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
+import DeleteComfirmModal from "@/components/DeleteComfirmModal";
+import { useDeleteItemFromCartMutation } from "@/redux/api/cartApi";
 
 const TopBar = () => {
   const dispatch = useDispatch();
@@ -53,6 +56,8 @@ const TopBar = () => {
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
   const [useUserId, setUserId] = useState(userData.userId);
   const [savePopoverOpen, setSavePopoverOpen] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [deleteItemFromCart] = useDeleteItemFromCartMutation();
 
   useEffect(() => {
     setSliderValue(borderLength / 1000);
@@ -100,6 +105,12 @@ const TopBar = () => {
     dispatch(getDesignsData(mappedDesignsData));
     dispatch(getDesignsTileData(mappedTileData));
     dispatch(changeDesignNameList(mappedNameList));
+  };
+
+  const confirmDeleteDesign = (id: string) => {
+    console.log(id);
+    deleteItemFromCart(id);
+    onClose();
   };
 
   return (
@@ -247,7 +258,13 @@ const TopBar = () => {
           colorScheme="transparent"
           icon={<BinSvg />}
           variant="editorFooterIconBtn"
-          onClick={handleDeleteDesign}
+          // onClick={handleDeleteDesign}
+          onClick={onOpen}
+        />
+        <DeleteComfirmModal
+          isOpen={isOpen}
+          onClose={onClose}
+          onConfirm={() => confirmDeleteDesign("6329bdc5f95615a3e2d66406")}
         />
       </Flex>
     </Grid>

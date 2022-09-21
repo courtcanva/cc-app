@@ -32,7 +32,16 @@ export const cartApi = createApi({
       }),
       invalidatesTags: ["cartItems"],
     }),
+
+    deleteItemFromCart: builder.mutation({
+      query: (itemId: string) => ({
+        url: `/shopping-cart/${itemId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["cartItems"],
+    }),
   }),
 });
 
-export const { useGetItemQuantityQuery, useAddToCartMutation } = cartApi;
+export const { useGetItemQuantityQuery, useAddToCartMutation, useDeleteItemFromCartMutation } =
+  cartApi;
