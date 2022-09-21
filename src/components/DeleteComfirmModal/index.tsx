@@ -27,7 +27,7 @@ const DeleteComfirmModal = ({ isOpen, onClose, onConfirm }: Props) => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody textAlign={"center"}>
-            <p>This will delete your design from catelog </p>
+            <p>This will delete your design from catalog </p>
             <p>Are you sure?</p>
           </ModalBody>
           <ModalFooter display={"flex"} gap="10px" marginTop={"10px"}>
