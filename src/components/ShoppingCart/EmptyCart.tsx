@@ -27,7 +27,13 @@ const EmptyCart = () => {
           </Text>{" "}
           in your cart
         </Text>
-        <Button variant="checkoutBtn" size="lg" padding="10px 20px" onClick={handleReturnToDesign}>
+        <Button
+          aria-label="ReturnHomeBtn"
+          variant="checkoutBtn"
+          size="lg"
+          padding="10px 20px"
+          onClick={handleReturnToDesign}
+        >
           RETURN TO DESIGN
         </Button>
       </Flex>

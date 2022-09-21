@@ -43,14 +43,8 @@ const ShoppingCart = () => {
           height="100vh"
           zIndex={1600}
         >
-          {quentity > 0 && (
-            <ShoppingCartContainer
-              // userid={cartInfo.userid}
-              // userShoppingCart={cartInfo.userShoppingCart}
-              userShoppingCart={cart}
-            />
-          )}
-          {quentity == 0 && <EmptyCart />}
+          {quentity > 0 && <ShoppingCartContainer userShoppingCart={cart} />}
+          {quentity === 0 && <EmptyCart />}
         </Flex>
       )}
     </>

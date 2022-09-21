@@ -1,9 +1,6 @@
 import { Table, Thead, Tbody, Tr, Th, TableContainer, Text, Button, Flex } from "@chakra-ui/react";
 import { userCartList } from ".";
 import CartListItem from "./CartListItem";
-import { useDispatch } from "react-redux";
-import { switchCartDisplay } from "@/store/reducer/cartControlSlice";
-import { keyBy } from "lodash";
 
 const ShoppingCartContainer = ({ userShoppingCart }: userCartList) => {
   return (
