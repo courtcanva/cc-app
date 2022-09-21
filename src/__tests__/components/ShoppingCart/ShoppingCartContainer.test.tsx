@@ -25,8 +25,8 @@ describe("ShoppingCart component", () => {
   it("Should render correct the item data of shopping cart list", () => {
     renderWithMockedProvider(<ShoppingCartContainer userShoppingCart={mockCartData} />);
     const testData = [
-      {quotation: "0.00", productName: "Small Court example"}, 
-      {quotation: "0.00", productName: "Pro Full Court example"},
+      { quotation: "0.00", productName: "Small Court example" },
+      { quotation: "0.00", productName: "Pro Full Court example" },
     ];
     const listItems = screen.queryAllByRole("dataRow");
     listItems.forEach((item, idx) => {
