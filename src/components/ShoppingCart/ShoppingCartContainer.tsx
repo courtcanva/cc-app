@@ -1,6 +1,10 @@
 import { Table, Thead, Tbody, Tr, Th, TableContainer, Text, Button, Flex } from "@chakra-ui/react";
-import { userCartList } from ".";
 import CartListItem from "./CartListItem";
+import { ICartItem } from "@/interfaces/cartItem";
+
+interface userCartList {
+  userShoppingCart: ICartItem[];
+}
 
 const ShoppingCartContainer = ({ userShoppingCart }: userCartList) => {
   return (

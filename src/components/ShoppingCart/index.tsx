@@ -7,17 +7,12 @@ import { skipToken } from "@reduxjs/toolkit/dist/query";
 import EmptyCart from "./EmptyCart";
 import { ICartItem } from "@/interfaces/cartItem";
 
-export interface userCartList {
-  userShoppingCart: ICartItem[];
-}
-
 const ShoppingCart = () => {
   const isCartOpen = useStoreSelector((state) => state.cartControl.isCartOpen);
   const currentUserId = useStoreSelector(userData).userId;
+  // const userLoginState = useStoreSelector((state) => state.loginModal.loginModalOpen);
   const { data } = useGetItemQuantityQuery(currentUserId ? currentUserId : skipToken);
-  const quentity = data?.length;
-  // Need to fetch the realdata to here.
-  // const cartInfo = mockCartData;
+  const quantity = data?.length;
 
   const cart: ICartItem[] = data?.map((item: any) => {
     return {
@@ -31,7 +26,7 @@ const ShoppingCart = () => {
 
   return (
     <>
-      {isCartOpen && (
+      {isCartOpen && currentUserId != "" && (
         <Flex
           position="fixed"
           backgroundColor="#fff"
@@ -43,8 +38,8 @@ const ShoppingCart = () => {
           height="100vh"
           zIndex={1600}
         >
-          {quentity > 0 && <ShoppingCartContainer userShoppingCart={cart} />}
-          {quentity === 0 && <EmptyCart />}
+          {quantity > 0 && <ShoppingCartContainer userShoppingCart={cart} />}
+          {quantity === 0 && <EmptyCart />}
         </Flex>
       )}
     </>
