@@ -19,9 +19,10 @@ const DropDownButton = ({ content }: quotationDetail) => {
         flexDirection: "row",
         justifyContent: "center",
         alignContent: "center",
+        overflow: "auto",
       }}
     >
-      <Collapse startingHeight={25} in={show}>
+      <Collapse startingHeight={25} in={show} style={{ overflow: "scroll" }}>
         {content}
       </Collapse>
       <IconButton
