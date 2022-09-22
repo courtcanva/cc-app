@@ -18,7 +18,6 @@ import loginModalReducer from "./reducer/loginModalSlice";
 import cartControlReducer from "./reducer/cartControlSlice";
 import colorListReducer from "./reducer/colorListSlice";
 
-
 export const makeStore = () =>
   configureStore({
     reducer: {
@@ -40,7 +39,6 @@ export const makeStore = () =>
       areaTileQty: areaTileQtyReducer,
       cartControl: cartControlReducer,
       colorList: colorListReducer,
-
     },
 
     middleware: (getDefaultMiddleware) =>
