@@ -10,8 +10,8 @@ import {
 import { BiPencil } from "react-icons/bi";
 import { useStoreSelector } from "@/store/hooks";
 import { useEffect, useState } from "react";
-import { useNameCheckFeedback } from "@/utils/checkName";
 import NameChangeFeedback from "./NameChangeFeedback";
+import { useNameCheckFeedback } from "@/hooks/useNameCheckFeedback";
 
 const DesignName = () => {
   const designName = useStoreSelector((state) => state.courtSpecData.activeCourt.designName);
