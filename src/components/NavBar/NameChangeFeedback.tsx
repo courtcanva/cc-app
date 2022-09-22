@@ -26,7 +26,7 @@ const NameChangeFeedback = (props: Props) => {
         alignItems="center"
         justifyContent="center"
       >
-        <ModalHeader mt="15px" mb="-10px" color="brand.primary">
+        <ModalHeader mt="15px" mb="-10px" color="brand.primary" fontSize="md">
           {updateFeedbackData}
         </ModalHeader>
         <ModalFooter>
