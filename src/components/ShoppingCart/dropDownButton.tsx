@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { GrDown, GrUp } from "react-icons/gr";
-import {  IconButton } from "@chakra-ui/react";
+import { IconButton } from "@chakra-ui/react";
 import { Collapse } from "@chakra-ui/react";
 
 type quotationDetail = {
@@ -10,7 +10,6 @@ const DropDownButton = ({ content }: quotationDetail) => {
   const [show, setShow] = useState(false);
 
   const handleToggle = () => setShow(!show);
-
 
   const scroll = "scroll";
   const hidden = "hidden";
