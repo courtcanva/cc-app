@@ -1,7 +1,6 @@
 import { Flex, Button, IconButton, Grid, Tooltip, Box } from "@chakra-ui/react";
 import { Menu, MenuButton } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
-import { HiOutlineShoppingBag } from "react-icons/hi";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import { BsArrowCounterclockwise } from "react-icons/bs";
@@ -9,6 +8,7 @@ import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
 import EditorDesignName from "@/components/NavBar/EditorDesignName";
 import LoginModalContent from "../Login";
+import ShoppingCart from "./ShoppingCart";
 import { useEffect, useMemo, useState } from "react";
 import { ActionCreators } from "redux-undo";
 import { useDispatch } from "react-redux";
@@ -24,6 +24,10 @@ import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
 import { googleUserMapping } from "@/utils/userMapping";
 import { switchCartDisplay } from "@/store/reducer/cartControlSlice";
+import { userData } from "@/store/reducer/userSlice";
+import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
+import { HiOutlineShoppingBag } from "react-icons/hi";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -108,6 +112,11 @@ const NavigationBar = () => {
   const isThingsToUndo = useStoreSelector((state) => state.tile.past).length;
   const isThingsToRedo = useStoreSelector((state) => state.tile.future).length;
   const isThingsToReset = isThingsToUndo;
+
+  // Get current userId and item quantity in the shopping cart
+  const curUserId = useStoreSelector(userData).userId;
+  const { data } = useGetItemQuantityQuery(curUserId ? curUserId : skipToken);
+  const quantity = data?.length;
 
   return (
     <Grid

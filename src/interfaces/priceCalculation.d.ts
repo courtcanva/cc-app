@@ -1,7 +1,12 @@
 export interface IPriceCalculation {
-  _id: string;
+  cementFloorPrice: number;
+  tilePrices: TilePrices[];
+}
+
+export interface TilePrices {
   tile_id: string;
-  tilePrice: number;
+  tileName: string;
   deliveryPrice: number;
+  price: number;
   isDeleted: boolean;
 }
