@@ -4,8 +4,7 @@ import checkName from "@/utils/checkName";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-export const useNameCheckFeedback = (newDesignName: string) => {
-  const nameList = useStoreSelector((state) => state.designName.nameList);
+export const useNameCheckFeedback = (newDesignName: string, nameList: string[]) => {
   const [feedback, setFeedback] = useState("");
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const dispatch = useDispatch();

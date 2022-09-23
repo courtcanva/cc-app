@@ -15,9 +15,10 @@ import { useNameCheckFeedback } from "@/hooks/useNameCheckFeedback";
 
 const DesignName = () => {
   const designName = useStoreSelector((state) => state.courtSpecData.activeCourt.designName);
+  const nameList = useStoreSelector((state) => state.designName.nameList);
   const [newDesignName, setNewDesignName] = useState(designName);
   const { feedbackModalOpen, setFeedbackModalOpen, feedback, saveNameChange } =
-    useNameCheckFeedback(newDesignName);
+    useNameCheckFeedback(newDesignName, nameList);
 
   useEffect(() => {
     setNewDesignName(designName);
