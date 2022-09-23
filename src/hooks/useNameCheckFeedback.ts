@@ -19,7 +19,7 @@ export const useNameCheckFeedback = (newDesignName: string, nameList: string[]) 
         setFeedbackModalOpen(true);
         setFeedback(
           newDesignName +
-            " is not a valid name (less than 15 characters and contains only word characters)."
+            " is not a valid name (less than 15 characters and contains only letter, number and space)."
         );
         break;
       case "existed":

@@ -43,7 +43,7 @@ describe("useNameCheckFeedback hook", () => {
     expect(result.current.feedbackModalOpen).toEqual(true);
     expect(result.current.feedback).toEqual(
       invalidName +
-        " is not a valid name (less than 15 characters and contains only word characters)."
+        " is not a valid name (less than 15 characters and contains only letter, number and space)."
     );
   });
   it("should pass name check with valid name", () => {
