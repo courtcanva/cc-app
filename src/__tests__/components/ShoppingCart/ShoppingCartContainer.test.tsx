@@ -49,7 +49,9 @@ describe("ShoppingCart component", () => {
     const { getByTestId } = render(<DropDownButton content="Testing" />);
     const textShow = getByTestId("testShow");
     expect(textShow.textContent).toBe("Testing");
-    expect(textShow).toHaveStyle(` overflow-y: hidden; height:25px; white-space:nowrap; text-overflow:ellipsis `);
+    expect(textShow).toHaveStyle(
+      ` overflow-y: hidden; height:25px; white-space:nowrap; text-overflow:ellipsis `
+    );
   });
 
   it("click Button work correctly ", () => {
@@ -57,6 +59,8 @@ describe("ShoppingCart component", () => {
     const textShow = getByTestId("testShow");
     const collapseBtn = getByTestId("collapseBtn");
     fireEvent.click(collapseBtn);
-    expect(textShow).toHaveStyle(`height:auto ; overflow-y:scroll; white-space:normal; text-overflow:clip `);
+    expect(textShow).toHaveStyle(
+      `height:auto ; overflow-y:scroll; white-space:normal; text-overflow:clip `
+    );
   });
 });

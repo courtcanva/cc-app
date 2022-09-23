@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { GrDown, GrUp } from "react-icons/gr";
-import { Box, IconButton } from "@chakra-ui/react";
+import {  IconButton } from "@chakra-ui/react";
 import { Collapse } from "@chakra-ui/react";
 
 type quotationDetail = {
@@ -9,24 +9,15 @@ type quotationDetail = {
 const DropDownButton = ({ content }: quotationDetail) => {
   const [show, setShow] = useState(false);
 
-  const handleToggle = () =>  setShow(!show)
-
-useEffect(() => {
-  !show && topFunction()
-}, [show])
-
-function topFunction() {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-}
+  const handleToggle = () => setShow(!show);
 
 
   const scroll = "scroll";
   const hidden = "hidden";
-  const noWrap ="nowrap"
-  const normal = "normal"
-  const clip = "clip"
-  const ellipsis = "ellipsis"
+  const noWrap = "nowrap";
+  const normal = "normal";
+  const clip = "clip";
+  const ellipsis = "ellipsis";
 
   return (
     <div
@@ -42,7 +33,12 @@ function topFunction() {
       <Collapse
         startingHeight={25}
         in={show}
-        style={{ overflowY: show ? scroll : hidden, userSelect: "none", whiteSpace:show?normal:noWrap, textOverflow:show?clip:ellipsis}}
+        style={{
+          overflowY: show ? scroll : hidden,
+          userSelect: "none",
+          whiteSpace: show ? normal : noWrap,
+          textOverflow: show ? clip : ellipsis,
+        }}
         data-testid="testShow"
       >
         {content}
