@@ -11,6 +11,8 @@ const DropDownButton = ({ content }: quotationDetail) => {
 
   const handleToggle = () => setShow(!show);
 
+  const scroll = "scroll";
+  const hidden = "hidden";
   return (
     <div
       style={{
@@ -22,7 +24,12 @@ const DropDownButton = ({ content }: quotationDetail) => {
         overflow: "auto",
       }}
     >
-      <Collapse startingHeight={25} in={show} style={{ overflow: "scroll" }}>
+      <Collapse
+        startingHeight={25}
+        in={show}
+        style={{ overflowY: show ? scroll : hidden, userSelect: "none" }}
+        data-testid="testShow"
+      >
         {content}
       </Collapse>
       <IconButton
@@ -31,7 +38,9 @@ const DropDownButton = ({ content }: quotationDetail) => {
         size="sm"
         onClick={handleToggle}
         mt="auto"
-        aria-label={"dropDownBtn"}
+        aria-label="dropDownBtn"
+        _focus={{ bg: "white" }}
+        data-testid="collapseBtn"
       />
     </div>
   );

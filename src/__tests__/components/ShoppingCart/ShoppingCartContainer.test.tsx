@@ -2,6 +2,8 @@ import ShoppingCartContainer from "@/components/ShoppingCart/ShoppingCartContain
 import renderWithMockedProvider from "../../utils";
 import { render, screen, fireEvent, within } from "@testing-library/react";
 import { mockCartData } from "@/components/MockData/MockCartData";
+import { forEach } from "lodash";
+import DropDownButton from "@/components/ShoppingCart/dropDownButton";
 
 // Havent update mock data to the container
 
@@ -41,5 +43,20 @@ describe("ShoppingCart component", () => {
       expect(within(item).getByRole("button", { name: "cartDeleteBtn" })).toBeVisible();
       expect(within(item).getByRole("button", { name: "cartEditBtn" })).toBeVisible();
     });
+  });
+
+  it(" Collapse Text element should render correct value and style", () => {
+    const { getByTestId } = render(<DropDownButton content="Testing" />);
+    const textShow = getByTestId("testShow");
+    expect(textShow.textContent).toBe("Testing");
+    expect(textShow).toHaveStyle(` overflowY: hidden; height:25px `);
+  });
+
+  it("click Button work correctly ", () => {
+    const { getByTestId } = render(<DropDownButton content="" />);
+    const textShow = getByTestId("testShow");
+    const collapseBtn = getByTestId("collapseBtn");
+    fireEvent.click(collapseBtn);
+    expect(textShow).toHaveStyle(`height:auto ; overflowY:scroll`);
   });
 });
