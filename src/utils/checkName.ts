@@ -1,17 +1,47 @@
-const checkName = (name: string, nameList: string[]) => {
-  let nameCheck = "passCheck";
+interface IValidationOptions {
+  // if the name can be blank
+  canBeBlank?: boolean;
+  // maximum characters for the name
+  maxCharLength: number;
+  // minimum characters for the name
+  minCharLength?: number;
+  // if name contains only word characters (letter, number, space)
+  onlyWordChar?: boolean;
+}
+
+export const setValidation = (options: IValidationOptions) => {
+  const { canBeBlank = false, maxCharLength, minCharLength = 1, onlyWordChar = false } = options;
   const checkStartEndSpace = /(^\s*)|(\s*$)/g;
-  // requirement for design name is only contain letter and number and less than 15 char
-  const validNamRegularExp = /^[A-Za-z0-9\s]{1,15}$/;
-  if (nameList.includes(name) || nameList.includes(name.replace(checkStartEndSpace, ""))) {
-    nameCheck = "existed";
-  }
-  if (name === "" || name.replace(checkStartEndSpace, "") === "") {
-    nameCheck = "blank";
-  }
-  if (name.length > 0 && !validNamRegularExp.test(name)) {
-    nameCheck = "invalid";
-  }
+  const onlyWordCharRegularExp = /^[a-zA-Z0-9\s]+$/g;
+  const validation = (name: string, nameList: string[]) => {
+    let result = "passCheck";
+    // check if name exists in nameList
+    if (nameList.includes(name) || nameList.includes(name.replace(checkStartEndSpace, ""))) {
+      result = "existed";
+    }
+    // when canBeBlank is false, check if name is blank
+    if (!canBeBlank && (name.length === 0 || name.replace(checkStartEndSpace, "") === "")) {
+      result = "blank";
+    }
+    // check if name longer than minCharLength and shorter than maxCharLength
+    if (name.length > 0 && (name.length < minCharLength || name.length > maxCharLength)) {
+      result = "invalid";
+    }
+    // when onlyWordChar is true, check if name contains only word characters
+    if (onlyWordChar && name.length > 0 && !onlyWordCharRegularExp.test(name)) {
+      result = "invalid";
+    }
+    return result;
+  };
+  return validation;
+};
+
+const checkName = (
+  name: string,
+  nameList: string[],
+  validation: (name: string, nameList: string[]) => string
+) => {
+  const nameCheck = validation(name, nameList);
   return nameCheck;
 };
 export default checkName;
