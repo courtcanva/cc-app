@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { environment } from "@/constants/environment";
-import { ICartItem } from "@/interfaces/cartItem";
+import { ICartItemNew } from "@/interfaces/cartItem";
 
 export const cartApi = createApi({
   reducerPath: "shoppingCart",
@@ -15,7 +15,7 @@ export const cartApi = createApi({
     }),
 
     addToCart: builder.mutation({
-      query: (newCartItem: { item: ICartItem }) => ({
+      query: (newCartItem: { item: ICartItemNew }) => ({
         url: "shopping-cart",
         method: "POST",
         body: newCartItem.item,

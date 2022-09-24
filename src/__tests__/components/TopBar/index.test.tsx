@@ -32,13 +32,13 @@ describe("TopBar", () => {
     expect(downloadButton).toBeInTheDocument();
   });
 
-  it("Should popup delete window", () => {
-    renderWithMockedProvider(<TopBar />);
-    const delBtn = screen.getByLabelText("Bin");
-    fireEvent.click(delBtn);
-    const delPopup = screen.getByText("You are about to delete a design");
-    expect(delPopup).toBeInTheDocument();
-  });
+  // it("Should popup delete window", () => {
+  //   renderWithMockedProvider(<TopBar />);
+  //   const delBtn = screen.getByLabelText("Bin");
+  //   fireEvent.click(delBtn);
+  //   const delPopup = screen.getByText("You are about to delete a design");
+  //   expect(delPopup).toBeInTheDocument();
+  // });
 
   // todo
   // it("should change value when slide the arrow", () => {

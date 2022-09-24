@@ -4,12 +4,17 @@ import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { ICartItem } from "@/interfaces/cartItem";
 
-const CartListItem = (props: ICartItem) => {
+interface CartListItemProps {
+  item: ICartItem;
+  onDelete: (id: string) => void;
+}
+
+const CartListItem = ({ item, onDelete }: CartListItemProps) => {
   // import cart information
-  const productName = props.design.designName;
-  const quotation = props.quotation;
-  const quotationDetails = props.quotationDetails;
-  const image = props.previewPic;
+  const productName = item.design.designName;
+  const quotation = item.quotation;
+  const quotationDetails = item.quotationDetails;
+  const image = item.previewPic;
 
   return (
     <>
@@ -45,6 +50,9 @@ const CartListItem = (props: ICartItem) => {
                 variant="unstyled"
                 size="xs"
                 aria-label="cartDeleteBtn"
+                onClick={() => {
+                  onDelete(item.id);
+                }}
               >
                 <MdDeleteForever />
               </Button>
@@ -52,6 +60,7 @@ const CartListItem = (props: ICartItem) => {
           </Flex>
         </Td>
       </Tr>
+      ;
     </>
   );
 };

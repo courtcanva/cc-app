@@ -12,9 +12,11 @@ const ShoppingCart = () => {
   const currentUserId = useStoreSelector(userData).userId;
   const { data } = useGetItemQuantityQuery(currentUserId ? currentUserId : skipToken);
   const quantity = data?.length;
+  console.log(data);
 
   const cart: ICartItem[] = data?.map((item: any) => {
     return {
+      id: item._id,
       user_id: item.user_id,
       design: item.design,
       quotation: item.quotation,

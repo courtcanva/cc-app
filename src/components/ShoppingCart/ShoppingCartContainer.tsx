@@ -1,12 +1,35 @@
-import { Table, Thead, Tbody, Tr, Th, TableContainer, Text, Button, Flex } from "@chakra-ui/react";
+import { useState } from "react";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  TableContainer,
+  Text,
+  Button,
+  Flex,
+  useDisclosure,
+} from "@chakra-ui/react";
 import CartListItem from "./CartListItem";
 import { ICartItem } from "@/interfaces/cartItem";
+import DeleteComfirmModal from "@/components/DeleteComfirmModal";
+import { useDeleteItemFromCartMutation } from "@/redux/api/cartApi";
 
 interface userCartList {
   userShoppingCart: ICartItem[];
 }
 
 const ShoppingCartContainer = ({ userShoppingCart }: userCartList) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [deleteItemFromCart] = useDeleteItemFromCartMutation();
+
+  const confirmDeleteDesign = (id: string) => {
+    deleteItemFromCart(id);
+    onClose();
+  };
+  const [cartItemIdToDelete, setCartItemIdToDelete] = useState("");
+
   return (
     <Flex flexDirection="column" alignItems="center">
       <Text fontSize="18px" fontWeight="750" marginBottom="20px" marginTop="20px">
@@ -52,12 +75,19 @@ const ShoppingCartContainer = ({ userShoppingCart }: userCartList) => {
           <Tbody>
             {userShoppingCart.map((cartRow) => (
               <CartListItem
-                key={cartRow.user_id}
-                user_id={cartRow.user_id}
-                design={cartRow.design}
-                quotation={cartRow.quotation}
-                quotationDetails={cartRow.quotationDetails}
-                previewPic={cartRow.previewPic}
+                key={cartRow.id}
+                item={cartRow}
+                onDelete={(id) => {
+                  setCartItemIdToDelete(id);
+                  onOpen();
+                }}
+                // id={cartRow.id}
+                // key={cartRow.user_id}
+                // user_id={cartRow.user_id}
+                // design={cartRow.design}
+                // quotation={cartRow.quotation}
+                // quotationDetails={cartRow.quotationDetails}
+                // previewPic={cartRow.previewPic}
               />
             ))}
           </Tbody>
@@ -74,6 +104,12 @@ const ShoppingCartContainer = ({ userShoppingCart }: userCartList) => {
       >
         Proceed to Checkout
       </Button>
+
+      <DeleteComfirmModal
+        isOpen={isOpen}
+        onClose={onClose}
+        onConfirm={() => confirmDeleteDesign(cartItemIdToDelete)}
+      />
     </Flex>
   );
 };
