@@ -13,7 +13,7 @@ interface Props {
   updateFeedbackData: string;
 }
 
-const NameChangeFeedback = (props: Props) => {
+const NameChangeAlertModal = (props: Props) => {
   const { onClose, isOpen, updateFeedbackData } = props;
 
   return (
@@ -39,4 +39,4 @@ const NameChangeFeedback = (props: Props) => {
   );
 };
 
-export default NameChangeFeedback;
+export default NameChangeAlertModal;

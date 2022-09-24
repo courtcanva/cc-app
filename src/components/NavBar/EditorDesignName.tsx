@@ -10,7 +10,7 @@ import {
 import { BiPencil } from "react-icons/bi";
 import { useStoreSelector } from "@/store/hooks";
 import { useEffect, useState } from "react";
-import NameChangeFeedback from "./NameChangeFeedback";
+import NameChangeAlertModal from "./NameChangeAlertModal";
 import { useNameCheckFeedback } from "@/hooks/useNameCheckFeedback";
 
 const DesignName = () => {
@@ -56,14 +56,14 @@ const DesignName = () => {
           <EditableControls />
         </Editable>
       </Flex>
-      <NameChangeFeedback
+      <NameChangeAlertModal
         isOpen={feedbackModalOpen}
         onClose={() => {
           setFeedbackModalOpen(false);
           setNewDesignName(designName);
         }}
         updateFeedbackData={feedback}
-      ></NameChangeFeedback>
+      ></NameChangeAlertModal>
     </>
   );
 };
