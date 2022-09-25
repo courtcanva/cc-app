@@ -15,7 +15,7 @@ const CartListItem = (props: ICartItem) => {
     <>
       <Tr alignItems="center" role="dataRow">
         <Td padding="20px 60px" sx={{ "vertical-align": "top" }} height="180px">
-          {/* preserve space for the Court image */}
+          {/* Todo: space for thumbnail images that implementing in the future. */}
           <Box width="90%" height="110px" backgroundColor="blue"></Box>
         </Td>
         <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }} overflowX="auto">
