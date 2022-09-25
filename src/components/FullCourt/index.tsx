@@ -39,6 +39,7 @@ const FullCourt = () => {
             visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
+            draggable
           >
             <Provider store={store}>
               <Layer>
