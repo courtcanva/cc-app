@@ -10,10 +10,11 @@ interface CartListItemProps {
 }
 
 const CartListItem = ({ item, onDelete }: CartListItemProps) => {
-  // import cart information
-  const productName = item.design.designName;
-  const quotation = item.quotation;
-  const quotationDetails = item.quotationDetails;
+  const {
+    design: { designName: productName },
+    quotation: quotation,
+    quotationDetails: quotationDetails,
+  } = item;
   const image = item.previewPic;
 
   return (

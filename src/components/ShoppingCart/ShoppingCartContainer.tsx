@@ -81,13 +81,6 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                   setCartItemIdToDelete(id);
                   onOpen();
                 }}
-                // id={cartRow.id}
-                // key={cartRow.user_id}
-                // user_id={cartRow.user_id}
-                // design={cartRow.design}
-                // quotation={cartRow.quotation}
-                // quotationDetails={cartRow.quotationDetails}
-                // previewPic={cartRow.previewPic}
               />
             ))}
           </Tbody>
