@@ -45,7 +45,7 @@ const DropDownButton = ({ detail }: detail) => {
         data-testid="testShow"
       >
         {detail.map(
-          (content: PriceBar) => `Color:${content.color},  Quantity:${content.quantity}  `
+          (content: PriceBar) => `Color:${content.color},  Quantity:${content.quantity},  `
         )}
       </Collapse>
       <IconButton

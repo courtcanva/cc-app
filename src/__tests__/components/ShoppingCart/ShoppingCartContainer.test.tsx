@@ -36,7 +36,7 @@ describe("ShoppingCart component", () => {
   it(" Collapse Text element should render correct value and style", () => {
     const { getByTestId } = render(<DropDownButton detail={[{ color: "7088B1", quantity: 71 }]} />);
     const textShow = getByTestId("testShow");
-    expect(textShow.textContent).toBe("Color:7088B1,  Quantity:71  ");
+    expect(textShow.textContent).toBe("Color:7088B1,  Quantity:71,  ");
     expect(textShow).toHaveStyle(
       ` overflow-y: hidden; height:25px; white-space:nowrap; text-overflow:ellipsis `
     );
