@@ -1,14 +1,11 @@
 import { IDesign } from "@/interfaces/design";
 import { PriceBar } from "@/store/reducer/priceBarSlice";
 
-export interface ICartItemNew {
+export interface ICartItem {
   user_id: string;
+  id: string;
   design: IDesign;
   quotation: string;
   quotationDetails: PriceBar[];
   previewPic: string;
-}
-
-export interface ICartItem extends ICartItemNew {
-  id: string;
 }
