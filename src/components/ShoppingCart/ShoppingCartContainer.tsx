@@ -17,10 +17,10 @@ import DeleteComfirmModal from "@/components/DeleteComfirmModal";
 import { useDeleteItemFromCartMutation } from "@/redux/api/cartApi";
 
 interface userCartList {
-  userShoppingCart: ICartItem[];
+  shoppingCart: ICartItem[];
 }
 
-const ShoppingCartContainer = ({ userShoppingCart }: userCartList) => {
+const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [deleteItemFromCart] = useDeleteItemFromCartMutation();
 
@@ -73,7 +73,7 @@ const ShoppingCartContainer = ({ userShoppingCart }: userCartList) => {
             </Tr>
           </Thead>
           <Tbody>
-            {userShoppingCart.map((cartRow) => (
+            {shoppingCart.map((cartRow) => (
               <CartListItem
                 key={cartRow.id}
                 item={cartRow}
