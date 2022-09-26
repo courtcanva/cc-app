@@ -3,16 +3,16 @@ import CartListItem from "./CartListItem";
 import { ICartItem } from "@/interfaces/cartItem";
 
 interface userCartList {
-  userShoppingCart: ICartItem[];
+  shoppingCart: ICartItem[];
 }
 
-const ShoppingCartContainer = ({ userShoppingCart }: userCartList) => {
+const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
   return (
     <Flex flexDirection="column" alignItems="center">
       <Text fontSize="18px" fontWeight="750" marginBottom="20px" marginTop="20px">
         CART
       </Text>
-      <TableContainer min-width="1080px" width="100%" overflowY="auto">
+      <TableContainer minWidth="1080px" width="100%" overflowY="auto">
         <Table
           variant="simple"
           border="1px"
@@ -50,7 +50,7 @@ const ShoppingCartContainer = ({ userShoppingCart }: userCartList) => {
             </Tr>
           </Thead>
           <Tbody>
-            {userShoppingCart.map((cartRow) => (
+            {shoppingCart.map((cartRow) => (
               <CartListItem
                 key={cartRow.user_id}
                 user_id={cartRow.user_id}

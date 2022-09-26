@@ -36,7 +36,7 @@ const customJestConfig = {
     "!<rootDir>/src/utils/tileNumberCalculator.ts",
     "!<rootDir>/src/utils/printPDF.ts",
     "!<rootDir>/src/hooks/*",
-    "!<rootDir>/src/components/Login/*", // exclude canvas
+    "!<rootDir>/src/components/Login/*",
     "!<rootDir>/src/components/BasketballCourt/*", // exclude canvas
     "!<rootDir>/src/components/FullCourt/*", // exclude canvas
     "!<rootDir>/src/components/ProFullCourt/*", // exclude canvas
@@ -54,6 +54,7 @@ const customJestConfig = {
     "!<rootDir>/node_modules/",
     "!<rootDir>/**/__tests__/**",
     "!<rootDir>/**/*.d.ts",
+    "<rootDir>/src/hooks/useNameCheckFeedback.ts",
   ],
   verbose: true,
   collectCoverage: true,

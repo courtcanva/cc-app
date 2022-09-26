@@ -37,7 +37,7 @@ const ShoppingCart = () => {
           height="100vh"
           zIndex={1600}
         >
-          {quantity > 0 && <ShoppingCartContainer userShoppingCart={cart} />}
+          {quantity > 0 && <ShoppingCartContainer shoppingCart={cart} />}
           {quantity === 0 && <EmptyCart />}
         </Flex>
       )}

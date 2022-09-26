@@ -8,7 +8,7 @@ import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
 import EditorDesignName from "@/components/NavBar/EditorDesignName";
 import LoginModalContent from "../Login";
-import ShoppingCart from "./ShoppingCart";
+import ShoppingCartButton from "./ShoppingCartButton";
 import { useEffect, useMemo, useState } from "react";
 import { ActionCreators } from "redux-undo";
 import { useDispatch } from "react-redux";
@@ -186,7 +186,7 @@ const NavigationBar = () => {
           onClose={handleLoginModalClose}
           updateLoginData={updateLoginData}
         ></LoginModalContent>
-        <ShoppingCart quantity={quantity} loginState={loginState} />
+        <ShoppingCartButton quantity={quantity} loginState={loginState} />
         <Button
           variant="shareBtn"
           marginLeft="10px"

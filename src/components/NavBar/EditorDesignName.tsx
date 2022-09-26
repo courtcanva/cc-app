@@ -8,48 +8,21 @@ import {
   EditableInput,
 } from "@chakra-ui/react";
 import { BiPencil } from "react-icons/bi";
-import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
-import { changeDesignName } from "@/store/reducer/courtSpecDataSlice";
 import { useEffect, useState } from "react";
-import checkName from "@/utils/checkName";
-import NameChangeFeedback from "./NameChangeFeedback";
+import NameChangeAlertModal from "./NameChangeAlertModal";
+import { useNameCheckFeedback } from "@/hooks/useNameCheckFeedback";
 
 const DesignName = () => {
   const designName = useStoreSelector((state) => state.courtSpecData.activeCourt.designName);
-  const designNames = useStoreSelector((state) => state.designName.nameList);
-  const [useDesignName, setDesignName] = useState(designName);
-  const [nameCheck, setNameCheck] = useState<string>("passCheck");
-  const [useFeedback, setFeedback] = useState("");
-  const [useFeedbackModal, setFeedbackModal] = useState(false);
-  const dispatch = useDispatch();
+  const nameList = useStoreSelector((state) => state.designName.nameList);
+  const [newDesignName, setNewDesignName] = useState(designName);
+  const { feedbackModalOpen, setFeedbackModalOpen, feedback, saveNameChange } =
+    useNameCheckFeedback(newDesignName, nameList);
 
   useEffect(() => {
-    setDesignName(designName);
+    setNewDesignName(designName);
   }, [designName]);
-
-  const handleNameChange = (editedName: string) => {
-    setDesignName(editedName);
-  };
-
-  const saveNameChange = () => {
-    const nameCheck = checkName(useDesignName, designNames);
-    setNameCheck(nameCheck);
-    if (nameCheck === "blank") {
-      setFeedbackModal(true);
-      setFeedback("Please have a design name.");
-      return;
-    }
-    if (nameCheck === "existed") {
-      setFeedbackModal(true);
-      setFeedback(`Design name ` + useDesignName + ` is already existed.`);
-      return;
-    }
-    if (nameCheck === "passCheck") {
-      dispatch(changeDesignName(useDesignName));
-      return;
-    }
-  };
 
   const EditableControls = () => {
     const { isEditing, getEditButtonProps } = useEditableControls();
@@ -70,10 +43,12 @@ const DesignName = () => {
           color="white"
           textAlign="center"
           isPreviewFocusable={false}
-          value={nameCheck === "blank" || nameCheck === "existed" ? designName : useDesignName}
+          value={newDesignName}
           display="flex"
           alignItems="center"
-          onChange={(editedName) => handleNameChange(editedName)}
+          onChange={(value) => {
+            setNewDesignName(value);
+          }}
           onSubmit={() => saveNameChange()}
         >
           <EditablePreview p="0px 8px" />
@@ -81,11 +56,14 @@ const DesignName = () => {
           <EditableControls />
         </Editable>
       </Flex>
-      <NameChangeFeedback
-        isOpen={useFeedbackModal}
-        onClose={() => setFeedbackModal(false)}
-        updateFeedbackData={useFeedback}
-      ></NameChangeFeedback>
+      <NameChangeAlertModal
+        isOpen={feedbackModalOpen}
+        onClose={() => {
+          setFeedbackModalOpen(false);
+          setNewDesignName(designName);
+        }}
+        updateFeedbackData={feedback}
+      ></NameChangeAlertModal>
     </>
   );
 };

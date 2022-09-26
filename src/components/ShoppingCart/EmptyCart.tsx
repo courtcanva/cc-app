@@ -30,7 +30,7 @@ const EmptyCart = () => {
         </Text>
         <Button
           aria-label="ReturnHomeBtn"
-          variant="checkoutBtn"
+          variant="shareBtn"
           size="lg"
           padding="10px 20px"
           onClick={handleReturnToDesign}
