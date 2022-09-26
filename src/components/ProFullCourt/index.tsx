@@ -11,9 +11,19 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimension";
 import useCourt from "@/hooks/useCourt";
+import { useState } from "react";
+import { useStoreSelector } from "@/store/hooks";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
+  const zoomScale = useStoreSelector((state) => state.zoomControl.zoomScale);
+
+  const centerShift = {
+    xShift:
+      -(courtAreaXLength + borderLength * 2) * court.courtRatio * ((zoomScale.valueOf() - 1) / 2),
+    yShift:
+      -(courtAreaYLength + borderLength * 2) * court.courtRatio * ((zoomScale.valueOf() - 1) / 2),
+  };
 
   return (
     <Flex
@@ -34,12 +44,20 @@ const ProFullCourt = () => {
             id="basketball-court"
             height={court.stageHeight}
             width={court.stageWidth}
-            scaleX={court.courtRatio}
-            scaleY={court.courtRatio}
+            scaleX={court.courtRatio * zoomScale.valueOf()}
+            scaleY={court.courtRatio * zoomScale.valueOf()}
+            x={zoomScale === 1 ? 0 : centerShift.xShift}
+            y={zoomScale === 1 ? 0 : centerShift.yShift}
             visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
+            draggable
           >
+            {console.log("StageHeight:", court.stageHeight)}
+            {console.log("StageWidth:", court.stageWidth)}
+            {console.log("Scale:", court.courtRatio * zoomScale.valueOf())}
+            {console.log("scaleX:", (courtAreaXLength + borderLength * 2) * court.courtRatio)}
+            {console.log("scaleY:", (courtAreaYLength + borderLength * 2) * court.courtRatio)}
             <Provider store={store}>
               <Layer>
                 <Border
