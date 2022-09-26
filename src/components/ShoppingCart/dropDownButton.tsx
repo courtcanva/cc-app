@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import { GrDown, GrUp } from "react-icons/gr";
 import { IconButton } from "@chakra-ui/react";
 import { Collapse } from "@chakra-ui/react";
+import { PriceBar } from "@/store/reducer/priceBarSlice";
 
-type quotationDetail = {
-  content: string;
-};
-const DropDownButton = ({ content }: quotationDetail) => {
+
+
+type detail ={
+  detail: PriceBar[]
+}
+
+const DropDownButton = ({detail}: detail ) => {
   const [show, setShow] = useState(false);
 
   const handleToggle = () => setShow(!show);
@@ -33,14 +37,16 @@ const DropDownButton = ({ content }: quotationDetail) => {
         startingHeight={25}
         in={show}
         style={{
+          width: "100%",
           overflowY: show ? scroll : hidden,
           userSelect: "none",
           whiteSpace: show ? normal : noWrap,
           textOverflow: show ? clip : ellipsis,
+          textAlign: "center"
         }}
         data-testid="testShow"
       >
-        {content}
+        {detail.map((content:PriceBar) => `Color:${content.color},  Quantity:${content.quantity}  `) }
       </Collapse>
       <IconButton
         icon={show ? <GrUp /> : <GrDown />}

@@ -27,7 +27,7 @@ const CartListItem = (props: ICartItem) => {
         </Td>
         <Td padding="25px 40px" fontSize="13px" sx={{ "vertical-align": "top" }}>
           <Flex width="100%" height="120px" flexDirection="column" justifyContent="space-between">
-            <DropDownButton content={JSON.stringify(quotationDetails)} />
+            <DropDownButton detail = {quotationDetails} />
             <ButtonGroup display="flex" justifyContent="flex-end" variant="outline" spacing="4">
               <Button
                 fontSize="16px"
