@@ -9,7 +9,7 @@ interface Props {
   loginState: boolean;
 }
 
-const ShoppingCart = ({ quantity, loginState }: Props) => {
+const ShoppingCartButton = ({ quantity, loginState }: Props) => {
   const dispatch = useDispatch();
   const handleCartPageOpen = () => {
     if (loginState) {
@@ -44,4 +44,4 @@ const ShoppingCart = ({ quantity, loginState }: Props) => {
   );
 };
 
-export default ShoppingCart;
+export default ShoppingCartButton;
