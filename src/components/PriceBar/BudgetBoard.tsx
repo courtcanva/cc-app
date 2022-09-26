@@ -1,7 +1,7 @@
 import { Button, Center, Text } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import { useAddToCartMutation } from "@/redux/api/cartApi";
-import { ICartItemNew } from "@/interfaces/cartItem";
+import { ICartItem } from "@/interfaces/cartItem";
 import { saveDesignMapping } from "@/utils/designMapping";
 import { IDesign, ITileColor } from "@/interfaces/design";
 import { useDispatch } from "react-redux";
@@ -30,12 +30,13 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
     tileColor: tiles,
   };
 
-  const newCartItem: ICartItemNew = {
+  const newCartItem: ICartItem = {
     user_id: userId,
     design: currentDesign,
     quotation: useTotalPrice,
     quotationDetails: tileBlocks,
     previewPic: "",
+    id: "",
   };
 
   const handleAddToCart = () => {
