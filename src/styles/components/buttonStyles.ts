@@ -18,17 +18,6 @@ const buttonStyles = {
       _hover: { bg: "brand.secondary", opacity: "0.60" },
       _active: { bg: "brand.secondary", opacity: "0.60" },
     },
-    checkoutBtn: {
-      bg: "brand.secondary",
-      color: "white",
-      size: "lg",
-      fontSize: "lg",
-      fontWeights: "bold",
-      lineHeights: "22",
-      borderRadius: "6px",
-      _hover: { bg: "brand.secondary", opacity: "0.60" },
-      _active: { bg: "brand.secondary", opacity: "0.60" },
-    },
     failedBtn: {
       bg: "red.500",
       color: "white",

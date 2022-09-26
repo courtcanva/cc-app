@@ -1,46 +1,29 @@
 import { waitFor, screen, fireEvent, render, within } from "@testing-library/react";
-import { Provider } from "react-redux";
-import store from "../../../store";
 import ShoppingCartContainer from "@/components/ShoppingCart/ShoppingCartContainer";
 import { mockCartData } from "@/components/MockData/MockCartData";
 import DeleteComfirmModal from "@/components/DeleteComfirmModal";
+import renderWithMockedProvider from "../../utils";
 describe("ShoppingCart component", () => {
   test("Should render checkout button", () => {
-    render(
-      <Provider store={store}>
-        <ShoppingCartContainer shoppingCart={[]} />
-      </Provider>
-    );
+    renderWithMockedProvider(<ShoppingCartContainer shoppingCart={[]} />);
     const checkOutButton = screen.getByTestId("checkout-btn");
     expect(checkOutButton).toBeInTheDocument();
   });
 
   it("Should render shopping cart title", () => {
-    render(
-      <Provider store={store}>
-        <ShoppingCartContainer shoppingCart={[]} />
-      </Provider>
-    );
+    renderWithMockedProvider(<ShoppingCartContainer shoppingCart={[]} />);
     const cartTitle = screen.getByText("CART");
     expect(cartTitle).toBeVisible();
   });
 
   it("Should render shopping cart list items correctly", () => {
-    render(
-      <Provider store={store}>
-        <ShoppingCartContainer shoppingCart={mockCartData} />
-      </Provider>
-    );
+    renderWithMockedProvider(<ShoppingCartContainer shoppingCart={mockCartData} />);
     const cartLength = mockCartData.length;
     expect(screen.queryAllByRole("dataRow")).toHaveLength(cartLength);
   });
 
   it("Should render correct the item data of shopping cart list", () => {
-    render(
-      <Provider store={store}>
-        <ShoppingCartContainer shoppingCart={mockCartData} />
-      </Provider>
-    );
+    renderWithMockedProvider(<ShoppingCartContainer shoppingCart={mockCartData} />);
     const listItems = screen.queryAllByRole("dataRow");
     listItems.forEach((item, idx) => {
       expect(within(item).getByText(`AU$${mockCartData[idx].quotation}`)).toBeVisible();
@@ -51,10 +34,8 @@ describe("ShoppingCart component", () => {
   });
 
   it("Should render delete confirm modal and close the modal when click cancel button", async () => {
-    render(
-      <Provider store={store}>
-        <DeleteComfirmModal isOpen onClose={() => void {}} onConfirm={() => void {}} />
-      </Provider>
+    renderWithMockedProvider(
+      <DeleteComfirmModal isOpen onClose={() => void {}} onConfirm={() => void {}} />
     );
     const cancelBtn = screen.getByRole("button", { name: /cancel/i });
     expect(screen.getByText("You are about to delete a design")).toBeInTheDocument();
@@ -65,10 +46,8 @@ describe("ShoppingCart component", () => {
   });
 
   it("Should close modal when click delete button", async () => {
-    render(
-      <Provider store={store}>
-        <DeleteComfirmModal isOpen onClose={() => void {}} onConfirm={() => void {}} />
-      </Provider>
+    renderWithMockedProvider(
+      <DeleteComfirmModal isOpen onClose={() => void {}} onConfirm={() => void {}} />
     );
     const deleteConfirmBtn = screen.getByRole("button", { name: /delete/i });
     expect(deleteConfirmBtn).toBeInTheDocument();
