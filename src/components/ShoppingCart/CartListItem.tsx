@@ -5,7 +5,6 @@ import { MdDeleteForever } from "react-icons/md";
 import { ICartItem } from "@/interfaces/cartItem";
 import DropDownButton from "@/components/ShoppingCart/DropDownButton";
 
-
 const CartListItem = (props: ICartItem) => {
   // import cart information
   const productName = props.design.designName;

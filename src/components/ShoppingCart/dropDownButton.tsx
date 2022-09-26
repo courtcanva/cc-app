@@ -9,32 +9,21 @@ type detail = {
   detail: PriceBar[];
 };
 
-
-
 const DropDownButton = ({ detail }: detail) => {
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
   const collapseStyle: MotionStyle = {
-          width: "100%",
-          overflowY: show ? "scroll" : "hidden",
-          userSelect: "none",
-          whiteSpace: show ? "normal" : "nowrap",
-          textOverflow: show ? "clip" : "ellipsis",
-          textAlign: "center"
-        }
-        
+    width: "100%",
+    overflowY: show ? "scroll" : "hidden",
+    userSelect: "none",
+    whiteSpace: show ? "normal" : "nowrap",
+    textOverflow: show ? "clip" : "ellipsis",
+    textAlign: "center",
+  };
+
   return (
-    <Flex 
-    w="100%"
-    flexDirection="row"
-    overflow="auto"
-    >
-      <Collapse
-        startingHeight={25}
-        in={show}
-        style={collapseStyle}
-        data-testid="testShow"
-      >
+    <Flex w="100%" flexDirection="row" overflow="auto">
+      <Collapse startingHeight={25} in={show} style={collapseStyle} data-testid="testShow">
         {detail.map(
           (content: PriceBar) => `Color:${content.color},  Quantity:${content.quantity},  `
         )}
@@ -49,7 +38,7 @@ const DropDownButton = ({ detail }: detail) => {
         _focus={{ bg: "white" }}
         data-testid="collapseBtn"
       />
-   </Flex>
+    </Flex>
   );
 };
 
