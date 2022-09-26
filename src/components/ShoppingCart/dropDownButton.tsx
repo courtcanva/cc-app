@@ -1,47 +1,38 @@
 import React, { useState } from "react";
 import { GrDown, GrUp } from "react-icons/gr";
-import { IconButton } from "@chakra-ui/react";
+import { Box, Flex, IconButton } from "@chakra-ui/react";
 import { Collapse } from "@chakra-ui/react";
 import { PriceBar } from "@/store/reducer/priceBarSlice";
+import { MotionStyle } from "framer-motion";
 
 type detail = {
   detail: PriceBar[];
 };
 
+
+
 const DropDownButton = ({ detail }: detail) => {
   const [show, setShow] = useState(false);
-
   const handleToggle = () => setShow(!show);
-
-  const scroll = "scroll";
-  const hidden = "hidden";
-  const noWrap = "nowrap";
-  const normal = "normal";
-  const clip = "clip";
-  const ellipsis = "ellipsis";
-
+  const collapseStyle: MotionStyle = {
+          width: "100%",
+          overflowY: show ? "scroll" : "hidden",
+          userSelect: "none",
+          whiteSpace: show ? "normal" : "nowrap",
+          textOverflow: show ? "clip" : "ellipsis",
+          textAlign: "center"
+        }
+        
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignContent: "center",
-        overflow: "auto",
-      }}
+    <Flex 
+    w="100%"
+    flexDirection="row"
+    overflow="auto"
     >
       <Collapse
         startingHeight={25}
         in={show}
-        style={{
-          width: "100%",
-          overflowY: show ? scroll : hidden,
-          userSelect: "none",
-          whiteSpace: show ? normal : noWrap,
-          textOverflow: show ? clip : ellipsis,
-          textAlign: "center",
-        }}
+        style={collapseStyle}
         data-testid="testShow"
       >
         {detail.map(
@@ -58,7 +49,7 @@ const DropDownButton = ({ detail }: detail) => {
         _focus={{ bg: "white" }}
         data-testid="collapseBtn"
       />
-    </div>
+   </Flex>
   );
 };
 

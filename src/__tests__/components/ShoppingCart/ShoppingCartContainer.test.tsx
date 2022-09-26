@@ -1,7 +1,7 @@
 import ShoppingCartContainer from "@/components/ShoppingCart/ShoppingCartContainer";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { mockCartData } from "@/components/MockData/MockCartData";
-import DropDownButton from "@/components/ShoppingCart/dropDownButton";
+import DropDownButton from "@/components/ShoppingCart/DropDownButton";
 
 describe("ShoppingCart component", () => {
   test("Should render checkout button", () => {
