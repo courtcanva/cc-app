@@ -24,7 +24,7 @@ const EditorFooter = () => {
       boxShadow="dark-lg"
       lineHeight="34px"
       left="98px"
-      zIndex={1500}
+      zIndex={1400}
     >
       <Box>
         <IconButton
