@@ -4,13 +4,11 @@ import { IconButton } from "@chakra-ui/react";
 import { Collapse } from "@chakra-ui/react";
 import { PriceBar } from "@/store/reducer/priceBarSlice";
 
+type detail = {
+  detail: PriceBar[];
+};
 
-
-type detail ={
-  detail: PriceBar[]
-}
-
-const DropDownButton = ({detail}: detail ) => {
+const DropDownButton = ({ detail }: detail) => {
   const [show, setShow] = useState(false);
 
   const handleToggle = () => setShow(!show);
@@ -42,11 +40,13 @@ const DropDownButton = ({detail}: detail ) => {
           userSelect: "none",
           whiteSpace: show ? normal : noWrap,
           textOverflow: show ? clip : ellipsis,
-          textAlign: "center"
+          textAlign: "center",
         }}
         data-testid="testShow"
       >
-        {detail.map((content:PriceBar) => `Color:${content.color},  Quantity:${content.quantity}  `) }
+        {detail.map(
+          (content: PriceBar) => `Color:${content.color},  Quantity:${content.quantity}  `
+        )}
       </Collapse>
       <IconButton
         icon={show ? <GrUp /> : <GrDown />}
