@@ -21,7 +21,7 @@ const FullCourt = () => {
 
   const zoomScale = useStoreSelector((state) => state.zoomControl.zoomScale);
   const stageRef = useRef<any>(null);
-  const dragPos = useRef({x: 0, y: 0});
+  const dragPos = useRef({ x: 0, y: 0 });
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -41,7 +41,7 @@ const FullCourt = () => {
   const { xShift, yShift } = centerZoom(zoomShift);
 
   const handlePosition = () => {
-    dragPos.current = {x: stageRef.current.x(), y: stageRef.current.y()};
+    dragPos.current = { x: stageRef.current.x(), y: stageRef.current.y() };
   };
 
   return (
