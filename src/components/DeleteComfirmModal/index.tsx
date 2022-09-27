@@ -22,7 +22,13 @@ const DeleteComfirmModal = ({ isOpen, onClose, onConfirm }: Props) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader display={"flex"} flexDirection="column" gap="10px" alignItems={"center"}>
-            <DeleteIcon w={10} h={10} color="red.500" marginTop={"25px"} marginBottom={"10px"} />
+            <DeleteIcon
+              width={10}
+              height={10}
+              color="red.500"
+              marginTop={"25px"}
+              marginBottom={"10px"}
+            />
             You are about to delete a design
           </ModalHeader>
           <ModalCloseButton />
@@ -34,7 +40,7 @@ const DeleteComfirmModal = ({ isOpen, onClose, onConfirm }: Props) => {
             <Button variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="red" mr={3} onClick={onConfirm}>
+            <Button colorScheme="red" marginRight={3} onClick={onConfirm}>
               Delete
             </Button>
           </ModalFooter>

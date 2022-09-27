@@ -3,6 +3,7 @@ import React from "react";
 import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { ICartItem } from "@/interfaces/cartItem";
+import DropDownButton from "@/components/ShoppingCart/dropDownButton";
 
 interface CartListItemProps {
   item: ICartItem;
@@ -32,9 +33,7 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
         </Td>
         <Td padding="25px 40px" fontSize="13px" sx={{ "vertical-align": "top" }}>
           <Flex width="100%" height="120px" flexDirection="column" justifyContent="space-between">
-            <Text fontSize="13px" overflowX="auto">
-              {JSON.stringify(quotationDetails)}
-            </Text>
+            <DropDownButton detail={quotationDetails} />
             <ButtonGroup display="flex" justifyContent="flex-end" variant="outline" spacing="4">
               <Button
                 fontSize="16px"

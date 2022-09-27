@@ -87,7 +87,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
         </Table>
       </TableContainer>
       <Button
-        variant="checkoutBtn"
+        variant="shareBtn"
         size="lg"
         marginBottom="20px"
         marginTop="20px"
