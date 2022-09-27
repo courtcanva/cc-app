@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { GrDown, GrUp } from "react-icons/gr";
-import { Box, Flex, IconButton } from "@chakra-ui/react";
+import { Flex, IconButton } from "@chakra-ui/react";
 import { Collapse } from "@chakra-ui/react";
 import { PriceBar } from "@/store/reducer/priceBarSlice";
 import { MotionStyle } from "framer-motion";
@@ -33,9 +33,9 @@ const DropDownButton = ({ detail }: detail) => {
         colorScheme="white"
         size="sm"
         onClick={handleToggle}
-        mt="auto"
+        marginTop="auto"
         aria-label="dropDownBtn"
-        _focus={{ bg: "white" }}
+        _focus={{ background: "white" }}
         data-testid="collapseBtn"
       />
     </Flex>
