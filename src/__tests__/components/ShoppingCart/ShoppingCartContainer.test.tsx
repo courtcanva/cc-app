@@ -1,6 +1,7 @@
 import ShoppingCartContainer from "@/components/ShoppingCart/ShoppingCartContainer";
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { mockCartData } from "@/components/MockData/MockCartData";
+import DropDownButton from "@/components/ShoppingCart/dropDownButton";
 
 describe("ShoppingCart component", () => {
   test("Should render checkout button", () => {
@@ -30,5 +31,24 @@ describe("ShoppingCart component", () => {
       expect(within(item).getByRole("button", { name: "cartDeleteBtn" })).toBeVisible();
       expect(within(item).getByRole("button", { name: "cartEditBtn" })).toBeVisible();
     });
+  });
+
+  it("Collapse Text element should render correct value and style", () => {
+    const { getByTestId } = render(<DropDownButton detail={[{ color: "7088B1", quantity: 71 }]} />);
+    const textShow = getByTestId("testShow");
+    expect(textShow.textContent).toBe("Color:7088B1,  Quantity:71,  ");
+    expect(textShow).toHaveStyle(
+      ` overflow-y: hidden; height:25px; white-space:nowrap; text-overflow:ellipsis `
+    );
+  });
+
+  it("click Button work correctly", () => {
+    const { getByTestId } = render(<DropDownButton detail={[]} />);
+    const textShow = getByTestId("testShow");
+    const collapseBtn = getByTestId("collapseBtn");
+    fireEvent.click(collapseBtn);
+    expect(textShow).toHaveStyle(
+      `height:auto ; overflow-y:scroll; white-space:normal; text-overflow:clip `
+    );
   });
 });
