@@ -26,6 +26,10 @@ const ProHalfCourt = () => {
       X: courtStartPoint.X,
       Y: courtStartPoint.Y,
     },
+    dragPos: {
+      X: 0,
+      Y: 0,
+    },
     oriRatio: court.courtRatio,
     zoomRatio: zoomScale,
   };

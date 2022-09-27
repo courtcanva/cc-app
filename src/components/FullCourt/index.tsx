@@ -14,11 +14,14 @@ import useCourt from "@/hooks/useCourt";
 import { IZoomShift } from "@/interfaces/zoomShift";
 import { useStoreSelector } from "@/store/hooks";
 import { centerZoom } from "@/utils/zoomCenterCalculate";
+import { useState, useRef } from "react";
 
 const FullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
 
   const zoomScale = useStoreSelector((state) => state.zoomControl.zoomScale);
+  const stageRef = useRef<any>(null);
+  const stagePos = { x: 0, y: 0 };
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -27,11 +30,20 @@ const FullCourt = () => {
       X: courtStartPoint.X,
       Y: courtStartPoint.Y,
     },
+    dragPos: {
+      X: stagePos.x,
+      Y: stagePos.y,
+    },
     oriRatio: court.courtRatio,
     zoomRatio: zoomScale,
   };
 
   const { xShift, yShift } = centerZoom(zoomShift);
+
+  const handlePosition = () => {
+    zoomShift.dragPos.X = stageRef.current.x();
+    zoomShift.dragPos.Y = stageRef.current.y();
+  };
 
   return (
     <Flex
@@ -56,9 +68,12 @@ const FullCourt = () => {
             scaleY={court.courtRatio * zoomScale}
             x={xShift}
             y={yShift}
+            ref={stageRef}
             visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
+            draggable={true}
+            onDragEnd={handlePosition}
           >
             <Provider store={store}>
               <Layer>

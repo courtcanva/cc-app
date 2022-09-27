@@ -5,6 +5,10 @@ export interface IZoomShift {
     X: number;
     Y: number;
   };
+  dragPos: {
+    X: number;
+    Y: number;
+  };
   oriRatio: number;
   zoomRatio: number;
 }
