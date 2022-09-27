@@ -13,21 +13,25 @@ import BorderDimension from "../BasketballCourt/BorderDimension";
 import useCourt from "@/hooks/useCourt";
 import { useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
+import { IZoomShift } from "@/interfaces/zoomShift";
+import { centerZoom } from "@/utils/zoomCenterCalculate";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
   const zoomScale = useStoreSelector((state) => state.zoomControl.zoomScale);
 
-  const centerShift = {
-    xShift:
-      -(courtAreaXLength + courtStartPoint.X + borderLength * 2) *
-      court.courtRatio *
-      ((zoomScale - 1) / 2),
-    yShift:
-      -(courtAreaYLength + courtStartPoint.Y + borderLength * 2) *
-      court.courtRatio *
-      ((zoomScale - 1) / 2),
+  const zoomShift: IZoomShift = {
+    courtXLen: courtAreaXLength,
+    courtYLen: courtAreaYLength,
+    startPoint: {
+      X: courtStartPoint.X,
+      Y: courtStartPoint.Y,
+    },
+    oriRatio: court.courtRatio,
+    zoomRatio: zoomScale,
   };
+
+  const { xShift, yShift } = centerZoom(zoomShift);
 
   return (
     <Flex
@@ -50,18 +54,12 @@ const ProFullCourt = () => {
             width={court.stageWidth}
             scaleX={court.courtRatio * zoomScale}
             scaleY={court.courtRatio * zoomScale}
-            x={zoomScale === 1 ? 0 : centerShift.xShift}
-            y={zoomScale === 1 ? 0 : centerShift.yShift}
+            x={xShift}
+            y={yShift}
             visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
-            draggable
           >
-            {console.log("StageHeight:", court.stageHeight)}
-            {console.log("StageWidth:", court.stageWidth)}
-            {console.log("Scale:", court.courtRatio * zoomScale)}
-            {console.log("scaleX:", (courtAreaXLength + borderLength * 2) * court.courtRatio)}
-            {console.log("scaleY:", (courtAreaYLength + borderLength * 2) * court.courtRatio)}
             <Provider store={store}>
               <Layer>
                 <Border

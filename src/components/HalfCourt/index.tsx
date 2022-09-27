@@ -10,9 +10,27 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
 import DashedLine from "../BasketballCourt/DashedLine";
 import useCourt from "@/hooks/useCourt";
+import { IZoomShift } from "@/interfaces/zoomShift";
+import { useStoreSelector } from "@/store/hooks";
+import { centerZoom } from "@/utils/zoomCenterCalculate";
 
 const HalfCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
+
+  const zoomScale = useStoreSelector((state) => state.zoomControl.zoomScale);
+
+  const zoomShift: IZoomShift = {
+    courtXLen: courtAreaXLength,
+    courtYLen: courtAreaYLength,
+    startPoint: {
+      X: courtStartPoint.X,
+      Y: courtStartPoint.Y,
+    },
+    oriRatio: court.courtRatio,
+    zoomRatio: zoomScale,
+  };
+
+  const { xShift, yShift } = centerZoom(zoomShift);
 
   return (
     <Flex
@@ -33,8 +51,10 @@ const HalfCourt = () => {
             id="basketball-court"
             height={court.stageHeight}
             width={court.stageWidth}
-            scaleX={court.courtRatio}
-            scaleY={court.courtRatio}
+            scaleX={court.courtRatio * zoomScale}
+            scaleY={court.courtRatio * zoomScale}
+            x={xShift}
+            y={yShift}
             visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
