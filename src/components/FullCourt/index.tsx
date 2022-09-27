@@ -14,14 +14,14 @@ import useCourt from "@/hooks/useCourt";
 import { IZoomShift } from "@/interfaces/zoomShift";
 import { useStoreSelector } from "@/store/hooks";
 import { centerZoom } from "@/utils/zoomCenterCalculate";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
 const FullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
 
   const zoomScale = useStoreSelector((state) => state.zoomControl.zoomScale);
   const stageRef = useRef<any>(null);
-  const stagePos = { x: 0, y: 0 };
+  const dragPos = useRef({x: 0, y: 0});
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -31,8 +31,8 @@ const FullCourt = () => {
       Y: courtStartPoint.Y,
     },
     dragPos: {
-      X: stagePos.x,
-      Y: stagePos.y,
+      X: dragPos.current.x,
+      Y: dragPos.current.y,
     },
     oriRatio: court.courtRatio,
     zoomRatio: zoomScale,
@@ -41,8 +41,7 @@ const FullCourt = () => {
   const { xShift, yShift } = centerZoom(zoomShift);
 
   const handlePosition = () => {
-    zoomShift.dragPos.X = stageRef.current.x();
-    zoomShift.dragPos.Y = stageRef.current.y();
+    dragPos.current = {x: stageRef.current.x(), y: stageRef.current.y()};
   };
 
   return (
