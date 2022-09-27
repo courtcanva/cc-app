@@ -1,7 +1,7 @@
 import ShoppingCartContainer from "@/components/ShoppingCart/ShoppingCartContainer";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { mockCartData } from "@/components/MockData/MockCartData";
-import DropDownButton from "@/components/ShoppingCart/DropDownButton";
+import DropDownButton from "@/components/ShoppingCart/dropDownButton";
 
 describe("ShoppingCart component", () => {
   test("Should render checkout button", () => {
@@ -33,7 +33,7 @@ describe("ShoppingCart component", () => {
     });
   });
 
-  it(" Collapse Text element should render correct value and style", () => {
+  it("Collapse Text element should render correct value and style", () => {
     const { getByTestId } = render(<DropDownButton detail={[{ color: "7088B1", quantity: 71 }]} />);
     const textShow = getByTestId("testShow");
     expect(textShow.textContent).toBe("Color:7088B1,  Quantity:71,  ");
@@ -42,7 +42,7 @@ describe("ShoppingCart component", () => {
     );
   });
 
-  it("click Button work correctly ", () => {
+  it("click Button work correctly", () => {
     const { getByTestId } = render(<DropDownButton detail={[]} />);
     const textShow = getByTestId("testShow");
     const collapseBtn = getByTestId("collapseBtn");

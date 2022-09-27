@@ -3,7 +3,7 @@ import React from "react";
 import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { ICartItem } from "@/interfaces/cartItem";
-import DropDownButton from "@/components/ShoppingCart/DropDownButton";
+import DropDownButton from "@/components/ShoppingCart/dropDownButton";
 
 const CartListItem = (props: ICartItem) => {
   // import cart information
