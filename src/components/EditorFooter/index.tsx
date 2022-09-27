@@ -8,7 +8,7 @@ import { zoomIn, zoomOut } from "@/store/reducer/zoomCourtSlice";
 
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
-  const zoomScale = useStoreSelector((state) => state.zoomControl.zoomScale);
+  const { zoomScale, minScale, maxScale } = useStoreSelector((state) => state.zoomControl);
   const dispatch = useDispatch();
   const handleRulerState = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRuler(e.target.checked ? "RULER ON" : "RULER OFF");
@@ -45,6 +45,7 @@ const EditorFooter = () => {
           color="brand.primary"
           data-testid="zoom-out-btn"
           onClick={handleZoomOut}
+          isDisabled={zoomScale <= minScale ? true : false}
         />
         <IconButton
           aria-label="Forward edit"
@@ -53,6 +54,7 @@ const EditorFooter = () => {
           color="brand.primary"
           data-testid="zoom-in-btn"
           onClick={handleZoomIn}
+          isDisabled={zoomScale > maxScale ? true : false}
         />
       </Box>
       <Flex alignItems="center" justifyContent="flex-end" marginRight="1">

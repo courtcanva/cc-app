@@ -20,9 +20,13 @@ const ProFullCourt = () => {
 
   const centerShift = {
     xShift:
-      -(courtAreaXLength + borderLength * 2) * court.courtRatio * ((zoomScale.valueOf() - 1) / 2),
+      -(courtAreaXLength + courtStartPoint.X + borderLength * 2) *
+      court.courtRatio *
+      ((zoomScale - 1) / 2),
     yShift:
-      -(courtAreaYLength + borderLength * 2) * court.courtRatio * ((zoomScale.valueOf() - 1) / 2),
+      -(courtAreaYLength + courtStartPoint.Y + borderLength * 2) *
+      court.courtRatio *
+      ((zoomScale - 1) / 2),
   };
 
   return (
@@ -44,8 +48,8 @@ const ProFullCourt = () => {
             id="basketball-court"
             height={court.stageHeight}
             width={court.stageWidth}
-            scaleX={court.courtRatio * zoomScale.valueOf()}
-            scaleY={court.courtRatio * zoomScale.valueOf()}
+            scaleX={court.courtRatio * zoomScale}
+            scaleY={court.courtRatio * zoomScale}
             x={zoomScale === 1 ? 0 : centerShift.xShift}
             y={zoomScale === 1 ? 0 : centerShift.yShift}
             visible
@@ -55,7 +59,7 @@ const ProFullCourt = () => {
           >
             {console.log("StageHeight:", court.stageHeight)}
             {console.log("StageWidth:", court.stageWidth)}
-            {console.log("Scale:", court.courtRatio * zoomScale.valueOf())}
+            {console.log("Scale:", court.courtRatio * zoomScale)}
             {console.log("scaleX:", (courtAreaXLength + borderLength * 2) * court.courtRatio)}
             {console.log("scaleY:", (courtAreaYLength + borderLength * 2) * court.courtRatio)}
             <Provider store={store}>
