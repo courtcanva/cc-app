@@ -15,6 +15,7 @@ const ShoppingCart = () => {
 
   const cart: ICartItem[] = data?.map((item: any) => {
     return {
+      id: item._id,
       user_id: item.user_id,
       design: item.design,
       quotation: item.quotation,

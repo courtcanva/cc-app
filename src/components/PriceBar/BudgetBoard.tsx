@@ -36,6 +36,7 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
     quotation: useTotalPrice,
     quotationDetails: tileBlocks,
     previewPic: "",
+    id: "",
   };
 
   const handleAddToCart = () => {

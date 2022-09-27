@@ -5,12 +5,18 @@ import { MdDeleteForever } from "react-icons/md";
 import { ICartItem } from "@/interfaces/cartItem";
 import DropDownButton from "@/components/ShoppingCart/dropDownButton";
 
-const CartListItem = (props: ICartItem) => {
-  // import cart information
-  const productName = props.design.designName;
-  const quotation = props.quotation;
-  const quotationDetails = props.quotationDetails;
-  const image = props.previewPic;
+interface CartListItemProps {
+  item: ICartItem;
+  onDelete: (id: string) => void;
+}
+
+const CartListItem = ({ item, onDelete }: CartListItemProps) => {
+  const {
+    design: { designName: productName },
+    quotation: quotation,
+    quotationDetails: quotationDetails,
+  } = item;
+  const image = item.previewPic;
 
   return (
     <>
@@ -44,6 +50,9 @@ const CartListItem = (props: ICartItem) => {
                 variant="unstyled"
                 size="xs"
                 aria-label="cartDeleteBtn"
+                onClick={() => {
+                  onDelete(item.id);
+                }}
               >
                 <MdDeleteForever />
               </Button>
