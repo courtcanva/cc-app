@@ -9,6 +9,12 @@ describe("EditorFooter", () => {
     expect(switchButton).toBeInTheDocument();
   });
 
+  it("should render zoom scale percentage information", () => {
+    renderWithMockedProvider(<EditorFooter />);
+    const zoomScale = screen.getByText("Zoom: 100 %");
+    expect(zoomScale).toBeVisible();
+  });
+
   it("should toggle between on and off", () => {
     const { getByTestId } = renderWithMockedProvider(<EditorFooter />);
     const switchButton = getByTestId("switch-btn");

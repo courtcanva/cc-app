@@ -1,14 +1,25 @@
-import { Box, Flex, IconButton, FormControl, Switch, FormLabel, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  IconButton,
+  FormControl,
+  Switch,
+  FormLabel,
+  Text,
+  Button,
+} from "@chakra-ui/react";
 import { HiOutlineZoomOut, HiOutlineZoomIn, HiOutlineArrowCircleLeft } from "react-icons/hi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { switchRuler } from "@/store/reducer/rulerControlSlice";
 import { useStoreSelector } from "@/store/hooks";
-import { zoomIn, zoomOut, reset } from "@/store/reducer/zoomCourtSlice";
+import { zoomIn, zoomOut, resetZoom } from "@/store/reducer/zoomCourtSlice";
+import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
 
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
-  const { zoomScale, minScale, maxScale } = useStoreSelector((state) => state.zoomControl);
+  const { zoomScale } = useStoreSelector((state) => state.zoomControl);
+
   const dispatch = useDispatch();
   const handleRulerState = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRuler(e.target.checked ? "RULER ON" : "RULER OFF");
@@ -24,7 +35,7 @@ const EditorFooter = () => {
   };
 
   const handleZoomReset = () => {
-    dispatch(reset());
+    dispatch(resetZoom());
   };
 
   return (
@@ -49,7 +60,7 @@ const EditorFooter = () => {
           color="brand.primary"
           data-testid="zoom-out-btn"
           onClick={handleZoomOut}
-          isDisabled={zoomScale <= minScale ? true : false}
+          isDisabled={zoomScale <= MIN_ZOOM ? true : false}
         />
         <IconButton
           aria-label="Forward edit"
@@ -58,7 +69,7 @@ const EditorFooter = () => {
           color="brand.primary"
           data-testid="zoom-in-btn"
           onClick={handleZoomIn}
-          isDisabled={zoomScale > maxScale ? true : false}
+          isDisabled={zoomScale > MAX_ZOOM ? true : false}
         />
         {/* TODO: determine whether text "RESET" or an icon is better */}
         {/* TODO: include drag state judgement */}
@@ -69,16 +80,25 @@ const EditorFooter = () => {
           color="brand.primary"
           data-testid="zoom-reset-btn"
           onClick={handleZoomReset}
-          isDisabled={zoomScale <= minScale ? true : false}
+          isDisabled={zoomScale <= MIN_ZOOM ? true : false}
         /> */}
         <Button
           variant="ResetZoomBtn"
           onClick={handleZoomReset}
           data-testid="zoom-reset-btn"
-          isDisabled={zoomScale <= minScale ? true : false}
+          isDisabled={zoomScale <= MIN_ZOOM ? true : false}
         >
           Reset
         </Button>
+        <Text
+          display="inline"
+          margin="0 20px"
+          fontWeight="500"
+          verticalAlign="middle"
+          lineHeight="normal"
+        >
+          {`Zoom: ${(zoomScale * 100).toFixed()} %`}
+        </Text>
       </Box>
       <Flex alignItems="center" justifyContent="flex-end" marginRight="1">
         <FormControl display="flex" alignItems="center" justifyContent="flex-end" w="150px">
