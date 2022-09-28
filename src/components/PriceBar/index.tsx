@@ -14,7 +14,7 @@ const PriceBar: React.FC = () => {
       bottom="42px"
       right="0px"
       width="calc(100% - 98px)"
-      zIndex="1600"
+      zIndex="1500"
     >
       <TileColorBoard setTotalPrice={setTotalPrice} />
       <BudgetBoard useTotalPrice={useTotalPrice} />

@@ -1,16 +1,29 @@
 import React from "react";
 import { IconButton, Circle, Stack } from "@chakra-ui/react";
 import { HiOutlineShoppingBag } from "react-icons/hi";
+import { switchCartDisplay } from "@/store/reducer/cartControlSlice";
+import { useDispatch } from "react-redux";
+import { useLoginModal } from "@/store/reducer/loginModalSlice";
 
 interface Props {
   quantity: number;
   loginState: boolean;
 }
 
-const ShoppingCart = ({ quantity, loginState }: Props) => {
+const ShoppingCartButton = ({ quantity, loginState }: Props) => {
+  const dispatch = useDispatch();
+  const handleCartPageOpen = () => {
+    loginState ? dispatch(switchCartDisplay()) : dispatch(useLoginModal(true));
+  };
+
   return (
     <Stack position="relative">
-      <IconButton aria-label="Order" icon={<HiOutlineShoppingBag />} variant="navbarIconBtn" />
+      <IconButton
+        aria-label="Order"
+        icon={<HiOutlineShoppingBag />}
+        variant="navbarIconBtn"
+        onClick={handleCartPageOpen}
+      />
       {quantity > 0 && loginState && (
         <Circle
           background="background.lightOrange"
@@ -30,4 +43,4 @@ const ShoppingCart = ({ quantity, loginState }: Props) => {
   );
 };
 
-export default ShoppingCart;
+export default ShoppingCartButton;

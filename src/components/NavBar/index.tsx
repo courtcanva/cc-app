@@ -1,4 +1,4 @@
-import { Flex, Button, IconButton, Grid, Tooltip } from "@chakra-ui/react";
+import { Flex, Button, IconButton, Grid, Tooltip, Box } from "@chakra-ui/react";
 import { Menu, MenuButton } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
@@ -8,7 +8,7 @@ import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
 import EditorDesignName from "@/components/NavBar/EditorDesignName";
 import LoginModalContent from "../Login";
-import ShoppingCart from "./ShoppingCart";
+import ShoppingCartButton from "./ShoppingCartButton";
 import { useEffect, useMemo, useState } from "react";
 import { ActionCreators } from "redux-undo";
 import { useDispatch } from "react-redux";
@@ -30,6 +30,7 @@ import { skipToken } from "@reduxjs/toolkit/dist/query";
 const NavigationBar = () => {
   const dispatch = useDispatch();
   const { loginModalOpen } = useStoreSelector((state) => state.loginModal);
+  const { isCartOpen } = useStoreSelector((state) => state.cartControl);
 
   // Get user info from local storage
   const getInfo = () => {
@@ -126,40 +127,42 @@ const NavigationBar = () => {
             Home
           </Button>
         </Link>
-        <Flex flex="1" justifyContent="center">
-          <Tooltip hasArrow shouldWrapChildren label="undo color edit" fontSize="sm">
-            <IconButton
-              aria-label="Revert edit"
-              icon={<RiArrowGoBackLine />}
-              variant="navbarIconBtn"
-              disabled={!isThingsToUndo}
-              onClick={handleUndo}
-              marginX="10px"
-            />
-          </Tooltip>
-          <Tooltip hasArrow shouldWrapChildren label="redo color edit" fontSize="sm">
-            <IconButton
-              aria-label="Forward edit"
-              icon={<RiArrowGoForwardLine />}
-              variant="navbarIconBtn"
-              disabled={!isThingsToRedo}
-              onClick={handleRedo}
-              marginX="10px"
-            />
-          </Tooltip>
-          <Tooltip hasArrow shouldWrapChildren label="reset all color edits" fontSize="sm">
-            <IconButton
-              aria-label="Reset edit"
-              icon={<BsArrowCounterclockwise />}
-              variant="navbarIconBtn"
-              disabled={!isThingsToReset}
-              onClick={handleReset}
-              marginX="10px"
-            />
-          </Tooltip>
-        </Flex>
+        {!isCartOpen && (
+          <Flex flex="1" justifyContent="center">
+            <Tooltip hasArrow shouldWrapChildren label="undo color edit" fontSize="sm">
+              <IconButton
+                aria-label="Revert edit"
+                icon={<RiArrowGoBackLine />}
+                variant="navbarIconBtn"
+                disabled={!isThingsToUndo}
+                onClick={handleUndo}
+                marginX="10px"
+              />
+            </Tooltip>
+            <Tooltip hasArrow shouldWrapChildren label="redo color edit" fontSize="sm">
+              <IconButton
+                aria-label="Forward edit"
+                icon={<RiArrowGoForwardLine />}
+                variant="navbarIconBtn"
+                disabled={!isThingsToRedo}
+                onClick={handleRedo}
+                marginX="10px"
+              />
+            </Tooltip>
+            <Tooltip hasArrow shouldWrapChildren label="reset all color edits" fontSize="sm">
+              <IconButton
+                aria-label="Reset edit"
+                icon={<BsArrowCounterclockwise />}
+                variant="navbarIconBtn"
+                disabled={!isThingsToReset}
+                onClick={handleReset}
+                marginX="10px"
+              />
+            </Tooltip>
+          </Flex>
+        )}
       </Flex>
-      <EditorDesignName />
+      {!isCartOpen ? <EditorDesignName /> : <Box></Box>}
       <Flex alignItems="center" justifyContent="flex-end">
         {!loginState ? (
           <Menu>
@@ -183,7 +186,7 @@ const NavigationBar = () => {
           onClose={handleLoginModalClose}
           updateLoginData={updateLoginData}
         ></LoginModalContent>
-        <ShoppingCart quantity={quantity} loginState={loginState} />
+        <ShoppingCartButton quantity={quantity} loginState={loginState} />
         <Button
           variant="shareBtn"
           marginLeft="10px"

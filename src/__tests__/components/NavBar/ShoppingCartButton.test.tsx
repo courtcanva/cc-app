@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import ShoppingCart from "@/components/NavBar/ShoppingCart";
+import ShoppingCartButton from "@/components/NavBar/ShoppingCartButton";
+import renderWithMockedProvider from "../../utils";
 
 describe("ShoppingCart", () => {
   const props1 = {
@@ -7,8 +8,8 @@ describe("ShoppingCart", () => {
     loginState: true,
   };
   it("Should render the quantity '5' and circle element successfully", () => {
-    const { getByText } = render(
-      <ShoppingCart quantity={props1.quantity} loginState={props1.loginState} />
+    const { getByText } = renderWithMockedProvider(
+      <ShoppingCartButton quantity={props1.quantity} loginState={props1.loginState} />
     );
 
     const quantityDivElement = screen.getByTestId("quantity-box");
@@ -22,7 +23,9 @@ describe("ShoppingCart", () => {
   };
 
   it("the circle element should not be rendered", () => {
-    render(<ShoppingCart quantity={props2.quantity} loginState={props2.loginState} />);
+    renderWithMockedProvider(
+      <ShoppingCartButton quantity={props2.quantity} loginState={props2.loginState} />
+    );
     const quantityDivElement = screen.queryByTestId("quantity-box");
     expect(quantityDivElement).toBeNull();
   });

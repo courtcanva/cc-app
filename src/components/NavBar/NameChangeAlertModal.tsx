@@ -13,7 +13,7 @@ interface Props {
   updateFeedbackData: string;
 }
 
-const NameChangeFeedback = (props: Props) => {
+const NameChangeAlertModal = (props: Props) => {
   const { onClose, isOpen, updateFeedbackData } = props;
 
   return (
@@ -26,7 +26,7 @@ const NameChangeFeedback = (props: Props) => {
         alignItems="center"
         justifyContent="center"
       >
-        <ModalHeader mt="15px" mb="-10px" color="brand.primary">
+        <ModalHeader mt="15px" mb="-10px" color="brand.primary" fontSize="md">
           {updateFeedbackData}
         </ModalHeader>
         <ModalFooter>
@@ -39,4 +39,4 @@ const NameChangeFeedback = (props: Props) => {
   );
 };
 
-export default NameChangeFeedback;
+export default NameChangeAlertModal;

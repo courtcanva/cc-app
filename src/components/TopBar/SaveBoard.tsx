@@ -21,7 +21,7 @@ import {
 import { ITileColor } from "@/interfaces/design";
 import { designMapping, saveDesignMapping } from "@/utils/designMapping";
 import { useDispatch } from "react-redux";
-import checkName from "@/utils/checkName";
+import checkName, { setValidation } from "@/utils/checkName";
 import {
   changeDesignName,
   defaultCourt,
@@ -33,6 +33,7 @@ import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import errorMessage from "@/utils/setNameErrorMessage";
 import { CHECK_START_END_SPACE } from "@/constants/courtData";
 import SaveDesignModal from "./SaveDesignModal";
+import { DESIGN_NAME_MAXCHARLENGTH } from "@/constants/index";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();
@@ -57,10 +58,14 @@ const SaveBoard: React.FC = () => {
   }
 
   const mappedcourtSize = saveDesignMapping(courtData);
+  const validation = setValidation({
+    maxCharLength: DESIGN_NAME_MAXCHARLENGTH,
+    onlyWordChar: true,
+  });
 
   useEffect(() => {
     setUserId(userData.userId);
-    const nameCheck = checkName(courtData.designName, designNames);
+    const nameCheck = checkName(courtData.designName, designNames, validation);
     setNameCheck(nameCheck);
     setDesignName(courtData.designName);
     if (courtData.courtId === "" && nameCheck === "existed") {
@@ -137,7 +142,7 @@ const SaveBoard: React.FC = () => {
 
   const open = () => {
     setDialogOpen(true);
-    const nameCheck = checkName(useDesignName, designNames);
+    const nameCheck = checkName(useDesignName, designNames, validation);
     setNameCheck(nameCheck);
     setNameError(errorMessage(nameCheck));
   };
@@ -150,7 +155,7 @@ const SaveBoard: React.FC = () => {
   const handleCheckName = (event: { target: { value: React.SetStateAction<string> } }) => {
     const editedName = String(event.target.value);
     setDesignName(event.target.value);
-    const nameCheck = checkName(editedName, designNames);
+    const nameCheck = checkName(editedName, designNames, validation);
     setNameCheck(nameCheck);
     setNameError(errorMessage(nameCheck));
   };
