@@ -12,11 +12,11 @@ import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimension";
 import useCourt from "@/hooks/useCourt";
 import { useStoreSelector } from "@/store/hooks";
-import { useState } from "react";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
+  const { dragState } = useStoreSelector((state) => state.dragControl);
   const handleMouseDragStart = () => {
     document.body.style.cursor = "pointer";
   };
@@ -24,6 +24,9 @@ const ProFullCourt = () => {
     document.body.style.cursor = `auto`;
   };
 
+  const handleDraggableState = () => {
+    return dragState && selectedColor === "none" ? true : false;
+  };
   return (
     <Flex
       position="fixed"
@@ -48,7 +51,7 @@ const ProFullCourt = () => {
             visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
-            draggable={selectedColor === "none" ? true : false}
+            draggable={dragState && selectedColor === "none" ? true : false}
             onDragEnd={handleMouseDragEnd}
             onDragStart={handleMouseDragStart}
           >

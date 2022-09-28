@@ -16,6 +16,7 @@ import courtSpecDataReducer from "./reducer/courtSpecDataSlice";
 import designTileListReducer from "./reducer/designsTileListSlice";
 import loginModalReducer from "./reducer/loginModalSlice";
 import colorListReducer from "./reducer/colorListSlice";
+import dragControlReducer from "./reducer/dragControllSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -37,6 +38,7 @@ export const makeStore = () =>
       [cartApi.reducerPath]: cartApi.reducer,
       areaTileQty: areaTileQtyReducer,
       colorList: colorListReducer,
+      dragControl: dragControlReducer,
     },
 
     middleware: (getDefaultMiddleware) =>

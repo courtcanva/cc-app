@@ -3,6 +3,7 @@ import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { switchRuler } from "@/store/reducer/rulerControlSlice";
+import { useDrag } from "@/store/reducer/dragControllSlice";
 
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
@@ -11,7 +12,9 @@ const EditorFooter = () => {
     setRuler(e.target.checked ? "RULER ON" : "RULER OFF");
     dispatch(switchRuler(e.target.checked));
   };
-
+  const handleDraggableState = () => {
+    dispatch(useDrag(true));
+  };
   return (
     <Flex
       position="fixed"
@@ -40,6 +43,7 @@ const EditorFooter = () => {
           variant="witheBackgroundIconBtn"
           color="brand.primary"
           data-testid="zoom-in-btn"
+          onClick={handleDraggableState}
         />
       </Box>
       <Flex alignItems="center" justifyContent="flex-end" marginRight="1">
