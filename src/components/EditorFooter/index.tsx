@@ -1,10 +1,10 @@
-import { Box, Flex, IconButton, FormControl, Switch, FormLabel } from "@chakra-ui/react";
-import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
+import { Box, Flex, IconButton, FormControl, Switch, FormLabel, Button } from "@chakra-ui/react";
+import { HiOutlineZoomOut, HiOutlineZoomIn, HiOutlineArrowCircleLeft } from "react-icons/hi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { switchRuler } from "@/store/reducer/rulerControlSlice";
 import { useStoreSelector } from "@/store/hooks";
-import { zoomIn, zoomOut } from "@/store/reducer/zoomCourtSlice";
+import { zoomIn, zoomOut, reset } from "@/store/reducer/zoomCourtSlice";
 
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
@@ -21,6 +21,10 @@ const EditorFooter = () => {
 
   const handleZoomOut = () => {
     dispatch(zoomOut());
+  };
+
+  const handleZoomReset = () => {
+    dispatch(reset());
   };
 
   return (
@@ -56,6 +60,25 @@ const EditorFooter = () => {
           onClick={handleZoomIn}
           isDisabled={zoomScale > maxScale ? true : false}
         />
+        {/* TODO: determine whether text "RESET" or an icon is better */}
+        {/* TODO: include drag state judgement */}
+        {/* <IconButton
+          aria-label="Reset edit"
+          icon={<HiOutlineArrowCircleLeft />}
+          variant="witheBackgroundIconBtn"
+          color="brand.primary"
+          data-testid="zoom-reset-btn"
+          onClick={handleZoomReset}
+          isDisabled={zoomScale <= minScale ? true : false}
+        /> */}
+        <Button
+          variant="ResetZoomBtn"
+          onClick={handleZoomReset}
+          data-testid="zoom-reset-btn"
+          isDisabled={zoomScale <= minScale ? true : false}
+        >
+          Reset
+        </Button>
       </Box>
       <Flex alignItems="center" justifyContent="flex-end" marginRight="1">
         <FormControl display="flex" alignItems="center" justifyContent="flex-end" w="150px">

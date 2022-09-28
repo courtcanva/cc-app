@@ -3,12 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface ZoomState {
   zoomScale: number;
+  zoomStep: number;
   minScale: number;
   maxScale: number;
 }
 
 const initialState: ZoomState = {
   zoomScale: 1,
+  zoomStep: 0,
   minScale: MIN_ZOOM,
   maxScale: MAX_ZOOM,
 };
@@ -18,13 +20,16 @@ export const ZoomControlSlice = createSlice({
   initialState,
   reducers: {
     zoomIn: (state: ZoomState) => {
-      state.zoomScale = state.zoomScale * ZOOM_STEP_SIZE;
+      state.zoomStep++;
+      state.zoomScale = 1 + ZOOM_STEP_SIZE * state.zoomStep;
     },
     zoomOut: (state: ZoomState) => {
-      state.zoomScale = state.zoomScale / ZOOM_STEP_SIZE;
+      state.zoomStep--;
+      state.zoomScale = 1 + ZOOM_STEP_SIZE * state.zoomStep;
     },
     reset: (state: ZoomState) => {
       state.zoomScale = 1;
+      state.zoomStep = 0;
     },
   },
 });
