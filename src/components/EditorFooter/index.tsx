@@ -3,7 +3,7 @@ import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { switchRuler } from "@/store/reducer/rulerControlSlice";
-import { useDrag } from "@/store/reducer/dragControllSlice";
+import { useDrag } from "@/store/reducer/dragControlSlice";
 
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");

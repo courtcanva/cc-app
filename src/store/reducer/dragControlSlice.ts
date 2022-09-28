@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface DragControl {
+export interface DragControlState {
   dragState: boolean;
 }
 
-export const initialState: DragControl = {
+export const initialState: DragControlState = {
   dragState: false,
 };
 
@@ -12,10 +12,10 @@ export const dragControlSlice = createSlice({
   name: "DragControl",
   initialState,
   reducers: {
-    useDrag: (state: DragControl, action: PayloadAction<boolean>) => {
+    useDrag: (state: DragControlState, action: PayloadAction<boolean>) => {
       return {
         ...state,
-        draggable: action.payload,
+        dragState: action.payload,
       };
     },
   },

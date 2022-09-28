@@ -16,7 +16,7 @@ import courtSpecDataReducer from "./reducer/courtSpecDataSlice";
 import designTileListReducer from "./reducer/designsTileListSlice";
 import loginModalReducer from "./reducer/loginModalSlice";
 import colorListReducer from "./reducer/colorListSlice";
-import dragControlReducer from "./reducer/dragControllSlice";
+import dragControlReducer from "./reducer/dragControlSlice";
 
 export const makeStore = () =>
   configureStore({

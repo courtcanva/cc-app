@@ -24,9 +24,9 @@ const ProFullCourt = () => {
     document.body.style.cursor = `auto`;
   };
 
-  const handleDraggableState = () => {
-    return dragState && selectedColor === "none" ? true : false;
-  };
+  // const handleDraggableState = () => {
+  //   return dragState && selectedColor === "none" ? true : false;
+  // };
   return (
     <Flex
       position="fixed"
