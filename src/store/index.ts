@@ -18,6 +18,7 @@ import loginModalReducer from "./reducer/loginModalSlice";
 import cartControlReducer from "./reducer/cartControlSlice";
 import colorListReducer from "./reducer/colorListSlice";
 import zoomCourtReducer from "./reducer/zoomCourtSlice";
+import dragControlReducer from "./reducer/dragControlSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -41,6 +42,7 @@ export const makeStore = () =>
       cartControl: cartControlReducer,
       colorList: colorListReducer,
       zoomControl: zoomCourtReducer,
+      dragControl: dragControlReducer,
     },
 
     middleware: (getDefaultMiddleware) =>

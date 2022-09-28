@@ -36,6 +36,14 @@ const ProFullCourt = () => {
   };
 
   const { xShift, yShift } = centerZoom(zoomShift);
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
+  const { dragState } = useStoreSelector((state) => state.dragControl);
+  const handleMouseDragStart = () => {
+    document.body.style.cursor = "pointer";
+  };
+  const handleMouseDragEnd = () => {
+    document.body.style.cursor = `auto`;
+  };
 
   return (
     <Flex
@@ -63,6 +71,9 @@ const ProFullCourt = () => {
             visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
+            draggable={dragState && selectedColor === "none" ? true : false}
+            onDragEnd={handleMouseDragEnd}
+            onDragStart={handleMouseDragStart}
           >
             <Provider store={store}>
               <Layer>
