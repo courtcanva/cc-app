@@ -3,13 +3,20 @@ import React from "react";
 import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { ICartItem } from "@/interfaces/cartItem";
+import DropDownButton from "@/components/ShoppingCart/dropDownButton";
 
-const CartListItem = (props: ICartItem) => {
-  // import cart information
-  const productName = props.design.designName;
-  const quotation = props.quotation;
-  const quotationDetails = props.quotationDetails;
-  const image = props.previewPic;
+interface CartListItemProps {
+  item: ICartItem;
+  onDelete: (id: string) => void;
+}
+
+const CartListItem = ({ item, onDelete }: CartListItemProps) => {
+  const {
+    design: { designName: productName },
+    quotation: quotation,
+    quotationDetails: quotationDetails,
+  } = item;
+  const image = item.previewPic;
 
   return (
     <>
@@ -26,9 +33,7 @@ const CartListItem = (props: ICartItem) => {
         </Td>
         <Td padding="25px 40px" fontSize="13px" sx={{ "vertical-align": "top" }}>
           <Flex width="100%" height="120px" flexDirection="column" justifyContent="space-between">
-            <Text fontSize="13px" overflowX="auto">
-              {JSON.stringify(quotationDetails)}
-            </Text>
+            <DropDownButton detail={quotationDetails} />
             <ButtonGroup display="flex" justifyContent="flex-end" variant="outline" spacing="4">
               <Button
                 fontSize="16px"
@@ -45,6 +50,9 @@ const CartListItem = (props: ICartItem) => {
                 variant="unstyled"
                 size="xs"
                 aria-label="cartDeleteBtn"
+                onClick={() => {
+                  onDelete(item.id);
+                }}
               >
                 <MdDeleteForever />
               </Button>
