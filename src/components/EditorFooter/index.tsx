@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, FormControl, Switch, FormLabel } from "@chakra-ui/react";
+import { Box, Flex, IconButton, FormControl, Switch, FormLabel, Text } from "@chakra-ui/react";
 import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -58,6 +58,9 @@ const EditorFooter = () => {
           onClick={handleZoomIn}
           isDisabled={zoomScale > MAX_ZOOM ? true : false}
         />
+        <Text display="inline" margin="0 20px" fontWeight="500">
+          {`Zoom: ${(zoomScale * 100).toFixed()} %`}
+        </Text>
       </Box>
       <Flex alignItems="center" justifyContent="flex-end" marginRight="1">
         <FormControl display="flex" alignItems="center" justifyContent="flex-end" w="150px">
