@@ -21,7 +21,7 @@ import { updateUserInfo } from "@/store/reducer/userSlice";
 
 interface Props {
   onClose: () => void;
-  updateLoginData: (data: any) => void;
+  updateLoginData: (data: GoogleLoginRes) => void;
   initialRef: React.LegacyRef<HTMLButtonElement> | undefined;
   nextStep: () => void;
   connectionStep: (existedUserInfo: GoogleLoginRes) => void;
