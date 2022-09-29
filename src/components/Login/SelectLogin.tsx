@@ -15,7 +15,7 @@ import { FaEnvelope } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
 import React from "react";
-import { api } from "../../utils/axios";
+import { api } from "@/utils/axios";
 import { useDispatch } from "react-redux";
 import { updateUserInfo } from "@/store/reducer/userSlice";
 
@@ -24,11 +24,20 @@ interface Props {
   updateLoginData: (data: any) => void;
   initialRef: React.LegacyRef<HTMLButtonElement> | undefined;
   nextStep: () => void;
+  connectionStep: () => void;
+}
+
+interface GoogleLoginRes {
+  googleId: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  needConnection: boolean;
 }
 
 export default function SelectLogin(props: Props) {
   const dispatch = useDispatch();
-  const { onClose, updateLoginData, initialRef, nextStep } = props;
+  const { onClose, updateLoginData, initialRef, nextStep, connectionStep } = props;
 
   // Send request to backend after the request from front-end has been approved by Google
   /* istanbul ignore next */
@@ -37,13 +46,18 @@ export default function SelectLogin(props: Props) {
       method: "post",
       requestData: codeResponse,
     });
+    const googleLoginRes: GoogleLoginRes = data;
+    console.log(googleLoginRes.needConnection);
     try {
-      if (data) {
+      if (!googleLoginRes.needConnection) {
         // Store user data into local storage after logging
         localStorage.setItem("UserInfo", JSON.stringify(data));
         dispatch(updateUserInfo(data));
         updateLoginData(data);
         onClose();
+      } else {
+        console.log("call");
+        connectionStep();
       }
     } catch (err) {
       console.warn(err);

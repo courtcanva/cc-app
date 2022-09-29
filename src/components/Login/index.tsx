@@ -6,6 +6,7 @@ import LoginWithPwd from "./LoginWithPwd";
 import Register from "./Register";
 import EmailVerification from "./EmailVerification";
 import VerificationResult from "./EmailVerification/VerificationResult";
+import { AccountConnection } from "@/components/Login/accountConnection";
 
 interface Props {
   isOpen: boolean;
@@ -29,6 +30,10 @@ const LoginModalContent = (props: Props) => {
   const prevStep = () => {
     setStep((step) => step - 1);
   };
+  const connectionStep = () => {
+    setStep(6);
+  };
+
   const findUser = (isUserExisted: boolean) => {
     setUserExisted(isUserExisted);
   };
@@ -42,6 +47,7 @@ const LoginModalContent = (props: Props) => {
             initialRef={initialRef}
             onClose={onClose}
             updateLoginData={updateLoginData}
+            connectionStep={connectionStep}
           />
         );
       case 2:
@@ -110,6 +116,8 @@ const LoginModalContent = (props: Props) => {
             setStep={setStep}
           />
         );
+      case 6:
+        return <AccountConnection setStep={setStep} />;
     }
   };
 
