@@ -8,6 +8,7 @@ import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
 import { setCartDisplayState } from "@/store/reducer/cartControlSlice";
 import { resetZoom } from "@/store/reducer/zoomCourtSlice";
+import { useDrag } from "@/store/reducer/dragControlSlice";
 
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const Blueprints: React.FC = () => {
     dispatch(changeCourtType(tileQtyOfSelectedCourt));
     dispatch(setCartDisplayState(false));
     dispatch(resetZoom());
+    dispatch(useDrag(false));
   };
 
   return (

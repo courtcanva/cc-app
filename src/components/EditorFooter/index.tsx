@@ -6,6 +6,7 @@ import { switchRuler } from "@/store/reducer/rulerControlSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { zoomIn, zoomOut } from "@/store/reducer/zoomCourtSlice";
 import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
+import { useDrag } from "@/store/reducer/dragControlSlice";
 
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
@@ -19,6 +20,7 @@ const EditorFooter = () => {
 
   const handleZoomIn = () => {
     dispatch(zoomIn());
+    dispatch(useDrag(true));
   };
 
   const handleZoomOut = () => {

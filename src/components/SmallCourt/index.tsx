@@ -30,6 +30,7 @@ const SmallCourt = () => {
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const stageRef = useRef<any>(null);
   const dragPos = useRef({ x: 0, y: 0 });
+  const { dragState } = useStoreSelector((state) => state.dragControl);
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -82,7 +83,7 @@ const SmallCourt = () => {
             visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
-            draggable={zoomScale > 1 && selectedColor === "none" ? true : false}
+            draggable={dragState && selectedColor === "none" ? true : false}
             onDragStart={handleMouseDragStart}
             onDragEnd={handlePosition}
           >
