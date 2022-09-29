@@ -33,10 +33,11 @@ export interface GoogleLoginRes {
   firstName: string;
   lastName: string;
   isActivated: string;
+  otp: string;
   needConnection: boolean;
 }
 
-export default function SelectLogin(props: Props) {
+const SelectLogin = (props: Props) => {
   const dispatch = useDispatch();
   const { onClose, updateLoginData, initialRef, nextStep, connectionStep } = props;
 
@@ -120,4 +121,6 @@ export default function SelectLogin(props: Props) {
       </ModalFooter>
     </>
   );
-}
+};
+
+export default SelectLogin;

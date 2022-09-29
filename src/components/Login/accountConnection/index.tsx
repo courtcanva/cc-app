@@ -40,7 +40,7 @@ export const AccountConnection: React.FC<Props> = ({
         googleId: existedUserInfo?.googleId,
         email: existedUserInfo?.email,
         isActivated: existedUserInfo?.isActivated,
-        otp: "",
+        otp: existedUserInfo?.otp,
       },
     });
     try {
