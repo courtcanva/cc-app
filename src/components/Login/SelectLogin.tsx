@@ -24,10 +24,10 @@ interface Props {
   updateLoginData: (data: any) => void;
   initialRef: React.LegacyRef<HTMLButtonElement> | undefined;
   nextStep: () => void;
-  connectionStep: () => void;
+  connectionStep: (existedUserInfo: GoogleLoginRes) => void;
 }
 
-interface GoogleLoginRes {
+export interface GoogleLoginRes {
   googleId: string;
   email: string;
   firstName: string;
@@ -47,7 +47,6 @@ export default function SelectLogin(props: Props) {
       requestData: codeResponse,
     });
     const googleLoginRes: GoogleLoginRes = data;
-    console.log(googleLoginRes.needConnection);
     try {
       if (!googleLoginRes.needConnection) {
         // Store user data into local storage after logging
@@ -56,8 +55,7 @@ export default function SelectLogin(props: Props) {
         updateLoginData(data);
         onClose();
       } else {
-        console.log("call");
-        connectionStep();
+        connectionStep(googleLoginRes);
       }
     } catch (err) {
       console.warn(err);

@@ -12,12 +12,49 @@ import React, { Dispatch, SetStateAction } from "react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import { FcGoogle } from "react-icons/fc";
 import ModalOperator from "@/components/Login/ModalOperater";
+import { api } from "@/utils/axios";
+import { GoogleLoginRes } from "@/components/Login/SelectLogin";
+import { updateUserInfo } from "@/store/reducer/userSlice";
+import { useStoreDispatch } from "@/store/hooks";
 
 interface Props {
+  existedUserInfo: GoogleLoginRes | null;
   setStep: Dispatch<SetStateAction<number>>;
+  updateLoginData: (data: any) => void;
+  onClose: () => void;
 }
 
-export const AccountConnection: React.FC<Props> = ({ setStep }) => {
+export const AccountConnection: React.FC<Props> = ({
+  existedUserInfo,
+  setStep,
+  updateLoginData,
+  onClose,
+}) => {
+  const dispatch = useStoreDispatch();
+  const onConnect = async () => {
+    const { data } = await api("/user/connect", {
+      method: "put",
+      requestData: {
+        firstName: existedUserInfo?.firstName,
+        lastName: existedUserInfo?.lastName,
+        googleId: existedUserInfo?.googleId,
+        email: existedUserInfo?.email,
+        isActivated: true,
+        otp: "",
+      },
+    });
+    try {
+      if (data) {
+        // Store user data into local storage after logging
+        localStorage.setItem("UserInfo", JSON.stringify(data));
+        dispatch(updateUserInfo(data));
+        updateLoginData(data);
+        onClose();
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
   return (
     <>
       <ModalOperator handleCloseModal={() => setStep(1)} prevStep={() => setStep(1)} />
@@ -34,11 +71,11 @@ export const AccountConnection: React.FC<Props> = ({ setStep }) => {
       </ModalHeader>
       <ModalBody>
         <Flex flexDir="column" justifyContent="space-around" gap="25px" paddingX="20px">
-          <Button variant="loginBtn" position="relative">
+          <Button variant="loginBtn" position="relative" onClick={onConnect}>
             <Icon w="32px" h="32px" position="absolute" top="8px" left="20px">
               <FcGoogle />
             </Icon>
-            <Text marginLeft="35px">Connect with Google</Text>
+            <Text marginLeft="35px">Connect with Google </Text>
           </Button>
         </Flex>
       </ModalBody>

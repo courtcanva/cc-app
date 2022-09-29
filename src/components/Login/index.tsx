@@ -1,6 +1,6 @@
 import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
 import React, { useState } from "react";
-import SelectLogin from "./SelectLogin";
+import SelectLogin, { GoogleLoginRes } from "./SelectLogin";
 import EmailLogin from "./EmailLogin";
 import LoginWithPwd from "./LoginWithPwd";
 import Register from "./Register";
@@ -24,13 +24,15 @@ const LoginModalContent = (props: Props) => {
   const [userEmail, setUserEmail] = useState("");
   const [userId, setUserId] = useState("");
   const [verified, setVerified] = useState(true);
+  const [existedUserInfo, setExistedUserInfo] = useState<GoogleLoginRes | null>(null);
   const nextStep = () => {
     setStep((step) => step + 1);
   };
   const prevStep = () => {
     setStep((step) => step - 1);
   };
-  const connectionStep = () => {
+  const connectionStep = (existedUserInfo: GoogleLoginRes) => {
+    setExistedUserInfo(existedUserInfo);
     setStep(6);
   };
 
@@ -117,7 +119,14 @@ const LoginModalContent = (props: Props) => {
           />
         );
       case 6:
-        return <AccountConnection setStep={setStep} />;
+        return (
+          <AccountConnection
+            updateLoginData={updateLoginData}
+            onClose={onClose}
+            existedUserInfo={existedUserInfo}
+            setStep={setStep}
+          />
+        );
     }
   };
 
