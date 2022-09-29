@@ -49,6 +49,7 @@ export const AccountConnection: React.FC<Props> = ({
         localStorage.setItem("UserInfo", JSON.stringify(data));
         dispatch(updateUserInfo(data));
         updateLoginData(data);
+        setStep(1);
         onClose();
       }
     } catch (err) {
