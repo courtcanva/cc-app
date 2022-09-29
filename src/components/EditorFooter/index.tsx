@@ -13,7 +13,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { switchRuler } from "@/store/reducer/rulerControlSlice";
 import { useStoreSelector } from "@/store/hooks";
-import { zoomIn, zoomOut, resetZoom } from "@/store/reducer/zoomCourtSlice";
+import { zoomIn, zoomOut, resetZoomScale, resetZoomState } from "@/store/reducer/zoomCourtSlice";
 import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
 import { dragState, dragSwitch } from "@/store/reducer/dragControlSlice";
 import { RepeatIcon } from "@chakra-ui/icons";
@@ -38,9 +38,10 @@ const EditorFooter = () => {
   };
 
   const handleResetZoom = () => {
-    dispatch(resetZoom());
+    dispatch(resetZoomScale());
     dispatch(dragSwitch(false));
     dispatch(dragState(false));
+    dispatch(resetZoomState());
   };
 
   return (
@@ -76,17 +77,14 @@ const EditorFooter = () => {
           onClick={handleZoomIn}
           isDisabled={zoomScale > MAX_ZOOM ? true : false}
         />
-        {/* <Tooltip hasArrow label="Reset" bg="gray.300" color="black">
-          <IconButton
-            aria-label="reset zoom"
-            icon={<RepeatIcon />}
-            variant="witheBackgroundIconBtn"
-            color="brand.primary"
-            data-testid="reset-btn"
-            onClick={handleResetZoom}
-          />
-        </Tooltip> */}
-
+        <IconButton
+          aria-label="reset zoom"
+          icon={<RepeatIcon />}
+          variant="witheBackgroundIconBtn"
+          color="brand.primary"
+          data-testid="reset-btn"
+          onClick={handleResetZoom}
+        />
         <Text display="inline" margin="0 20px" fontWeight="500">
           {`Zoom: ${(zoomScale * 100).toFixed()} %`}
         </Text>

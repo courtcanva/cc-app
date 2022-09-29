@@ -7,7 +7,7 @@ import { setActiveCourt } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
 import { setCartDisplayState } from "@/store/reducer/cartControlSlice";
-import { resetZoom } from "@/store/reducer/zoomCourtSlice";
+import { resetZoomScale } from "@/store/reducer/zoomCourtSlice";
 import { dragState, dragSwitch } from "@/store/reducer/dragControlSlice";
 
 const Blueprints: React.FC = () => {
@@ -24,7 +24,7 @@ const Blueprints: React.FC = () => {
     )?.tileQty as AreaTileQty[];
     dispatch(changeCourtType(tileQtyOfSelectedCourt));
     dispatch(setCartDisplayState(false));
-    dispatch(resetZoom());
+    dispatch(resetZoomScale());
     dispatch(dragSwitch(false));
     dispatch(dragState(false));
   };

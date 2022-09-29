@@ -1,12 +1,14 @@
 import { ZOOM_STEP_SIZE } from "@/constants/zoomLimit";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface ZoomState {
   zoomScale: number;
+  resetState: boolean;
 }
 
 export const initialState: ZoomState = {
   zoomScale: 1,
+  resetState: false,
 };
 
 export const ZoomControlSlice = createSlice({
@@ -19,12 +21,15 @@ export const ZoomControlSlice = createSlice({
     zoomOut: (state: ZoomState) => {
       state.zoomScale -= ZOOM_STEP_SIZE;
     },
-    resetZoom: (state: ZoomState) => {
+    resetZoomScale: (state: ZoomState) => {
       state.zoomScale = 1;
+    },
+    resetZoomState: (state: ZoomState) => {
+      state.resetState = !state.resetState;
     },
   },
 });
 
-export const { zoomIn, zoomOut, resetZoom } = ZoomControlSlice.actions;
+export const { zoomIn, zoomOut, resetZoomScale, resetZoomState } = ZoomControlSlice.actions;
 
 export default ZoomControlSlice.reducer;

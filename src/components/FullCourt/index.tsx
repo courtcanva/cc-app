@@ -16,13 +16,20 @@ import { useStoreSelector } from "@/store/hooks";
 import { centerZoom } from "@/utils/zoomCenterCalculate";
 import { useDispatch } from "react-redux";
 import { dragState } from "@/store/reducer/dragControlSlice";
+import { useRef, useEffect } from "react";
 
 const FullCourt = () => {
   const dispatch = useDispatch();
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
-  const zoomScale = useStoreSelector((state) => state.zoomControl.zoomScale);
+  const { zoomScale, resetState } = useStoreSelector((state) => state.zoomControl);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const { dragActivate, dragStart } = useStoreSelector((state) => state.dragControl);
+  const ref = useRef<any>(null);
+
+  useEffect(() => {
+    ref.current.x(0);
+    ref.current.y(0);
+  }, [resetState]);
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -39,6 +46,8 @@ const FullCourt = () => {
 
   const handlePosition = () => {
     document.body.style.cursor = `auto`;
+    console.log(`x坐标是: ${ref.current.x()}`);
+    console.log(`y坐标是: ${ref.current.y()}`);
   };
 
   const handleMouseDragStart = () => {
@@ -75,6 +84,7 @@ const FullCourt = () => {
             draggable={dragActivate && selectedColor === "none" ? true : false}
             onDragStart={handleMouseDragStart}
             onDragEnd={handlePosition}
+            ref={ref}
           >
             <Provider store={store}>
               <Layer>

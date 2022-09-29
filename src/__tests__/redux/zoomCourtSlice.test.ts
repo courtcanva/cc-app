@@ -3,8 +3,9 @@ import reducer, {
   initialState,
   zoomIn,
   zoomOut,
-  resetZoom,
+  resetZoomScale,
   ZoomState,
+  resetZoomState,
 } from "@/store/reducer/zoomCourtSlice";
 
 it("should return the initial state", () => {
@@ -22,6 +23,11 @@ it("should decrease the zoom scale by one step", () => {
 it("should reset the state to initial state", () => {
   const previousState: ZoomState = {
     zoomScale: 1.5,
+    resetState: false,
   };
-  expect(reducer(previousState, resetZoom()).zoomScale).toEqual(1);
+  expect(reducer(previousState, resetZoomScale()).zoomScale).toEqual(1);
+});
+it("should switch resetState", () => {
+  const previousState = initialState;
+  expect(reducer(previousState, resetZoomState()).resetState === true);
 });
