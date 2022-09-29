@@ -20,7 +20,7 @@ import { useStoreDispatch } from "@/store/hooks";
 interface Props {
   existedUserInfo: GoogleLoginRes | null;
   setStep: Dispatch<SetStateAction<number>>;
-  updateLoginData: (data: any) => void;
+  updateLoginData: (data: GoogleLoginRes) => void;
   onClose: () => void;
 }
 
@@ -35,12 +35,8 @@ export const AccountConnection: React.FC<Props> = ({
     const { data } = await api("/user/connect", {
       method: "put",
       requestData: {
-        firstName: existedUserInfo?.firstName,
-        lastName: existedUserInfo?.lastName,
         googleId: existedUserInfo?.googleId,
         email: existedUserInfo?.email,
-        isActivated: existedUserInfo?.isActivated,
-        otp: existedUserInfo?.otp ? existedUserInfo?.otp : "",
       },
     });
     try {

@@ -32,8 +32,6 @@ export interface GoogleLoginRes {
   email: string;
   firstName: string;
   lastName: string;
-  isActivated: string;
-  otp: string;
   needConnection: boolean;
 }
 
