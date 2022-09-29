@@ -13,11 +13,15 @@ import useCourt from "@/hooks/useCourt";
 import { IZoomShift } from "@/interfaces/zoomShift";
 import { useStoreSelector } from "@/store/hooks";
 import { centerZoom } from "@/utils/zoomCenterCalculate";
+import { useRef } from "react";
 
 const HalfCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
 
   const zoomScale = useStoreSelector((state) => state.zoomControl.zoomScale);
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
+  const dragPos = useRef({ x: 0, y: 0 });
+  const stageRef = useRef<any>(null);
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -27,14 +31,22 @@ const HalfCourt = () => {
       Y: courtStartPoint.Y,
     },
     dragPos: {
-      X: 0,
-      Y: 0,
+      X: dragPos.current.x,
+      Y: dragPos.current.y,
     },
     oriRatio: court.courtRatio,
     zoomRatio: zoomScale,
   };
 
   const { xShift, yShift } = centerZoom(zoomShift);
+  const handlePosition = () => {
+    dragPos.current = { x: stageRef.current.x(), y: stageRef.current.y() };
+    document.body.style.cursor = `auto`;
+  };
+
+  const handleMouseDragStart = () => {
+    document.body.style.cursor = "pointer";
+  };
 
   return (
     <Flex
@@ -59,10 +71,13 @@ const HalfCourt = () => {
             scaleY={court.courtRatio * zoomScale}
             x={xShift}
             y={yShift}
+            ref={stageRef}
             visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
-            draggable
+            draggable={zoomScale > 1 && selectedColor === "none" ? true : false}
+            onDragStart={handleMouseDragStart}
+            onDragEnd={handlePosition}
           >
             <Provider store={store}>
               <Layer>

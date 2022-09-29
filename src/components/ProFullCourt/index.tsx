@@ -11,14 +11,18 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimension";
 import useCourt from "@/hooks/useCourt";
-import { useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
 import { IZoomShift } from "@/interfaces/zoomShift";
 import { centerZoom } from "@/utils/zoomCenterCalculate";
+import { useRef } from "react";
 
 const ProFullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
   const zoomScale = useStoreSelector((state) => state.zoomControl.zoomScale);
+
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
+  const stageRef = useRef<any>(null);
+  const dragPos = useRef({ x: 0, y: 0 });
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -28,21 +32,22 @@ const ProFullCourt = () => {
       Y: courtStartPoint.Y,
     },
     dragPos: {
-      X: 0,
-      Y: 0,
+      X: dragPos.current.x,
+      Y: dragPos.current.y,
     },
     oriRatio: court.courtRatio,
     zoomRatio: zoomScale,
   };
 
   const { xShift, yShift } = centerZoom(zoomShift);
-  const { selectedColor } = useStoreSelector((state) => state.courtColor);
-  const { dragState } = useStoreSelector((state) => state.dragControl);
+
   const handleMouseDragStart = () => {
     document.body.style.cursor = "pointer";
   };
-  const handleMouseDragEnd = () => {
+
+  const handlePosition = () => {
     document.body.style.cursor = `auto`;
+    dragPos.current = { x: stageRef.current.x(), y: stageRef.current.y() };
   };
 
   return (
@@ -68,12 +73,13 @@ const ProFullCourt = () => {
             scaleY={court.courtRatio * zoomScale}
             x={xShift}
             y={yShift}
+            ref={stageRef}
             visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
-            draggable={dragState && selectedColor === "none" ? true : false}
-            onDragEnd={handleMouseDragEnd}
+            draggable={zoomScale > 1 && selectedColor === "none" ? true : false}
             onDragStart={handleMouseDragStart}
+            onDragEnd={handlePosition}
           >
             <Provider store={store}>
               <Layer>

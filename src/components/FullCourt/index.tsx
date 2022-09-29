@@ -20,6 +20,7 @@ const FullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
 
   const zoomScale = useStoreSelector((state) => state.zoomControl.zoomScale);
+  const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const stageRef = useRef<any>(null);
   const dragPos = useRef({ x: 0, y: 0 });
 
@@ -42,6 +43,11 @@ const FullCourt = () => {
 
   const handlePosition = () => {
     dragPos.current = { x: stageRef.current.x(), y: stageRef.current.y() };
+    document.body.style.cursor = `auto`;
+  };
+
+  const handleMouseDragStart = () => {
+    document.body.style.cursor = "pointer";
   };
 
   return (
@@ -71,7 +77,8 @@ const FullCourt = () => {
             visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
-            draggable={true}
+            draggable={zoomScale > 1 && selectedColor === "none" ? true : false}
+            onDragStart={handleMouseDragStart}
             onDragEnd={handlePosition}
           >
             <Provider store={store}>
