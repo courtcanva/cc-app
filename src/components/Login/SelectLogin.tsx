@@ -32,6 +32,7 @@ export interface GoogleLoginRes {
   email: string;
   firstName: string;
   lastName: string;
+  isActivated: string;
   needConnection: boolean;
 }
 
