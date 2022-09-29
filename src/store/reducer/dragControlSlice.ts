@@ -1,25 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface DragControlState {
-  dragState: boolean;
+  dragActivate: boolean;
+  dragStart: boolean;
 }
 
 export const initialState: DragControlState = {
-  dragState: false,
+  dragActivate: false,
+  dragStart: false,
 };
 
 export const dragControlSlice = createSlice({
   name: "DragControl",
   initialState,
   reducers: {
-    useDrag: (state: DragControlState, action: PayloadAction<boolean>) => {
-      return {
-        ...state,
-        dragState: action.payload,
-      };
+    dragSwitch: (state: DragControlState, action: PayloadAction<boolean>) => {
+      state.dragActivate = action.payload;
+    },
+    dragState: (state: DragControlState, action: PayloadAction<boolean>) => {
+      state.dragStart = action.payload;
     },
   },
 });
 
-export const { useDrag } = dragControlSlice.actions;
+export const { dragSwitch, dragState } = dragControlSlice.actions;
 export default dragControlSlice.reducer;

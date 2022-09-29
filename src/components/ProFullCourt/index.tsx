@@ -1,6 +1,6 @@
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
-import { ReactReduxContext, Provider } from "react-redux";
+import { ReactReduxContext, Provider, useDispatch } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
@@ -14,15 +14,14 @@ import useCourt from "@/hooks/useCourt";
 import { useStoreSelector } from "@/store/hooks";
 import { IZoomShift } from "@/interfaces/zoomShift";
 import { centerZoom } from "@/utils/zoomCenterCalculate";
-import { useRef } from "react";
+import { dragState } from "@/store/reducer/dragControlSlice";
 
 const ProFullCourt = () => {
+  const dispatch = useDispatch();
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
   const zoomScale = useStoreSelector((state) => state.zoomControl.zoomScale);
-  const { dragState } = useStoreSelector((state) => state.dragControl);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
-  const stageRef = useRef<any>(null);
-  const dragPos = useRef({ x: 0, y: 0 });
+  const { dragActivate, dragStart } = useStoreSelector((state) => state.dragControl);
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -31,23 +30,19 @@ const ProFullCourt = () => {
       X: courtStartPoint.X,
       Y: courtStartPoint.Y,
     },
-    dragPos: {
-      X: dragPos.current.x,
-      Y: dragPos.current.y,
-    },
     oriRatio: court.courtRatio,
     zoomRatio: zoomScale,
   };
 
   const { xShift, yShift } = centerZoom(zoomShift);
 
-  const handleMouseDragStart = () => {
-    document.body.style.cursor = "pointer";
-  };
-
   const handlePosition = () => {
     document.body.style.cursor = `auto`;
-    dragPos.current = { x: stageRef.current.x(), y: stageRef.current.y() };
+  };
+
+  const handleMouseDragStart = () => {
+    dispatch(dragState(true));
+    document.body.style.cursor = "pointer";
   };
 
   return (
@@ -71,13 +66,12 @@ const ProFullCourt = () => {
             width={court.stageWidth}
             scaleX={court.courtRatio * zoomScale}
             scaleY={court.courtRatio * zoomScale}
-            x={xShift}
-            y={yShift}
-            ref={stageRef}
+            x={!dragStart ? xShift : 0}
+            y={!dragStart ? yShift : 0}
             visible
             style={{ backgroundColor: "white" }}
             data-testid="stage"
-            draggable={dragState && selectedColor === "none" ? true : false}
+            draggable={dragActivate && selectedColor === "none" ? true : false}
             onDragStart={handleMouseDragStart}
             onDragEnd={handlePosition}
           >

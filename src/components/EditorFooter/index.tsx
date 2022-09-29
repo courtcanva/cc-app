@@ -1,12 +1,22 @@
-import { Box, Flex, IconButton, FormControl, Switch, FormLabel, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  IconButton,
+  FormControl,
+  Switch,
+  FormLabel,
+  Text,
+  Tooltip,
+} from "@chakra-ui/react";
 import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { switchRuler } from "@/store/reducer/rulerControlSlice";
 import { useStoreSelector } from "@/store/hooks";
-import { zoomIn, zoomOut } from "@/store/reducer/zoomCourtSlice";
+import { zoomIn, zoomOut, resetZoom } from "@/store/reducer/zoomCourtSlice";
 import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
-import { useDrag } from "@/store/reducer/dragControlSlice";
+import { dragState, dragSwitch } from "@/store/reducer/dragControlSlice";
+import { RepeatIcon } from "@chakra-ui/icons";
 
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
@@ -20,11 +30,17 @@ const EditorFooter = () => {
 
   const handleZoomIn = () => {
     dispatch(zoomIn());
-    dispatch(useDrag(true));
+    dispatch(dragSwitch(true));
   };
 
   const handleZoomOut = () => {
     dispatch(zoomOut());
+  };
+
+  const handleResetZoom = () => {
+    dispatch(resetZoom());
+    dispatch(dragSwitch(false));
+    dispatch(dragState(false));
   };
 
   return (
@@ -60,6 +76,17 @@ const EditorFooter = () => {
           onClick={handleZoomIn}
           isDisabled={zoomScale > MAX_ZOOM ? true : false}
         />
+        {/* <Tooltip hasArrow label="Reset" bg="gray.300" color="black">
+          <IconButton
+            aria-label="reset zoom"
+            icon={<RepeatIcon />}
+            variant="witheBackgroundIconBtn"
+            color="brand.primary"
+            data-testid="reset-btn"
+            onClick={handleResetZoom}
+          />
+        </Tooltip> */}
+
         <Text display="inline" margin="0 20px" fontWeight="500">
           {`Zoom: ${(zoomScale * 100).toFixed()} %`}
         </Text>
