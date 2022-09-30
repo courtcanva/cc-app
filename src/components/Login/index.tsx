@@ -6,7 +6,7 @@ import LoginWithPwd from "./LoginWithPwd";
 import Register from "./Register";
 import EmailVerification from "./EmailVerification";
 import VerificationResult from "./EmailVerification/VerificationResult";
-import { AccountConnection } from "@/components/Login/accountConnection";
+import AccountConnection from "@/components/Login/accountConnection";
 
 interface Props {
   isOpen: boolean;

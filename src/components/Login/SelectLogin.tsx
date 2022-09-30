@@ -35,9 +35,14 @@ export interface GoogleLoginRes {
   needConnection: boolean;
 }
 
-const SelectLogin = (props: Props) => {
+const SelectLogin: React.FC<Props> = ({
+  onClose,
+  updateLoginData,
+  initialRef,
+  nextStep,
+  connectionStep,
+}) => {
   const dispatch = useDispatch();
-  const { onClose, updateLoginData, initialRef, nextStep, connectionStep } = props;
 
   // Send request to backend after the request from front-end has been approved by Google
   /* istanbul ignore next */

@@ -24,7 +24,7 @@ interface Props {
   onClose: () => void;
 }
 
-export const AccountConnection: React.FC<Props> = ({
+const AccountConnection: React.FC<Props> = ({
   existedUserInfo,
   setStep,
   updateLoginData,
@@ -41,7 +41,6 @@ export const AccountConnection: React.FC<Props> = ({
     });
     try {
       if (data) {
-        // Store user data into local storage after logging
         localStorage.setItem("UserInfo", JSON.stringify(data));
         dispatch(updateUserInfo(data));
         updateLoginData(data);
@@ -91,3 +90,5 @@ export const AccountConnection: React.FC<Props> = ({
     </>
   );
 };
+
+export default AccountConnection;
