@@ -11,24 +11,13 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import DashedLine from "../BasketballCourt/DashedLine";
 import BorderDimension from "../BasketballCourt/BorderDimension";
 import useCourt from "@/hooks/useCourt";
-import { useStoreSelector } from "@/store/hooks";
 import { IZoomShift } from "@/interfaces/zoomShift";
-import { centerZoom } from "@/utils/zoomCenterCalculate";
-import { dragState } from "@/store/reducer/canvasControlSlice";
 import { useRef, useEffect } from "react";
+import canvasControlModel from "../../utils/canvasControlModel";
 
 const ProFullCourt = () => {
-  const dispatch = useDispatch();
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
-  const { zoomScale, resetState } = useStoreSelector((state) => state.canvasControl);
-  const { selectedColor } = useStoreSelector((state) => state.courtColor);
-  const { dragActivate, dragStart } = useStoreSelector((state) => state.canvasControl);
   const ref = useRef<any>(null);
-
-  useEffect(() => {
-    ref.current.x(0);
-    ref.current.y(0);
-  }, [resetState]);
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -38,19 +27,15 @@ const ProFullCourt = () => {
       Y: courtStartPoint.Y,
     },
     oriRatio: court.courtRatio,
-    zoomRatio: zoomScale,
   };
 
-  const { xShift, yShift } = centerZoom(zoomShift);
+  const canvasControl = canvasControlModel(zoomShift);
+  const canvasStates = canvasControl.canvasStates;
 
-  const handleCursorChange = () => {
-    document.body.style.cursor = "auto";
-  };
-
-  const handleMouseDragStart = () => {
-    dispatch(dragState(true));
-    document.body.style.cursor = "pointer";
-  };
+  useEffect(() => {
+    ref.current.x(0);
+    ref.current.y(0);
+  }, [canvasStates.resetState]);
 
   return (
     <Flex
@@ -69,19 +54,21 @@ const ProFullCourt = () => {
         {({ store }) => (
           <Stage
             id="basketball-court"
+            data-testid="stage"
             height={court.stageHeight}
             width={court.stageWidth}
-            scaleX={court.courtRatio * zoomScale}
-            scaleY={court.courtRatio * zoomScale}
-            x={!dragStart ? xShift : 0}
-            y={!dragStart ? yShift : 0}
-            visible
-            ref={ref}
+            scaleX={court.courtRatio * canvasStates.zoomScale}
+            scaleY={court.courtRatio * canvasStates.zoomScale}
+            x={!canvasStates.dragStart ? canvasControl.xShift : 0}
+            y={!canvasStates.dragStart ? canvasControl.yShift : 0}
             style={{ backgroundColor: "white" }}
-            data-testid="stage"
-            draggable={dragActivate && selectedColor === "none" ? true : false}
-            onDragStart={handleMouseDragStart}
-            onDragEnd={handleCursorChange}
+            onDragStart={canvasControl.handleMouseDragStart}
+            onDragEnd={canvasControl.handleCursorChange}
+            ref={ref}
+            draggable={
+              canvasStates.dragActivate && canvasStates.selectedColor === "none" ? true : false
+            }
+            visible
           >
             <Provider store={store}>
               <Layer>

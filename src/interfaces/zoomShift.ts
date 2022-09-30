@@ -6,5 +6,4 @@ export interface IZoomShift {
     Y: number;
   };
   oriRatio: number;
-  zoomRatio: number;
 }
