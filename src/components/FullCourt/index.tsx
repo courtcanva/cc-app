@@ -15,15 +15,15 @@ import { IZoomShift } from "@/interfaces/zoomShift";
 import { useStoreSelector } from "@/store/hooks";
 import { centerZoom } from "@/utils/zoomCenterCalculate";
 import { useDispatch } from "react-redux";
-import { dragState } from "@/store/reducer/dragControlSlice";
+import { dragState } from "@/store/reducer/canvasControlSlice";
 import { useRef, useEffect } from "react";
 
 const FullCourt = () => {
   const dispatch = useDispatch();
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
-  const { zoomScale, resetState } = useStoreSelector((state) => state.zoomControl);
+  const { zoomScale, resetState } = useStoreSelector((state) => state.canvasControl);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
-  const { dragActivate, dragStart } = useStoreSelector((state) => state.dragControl);
+  const { dragActivate, dragStart } = useStoreSelector((state) => state.canvasControl);
   const ref = useRef<any>(null);
 
   useEffect(() => {
@@ -44,10 +44,8 @@ const FullCourt = () => {
 
   const { xShift, yShift } = centerZoom(zoomShift);
 
-  const handlePosition = () => {
-    document.body.style.cursor = `auto`;
-    console.log(`x坐标是: ${ref.current.x()}`);
-    console.log(`y坐标是: ${ref.current.y()}`);
+  const handleCursorChange = () => {
+    document.body.style.cursor = "auto";
   };
 
   const handleMouseDragStart = () => {
@@ -72,19 +70,19 @@ const FullCourt = () => {
         {({ store }) => (
           <Stage
             id="basketball-court"
+            data-testid="stage"
             height={court.stageHeight}
             width={court.stageWidth}
             scaleX={court.courtRatio * zoomScale}
             scaleY={court.courtRatio * zoomScale}
             x={!dragStart ? xShift : 0}
             y={!dragStart ? yShift : 0}
-            visible
-            style={{ backgroundColor: "white" }}
-            data-testid="stage"
-            draggable={dragActivate && selectedColor === "none" ? true : false}
+            style={{ backgroundColor: "white", boxShadow: "3px 3px 30px -2px rgba(0,0,0,0.38)" }}
             onDragStart={handleMouseDragStart}
-            onDragEnd={handlePosition}
+            onDragEnd={handleCursorChange}
             ref={ref}
+            draggable={dragActivate && selectedColor === "none" ? true : false}
+            visible
           >
             <Provider store={store}>
               <Layer>

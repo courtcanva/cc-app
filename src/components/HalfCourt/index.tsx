@@ -13,14 +13,21 @@ import useCourt from "@/hooks/useCourt";
 import { IZoomShift } from "@/interfaces/zoomShift";
 import { useStoreSelector } from "@/store/hooks";
 import { centerZoom } from "@/utils/zoomCenterCalculate";
-import { dragState } from "@/store/reducer/dragControlSlice";
+import { dragState } from "@/store/reducer/canvasControlSlice";
+import { useRef, useEffect } from "react";
 
 const HalfCourt = () => {
   const dispatch = useDispatch();
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
-  const zoomScale = useStoreSelector((state) => state.zoomControl.zoomScale);
+  const { zoomScale, resetState } = useStoreSelector((state) => state.canvasControl);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
-  const { dragActivate, dragStart } = useStoreSelector((state) => state.dragControl);
+  const { dragActivate, dragStart } = useStoreSelector((state) => state.canvasControl);
+  const ref = useRef<any>(null);
+
+  useEffect(() => {
+    ref.current.x(0);
+    ref.current.y(0);
+  }, [resetState]);
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -35,8 +42,8 @@ const HalfCourt = () => {
 
   const { xShift, yShift } = centerZoom(zoomShift);
 
-  const handlePosition = () => {
-    document.body.style.cursor = `auto`;
+  const handleCursorChange = () => {
+    document.body.style.cursor = "auto";
   };
 
   const handleMouseDragStart = () => {
@@ -68,11 +75,12 @@ const HalfCourt = () => {
             x={!dragStart ? xShift : 0}
             y={!dragStart ? yShift : 0}
             visible
+            ref={ref}
             style={{ backgroundColor: "white" }}
             data-testid="stage"
             draggable={dragActivate && selectedColor === "none" ? true : false}
             onDragStart={handleMouseDragStart}
-            onDragEnd={handlePosition}
+            onDragEnd={handleCursorChange}
           >
             <Provider store={store}>
               <Layer>

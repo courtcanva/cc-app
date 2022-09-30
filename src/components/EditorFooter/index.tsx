@@ -13,14 +13,19 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { switchRuler } from "@/store/reducer/rulerControlSlice";
 import { useStoreSelector } from "@/store/hooks";
-import { zoomIn, zoomOut, resetZoomScale, resetZoomState } from "@/store/reducer/zoomCourtSlice";
+import {
+  changeZoomScale,
+  resetZoomScale,
+  resetZoomState,
+  dragState,
+  dragSwitch,
+} from "@/store/reducer/canvasControlSlice";
 import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
-import { dragState, dragSwitch } from "@/store/reducer/dragControlSlice";
 import { RepeatIcon } from "@chakra-ui/icons";
 
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
-  const { zoomScale } = useStoreSelector((state) => state.zoomControl);
+  const { zoomScale } = useStoreSelector((state) => state.canvasControl);
 
   const dispatch = useDispatch();
   const handleRulerState = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,13 +33,14 @@ const EditorFooter = () => {
     dispatch(switchRuler(e.target.checked));
   };
 
+  // changeZoomScale Payload: true -> Zoom in, false -> Zoom out
   const handleZoomIn = () => {
-    dispatch(zoomIn());
+    dispatch(changeZoomScale(true));
     dispatch(dragSwitch(true));
   };
 
   const handleZoomOut = () => {
-    dispatch(zoomOut());
+    dispatch(changeZoomScale(false));
   };
 
   const handleResetZoom = () => {
