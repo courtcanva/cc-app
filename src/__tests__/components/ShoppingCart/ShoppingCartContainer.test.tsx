@@ -40,7 +40,9 @@ describe("ShoppingCart component", () => {
       <DeleteComfirmModal isOpen onClose={() => void {}} onConfirm={() => void {}} />
     );
     const cancelBtn = screen.getByRole("button", { name: /cancel/i });
-    expect(screen.getByText("You are about to delete a design")).toBeInTheDocument();
+    expect(
+      screen.getByText("Are you sure you want to remove this item from the shopping cart?")
+    ).toBeInTheDocument();
     expect(cancelBtn).toBeInTheDocument();
     fireEvent.click(cancelBtn);
     const deleteConfirmModalDialog = screen.getByRole("dialog");
@@ -51,7 +53,7 @@ describe("ShoppingCart component", () => {
     renderWithMockedProvider(
       <DeleteComfirmModal isOpen onClose={() => void {}} onConfirm={() => void {}} />
     );
-    const deleteConfirmBtn = screen.getByRole("button", { name: /delete/i });
+    const deleteConfirmBtn = screen.getByRole("button", { name: /Remove/i });
     expect(deleteConfirmBtn).toBeInTheDocument();
     fireEvent.click(deleteConfirmBtn);
     const deleteConfirmModalDialog = screen.getByRole("dialog");
