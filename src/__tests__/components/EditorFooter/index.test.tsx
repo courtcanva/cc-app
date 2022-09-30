@@ -39,19 +39,19 @@ describe("EditorFooter", () => {
     const zoomOutBtn = screen.getByTestId("zoom-out-btn");
     fireEvent.mouseOver(zoomOutBtn);
     expect(await screen.findByText("Zoom Out")).toBeInTheDocument();
-  })
+  });
 
   it("show zoom in button info in tooltip", async () => {
     renderWithMockedProvider(<EditorFooter />);
     const zoomOutBtn = screen.getByTestId("zoom-in-btn");
     fireEvent.mouseOver(zoomOutBtn);
     expect(await screen.findByText("Zoom In")).toBeInTheDocument();
-  })
+  });
 
   it("show reset button info in tooltip", async () => {
     renderWithMockedProvider(<EditorFooter />);
     const zoomOutBtn = screen.getByTestId("reset-btn");
     fireEvent.mouseOver(zoomOutBtn);
     expect(await screen.findByText("Reset Court Scale")).toBeInTheDocument();
-  })
+  });
 });
