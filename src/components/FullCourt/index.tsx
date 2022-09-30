@@ -77,7 +77,7 @@ const FullCourt = () => {
             scaleY={court.courtRatio * zoomScale}
             x={!dragStart ? xShift : 0}
             y={!dragStart ? yShift : 0}
-            style={{ backgroundColor: "white", boxShadow: "3px 3px 30px -2px rgba(0,0,0,0.38)" }}
+            style={{ backgroundColor: "white" }}
             onDragStart={handleMouseDragStart}
             onDragEnd={handleCursorChange}
             ref={ref}
