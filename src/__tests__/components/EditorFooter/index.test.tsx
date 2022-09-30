@@ -26,7 +26,6 @@ describe("EditorFooter", () => {
 
   it("Each button in the navbar needs to display the correct text", () => {
     renderWithMockedProvider(<EditorFooter />);
-
     const zoomOutElement = screen.getByTestId("zoom-out-btn");
     const zoomInElement = screen.getByTestId("zoom-in-btn");
     const resetElement = screen.getByTestId("reset-btn");
@@ -34,4 +33,25 @@ describe("EditorFooter", () => {
     expect(zoomInElement).toBeInTheDocument();
     expect(resetElement).toBeInTheDocument();
   });
+
+  it("show zoom out button info in tooltip", async () => {
+    renderWithMockedProvider(<EditorFooter />);
+    const zoomOutBtn = screen.getByTestId("zoom-out-btn");
+    fireEvent.mouseOver(zoomOutBtn);
+    expect(await screen.findByText("Zoom Out")).toBeInTheDocument();
+  })
+
+  it("show zoom in button info in tooltip", async () => {
+    renderWithMockedProvider(<EditorFooter />);
+    const zoomOutBtn = screen.getByTestId("zoom-in-btn");
+    fireEvent.mouseOver(zoomOutBtn);
+    expect(await screen.findByText("Zoom In")).toBeInTheDocument();
+  })
+
+  it("show reset button info in tooltip", async () => {
+    renderWithMockedProvider(<EditorFooter />);
+    const zoomOutBtn = screen.getByTestId("reset-btn");
+    fireEvent.mouseOver(zoomOutBtn);
+    expect(await screen.findByText("Reset Court Scale")).toBeInTheDocument();
+  })
 });
