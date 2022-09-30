@@ -1,7 +1,6 @@
 import { IZoomShift } from "@/interfaces/zoomShift";
 import { useStoreSelector } from "@/store/hooks";
 import { dragState } from "@/store/reducer/canvasControlSlice";
-import { centerZoom } from "@/utils/zoomCenterCalculate";
 import { useDispatch } from "react-redux";
 
 const canvasControlModel = (zoomShift: IZoomShift) => {
@@ -9,6 +8,23 @@ const canvasControlModel = (zoomShift: IZoomShift) => {
   const { zoomScale, resetState } = useStoreSelector((state) => state.canvasControl);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const { dragActivate, dragStart } = useStoreSelector((state) => state.canvasControl);
+
+  const centerZoom = (zoomShift: IZoomShift, zoomScale: number) => {
+    const xShift =
+      -(zoomShift.courtXLen + zoomShift.startPoint.X * 2) *
+      zoomShift.oriRatio *
+      ((zoomScale - 1) / 2);
+
+    const yShift =
+      -(zoomShift.courtYLen + zoomShift.startPoint.Y * 2) *
+      zoomShift.oriRatio *
+      ((zoomScale - 1) / 2);
+
+    return {
+      xShift,
+      yShift,
+    };
+  };
 
   const { xShift, yShift } = centerZoom(zoomShift, zoomScale);
 
@@ -37,4 +53,5 @@ const canvasControlModel = (zoomShift: IZoomShift) => {
     handleCursorChange,
   };
 };
+
 export default canvasControlModel;
