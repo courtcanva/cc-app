@@ -22,17 +22,11 @@ export const canvasControlSlice = createSlice({
     changeZoomScale: (state: canvasState, action: PayloadAction<boolean>) => {
       action.payload ? (state.zoomScale += ZOOM_STEP_SIZE) : (state.zoomScale -= ZOOM_STEP_SIZE);
     }, // Payload: true -> Zoom in, false -> Zoom out
-    resetZoomScale: (state: canvasState) => {
-      state.zoomScale = 1;
-    },
     dragSwitch: (state: canvasState, action: PayloadAction<boolean>) => {
       state.dragActivate = action.payload;
     },
     dragState: (state: canvasState, action: PayloadAction<boolean>) => {
       state.dragStart = action.payload;
-    },
-    resetZoomState: (state: canvasState) => {
-      state.resetState = !state.resetState;
     },
     resetAll: (state: canvasState) => {
       state.zoomScale = 1;
@@ -43,7 +37,6 @@ export const canvasControlSlice = createSlice({
   },
 });
 
-export const { changeZoomScale, resetZoomScale, resetZoomState, dragSwitch, dragState, resetAll } =
-  canvasControlSlice.actions;
+export const { changeZoomScale, dragSwitch, dragState, resetAll } = canvasControlSlice.actions;
 
 export default canvasControlSlice.reducer;

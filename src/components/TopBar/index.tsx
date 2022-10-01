@@ -38,13 +38,7 @@ import { designMapping } from "@/utils/designMapping";
 import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
-import {
-  resetZoomScale,
-  dragState,
-  dragSwitch,
-  resetZoomState,
-  resetAll,
-} from "@/store/reducer/canvasControlSlice";
+import { resetAll } from "@/store/reducer/canvasControlSlice";
 
 const TopBar = () => {
   const dispatch = useDispatch();
