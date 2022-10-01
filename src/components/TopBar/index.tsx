@@ -38,6 +38,13 @@ import { designMapping } from "@/utils/designMapping";
 import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
+import {
+  resetZoomScale,
+  dragState,
+  dragSwitch,
+  resetZoomState,
+  resetAll,
+} from "@/store/reducer/canvasControlSlice";
 
 const TopBar = () => {
   const dispatch = useDispatch();
@@ -58,6 +65,11 @@ const TopBar = () => {
     setSliderValue(borderLength / 1000);
     setUserId(userData.userId);
   }, [borderLength, userData]);
+
+  const handleDownload = () => {
+    dispatch(resetAll());
+    downloadToPDF();
+  };
 
   const handleChange = (val: number) => {
     setSliderValue(val);
@@ -222,7 +234,7 @@ const TopBar = () => {
           colorScheme="transparent"
           icon={<DownloadSvg />}
           variant="witheBackgroundIconBtn"
-          onClick={downloadToPDF}
+          onClick={handleDownload}
           data-testid="download-btn"
         />
         <Popover isOpen={savePopoverOpen} onClose={handleSaveClose}>

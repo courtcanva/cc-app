@@ -13,13 +13,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { switchRuler } from "@/store/reducer/rulerControlSlice";
 import { useStoreSelector } from "@/store/hooks";
-import {
-  changeZoomScale,
-  resetZoomScale,
-  resetZoomState,
-  dragState,
-  dragSwitch,
-} from "@/store/reducer/canvasControlSlice";
+import { changeZoomScale, dragSwitch, resetAll } from "@/store/reducer/canvasControlSlice";
 import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
 import { RepeatIcon } from "@chakra-ui/icons";
 
@@ -44,10 +38,7 @@ const EditorFooter = () => {
   };
 
   const handleResetZoom = () => {
-    dispatch(resetZoomScale());
-    dispatch(dragSwitch(false));
-    dispatch(dragState(false));
-    dispatch(resetZoomState());
+    dispatch(resetAll());
   };
 
   return (

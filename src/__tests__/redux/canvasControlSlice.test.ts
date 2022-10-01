@@ -7,6 +7,7 @@ import reducer, {
   dragSwitch,
   dragState,
   resetZoomState,
+  resetAll,
 } from "@/store/reducer/canvasControlSlice";
 
 it("should return the initial state", () => {
@@ -52,4 +53,17 @@ it("should change drag disable to activate", () => {
 it("should change drag state to true ", () => {
   const previousState: canvasState = initialState;
   expect(reducer(previousState, dragState(true)).dragStart).toEqual(true);
+});
+
+it("should reset all states and scales to initial", () => {
+  const previousState: canvasState = {
+    zoomScale: 1.5,
+    dragActivate: true,
+    dragStart: true,
+    resetState: false,
+  };
+  expect(reducer(previousState, resetAll()).zoomScale).toEqual(1);
+  expect(reducer(previousState, resetAll()).dragStart).toEqual(false);
+  expect(reducer(previousState, resetAll()).dragActivate).toEqual(false);
+  expect(reducer(previousState, resetAll()).resetState).toEqual(true);
 });

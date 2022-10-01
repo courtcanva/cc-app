@@ -3,8 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface canvasState {
   zoomScale: number;
-  dragActivate: boolean; //enable the drag action
-  dragStart: boolean; //Track the start of user drag action
+  dragActivate: boolean; // enable the drag action
+  dragStart: boolean; // Track the start of user drag action
   resetState: boolean;
 }
 
@@ -34,10 +34,16 @@ export const canvasControlSlice = createSlice({
     resetZoomState: (state: canvasState) => {
       state.resetState = !state.resetState;
     },
+    resetAll: (state: canvasState) => {
+      state.zoomScale = 1;
+      state.dragActivate = false;
+      state.dragStart = false;
+      state.resetState = !state.resetState;
+    },
   },
 });
 
-export const { changeZoomScale, resetZoomScale, resetZoomState, dragSwitch, dragState } =
+export const { changeZoomScale, resetZoomScale, resetZoomState, dragSwitch, dragState, resetAll } =
   canvasControlSlice.actions;
 
 export default canvasControlSlice.reducer;
