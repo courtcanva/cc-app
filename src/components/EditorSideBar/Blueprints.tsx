@@ -7,6 +7,7 @@ import { setActiveCourt } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
 import { setCartDisplayState } from "@/store/reducer/cartControlSlice";
+import { resetAll } from "@/store/reducer/canvasControlSlice";
 
 const Blueprints: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Blueprints: React.FC = () => {
     )?.tileQty as AreaTileQty[];
     dispatch(changeCourtType(tileQtyOfSelectedCourt));
     dispatch(setCartDisplayState(false));
+    dispatch(resetAll());
   };
 
   return (
