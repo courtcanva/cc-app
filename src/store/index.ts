@@ -17,6 +17,7 @@ import designTileListReducer from "./reducer/designsTileListSlice";
 import loginModalReducer from "./reducer/loginModalSlice";
 import cartControlReducer from "./reducer/cartControlSlice";
 import colorListReducer from "./reducer/colorListSlice";
+import canvasControlReducer from "./reducer/canvasControlSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -39,6 +40,7 @@ export const makeStore = () =>
       areaTileQty: areaTileQtyReducer,
       cartControl: cartControlReducer,
       colorList: colorListReducer,
+      canvasControl: canvasControlReducer,
     },
 
     middleware: (getDefaultMiddleware) =>

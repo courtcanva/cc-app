@@ -29,19 +29,17 @@ const DeleteComfirmModal = ({ isOpen, onClose, onConfirm }: Props) => {
               marginTop={"25px"}
               marginBottom={"10px"}
             />
-            You are about to delete a design
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody textAlign={"center"}>
-            <p>This will delete your design from catalog </p>
-            <p>Are you sure?</p>
+            <p>Are you sure you want to remove this item from the shopping cart?</p>
           </ModalBody>
           <ModalFooter display={"flex"} gap="10px" marginTop={"10px"}>
             <Button variant="ghost" onClick={onClose}>
               Cancel
             </Button>
             <Button colorScheme="red" marginRight={3} onClick={onConfirm}>
-              Delete
+              Remove
             </Button>
           </ModalFooter>
         </ModalContent>

@@ -1,6 +1,6 @@
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
-import { ReactReduxContext, Provider } from "react-redux";
+import { ReactReduxContext, Provider, useDispatch } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
@@ -10,9 +10,32 @@ import CourtDimension from "../BasketballCourt/CourtDimension";
 import BorderDimension from "../BasketballCourt/BorderDimension";
 import DashedLine from "../BasketballCourt/DashedLine";
 import useCourt from "@/hooks/useCourt";
+import { IZoomShift } from "@/interfaces/zoomShift";
+import { useRef, useEffect } from "react";
+import canvasControlModel from "../../utils/canvasControlModel";
 
 const HalfCourt = () => {
+  const dispatch = useDispatch();
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
+  const ref = useRef<any>(null);
+
+  const zoomShift: IZoomShift = {
+    courtXLen: courtAreaXLength,
+    courtYLen: courtAreaYLength,
+    startPoint: {
+      X: courtStartPoint.X,
+      Y: courtStartPoint.Y,
+    },
+    oriRatio: court.courtRatio,
+  };
+
+  const canvasContorl = canvasControlModel(zoomShift);
+  const canvasStates = canvasContorl.canvasStates;
+
+  useEffect(() => {
+    ref.current.x(0);
+    ref.current.y(0);
+  }, [canvasContorl.canvasStates.resetState]);
 
   return (
     <Flex
@@ -31,13 +54,21 @@ const HalfCourt = () => {
         {({ store }) => (
           <Stage
             id="basketball-court"
+            data-testid="stage"
             height={court.stageHeight}
             width={court.stageWidth}
-            scaleX={court.courtRatio}
-            scaleY={court.courtRatio}
-            visible
+            scaleX={court.courtRatio * canvasStates.zoomScale}
+            scaleY={court.courtRatio * canvasStates.zoomScale}
+            x={!canvasStates.dragStart ? canvasContorl.xShift : 0}
+            y={!canvasStates.dragStart ? canvasContorl.yShift : 0}
             style={{ backgroundColor: "white" }}
-            data-testid="stage"
+            onDragStart={canvasContorl.handleMouseDragStart}
+            onDragEnd={canvasContorl.handleCursorChange}
+            ref={ref}
+            draggable={
+              canvasStates.dragActivate && canvasStates.selectedColor === "none" ? true : false
+            }
+            visible
           >
             <Provider store={store}>
               <Layer>
