@@ -28,6 +28,7 @@ interface Props {
 }
 
 export interface GoogleLoginRes {
+  userId: string;
   googleId: string;
   email: string;
   firstName: string;
@@ -47,17 +48,17 @@ const SelectLogin: React.FC<Props> = ({
   // Send request to backend after the request from front-end has been approved by Google
   /* istanbul ignore next */
   const handleSuccess = async (codeResponse: any) => {
-    const { data } = await api("/auth/google", {
+    const axiosResponse = await api("/auth/google", {
       method: "post",
       requestData: codeResponse,
     });
-    const googleLoginRes: GoogleLoginRes = data;
+    const googleLoginRes: GoogleLoginRes = axiosResponse.data;
     try {
       if (!googleLoginRes.needConnection) {
         // Store user data into local storage after logging
-        localStorage.setItem("UserInfo", JSON.stringify(data));
-        dispatch(updateUserInfo(data));
-        updateLoginData(data);
+        localStorage.setItem("UserInfo", JSON.stringify(googleLoginRes));
+        dispatch(updateUserInfo(googleLoginRes));
+        updateLoginData(googleLoginRes);
         onClose();
       } else {
         connectionStep(googleLoginRes);
