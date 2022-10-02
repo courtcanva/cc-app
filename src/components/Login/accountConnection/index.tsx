@@ -31,19 +31,21 @@ const AccountConnection: React.FC<Props> = ({
   onClose,
 }) => {
   const dispatch = useStoreDispatch();
+  // if this call is needed else where in the future, please move it to redux
   const onConnect = async () => {
-    const { data } = await api("/user/connect", {
+    const axiosResponse = await api("/user/connect", {
       method: "put",
       requestData: {
         googleId: existedUserInfo?.googleId,
         email: existedUserInfo?.email,
       },
     });
+    const userInfo: GoogleLoginRes = axiosResponse.data;
     try {
-      if (data) {
-        localStorage.setItem("UserInfo", JSON.stringify(data));
-        dispatch(updateUserInfo(data));
-        updateLoginData(data);
+      if (userInfo) {
+        localStorage.setItem("UserInfo", JSON.stringify(userInfo));
+        dispatch(updateUserInfo(userInfo));
+        updateLoginData(userInfo);
         setStep(1);
         onClose();
       }
