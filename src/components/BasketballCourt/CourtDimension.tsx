@@ -12,7 +12,7 @@ const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint, borderLengt
   const { courtAreaXLength, courtAreaYLength } = useStoreSelector(
     (state) => state.courtSpecData.activeCourt
   );
-  const { ruler } = useStoreSelector((state) => state.rulerControl);
+  const { ruler } = useStoreSelector((state) => state.designPageButton);
   const dimensionColor = borderLength < MIN_DIMENSION_BOX ? "black" : "white";
   const borderSize = borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : borderLength;
   const arrowSize = 100;

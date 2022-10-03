@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import { useDispatch } from "react-redux";
-import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
+import { usePaintBucket } from "@/store/reducer/designPageButtonSlice";
 import { useGetCourtColorQuery } from "@/redux/api/courtColorAPi";
 import { IColor } from "@/interfaces/color";
 import { getColorList } from "@/store/reducer/colorListSlice";

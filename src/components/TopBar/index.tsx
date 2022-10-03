@@ -23,7 +23,7 @@ import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import BorderSvg from "@/assets/svg/TopBarSvg/border.svg";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
+import { usePaintBucket } from "@/store/reducer/designPageButtonSlice";
 import {
   getCourtNameString,
   updateBorderLength,
@@ -46,7 +46,7 @@ const TopBar = () => {
   const close = () => dispatch(usePaintBucket(false));
   const userData = useStoreSelector((state) => state.user);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
-  const { paintPopover } = useStoreSelector((state) => state.paintBucket);
+  const { paintPopover } = useStoreSelector((state) => state.designPageButton);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
 
   const nameString = getCourtNameString(selectedCourt);

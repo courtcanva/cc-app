@@ -10,7 +10,7 @@ interface DashedLineProps {
 
 const DashedLine: React.FC<DashedLineProps> = ({ startPoint, borderLength }) => {
   const { courtAreaYLength } = useStoreSelector((state) => state.courtSpecData.activeCourt);
-  const { ruler } = useStoreSelector((state) => state.rulerControl);
+  const { ruler } = useStoreSelector((state) => state.designPageButton);
   const startPointX = startPoint.X - borderLength;
   const startPointY = startPoint.Y - borderLength;
   const courtHeight = courtAreaYLength;

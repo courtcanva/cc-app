@@ -1,7 +1,7 @@
 import React from "react";
 import { IconButton, Circle, Stack } from "@chakra-ui/react";
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import { switchCartDisplay } from "@/store/reducer/cartControlSlice";
+import { switchCartDisplay } from "@/store/reducer/designPageButtonSlice";
 import { useDispatch } from "react-redux";
 import { useLoginModal } from "@/store/reducer/loginModalSlice";
 
