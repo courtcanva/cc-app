@@ -28,20 +28,22 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
         <Td padding="20px 60px" sx={{ "vertical-align": "top" }} height="180px">
           {/* Todo: space for thumbnail images that implementing in the future. */}
           <Flex flexDirection="row" alignItems="center" justifyContent="flex-end">
-            <Box padding="15px">{isExpire ? <WarningIcon /> : null}</Box>
+            <Box paddingRight="40px">
+              {isExpire ? <WarningIcon style={{ color: "red", fontSize: "25px" }} /> : null}
+            </Box>
             <Box width="250px" height="110px" backgroundColor="blue"></Box>
           </Flex>
         </Td>
         <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }} overflowX="auto">
           {productName}
-          <Box
+          <Flex
             color="#ff4d4d"
             fontSize="18px"
             fontWeight="semibold"
             style={{ padding: "20px 0 20px 0" }}
           >
             {isExpire ? "Quotation has expired." : null}
-          </Box>
+          </Flex>
         </Td>
         <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }}>
           AU${quotation}
