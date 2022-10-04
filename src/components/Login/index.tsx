@@ -1,12 +1,13 @@
 import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
 import React, { useState } from "react";
 import SelectLogin, { GoogleLoginRes } from "./SelectLogin";
-import EmailLogin from "./EmailLogin";
+import EmailLogin, { CheckEmailRes } from "./EmailLogin";
 import LoginWithPwd from "./LoginWithPwd";
 import Register from "./Register";
 import EmailVerification from "./EmailVerification";
 import VerificationResult from "./EmailVerification/VerificationResult";
 import AccountConnection from "@/components/Login/accountConnection";
+import PwdSetting from "@/components/Login/pwdSetting";
 
 interface Props {
   isOpen: boolean;
@@ -25,6 +26,8 @@ const LoginModalContent = (props: Props) => {
   const [userId, setUserId] = useState("");
   const [verified, setVerified] = useState(true);
   const [existedUserInfo, setExistedUserInfo] = useState<GoogleLoginRes | null>(null);
+  const [userWithoutPwd, setUserWithoutPwd] = useState<CheckEmailRes | null>(null);
+  const [pwd, setPwd] = useState<string | null>(null);
   const nextStep = () => {
     setStep((step) => step + 1);
   };
@@ -34,6 +37,10 @@ const LoginModalContent = (props: Props) => {
   const connectionStep = (existedUserInfo: GoogleLoginRes) => {
     setExistedUserInfo(existedUserInfo);
     setStep(6);
+  };
+  const pwdSettingStep = (userWithoutPwd: CheckEmailRes) => {
+    setUserWithoutPwd(userWithoutPwd);
+    setStep(7);
   };
 
   const findUser = (isUserExisted: boolean) => {
@@ -61,6 +68,7 @@ const LoginModalContent = (props: Props) => {
             prevStep={prevStep}
             initialRef={initialRef}
             findUser={findUser}
+            pwdSettingStep={pwdSettingStep}
             inputEmail={(email: string) => {
               setUserEmail(email);
             }}
@@ -107,6 +115,8 @@ const LoginModalContent = (props: Props) => {
             validation={(verified: boolean) => {
               setVerified(verified);
             }}
+            userWithoutPwd={userWithoutPwd}
+            pwd={pwd}
           />
         );
       case 5:
@@ -127,6 +137,8 @@ const LoginModalContent = (props: Props) => {
             setStep={setStep}
           />
         );
+      case 7:
+        return <PwdSetting setPwd={setPwd} setStep={setStep} />;
     }
   };
 

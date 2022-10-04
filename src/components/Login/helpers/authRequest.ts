@@ -10,14 +10,14 @@ export interface AxiosResponse<T = object> {
   request?: never;
 }
 
-export default function useAuthRequest() {
+const useAuthRequest = () => {
   const checkEmail = async (email: string) => {
     try {
       const response: AxiosResponse = await api("/user", {
         method: "post",
         requestData: { email },
       });
-      return response;
+      return response.data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       return error.response;
@@ -76,4 +76,6 @@ export default function useAuthRequest() {
     }
   };
   return { checkEmail, userRegister, verifyOTP, userLogin, resendOTP };
-}
+};
+
+export default useAuthRequest;

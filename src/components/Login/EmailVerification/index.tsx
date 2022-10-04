@@ -18,17 +18,20 @@ import useAuthRequest from "../helpers/authRequest";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateUserInfo } from "@/store/reducer/userSlice";
+import { CheckEmailRes } from "@/components/Login/EmailLogin";
 
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
   validation: (verified: boolean) => void;
   updateLoginData: (data: any) => void;
-  onClose: any;
+  onClose: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   userId: string;
   initialRef: React.MutableRefObject<null>;
+  userWithoutPwd: CheckEmailRes | null;
+  pwd: string | null;
 };
 const EmailVerification: React.FC<Props> = (props: Props) => {
   const toast = useToast();

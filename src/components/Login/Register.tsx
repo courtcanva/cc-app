@@ -21,7 +21,7 @@ type Props = {
   nextStep: () => void;
   prevStep: () => void;
   getUserId: (userId: string) => void;
-  onClose: any;
+  onClose: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   initialRef: React.MutableRefObject<null>;
@@ -34,18 +34,18 @@ const Register: React.FC<Props> = (props: Props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [weekPasswordMsg, setWeekPasswrodMsg] = useState("");
+  const [weakPasswordMsg, setWeakPasswordMsg] = useState("");
   const { userRegister } = useAuthRequest();
   const toast = useToast();
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (firstName === "" || lastName === "" || password === "" || confirmPassword === "") {
-      setWeekPasswrodMsg("");
-      setErrorMessage("Please fill all felids with asterisk!");
+      setWeakPasswordMsg("");
+      setErrorMessage("Please fill all fields with asterisk!");
       return;
     }
     if (password !== confirmPassword) {
-      setWeekPasswrodMsg("");
+      setWeakPasswordMsg("");
       setErrorMessage("Password does not match!");
       return;
     }
@@ -53,7 +53,7 @@ const Register: React.FC<Props> = (props: Props) => {
     const passwordRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/;
     if (!passwordRegExp.test(password)) {
       setErrorMessage("");
-      setWeekPasswrodMsg(
+      setWeakPasswordMsg(
         "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character!"
       );
       return;
@@ -133,9 +133,9 @@ const Register: React.FC<Props> = (props: Props) => {
               value={confirmPassword}
               onChange={(event) => setConfirmPassword(event?.currentTarget.value)}
             />
-            {weekPasswordMsg.length > 0 && (
+            {weakPasswordMsg.length > 0 && (
               <Text fontSize="xs" color="red.500">
-                {weekPasswordMsg}
+                {weakPasswordMsg}
               </Text>
             )}
             <Button variant="shareBtn" width="300px" marginTop="20px" onClick={handleSubmit}>
