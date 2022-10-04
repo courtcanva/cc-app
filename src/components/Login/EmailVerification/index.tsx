@@ -33,34 +33,47 @@ type Props = {
   userWithoutPwd: CheckEmailRes | null;
   pwd: string | null;
 };
-const EmailVerification: React.FC<Props> = (props: Props) => {
+const EmailVerification: React.FC<Props> = ({
+  userEmail,
+  nextStep,
+  onClose,
+  setStep,
+  prevStep,
+  userId,
+  validation,
+  updateLoginData,
+  userWithoutPwd,
+  pwd,
+}) => {
   const toast = useToast();
   const [otp, setOtp] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [timer, setTimer] = useState(60);
   const dispatch = useDispatch();
   const { verifyOTP, resendOTP } = useAuthRequest();
-  const { userEmail, nextStep, onClose, setStep, prevStep, userId, validation, updateLoginData } =
-    props;
-  const CODELENGTH = 6;
+  const CODE_LENGTH = 6;
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (otp.length < CODELENGTH) {
+    if (otp.length < CODE_LENGTH) {
       setErrorMessage("Please Input a 6 digits number!");
       return;
     }
     try {
       const { data } = await verifyOTP(userId, otp);
-      if (data.tokens) {
-        localStorage.setItem("UserInfo", JSON.stringify(data));
-        dispatch(updateUserInfo(data));
-        updateLoginData(data);
-        validation(true);
-        nextStep();
+      if (userWithoutPwd) {
+        if (data.tokens) {
+          localStorage.setItem("UserInfo", JSON.stringify(data));
+          dispatch(updateUserInfo(data));
+          updateLoginData(data);
+          validation(true);
+          nextStep();
+        } else {
+          validation(false);
+          nextStep();
+        }
       } else {
-        validation(false);
-        nextStep();
+        //
       }
     } catch (err) {
       toast({
@@ -85,7 +98,7 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
     resetTimer();
   };
   const handleOtpInput = (value: string) => {
-    const verificationCode = value.length > CODELENGTH ? value.substring(0, CODELENGTH) : value;
+    const verificationCode = value.length > CODE_LENGTH ? value.substring(0, CODE_LENGTH) : value;
     setOtp(verificationCode);
   };
   const handleCloseModal = () => {
