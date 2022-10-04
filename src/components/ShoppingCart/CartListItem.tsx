@@ -4,6 +4,7 @@ import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { ICartItem } from "@/interfaces/cartItem";
 import DropDownButton from "@/components/ShoppingCart/dropDownButton";
+import { WarningIcon } from "@chakra-ui/icons";
 
 interface CartListItemProps {
   item: ICartItem;
@@ -17,22 +18,36 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
     quotationDetails: quotationDetails,
   } = item;
   const image = item.previewPic;
+  const isExpire = true;
+  // const expired = { isExpire };
+  // todo: link to mockdata
 
   return (
     <>
       <Tr alignItems="center" role="dataRow">
         <Td padding="20px 60px" sx={{ "vertical-align": "top" }} height="180px">
           {/* Todo: space for thumbnail images that implementing in the future. */}
-          <Box width="90%" height="110px" backgroundColor="blue"></Box>
+          <Flex flexDirection="row" alignItems="center" justifyContent="flex-end">
+            <Box padding="15px">{isExpire ? <WarningIcon /> : null}</Box>
+            <Box width="250px" height="110px" backgroundColor="blue"></Box>
+          </Flex>
         </Td>
         <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }} overflowX="auto">
           {productName}
+          <Box
+            color="#ff4d4d"
+            fontSize="18px"
+            fontWeight="semibold"
+            style={{ padding: "20px 0 20px 0" }}
+          >
+            {isExpire ? "Quotation has expired." : null}
+          </Box>
         </Td>
         <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }}>
           AU${quotation}
         </Td>
         <Td padding="25px 40px" fontSize="13px" sx={{ "vertical-align": "top" }}>
-          <Flex width="100%" height="120px" flexDirection="column" justifyContent="space-between">
+          <Box width="100%" height="120px" flexDirection="column">
             <DropDownButton detail={quotationDetails} />
             <ButtonGroup display="flex" justifyContent="flex-end" variant="outline" spacing="4">
               <Button
@@ -57,7 +72,7 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
                 <MdDeleteForever />
               </Button>
             </ButtonGroup>
-          </Flex>
+          </Box>
         </Td>
       </Tr>
     </>

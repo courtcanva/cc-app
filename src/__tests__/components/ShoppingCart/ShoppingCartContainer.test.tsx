@@ -14,7 +14,7 @@ describe("ShoppingCart component", () => {
 
   it("Should render shopping cart title", () => {
     renderWithMockedProvider(<ShoppingCartContainer shoppingCart={[]} />);
-    const cartTitle = screen.getByText("CART");
+    const cartTitle = screen.getByText("SHOPPING CART");
     expect(cartTitle).toBeVisible();
   });
 
