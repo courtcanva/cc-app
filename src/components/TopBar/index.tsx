@@ -145,7 +145,7 @@ const TopBar = () => {
       >
         <Flex alignItems="center" gap="3" marginRight={{ base: "55px", lg: "50px", xl: "100px" }}>
           <Tooltip hasArrow shouldWrapChildren label="Paint Bucket" fontSize="sm" placement="top">
-            <Popover isOpen={paintPopover} onOpen={open} onClose={close}>
+            <Popover isOpen={paintPopover} onOpen={open} onClose={close} returnFocusOnClose={false}>
               <PopoverTrigger>
                 <IconButton
                   aria-label="Rb"
