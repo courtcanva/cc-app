@@ -38,7 +38,6 @@ const EmailVerification: React.FC<Props> = ({
   nextStep,
   onClose,
   setStep,
-  prevStep,
   userId,
   validation,
   updateLoginData,
@@ -121,7 +120,7 @@ const EmailVerification: React.FC<Props> = ({
 
   return (
     <>
-      <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
+      <ModalOperator handleCloseModal={handleCloseModal} prevStep={() => setStep(1)} />
       <ModalHeader width="100%">
         <Flex flexDir="column" alignItems="center">
           <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">
