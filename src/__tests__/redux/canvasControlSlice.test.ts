@@ -28,7 +28,7 @@ it("should change drag disable to activate", () => {
   expect(reducer(previousState, dragSwitch(true)).dragActivate).toEqual(true);
 });
 
-it("should change drag state to true ", () => {
+it("should change drag state to true", () => {
   const previousState: canvasState = initialState;
   expect(reducer(previousState, dragState(true)).dragStart).toEqual(true);
 });
