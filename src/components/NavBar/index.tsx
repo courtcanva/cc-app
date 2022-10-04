@@ -26,11 +26,13 @@ import { googleUserMapping } from "@/utils/userMapping";
 import { userData } from "@/store/reducer/userSlice";
 import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
+import useAuthRequest from "../Login/helpers/authRequest";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
   const { loginModalOpen } = useStoreSelector((state) => state.loginModal);
   const { isCartOpen } = useStoreSelector((state) => state.cartControl);
+  const { userLogout } = useAuthRequest();
 
   // Get user info from local storage
   const getInfo = () => {
@@ -89,10 +91,11 @@ const NavigationBar = () => {
 
   /* istanbul ignore next */
   const handleLogout = () => {
-    localStorage.removeItem("UserInfo");
+    userLogout(loginData.userId);
     setLoginData(null);
     setLoginState(false);
   };
+
   const handleUndo = () => {
     dispatch(ActionCreators.undo());
   };
