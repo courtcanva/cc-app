@@ -96,12 +96,15 @@ const NavigationBar = () => {
     setLoginState(false);
   };
   const handleUndo = () => {
+    dispatch(switchSideBar(false));
     dispatch(ActionCreators.undo());
   };
   const handleRedo = () => {
+    dispatch(switchSideBar(false));
     dispatch(ActionCreators.redo());
   };
   const handleReset = () => {
+    dispatch(switchSideBar(false));
     dispatch(ActionCreators.jumpToPast(0));
   };
 

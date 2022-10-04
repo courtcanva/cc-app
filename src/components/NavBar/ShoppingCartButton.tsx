@@ -13,8 +13,9 @@ interface Props {
 const ShoppingCartButton = ({ quantity, loginState }: Props) => {
   const dispatch = useDispatch();
   const handleCartPageOpen = () => {
-    dispatch(switchSideBar(false));
-    loginState ? dispatch(switchCartDisplay()) : dispatch(useLoginModal(true));
+    loginState
+      ? dispatch(switchCartDisplay())
+      : dispatch(useLoginModal(true)) && dispatch(switchSideBar(false));
   };
 
   return (

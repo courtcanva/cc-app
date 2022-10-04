@@ -23,7 +23,7 @@ import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import BorderSvg from "@/assets/svg/TopBarSvg/border.svg";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { usePaintBucket } from "@/store/reducer/designPageButtonSlice";
+import { usePaintBucket, switchSideBar } from "@/store/reducer/designPageButtonSlice";
 import {
   getCourtNameString,
   updateBorderLength,
@@ -61,11 +61,13 @@ const TopBar = () => {
   }, [borderLength, userData]);
 
   const handleDownload = () => {
+    dispatch(switchSideBar(false));
     dispatch(resetAll());
     downloadToPDF();
   };
 
   const handleChange = (val: number) => {
+    dispatch(switchSideBar(false));
     setSliderValue(val);
     dispatch(updateBorderLength(val * 1000));
     const borderTileQty =
@@ -78,6 +80,7 @@ const TopBar = () => {
   };
 
   const handleSaveOpen = () => {
+    dispatch(switchSideBar(false));
     if (useUserId === "") {
       dispatch(useLoginModal(true));
       setSavePopoverOpen(false);
@@ -87,11 +90,13 @@ const TopBar = () => {
   };
 
   const handleSaveClose = () => {
+    dispatch(switchSideBar(false));
     setSavePopoverOpen(false);
   };
 
   const [deleteDesign] = useDeleteDesignMutation();
   const handleDeleteDesign = async (e: { preventDefault: () => void }) => {
+    dispatch(switchSideBar(false));
     e.preventDefault();
     if (useUserId === "") {
       dispatch(useLoginModal(true));
