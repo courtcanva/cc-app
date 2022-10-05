@@ -46,13 +46,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
         Shopping Cart
       </Text>
       {anyExpired > 0 && (
-        <Flex
-          marginBottom="12px"
-          padding="31px 24px"
-          width="100%"
-          backgroundColor="#F55252"
-          alignItems="center"
-        >
+        <Flex padding="31px 24px" width="100%" backgroundColor="#F55252" justifyContent="center">
           <WarningIcon width="24px" height="24px" marginRight="25px" color="#FFFDFF" />
           <Text fontSize="18px" lineHeight="22px" fontWeight="700" color="#F5F5F5">
             Sorry, some product’s quotation has expired. Please edit your cart and try again. We’re

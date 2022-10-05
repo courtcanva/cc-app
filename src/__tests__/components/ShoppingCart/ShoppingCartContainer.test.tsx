@@ -4,6 +4,7 @@ import { mockCartData } from "@/components/MockData/MockCartData";
 import DeleteComfirmModal from "@/components/DeleteComfirmModal";
 import renderWithMockedProvider from "../../utils";
 import DropDownButton from "@/components/ShoppingCart/dropDownButton";
+import { MockCartExpireData } from "@/components/MockData/MockCartNoExpireData";
 
 describe("ShoppingCart component", () => {
   test("Should render checkout button", () => {
@@ -96,5 +97,13 @@ describe("ShoppingCart component", () => {
         expect(within(listItems[index]).getByText("Quotation has expired.")).toBeVisible();
       }
     });
+  });
+
+  it("Should not render expired message if there is no expired item", () => {
+    renderWithMockedProvider(<ShoppingCartContainer shoppingCart={MockCartExpireData} />);
+    const expiredMessage = screen.queryByText(
+      "Sorry, some product’s quotation has expired. Please edit your cart and try again. We’re apologize for any inconvenience caused."
+    );
+    expect(expiredMessage).toBeNull();
   });
 });
