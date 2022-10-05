@@ -11,7 +11,7 @@ import {
 import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { switchRuler } from "@/store/reducer/designPageButtonSlice";
+import { switchRuler } from "@/store/reducer/buttonToggleSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { changeZoomScale, dragSwitch, resetAll } from "@/store/reducer/canvasControlSlice";
 import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";

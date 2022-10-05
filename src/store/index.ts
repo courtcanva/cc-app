@@ -2,7 +2,7 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import userReducer from "./reducer/userSlice";
 import tileReducer from "./reducer/tileSlice";
 import courtColorReducer from "./reducer/courtColorSlice";
-import designPageButtonReducer from "./reducer/designPageButtonSlice";
+import buttonToggleReducer from "./reducer/buttonToggleSlice";
 import { courtsApi } from "@/redux/api/courtSizeApi";
 import { priceApi } from "@/redux/api/priceApi";
 import { designApi } from "@/redux/api/designApi";
@@ -13,7 +13,6 @@ import priceBarReducer from "./reducer/priceBarSlice";
 import areaTileQtyReducer from "./reducer/areaTileQtySlice";
 import courtSpecDataReducer from "./reducer/courtSpecDataSlice";
 import designTileListReducer from "./reducer/designsTileListSlice";
-import loginModalReducer from "./reducer/loginModalSlice";
 import colorListReducer from "./reducer/colorListSlice";
 import canvasControlReducer from "./reducer/canvasControlSlice";
 
@@ -24,10 +23,9 @@ export const makeStore = () =>
       priceBar: priceBarReducer,
       courtColor: courtColorReducer,
       user: userReducer,
-      designPageButton: designPageButtonReducer,
+      buttonToggle: buttonToggleReducer,
       designName: designNameReducer,
       designTileList: designTileListReducer,
-      loginModal: loginModalReducer,
       courtSpecData: courtSpecDataReducer,
       [courtsApi.reducerPath]: courtsApi.reducer,
       [priceApi.reducerPath]: priceApi.reducer,

@@ -1,9 +1,8 @@
 import React from "react";
 import { IconButton, Circle, Stack } from "@chakra-ui/react";
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import { switchCartDisplay, switchSideBar } from "@/store/reducer/designPageButtonSlice";
+import { switchCartDisplay, useLoginModal } from "@/store/reducer/buttonToggleSlice";
 import { useDispatch } from "react-redux";
-import { useLoginModal } from "@/store/reducer/loginModalSlice";
 
 interface Props {
   quantity: number;
@@ -13,9 +12,7 @@ interface Props {
 const ShoppingCartButton = ({ quantity, loginState }: Props) => {
   const dispatch = useDispatch();
   const handleCartPageOpen = () => {
-    loginState
-      ? dispatch(switchCartDisplay())
-      : dispatch(useLoginModal(true)) && dispatch(switchSideBar(false));
+    loginState ? dispatch(switchCartDisplay()) : dispatch(useLoginModal(true));
   };
 
   return (

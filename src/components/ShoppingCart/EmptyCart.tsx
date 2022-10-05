@@ -1,6 +1,6 @@
 import { Text, Button, Flex } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { switchCartDisplay } from "@/store/reducer/designPageButtonSlice";
+import { switchCartDisplay } from "@/store/reducer/buttonToggleSlice";
 
 const EmptyCart = () => {
   const disPatch = useDispatch();

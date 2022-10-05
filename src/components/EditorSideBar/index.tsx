@@ -5,15 +5,14 @@ import EditorSideBarContent from "./EditorSideBarContent";
 import { useEffect, useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
-import { useLoginModal } from "@/store/reducer/loginModalSlice";
 import { AiOutlineTeam } from "react-icons/ai";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { switchSideBar } from "@/store/reducer/designPageButtonSlice";
+import { switchSideBar, useLoginModal } from "@/store/reducer/buttonToggleSlice";
 
 const EditorSideBar = () => {
   const dispatch = useDispatch();
   const { userId } = useStoreSelector((state) => state.user);
-  const { sideBar } = useStoreSelector((state) => state.designPageButton);
+  const { isSideBarOpen } = useStoreSelector((state) => state.buttonToggle);
   const [iconClickTitle, setIconClick] = useState("");
 
   useEffect(() => {
@@ -23,12 +22,11 @@ const EditorSideBar = () => {
   }, [userId]);
 
   useEffect(() => {
-    sideBar || setIconClick("");
-  }, [sideBar]);
+    isSideBarOpen || setIconClick("");
+  }, [isSideBarOpen]);
 
   const handleIconClick = (title: string) => {
     if (title === "Folder" && userId === "") {
-      dispatch(switchSideBar(false));
       dispatch(useLoginModal(true));
       return;
     }
@@ -79,7 +77,7 @@ const EditorSideBar = () => {
         </Flex>
       </Box>
 
-      {sideBar && (
+      {isSideBarOpen && (
         <EditorSideBarContent
           iconClickTitle={iconClickTitle}
           onHandleCloseClick={handleCloseClick}

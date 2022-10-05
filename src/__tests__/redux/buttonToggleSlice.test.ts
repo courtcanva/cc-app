@@ -1,19 +1,19 @@
 import reducer, {
   switchRuler,
   initialState,
-  DesignPageButtonState,
-} from "@/store/reducer/designPageButtonSlice";
+  ButtonToggleState,
+} from "@/store/reducer/buttonToggleSlice";
 import store from "@/store/index";
 
 it("should return the initial state", () => {
-  const state = store.getState().designPageButton;
+  const state = store.getState().buttonToggle;
   expect(state).toEqual(initialState);
 });
 
-it("should render correct design-page-button state", () => {
-  const previousState: DesignPageButtonState = initialState;
+it("should render correct button toggle state", () => {
+  const previousState: ButtonToggleState = initialState;
   expect(reducer(previousState, switchRuler(false))).toEqual({
     ...previousState,
-    ruler: false,
+    isRulerOn: false,
   });
 });
