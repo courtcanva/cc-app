@@ -16,11 +16,12 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
     design: { designName: productName },
     quotation: quotation,
     quotationDetails: quotationDetails,
+    isExpired: expired,
   } = item;
   const image = item.previewPic;
-  const isExpire = true;
-  // const expired = { isExpire };
-  // todo: link to mockdata
+  // to do: replace condition with expired when backend is ready
+
+  const expire = true;
 
   return (
     <>
@@ -29,7 +30,7 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
           {/* Todo: space for thumbnail images that implementing in the future. */}
           <Flex flexDirection="row" alignItems="center" justifyContent="flex-end">
             <Box paddingRight="40px">
-              {isExpire ? <WarningIcon style={{ color: "red", fontSize: "25px" }} /> : null}
+              {expire ? <WarningIcon style={{ color: "red", fontSize: "25px" }} /> : null}
             </Box>
             <Box width="250px" height="110px" backgroundColor="blue"></Box>
           </Flex>
@@ -42,7 +43,7 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
             fontWeight="semibold"
             style={{ padding: "20px 0 20px 0" }}
           >
-            {isExpire ? "Quotation has expired." : null}
+            {expire ? "Quotation has expired." : null}
           </Flex>
         </Td>
         <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }}>
