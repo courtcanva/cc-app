@@ -68,7 +68,9 @@ const AccountConnection: React.FC<Props> = ({
           <Icon width="240px" height="180px" viewBox="120 0 550 550" role="logo">
             <MainLogoSvg />
           </Icon>
-          <Text fontSize="medium">Account registered by this email exists</Text>
+          <Text fontSize="17px" textAlign="center">
+            Account registered by this email exists
+          </Text>
           <Text fontSize="11px" textAlign="center" fontWeight="light" marginTop="15px">
             To login with Google, please connect your existing account with your Google account
           </Text>
