@@ -15,10 +15,20 @@ type Props = {
   initialRef: React.MutableRefObject<null>;
   updateLoginData: (data: any) => void;
   getUserId: (userId: string) => void;
+  currentStep: number;
 };
 
 const LoginWithPwd: React.FC<Props> = (props: Props) => {
-  const { prevStep, nextStep, userEmail, onClose, setStep, updateLoginData, getUserId } = props;
+  const {
+    prevStep,
+    nextStep,
+    userEmail,
+    onClose,
+    setStep,
+    updateLoginData,
+    getUserId,
+    currentStep,
+  } = props;
   const [password, setPassword] = useState("");
   const [isLoginFail, setIsLoginFail] = useState(false);
   const { userLogin, resendOTP } = useAuthRequest();
@@ -57,7 +67,12 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
   };
   return (
     <>
-      <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
+      <ModalOperator
+        handleCloseModal={handleCloseModal}
+        prevStep={prevStep}
+        email={userEmail}
+        currentStep={currentStep}
+      />
       <ModalHeader width="100%" marginTop="-20px">
         <Flex flexDir="column" alignItems="center">
           <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">

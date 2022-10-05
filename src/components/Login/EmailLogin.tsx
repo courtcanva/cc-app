@@ -24,10 +24,12 @@ interface Props {
   prevStep: () => void;
   findUser: (isExisted: boolean) => void;
   inputEmail: (input: string) => void;
+  currentStep: number;
 }
 
 export default function EmailLogin(props: Props) {
-  const { initialRef, nextStep, prevStep, findUser, inputEmail, onClose, setStep } = props;
+  const { initialRef, nextStep, prevStep, findUser, inputEmail, onClose, setStep, currentStep } =
+    props;
 
   const [input, setInput] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
@@ -76,7 +78,12 @@ export default function EmailLogin(props: Props) {
   };
   return (
     <>
-      <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
+      <ModalOperator
+        handleCloseModal={handleCloseModal}
+        prevStep={prevStep}
+        email={input}
+        currentStep={currentStep}
+      />
       <ModalHeader width="100%" marginTop="-20px">
         <Flex flexDir="column" alignItems="center" width="100%">
           <Icon width="240px" height="180px" viewBox="120 0 600 600" role="logo">

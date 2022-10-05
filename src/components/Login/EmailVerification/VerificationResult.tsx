@@ -8,9 +8,11 @@ type Props = {
   verified: boolean;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   prevStep: () => void;
+  currentStep:number;
+  userEmail: string
 };
 const VerificationResult: React.FC<Props> = (props: Props) => {
-  const { onClose, verified, setStep, prevStep } = props;
+  const { onClose, verified, setStep, prevStep, currentStep,userEmail } = props;
   const handleCloseModal = () => {
     setStep(1);
     onClose();
@@ -21,7 +23,7 @@ const VerificationResult: React.FC<Props> = (props: Props) => {
   // TODO: auto login after successful verification
   return (
     <>
-      <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
+      <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} email={userEmail} currentStep={currentStep}/>
       <ModalHeader marginTop="10px">
         <Icon
           as={verified ? BsCheckCircleFill : BsXCircleFill}

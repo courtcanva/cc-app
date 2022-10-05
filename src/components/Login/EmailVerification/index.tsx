@@ -22,6 +22,7 @@ import { updateUserInfo } from "@/store/reducer/userSlice";
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
+  currentStep: number;
   validation: (verified: boolean) => void;
   updateLoginData: (data: any) => void;
   onClose: any;
@@ -37,8 +38,17 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
   const [timer, setTimer] = useState(60);
   const dispatch = useDispatch();
   const { verifyOTP, resendOTP } = useAuthRequest();
-  const { userEmail, nextStep, onClose, setStep, prevStep, userId, validation, updateLoginData } =
-    props;
+  const {
+    userEmail,
+    nextStep,
+    onClose,
+    setStep,
+    prevStep,
+    userId,
+    validation,
+    updateLoginData,
+    currentStep,
+  } = props;
   const CODELENGTH = 6;
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -105,7 +115,12 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
+      <ModalOperator
+        handleCloseModal={handleCloseModal}
+        prevStep={prevStep}
+        currentStep={currentStep}
+        email={userEmail}
+      />
       <ModalHeader width="100%">
         <Flex flexDir="column" alignItems="center">
           <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">

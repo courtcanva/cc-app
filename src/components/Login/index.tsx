@@ -47,6 +47,7 @@ const LoginModalContent = (props: Props) => {
       case 2:
         return (
           <EmailLogin
+            currentStep={step}
             setStep={setStep}
             onClose={onClose}
             nextStep={nextStep}
@@ -61,6 +62,7 @@ const LoginModalContent = (props: Props) => {
       case 3:
         return userExisted ? (
           <LoginWithPwd
+            currentStep={step}
             setStep={setStep}
             onClose={onClose}
             prevStep={prevStep}
@@ -74,6 +76,7 @@ const LoginModalContent = (props: Props) => {
           />
         ) : (
           <Register
+            currentStep={step}
             setStep={setStep}
             onClose={onClose}
             nextStep={nextStep}
@@ -88,6 +91,7 @@ const LoginModalContent = (props: Props) => {
       case 4:
         return (
           <EmailVerification
+            currentStep={step}
             nextStep={nextStep}
             prevStep={prevStep}
             setStep={setStep}
@@ -104,6 +108,8 @@ const LoginModalContent = (props: Props) => {
       case 5:
         return (
           <VerificationResult
+           currentStep={step}
+           userEmail={userEmail}
             onClose={onClose}
             verified={verified}
             prevStep={prevStep}

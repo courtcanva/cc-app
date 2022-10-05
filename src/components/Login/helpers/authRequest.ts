@@ -75,5 +75,18 @@ export default function useAuthRequest() {
       return error.response;
     }
   };
-  return { checkEmail, userRegister, verifyOTP, userLogin, resendOTP };
+
+  const deleteUser = async (email: string) => {
+    try {
+      const response: AxiosResponse = await api("/user/delete", {
+        method: "post",
+        requestData: { email },
+      });
+      return response;
+    } catch (error: any) {
+      return error.response;
+    }
+  };
+
+  return { checkEmail, userRegister, verifyOTP, userLogin, resendOTP, deleteUser };
 }

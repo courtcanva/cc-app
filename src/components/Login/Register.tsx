@@ -25,10 +25,11 @@ type Props = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   initialRef: React.MutableRefObject<null>;
+  currentStep: number;
 };
 
 const Register: React.FC<Props> = (props: Props) => {
-  const { nextStep, prevStep, userEmail, onClose, setStep, getUserId } = props;
+  const { nextStep, prevStep, userEmail, onClose, setStep, getUserId, currentStep } = props;
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -83,7 +84,12 @@ const Register: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
+      <ModalOperator
+        handleCloseModal={handleCloseModal}
+        prevStep={prevStep}
+        email={userEmail}
+        currentStep={currentStep}
+      />
       <ModalHeader width="100%" marginTop="-20px">
         <Flex flexDir="column" alignItems="center">
           <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">
