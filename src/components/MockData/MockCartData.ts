@@ -28,7 +28,7 @@ export const mockCartDataRaw: any = [
         quantity: 323,
       },
     ],
-    isExpired: false,
+    isExpired: true,
     user_id: "117321211547215290439",
     design: {
       designName: "Small Court example",
@@ -179,5 +179,6 @@ export const mockCartData: ICartItem[] = mockCartDataRaw.map((cartItem: any) => 
     quotation: cartItem.quotation,
     quotationDetails: cartItem.quotationDetails,
     previewPic: cartItem.image,
+    isExpired: cartItem.isExpired,
   };
 });

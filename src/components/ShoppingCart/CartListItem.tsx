@@ -16,35 +16,42 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
     design: { designName: productName },
     quotation: quotation,
     quotationDetails: quotationDetails,
-    isExpired: expired,
+    isExpired,
   } = item;
   const image = item.previewPic;
-  // to do: replace condition with expired when backend is ready
-
-  const expire = true;
 
   return (
     <>
       <Tr alignItems="center" role="dataRow">
-        <Td padding="20px 60px" sx={{ "vertical-align": "top" }} height="180px">
+        <Td sx={{ "vertical-align": "top" }} height="180px">
           {/* Todo: space for thumbnail images that implementing in the future. */}
-          <Flex flexDirection="row" alignItems="center" justifyContent="flex-end">
-            <Box paddingRight="40px">
-              {expire ? <WarningIcon style={{ color: "red", fontSize: "25px" }} /> : null}
+          <Flex alignItems="center">
+            <Box minWidth="57px">
+              {isExpired && (
+                <WarningIcon
+                  width="36px"
+                  height="36px"
+                  color="#F55252"
+                  data-testid="expired-icon"
+                />
+              )}
             </Box>
             <Box width="250px" height="110px" backgroundColor="blue"></Box>
           </Flex>
         </Td>
         <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }} overflowX="auto">
           {productName}
-          <Flex
-            color="#ff4d4d"
-            fontSize="18px"
-            fontWeight="semibold"
-            style={{ padding: "20px 0 20px 0" }}
-          >
-            {expire ? "Quotation has expired." : null}
-          </Flex>
+          {isExpired && (
+            <Text
+              color="#F55252"
+              fontSize="16px"
+              lineHeight="19px"
+              fontWeight="700"
+              marginTop="39px"
+            >
+              Quotation has expired.
+            </Text>
+          )}
         </Td>
         <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }}>
           AU${quotation}

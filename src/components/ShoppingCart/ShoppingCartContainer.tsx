@@ -10,7 +10,6 @@ import {
   Button,
   Flex,
   useDisclosure,
-  Box,
 } from "@chakra-ui/react";
 import CartListItem from "./CartListItem";
 import { ICartItem } from "@/interfaces/cartItem";
@@ -31,28 +30,36 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
     onClose();
   };
   const [cartItemIdToDelete, setCartItemIdToDelete] = useState("");
-  // const anyExpired = MockExpireData.filter(({ isExpire }) => isExpire === true).length;
-  const anyExpired = 1;
+
+  const anyExpired = shoppingCart.filter((item) => item.isExpired).length;
 
   return (
     <Flex flexDirection="column" alignItems="center">
-      <Text fontSize="18px" fontWeight="750" marginBottom="20px" marginTop="20px">
-        SHOPPING CART
-      </Text>
-      <Box
-        style={{ backgroundColor: "#ff4d4d" }}
-        width="100%"
-        height={anyExpired > 0 ? "100px" : "0px"}
-        textAlign="center"
-        color="white"
+      <Text
+        fontSize="32px"
+        lineHeight="39px"
+        fontWeight="700"
+        color="brand.primary"
+        marginTop="23px"
+        marginBottom="20px"
       >
-        <Text fontSize="20px" fontWeight="700" padding="25px">
-          <span style={{ padding: "20px" }}>{anyExpired > 0 ? <WarningIcon /> : null}</span>
-          {anyExpired > 0
-            ? "Sorry some products' quotations have expired. Please edit your cart and try again. We apologize for the inconveniences caused."
-            : null}
-        </Text>
-      </Box>
+        Shopping Cart
+      </Text>
+      {anyExpired > 0 && (
+        <Flex
+          marginBottom="12px"
+          padding="31px 24px"
+          width="100%"
+          backgroundColor="#F55252"
+          alignItems="center"
+        >
+          <WarningIcon width="24px" height="24px" marginRight="25px" color="#FFFDFF" />
+          <Text fontSize="18px" lineHeight="22px" fontWeight="700" color="#F5F5F5">
+            Sorry, some product’s quotation has expired. Please edit your cart and try again. We’re
+            apologize for any inconvenience caused.
+          </Text>
+        </Flex>
+      )}
 
       <TableContainer minWidth="1080px" width="100%" overflowY="auto">
         <Table
@@ -94,7 +101,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
           <Tbody>
             {shoppingCart.map((cartRow) => (
               <CartListItem
-                key={cartRow.user_id}
+                key={cartRow.id}
                 item={cartRow}
                 onDelete={(id) => {
                   setCartItemIdToDelete(id);
