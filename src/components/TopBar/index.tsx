@@ -24,10 +24,10 @@ import BorderSvg from "@/assets/svg/TopBarSvg/border.svg";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import {
-  usePaintBucket,
+  switchPaintBucket,
   switchSideBar,
-  useLoginModal,
-  useSavePopover,
+  switchLoginModal,
+  switchSavePopover,
 } from "@/store/reducer/buttonToggleSlice";
 import {
   getCourtNameString,
@@ -46,8 +46,8 @@ import { resetAll } from "@/store/reducer/canvasControlSlice";
 
 const TopBar = () => {
   const dispatch = useDispatch();
-  const open = () => dispatch(usePaintBucket(true));
-  const close = () => dispatch(usePaintBucket(false));
+  const open = () => dispatch(switchPaintBucket(true));
+  const close = () => dispatch(switchPaintBucket(false));
   const userData = useStoreSelector((state) => state.user);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const { isPaintPopoverOpen, isSavePopoverOpen } = useStoreSelector((state) => state.buttonToggle);
@@ -83,11 +83,11 @@ const TopBar = () => {
   };
 
   const handleSaveOpen = () => {
-    useUserId ? dispatch(useSavePopover(true)) : dispatch(useLoginModal(true));
+    useUserId ? dispatch(switchSavePopover(true)) : dispatch(switchLoginModal(true));
   };
 
   const handleSaveClose = () => {
-    dispatch(useSavePopover(false));
+    dispatch(switchSavePopover(false));
   };
 
   const [deleteDesign] = useDeleteDesignMutation();
@@ -95,7 +95,7 @@ const TopBar = () => {
     dispatch(switchSideBar(false));
     e.preventDefault();
     if (useUserId === "") {
-      dispatch(useLoginModal(true));
+      dispatch(switchLoginModal(true));
       return;
     }
     if (selectedCourt.courtId === "") return;

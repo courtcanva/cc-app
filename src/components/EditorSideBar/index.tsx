@@ -7,7 +7,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { AiOutlineTeam } from "react-icons/ai";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { switchSideBar, useLoginModal } from "@/store/reducer/buttonToggleSlice";
+import { switchSideBar, switchLoginModal } from "@/store/reducer/buttonToggleSlice";
 
 const EditorSideBar = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const EditorSideBar = () => {
 
   const handleIconClick = (title: string) => {
     if (title === "Folder" && userId === "") {
-      dispatch(useLoginModal(true));
+      dispatch(switchLoginModal(true));
       return;
     }
     if (title === iconClickTitle) {

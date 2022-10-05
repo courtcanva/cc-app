@@ -25,7 +25,7 @@ import { googleUserMapping } from "@/utils/userMapping";
 import { userData } from "@/store/reducer/userSlice";
 import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
-import { switchSideBar, useLoginModal } from "@/store/reducer/buttonToggleSlice";
+import { switchSideBar, switchLoginModal } from "@/store/reducer/buttonToggleSlice";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -80,10 +80,10 @@ const NavigationBar = () => {
   }, []);
 
   const handleLoginModalOpen = () => {
-    dispatch(useLoginModal(true));
+    dispatch(switchLoginModal(true));
   };
   const handleLoginModalClose = () => {
-    dispatch(useLoginModal(false));
+    dispatch(switchLoginModal(false));
   };
 
   /* istanbul ignore next */

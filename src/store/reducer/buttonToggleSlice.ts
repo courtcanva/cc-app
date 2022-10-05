@@ -35,14 +35,14 @@ export const ButtonToggleSlice = createSlice({
         isSideBarOpen: false,
       };
     },
-    usePaintBucket: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
+    switchPaintBucket: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
       return {
         ...state,
         isPaintPopoverOpen: action.payload,
         isSideBarOpen: false,
       };
     },
-    useSavePopover: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
+    switchSavePopover: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
       return {
         ...state,
         isSavePopoverOpen: action.payload,
@@ -56,7 +56,7 @@ export const ButtonToggleSlice = createSlice({
         isCartOpen: false,
       };
     },
-    useLoginModal: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
+    switchLoginModal: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
       return {
         ...state,
         isLoginModalOpen: action.payload,
@@ -69,10 +69,10 @@ export const ButtonToggleSlice = createSlice({
 export const {
   switchRuler,
   switchCartDisplay,
-  usePaintBucket,
-  useSavePopover,
+  switchPaintBucket,
+  switchSavePopover,
   switchSideBar,
-  useLoginModal,
+  switchLoginModal,
 } = ButtonToggleSlice.actions;
 
 export default ButtonToggleSlice.reducer;
