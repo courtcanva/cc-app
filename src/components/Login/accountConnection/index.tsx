@@ -23,7 +23,7 @@ interface Props {
   updateLoginData: (data: GoogleLoginRes) => void;
   onClose: () => void;
   currentStep: number;
-  userEmail: string
+  userEmail: string;
 }
 
 const AccountConnection: React.FC<Props> = ({
@@ -32,7 +32,7 @@ const AccountConnection: React.FC<Props> = ({
   updateLoginData,
   onClose,
   currentStep,
-  userEmail
+  userEmail,
 }) => {
   const dispatch = useStoreDispatch();
   // if this call is needed else where in the future, please move it to redux
@@ -59,7 +59,12 @@ const AccountConnection: React.FC<Props> = ({
   };
   return (
     <>
-      <ModalOperator handleCloseModal={() => setStep(1)} prevStep={() => setStep(1)} email={userEmail} currentStep={currentStep}/>
+      <ModalOperator
+        handleCloseModal={() => setStep(1)}
+        prevStep={() => setStep(1)}
+        email={userEmail}
+        currentStep={currentStep}
+      />
       <ModalHeader>
         <Flex flexDir="column" alignItems="center">
           <Icon width="240px" height="180px" viewBox="120 0 550 550" role="logo">
