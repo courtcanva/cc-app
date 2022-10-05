@@ -16,11 +16,12 @@ import { api } from "@/utils/axios";
 import { GoogleLoginRes } from "@/components/Login/SelectLogin";
 import { updateUserInfo } from "@/store/reducer/userSlice";
 import { useStoreDispatch } from "@/store/hooks";
+import { IUser } from "@/interfaces/user";
 
 interface Props {
   existedUserInfo: GoogleLoginRes | null;
   setStep: Dispatch<SetStateAction<number>>;
-  updateLoginData: (data: GoogleLoginRes) => void;
+  updateLoginData: (data: IUser) => void;
   onClose: () => void;
 }
 
@@ -40,7 +41,13 @@ const AccountConnection: React.FC<Props> = ({
         email: existedUserInfo?.email,
       },
     });
-    const userInfo: GoogleLoginRes = axiosResponse.data;
+    const googleLoginRes: GoogleLoginRes = axiosResponse.data;
+    const userInfo: IUser = {
+      userId: googleLoginRes.userId,
+      email: googleLoginRes.email,
+      firstName: googleLoginRes.firstName,
+      lastName: googleLoginRes.lastName,
+    };
     try {
       if (userInfo) {
         localStorage.setItem("UserInfo", JSON.stringify(userInfo));
