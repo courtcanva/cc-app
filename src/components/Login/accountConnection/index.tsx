@@ -16,11 +16,12 @@ import { api } from "@/utils/axios";
 import { GoogleLoginRes } from "@/components/Login/SelectLogin";
 import { updateUserInfo } from "@/store/reducer/userSlice";
 import { useStoreDispatch } from "@/store/hooks";
+import { IUser } from "@/interfaces/user";
 
 interface Props {
   existedUserInfo: GoogleLoginRes | null;
   setStep: Dispatch<SetStateAction<number>>;
-  updateLoginData: (data: GoogleLoginRes) => void;
+  updateLoginData: (data: IUser) => void;
   onClose: () => void;
 }
 
@@ -40,7 +41,13 @@ const AccountConnection: React.FC<Props> = ({
         email: existedUserInfo?.email,
       },
     });
-    const userInfo: GoogleLoginRes = axiosResponse.data;
+    const googleLoginRes: GoogleLoginRes = axiosResponse.data;
+    const userInfo: IUser = {
+      userId: googleLoginRes.userId,
+      email: googleLoginRes.email,
+      firstName: googleLoginRes.firstName,
+      lastName: googleLoginRes.lastName,
+    };
     try {
       if (userInfo) {
         localStorage.setItem("UserInfo", JSON.stringify(userInfo));
@@ -61,9 +68,11 @@ const AccountConnection: React.FC<Props> = ({
           <Icon width="240px" height="180px" viewBox="120 0 550 550" role="logo">
             <MainLogoSvg />
           </Icon>
-          <Text fontSize="medium">An account with your Google email exists</Text>
+          <Text fontSize="medium" textAlign="center">
+            Account registered by this email exists
+          </Text>
           <Text fontSize="11px" textAlign="center" fontWeight="light" marginTop="15px">
-            Do you want to connect your account with Google?
+            To login with Google, please connect your existing account with your Google account
           </Text>
         </Flex>
       </ModalHeader>
