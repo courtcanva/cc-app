@@ -41,18 +41,21 @@ const Register: React.FC<Props> = (props: Props) => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (firstName === "" || lastName === "" || password === "" || confirmPassword === "") {
+      setWeekPasswrodMsg("");
       setErrorMessage("Please fill all felids with asterisk!");
       return;
     }
     if (password !== confirmPassword) {
+      setWeekPasswrodMsg("");
       setErrorMessage("Password does not match!");
       return;
     }
     // regular expression from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
-    const passwordRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    const passwordRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/;
     if (!passwordRegExp.test(password)) {
+      setErrorMessage("");
       setWeekPasswrodMsg(
-        "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number!"
+        "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character!"
       );
       return;
     }

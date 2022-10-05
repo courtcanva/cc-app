@@ -1,11 +1,12 @@
 import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
 import React, { useState } from "react";
-import SelectLogin from "./SelectLogin";
+import SelectLogin, { GoogleLoginRes } from "./SelectLogin";
 import EmailLogin from "./EmailLogin";
 import LoginWithPwd from "./LoginWithPwd";
 import Register from "./Register";
 import EmailVerification from "./EmailVerification";
 import VerificationResult from "./EmailVerification/VerificationResult";
+import AccountConnection from "@/components/Login/accountConnection";
 
 interface Props {
   isOpen: boolean;
@@ -23,12 +24,18 @@ const LoginModalContent = (props: Props) => {
   const [userEmail, setUserEmail] = useState("");
   const [userId, setUserId] = useState("");
   const [verified, setVerified] = useState(true);
+  const [existedUserInfo, setExistedUserInfo] = useState<GoogleLoginRes | null>(null);
   const nextStep = () => {
     setStep((step) => step + 1);
   };
   const prevStep = () => {
     setStep((step) => step - 1);
   };
+  const connectionStep = (existedUserInfo: GoogleLoginRes) => {
+    setExistedUserInfo(existedUserInfo);
+    setStep(6);
+  };
+
   const findUser = (isUserExisted: boolean) => {
     setUserExisted(isUserExisted);
   };
@@ -42,6 +49,7 @@ const LoginModalContent = (props: Props) => {
             initialRef={initialRef}
             onClose={onClose}
             updateLoginData={updateLoginData}
+            connectionStep={connectionStep}
           />
         );
       case 2:
@@ -113,6 +121,15 @@ const LoginModalContent = (props: Props) => {
             onClose={onClose}
             verified={verified}
             prevStep={prevStep}
+            setStep={setStep}
+          />
+        );
+      case 6:
+        return (
+          <AccountConnection
+            updateLoginData={updateLoginData}
+            onClose={onClose}
+            existedUserInfo={existedUserInfo}
             setStep={setStep}
           />
         );

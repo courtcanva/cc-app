@@ -6,6 +6,7 @@ import ModalOperator from "./ModalOperater";
 import useAuthRequest from "./helpers/authRequest";
 import { useDispatch } from "react-redux";
 import { updateUserInfo } from "@/store/reducer/userSlice";
+
 type Props = {
   prevStep: () => void;
   nextStep: () => void;

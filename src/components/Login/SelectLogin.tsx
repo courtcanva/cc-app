@@ -15,35 +15,53 @@ import { FaEnvelope } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
 import React from "react";
-import { api } from "../../utils/axios";
+import { api } from "@/utils/axios";
 import { useDispatch } from "react-redux";
 import { updateUserInfo } from "@/store/reducer/userSlice";
 
 interface Props {
   onClose: () => void;
-  updateLoginData: (data: any) => void;
+  updateLoginData: (data: GoogleLoginRes) => void;
   initialRef: React.LegacyRef<HTMLButtonElement> | undefined;
   nextStep: () => void;
+  connectionStep: (existedUserInfo: GoogleLoginRes) => void;
 }
 
-export default function SelectLogin(props: Props) {
+export interface GoogleLoginRes {
+  userId: string;
+  googleId: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  needConnection: boolean;
+}
+
+const SelectLogin: React.FC<Props> = ({
+  onClose,
+  updateLoginData,
+  initialRef,
+  nextStep,
+  connectionStep,
+}) => {
   const dispatch = useDispatch();
-  const { onClose, updateLoginData, initialRef, nextStep } = props;
 
   // Send request to backend after the request from front-end has been approved by Google
   /* istanbul ignore next */
   const handleSuccess = async (codeResponse: any) => {
-    const { data } = await api("/auth/google", {
+    const axiosResponse = await api("/auth/google", {
       method: "post",
       requestData: codeResponse,
     });
+    const googleLoginRes: GoogleLoginRes = axiosResponse.data;
     try {
-      if (data) {
+      if (!googleLoginRes.needConnection) {
         // Store user data into local storage after logging
-        localStorage.setItem("UserInfo", JSON.stringify(data));
-        dispatch(updateUserInfo(data));
-        updateLoginData(data);
+        localStorage.setItem("UserInfo", JSON.stringify(googleLoginRes));
+        dispatch(updateUserInfo(googleLoginRes));
+        updateLoginData(googleLoginRes);
         onClose();
+      } else {
+        connectionStep(googleLoginRes);
       }
     } catch (err) {
       console.warn(err);
@@ -107,4 +125,6 @@ export default function SelectLogin(props: Props) {
       </ModalFooter>
     </>
   );
-}
+};
+
+export default SelectLogin;
