@@ -127,6 +127,8 @@ const LoginModalContent = (props: Props) => {
       case 6:
         return (
           <AccountConnection
+            currentStep={step}
+            userEmail=""
             updateLoginData={updateLoginData}
             onClose={onClose}
             existedUserInfo={existedUserInfo}
