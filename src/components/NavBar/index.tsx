@@ -22,6 +22,7 @@ import { defaultCourt, setDefaultCourt } from "@/store/reducer/courtSpecDataSlic
 import { defaultCourtColor, setDefaultCourtColor } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { googleUserMapping } from "@/utils/userMapping";
+import { useLoginModal } from "@/store/reducer/loginModalSlice";
 import { userData } from "@/store/reducer/userSlice";
 import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
@@ -53,12 +54,8 @@ const NavigationBar = () => {
       dispatch(getDesignsTileData([]));
       return;
     }
-    loginData.googleId
-      ? dispatch(updateUserInfo(googleUserMapping(loginData)))
-      : dispatch(updateUserInfo(loginData));
-    const design = loginData.googleId
-      ? await fetchDesignData(loginData.googleId)
-      : await fetchDesignData(loginData.userId);
+    dispatch(updateUserInfo(loginData));
+    const design = await fetchDesignData(loginData.userId);
     if (design.data === undefined) return;
     const { mappedDesignsData, mappedTileData, mappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));
