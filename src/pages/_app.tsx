@@ -10,10 +10,6 @@ import { environment } from "@/constants/environment";
 import useAuthRequest from "@/components/Login/helpers/authRequest";
 
 function CourtCanvaApp({ Component, pageProps }: AppProps) {
-  const { updateToken } = useAuthRequest();
-
-  updateToken(); // check user refresh token
-
   return (
     <Chakra>
       <GoogleOAuthProvider clientId={environment.googleClientId as string}>

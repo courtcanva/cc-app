@@ -32,7 +32,7 @@ const NavigationBar = () => {
   const dispatch = useDispatch();
   const { loginModalOpen } = useStoreSelector((state) => state.loginModal);
   const { isCartOpen } = useStoreSelector((state) => state.cartControl);
-  const { userLogout } = useAuthRequest();
+  const { userLogout, updateToken } = useAuthRequest();
 
   // Get user info from local storage
   const getInfo = () => {
@@ -75,11 +75,16 @@ const NavigationBar = () => {
     setLoginState(true);
   };
 
+  const updateUserInfoInStorage = async () => {
+    await updateToken();
+  };
   /* istanbul ignore next */
   useEffect(() => {
-    const userInfo = localStorage.getItem("UserInfo");
-    userInfo && setLoginData(JSON.parse(userInfo));
-    userInfo && setLoginState(true);
+    updateUserInfoInStorage().then(() => {
+      const userInfo = localStorage.getItem("UserInfo");
+      userInfo ? setLoginData(JSON.parse(userInfo)) : setLoginData(null);
+      userInfo ? setLoginState(true) : setLoginState(false);
+    });
   }, []);
 
   const handleLoginModalOpen = () => {

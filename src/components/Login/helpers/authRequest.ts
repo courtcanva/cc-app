@@ -99,11 +99,10 @@ export default function useAuthRequest() {
 
   const updateToken = async () => {
     try {
-      const userId = UserTokenService.getUserInfo()?.userId;
-      const rt = UserTokenService.getLocalRefreshToken();
+      const refreshToken = UserTokenService.getLocalRefreshToken();
       const response: AxiosResponse = await api("/auth/refresh", {
         method: "post",
-        requestData: { userId, rt },
+        token: refreshToken,
       });
       UserTokenService.setUserToken(response.data);
     } catch (error) {
