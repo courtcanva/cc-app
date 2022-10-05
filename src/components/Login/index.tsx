@@ -108,8 +108,8 @@ const LoginModalContent = (props: Props) => {
       case 5:
         return (
           <VerificationResult
-           currentStep={step}
-           userEmail={userEmail}
+            currentStep={step}
+            userEmail={userEmail}
             onClose={onClose}
             verified={verified}
             prevStep={prevStep}
