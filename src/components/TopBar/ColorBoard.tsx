@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 import { useDispatch } from "react-redux";
-import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
+import { switchPaintBucket } from "@/store/reducer/buttonToggleSlice";
 import { useGetCourtColorQuery } from "@/redux/api/courtColorAPi";
 import { IColor } from "@/interfaces/color";
 import { getColorList } from "@/store/reducer/colorListSlice";
@@ -18,7 +18,7 @@ const ColorBoard: React.FC = () => {
   }, [data]);
   const handleChangeColor = (value: string): void => {
     dispatch(changeSelectedColor(value));
-    dispatch(usePaintBucket(false));
+    dispatch(switchPaintBucket(false));
   };
 
   return (
