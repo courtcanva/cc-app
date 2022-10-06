@@ -15,7 +15,7 @@ import CartListItem from "./CartListItem";
 import { ICartItem } from "@/interfaces/cartItem";
 import DeleteComfirmModal from "@/components/DeleteComfirmModal";
 import { useDeleteItemFromCartMutation } from "@/redux/api/cartApi";
-import { WarningIcon } from "@chakra-ui/icons";
+import { RiErrorWarningLine } from "react-icons/ri";
 
 interface userCartList {
   shoppingCart: ICartItem[];
@@ -30,8 +30,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
     onClose();
   };
   const [cartItemIdToDelete, setCartItemIdToDelete] = useState("");
-
-  const anyExpired = shoppingCart.filter((item) => item.isExpired).length;
+  const anyExpired = shoppingCart.some((item) => item.isExpired);
 
   return (
     <Flex flexDirection="column" alignItems="center">
@@ -45,11 +44,17 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
       >
         Shopping Cart
       </Text>
-      {anyExpired > 0 && (
+      {anyExpired && (
         <Flex padding="31px 24px" width="100%" backgroundColor="#F55252" justifyContent="center">
-          <WarningIcon width="24px" height="24px" marginRight="25px" color="#FFFDFF" />
-          <Text fontSize="18px" lineHeight="22px" fontWeight="700" color="#F5F5F5">
-            Sorry, some product’s quotation has expired. Please edit your cart and try again. We’re
+          <RiErrorWarningLine size={24} color="#FFFDFF" />
+          <Text
+            fontSize="18px"
+            lineHeight="22px"
+            fontWeight="700"
+            marginLeft="25px"
+            color="#F5F5F5"
+          >
+            Sorry, some product’s quotation has expired. Please edit your cart and try again. We
             apologize for any inconvenience caused.
           </Text>
         </Flex>
@@ -88,7 +93,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                 padding="25px 40px"
                 sx={{ "text-transform": "capitalize" }}
               >
-                Quotation Detials
+                Quotation Details
               </Th>
             </Tr>
           </Thead>

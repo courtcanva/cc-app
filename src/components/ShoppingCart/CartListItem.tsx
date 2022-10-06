@@ -4,7 +4,7 @@ import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { ICartItem } from "@/interfaces/cartItem";
 import DropDownButton from "@/components/ShoppingCart/dropDownButton";
-import { WarningIcon } from "@chakra-ui/icons";
+import { RiErrorWarningLine } from "react-icons/ri";
 
 interface CartListItemProps {
   item: ICartItem;
@@ -28,12 +28,7 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
           <Flex alignItems="center">
             <Box minWidth="57px">
               {isExpired && (
-                <WarningIcon
-                  width="36px"
-                  height="36px"
-                  color="#F55252"
-                  data-testid="expired-icon"
-                />
+                <RiErrorWarningLine size={36} color="#F55252" data-testid="expired-icon" />
               )}
             </Box>
             <Box width="250px" height="110px" backgroundColor="blue"></Box>

@@ -79,26 +79,30 @@ describe("ShoppingCart component", () => {
     );
   });
 
-  it("Should render expired message", () => {
+  it("Should render expired message when one or more item expired", () => {
     renderWithMockedProvider(<ShoppingCartContainer shoppingCart={mockCartData} />);
     const expiredMessage = screen.getByText(
-      "Sorry, some product’s quotation has expired. Please edit your cart and try again. We’re apologize for any inconvenience caused."
+      "Sorry, some product’s quotation has expired. Please edit your cart and try again. We apologize for any inconvenience caused."
     );
     expect(expiredMessage).toBeVisible();
   });
 
-  it("Should render expired icon and expired quotation message", () => {
-    renderWithMockedProvider(<ShoppingCartContainer shoppingCart={mockCartData} />);
-    const listItems = screen.queryAllByRole("dataRow");
-    mockCartData.forEach((item, index) => {
-      if (item.isExpired) {
-        expect(within(listItems[index]).getByTestId("expired-icon")).toBeVisible();
-        expect(within(listItems[index]).getByText("Quotation has expired.")).toBeVisible();
-      } else {
-        expect(within(listItems[index]).queryByTestId("expired-icon")).toBeNull();
-        expect(within(listItems[index]).queryByText("Quotation has expired.")).toBeNull();
-      }
-    });
+  it("Should render expired icon and expired quotation message when item is expired", () => {
+    renderWithMockedProvider(<ShoppingCartContainer shoppingCart={[mockCartData[0]]} />);
+    const expireIcon = screen.getByTestId("expired-icon");
+    const expireText = screen.getByText("Quotation has expired.");
+    expect(expireText).toBeVisible();
+    expect(expireIcon).toBeVisible();
+  });
+
+  it("Should not render expired icon and expired quotation message when item is not expired", () => {
+    renderWithMockedProvider(
+      <ShoppingCartContainer shoppingCart={[mockCartData[1], mockCartData[2]]} />
+    );
+    const expireIcon = screen.queryByTestId("expired-icon");
+    const expireText = screen.queryByText("Quotation has expired.");
+    expect(expireText).toBeNull();
+    expect(expireIcon).toBeNull();
   });
 
   it("Should not render expired message if there is no expired item", () => {
@@ -106,7 +110,7 @@ describe("ShoppingCart component", () => {
       <ShoppingCartContainer shoppingCart={[mockCartData[1], mockCartData[2]]} />
     );
     const expiredMessage = screen.queryByText(
-      "Sorry, some product’s quotation has expired. Please edit your cart and try again. We’re apologize for any inconvenience caused."
+      "Sorry, some product’s quotation has expired. Please edit your cart and try again. We apologize for any inconvenience caused."
     );
     expect(expiredMessage).toBeNull();
   });
