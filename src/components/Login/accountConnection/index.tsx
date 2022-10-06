@@ -62,7 +62,6 @@ const AccountConnection: React.FC<Props> = ({
       <ModalOperator
         handleCloseModal={() => setStep(1)}
         prevStep={() => setStep(1)}
-        email={userEmail}
         currentStep={currentStep}
       />
       <ModalHeader>

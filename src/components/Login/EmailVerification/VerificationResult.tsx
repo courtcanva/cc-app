@@ -26,7 +26,6 @@ const VerificationResult: React.FC<Props> = (props: Props) => {
       <ModalOperator
         handleCloseModal={handleCloseModal}
         prevStep={prevStep}
-        email={userEmail}
         currentStep={currentStep}
       />
       <ModalHeader marginTop="10px">

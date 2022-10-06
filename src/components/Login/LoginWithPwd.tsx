@@ -71,7 +71,6 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
       <ModalOperator
         handleCloseModal={handleCloseModal}
         prevStep={prevStep}
-        email={userEmail}
         currentStep={currentStep}
       />
       <ModalHeader width="100%" marginTop="-20px">

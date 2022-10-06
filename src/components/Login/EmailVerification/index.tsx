@@ -119,7 +119,6 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
         handleCloseModal={handleCloseModal}
         prevStep={prevStep}
         currentStep={currentStep}
-        email={userEmail}
       />
       <ModalHeader width="100%">
         <Flex flexDir="column" alignItems="center">

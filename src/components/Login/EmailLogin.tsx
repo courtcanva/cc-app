@@ -81,7 +81,6 @@ export default function EmailLogin(props: Props) {
       <ModalOperator
         handleCloseModal={handleCloseModal}
         prevStep={prevStep}
-        email={input}
         currentStep={currentStep}
       />
       <ModalHeader width="100%" marginTop="-20px">
