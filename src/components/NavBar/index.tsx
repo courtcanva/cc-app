@@ -21,15 +21,14 @@ import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { defaultCourt, setDefaultCourt } from "@/store/reducer/courtSpecDataSlice";
 import { defaultCourtColor, setDefaultCourtColor } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
-import { useLoginModal } from "@/store/reducer/loginModalSlice";
 import { userData } from "@/store/reducer/userSlice";
 import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
+import { switchSideBar, switchLoginModal } from "@/store/reducer/buttonToggleSlice";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
-  const { loginModalOpen } = useStoreSelector((state) => state.loginModal);
-  const { isCartOpen } = useStoreSelector((state) => state.cartControl);
+  const { isCartOpen, isLoginModalOpen } = useStoreSelector((state) => state.buttonToggle);
 
   // Get user info from local storage
   const getInfo = () => {
@@ -76,10 +75,10 @@ const NavigationBar = () => {
   }, []);
 
   const handleLoginModalOpen = () => {
-    dispatch(useLoginModal(true));
+    dispatch(switchLoginModal(true));
   };
   const handleLoginModalClose = () => {
-    dispatch(useLoginModal(false));
+    dispatch(switchLoginModal(false));
   };
 
   /* istanbul ignore next */
@@ -89,12 +88,15 @@ const NavigationBar = () => {
     setLoginState(false);
   };
   const handleUndo = () => {
+    dispatch(switchSideBar(false));
     dispatch(ActionCreators.undo());
   };
   const handleRedo = () => {
+    dispatch(switchSideBar(false));
     dispatch(ActionCreators.redo());
   };
   const handleReset = () => {
+    dispatch(switchSideBar(false));
     dispatch(ActionCreators.jumpToPast(0));
   };
 
@@ -177,7 +179,7 @@ const NavigationBar = () => {
           <Button onClick={handleLogout}>Sign out</Button>
         )}
         <LoginModalContent
-          isOpen={loginModalOpen}
+          isOpen={isLoginModalOpen}
           onClose={handleLoginModalClose}
           updateLoginData={updateLoginData}
         ></LoginModalContent>
