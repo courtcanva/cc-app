@@ -11,7 +11,7 @@ interface DimensionTextProps {
 
 const DimensionText: React.FC<DimensionTextProps> = ({ startPoint, text, color }) => {
   const { borderLength } = useStoreSelector((state) => state.courtSpecData.activeCourt);
-  const { ruler } = useStoreSelector((state) => state.rulerControl);
+  const { isRulerOn } = useStoreSelector((state) => state.buttonToggle);
   const borderSize = borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : borderLength;
   return (
     <Text
@@ -25,7 +25,7 @@ const DimensionText: React.FC<DimensionTextProps> = ({ startPoint, text, color }
       fill={color}
       x={startPoint.X}
       y={startPoint.Y}
-      visible={ruler}
+      visible={isRulerOn}
     />
   );
 };

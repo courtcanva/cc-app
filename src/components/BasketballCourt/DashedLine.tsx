@@ -10,7 +10,7 @@ interface DashedLineProps {
 
 const DashedLine: React.FC<DashedLineProps> = ({ startPoint, borderLength }) => {
   const { courtAreaYLength } = useStoreSelector((state) => state.courtSpecData.activeCourt);
-  const { ruler } = useStoreSelector((state) => state.rulerControl);
+  const { isRulerOn } = useStoreSelector((state) => state.buttonToggle);
   const startPointX = startPoint.X - borderLength;
   const startPointY = startPoint.Y - borderLength;
   const courtHeight = courtAreaYLength;
@@ -29,7 +29,7 @@ const DashedLine: React.FC<DashedLineProps> = ({ startPoint, borderLength }) => 
         stroke="white"
         strokeWidth={dashedWhiteLine}
         dash={[60, 60]}
-        visible={ruler}
+        visible={isRulerOn}
       />
       <Shape
         sceneFunc={(context, shape) => {
@@ -43,7 +43,7 @@ const DashedLine: React.FC<DashedLineProps> = ({ startPoint, borderLength }) => 
         stroke="white"
         strokeWidth={dashedWhiteLine}
         dash={[60, 60]}
-        visible={ruler}
+        visible={isRulerOn}
       />
     </>
   );
