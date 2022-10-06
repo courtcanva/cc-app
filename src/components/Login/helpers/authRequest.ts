@@ -76,7 +76,5 @@ export default function useAuthRequest() {
     }
   };
 
-
-
   return { checkEmail, userRegister, verifyOTP, userLogin, resendOTP };
 }
