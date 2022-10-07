@@ -117,7 +117,6 @@ const LoginModalContent = (props: Props) => {
         return (
           <VerificationResult
             currentStep={step}
-            userEmail={userEmail}
             onClose={onClose}
             verified={verified}
             prevStep={prevStep}
@@ -128,7 +127,6 @@ const LoginModalContent = (props: Props) => {
         return (
           <AccountConnection
             currentStep={step}
-            userEmail=""
             updateLoginData={updateLoginData}
             onClose={onClose}
             existedUserInfo={existedUserInfo}

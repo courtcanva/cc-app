@@ -9,7 +9,11 @@ type Props = {
 
 const ModalOperator: React.FC<Props> = ({ handleCloseModal, prevStep, currentStep }) => {
   return (
-    <Flex width="100%" flexDirection="row" justifyContent="space-between">
+    <Flex
+      width="100%"
+      flexDirection="row"
+      justifyContent={currentStep !== 4 ? "space-between" : "end"}
+    >
       {currentStep !== 4 ? (
         <IconButton
           aria-label="Go Back"

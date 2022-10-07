@@ -23,7 +23,6 @@ interface Props {
   updateLoginData: (data: GoogleLoginRes) => void;
   onClose: () => void;
   currentStep: number;
-  userEmail: string;
 }
 
 const AccountConnection: React.FC<Props> = ({
@@ -32,7 +31,6 @@ const AccountConnection: React.FC<Props> = ({
   updateLoginData,
   onClose,
   currentStep,
-  userEmail,
 }) => {
   const dispatch = useStoreDispatch();
   // if this call is needed else where in the future, please move it to redux
