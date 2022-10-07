@@ -12,7 +12,7 @@ const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint, borderLengt
   const { courtAreaXLength, courtAreaYLength } = useStoreSelector(
     (state) => state.courtSpecData.activeCourt
   );
-  const { isRulerOn } = useStoreSelector((state) => state.buttonToggle);
+  const { ruler } = useStoreSelector((state) => state.rulerControl);
   const dimensionColor = borderLength < MIN_DIMENSION_BOX ? "black" : "white";
   const borderSize = borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : borderLength;
   const arrowSize = 100;
@@ -54,7 +54,7 @@ const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint, borderLengt
         fill={dimensionColor}
         stroke={dimensionColor}
         strokeWidth={arrowWeight}
-        visible={isRulerOn}
+        visible={ruler}
       />
       <Arrow // court x length right arrow
         scaleX={-1}
@@ -70,7 +70,7 @@ const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint, borderLengt
         fill={dimensionColor}
         stroke={dimensionColor}
         strokeWidth={arrowWeight}
-        visible={isRulerOn}
+        visible={ruler}
       />
       <Arrow // court Y length top arrow
         pointerLength={arrowSize}
@@ -84,7 +84,7 @@ const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint, borderLengt
         fill={dimensionColor}
         stroke={dimensionColor}
         strokeWidth={arrowWeight}
-        visible={isRulerOn}
+        visible={ruler}
       />
       <Arrow // court Y length bottom arrow
         scaleY={-1}
@@ -100,7 +100,7 @@ const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint, borderLengt
         fill={dimensionColor}
         stroke={dimensionColor}
         strokeWidth={arrowWeight}
-        visible={isRulerOn}
+        visible={ruler}
       />
     </>
   );

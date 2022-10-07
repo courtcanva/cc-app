@@ -23,12 +23,7 @@ import UploadSvg from "@/assets/svg/TopBarSvg/upload.svg";
 import BorderSvg from "@/assets/svg/TopBarSvg/border.svg";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import {
-  switchPaintBucket,
-  switchSideBar,
-  switchLoginModal,
-  switchSavePopover,
-} from "@/store/reducer/buttonToggleSlice";
+import { usePaintBucket } from "@/store/reducer/paintBucketSlice";
 import {
   getCourtNameString,
   updateBorderLength,
@@ -42,21 +37,23 @@ import { fetchDesignData, useDeleteDesignMutation } from "@/redux/api/designApi"
 import { designMapping } from "@/utils/designMapping";
 import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
+import { useLoginModal } from "@/store/reducer/loginModalSlice";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
 
 const TopBar = () => {
   const dispatch = useDispatch();
-  const open = () => dispatch(switchPaintBucket(true));
-  const close = () => dispatch(switchPaintBucket(false));
+  const open = () => dispatch(usePaintBucket(true));
+  const close = () => dispatch(usePaintBucket(false));
   const userData = useStoreSelector((state) => state.user);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
-  const { isPaintPopoverOpen, isSavePopoverOpen } = useStoreSelector((state) => state.buttonToggle);
+  const { paintPopover } = useStoreSelector((state) => state.paintBucket);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
 
   const nameString = getCourtNameString(selectedCourt);
   const borderLength = selectedCourt.borderLength;
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
   const [useUserId, setUserId] = useState(userData.userId);
+  const [savePopoverOpen, setSavePopoverOpen] = useState(false);
 
   useEffect(() => {
     setSliderValue(borderLength / 1000);
@@ -64,13 +61,11 @@ const TopBar = () => {
   }, [borderLength, userData]);
 
   const handleDownload = () => {
-    dispatch(switchSideBar(false));
     dispatch(resetAll());
     downloadToPDF();
   };
 
   const handleChange = (val: number) => {
-    dispatch(switchSideBar(false));
     setSliderValue(val);
     dispatch(updateBorderLength(val * 1000));
     const borderTileQty =
@@ -83,19 +78,23 @@ const TopBar = () => {
   };
 
   const handleSaveOpen = () => {
-    useUserId ? dispatch(switchSavePopover(true)) : dispatch(switchLoginModal(true));
+    if (useUserId === "") {
+      dispatch(useLoginModal(true));
+      setSavePopoverOpen(false);
+      return;
+    }
+    setSavePopoverOpen(true);
   };
 
   const handleSaveClose = () => {
-    dispatch(switchSavePopover(false));
+    setSavePopoverOpen(false);
   };
 
   const [deleteDesign] = useDeleteDesignMutation();
   const handleDeleteDesign = async (e: { preventDefault: () => void }) => {
-    dispatch(switchSideBar(false));
     e.preventDefault();
     if (useUserId === "") {
-      dispatch(switchLoginModal(true));
+      dispatch(useLoginModal(true));
       return;
     }
     if (selectedCourt.courtId === "") return;
@@ -141,12 +140,7 @@ const TopBar = () => {
       >
         <Flex alignItems="center" gap="3" marginRight={{ base: "55px", lg: "50px", xl: "100px" }}>
           <Tooltip hasArrow shouldWrapChildren label="Paint Bucket" fontSize="sm" placement="top">
-            <Popover
-              isOpen={isPaintPopoverOpen}
-              onOpen={open}
-              onClose={close}
-              returnFocusOnClose={false}
-            >
+            <Popover isOpen={paintPopover} onOpen={open} onClose={close}>
               <PopoverTrigger>
                 <IconButton
                   aria-label="Rb"
@@ -237,7 +231,7 @@ const TopBar = () => {
           onClick={handleDownload}
           data-testid="download-btn"
         />
-        <Popover isOpen={isSavePopoverOpen} onClose={handleSaveClose}>
+        <Popover isOpen={savePopoverOpen} onClose={handleSaveClose}>
           <PopoverTrigger>
             <IconButton
               aria-label="DocSvg"

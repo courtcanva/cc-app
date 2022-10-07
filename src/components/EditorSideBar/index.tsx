@@ -5,41 +5,43 @@ import EditorSideBarContent from "./EditorSideBarContent";
 import { useEffect, useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
+import { useLoginModal } from "@/store/reducer/loginModalSlice";
 import { AiOutlineTeam } from "react-icons/ai";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { switchSideBar, switchLoginModal } from "@/store/reducer/buttonToggleSlice";
 
 const EditorSideBar = () => {
   const dispatch = useDispatch();
   const { userId } = useStoreSelector((state) => state.user);
-  const { isSideBarOpen } = useStoreSelector((state) => state.buttonToggle);
+  const [isOpen, setIsOpen] = useState(false);
   const [iconClickTitle, setIconClick] = useState("");
+  const [checkUser, setCheckUser] = useState(userId);
 
   useEffect(() => {
+    setCheckUser(userId);
     if (iconClickTitle === "Folder" && userId === "") {
-      dispatch(switchSideBar(false));
+      setIsOpen(false);
+      setIconClick("");
     }
   }, [userId]);
 
-  useEffect(() => {
-    isSideBarOpen || setIconClick("");
-  }, [isSideBarOpen]);
-
   const handleIconClick = (title: string) => {
-    if (title === "Folder" && userId === "") {
-      dispatch(switchLoginModal(true));
+    if (iconClickTitle === title && isOpen) {
+      setIsOpen(false);
+      setIconClick("");
       return;
     }
-    if (title === iconClickTitle) {
-      dispatch(switchSideBar(false));
+    if (title === "Folder" && checkUser === "") {
+      setIsOpen(false);
+      setIconClick("");
+      dispatch(useLoginModal(true));
       return;
     }
-    dispatch(switchSideBar(true));
+    setIsOpen(true);
     setIconClick(title);
   };
-
   const handleCloseClick = () => {
-    dispatch(switchSideBar(false));
+    setIsOpen(false);
+    setIconClick("");
   };
 
   return (
@@ -77,7 +79,7 @@ const EditorSideBar = () => {
         </Flex>
       </Box>
 
-      {isSideBarOpen && (
+      {isOpen && (
         <EditorSideBarContent
           iconClickTitle={iconClickTitle}
           onHandleCloseClick={handleCloseClick}

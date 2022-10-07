@@ -8,7 +8,7 @@ import EmptyCart from "./EmptyCart";
 import { ICartItem } from "@/interfaces/cartItem";
 
 const ShoppingCart = () => {
-  const isCartOpen = useStoreSelector((state) => state.buttonToggle.isCartOpen);
+  const isCartOpen = useStoreSelector((state) => state.cartControl.isCartOpen);
   const currentUserId = useStoreSelector(userData).userId;
   const { data } = useGetItemQuantityQuery(currentUserId ? currentUserId : skipToken);
   const quantity = data?.length;
