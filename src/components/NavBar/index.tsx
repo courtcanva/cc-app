@@ -21,8 +21,6 @@ import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { defaultCourt, setDefaultCourt } from "@/store/reducer/courtSpecDataSlice";
 import { defaultCourtColor, setDefaultCourtColor } from "@/store/reducer/tileSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
-import { googleUserMapping } from "@/utils/userMapping";
-import { useLoginModal } from "@/store/reducer/loginModalSlice";
 import { userData } from "@/store/reducer/userSlice";
 import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
