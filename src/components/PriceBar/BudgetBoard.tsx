@@ -5,7 +5,7 @@ import { ICartItem } from "@/interfaces/cartItem";
 import { saveDesignMapping } from "@/utils/designMapping";
 import { IDesign, ITileColor } from "@/interfaces/design";
 import { useDispatch } from "react-redux";
-import { useLoginModal } from "@/store/reducer/loginModalSlice";
+import { switchLoginModal } from "@/store/reducer/buttonToggleSlice";
 
 interface IBudgetBoardprops {
   useTotalPrice: string;
@@ -40,7 +40,7 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
   };
 
   const handleAddToCart = () => {
-    userId ? addToCart({ item: newCartItem }) : dispatch(useLoginModal(true));
+    userId ? addToCart({ item: newCartItem }) : dispatch(switchLoginModal(true));
   };
 
   return (

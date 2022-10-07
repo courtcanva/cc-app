@@ -2,20 +2,17 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import userReducer from "./reducer/userSlice";
 import tileReducer from "./reducer/tileSlice";
 import courtColorReducer from "./reducer/courtColorSlice";
-import rulerControlReducer from "./reducer/rulerControlSlice";
+import buttonToggleReducer from "./reducer/buttonToggleSlice";
 import { courtsApi } from "@/redux/api/courtSizeApi";
 import { priceApi } from "@/redux/api/priceApi";
 import { designApi } from "@/redux/api/designApi";
 import { courtColorApi } from "@/redux/api/courtColorAPi";
 import { cartApi } from "@/redux/api/cartApi";
 import designNameReducer from "./reducer/designNameSlice";
-import paintBucketReducer from "./reducer/paintBucketSlice";
 import priceBarReducer from "./reducer/priceBarSlice";
 import areaTileQtyReducer from "./reducer/areaTileQtySlice";
 import courtSpecDataReducer from "./reducer/courtSpecDataSlice";
 import designTileListReducer from "./reducer/designsTileListSlice";
-import loginModalReducer from "./reducer/loginModalSlice";
-import cartControlReducer from "./reducer/cartControlSlice";
 import colorListReducer from "./reducer/colorListSlice";
 import canvasControlReducer from "./reducer/canvasControlSlice";
 
@@ -26,11 +23,9 @@ export const makeStore = () =>
       priceBar: priceBarReducer,
       courtColor: courtColorReducer,
       user: userReducer,
-      rulerControl: rulerControlReducer,
+      buttonToggle: buttonToggleReducer,
       designName: designNameReducer,
       designTileList: designTileListReducer,
-      paintBucket: paintBucketReducer,
-      loginModal: loginModalReducer,
       courtSpecData: courtSpecDataReducer,
       [courtsApi.reducerPath]: courtsApi.reducer,
       [priceApi.reducerPath]: priceApi.reducer,
@@ -38,7 +33,6 @@ export const makeStore = () =>
       [courtColorApi.reducerPath]: courtColorApi.reducer,
       [cartApi.reducerPath]: cartApi.reducer,
       areaTileQty: areaTileQtyReducer,
-      cartControl: cartControlReducer,
       colorList: colorListReducer,
       canvasControl: canvasControlReducer,
     },
