@@ -12,7 +12,7 @@ const ModalOperator: React.FC<Props> = ({ handleCloseModal, prevStep, currentSte
     <Flex
       width="100%"
       flexDirection="row"
-      justifyContent={currentStep !== 4 ? "space-between" : "end"}
+      justifyContent="space-between"
     >
       {currentStep !== 4 ? (
         <IconButton
