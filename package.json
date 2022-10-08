@@ -24,7 +24,6 @@
     "pre-commit": "npm run prettier && npm run lint && npm run type-check && npm run test && npx --no-install"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
