@@ -24,7 +24,7 @@ interface Props {
   prevStep: () => void;
   findUser: (isExisted: boolean) => void;
   inputEmail: (input: string) => void;
-  currentStep: number;
+  currentStep: string;
 }
 
 export default function EmailLogin(props: Props) {

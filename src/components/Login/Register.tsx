@@ -25,7 +25,7 @@ type Props = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   initialRef: React.MutableRefObject<null>;
-  currentStep: number;
+  currentStep: string;
 };
 
 const Register: React.FC<Props> = (props: Props) => {

@@ -22,7 +22,7 @@ import { updateUserInfo } from "@/store/reducer/userSlice";
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
-  currentStep: number;
+  currentStep: string;
   validation: (verified: boolean) => void;
   updateLoginData: (data: any) => void;
   onClose: any;

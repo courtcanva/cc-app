@@ -16,7 +16,7 @@ type Props = {
   initialRef: React.MutableRefObject<null>;
   updateLoginData: (data: any) => void;
   getUserId: (userId: string) => void;
-  currentStep: number;
+  currentStep: string;
 };
 
 const LoginWithPwd: React.FC<Props> = (props: Props) => {

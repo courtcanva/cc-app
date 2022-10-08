@@ -8,7 +8,7 @@ type Props = {
   verified: boolean;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   prevStep: () => void;
-  currentStep: number;
+  currentStep: string;
 };
 const VerificationResult: React.FC<Props> = (props: Props) => {
   const { onClose, verified, setStep, prevStep, currentStep } = props;

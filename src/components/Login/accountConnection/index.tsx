@@ -22,7 +22,7 @@ interface Props {
   setStep: Dispatch<SetStateAction<number>>;
   updateLoginData: (data: GoogleLoginRes) => void;
   onClose: () => void;
-  currentStep: number;
+  currentStep: string;
 }
 
 const AccountConnection: React.FC<Props> = ({

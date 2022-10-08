@@ -4,7 +4,7 @@ import useAuthRequest from "../helpers/authRequest";
 type Props = {
   handleCloseModal: () => void;
   prevStep: () => void;
-  currentStep: number;
+  currentStep: string;
 };
 
 const ModalOperator: React.FC<Props> = ({ handleCloseModal, prevStep, currentStep }) => {
@@ -12,9 +12,9 @@ const ModalOperator: React.FC<Props> = ({ handleCloseModal, prevStep, currentSte
     <Flex
       width="100%"
       flexDirection="row"
-      justifyContent={currentStep !== 4 ? "space-between" : "end"}
+      justifyContent={currentStep !== "EmailVerification" ? "space-between" : "end"}
     >
-      {currentStep !== 4 ? (
+      {currentStep !== "EmailVerification" ? (
         <IconButton
           aria-label="Go Back"
           role="goBack"

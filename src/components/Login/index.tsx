@@ -25,6 +25,15 @@ const LoginModalContent = (props: Props) => {
   const [userId, setUserId] = useState("");
   const [verified, setVerified] = useState(true);
   const [existedUserInfo, setExistedUserInfo] = useState<GoogleLoginRes | null>(null);
+  enum stepName {
+    SelectLogin = "SelectLogin",
+    EmailLogin = "EmailLogin",
+    LoginWithPwd = "LoginWithPwd",
+    Register = "Register",
+    EmailVerification = "EmailVerification",
+    VerificationResult = "VerificationResult",
+    AccountConnection = "AccountConnection",
+  }
   const nextStep = () => {
     setStep((step) => step + 1);
   };
@@ -55,7 +64,7 @@ const LoginModalContent = (props: Props) => {
       case 2:
         return (
           <EmailLogin
-            currentStep={step}
+            currentStep={stepName.EmailLogin}
             setStep={setStep}
             onClose={onClose}
             nextStep={nextStep}
@@ -70,7 +79,7 @@ const LoginModalContent = (props: Props) => {
       case 3:
         return userExisted ? (
           <LoginWithPwd
-            currentStep={step}
+            currentStep={stepName.LoginWithPwd}
             setStep={setStep}
             onClose={onClose}
             prevStep={prevStep}
@@ -84,7 +93,7 @@ const LoginModalContent = (props: Props) => {
           />
         ) : (
           <Register
-            currentStep={step}
+            currentStep={stepName.Register}
             setStep={setStep}
             onClose={onClose}
             nextStep={nextStep}
@@ -99,7 +108,7 @@ const LoginModalContent = (props: Props) => {
       case 4:
         return (
           <EmailVerification
-            currentStep={step}
+            currentStep={stepName.EmailVerification}
             nextStep={nextStep}
             prevStep={prevStep}
             setStep={setStep}
@@ -116,7 +125,7 @@ const LoginModalContent = (props: Props) => {
       case 5:
         return (
           <VerificationResult
-            currentStep={step}
+            currentStep={stepName.VerificationResult}
             onClose={onClose}
             verified={verified}
             prevStep={prevStep}
@@ -126,7 +135,7 @@ const LoginModalContent = (props: Props) => {
       case 6:
         return (
           <AccountConnection
-            currentStep={step}
+            currentStep={stepName.AccountConnection}
             updateLoginData={updateLoginData}
             onClose={onClose}
             existedUserInfo={existedUserInfo}
