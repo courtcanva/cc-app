@@ -16,12 +16,14 @@ import { api } from "@/utils/axios";
 import { GoogleLoginRes } from "@/components/Login/SelectLogin";
 import { updateUserInfo } from "@/store/reducer/userSlice";
 import { useStoreDispatch } from "@/store/hooks";
+import { IUser } from "@/interfaces/user";
 
 interface Props {
   existedUserInfo: GoogleLoginRes | null;
   setStep: Dispatch<SetStateAction<number>>;
-  updateLoginData: (data: GoogleLoginRes) => void;
+  updateLoginData: (data: IUser) => void;
   onClose: () => void;
+  currentStep: string;
 }
 
 const AccountConnection: React.FC<Props> = ({
@@ -29,6 +31,7 @@ const AccountConnection: React.FC<Props> = ({
   setStep,
   updateLoginData,
   onClose,
+  currentStep,
 }) => {
   const dispatch = useStoreDispatch();
   // if this call is needed else where in the future, please move it to redux
@@ -40,7 +43,13 @@ const AccountConnection: React.FC<Props> = ({
         email: existedUserInfo?.email,
       },
     });
-    const userInfo: GoogleLoginRes = axiosResponse.data;
+    const loginRes: GoogleLoginRes = axiosResponse.data;
+    const userInfo: IUser = {
+      userId: loginRes.userId,
+      email: loginRes.email,
+      firstName: loginRes.firstName,
+      lastName: loginRes.lastName,
+    };
     try {
       if (userInfo) {
         localStorage.setItem("UserInfo", JSON.stringify(userInfo));
@@ -55,15 +64,21 @@ const AccountConnection: React.FC<Props> = ({
   };
   return (
     <>
-      <ModalOperator handleCloseModal={() => setStep(1)} prevStep={() => setStep(1)} />
+      <ModalOperator
+        handleCloseModal={() => setStep(1)}
+        prevStep={() => setStep(1)}
+        currentStep={currentStep}
+      />
       <ModalHeader>
         <Flex flexDir="column" alignItems="center">
           <Icon width="240px" height="180px" viewBox="120 0 550 550" role="logo">
             <MainLogoSvg />
           </Icon>
-          <Text fontSize="medium">An account with your Google email exists</Text>
+          <Text fontSize="17px" textAlign="center">
+            Account registered by this email exists
+          </Text>
           <Text fontSize="11px" textAlign="center" fontWeight="light" marginTop="15px">
-            Do you want to connect your account with Google?
+            To login with Google, please connect your existing account with your Google account
           </Text>
         </Flex>
       </ModalHeader>

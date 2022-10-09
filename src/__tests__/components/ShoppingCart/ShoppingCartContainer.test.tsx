@@ -14,7 +14,7 @@ describe("ShoppingCart component", () => {
 
   it("Should render shopping cart title", () => {
     renderWithMockedProvider(<ShoppingCartContainer shoppingCart={[]} />);
-    const cartTitle = screen.getByText("CART");
+    const cartTitle = screen.getByText("Shopping Cart");
     expect(cartTitle).toBeVisible();
   });
 
@@ -77,5 +77,41 @@ describe("ShoppingCart component", () => {
     expect(textShow).toHaveStyle(
       `height:auto ; overflow-y:scroll; white-space:normal; text-overflow:clip `
     );
+  });
+
+  it("Should render expired message when one or more item expired", () => {
+    renderWithMockedProvider(<ShoppingCartContainer shoppingCart={mockCartData} />);
+    const expiredMessage = screen.getByText(
+      "Sorry, some product’s quotation has expired. Please edit your cart and try again. We apologize for any inconvenience caused."
+    );
+    expect(expiredMessage).toBeVisible();
+  });
+
+  it("Should render expired icon and expired quotation message when item is expired", () => {
+    renderWithMockedProvider(<ShoppingCartContainer shoppingCart={[mockCartData[0]]} />);
+    const expireIcon = screen.getByTestId("expired-icon");
+    const expireText = screen.getByText("Quotation has expired.");
+    expect(expireText).toBeVisible();
+    expect(expireIcon).toBeVisible();
+  });
+
+  it("Should not render expired icon and expired quotation message when item is not expired", () => {
+    renderWithMockedProvider(
+      <ShoppingCartContainer shoppingCart={[mockCartData[1], mockCartData[2]]} />
+    );
+    const expireIcon = screen.queryByTestId("expired-icon");
+    const expireText = screen.queryByText("Quotation has expired.");
+    expect(expireText).toBeNull();
+    expect(expireIcon).toBeNull();
+  });
+
+  it("Should not render expired message if there is no expired item", () => {
+    renderWithMockedProvider(
+      <ShoppingCartContainer shoppingCart={[mockCartData[1], mockCartData[2]]} />
+    );
+    const expiredMessage = screen.queryByText(
+      "Sorry, some product’s quotation has expired. Please edit your cart and try again. We apologize for any inconvenience caused."
+    );
+    expect(expiredMessage).toBeNull();
   });
 });

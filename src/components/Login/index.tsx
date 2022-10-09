@@ -13,6 +13,15 @@ interface Props {
   onClose: () => void;
   updateLoginData: (data: any) => void;
 }
+export enum stepName {
+  SelectLogin = "SelectLogin",
+  EmailLogin = "EmailLogin",
+  LoginWithPwd = "LoginWithPwd",
+  Register = "Register",
+  EmailVerification = "EmailVerification",
+  VerificationResult = "VerificationResult",
+  AccountConnection = "AccountConnection",
+}
 
 const LoginModalContent = (props: Props) => {
   const initialRef = React.useRef(null);
@@ -55,6 +64,7 @@ const LoginModalContent = (props: Props) => {
       case 2:
         return (
           <EmailLogin
+            currentStep={stepName.EmailLogin}
             setStep={setStep}
             onClose={onClose}
             nextStep={nextStep}
@@ -69,6 +79,7 @@ const LoginModalContent = (props: Props) => {
       case 3:
         return userExisted ? (
           <LoginWithPwd
+            currentStep={stepName.LoginWithPwd}
             setStep={setStep}
             onClose={onClose}
             prevStep={prevStep}
@@ -82,6 +93,7 @@ const LoginModalContent = (props: Props) => {
           />
         ) : (
           <Register
+            currentStep={stepName.Register}
             setStep={setStep}
             onClose={onClose}
             nextStep={nextStep}
@@ -96,6 +108,7 @@ const LoginModalContent = (props: Props) => {
       case 4:
         return (
           <EmailVerification
+            currentStep={stepName.EmailVerification}
             nextStep={nextStep}
             prevStep={prevStep}
             setStep={setStep}
@@ -112,6 +125,7 @@ const LoginModalContent = (props: Props) => {
       case 5:
         return (
           <VerificationResult
+            currentStep={stepName.VerificationResult}
             onClose={onClose}
             verified={verified}
             prevStep={prevStep}
@@ -121,6 +135,7 @@ const LoginModalContent = (props: Props) => {
       case 6:
         return (
           <AccountConnection
+            currentStep={stepName.AccountConnection}
             updateLoginData={updateLoginData}
             onClose={onClose}
             existedUserInfo={existedUserInfo}

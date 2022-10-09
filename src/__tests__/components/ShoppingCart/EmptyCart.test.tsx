@@ -6,7 +6,7 @@ describe("Empty cart components", () => {
   test("Should render all empty elements", () => {
     renderWithMockedProvider(<EmptyCart />);
     const checkOutButton = screen.getByRole("button", { name: "ReturnHomeBtn" });
-    const cartTitle = screen.getByText("CART");
+    const cartTitle = screen.getByText("Shopping Cart");
     const cartInfoSub1 = screen.getByText("You currently have in your cart");
     const cartInfoSub2 = screen.getByRole("text", { name: "paragraph" });
     expect(checkOutButton).toBeInTheDocument();

@@ -15,6 +15,7 @@ import CartListItem from "./CartListItem";
 import { ICartItem } from "@/interfaces/cartItem";
 import DeleteComfirmModal from "@/components/DeleteComfirmModal";
 import { useDeleteItemFromCartMutation } from "@/redux/api/cartApi";
+import { RiErrorWarningLine } from "react-icons/ri";
 
 interface userCartList {
   shoppingCart: ICartItem[];
@@ -29,12 +30,36 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
     onClose();
   };
   const [cartItemIdToDelete, setCartItemIdToDelete] = useState("");
+  const anyExpired = shoppingCart.some((item) => item.isExpired);
 
   return (
     <Flex flexDirection="column" alignItems="center">
-      <Text fontSize="18px" fontWeight="750" marginBottom="20px" marginTop="20px">
-        CART
+      <Text
+        fontSize="32px"
+        lineHeight="39px"
+        fontWeight="700"
+        color="brand.primary"
+        marginTop="23px"
+        marginBottom="20px"
+      >
+        Shopping Cart
       </Text>
+      {anyExpired && (
+        <Flex padding="31px 24px" width="100%" backgroundColor="#F55252" justifyContent="center">
+          <RiErrorWarningLine size={24} color="#FFFDFF" />
+          <Text
+            fontSize="18px"
+            lineHeight="22px"
+            fontWeight="700"
+            marginLeft="25px"
+            color="#F5F5F5"
+          >
+            Sorry, some product’s quotation has expired. Please edit your cart and try again. We
+            apologize for any inconvenience caused.
+          </Text>
+        </Flex>
+      )}
+
       <TableContainer minWidth="1080px" width="100%" overflowY="auto">
         <Table
           variant="simple"
@@ -68,14 +93,14 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                 padding="25px 40px"
                 sx={{ "text-transform": "capitalize" }}
               >
-                Quotation Detials
+                Quotation Details
               </Th>
             </Tr>
           </Thead>
           <Tbody>
             {shoppingCart.map((cartRow) => (
               <CartListItem
-                key={cartRow.user_id}
+                key={cartRow.id}
                 item={cartRow}
                 onDelete={(id) => {
                   setCartItemIdToDelete(id);

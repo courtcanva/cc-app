@@ -19,7 +19,7 @@ const EmptyCart = () => {
     >
       <Flex flexDirection="column" justifyContent="space-evenly" alignItems="center" height="400px">
         <Text fontSize="50px" fontWeight="700">
-          CART
+          Shopping Cart
         </Text>
         <Text fontSize="18px" fontWeight="500" role="text" aria-label="paragraph">
           You currently have{" "}

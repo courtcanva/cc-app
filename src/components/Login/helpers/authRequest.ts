@@ -20,7 +20,7 @@ export default function useAuthRequest() {
 
   const checkEmail = async (email: string) => {
     try {
-      const response: AxiosResponse = await api("/user", {
+      const response: AxiosResponse = await api("/user/status", {
         method: "post",
         requestData: { email },
       });
