@@ -14,14 +14,14 @@ interface Props {
   updateLoginData: (data: any) => void;
 }
 export enum stepName {
-    SelectLogin = "SelectLogin",
-    EmailLogin = "EmailLogin",
-    LoginWithPwd = "LoginWithPwd",
-    Register = "Register",
-    EmailVerification = "EmailVerification",
-    VerificationResult = "VerificationResult",
-    AccountConnection = "AccountConnection",
-  }
+  SelectLogin = "SelectLogin",
+  EmailLogin = "EmailLogin",
+  LoginWithPwd = "LoginWithPwd",
+  Register = "Register",
+  EmailVerification = "EmailVerification",
+  VerificationResult = "VerificationResult",
+  AccountConnection = "AccountConnection",
+}
 
 const LoginModalContent = (props: Props) => {
   const initialRef = React.useRef(null);

@@ -2,7 +2,6 @@ import { ChevronLeftIcon, CloseIcon } from "@chakra-ui/icons";
 import { Flex, IconButton } from "@chakra-ui/react";
 import { stepName } from "..";
 
-
 type Props = {
   handleCloseModal: () => void;
   prevStep: () => void;
