@@ -23,6 +23,7 @@ interface Props {
   setStep: Dispatch<SetStateAction<number>>;
   updateLoginData: (data: IUser) => void;
   onClose: () => void;
+  currentStep: string;
 }
 
 const AccountConnection: React.FC<Props> = ({
@@ -30,6 +31,7 @@ const AccountConnection: React.FC<Props> = ({
   setStep,
   updateLoginData,
   onClose,
+  currentStep,
 }) => {
   const dispatch = useStoreDispatch();
   // if this call is needed else where in the future, please move it to redux
@@ -62,7 +64,11 @@ const AccountConnection: React.FC<Props> = ({
   };
   return (
     <>
-      <ModalOperator handleCloseModal={() => setStep(1)} prevStep={() => setStep(1)} />
+      <ModalOperator
+        handleCloseModal={() => setStep(1)}
+        prevStep={() => setStep(1)}
+        currentStep={currentStep}
+      />
       <ModalHeader>
         <Flex flexDir="column" alignItems="center">
           <Icon width="240px" height="180px" viewBox="120 0 550 550" role="logo">

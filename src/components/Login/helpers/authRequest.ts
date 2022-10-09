@@ -13,7 +13,7 @@ export interface AxiosResponse<T = object> {
 export default function useAuthRequest() {
   const checkEmail = async (email: string) => {
     try {
-      const response: AxiosResponse = await api("/user", {
+      const response: AxiosResponse = await api("/user/status", {
         method: "post",
         requestData: { email },
       });
@@ -75,5 +75,6 @@ export default function useAuthRequest() {
       return error.response;
     }
   };
+
   return { checkEmail, userRegister, verifyOTP, userLogin, resendOTP };
 }

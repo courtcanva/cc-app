@@ -25,10 +25,11 @@ type Props = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   initialRef: React.MutableRefObject<null>;
+  currentStep: string;
 };
 
 const Register: React.FC<Props> = (props: Props) => {
-  const { nextStep, prevStep, userEmail, onClose, setStep, getUserId } = props;
+  const { nextStep, prevStep, userEmail, onClose, setStep, getUserId, currentStep } = props;
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -50,11 +51,11 @@ const Register: React.FC<Props> = (props: Props) => {
       return;
     }
     // regular expression from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
-    const passwordRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/;
+    const passwordRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     if (!passwordRegExp.test(password)) {
       setErrorMessage("");
       setWeekPasswrodMsg(
-        "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character!"
+        "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number!"
       );
       return;
     }
@@ -86,7 +87,11 @@ const Register: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <ModalOperator handleCloseModal={handleCloseModal} prevStep={prevStep} />
+      <ModalOperator
+        handleCloseModal={handleCloseModal}
+        prevStep={prevStep}
+        currentStep={currentStep}
+      />
       <ModalHeader width="100%" marginTop="-20px">
         <Flex flexDir="column" alignItems="center">
           <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">
