@@ -13,6 +13,15 @@ interface Props {
   onClose: () => void;
   updateLoginData: (data: any) => void;
 }
+export enum stepName {
+    SelectLogin = "SelectLogin",
+    EmailLogin = "EmailLogin",
+    LoginWithPwd = "LoginWithPwd",
+    Register = "Register",
+    EmailVerification = "EmailVerification",
+    VerificationResult = "VerificationResult",
+    AccountConnection = "AccountConnection",
+  }
 
 const LoginModalContent = (props: Props) => {
   const initialRef = React.useRef(null);
@@ -25,15 +34,6 @@ const LoginModalContent = (props: Props) => {
   const [userId, setUserId] = useState("");
   const [verified, setVerified] = useState(true);
   const [existedUserInfo, setExistedUserInfo] = useState<GoogleLoginRes | null>(null);
-  enum stepName {
-    SelectLogin = "SelectLogin",
-    EmailLogin = "EmailLogin",
-    LoginWithPwd = "LoginWithPwd",
-    Register = "Register",
-    EmailVerification = "EmailVerification",
-    VerificationResult = "VerificationResult",
-    AccountConnection = "AccountConnection",
-  }
   const nextStep = () => {
     setStep((step) => step + 1);
   };

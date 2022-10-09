@@ -1,6 +1,8 @@
 import { ChevronLeftIcon, CloseIcon } from "@chakra-ui/icons";
 import { Flex, IconButton } from "@chakra-ui/react";
-import useAuthRequest from "../helpers/authRequest";
+import { stepName } from "..";
+
+
 type Props = {
   handleCloseModal: () => void;
   prevStep: () => void;
@@ -12,7 +14,7 @@ const ModalOperator: React.FC<Props> = ({ handleCloseModal, prevStep, currentSte
     <Flex
       width="100%"
       flexDirection="row"
-      justifyContent={currentStep !== "EmailVerification" ? "space-between" : "end"}
+      justifyContent={currentStep !== stepName.EmailVerification ? "space-between" : "end"}
     >
       {currentStep !== "EmailVerification" ? (
         <IconButton
