@@ -1,6 +1,6 @@
 import { api } from "@/utils/axios";
 import { AxiosRequestConfig } from "axios";
-import UserTokenService from "@/components/Login/helpers/TokenService";
+import UserTokenService from "@/utils/TokenService";
 export interface AxiosResponse<T = object> {
   data: T;
   status: number;
