@@ -1,58 +1,68 @@
+import { useHandleLocalStorageItem } from "@/hooks/useHandleLocalStorage";
+
 /* eslint-disable require-jsdoc */
 interface IUserToken {
   accessToken: string;
   refreshToken: string;
 }
 
-interface IUserInfo {
-  userId: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  isActivated: boolean;
-  tokens: IUserToken;
-}
-class UserTokenService {
-  getUserInfo(): IUserInfo | undefined {
-    if (typeof window !== "undefined") {
-      const userInfo = JSON.parse(window.localStorage.getItem("UserInfo") as string);
-      return userInfo;
-    }
-  }
+const { getLocalStorageItem, setLocalStorageItem, removeLocalStorageItem } =
+  useHandleLocalStorageItem();
 
+// avoid using any type at catch-error
+const getErrorMessage = (error: unknown) => {
+  if (error instanceof Error) return error;
+  return Object(error);
+};
+class UserTokenService {
   getLocalRefreshToken(): string | undefined {
-    if (typeof window !== "undefined") {
-      const userInfo = JSON.parse(window.localStorage.getItem("UserInfo") as string);
-      return userInfo?.tokens.refreshToken;
+    try {
+      const userInfo = getLocalStorageItem("UserInfo");
+      return userInfo.tokens.refreshToken;
+    } catch (error) {
+      const err = getErrorMessage(error);
+      return err.response;
     }
   }
 
   getLocalAccessToken(): string | undefined {
-    if (typeof window !== "undefined") {
-      const userInfo = JSON.parse(window.localStorage.getItem("UserInfo") as string);
-      return userInfo?.tokens.refreshToken;
+    try {
+      const userInfo = getLocalStorageItem("UserInfo");
+      return userInfo.tokens.accessToken;
+    } catch (error) {
+      const err = getErrorMessage(error);
+      return err.response;
     }
   }
 
   updateLocalAccessToken(accessToken: string): void {
-    if (typeof window !== "undefined") {
-      const userInfo = JSON.parse(window.localStorage.getItem("UserInfo") as string);
+    try {
+      const userInfo = getLocalStorageItem("UserInfo");
       userInfo.tokens.accessToken = accessToken;
-      window.localStorage.setItem("UserInfo", JSON.stringify(userInfo));
+      setLocalStorageItem("UserInfo", userInfo);
+    } catch (error) {
+      const err = getErrorMessage(error);
+      return err.response;
     }
   }
 
   removeUser(): void {
-    if (typeof window !== "undefined") {
-      window.localStorage.removeItem("UserInfo");
+    try {
+      removeLocalStorageItem("UserInfo");
+    } catch (error) {
+      const err = getErrorMessage(error);
+      return err.response;
     }
   }
 
   setUserToken(userToken: IUserToken | object) {
-    if (typeof window !== "undefined") {
-      const userInfo = JSON.parse(window.localStorage.getItem("UserInfo") as string);
+    try {
+      const userInfo = getLocalStorageItem("UserInfo");
       userInfo.tokens = userToken;
-      window.localStorage.setItem("UserInfo", JSON.stringify(userInfo));
+      setLocalStorageItem("UserInfo", userInfo);
+    } catch (error) {
+      const err = getErrorMessage(error);
+      return err.response;
     }
   }
 }

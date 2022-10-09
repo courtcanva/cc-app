@@ -27,19 +27,18 @@ import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import useAuthRequest from "../Login/helpers/authRequest";
 import { switchSideBar, switchLoginModal } from "@/store/reducer/buttonToggleSlice";
+import { useHandleLocalStorageItem } from "@/hooks/useHandleLocalStorage";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
   const { isCartOpen, isLoginModalOpen } = useStoreSelector((state) => state.buttonToggle);
   const { userLogout, updateToken } = useAuthRequest();
+  const { getLocalStorageItem } = useHandleLocalStorageItem();
 
   // Get user info from local storage
   const getInfo = () => {
-    if (typeof window !== "undefined") {
-      const userInfo = JSON.parse(localStorage.getItem("UserInfo")!);
-      return userInfo;
-    }
-    return;
+    const userInfo = getLocalStorageItem("UserInfo");
+    return userInfo;
   };
 
   const [loginData, setLoginData] = useState(getInfo());
