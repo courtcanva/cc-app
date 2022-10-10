@@ -43,7 +43,6 @@ import { designMapping } from "@/utils/designMapping";
 import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
-import { size } from "lodash";
 
 const TopBar = () => {
   const dispatch = useDispatch();
@@ -219,6 +218,7 @@ const TopBar = () => {
               border="none"
               marginTop={3}
               as={RiArrowUpSFill}
+              marginLeft={-2}
               size={25}
               boxShadow="none"
             ></SliderThumb>
