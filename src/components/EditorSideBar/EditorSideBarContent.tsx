@@ -3,6 +3,8 @@ import React from "react";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import Blueprints from "./Blueprints";
 import Folder from "./Folder";
+import { IconContext } from "react-icons";
+
 interface Props {
   iconClickTitle: string;
   onHandleCloseClick: () => void;
@@ -43,15 +45,9 @@ const SideBarContainer = (props: Props) => {
         clipPath="polygon(0% 0%, 100% 8%, 100% 92%, 0% 100%)"
         zIndex="-1"
       >
-        <RiArrowLeftSLine
-          // width={30}
-          // height={30}
-          size={25}
-          color="fontcolor.primary"
-          // position="absolute"
-          // top="calc(50% - 16px)"
-          // right="-4px"
-        />
+        <IconContext.Provider value={{ style: { verticalAlign: "middle", marginLeft: "-8px" } }}>
+          <RiArrowLeftSLine size={25} />
+        </IconContext.Provider>
       </Box>
     </Box>
   );

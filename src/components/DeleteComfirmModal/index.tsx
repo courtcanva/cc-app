@@ -22,13 +22,7 @@ const DeleteComfirmModal = ({ isOpen, onClose, onConfirm }: Props) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader display={"flex"} flexDirection="column" gap="10px" alignItems={"center"}>
-            <RiDeleteBinFill
-              width={10}
-              height={10}
-              color="red.500"
-              marginTop={"25px"}
-              marginBottom={"10px"}
-            />
+            <RiDeleteBinFill width={10} height={10} color="red.500" />
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody textAlign={"center"}>

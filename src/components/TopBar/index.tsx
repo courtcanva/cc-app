@@ -222,7 +222,6 @@ const TopBar = () => {
               size={25}
               boxShadow="none"
             ></SliderThumb>
-            {/* <RiArrowUpSFill size={25} /> */}
           </Slider>
           <Text fontSize="lg" color="brand.primary">
             2
