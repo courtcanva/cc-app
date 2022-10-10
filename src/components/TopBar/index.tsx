@@ -10,7 +10,7 @@ import {
   Grid,
   Tooltip,
 } from "@chakra-ui/react";
-import { TriangleUpIcon } from "@chakra-ui/icons";
+import { FaCaretUp } from "react-icons/fa";
 import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import ColorBoard from "./ColorBoard";
@@ -217,9 +217,10 @@ const TopBar = () => {
               color="brand.primary"
               border="none"
               marginTop={3}
-              as={TriangleUpIcon}
               boxShadow="none"
-            ></SliderThumb>
+            >
+              <FaCaretUp size={30} />
+            </SliderThumb>
           </Slider>
           <Text fontSize="lg" color="brand.primary">
             2

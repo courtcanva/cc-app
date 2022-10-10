@@ -1,5 +1,5 @@
 import { ModalHeader, ModalBody, Text, Icon, Button, ModalFooter } from "@chakra-ui/react";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { RiArrowRightLine } from "react-icons/ri";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import ModalOperator from "../ModalOperater";
 
@@ -48,7 +48,7 @@ const VerificationResult: React.FC<Props> = (props: Props) => {
           width="300px"
           marginTop="20px"
           onClick={verified ? handleCloseModal : handlePrevStep}
-          rightIcon={<ArrowForwardIcon />}
+          rightIcon={<RiArrowRightLine />}
         >
           {verified ? "Continue to App" : "Try Again"}
         </Button>

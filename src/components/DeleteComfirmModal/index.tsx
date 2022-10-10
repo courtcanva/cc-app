@@ -8,7 +8,7 @@ import {
   ModalCloseButton,
   Button,
 } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { FaTrashAlt } from "react-icons/fa";
 
 interface Props {
   isOpen: boolean;
@@ -22,12 +22,9 @@ const DeleteComfirmModal = ({ isOpen, onClose, onConfirm }: Props) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader display={"flex"} flexDirection="column" gap="10px" alignItems={"center"}>
-            <DeleteIcon
-              width={10}
-              height={10}
-              color="red.500"
-              marginTop={"25px"}
-              marginBottom={"10px"}
+            <FaTrashAlt
+              size={35}
+              style={{ color: "red", marginTop: "25px", marginBottom: "10px" }}
             />
           </ModalHeader>
           <ModalCloseButton />

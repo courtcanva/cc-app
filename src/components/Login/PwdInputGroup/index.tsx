@@ -1,4 +1,4 @@
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import {
   FormControl,
   FormLabel,
@@ -32,7 +32,7 @@ const PwdInputGroup: React.FC<Props> = ({ label, value, onChange }) => {
         />
         <InputRightElement width="3.5rem">
           <Button h="1.75rem" size="sm" onClick={handleClick}>
-            {show ? <Icon as={ViewOffIcon} /> : <Icon as={ViewIcon} />}
+            {show ? <Icon as={RiEyeOffFill} /> : <Icon as={RiEyeFill} />}
           </Button>
         </InputRightElement>
       </InputGroup>
