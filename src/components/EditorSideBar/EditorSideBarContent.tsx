@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
+import { RiArrowLeftSLine } from "react-icons/ri";
 import Blueprints from "./Blueprints";
 import Folder from "./Folder";
 interface Props {
@@ -43,13 +43,14 @@ const SideBarContainer = (props: Props) => {
         clipPath="polygon(0% 0%, 100% 8%, 100% 92%, 0% 100%)"
         zIndex="-1"
       >
-        <ChevronLeftIcon
-          width={6}
-          height={6}
+        <RiArrowLeftSLine
+          // width={30}
+          // height={30}
+          size={25}
           color="fontcolor.primary"
-          position="absolute"
-          top="calc(50% - 16px)"
-          right="-4px"
+          // position="absolute"
+          // top="calc(50% - 16px)"
+          // right="-4px"
         />
       </Box>
     </Box>

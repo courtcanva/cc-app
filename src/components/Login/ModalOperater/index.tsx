@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, CloseIcon } from "@chakra-ui/icons";
+import { RiArrowLeftSLine, RiCloseLine } from "react-icons/ri";
 import { Flex, IconButton } from "@chakra-ui/react";
 import { stepName } from "..";
 
@@ -19,7 +19,7 @@ const ModalOperator: React.FC<Props> = ({ handleCloseModal, prevStep, currentSte
         <IconButton
           aria-label="Go Back"
           role="goBack"
-          icon={<ChevronLeftIcon />}
+          icon={<RiArrowLeftSLine />}
           variant="witheBackgroundIconBtn"
           color="black"
           fontSize="28px"
@@ -31,10 +31,10 @@ const ModalOperator: React.FC<Props> = ({ handleCloseModal, prevStep, currentSte
       <IconButton
         aria-label="Close"
         role="close"
-        icon={<CloseIcon />}
+        icon={<RiCloseLine />}
         variant="witheBackgroundIconBtn"
         color="black"
-        fontSize="15px"
+        fontSize="25px"
         onClick={handleCloseModal}
       ></IconButton>
     </Flex>

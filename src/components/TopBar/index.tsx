@@ -10,7 +10,7 @@ import {
   Grid,
   Tooltip,
 } from "@chakra-ui/react";
-import { TriangleUpIcon } from "@chakra-ui/icons";
+import { RiArrowUpSFill } from "react-icons/ri";
 import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import ColorBoard from "./ColorBoard";
@@ -43,6 +43,7 @@ import { designMapping } from "@/utils/designMapping";
 import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
+import { size } from "lodash";
 
 const TopBar = () => {
   const dispatch = useDispatch();
@@ -217,9 +218,11 @@ const TopBar = () => {
               color="brand.primary"
               border="none"
               marginTop={3}
-              as={TriangleUpIcon}
+              as={RiArrowUpSFill}
+              size={25}
               boxShadow="none"
             ></SliderThumb>
+            {/* <RiArrowUpSFill size={25} /> */}
           </Slider>
           <Text fontSize="lg" color="brand.primary">
             2

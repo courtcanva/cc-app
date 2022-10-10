@@ -8,14 +8,14 @@ import {
   Text,
   Tooltip,
 } from "@chakra-ui/react";
-import { HiOutlineZoomOut, HiOutlineZoomIn } from "react-icons/hi";
+import { RiZoomInLine, RiZoomOutLine } from "react-icons/ri";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { switchRuler } from "@/store/reducer/buttonToggleSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { changeZoomScale, dragSwitch, resetAll } from "@/store/reducer/canvasControlSlice";
 import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
-import { RepeatIcon } from "@chakra-ui/icons";
+import { RiRepeatLine } from "react-icons/ri";
 
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
@@ -59,7 +59,7 @@ const EditorFooter = () => {
         <Tooltip hasArrow shouldWrapChildren label="Zoom Out" fontSize="sm">
           <IconButton
             aria-label="Revert edit"
-            icon={<HiOutlineZoomOut />}
+            icon={<RiZoomOutLine />}
             variant="witheBackgroundIconBtn"
             color="brand.primary"
             data-testid="zoom-out-btn"
@@ -71,7 +71,7 @@ const EditorFooter = () => {
         <Tooltip hasArrow shouldWrapChildren label="Zoom In" fontSize="sm">
           <IconButton
             aria-label="Forward edit"
-            icon={<HiOutlineZoomIn />}
+            icon={<RiZoomInLine />}
             variant="witheBackgroundIconBtn"
             color="brand.primary"
             data-testid="zoom-in-btn"
@@ -83,7 +83,7 @@ const EditorFooter = () => {
         <Tooltip hasArrow label="Reset Court Scale" fontSize="sm">
           <IconButton
             aria-label="reset zoom"
-            icon={<RepeatIcon />}
+            icon={<RiRepeatLine />}
             variant="witheBackgroundIconBtn"
             color="brand.primary"
             data-testid="reset-btn"

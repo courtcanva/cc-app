@@ -1,12 +1,12 @@
 import EditorSideBarItem from "./EditorSideBarItem";
 import sideBarItemList from "./SideBarItemList";
-import { Link, Box, Flex } from "@chakra-ui/react";
+import { Link, Box, Flex, Text } from "@chakra-ui/react";
 import EditorSideBarContent from "./EditorSideBarContent";
 import { useEffect, useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { AiOutlineTeam } from "react-icons/ai";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { RiShareBoxLine } from "react-icons/ri";
 import { switchSideBar, switchLoginModal } from "@/store/reducer/buttonToggleSlice";
 
 const EditorSideBar = () => {
@@ -72,7 +72,10 @@ const EditorSideBar = () => {
         >
           <AiOutlineTeam size="24px" />
           <Link href="/team">
-            Our Team <ExternalLinkIcon mx="2px" />
+            <Flex flexDirection="row" alignItems="center">
+              <Text paddingRight="5px">Our Team </Text>
+              <RiShareBoxLine />
+            </Flex>
           </Link>
         </Flex>
       </Box>

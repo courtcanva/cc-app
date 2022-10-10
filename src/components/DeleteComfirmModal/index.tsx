@@ -8,7 +8,7 @@ import {
   ModalCloseButton,
   Button,
 } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { RiDeleteBinFill } from "react-icons/ri";
 
 interface Props {
   isOpen: boolean;
@@ -22,7 +22,7 @@ const DeleteComfirmModal = ({ isOpen, onClose, onConfirm }: Props) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader display={"flex"} flexDirection="column" gap="10px" alignItems={"center"}>
-            <DeleteIcon
+            <RiDeleteBinFill
               width={10}
               height={10}
               color="red.500"
