@@ -218,7 +218,7 @@ const TopBar = () => {
               border="none"
               marginTop={3}
               as={RiArrowUpSFill}
-              marginLeft={-2}
+              marginLeft={-1.5}
               size={25}
               boxShadow="none"
             ></SliderThumb>
