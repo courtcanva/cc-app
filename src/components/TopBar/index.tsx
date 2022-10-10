@@ -10,7 +10,7 @@ import {
   Grid,
   Tooltip,
 } from "@chakra-ui/react";
-import { RiArrowUpSFill } from "react-icons/ri";
+import { FaCaretUp } from "react-icons/fa";
 import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import ColorBoard from "./ColorBoard";
@@ -217,11 +217,10 @@ const TopBar = () => {
               color="brand.primary"
               border="none"
               marginTop={3}
-              as={RiArrowUpSFill}
-              marginLeft={-1.5}
-              size={25}
               boxShadow="none"
-            ></SliderThumb>
+            >
+              <FaCaretUp size={30} />
+            </SliderThumb>
           </Slider>
           <Text fontSize="lg" color="brand.primary">
             2
