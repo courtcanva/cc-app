@@ -7,6 +7,7 @@ import Layout from "@/layouts";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import "./style.css";
 import { environment } from "@/constants/environment";
+import useAuthRequest from "@/components/Login/helpers/authRequest";
 
 function CourtCanvaApp({ Component, pageProps }: AppProps) {
   return (

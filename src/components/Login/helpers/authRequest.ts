@@ -1,6 +1,6 @@
 import { api } from "@/utils/axios";
 import { AxiosRequestConfig } from "axios";
-
+import UserTokenService from "@/utils/TokenService";
 export interface AxiosResponse<T = object> {
   data: T;
   status: number;
@@ -10,7 +10,14 @@ export interface AxiosResponse<T = object> {
   request?: never;
 }
 
+// eslint-disable-next-line require-jsdoc
 export default function useAuthRequest() {
+  // avoid using any type at catch-error
+  const getErrorMessage = (error: unknown) => {
+    if (error instanceof Error) return error;
+    return Object(error);
+  };
+
   const checkEmail = async (email: string) => {
     try {
       const response: AxiosResponse = await api("/user/status", {
@@ -18,9 +25,9 @@ export default function useAuthRequest() {
         requestData: { email },
       });
       return response;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      return error.response;
+    } catch (error) {
+      const err = getErrorMessage(error);
+      return err.response;
     }
   };
 
@@ -31,9 +38,9 @@ export default function useAuthRequest() {
         requestData: userInfo,
       });
       return response;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      return error.response;
+    } catch (error) {
+      const err = getErrorMessage(error);
+      return err.response;
     }
   };
 
@@ -57,9 +64,9 @@ export default function useAuthRequest() {
         requestData: { email, password },
       });
       return response;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      return error.response;
+    } catch (error) {
+      const err = getErrorMessage(error);
+      return err.response;
     }
   };
 
@@ -70,11 +77,40 @@ export default function useAuthRequest() {
         requestData: { userId, email },
       });
       return response;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      return error.response;
+    } catch (error) {
+      const err = getErrorMessage(error);
+      return err.response;
     }
   };
 
-  return { checkEmail, userRegister, verifyOTP, userLogin, resendOTP };
+  const userLogout = async (userId: string) => {
+    try {
+      await api("/auth/logout", {
+        method: "post",
+        requestData: { userId },
+      });
+    } catch (error) {
+      const err = getErrorMessage(error);
+      return err.response;
+    } finally {
+      UserTokenService.removeUser();
+    }
+  };
+
+  const updateToken = async () => {
+    try {
+      const refreshToken = UserTokenService.getLocalRefreshToken();
+      const response: AxiosResponse = await api("/auth/refresh", {
+        method: "post",
+        token: refreshToken,
+      });
+      UserTokenService.setUserToken(response.data);
+    } catch (error) {
+      const err = getErrorMessage(error);
+      if (err.response?.status === 401) {
+        UserTokenService.removeUser();
+      }
+    }
+  };
+  return { checkEmail, userRegister, verifyOTP, userLogin, resendOTP, userLogout, updateToken };
 }

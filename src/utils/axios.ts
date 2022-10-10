@@ -31,7 +31,7 @@ export const api = async (
   const config = {
     method,
     headers: {
-      Authorization: token ? `${token}` : "",
+      Authorization: token ? `Bearer ${token}` : "",
       "Content-Type": headers?.contentType ? headers.contentType : "application/json",
       ...omit(headers, ["contentType"]),
     },
