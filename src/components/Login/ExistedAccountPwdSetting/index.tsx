@@ -15,7 +15,6 @@ import React, { useState } from "react";
 import { updateUser } from "@/components/Login/helpers/userRequests";
 
 type Props = {
-  prevStep: () => void;
   onClose: any;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
@@ -25,7 +24,6 @@ type Props = {
 const ExistedAccountPwdSetting: React.FC<Props> = ({
   setStep,
   onClose,
-  prevStep,
   currentStep,
   userEmail,
 }) => {
@@ -85,7 +83,7 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
     <>
       <ModalOperator
         handleCloseModal={handleCloseModal}
-        prevStep={prevStep}
+        prevStep={() => setStep(1)}
         currentStep={currentStep}
       />
       <ModalHeader width="100%" marginTop="-20px">
@@ -93,9 +91,11 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
           <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">
             <MainLogoSvg />
           </Icon>
-          <Text fontSize="sm" textAlign="center">
-            To login by email, please set password for
-            <Text color="brand.secondary">{userEmail}</Text>
+          <Text fontSize="xl" textAlign="center">
+            Please set your password
+            <Text color="brand.secondary" fontSize="sm">
+              {userEmail}
+            </Text>
           </Text>
           <Divider />
           <Text fontSize="md" color="red.500">

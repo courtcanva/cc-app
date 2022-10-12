@@ -149,7 +149,6 @@ const LoginModalContent = (props: Props) => {
       case 7:
         return (
           <ExistedAccountPwdSetting
-            prevStep={prevStep}
             onClose={onClose}
             setStep={setStep}
             userEmail={userEmail}

@@ -103,7 +103,7 @@ const EmailLogin: React.FC<Props> = ({
       />
       <ModalHeader width="100%" marginTop="-20px">
         <Flex flexDir="column" alignItems="center" width="100%">
-          <Icon width="240px" height="180px" viewBox="120 0 600 600" role="logo">
+          <Icon width="240px" height="180px" viewBox="100 0 600 600" role="logo">
             <MainLogoSvg />
           </Icon>
           <Text fontSize="md" marginTop="10px">
@@ -115,7 +115,7 @@ const EmailLogin: React.FC<Props> = ({
       <ModalBody width="100%" marginTop="10px" marginBottom="30px">
         <FormControl display="flex" flexDirection="column">
           <FormLabel fontSize="sm" color={isValidEmail ? "black" : "red.500"}>
-            {isValidEmail ? "Enter your email address!" : "Please enter a valid email!"}
+            {isValidEmail ? "Please enter your email address!" : "Please enter a valid email!"}
           </FormLabel>
           <Input
             id="email"
