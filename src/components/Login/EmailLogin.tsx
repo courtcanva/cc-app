@@ -31,6 +31,10 @@ interface Props {
 interface checkResponse {
   findUser: boolean;
   needPwd: boolean;
+  emailRes: {
+    status: string;
+    message: string;
+  };
 }
 
 const EmailLogin: React.FC<Props> = ({
@@ -67,6 +71,9 @@ const EmailLogin: React.FC<Props> = ({
       const res: checkResponse = (await checkEmail(input)).data;
       res.findUser ? setUserExisted(true) : setUserExisted(false);
       if (res.findUser && res.needPwd) {
+        if (res.emailRes.status !== "PENDING") {
+          throw Error(res.emailRes.message);
+        }
         setNeedPwd(true);
         setStep(4);
       } else {
