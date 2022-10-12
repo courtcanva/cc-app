@@ -52,12 +52,12 @@ const EmailVerification: React.FC<Props> = ({
   const [timer, setTimer] = useState(60);
   const dispatch = useDispatch();
   const { verifyOTP, resendOTP } = useAuthRequest();
-  const CODELENGTH = 6;
+  const CODE_LENGTH = 6;
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (needPwd) setPwdStep();
-    if (otp.length < CODELENGTH) {
+    if (otp.length < CODE_LENGTH) {
       setErrorMessage("Please Input a 6 digits number!");
       return;
     }
@@ -96,7 +96,7 @@ const EmailVerification: React.FC<Props> = ({
     resetTimer();
   };
   const handleOtpInput = (value: string) => {
-    const verificationCode = value.length > CODELENGTH ? value.substring(0, CODELENGTH) : value;
+    const verificationCode = value.length > CODE_LENGTH ? value.substring(0, CODE_LENGTH) : value;
     setOtp(verificationCode);
   };
   const handleCloseModal = () => {
