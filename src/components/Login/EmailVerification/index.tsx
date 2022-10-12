@@ -30,29 +30,33 @@ type Props = {
   userEmail: string;
   userId: string;
   initialRef: React.MutableRefObject<null>;
+  needPwd: boolean;
+  setPwdStep: () => void;
 };
-const EmailVerification: React.FC<Props> = (props: Props) => {
+const EmailVerification: React.FC<Props> = ({
+  userEmail,
+  nextStep,
+  onClose,
+  setStep,
+  prevStep,
+  userId,
+  validation,
+  updateLoginData,
+  currentStep,
+  needPwd,
+  setPwdStep,
+}) => {
   const toast = useToast();
   const [otp, setOtp] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [timer, setTimer] = useState(60);
   const dispatch = useDispatch();
   const { verifyOTP, resendOTP } = useAuthRequest();
-  const {
-    userEmail,
-    nextStep,
-    onClose,
-    setStep,
-    prevStep,
-    userId,
-    validation,
-    updateLoginData,
-    currentStep,
-  } = props;
   const CODELENGTH = 6;
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (needPwd) setPwdStep();
     if (otp.length < CODELENGTH) {
       setErrorMessage("Please Input a 6 digits number!");
       return;
@@ -64,7 +68,7 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
         dispatch(updateUserInfo(data));
         updateLoginData(data);
         validation(true);
-        nextStep();
+        needPwd ? setPwdStep() : nextStep();
       } else {
         validation(false);
         nextStep();

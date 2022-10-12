@@ -7,6 +7,7 @@ import Register from "./Register";
 import EmailVerification from "./EmailVerification";
 import VerificationResult from "./EmailVerification/VerificationResult";
 import AccountConnection from "@/components/Login/accountConnection";
+import ExistedAccountPwdSetting from "@/components/Login/existedAccountPwdSetting";
 
 interface Props {
   isOpen: boolean;
@@ -21,6 +22,7 @@ export enum stepName {
   EmailVerification = "EmailVerification",
   VerificationResult = "VerificationResult",
   AccountConnection = "AccountConnection",
+  ExistedAccountPwdSetting = "ExistedAccountPwdSetting",
 }
 
 const LoginModalContent = (props: Props) => {
@@ -33,6 +35,7 @@ const LoginModalContent = (props: Props) => {
   const [userEmail, setUserEmail] = useState("");
   const [userId, setUserId] = useState("");
   const [verified, setVerified] = useState(true);
+  const [needPwd, setNeedPwd] = useState<boolean>(false);
   const [existedUserInfo, setExistedUserInfo] = useState<GoogleLoginRes | null>(null);
   const nextStep = () => {
     setStep((step) => step + 1);
@@ -45,7 +48,7 @@ const LoginModalContent = (props: Props) => {
     setStep(6);
   };
   const setPwdStep = () => {
-    return;
+    setStep(7);
   };
   const modalContent = () => {
     switch (step) {
@@ -72,7 +75,7 @@ const LoginModalContent = (props: Props) => {
             inputEmail={(email: string) => {
               setUserEmail(email);
             }}
-            setPwdStep={setPwdStep}
+            setNeedPwd={setNeedPwd}
           />
         );
       case 3:
@@ -119,6 +122,8 @@ const LoginModalContent = (props: Props) => {
             validation={(verified: boolean) => {
               setVerified(verified);
             }}
+            needPwd={needPwd}
+            setPwdStep={setPwdStep}
           />
         );
       case 5:
@@ -139,6 +144,16 @@ const LoginModalContent = (props: Props) => {
             onClose={onClose}
             existedUserInfo={existedUserInfo}
             setStep={setStep}
+          />
+        );
+      case 7:
+        return (
+          <ExistedAccountPwdSetting
+            prevStep={prevStep}
+            onClose={onClose}
+            setStep={setStep}
+            userEmail={userEmail}
+            currentStep={stepName.ExistedAccountPwdSetting}
           />
         );
     }

@@ -1,46 +1,46 @@
+import ModalOperator from "@/components/Login/ModalOperater";
 import {
-  ModalHeader,
-  ModalBody,
-  Flex,
-  Text,
-  Icon,
-  Divider,
-  FormControl,
-  FormLabel,
-  Input,
   Button,
+  Divider,
+  Flex,
+  Icon,
+  ModalBody,
+  ModalHeader,
+  Text,
   useToast,
 } from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
+import PwdInputGroup from "@/components/Login/PwdInputGroup";
 import React, { useState } from "react";
-import PwdInputGroup from "./PwdInputGroup";
-import ModalOperator from "./ModalOperater";
-import useAuthRequest from "./helpers/authRequest";
+import { updateUser } from "@/components/Login/helpers/userRequests";
 
 type Props = {
-  nextStep: () => void;
   prevStep: () => void;
-  getUserId: (userId: string) => void;
   onClose: any;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
-  initialRef: React.MutableRefObject<null>;
   currentStep: string;
 };
 
-const Register: React.FC<Props> = (props: Props) => {
-  const { nextStep, prevStep, userEmail, onClose, setStep, getUserId, currentStep } = props;
+const ExistedAccountPwdSetting: React.FC<Props> = ({
+  setStep,
+  onClose,
+  prevStep,
+  currentStep,
+  userEmail,
+}) => {
+  const handleCloseModal = () => {
+    setStep(1);
+    onClose();
+  };
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [weakPasswordMsg, setWeakPasswordMsg] = useState("");
-  const { userRegister } = useAuthRequest();
   const toast = useToast();
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (firstName === "" || lastName === "" || password === "" || confirmPassword === "") {
+    if (password === "" || confirmPassword === "") {
       setWeakPasswordMsg("");
       setErrorMessage("Please fill all fields with asterisk!");
       return;
@@ -60,18 +60,19 @@ const Register: React.FC<Props> = (props: Props) => {
       return;
     }
     try {
-      const userInfo = {
+      const { data } = await updateUser({
         email: userEmail,
-        password,
-        firstName,
-        lastName,
-      };
-      const { data } = await userRegister(userInfo);
-      if (data.status !== "PENDING") {
-        throw Error("Failed to send email.");
+        password: password,
+      });
+      if (data) {
+        toast({
+          title: "Password set successfully, please login again",
+          status: "success",
+          isClosable: true,
+        });
+        setStep(1);
+        onClose();
       }
-      getUserId(data.data.userId);
-      nextStep();
     } catch (err) {
       toast({
         title: "network error",
@@ -80,11 +81,6 @@ const Register: React.FC<Props> = (props: Props) => {
       });
     }
   };
-  const handleCloseModal = () => {
-    setStep(1);
-    onClose();
-  };
-
   return (
     <>
       <ModalOperator
@@ -98,7 +94,7 @@ const Register: React.FC<Props> = (props: Props) => {
             <MainLogoSvg />
           </Icon>
           <Text fontSize="sm" textAlign="center">
-            Sign up with
+            To login by email, please set password for
             <Text color="brand.secondary">{userEmail}</Text>
           </Text>
           <Divider />
@@ -110,24 +106,6 @@ const Register: React.FC<Props> = (props: Props) => {
       <ModalBody>
         <Flex flexDir="column" alignItems="center">
           <form style={{ marginBottom: "30px", width: "300px" }} onSubmit={handleSubmit}>
-            <Flex gap="10px">
-              <FormControl isRequired>
-                <FormLabel>First name</FormLabel>
-                <Input
-                  placeholder="First name"
-                  value={firstName}
-                  onChange={(event) => setFirstName(event?.currentTarget.value)}
-                />
-              </FormControl>
-              <FormControl isRequired>
-                <FormLabel>Last name</FormLabel>
-                <Input
-                  placeholder="Last name"
-                  value={lastName}
-                  onChange={(event) => setLastName(event?.currentTarget.value)}
-                />
-              </FormControl>
-            </Flex>
             <PwdInputGroup
               label="Password"
               value={password}
@@ -144,7 +122,7 @@ const Register: React.FC<Props> = (props: Props) => {
               </Text>
             )}
             <Button variant="shareBtn" width="300px" marginTop="20px" onClick={handleSubmit}>
-              Create Account
+              Submit
             </Button>
           </form>
         </Flex>
@@ -153,4 +131,4 @@ const Register: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default Register;
+export default ExistedAccountPwdSetting;

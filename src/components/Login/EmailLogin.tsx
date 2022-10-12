@@ -20,10 +20,10 @@ interface Props {
   initialRef: React.LegacyRef<HTMLInputElement> | undefined;
   onClose: any;
   setStep: React.Dispatch<React.SetStateAction<number>>;
-  setPwdStep: () => void;
   nextStep: () => void;
   prevStep: () => void;
   setUserExisted: React.Dispatch<React.SetStateAction<boolean>>;
+  setNeedPwd: React.Dispatch<React.SetStateAction<boolean>>;
   inputEmail: (input: string) => void;
   currentStep: string;
 }
@@ -42,7 +42,7 @@ const EmailLogin: React.FC<Props> = ({
   onClose,
   setStep,
   currentStep,
-  setPwdStep,
+  setNeedPwd,
 }) => {
   const [input, setInput] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
@@ -64,10 +64,11 @@ const EmailLogin: React.FC<Props> = ({
 
   const handleEmailCheck = async () => {
     try {
-      const res: checkResponse = await checkEmail(input);
+      const res: checkResponse = (await checkEmail(input)).data;
       res.findUser ? setUserExisted(true) : setUserExisted(false);
       if (res.findUser && res.needPwd) {
-        setPwdStep();
+        setNeedPwd(true);
+        setStep(4);
       } else {
         nextStep();
       }
