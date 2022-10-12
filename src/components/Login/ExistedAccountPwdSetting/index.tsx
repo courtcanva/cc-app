@@ -60,13 +60,13 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
       return;
     }
     try {
-      const { data } = await updateUser({
+      const res = await updateUser({
         email: userEmail,
         password: password,
       });
-      if (data) {
+      if (res.status === 200) {
         toast({
-          title: "Password set successfully, please login again",
+          title: "Password set successfully! Please login again",
           status: "success",
           isClosable: true,
         });
