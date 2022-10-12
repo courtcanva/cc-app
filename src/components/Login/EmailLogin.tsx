@@ -20,17 +20,30 @@ interface Props {
   initialRef: React.LegacyRef<HTMLInputElement> | undefined;
   onClose: any;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  setPwdStep: () => void;
   nextStep: () => void;
   prevStep: () => void;
-  findUser: (isExisted: boolean) => void;
+  setUserExisted: React.Dispatch<React.SetStateAction<boolean>>;
   inputEmail: (input: string) => void;
   currentStep: string;
 }
 
-export default function EmailLogin(props: Props) {
-  const { initialRef, nextStep, prevStep, findUser, inputEmail, onClose, setStep, currentStep } =
-    props;
+interface checkResponse {
+  findUser: boolean;
+  needPwd: boolean;
+}
 
+const EmailLogin: React.FC<Props> = ({
+  initialRef,
+  nextStep,
+  prevStep,
+  setUserExisted,
+  inputEmail,
+  onClose,
+  setStep,
+  currentStep,
+  setPwdStep,
+}) => {
   const [input, setInput] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(true);
@@ -51,9 +64,13 @@ export default function EmailLogin(props: Props) {
 
   const handleEmailCheck = async () => {
     try {
-      const { data } = await checkEmail(input);
-      data ? findUser(true) : findUser(false);
-      typeof data === "boolean" && nextStep();
+      const res: checkResponse = await checkEmail(input);
+      res.findUser ? setUserExisted(true) : setUserExisted(false);
+      if (res.findUser && res.needPwd) {
+        setPwdStep();
+      } else {
+        nextStep();
+      }
     } catch (err) {
       toast({
         title: "network error",
@@ -69,7 +86,7 @@ export default function EmailLogin(props: Props) {
     setIsValidEmail(validation);
     if (validation) {
       inputEmail(input);
-      handleEmailCheck();
+      handleEmailCheck().then();
     }
   };
   const handleCloseModal = () => {
@@ -126,4 +143,6 @@ export default function EmailLogin(props: Props) {
       </ModalBody>
     </>
   );
-}
+};
+
+export default EmailLogin;

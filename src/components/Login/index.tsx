@@ -44,11 +44,9 @@ const LoginModalContent = (props: Props) => {
     setExistedUserInfo(existedUserInfo);
     setStep(6);
   };
-
-  const findUser = (isUserExisted: boolean) => {
-    setUserExisted(isUserExisted);
+  const setPwdStep = () => {
+    return;
   };
-
   const modalContent = () => {
     switch (step) {
       case 1:
@@ -70,10 +68,11 @@ const LoginModalContent = (props: Props) => {
             nextStep={nextStep}
             prevStep={prevStep}
             initialRef={initialRef}
-            findUser={findUser}
+            setUserExisted={setUserExisted}
             inputEmail={(email: string) => {
               setUserEmail(email);
             }}
+            setPwdStep={setPwdStep}
           />
         );
       case 3:
