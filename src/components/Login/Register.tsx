@@ -52,7 +52,7 @@ const Register: React.FC<Props> = (props: Props) => {
     }
     // regular expression from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
     const passwordRegExp =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~])[A-Za-z\d@ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]{8,}$/; // eslint-disable-line
+      /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~])[a-zA-Z\d `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]{8,}$/; // eslint-disable-line
     if (!passwordRegExp.test(password)) {
       setErrorMessage("");
       setWeakPasswordMsg(
