@@ -27,33 +27,35 @@ interface Props {
 
 const maxCourtNameLen = 20;
 const maxDescriptionLen = 200;
+// 目前只支持英语
+const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
 
 function CreateTemplate(prop: Props) {
   const { isOpen, onClose } = prop;
   const courtNameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const [courtNameFull, setCourtNameFull] = useState(false);
-  const [descriptionFull, setDescriptionFull] = useState(false);
   const [textAreaLen, setTextAreaLen] = useState(0);
-  const { userId } = useStoreSelector((state) => state.user);
+  const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const nameInputLen = e.target.value.length;
-    if (nameInputLen >= maxCourtNameLen) {
-      setCourtNameFull(true);
-    } else {
-      setCourtNameFull(false);
-    }
+    const nameInputLen = e.currentTarget.value.length;
+    nameInputLen > maxCourtNameLen ? setCourtNameFull(true) : setCourtNameFull(false);
   };
 
   const handleTextAreaLenChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTextAreaLen(e.currentTarget.value.split(" ").length - 1);
+    const textAreaLength = e.currentTarget.value
+      .trim()
+      .replace(regex, " ")
+      .split(" ")
+      .filter((item) => item != "").length;
+    setTextAreaLen(textAreaLength);
   };
 
   const submitTemplate = () => {
     const courtName = courtNameRef.current?.value;
     const description = descriptionRef.current?.value;
-    const image = "";
+    const image = ""; // 等大王PR
     const id = "";
 
     // tags咋办啊
@@ -110,14 +112,15 @@ function CreateTemplate(prop: Props) {
                 <Flex alignItems="center">
                   <Icon as={FaUserCircle} fontSize="40px" marginRight="30px" />
                   {/* User icon may need to be fetched from the database or s3 */}
+                  {/* 想想名字太长咋办 */}
                   <Text fontSize="large" fontWeight="500">
-                    username
+                    {`${firstName} ${lastName}`}
                   </Text>
                 </Flex>
               </Box>
             </Flex>
 
-            <FormControl marginTop="16px" isRequired>
+            <FormControl marginTop="16px">
               <FormLabel marginBottom="16px">Description:</FormLabel>
               <Textarea
                 height="200px"
@@ -127,7 +130,9 @@ function CreateTemplate(prop: Props) {
               />
             </FormControl>
 
-            <Text>Maximum description length: {textAreaLen}/200 words</Text>
+            <Text color={textAreaLen < maxDescriptionLen ? "black" : "crimson"}>
+              Maximum description length: {textAreaLen}/200 words
+            </Text>
           </ModalBody>
 
           <Flex justifyContent="space-around" margin="24px" flexWrap="wrap">

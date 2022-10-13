@@ -7,16 +7,16 @@ export const templateApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: environment.apiBaseUrl,
   }),
-  tagTypes: ["templates", "template"],
+  tagTypes: ["templates"],
   endpoints: (builder) => ({
     getTemplates: builder.query({
       query: (userId) => `/templates?user_id=${userId}`,
-      providesTags: ["templates", "template"],
+      providesTags: ["templates"],
     }),
 
     getTemplateById: builder.query({
       query: (templateId) => `templates/${templateId}`,
-      providesTags: ["templates", "template"],
+      providesTags: ["templates"],
     }),
 
     addTemplate: builder.mutation({
@@ -25,7 +25,7 @@ export const templateApi = createApi({
         method: "POST",
         body: newTemplate,
       }),
-      invalidatesTags: () => [{ type: "templates" }],
+      invalidatesTags: ["templates"],
     }),
 
     deleteTemplate: builder.mutation({
@@ -33,7 +33,7 @@ export const templateApi = createApi({
         url: `/templates/${itemId}`,
         method: "DELETE",
       }),
-      invalidatesTags: () => [{ type: "templates" }],
+      invalidatesTags: ["templates"],
     }),
   }),
 });
