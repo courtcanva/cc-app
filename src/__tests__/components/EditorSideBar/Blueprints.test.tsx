@@ -1,9 +1,6 @@
-import { act, screen } from "@testing-library/react";
-import user from "@testing-library/user-event";
+import { screen } from "@testing-library/react";
 import Blueprints from "@/components/EditorSideBar/Blueprints";
 import renderWithMockedProvider from "../../utils";
-import TopBar from "@/components/TopBar";
-import courtList from "@/components/ChangeCourtSize/CourtList";
 
 describe("Blueprints", () => {
   const data = [
