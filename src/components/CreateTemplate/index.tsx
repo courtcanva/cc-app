@@ -1,7 +1,5 @@
 import { useStoreSelector } from "@/store/hooks";
-import { switchCreateTemplate } from "@/store/reducer/buttonToggleSlice";
 import {
-  useDisclosure,
   Button,
   Modal,
   ModalOverlay,
@@ -17,11 +15,10 @@ import {
   IconButton,
   Text,
   Textarea,
-  Tag,
+  Icon,
 } from "@chakra-ui/react";
-import React, { ReactEventHandler, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { useDispatch } from "react-redux";
 
 interface Props {
   isOpen: boolean;
@@ -29,26 +26,28 @@ interface Props {
 }
 
 const maxCourtNameLen = 20;
+const maxDescriptionLen = 200;
 
 function CreateTemplate(prop: Props) {
   const { isOpen, onClose } = prop;
   const courtNameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
-  const [courtNameLen, setCourtNameLen] = useState(false);
+  const [courtNameFull, setCourtNameFull] = useState(false);
+  const [descriptionFull, setDescriptionFull] = useState(false);
   const [textAreaLen, setTextAreaLen] = useState(0);
   const { userId } = useStoreSelector((state) => state.user);
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.target.value.length;
     if (nameInputLen >= maxCourtNameLen) {
-      setCourtNameLen(true);
+      setCourtNameFull(true);
     } else {
-      setCourtNameLen(false);
+      setCourtNameFull(false);
     }
   };
 
-  const getTextAreaLen = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTextAreaLen(e.currentTarget.value.length);
+  const handleTextAreaLenChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTextAreaLen(e.currentTarget.value.split(" ").length - 1);
   };
 
   const submitTemplate = () => {
@@ -61,7 +60,7 @@ function CreateTemplate(prop: Props) {
   };
 
   useEffect(() => {
-    setCourtNameLen(false);
+    setCourtNameFull(false);
   }, []);
 
   return (
@@ -86,56 +85,49 @@ function CreateTemplate(prop: Props) {
             </Flex> */}
 
             <Flex>
-              <FormControl marginTop="16px">
-                <FormLabel>Court Name:</FormLabel>
+              <FormControl width="50%" marginTop="16px" isRequired isInvalid={courtNameFull}>
+                <FormLabel marginBottom="16px">Court Name:</FormLabel>
                 <Input
                   placeholder="Court name"
                   width="240px"
                   maxLength={maxCourtNameLen}
                   onChange={checkNameLength}
-                  isInvalid={courtNameLen}
                   ref={courtNameRef}
                 />
                 {/* {courtNameLen ? (
                   <Text color="crimson">Max 20 letters are allowed</Text>
                 ) : (
-                  <Text height={}> </Text>
+                  <Text height={}> </Text>`
                 )} */}
-                <Text color="crimson" hidden={!courtNameLen}>
+                <Text color="crimson" visibility={!courtNameFull ? "hidden" : "visible"}>
                   Max 20 letters are allowed
                 </Text>
               </FormControl>
-              <FormControl marginTop="16px">
-                <FormLabel>Publisher:</FormLabel>
+              <Box width="50%">
+                <Text margin="16px 0px" fontSize="middium" fontWeight="500">
+                  Publisher:
+                </Text>
                 <Flex alignItems="center">
-                  <Button
-                    as={IconButton}
-                    aria-label="User information"
-                    icon={<FaUserCircle />}
-                    variant="navbarIconBtn"
-                    bg="background.tertiary"
-                    color="brand.primary"
-                    marginRight="10px"
-                    isRound
-                  ></Button>
-                  <Text>username</Text>
+                  <Icon as={FaUserCircle} fontSize="40px" marginRight="30px" />
+                  {/* User icon may need to be fetched from the database or s3 */}
+                  <Text fontSize="large" fontWeight="500">
+                    username
+                  </Text>
                 </Flex>
-              </FormControl>
+              </Box>
             </Flex>
 
-            <FormControl marginTop="16px">
-              <FormLabel>Description:</FormLabel>
+            <FormControl marginTop="16px" isRequired>
+              <FormLabel marginBottom="16px">Description:</FormLabel>
               <Textarea
+                height="200px"
                 placeholder="Description: maximum 200 words"
-                maxLength={200}
-                onChange={getTextAreaLen}
+                onChange={handleTextAreaLenChange}
                 ref={descriptionRef}
               />
             </FormControl>
 
-            <Text fontSize="10px" right="0">
-              Maximum description length: {textAreaLen}/200 words
-            </Text>
+            <Text>Maximum description length: {textAreaLen}/200 words</Text>
           </ModalBody>
 
           <Flex justifyContent="space-around" margin="24px" flexWrap="wrap">
