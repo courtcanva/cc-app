@@ -36,7 +36,7 @@ function CreateTemplate(prop: Props) {
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const [courtNameLen, setCourtNameLen] = useState(false);
   const [textAreaLen, setTextAreaLen] = useState(0);
-  const { userId } = useStoreSelector(state => state.user)
+  const { userId } = useStoreSelector((state) => state.user);
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.target.value.length;
@@ -49,16 +49,16 @@ function CreateTemplate(prop: Props) {
 
   const getTextAreaLen = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextAreaLen(e.currentTarget.value.length);
-  }
+  };
 
   const submitTemplate = () => {
     const courtName = courtNameRef.current?.value;
     const description = descriptionRef.current?.value;
     const image = "";
     const id = "";
-    
+
     // tags咋办啊
-  }
+  };
 
   useEffect(() => {
     setCourtNameLen(false);
@@ -66,12 +66,7 @@ function CreateTemplate(prop: Props) {
 
   return (
     <>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        size="2xl"
-        isCentered
-      >
+      <Modal isOpen={isOpen} onClose={onClose} size="2xl" isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Template sharing</ModalHeader>
