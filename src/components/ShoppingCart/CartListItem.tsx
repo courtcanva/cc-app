@@ -5,6 +5,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { ICartItem } from "@/interfaces/cartItem";
 import DropDownButton from "@/components/ShoppingCart/dropDownButton";
 import { RiErrorWarningLine } from "react-icons/ri";
+import Image from "next/image";
 
 interface CartListItemProps {
   item: ICartItem;
@@ -16,9 +17,9 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
     design: { designName: productName },
     quotation: quotation,
     quotationDetails: quotationDetails,
+    image: image,
     isExpired,
   } = item;
-  const image = item.previewPic;
 
   return (
     <>
@@ -31,7 +32,17 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
                 <RiErrorWarningLine size={36} color="#F55252" data-testid="expired-icon" />
               )}
             </Box>
-            <Box width="250px" height="110px" backgroundColor="blue"></Box>
+            <Box
+              width="250px"
+              height="110px"
+              line-height="110px"
+              backgroundColor="white"
+              display="flex"
+            >
+              <Box width="100%" height="100%" position="relative">
+                <Image src={image} alt="Court image" layout="fill" objectFit="contain"></Image>
+              </Box>
+            </Box>
           </Flex>
         </Td>
         <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }} overflowX="auto">

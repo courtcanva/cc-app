@@ -16,6 +16,7 @@ import { ICartItem } from "@/interfaces/cartItem";
 import DeleteComfirmModal from "@/components/DeleteComfirmModal";
 import { useDeleteItemFromCartMutation } from "@/redux/api/cartApi";
 import { RiErrorWarningLine } from "react-icons/ri";
+import { deleteImage } from "@/utils/uploadImage";
 
 interface userCartList {
   shoppingCart: ICartItem[];
@@ -28,6 +29,11 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
   const confirmDeleteDesign = (id: string) => {
     deleteItemFromCart(id);
     onClose();
+    const imageUrl = shoppingCart.find((cartItem) => {
+      return cartItem.id === id;
+    })?.image;
+    if (!imageUrl) return console.log("No picture to delete.");
+    deleteImage(imageUrl);
   };
   const [cartItemIdToDelete, setCartItemIdToDelete] = useState("");
   const anyExpired = shoppingCart.some((item) => item.isExpired);

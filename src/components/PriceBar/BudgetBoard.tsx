@@ -5,7 +5,9 @@ import { ICartItem } from "@/interfaces/cartItem";
 import { saveDesignMapping } from "@/utils/designMapping";
 import { IDesign, ITileColor } from "@/interfaces/design";
 import { useDispatch } from "react-redux";
-import { switchLoginModal } from "@/store/reducer/buttonToggleSlice";
+import { switchLoginModal, switchSideBar } from "@/store/reducer/buttonToggleSlice";
+import { resetAll } from "@/store/reducer/canvasControlSlice";
+import { upLoadImage } from "@/utils/uploadImage";
 
 interface IBudgetBoardprops {
   useTotalPrice: string;
@@ -35,13 +37,19 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
     design: currentDesign,
     quotation: useTotalPrice,
     quotationDetails: tileBlocks,
-    previewPic: "",
+    image: "",
     id: "",
     isExpired: false,
   };
 
-  const handleAddToCart = () => {
-    userId ? addToCart({ item: newCartItem }) : dispatch(switchLoginModal(true));
+  const handleAddToCart = async () => {
+    if (!userId) return dispatch(switchLoginModal(true));
+    dispatch(switchSideBar(false));
+    dispatch(resetAll());
+    const imageUrl = await upLoadImage();
+    addToCart({
+      item: { ...newCartItem, image: imageUrl },
+    });
   };
 
   return (
