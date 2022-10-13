@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { environment } from "@/constants/environment";
-import { ICartItem } from "@/interfaces/cartItem";
+import { ITemplate } from "@/interfaces/template";
 
 export const templateApi = createApi({
   reducerPath: "templates",
@@ -20,7 +20,7 @@ export const templateApi = createApi({
     }),
 
     addTemplate: builder.mutation({
-      query: (newTemplate: ICartItem) => ({
+      query: (newTemplate: ITemplate) => ({
         url: "templates",
         method: "POST",
         body: newTemplate,
