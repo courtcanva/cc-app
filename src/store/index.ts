@@ -46,7 +46,7 @@ export const makeStore = () =>
         designApi.middleware,
         courtColorApi.middleware,
         cartApi.middleware,
-        templateApi.middleware,
+        templateApi.middleware
       ),
   });
 

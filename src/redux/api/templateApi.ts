@@ -7,7 +7,7 @@ export const templateApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: environment.apiBaseUrl,
   }),
-  tagTypes: ["templates","template"],
+  tagTypes: ["templates", "template"],
   endpoints: (builder) => ({
     getTemplates: builder.query({
       query: (userId) => `/templates?user_id=${userId}`,
@@ -20,7 +20,7 @@ export const templateApi = createApi({
     }),
 
     addTemplate: builder.mutation({
-      query: (newTemplate: ICartItem ) => ({
+      query: (newTemplate: ICartItem) => ({
         url: "templates",
         method: "POST",
         body: newTemplate,
@@ -38,4 +38,9 @@ export const templateApi = createApi({
   }),
 });
 
-export const { useGetTemplatesQuery ,useGetTemplateByIdQuery, useAddTemplateMutation, useDeleteTemplateMutation } = templateApi;
+export const {
+  useGetTemplatesQuery,
+  useGetTemplateByIdQuery,
+  useAddTemplateMutation,
+  useDeleteTemplateMutation,
+} = templateApi;
