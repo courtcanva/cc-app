@@ -25,12 +25,19 @@ import { userData } from "@/store/reducer/userSlice";
 import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import useAuthRequest from "../Login/helpers/authRequest";
-import { switchSideBar, switchLoginModal } from "@/store/reducer/buttonToggleSlice";
+import {
+  switchSideBar,
+  switchLoginModal,
+  switchCreateTemplate,
+} from "@/store/reducer/buttonToggleSlice";
 import { useHandleLocalStorageItem } from "@/hooks/useHandleLocalStorage";
+import CreateTemplate from "../CreateTemplate";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
-  const { isCartOpen, isLoginModalOpen } = useStoreSelector((state) => state.buttonToggle);
+  const { isCartOpen, isLoginModalOpen, isCreateTemplateOpen } = useStoreSelector(
+    (state) => state.buttonToggle
+  );
   const { userLogout, updateToken } = useAuthRequest();
   const { getLocalStorageItem } = useHandleLocalStorageItem();
 
@@ -105,6 +112,13 @@ const NavigationBar = () => {
   const handleReset = () => {
     dispatch(switchSideBar(false));
     dispatch(ActionCreators.jumpToPast(0));
+  };
+
+  const handleCreateTemplateOpen = () => {
+    dispatch(switchCreateTemplate(true));
+  };
+  const handleCreateTemplateClose = () => {
+    dispatch(switchCreateTemplate(false));
   };
 
   const isThingsToUndo = useStoreSelector((state) => state.tile.past).length;
@@ -191,10 +205,14 @@ const NavigationBar = () => {
           updateLoginData={updateLoginData}
         ></LoginModalContent>
         <ShoppingCartButton quantity={quantity} loginState={loginState} />
+        <CreateTemplate
+          isOpen={isCreateTemplateOpen}
+          onClose={handleCreateTemplateClose}
+        ></CreateTemplate>
         <Button
           variant="shareBtn"
           marginLeft="10px"
-          onClick={handleLoginModalOpen}
+          onClick={loginState ? handleCreateTemplateOpen : handleLoginModalOpen}
           data-testid="share-btn"
         >
           Share
