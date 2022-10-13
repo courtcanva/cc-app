@@ -19,7 +19,7 @@ import {
   Textarea,
   Tag,
 } from "@chakra-ui/react";
-import React, { ReactEventHandler, useEffect, useState } from "react";
+import React, { ReactEventHandler, useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 
@@ -32,11 +32,13 @@ const maxCourtNameLen = 20;
 
 function CreateTemplate(prop: Props) {
   const { isOpen, onClose } = prop;
-  const initialRef = React.useRef(null);
-  const finalRef = React.useRef(null);
+  const courtNameRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const [courtNameLen, setCourtNameLen] = useState(false);
+  const [textAreaLen, setTextAreaLen] = useState(0);
+  const { userId } = useStoreSelector(state => state.user)
 
-  const checkNameLength = (e: any) => {
+  const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.target.value.length;
     if (nameInputLen >= maxCourtNameLen) {
       setCourtNameLen(true);
@@ -45,6 +47,19 @@ function CreateTemplate(prop: Props) {
     }
   };
 
+  const getTextAreaLen = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTextAreaLen(e.currentTarget.value.length);
+  }
+
+  const submitTemplate = () => {
+    const courtName = courtNameRef.current?.value;
+    const description = descriptionRef.current?.value;
+    const image = "";
+    const id = "";
+    
+    // tags咋办啊
+  }
+
   useEffect(() => {
     setCourtNameLen(false);
   }, []);
@@ -52,8 +67,6 @@ function CreateTemplate(prop: Props) {
   return (
     <>
       <Modal
-        initialFocusRef={initialRef}
-        finalFocusRef={finalRef}
         isOpen={isOpen}
         onClose={onClose}
         size="2xl"
@@ -86,6 +99,7 @@ function CreateTemplate(prop: Props) {
                   maxLength={maxCourtNameLen}
                   onChange={checkNameLength}
                   isInvalid={courtNameLen}
+                  ref={courtNameRef}
                 />
                 {/* {courtNameLen ? (
                   <Text color="crimson">Max 20 letters are allowed</Text>
@@ -109,23 +123,28 @@ function CreateTemplate(prop: Props) {
                     marginRight="10px"
                     isRound
                   ></Button>
-                  <Text> username</Text>
+                  <Text>username</Text>
                 </Flex>
               </FormControl>
             </Flex>
 
             <FormControl marginTop="16px">
               <FormLabel>Description:</FormLabel>
-              <Textarea placeholder="Description: maximum 200 words" />
+              <Textarea
+                placeholder="Description: maximum 200 words"
+                maxLength={200}
+                onChange={getTextAreaLen}
+                ref={descriptionRef}
+              />
             </FormControl>
 
             <Text fontSize="10px" right="0">
-              Maximum description length: 0/200 words
+              Maximum description length: {textAreaLen}/200 words
             </Text>
           </ModalBody>
 
           <Flex justifyContent="space-around" margin="24px" flexWrap="wrap">
-            <Button colorScheme="blue" variant="shareBtn" width="100px">
+            <Button colorScheme="blue" variant="shareBtn" width="100px" onClick={submitTemplate}>
               Publish
             </Button>
             <Button onClick={onClose} width="100px">
