@@ -66,7 +66,10 @@ const TopBar = () => {
   const handleDownload = () => {
     dispatch(switchSideBar(false));
     dispatch(resetAll());
-    downloadToPDF();
+    const downloadTimer = setTimeout(() => {
+      downloadToPDF();
+      clearTimeout(downloadTimer);
+    }, 500);
   };
 
   const handleChange = (val: number) => {
