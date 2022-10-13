@@ -49,7 +49,8 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
       return;
     }
     // regular expression from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
-    const passwordRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    const passwordRegExp =
+      /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~])[a-zA-Z\d `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]{8,}$/; // eslint-disable-line
     if (!passwordRegExp.test(password)) {
       setErrorMessage("");
       setWeakPasswordMsg(
