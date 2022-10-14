@@ -56,7 +56,6 @@ const EmailVerification: React.FC<Props> = ({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (needPwd) setPwdStep();
     if (otp.length < CODE_LENGTH) {
       setErrorMessage("Please Input a 6 digits number!");
       return;

@@ -14,6 +14,7 @@ import PwdInputGroup from "@/components/Login/PwdInputGroup";
 import React, { useState } from "react";
 import { updateUser } from "@/components/Login/helpers/userRequests";
 import validatePwd from "@/components/Login/helpers/validatePwd";
+import { AxiosResponse } from "axios";
 
 type Props = {
   onClose: () => void;
@@ -47,26 +48,26 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
       return;
     }
     if (!validatePwd(password, confirmPassword, setWeakPasswordMsg, setErrorMessage)) return;
-    try {
-      await updateUser({
-        userId: userId,
-        password: password,
-      });
-      toast({
-        title: "Operation successful! Please login again",
-        status: "success",
-        isClosable: true,
-        position: "top",
-      });
-      closeModal();
-    } catch (err) {
+    const res: AxiosResponse = await updateUser({
+      userId: userId,
+      password: password,
+    });
+    if (res.status !== 200) {
       toast({
         title: "Operation failed, please try again",
         status: "error",
         isClosable: true,
         position: "top",
       });
+      return;
     }
+    toast({
+      title: "Operation successful! Please login again",
+      status: "success",
+      isClosable: true,
+      position: "top",
+    });
+    closeModal();
   };
   return (
     <>

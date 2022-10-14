@@ -15,6 +15,7 @@ import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import React, { useEffect, useState } from "react";
 import useAuthRequest from "@/components/Login/helpers/authRequest";
 import ModalOperator from "./ModalOperater";
+import { AxiosResponse } from "axios";
 
 interface Props {
   initialRef: React.LegacyRef<HTMLInputElement> | undefined;
@@ -29,7 +30,7 @@ interface Props {
   setUserId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-interface checkResponse {
+export interface CheckResponse {
   findUser: boolean;
   needPwd?: boolean;
   emailRes?: {
@@ -70,26 +71,33 @@ const EmailLogin: React.FC<Props> = ({
   };
 
   const handleEmailCheck = async () => {
-    try {
-      const res: checkResponse = (await checkEmail(input)).data;
-      setUserExisted(res.findUser);
-      if (res.findUser && res.needPwd && res.emailRes && res.userId) {
-        // if (res.emailRes.status !== "PENDING") {
-        //   throw Error("Failed to send verification email");
-        // }
-        setNeedPwd(true);
-        setUserId(res.userId);
-        setStep(4);
-      } else {
-        nextStep();
-      }
-    } catch (err) {
+    const axiosResponse: AxiosResponse = await checkEmail(input);
+    if (axiosResponse.status !== 201) {
       toast({
-        title: err instanceof Error ? err.message : "network error",
+        title: "network error",
         status: "error",
         isClosable: true,
         position: "top",
       });
+      return;
+    }
+    const res: CheckResponse = axiosResponse.data;
+    setUserExisted(res.findUser);
+    if (res.findUser && res.needPwd && res.emailRes && res.userId) {
+      if (res.emailRes.status !== "PENDING") {
+        toast({
+          title: "Failed to send verification email",
+          status: "error",
+          isClosable: true,
+          position: "top",
+        });
+        return;
+      }
+      setNeedPwd(true);
+      setUserId(res.userId);
+      setStep(4);
+    } else {
+      nextStep();
     }
   };
 
