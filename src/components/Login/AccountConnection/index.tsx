@@ -88,7 +88,7 @@ const AccountConnection: React.FC<Props> = ({
           <Icon width="240px" height="180px" viewBox="120 0 550 550" role="logo">
             <MainLogoSvg />
           </Icon>
-          <Text fontSize="17" textAlign="center">
+          <Text fontSize="17px" textAlign="center">
             Account registered by your email exists
           </Text>
           <Text fontSize="11px" textAlign="center" fontWeight="light" marginTop="15px">
