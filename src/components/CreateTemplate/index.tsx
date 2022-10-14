@@ -45,11 +45,11 @@ function CreateTemplate(prop: Props) {
   };
 
   const handleTextAreaLenChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const textAreaLength = e.currentTarget.value
-      .trim()
-      .replace(regex, " ")
-      .split(" ")
-      .filter((item) => item != "").length;
+    const textAreaLength = e.target.value.length;
+    // .trim()
+    // .replace(regex, " ")
+    // .split(" ")
+    // .filter((item) => item != "").length;
     setTextAreaLen(textAreaLength);
   };
 
@@ -88,8 +88,8 @@ function CreateTemplate(prop: Props) {
             </Flex> */}
 
             <Flex>
-              <FormControl width="50%" marginTop="16px" isRequired isInvalid={courtNameFull}>
-                <FormLabel marginBottom="16px">Court Name:</FormLabel>
+              <FormControl width="50%" marginTop="1rem" isRequired isInvalid={courtNameFull}>
+                <FormLabel marginBottom="1rem">Court Name:</FormLabel>
                 <Input
                   placeholder="Court name"
                   width="240px"
@@ -112,7 +112,12 @@ function CreateTemplate(prop: Props) {
                 </Flex>
               </Box>
             </Flex>
-            <Alert
+            <Text color="crimson" opacity={!courtNameFull ? "0" : "100%"} fontSize="0.8rem">
+              CourtName cannot have more than 20 letters
+            </Text>
+            {/* NOTE: 1、待讨论：要不要直接换成文字，直接插入alert 弹框会出现bug 
+            2、或者直接沿用design 的name， 有现成的验证，用户可以少一次输入，同时想要修改可以在这个入口直接修改*/}
+            {/* <Alert
               status="error"
               marginTop="16px"
               variant="left-accent"
@@ -122,10 +127,10 @@ function CreateTemplate(prop: Props) {
             >
               <IoMdAlert color="crimson" fontSize="24px" />
               Reach the maximum length of 20 letters
-            </Alert>
+            </Alert> */}
 
-            <FormControl marginTop="16px">
-              <FormLabel marginBottom="16px">Description:</FormLabel>
+            <FormControl marginTop="1rem">
+              <FormLabel marginBottom="1rem">Description:</FormLabel>
               <Textarea
                 height="200px"
                 placeholder={`Description: maximum ${maxDescriptionLen} words`}
@@ -135,7 +140,7 @@ function CreateTemplate(prop: Props) {
             </FormControl>
 
             <Text color={textAreaLen < maxDescriptionLen ? "black" : "crimson"}>
-              Maximum description length: {textAreaLen}/{maxDescriptionLen} words
+              {textAreaLen}/{maxDescriptionLen} words
             </Text>
           </ModalBody>
 
