@@ -19,10 +19,8 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { useGetTemplatesQuery, useAddTemplateMutation } from "@/redux/api/templateApi";
+import { useAddTemplateMutation } from "@/redux/api/templateApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
-import { ITemplate } from "@/interfaces/template";
-import { IDesign } from "@/interfaces/design";
 
 interface Props {
   isOpen: boolean;
@@ -41,9 +39,6 @@ function CreateTemplate(prop: Props) {
   const [courtNameFull, setCourtNameFull] = useState(false);
   const [textAreaLen, setTextAreaLen] = useState(0);
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
-
-
-  const { data, error } = useGetTemplatesQuery("123456");
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.currentTarget.value.length;
@@ -64,7 +59,7 @@ function CreateTemplate(prop: Props) {
     const description = descriptionRef.current?.value;
     const image = ""; // 等大王PR
     const id = "";
-    console.log(JSON.stringify(data));
+
     // tags咋办啊
   };
 

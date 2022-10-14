@@ -20,9 +20,7 @@ export const templateApi = createApi({
     getTemplateById: builder.query<any, string>({
       query: (templateId) => `templates/${templateId}`,
       providesTags: (result, err, arg) =>
-        result
-          ? [{ type: "template" as const, id: result._id }]
-          : ["template"],
+        result ? [{ type: "template" as const, id: result._id }] : ["template"],
     }),
 
     addTemplate: builder.mutation<any, Omit<ITemplate, "_id">>({
