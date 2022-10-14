@@ -76,6 +76,7 @@ const LoginModalContent = (props: Props) => {
               setUserEmail(email);
             }}
             setNeedPwd={setNeedPwd}
+            setUserId={setUserId}
           />
         );
       case 3:
@@ -153,6 +154,7 @@ const LoginModalContent = (props: Props) => {
             setStep={setStep}
             userEmail={userEmail}
             currentStep={stepName.ExistedAccountPwdSetting}
+            userId={userId}
           />
         );
     }

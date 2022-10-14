@@ -20,6 +20,7 @@ type Props = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   currentStep: string;
+  userId: string;
 };
 
 const ExistedAccountPwdSetting: React.FC<Props> = ({
@@ -27,6 +28,7 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
   onClose,
   currentStep,
   userEmail,
+  userId,
 }) => {
   const closeModal = () => {
     onClose();
@@ -47,7 +49,7 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
     if (!validatePwd(password, confirmPassword, setWeakPasswordMsg, setErrorMessage)) return;
     try {
       await updateUser({
-        email: userEmail,
+        userId: userId,
         password: password,
       });
       toast({

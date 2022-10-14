@@ -26,15 +26,17 @@ interface Props {
   setNeedPwd: React.Dispatch<React.SetStateAction<boolean>>;
   inputEmail: (input: string) => void;
   currentStep: string;
+  setUserId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface checkResponse {
   findUser: boolean;
-  needPwd: boolean;
-  emailRes: {
+  needPwd?: boolean;
+  emailRes?: {
     status: string;
     message: string;
   };
+  userId?: string;
 }
 
 const EmailLogin: React.FC<Props> = ({
@@ -47,6 +49,7 @@ const EmailLogin: React.FC<Props> = ({
   setStep,
   currentStep,
   setNeedPwd,
+  setUserId,
 }) => {
   const [input, setInput] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
@@ -70,11 +73,12 @@ const EmailLogin: React.FC<Props> = ({
     try {
       const res: checkResponse = (await checkEmail(input)).data;
       setUserExisted(res.findUser);
-      if (res.findUser && res.needPwd) {
-        if (res.emailRes.status !== "PENDING") {
-          throw Error("Failed to send verification email");
-        }
+      if (res.findUser && res.needPwd && res.emailRes && res.userId) {
+        // if (res.emailRes.status !== "PENDING") {
+        //   throw Error("Failed to send verification email");
+        // }
         setNeedPwd(true);
+        setUserId(res.userId);
         setStep(4);
       } else {
         nextStep();
