@@ -36,6 +36,10 @@ const AccountConnection: React.FC<Props> = ({
 }) => {
   const toast = useToast();
   const dispatch = useStoreDispatch();
+  const closeModal = () => {
+    onClose();
+    setStep(1);
+  };
   // if this call is needed else where in the future, please move it to redux
   const onConnect = async () => {
     try {
@@ -53,28 +57,29 @@ const AccountConnection: React.FC<Props> = ({
         firstName: loginRes.firstName,
         lastName: loginRes.lastName,
       };
-      if (userInfo) {
-        toast({
-          title: "Account connected successfully!",
-          status: "success",
-          isClosable: true,
-        });
-        setStep(1);
-        onClose();
-        localStorage.setItem("UserInfo", JSON.stringify(userInfo));
-        dispatch(updateUserInfo(userInfo));
-        updateLoginData(userInfo);
-        setStep(1);
-        onClose();
-      }
+      toast({
+        title: "Connection success! Enjoy designing!",
+        status: "success",
+        isClosable: true,
+        position: "top",
+      });
+      localStorage.setItem("UserInfo", JSON.stringify(userInfo));
+      dispatch(updateUserInfo(userInfo));
+      updateLoginData(userInfo);
+      closeModal();
     } catch (err) {
-      console.warn(err);
+      toast({
+        title: "Connection failed",
+        status: "error",
+        isClosable: true,
+        position: "top",
+      });
     }
   };
   return (
     <>
       <ModalOperator
-        handleCloseModal={() => setStep(1)}
+        handleCloseModal={closeModal}
         prevStep={() => setStep(1)}
         currentStep={currentStep}
       />

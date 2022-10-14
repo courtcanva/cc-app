@@ -15,7 +15,7 @@ import React, { useState } from "react";
 import { updateUser } from "@/components/Login/helpers/userRequests";
 
 type Props = {
-  onClose: any;
+  onClose: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   currentStep: string;
@@ -27,9 +27,9 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
   currentStep,
   userEmail,
 }) => {
-  const handleCloseModal = () => {
-    setStep(1);
+  const closeModal = () => {
     onClose();
+    setStep(1);
   };
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -59,31 +59,30 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
       return;
     }
     try {
-      const res = await updateUser({
+      await updateUser({
         email: userEmail,
         password: password,
       });
-      if (res.status === 200) {
-        toast({
-          title: "Password set successfully! Please login again",
-          status: "success",
-          isClosable: true,
-        });
-        setStep(1);
-        onClose();
-      }
+      toast({
+        title: "Operation success! Please login again",
+        status: "success",
+        isClosable: true,
+        position: "top",
+      });
+      closeModal();
     } catch (err) {
       toast({
         title: "network error",
         status: "error",
         isClosable: true,
+        position: "top",
       });
     }
   };
   return (
     <>
       <ModalOperator
-        handleCloseModal={handleCloseModal}
+        handleCloseModal={closeModal}
         prevStep={() => setStep(1)}
         currentStep={currentStep}
       />

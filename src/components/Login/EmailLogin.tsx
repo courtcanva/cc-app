@@ -18,7 +18,7 @@ import ModalOperator from "./ModalOperater";
 
 interface Props {
   initialRef: React.LegacyRef<HTMLInputElement> | undefined;
-  onClose: any;
+  onClose: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   nextStep: () => void;
   prevStep: () => void;
@@ -69,11 +69,11 @@ const EmailLogin: React.FC<Props> = ({
   const handleEmailCheck = async () => {
     try {
       const res: checkResponse = (await checkEmail(input)).data;
-      res.findUser ? setUserExisted(true) : setUserExisted(false);
+      setUserExisted(res.findUser);
       if (res.findUser && res.needPwd) {
-        if (res.emailRes.status !== "PENDING") {
-          throw Error(res.emailRes.message);
-        }
+        // if (res.emailRes.status !== "PENDING") {
+        //   throw Error(res.emailRes.message);
+        // }
         setNeedPwd(true);
         setStep(4);
       } else {
@@ -84,6 +84,7 @@ const EmailLogin: React.FC<Props> = ({
         title: "network error",
         status: "error",
         isClosable: true,
+        position: "top",
       });
     }
   };
@@ -98,8 +99,8 @@ const EmailLogin: React.FC<Props> = ({
     }
   };
   const handleCloseModal = () => {
-    setStep(1);
     onClose();
+    setStep(1);
   };
   return (
     <>

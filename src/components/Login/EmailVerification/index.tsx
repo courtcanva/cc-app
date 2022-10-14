@@ -25,7 +25,7 @@ type Props = {
   currentStep: string;
   validation: (verified: boolean) => void;
   updateLoginData: (data: any) => void;
-  onClose: any;
+  onClose: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   userId: string;
@@ -56,6 +56,7 @@ const EmailVerification: React.FC<Props> = ({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    needPwd ? setPwdStep() : nextStep();
     if (otp.length < CODE_LENGTH) {
       setErrorMessage("Please Input a 6 digits number!");
       return;
@@ -77,6 +78,7 @@ const EmailVerification: React.FC<Props> = ({
         title: "network error",
         status: "error",
         isClosable: true,
+        position: "top",
       });
     }
   };
@@ -90,6 +92,7 @@ const EmailVerification: React.FC<Props> = ({
         title: "network error",
         status: "error",
         isClosable: true,
+        position: "top",
       });
     }
     resetTimer();
@@ -99,8 +102,8 @@ const EmailVerification: React.FC<Props> = ({
     setOtp(verificationCode);
   };
   const handleCloseModal = () => {
-    setStep(1);
     onClose();
+    setStep(1);
   };
   const resetTimer = () => setTimer(60);
   useEffect(() => {

@@ -8,20 +8,11 @@ interface updateInfo {
   password?: string;
 }
 
-const getErrorMessage = (error: unknown) => {
-  if (error instanceof Error) return error;
-  return Object(error);
-};
 const updateUser = async (updateInfo: updateInfo) => {
-  try {
-    return await api("/user", {
-      method: "put",
-      requestData: { ...updateInfo },
-    });
-  } catch (error) {
-    const err = getErrorMessage(error);
-    return err.response;
-  }
+  return await api("/user", {
+    method: "put",
+    requestData: { ...updateInfo },
+  });
 };
 
 export { updateUser };

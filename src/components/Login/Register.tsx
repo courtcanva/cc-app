@@ -21,7 +21,7 @@ type Props = {
   nextStep: () => void;
   prevStep: () => void;
   getUserId: (userId: string) => void;
-  onClose: any;
+  onClose: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   initialRef: React.MutableRefObject<null>;
@@ -78,6 +78,7 @@ const Register: React.FC<Props> = (props: Props) => {
         title: "network error",
         status: "error",
         isClosable: true,
+        position: "top",
       });
     }
   };
