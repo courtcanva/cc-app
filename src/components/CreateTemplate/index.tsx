@@ -12,10 +12,10 @@ import {
   Input,
   Box,
   Flex,
-  IconButton,
   Text,
   Textarea,
   Icon,
+  Badge,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
@@ -39,14 +39,15 @@ function CreateTemplate(prop: Props) {
   const [courtNameFull, setCourtNameFull] = useState(false);
   const [textAreaLen, setTextAreaLen] = useState(0);
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
+  const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.currentTarget.value.length;
-    nameInputLen > maxCourtNameLen ? setCourtNameFull(true) : setCourtNameFull(false);
+    nameInputLen >= maxCourtNameLen ? setCourtNameFull(true) : setCourtNameFull(false);
   };
 
   const handleTextAreaLenChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const textAreaLength = e.currentTarget.value
+    const textAreaLength = e.target.value
       .trim()
       .replace(regex, " ")
       .split(" ")
@@ -60,7 +61,7 @@ function CreateTemplate(prop: Props) {
     const image = ""; // 等大王PR
     const id = "";
 
-    // tags咋办啊
+
   };
 
   useEffect(() => {
@@ -82,15 +83,16 @@ function CreateTemplate(prop: Props) {
               </Box>
             </FormControl>
 
-            {/* tags
             <Flex padding="0px 24px">
-              <Tag margin="16px">Basketball</Tag>
-              <Tag margin="16px">Pro Full court</Tag>
-            </Flex> */}
+              <Badge margin="16px" colorScheme="green">
+                Basketball
+              </Badge>
+              <Badge margin="16px">{selectedCourt.courtName}</Badge>
+            </Flex>
 
             <Flex>
-              <FormControl width="50%" marginTop="16px" isRequired isInvalid={courtNameFull}>
-                <FormLabel marginBottom="16px">Court Name:</FormLabel>
+              <FormControl width="50%" marginTop="1rem" isRequired isInvalid={courtNameFull}>
+                <FormLabel marginBottom="1rem">Court Name:</FormLabel>
                 <Input
                   placeholder="Court name"
                   width="240px"
@@ -98,14 +100,6 @@ function CreateTemplate(prop: Props) {
                   onChange={checkNameLength}
                   ref={courtNameRef}
                 />
-                {/* {courtNameLen ? (
-                  <Text color="crimson">Max 20 letters are allowed</Text>
-                ) : (
-                  <Text height={}> </Text>`
-                )} */}
-                <Text color="crimson" visibility={!courtNameFull ? "hidden" : "visible"}>
-                  Max 20 letters are allowed
-                </Text>
               </FormControl>
               <Box width="50%">
                 <Text margin="16px 0px" fontSize="middium" fontWeight="500">
@@ -121,19 +115,23 @@ function CreateTemplate(prop: Props) {
                 </Flex>
               </Box>
             </Flex>
-
-            <FormControl marginTop="16px">
-              <FormLabel marginBottom="16px">Description:</FormLabel>
+            <Text color="crimson" opacity={!courtNameFull ? "0" : "100%"} fontSize="0.8rem">
+              CourtName cannot have more than 20 letters
+            </Text>
+            {/* NOTE: 1、待讨论：要不要直接换成文字，直接插入alert 弹框会出现bug 
+            2、或者直接沿用design 的name， 有现成的验证，用户可以少一次输入，同时想要修改可以在这个入口直接修改*/}
+            <FormControl marginTop="1rem">
+              <FormLabel marginBottom="1rem">Description:</FormLabel>
               <Textarea
                 height="200px"
-                placeholder="Description: maximum 200 words"
+                placeholder={`Description: maximum ${maxDescriptionLen} words`}
                 onChange={handleTextAreaLenChange}
                 ref={descriptionRef}
               />
             </FormControl>
 
             <Text color={textAreaLen < maxDescriptionLen ? "black" : "crimson"}>
-              Maximum description length: {textAreaLen}/200 words
+              {textAreaLen}/{maxDescriptionLen} words
             </Text>
           </ModalBody>
 
