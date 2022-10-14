@@ -46,6 +46,4 @@ export const priceBarSlice = createSlice({
 
 export const { changeTileQuantity } = priceBarSlice.actions;
 
-export const priceBarData = (state: RootState) => state.priceBar;
-
 export default priceBarSlice.reducer;
