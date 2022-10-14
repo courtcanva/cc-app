@@ -15,11 +15,10 @@ import {
   Text,
   Textarea,
   Icon,
-  Alert,
+  Badge,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { IoMdAlert } from "react-icons/io";
 
 interface Props {
   isOpen: boolean;
@@ -38,6 +37,7 @@ function CreateTemplate(prop: Props) {
   const [courtNameFull, setCourtNameFull] = useState(false);
   const [textAreaLen, setTextAreaLen] = useState(0);
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
+  const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.currentTarget.value.length;
@@ -45,11 +45,11 @@ function CreateTemplate(prop: Props) {
   };
 
   const handleTextAreaLenChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const textAreaLength = e.target.value.length;
-    // .trim()
-    // .replace(regex, " ")
-    // .split(" ")
-    // .filter((item) => item != "").length;
+    const textAreaLength = e.target.value
+      .trim()
+      .replace(regex, " ")
+      .split(" ")
+      .filter((item) => item != "").length;
     setTextAreaLen(textAreaLength);
   };
 
@@ -59,7 +59,7 @@ function CreateTemplate(prop: Props) {
     const image = ""; // 等大王PR
     const id = "";
 
-    // tags咋办啊
+
   };
 
   useEffect(() => {
@@ -81,11 +81,12 @@ function CreateTemplate(prop: Props) {
               </Box>
             </FormControl>
 
-            {/* tags
             <Flex padding="0px 24px">
-              <Tag margin="16px">Basketball</Tag>
-              <Tag margin="16px">Pro Full court</Tag>
-            </Flex> */}
+              <Badge margin="16px" colorScheme="green">
+                Basketball
+              </Badge>
+              <Badge margin="16px">{selectedCourt.courtName}</Badge>
+            </Flex>
 
             <Flex>
               <FormControl width="50%" marginTop="1rem" isRequired isInvalid={courtNameFull}>
@@ -117,18 +118,6 @@ function CreateTemplate(prop: Props) {
             </Text>
             {/* NOTE: 1、待讨论：要不要直接换成文字，直接插入alert 弹框会出现bug 
             2、或者直接沿用design 的name， 有现成的验证，用户可以少一次输入，同时想要修改可以在这个入口直接修改*/}
-            {/* <Alert
-              status="error"
-              marginTop="16px"
-              variant="left-accent"
-              gap="15px"
-              width="60%"
-              display={!courtNameFull ? "none" : "flex"}
-            >
-              <IoMdAlert color="crimson" fontSize="24px" />
-              Reach the maximum length of 20 letters
-            </Alert> */}
-
             <FormControl marginTop="1rem">
               <FormLabel marginBottom="1rem">Description:</FormLabel>
               <Textarea
