@@ -95,7 +95,7 @@ const EmailLogin: React.FC<Props> = ({
     setIsValidEmail(validation);
     if (validation) {
       inputEmail(input);
-      handleEmailCheck().then();
+      handleEmailCheck();
     }
   };
   const handleCloseModal = () => {
