@@ -1,4 +1,13 @@
-import { ModalHeader, ModalBody, Flex, Text, Icon, Divider, Button } from "@chakra-ui/react";
+import {
+  ModalHeader,
+  ModalBody,
+  Flex,
+  Text,
+  Icon,
+  Divider,
+  Button,
+  useToast,
+} from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import React, { useState } from "react";
 import PwdInputGroup from "./PwdInputGroup";
@@ -10,7 +19,7 @@ import { updateUserInfo } from "@/store/reducer/userSlice";
 type Props = {
   prevStep: () => void;
   nextStep: () => void;
-  onClose: any;
+  onClose: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   initialRef: React.MutableRefObject<null>;
@@ -34,10 +43,11 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
   const [isLoginFail, setIsLoginFail] = useState(false);
   const { userLogin, resendOTP } = useAuthRequest();
   const dispatch = useDispatch();
+  const toast = useToast();
 
-  const handleCloseModal = () => {
-    setStep(1);
+  const closeModal = () => {
     onClose();
+    setStep(1);
   };
   const handlePassword = (value: string) => {
     setIsLoginFail(false);
@@ -56,8 +66,13 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
         localStorage.setItem("UserInfo", JSON.stringify(data));
         dispatch(updateUserInfo(data));
         updateLoginData(data);
-        setStep(1);
-        onClose();
+        toast({
+          title: "Login successful! Enjoy designing!",
+          status: "success",
+          isClosable: true,
+          position: "top",
+        });
+        closeModal();
       } else {
         await resendOTP(data.userId, userEmail);
         nextStep();
@@ -68,11 +83,7 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
   };
   return (
     <>
-      <ModalOperator
-        handleCloseModal={handleCloseModal}
-        prevStep={prevStep}
-        currentStep={currentStep}
-      />
+      <ModalOperator handleCloseModal={closeModal} prevStep={prevStep} currentStep={currentStep} />
       <ModalHeader width="100%" marginTop="-20px">
         <Flex flexDir="column" alignItems="center">
           <Icon width="240px" height="180px" viewBox="0 0 800 600" role="logo">

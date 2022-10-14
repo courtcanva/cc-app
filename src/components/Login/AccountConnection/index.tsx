@@ -69,7 +69,7 @@ const AccountConnection: React.FC<Props> = ({
       closeModal();
     } catch (err) {
       toast({
-        title: "Connection failed",
+        title: "Connection failed, please try again",
         status: "error",
         isClosable: true,
         position: "top",
@@ -88,11 +88,12 @@ const AccountConnection: React.FC<Props> = ({
           <Icon width="240px" height="180px" viewBox="120 0 550 550" role="logo">
             <MainLogoSvg />
           </Icon>
-          <Text fontSize="17px" textAlign="center">
-            Account registered by this email exists
+          <Text fontSize="large" textAlign="center">
+            Existing account found
           </Text>
           <Text fontSize="11px" textAlign="center" fontWeight="light" marginTop="15px">
-            To login with Google, please connect your existing account with your Google account
+            An account registered by this email is existed, would you like to connect it with
+            Google?
           </Text>
         </Flex>
       </ModalHeader>

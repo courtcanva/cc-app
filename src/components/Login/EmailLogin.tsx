@@ -71,9 +71,9 @@ const EmailLogin: React.FC<Props> = ({
       const res: checkResponse = (await checkEmail(input)).data;
       setUserExisted(res.findUser);
       if (res.findUser && res.needPwd) {
-        // if (res.emailRes.status !== "PENDING") {
-        //   throw Error(res.emailRes.message);
-        // }
+        if (res.emailRes.status !== "PENDING") {
+          throw Error("Failed to send verification email");
+        }
         setNeedPwd(true);
         setStep(4);
       } else {
@@ -81,7 +81,7 @@ const EmailLogin: React.FC<Props> = ({
       }
     } catch (err) {
       toast({
-        title: "network error",
+        title: err instanceof Error ? err.message : "network error",
         status: "error",
         isClosable: true,
         position: "top",

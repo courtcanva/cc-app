@@ -59,7 +59,7 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
       closeModal();
     } catch (err) {
       toast({
-        title: "network error",
+        title: "Operation failed, please try again",
         status: "error",
         isClosable: true,
         position: "top",

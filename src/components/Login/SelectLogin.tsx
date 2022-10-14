@@ -8,6 +8,7 @@ import {
   Text,
   Icon,
   Link,
+  useToast,
 } from "@chakra-ui/react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import { IconContext } from "react-icons";
@@ -44,7 +45,7 @@ const SelectLogin: React.FC<Props> = ({
   connectionStep,
 }) => {
   const dispatch = useDispatch();
-
+  const toast = useToast();
   // Send request to backend after the request from front-end has been approved by Google
   /* istanbul ignore next */
   const handleSuccess = async (codeResponse: any) => {
@@ -59,12 +60,23 @@ const SelectLogin: React.FC<Props> = ({
         localStorage.setItem("UserInfo", JSON.stringify(googleLoginRes));
         dispatch(updateUserInfo(googleLoginRes));
         updateLoginData(googleLoginRes);
+        toast({
+          title: "Login successful! Enjoy designing!",
+          status: "success",
+          isClosable: true,
+          position: "top",
+        });
         onClose();
       } else {
         connectionStep(googleLoginRes);
       }
     } catch (err) {
-      console.warn(err);
+      toast({
+        title: "Login failed, please try again",
+        status: "error",
+        isClosable: true,
+        position: "top",
+      });
     }
   };
 
