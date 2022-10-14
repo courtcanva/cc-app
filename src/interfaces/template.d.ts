@@ -10,7 +10,7 @@ export interface ITags {
 
 export interface ITemplate {
   // id有点疑问
-  // _id: string;
+  _id: string;
   user_id: string;
   description: string;
   design: IDesign;
