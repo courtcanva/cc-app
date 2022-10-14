@@ -56,7 +56,7 @@ const EmailVerification: React.FC<Props> = ({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    needPwd ? setPwdStep() : nextStep();
+    if (needPwd) setPwdStep();
     if (otp.length < CODE_LENGTH) {
       setErrorMessage("Please Input a 6 digits number!");
       return;
@@ -64,11 +64,11 @@ const EmailVerification: React.FC<Props> = ({
     try {
       const { data } = await verifyOTP(userId, otp);
       if (data.tokens) {
+        if (needPwd) setPwdStep();
         localStorage.setItem("UserInfo", JSON.stringify(data));
         dispatch(updateUserInfo(data));
         updateLoginData(data);
         validation(true);
-        needPwd ? setPwdStep() : nextStep();
       } else {
         validation(false);
         nextStep();

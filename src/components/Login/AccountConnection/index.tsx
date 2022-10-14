@@ -58,7 +58,7 @@ const AccountConnection: React.FC<Props> = ({
         lastName: loginRes.lastName,
       };
       toast({
-        title: "Connection success! Enjoy designing!",
+        title: "Connection successful! Enjoy designing!",
         status: "success",
         isClosable: true,
         position: "top",

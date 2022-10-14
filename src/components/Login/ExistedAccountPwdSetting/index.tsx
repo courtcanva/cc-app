@@ -13,6 +13,7 @@ import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import PwdInputGroup from "@/components/Login/PwdInputGroup";
 import React, { useState } from "react";
 import { updateUser } from "@/components/Login/helpers/userRequests";
+import validatePwd from "@/components/Login/helpers/validatePwd";
 
 type Props = {
   onClose: () => void;
@@ -43,28 +44,14 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
       setErrorMessage("Please fill all fields with asterisk!");
       return;
     }
-    if (password !== confirmPassword) {
-      setWeakPasswordMsg("");
-      setErrorMessage("Password does not match!");
-      return;
-    }
-    // regular expression from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
-    const passwordRegExp =
-      /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~])[a-zA-Z\d `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]{8,}$/; // eslint-disable-line
-    if (!passwordRegExp.test(password)) {
-      setErrorMessage("");
-      setWeakPasswordMsg(
-        "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character!"
-      );
-      return;
-    }
+    if (!validatePwd(password, confirmPassword, setWeakPasswordMsg, setErrorMessage)) return;
     try {
       await updateUser({
         email: userEmail,
         password: password,
       });
       toast({
-        title: "Operation success! Please login again",
+        title: "Operation successful! Please login again",
         status: "success",
         isClosable: true,
         position: "top",
