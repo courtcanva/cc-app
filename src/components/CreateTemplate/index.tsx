@@ -12,13 +12,14 @@ import {
   Input,
   Box,
   Flex,
-  IconButton,
   Text,
   Textarea,
   Icon,
+  Alert,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
+import { IoMdAlert } from "react-icons/io";
 
 interface Props {
   isOpen: boolean;
@@ -40,7 +41,7 @@ function CreateTemplate(prop: Props) {
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.currentTarget.value.length;
-    nameInputLen > maxCourtNameLen ? setCourtNameFull(true) : setCourtNameFull(false);
+    nameInputLen >= maxCourtNameLen ? setCourtNameFull(true) : setCourtNameFull(false);
   };
 
   const handleTextAreaLenChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -96,14 +97,6 @@ function CreateTemplate(prop: Props) {
                   onChange={checkNameLength}
                   ref={courtNameRef}
                 />
-                {/* {courtNameLen ? (
-                  <Text color="crimson">Max 20 letters are allowed</Text>
-                ) : (
-                  <Text height={}> </Text>`
-                )} */}
-                <Text color="crimson" visibility={!courtNameFull ? "hidden" : "visible"}>
-                  Max 20 letters are allowed
-                </Text>
               </FormControl>
               <Box width="50%">
                 <Text margin="16px 0px" fontSize="middium" fontWeight="500">
@@ -119,19 +112,30 @@ function CreateTemplate(prop: Props) {
                 </Flex>
               </Box>
             </Flex>
+            <Alert
+              status="error"
+              marginTop="16px"
+              variant="left-accent"
+              gap="15px"
+              width="60%"
+              display={!courtNameFull ? "none" : "flex"}
+            >
+              <IoMdAlert color="crimson" fontSize="24px" />
+              Reach the maximum length of 20 letters
+            </Alert>
 
             <FormControl marginTop="16px">
               <FormLabel marginBottom="16px">Description:</FormLabel>
               <Textarea
                 height="200px"
-                placeholder="Description: maximum 200 words"
+                placeholder={`Description: maximum ${maxDescriptionLen} words`}
                 onChange={handleTextAreaLenChange}
                 ref={descriptionRef}
               />
             </FormControl>
 
             <Text color={textAreaLen < maxDescriptionLen ? "black" : "crimson"}>
-              Maximum description length: {textAreaLen}/200 words
+              Maximum description length: {textAreaLen}/{maxDescriptionLen} words
             </Text>
           </ModalBody>
 
