@@ -16,16 +16,13 @@ import {
   Textarea,
   Icon,
   Badge,
-  ModalFooter,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { useAddTemplateMutation, useGetTemplatesQuery } from "@/redux/api/templateApi";
-import { skipToken } from "@reduxjs/toolkit/dist/query";
-import { ITemplate } from "@/interfaces/template";
-import { saveDesignMapping } from "@/utils/designMapping";
-import { IDesign } from "@/interfaces/design";
+import { useAddTemplateMutation } from "@/redux/api/templateApi";
 import SuccessNotice from "./SuccessNotice";
+import { generateNewTemplate } from "@/components/CreateTemplate/helpers/generateNewTemplate";
+import { userNameEllip } from "./helpers/handleLongUserName";
 
 interface Props {
   isOpen: boolean;
@@ -35,20 +32,9 @@ interface Props {
 const maxCourtNameLen = 20;
 const maxDescriptionLen = 200;
 const maxUserNameDisplay = 20;
-// 目前只支持英语
 const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
 
-// Export the function for unit test
-export const userNameEllip = (FullName: string, lengthLimit: number) => {
-  if (FullName.length > lengthLimit) {
-    return `${FullName.slice(0, lengthLimit).trim()}...`;
-  } else {
-    return FullName;
-  }
-};
-
-function CreateTemplate(prop: Props) {
-  const { isOpen, onClose } = prop;
+function CreateTemplate({ isOpen, onClose }: Props) {
   const courtNameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const [courtNameFull, setCourtNameFull] = useState(false);
@@ -57,13 +43,10 @@ function CreateTemplate(prop: Props) {
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
   const { court: selectedCourtTileData } = useStoreSelector((state) => state.tile.present);
-  const [addTemplate] = useAddTemplateMutation();
-  // 别在意这个，后面我会删的
-  // const { data, isSuccess } = useGetTemplatesQuery("123456");
+  // 问下桃桃这个error到底咋搞，不想用lowb promise chain
+  const [addTemplate, { error }] = useAddTemplateMutation();
   const courtType = "basketball";
-  let userFullName = `${firstName} ${lastName}`;
-
-  userFullName = userNameEllip(userFullName, maxUserNameDisplay);
+  const userFullName = userNameEllip(`${firstName} ${lastName}`, maxUserNameDisplay);
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.currentTarget.value.length;
@@ -72,61 +55,38 @@ function CreateTemplate(prop: Props) {
 
   const handleTextAreaLenChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textAreaLength = e.target.value
-      .trim()
       .replace(regex, " ")
       .split(" ")
       .filter((item) => item != "").length;
     setTextAreaLen(textAreaLength);
   };
 
-  // 需要的话可以打个包丢util，但是我懒，还要写测试 :(
-  const packNewTemplate = (name: string, description: string | undefined): ITemplate => {
-    const courtSizeData = saveDesignMapping(selectedCourt);
-    const tiles = selectedCourtTileData;
-    const selectedCourtCategory = selectedCourt.courtName.replace(" ", "");
-    console.log(selectedCourtCategory);
-
-    const newDesign: IDesign = {
-      _id: "看这里！！！！！！！！",
-      user_id:
-        "你开心的话重新写一个interface, 把这user_id去掉, 再加个designer: string, 不改也无所谓",
-      designName: name,
-      tileColor: tiles,
-      courtSize: courtSizeData,
-    };
-
-    const newTemplate: ITemplate = {
-      _id: "还有个问题, 我这边create template的pop up window太大了, 顶上标题都被遮住了",
-      user_id: userId,
-      description,
-      design: newDesign,
-      image: "image_url",
-      tags: {
-        CourtCategory: selectedCourtCategory,
-        CourtType: courtType,
-      },
-    };
-    return newTemplate;
-  };
-
-  // 想下怎么处理error和result吧
+  // 
   const submitTemplate = async () => {
     const courtName = courtNameRef.current?.value;
     const description = descriptionRef.current?.value;
-    if (courtName) {
-      const packedTemplate = packNewTemplate(courtName, description);
-      try {
-        const returned = await addTemplate(packedTemplate);
-        console.log(returned);
-      } catch (err) {
-        console.log(err);
-        alert("寄啦~");
-        return;
-      }
-      onClose();
-      setSuccessUpload(true);
+    // 得加一个empty判断， 我建议把courtNameFull改成记录数字，然后加个空的判断
+    if (!courtName) {
+      return;
     }
-  };
+    const packedTemplate = generateNewTemplate(
+      userId,
+      courtName,
+      description,
+      selectedCourtTileData,
+      selectedCourt
+    );
+    await addTemplate(packedTemplate)
+      .unwrap()
+      .then(_res => {
+        setSuccessUpload(true);
+      })
+      .catch(err => {
+        console.log(err);
+        alert(`Error Status: ${err.status}`);
+      });
+    onClose()
+  }
 
   useEffect(() => {
     setCourtNameFull(false);
@@ -220,5 +180,4 @@ function CreateTemplate(prop: Props) {
     </>
   );
 }
-
 export default CreateTemplate;
