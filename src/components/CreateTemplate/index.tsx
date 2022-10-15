@@ -61,7 +61,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
     setTextAreaLen(textAreaLength);
   };
 
-  // 
+  //
   const submitTemplate = async () => {
     const courtName = courtNameRef.current?.value;
     const description = descriptionRef.current?.value;
@@ -78,15 +78,15 @@ function CreateTemplate({ isOpen, onClose }: Props) {
     );
     await addTemplate(packedTemplate)
       .unwrap()
-      .then(_res => {
+      .then((_res) => {
         setSuccessUpload(true);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         alert(`Error Status: ${err.status}`);
       });
-    onClose()
-  }
+    onClose();
+  };
 
   useEffect(() => {
     setCourtNameFull(false);

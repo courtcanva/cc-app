@@ -12,7 +12,6 @@ export const generateNewTemplate = (
   selectedCourtTileData: Court[],
   selectedCourt: CourtSizeState
 ): ITemplate => {
-
   const courtSizeData = saveDesignMapping(selectedCourt);
   const tiles = selectedCourtTileData;
   const selectedCourtCategory = selectedCourt.courtName.replace(/ /g, "");
