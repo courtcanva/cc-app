@@ -69,6 +69,8 @@ export const ButtonToggleSlice = createSlice({
       return {
         ...state,
         isCreateTemplateOpen: action.payload,
+        isCartOpen: false,
+        isSideBarOpen: false,
       };
     },
   },

@@ -1,8 +1,8 @@
 import { IDesign } from "@/interfaces/design";
 
 export interface ITags {
-  courtType: string;
-  courtCategory: string;
+  CourtType: string;
+  CourtCategory: string;
 }
 
 export interface ITemplate {
@@ -20,5 +20,6 @@ export interface ITemplateDataDb extends ITemplate {
   status: string;
   isOfficial: boolean;
   isDeleted: boolean;
+  tags: any;
   __v: number;
 }

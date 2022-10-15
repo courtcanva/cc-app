@@ -44,7 +44,7 @@ function CreateTemplate(prop: Props) {
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
   const { court: selectedCourtTileData } = useStoreSelector((state) => state.tile.present);
-  const [addTemplate, result] = useAddTemplateMutation();
+  const [ addTemplate ] = useAddTemplateMutation();
   // 别在意这个，后面我会删的
   // const { data, isSuccess } = useGetTemplatesQuery("123456");
   const courtType = "basketball";
@@ -68,35 +68,47 @@ function CreateTemplate(prop: Props) {
     const courtSizeData = saveDesignMapping(selectedCourt);
     const tiles = selectedCourtTileData;
     const selectedCourtCategory = selectedCourt.courtName.replace(" ", "");
+    console.log(selectedCourtCategory);
 
     const newDesign: IDesign = {
       _id: "看这里！！！！！！！！",
-      user_id: "你开心的话重新写一个interface, 把这user_id去掉, 再加个designer: string",
+      user_id: "你开心的话重新写一个interface, 把这user_id去掉, 再加个designer: string, 不改也无所谓",
       designName: name,
       tileColor: tiles,
       courtSize: courtSizeData,
     };
 
     const newTemplate: ITemplate = {
-      _id: "不服你来咬我",
+      _id: "还有个问题, 我这边create template的pop up window太大了, 顶上标题都被遮住了",
       user_id: userId,
       description,
       design: newDesign,
       image: "image_url",
       tags: {
-        courtCategory: selectedCourtCategory,
-        courtType: courtType,
+        CourtCategory: selectedCourtCategory,
+        CourtType: courtType,
       },
     };
     return newTemplate;
   };
 
-  const submitTemplate = () => {
+  // 想下怎么处理error和result吧
+  const submitTemplate = async () => {
     const courtName = courtNameRef.current?.value;
     const description = descriptionRef.current?.value;
     if (courtName) {
       const packedTemplate = packNewTemplate(courtName, description);
-      addTemplate(packedTemplate);
+      try {
+        const returned = await addTemplate(packedTemplate);
+        console.log(returned);
+      } catch(err) {
+        console.log(err)
+        alert("寄啦~");
+        return;
+      }
+      onClose();
+      const timer = setTimeout(() => alert("成功啦,去你数据库看看吧"), 800);
+      clearTimeout(timer);
     }
   };
 
