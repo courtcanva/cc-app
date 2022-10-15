@@ -11,10 +11,10 @@ interface Props {
   iconClickTitle: string;
   onHandleCloseClick: () => void;
 }
-const showContainerItem = (iconClickTitle: string, data: ICourtData[]) => {
+const showContainerItem = (iconClickTitle: string, courtsData: ICourtData[]) => {
   switch (iconClickTitle) {
     case "Blueprints":
-      return <Blueprints fetchedCourtsData={data} />;
+      return <Blueprints fetchedCourtsData={courtsData} />;
     case "Folder":
       return <Folder />;
     default:
@@ -23,7 +23,7 @@ const showContainerItem = (iconClickTitle: string, data: ICourtData[]) => {
 };
 
 const SideBarContainer = (props: Props) => {
-  const { data } = useGetCourtsQuery(0);
+  const { data: courtsData } = useGetCourtsQuery(0);
   return (
     <Box
       background="background.secondaryLight"
@@ -35,7 +35,7 @@ const SideBarContainer = (props: Props) => {
       zIndex="2000"
       color="fontcolor.primary"
     >
-      {showContainerItem(props.iconClickTitle, data)}
+      {showContainerItem(props.iconClickTitle, courtsData)}
       <Box
         as="button"
         onClick={props.onHandleCloseClick}

@@ -13,15 +13,13 @@ interface Props {
   fetchedCourtsData: ICourtData[];
 }
 const Blueprints = ({ fetchedCourtsData }: Props) => {
-  console.log(fetchedCourtsData);
   const dispatch = useDispatch();
   const [activateCourt, setActivateCourt] = useState<string>("");
   const { courtsData } = useStoreSelector((state) => state.courtSpecData);
 
+  const displayedCourt = fetchedCourtsData?.filter((item: ICourtData) => item.isHidden === false);
   const filteredCourtList = courtList.filter((court) =>
-    fetchedCourtsData
-      ?.filter((item: ICourtData) => item.isHidden === false)
-      .some((item: ICourtData) => item.name === court.courtSizeName)
+    displayedCourt?.some((item: ICourtData) => item.name === court.courtSizeName)
   );
   const handleCourtSelecting = (imgUrl: string, courtId: string, courtSizeName: string): void => {
     setActivateCourt(imgUrl);
