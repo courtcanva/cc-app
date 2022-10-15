@@ -16,6 +16,7 @@ import {
   Textarea,
   Icon,
   Badge,
+  ModalFooter,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
@@ -24,6 +25,7 @@ import { skipToken } from "@reduxjs/toolkit/dist/query";
 import { ITemplate } from "@/interfaces/template";
 import { saveDesignMapping } from "@/utils/designMapping";
 import { IDesign } from "@/interfaces/design";
+import SuccessNotice from "./SuccessNotice";
 
 interface Props {
   isOpen: boolean;
@@ -51,6 +53,7 @@ function CreateTemplate(prop: Props) {
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const [courtNameFull, setCourtNameFull] = useState(false);
   const [textAreaLen, setTextAreaLen] = useState(0);
+  const [successUpload, setSuccessUpload] = useState(false);
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
   const { court: selectedCourtTileData } = useStoreSelector((state) => state.tile.present);
@@ -60,9 +63,7 @@ function CreateTemplate(prop: Props) {
   const courtType = "basketball";
   let userFullName = `${firstName} ${lastName}`;
 
-  (() => {
-    userFullName = userNameEllip(userFullName, maxUserNameDisplay);
-  })();
+  userFullName = userNameEllip(userFullName, maxUserNameDisplay);
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.currentTarget.value.length;
@@ -123,8 +124,7 @@ function CreateTemplate(prop: Props) {
         return;
       }
       onClose();
-      const timer = setTimeout(() => alert("成功啦,去你数据库看看吧"), 800);
-      clearTimeout(timer);
+      setSuccessUpload(true);
     }
   };
 
@@ -216,6 +216,7 @@ function CreateTemplate(prop: Props) {
           </Flex>
         </ModalContent>
       </Modal>
+      <SuccessNotice isOpen={successUpload} onClose={() => setSuccessUpload(false)} />
     </>
   );
 }

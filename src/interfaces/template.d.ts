@@ -20,6 +20,5 @@ export interface ITemplateDataDb extends ITemplate {
   status: string;
   isOfficial: boolean;
   isDeleted: boolean;
-  tags: any;
   __v: number;
 }
