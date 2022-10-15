@@ -36,7 +36,7 @@ const maxUserNameDisplay = 20;
 // 目前只支持英语
 const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
 
-//Export the function for unit test
+// Export the function for unit test
 export const userNameEllip = (FullName: string, lengthLimit: number) => {
   if (FullName.length > lengthLimit) {
     return `${FullName.slice(0, lengthLimit).trim()}...`;
