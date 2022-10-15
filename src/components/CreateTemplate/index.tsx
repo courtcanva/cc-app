@@ -21,7 +21,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useAddTemplateMutation, useGetTemplatesQuery } from "@/redux/api/templateApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
-import { CourtType } from "@/interfaces/template";
+import { ITemplate } from "@/interfaces/template";
+import { saveDesignMapping } from "@/utils/designMapping";
+import { IDesign } from "@/interfaces/design";
 
 interface Props {
   isOpen: boolean;
@@ -41,9 +43,11 @@ function CreateTemplate(prop: Props) {
   const [textAreaLen, setTextAreaLen] = useState(0);
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
+  const { court: selectedCourtTileData } = useStoreSelector((state) => state.tile.present);
+  const [ addTemplate, result ] = useAddTemplateMutation();
   // 别在意这个，后面我会删的
   // const { data, isSuccess } = useGetTemplatesQuery("123456");
-  const courtType: CourtType = "basketball";
+  const courtType = "basketball";
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.currentTarget.value.length;
@@ -59,11 +63,42 @@ function CreateTemplate(prop: Props) {
     setTextAreaLen(textAreaLength);
   };
 
+  // 需要的话可以打个包丢util，但是我懒，还要写测试 :(
+  const packNewTemplate = (name: string, description: string | undefined): ITemplate => {
+    const courtSizeData = saveDesignMapping(selectedCourt);
+    const tiles = selectedCourtTileData;
+    const selectedCourtCategory = selectedCourt.courtName
+      .replace(" ", "")
+
+    const newDesign: IDesign = {
+      _id: "看这里！！！！！！！！",
+      user_id: "你开心的话重新写一个interface, 把这user_id去掉, 再加个designer: string",
+      designName: name,
+      tileColor: tiles,
+      courtSize: courtSizeData
+    }
+
+    const newTemplate: ITemplate = {
+      _id: "不服你来咬我",
+      user_id: userId,
+      description,
+      design: newDesign,
+      image: "image_url",
+      tags: {
+        courtCategory: selectedCourtCategory,
+        courtType: courtType,
+      }
+    }
+    return newTemplate;
+  }
+
   const submitTemplate = () => {
     const courtName = courtNameRef.current?.value;
     const description = descriptionRef.current?.value;
-    const image = ""; // 等大王PR
-    const id = "";
+    if (courtName) {
+      const packedTemplate = packNewTemplate(courtName, description);
+      addTemplate(packedTemplate)
+    } 
   };
 
   useEffect(() => {
