@@ -9,11 +9,21 @@ export interface ITags {
 }
 
 export interface ITemplate {
-  // id有点疑问
   _id: string;
   user_id: string;
   description: string;
   design: IDesign;
   image: string;
   tags: ITags;
+}
+
+export interface ITemplateDataDb extends ITemplate {
+  createdAt: string;
+  updatedAt: string;
+  status: string;
+  isOfficial: boolean;
+  image: string;
+  description: string;
+  isDeleted: boolean;
+  __v: number;
 }

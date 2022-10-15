@@ -19,8 +19,9 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { useAddTemplateMutation } from "@/redux/api/templateApi";
+import { useAddTemplateMutation, useGetTemplatesQuery } from "@/redux/api/templateApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
+import { CourtType } from "@/interfaces/template"
 
 interface Props {
   isOpen: boolean;
@@ -40,6 +41,10 @@ function CreateTemplate(prop: Props) {
   const [textAreaLen, setTextAreaLen] = useState(0);
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
+  // 别在意这个，后面我会删的
+  // const { data, isSuccess } = useGetTemplatesQuery("123456");
+  const courtType: CourtType = "basketball";
+
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.currentTarget.value.length;
@@ -60,7 +65,6 @@ function CreateTemplate(prop: Props) {
     const description = descriptionRef.current?.value;
     const image = ""; // 等大王PR
     const id = "";
-
 
   };
 
@@ -85,7 +89,7 @@ function CreateTemplate(prop: Props) {
 
             <Flex padding="0px 24px">
               <Badge margin="16px" colorScheme="green">
-                Basketball
+                {courtType}
               </Badge>
               <Badge margin="16px">{selectedCourt.courtName}</Badge>
             </Flex>

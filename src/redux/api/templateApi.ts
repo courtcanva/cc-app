@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { environment } from "@/constants/environment";
-import { ITemplate } from "@/interfaces/template";
+import { ITemplate, ITemplateDataDb } from "@/interfaces/template";
 
 export const templateApi = createApi({
   reducerPath: "templates",
@@ -9,21 +9,21 @@ export const templateApi = createApi({
   }),
   tagTypes: ["template"],
   endpoints: (builder) => ({
-    getTemplates: builder.query<any[], string>({
+    getTemplates: builder.query<ITemplateDataDb[], string>({
       query: (userId) => `/templates?user_id=${userId}`,
-      providesTags: (result, err, arg) =>
+      providesTags: (result, _err, _arg) =>
         result
-          ? [...result.map(({ _id }) => ({ type: "template" as const, id: _id })), "template"]
+          ? [...result.map(({ _id }) => ({ type: "template" as const, id: _id})), "template"]
           : ["template"],
     }),
 
-    getTemplateById: builder.query<any, string>({
+    getTemplateById: builder.query<ITemplateDataDb, string>({
       query: (templateId) => `templates/${templateId}`,
-      providesTags: (result, err, arg) =>
-        result ? [{ type: "template" as const, id: result._id }] : ["template"],
+      providesTags: (result, _err, _arg) =>
+        result ? [{ type: "template", id: result._id }] : ["template"],
     }),
 
-    addTemplate: builder.mutation<any, Omit<ITemplate, "_id">>({
+    addTemplate: builder.mutation<ITemplateDataDb, Omit<ITemplate, "_id">>({
       query: (newTemplate) => ({
         url: "templates",
         method: "POST",
@@ -37,15 +37,15 @@ export const templateApi = createApi({
         url: `/templates/${templateId}`,
         method: "DELETE",
       }),
-      invalidatesTags: (result, err, arg) => [{ type: "template", id: arg }],
+      invalidatesTags: (_result, _err, arg) => [{ type: "template", id: arg }],
     }),
 
-    updateTemplate: builder.mutation<any, Partial<ITemplate> & Pick<ITemplate, "_id">>({
+    updateTemplate: builder.mutation<ITemplateDataDb, Partial<ITemplate> & Pick<ITemplate, "_id">>({
       query: (templateid) => ({
         url: `/templates/${templateid}`,
         method: "PUT",
       }),
-      invalidatesTags: (result, err, arg) => [{ type: "template", id: arg._id }],
+      invalidatesTags: (_result, _err, arg) => [{ type: "template", id: arg._id }],
     }),
   }),
 });
