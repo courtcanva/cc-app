@@ -21,7 +21,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useAddTemplateMutation, useGetTemplatesQuery } from "@/redux/api/templateApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
-import { CourtType } from "@/interfaces/template"
+import { CourtType } from "@/interfaces/template";
 
 interface Props {
   isOpen: boolean;
@@ -45,7 +45,6 @@ function CreateTemplate(prop: Props) {
   // const { data, isSuccess } = useGetTemplatesQuery("123456");
   const courtType: CourtType = "basketball";
 
-
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.currentTarget.value.length;
     nameInputLen >= maxCourtNameLen ? setCourtNameFull(true) : setCourtNameFull(false);
@@ -65,7 +64,6 @@ function CreateTemplate(prop: Props) {
     const description = descriptionRef.current?.value;
     const image = ""; // 等大王PR
     const id = "";
-
   };
 
   useEffect(() => {

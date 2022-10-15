@@ -13,7 +13,7 @@ export const templateApi = createApi({
       query: (userId) => `/templates?user_id=${userId}`,
       providesTags: (result, _err, _arg) =>
         result
-          ? [...result.map(({ _id }) => ({ type: "template" as const, id: _id})), "template"]
+          ? [...result.map(({ _id }) => ({ type: "template" as const, id: _id })), "template"]
           : ["template"],
     }),
 
