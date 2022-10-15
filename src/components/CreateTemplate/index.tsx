@@ -32,8 +32,18 @@ interface Props {
 
 const maxCourtNameLen = 20;
 const maxDescriptionLen = 200;
+const maxUserNameDisplay = 20;
 // 目前只支持英语
 const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
+
+//Export the function for unit test
+export const userNameEllip = (FullName: string, lengthLimit: number) => {
+  if (FullName.length > lengthLimit) {
+    return `${FullName.slice(0, lengthLimit).trim()}...`;
+  } else {
+    return FullName;
+  }
+};
 
 function CreateTemplate(prop: Props) {
   const { isOpen, onClose } = prop;
@@ -48,6 +58,11 @@ function CreateTemplate(prop: Props) {
   // 别在意这个，后面我会删的
   // const { data, isSuccess } = useGetTemplatesQuery("123456");
   const courtType = "basketball";
+  let userFullName = `${firstName} ${lastName}`;
+
+  (() => {
+    userFullName = userNameEllip(userFullName, maxUserNameDisplay);
+  })();
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.currentTarget.value.length;
@@ -122,7 +137,7 @@ function CreateTemplate(prop: Props) {
       <Modal isOpen={isOpen} onClose={onClose} size="2xl" isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Template sharing</ModalHeader>
+          <ModalHeader role="modalTitle">Template sharing</ModalHeader>
           <ModalCloseButton />
           <ModalBody padding="8px 24px">
             <FormControl>
@@ -132,7 +147,7 @@ function CreateTemplate(prop: Props) {
               </Box>
             </FormControl>
 
-            <Flex padding="0px 24px">
+            <Flex gap="24px" justifyContent="center" flexWrap="wrap">
               <Badge margin="16px" colorScheme="green">
                 {courtType}
               </Badge>
@@ -143,6 +158,7 @@ function CreateTemplate(prop: Props) {
               <FormControl width="50%" marginTop="1rem" isRequired isInvalid={courtNameFull}>
                 <FormLabel marginBottom="1rem">Court Name:</FormLabel>
                 <Input
+                  role="courtNameInput"
                   placeholder="Court name"
                   width="240px"
                   maxLength={maxCourtNameLen}
@@ -159,7 +175,7 @@ function CreateTemplate(prop: Props) {
                   {/* User icon may need to be fetched from the database or s3 */}
                   {/* 想想名字太长咋办 */}
                   <Text fontSize="large" fontWeight="500">
-                    {`${firstName} ${lastName}`}
+                    {userFullName}
                   </Text>
                 </Flex>
               </Box>
@@ -179,16 +195,22 @@ function CreateTemplate(prop: Props) {
               />
             </FormControl>
 
-            <Text color={textAreaLen < maxDescriptionLen ? "black" : "crimson"}>
+            <Text role="wordCount" color={textAreaLen < maxDescriptionLen ? "black" : "crimson"}>
               {textAreaLen}/{maxDescriptionLen} words
             </Text>
           </ModalBody>
 
           <Flex justifyContent="space-around" margin="24px" flexWrap="wrap">
-            <Button colorScheme="blue" variant="shareBtn" width="100px" onClick={submitTemplate}>
+            <Button
+              role="publishBtn"
+              colorScheme="blue"
+              variant="shareBtn"
+              width="100px"
+              onClick={submitTemplate}
+            >
               Publish
             </Button>
-            <Button onClick={onClose} width="100px">
+            <Button role="cancelBtn" onClick={onClose} width="100px">
               Cancel
             </Button>
           </Flex>
