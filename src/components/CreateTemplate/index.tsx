@@ -44,7 +44,7 @@ function CreateTemplate(prop: Props) {
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
   const { court: selectedCourtTileData } = useStoreSelector((state) => state.tile.present);
-  const [ addTemplate, result ] = useAddTemplateMutation();
+  const [addTemplate, result] = useAddTemplateMutation();
   // 别在意这个，后面我会删的
   // const { data, isSuccess } = useGetTemplatesQuery("123456");
   const courtType = "basketball";
@@ -67,16 +67,15 @@ function CreateTemplate(prop: Props) {
   const packNewTemplate = (name: string, description: string | undefined): ITemplate => {
     const courtSizeData = saveDesignMapping(selectedCourt);
     const tiles = selectedCourtTileData;
-    const selectedCourtCategory = selectedCourt.courtName
-      .replace(" ", "")
+    const selectedCourtCategory = selectedCourt.courtName.replace(" ", "");
 
     const newDesign: IDesign = {
       _id: "看这里！！！！！！！！",
       user_id: "你开心的话重新写一个interface, 把这user_id去掉, 再加个designer: string",
       designName: name,
       tileColor: tiles,
-      courtSize: courtSizeData
-    }
+      courtSize: courtSizeData,
+    };
 
     const newTemplate: ITemplate = {
       _id: "不服你来咬我",
@@ -87,18 +86,18 @@ function CreateTemplate(prop: Props) {
       tags: {
         courtCategory: selectedCourtCategory,
         courtType: courtType,
-      }
-    }
+      },
+    };
     return newTemplate;
-  }
+  };
 
   const submitTemplate = () => {
     const courtName = courtNameRef.current?.value;
     const description = descriptionRef.current?.value;
     if (courtName) {
       const packedTemplate = packNewTemplate(courtName, description);
-      addTemplate(packedTemplate)
-    } 
+      addTemplate(packedTemplate);
+    }
   };
 
   useEffect(() => {
