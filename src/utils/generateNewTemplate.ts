@@ -1,9 +1,8 @@
 import { IDesign } from "@/interfaces/design";
 import { ITemplate } from "@/interfaces/template";
-import { useStoreSelector } from "@/store/hooks";
 import { CourtSizeState } from "@/store/reducer/courtSpecDataSlice";
 import { Court } from "@/store/reducer/tileSlice";
-import { saveDesignMapping } from "../../../utils/designMapping";
+import { saveDesignMapping } from "./designMapping";
 
 export const generateNewTemplate = (
   userId: string,

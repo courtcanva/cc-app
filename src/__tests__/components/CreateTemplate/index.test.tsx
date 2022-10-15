@@ -1,5 +1,5 @@
 import CreateTemplate from "@/components/CreateTemplate";
-import { userNameEllip } from "@/components/CreateTemplate/helpers/handleLongUserName";
+import { userNameEllip } from "@/utils/handleLongUserName";
 import renderWithMockedProvider from "../../utils";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 

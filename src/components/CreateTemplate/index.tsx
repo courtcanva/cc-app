@@ -21,8 +21,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useAddTemplateMutation } from "@/redux/api/templateApi";
 import SuccessNotice from "./SuccessNotice";
-import { generateNewTemplate } from "@/components/CreateTemplate/helpers/generateNewTemplate";
-import { userNameEllip } from "./helpers/handleLongUserName";
+import { generateNewTemplate } from "@/utils/generateNewTemplate";
+import { userNameEllip } from "../../utils/handleLongUserName";
 
 interface Props {
   isOpen: boolean;
