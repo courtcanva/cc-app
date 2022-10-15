@@ -44,7 +44,7 @@ function CreateTemplate(prop: Props) {
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
   const { court: selectedCourtTileData } = useStoreSelector((state) => state.tile.present);
-  const [ addTemplate ] = useAddTemplateMutation();
+  const [addTemplate] = useAddTemplateMutation();
   // 别在意这个，后面我会删的
   // const { data, isSuccess } = useGetTemplatesQuery("123456");
   const courtType = "basketball";
@@ -72,7 +72,8 @@ function CreateTemplate(prop: Props) {
 
     const newDesign: IDesign = {
       _id: "看这里！！！！！！！！",
-      user_id: "你开心的话重新写一个interface, 把这user_id去掉, 再加个designer: string, 不改也无所谓",
+      user_id:
+        "你开心的话重新写一个interface, 把这user_id去掉, 再加个designer: string, 不改也无所谓",
       designName: name,
       tileColor: tiles,
       courtSize: courtSizeData,
@@ -101,8 +102,8 @@ function CreateTemplate(prop: Props) {
       try {
         const returned = await addTemplate(packedTemplate);
         console.log(returned);
-      } catch(err) {
-        console.log(err)
+      } catch (err) {
+        console.log(err);
         alert("寄啦~");
         return;
       }
