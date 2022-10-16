@@ -1,9 +1,10 @@
+import { screen } from "@testing-library/react";
 import renderWithMockedProvider from "../../utils";
 import EditorSideBarContent from "@/components/EditorSideBar/EditorSideBarContent";
 
 describe("EditorSideBarContent", () => {
   it("Should render closing button", () => {
-    const { getByRole } = renderWithMockedProvider(
+    renderWithMockedProvider(
       <EditorSideBarContent
         iconClickTitle="some title"
         onHandleCloseClick={() => {
@@ -11,6 +12,7 @@ describe("EditorSideBarContent", () => {
         }}
       />
     );
-    expect(getByRole("button")).toBeInTheDocument();
+    const buttonEel = screen.getByRole("button");
+    expect(buttonEel).toBeInTheDocument();
   });
 });
