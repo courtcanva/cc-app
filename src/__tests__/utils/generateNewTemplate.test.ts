@@ -1,6 +1,6 @@
 import { CourtSizeState } from "@/store/reducer/courtSpecDataSlice";
 import { Court } from "@/store/reducer/tileSlice";
-import { generateNewTemplate } from "@/utils/generateNewTemplate";
+import generateNewTemplate from "@/utils/generateNewTemplate";
 
 describe("generateNewTemplate", () => {
   it("it should return the correct template data", () => {

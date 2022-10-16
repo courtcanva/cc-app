@@ -20,17 +20,16 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { useAddTemplateMutation } from "@/redux/api/templateApi";
+import { useAddTemplateMutation, useGetTemplatesQuery } from "@/redux/api/templateApi";
 import SuccessNotice from "./SuccessNotice";
-import { generateNewTemplate } from "@/utils/generateNewTemplate";
+import generateNewTemplate from "@/utils/generateNewTemplate";
 import { userNameEllip } from "../../utils/handleLongUserName";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
-
-const maxCourtNameLen = 20;
+const maxCourtNameLen = 15;
 const maxDescriptionLen = 200;
 const maxUserNameDisplay = 20;
 const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
@@ -39,35 +38,46 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const courtNameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const [courtNameFull, setCourtNameFull] = useState(false);
+  const [courtNameNull, setCourtNameNull] = useState(false);
   const [textAreaLen, setTextAreaLen] = useState(0);
-  // const [successUpload, setSuccessUpload] = useState(false);
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
   const { court: selectedCourtTileData } = useStoreSelector((state) => state.tile.present);
   // 问下桃桃这个error到底咋搞，不想用lowb promise chain
   const [addTemplate, { error }] = useAddTemplateMutation();
+  // const { data, isSuccess, error: queryError } = useGetTemplatesQuery(userId);
   const courtType = "basketball";
   const userFullName = userNameEllip(`${firstName} ${lastName}`, maxUserNameDisplay);
-  const { isOpen: open_, onOpen, onClose: close_ } = useDisclosure();
+  const {
+    isOpen: isSuccessNoticeOpen,
+    onOpen: handleSucessNoticeOpen,
+    onClose: handleSucessNoticeClose,
+  } = useDisclosure();
+
+  const closeWindow = () => {
+    setCourtNameNull(false);
+    setTextAreaLen(0);
+    setCourtNameFull(false);
+    onClose();
+  };
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.currentTarget.value.length;
+    nameInputLen === 0 ? setCourtNameNull(true) : setCourtNameNull(false);
     nameInputLen >= maxCourtNameLen ? setCourtNameFull(true) : setCourtNameFull(false);
   };
 
   const handleTextAreaLenChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const textAreaLength = e.target.value
+    const textAreaLength = e.currentTarget.value
       .replace(regex, " ")
       .split(" ")
       .filter((item) => item != "").length;
     setTextAreaLen(textAreaLength);
   };
 
-  //
   const submitTemplate = async () => {
     const courtName = courtNameRef.current?.value;
     const description = descriptionRef.current?.value;
-    // 得加一个empty判断， 我建议把courtNameFull改成记录数字，然后加个空的判断
     if (!courtName) {
       return;
     }
@@ -81,8 +91,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
     await addTemplate(packedTemplate)
       .unwrap()
       .then((_res) => {
-        // setSuccessUpload(true);
-        onOpen();
+        handleSucessNoticeOpen();
       })
       .catch((err) => {
         console.log(err);
@@ -91,13 +100,13 @@ function CreateTemplate({ isOpen, onClose }: Props) {
     onClose();
   };
 
-  useEffect(() => {
-    setCourtNameFull(false);
-  }, []);
+  // useEffect(() => {
+  //   setCourtNameFull(false);
+  // }, []);
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} size="2xl" isCentered>
+      <Modal isOpen={isOpen} onClose={closeWindow} size="2xl" isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader role="modalTitle">Template sharing</ModalHeader>
@@ -109,14 +118,12 @@ function CreateTemplate({ isOpen, onClose }: Props) {
                 Court Image
               </Box>
             </FormControl>
-
             <Flex gap="24px" justifyContent="center" flexWrap="wrap">
               <Badge margin="16px" colorScheme="green">
                 {courtType}
               </Badge>
               <Badge margin="16px">{selectedCourt.courtName}</Badge>
             </Flex>
-
             <Flex>
               <FormControl width="50%" marginTop="1rem" isRequired isInvalid={courtNameFull}>
                 <FormLabel marginBottom="1rem">Court Name:</FormLabel>
@@ -136,18 +143,22 @@ function CreateTemplate({ isOpen, onClose }: Props) {
                 <Flex alignItems="center">
                   <Icon as={FaUserCircle} fontSize="40px" marginRight="30px" />
                   {/* User icon may need to be fetched from the database or s3 */}
-                  {/* 想想名字太长咋办 */}
                   <Text fontSize="large" fontWeight="500">
                     {userFullName}
                   </Text>
                 </Flex>
               </Box>
             </Flex>
-            <Text color="crimson" opacity={!courtNameFull ? "0" : "100%"} fontSize="0.8rem">
-              CourtName cannot have more than 20 letters
-            </Text>
-            {/* NOTE: 1、待讨论：要不要直接换成文字，直接插入alert 弹框会出现bug 
-            2、或者直接沿用design 的name， 有现成的验证，用户可以少一次输入，同时想要修改可以在这个入口直接修改*/}
+            {!courtNameNull ? (
+              <Text color="crimson" opacity={!courtNameFull ? "0" : "100%"} fontSize="0.8rem">
+                Court name cannot have more than 15 characters
+              </Text>
+            ) : (
+              <Text color="crimson" fontSize="0.8rem">
+                {" "}
+                Court name cannot be null
+              </Text>
+            )}
             <FormControl marginTop="1rem">
               <FormLabel marginBottom="1rem">Description:</FormLabel>
               <Textarea
@@ -157,12 +168,10 @@ function CreateTemplate({ isOpen, onClose }: Props) {
                 ref={descriptionRef}
               />
             </FormControl>
-
             <Text role="wordCount" color={textAreaLen < maxDescriptionLen ? "black" : "crimson"}>
               {textAreaLen}/{maxDescriptionLen} words
             </Text>
           </ModalBody>
-
           <Flex justifyContent="space-around" margin="24px" flexWrap="wrap">
             <Button
               role="publishBtn"
@@ -173,13 +182,13 @@ function CreateTemplate({ isOpen, onClose }: Props) {
             >
               Publish
             </Button>
-            <Button role="cancelBtn" onClick={onClose} width="100px">
+            <Button role="cancelBtn" onClick={closeWindow} width="100px">
               Cancel
             </Button>
           </Flex>
         </ModalContent>
       </Modal>
-      <SuccessNotice isOpen={open_} onClose={close_} />
+      <SuccessNotice isOpen={isSuccessNoticeOpen} onClose={handleSucessNoticeClose} />
     </>
   );
 }

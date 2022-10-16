@@ -4,7 +4,7 @@ import { CourtSizeState } from "@/store/reducer/courtSpecDataSlice";
 import { Court } from "@/store/reducer/tileSlice";
 import { saveDesignMapping } from "./designMapping";
 
-export const generateNewTemplate = (
+const generateNewTemplate = (
   userId: string,
   name: string,
   description: string | undefined,
@@ -37,3 +37,5 @@ export const generateNewTemplate = (
   };
   return newTemplate;
 };
+
+export default generateNewTemplate;
