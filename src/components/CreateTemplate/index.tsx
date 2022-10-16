@@ -16,6 +16,7 @@ import {
   Textarea,
   Icon,
   Badge,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
@@ -39,7 +40,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const [courtNameFull, setCourtNameFull] = useState(false);
   const [textAreaLen, setTextAreaLen] = useState(0);
-  const [successUpload, setSuccessUpload] = useState(false);
+  // const [successUpload, setSuccessUpload] = useState(false);
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
   const { court: selectedCourtTileData } = useStoreSelector((state) => state.tile.present);
@@ -47,6 +48,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const [addTemplate, { error }] = useAddTemplateMutation();
   const courtType = "basketball";
   const userFullName = userNameEllip(`${firstName} ${lastName}`, maxUserNameDisplay);
+  const { isOpen: open_, onOpen, onClose: close_ } = useDisclosure();
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.currentTarget.value.length;
@@ -79,7 +81,8 @@ function CreateTemplate({ isOpen, onClose }: Props) {
     await addTemplate(packedTemplate)
       .unwrap()
       .then((_res) => {
-        setSuccessUpload(true);
+        // setSuccessUpload(true);
+        onOpen();
       })
       .catch((err) => {
         console.log(err);
@@ -176,7 +179,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
           </Flex>
         </ModalContent>
       </Modal>
-      <SuccessNotice isOpen={successUpload} onClose={() => setSuccessUpload(false)} />
+      <SuccessNotice isOpen={open_} onClose={close_} />
     </>
   );
 }

@@ -28,7 +28,7 @@ const SuccessNotice = (prop: Props) => {
           Congratulations You have successfully submitted a new template!
         </ModalHeader>
         <ModalFooter>
-          <Button bg="button.hover" color="fontcolor.primary" onClick={onClose}>
+          <Button bg="button.hover" color="fontcolor.primary" onClick={onClose} role="closeBtn">
             Close
           </Button>
         </ModalFooter>

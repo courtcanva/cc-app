@@ -3,6 +3,7 @@ import { userNameEllip } from "@/utils/handleLongUserName";
 import renderWithMockedProvider from "../../utils";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 
+// NOTE: 这里的fireEvent 看要不要改成userEvent，功能上差不多，之前罗老师说尽量用userEvent 不要用fireEvent
 describe("Creat Template", () => {
   test("Should render all page titles", () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
@@ -13,11 +14,11 @@ describe("Creat Template", () => {
     const descriptionTitle = screen.getByText("Description:");
     const publisherTitle = screen.getByText("Publisher:");
 
-    expect(modalTitle).toBeInTheDocument;
-    expect(previewTitle).toBeInTheDocument;
-    expect(nameTitle).toBeInTheDocument;
-    expect(descriptionTitle).toBeInTheDocument;
-    expect(publisherTitle).toBeInTheDocument;
+    expect(modalTitle).toBeInTheDocument();
+    expect(previewTitle).toBeInTheDocument();
+    expect(nameTitle).toBeInTheDocument();
+    expect(descriptionTitle).toBeInTheDocument();
+    expect(publisherTitle).toBeInTheDocument();
   });
 
   test("Should render buttons in modal footer", () => {
@@ -26,8 +27,8 @@ describe("Creat Template", () => {
     const publishBtn = screen.getByRole("publishBtn");
     const cancelBtn = screen.getByRole("cancelBtn");
 
-    expect(publishBtn).toBeInTheDocument;
-    expect(cancelBtn).toBeInTheDocument;
+    expect(publishBtn).toBeInTheDocument();
+    expect(cancelBtn).toBeInTheDocument();
   });
 
   it("Should provide correct user name with length limit", () => {
