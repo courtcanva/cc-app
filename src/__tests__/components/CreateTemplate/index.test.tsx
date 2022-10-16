@@ -42,7 +42,11 @@ describe("Creat Template", () => {
     const courtNameInput = screen.getByRole("courtNameInput");
     fireEvent.change(courtNameInput, { target: { value: "12345678901234567890" } });
     await waitFor(() => {
-      expect(screen.getByText("CourtName cannot have more than 20 letters")).toBeVisible();
+      expect(screen.getByText("Court name cannot have more than 15 characters")).toBeVisible();
+    });
+    fireEvent.change(courtNameInput, { target: { value: "" } });
+    await waitFor(() => {
+      expect(screen.getByText("Court name cannot be null")).toBeVisible();
     });
   });
 
