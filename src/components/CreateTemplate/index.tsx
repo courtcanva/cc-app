@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 import { useStoreSelector } from "@/store/hooks";
 import {
   Button,
@@ -126,7 +127,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
             </Flex>
             <Flex>
               <FormControl width="50%" marginTop="1rem" isRequired isInvalid={courtNameFull}>
-                <FormLabel marginBottom="1rem">Court Name:</FormLabel>
+                <FormLabel marginBottom="1rem">Template Court Name:</FormLabel>
                 <Input
                   role="courtNameInput"
                   placeholder="Court name"
@@ -162,7 +163,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
             <FormControl marginTop="1rem">
               <FormLabel marginBottom="1rem">Description:</FormLabel>
               <Textarea
-                height="200px"
+                height="150px"
                 placeholder={`Description: maximum ${maxDescriptionLen} words`}
                 onChange={handleTextAreaLenChange}
                 ref={descriptionRef}
