@@ -2,8 +2,8 @@ import CreateTemplate from "@/components/CreateTemplate";
 import { userNameEllip } from "@/utils/handleLongUserName";
 import renderWithMockedProvider from "../../utils";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-// NOTE: 这里的fireEvent 看要不要改成userEvent，功能上差不多，之前罗老师说尽量用userEvent 不要用fireEvent
 describe("Creat Template", () => {
   test("Should render all page titles", () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
@@ -31,20 +31,38 @@ describe("Creat Template", () => {
     expect(cancelBtn).toBeInTheDocument();
   });
 
-  it("Should show error massage when court name input reaches the maximum length", async () => {
+  it("Should show error massage when court name input reaches the maximum length or court name input is empty", async () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
     const courtNameInput = screen.getByRole("courtNameInput");
     fireEvent.change(courtNameInput, { target: { value: "12345678901234567890" } });
     await waitFor(() => {
       expect(screen.getByText("Court name cannot have more than 15 characters")).toBeVisible();
     });
-    // fireEvent.change(courtNameInput, { target: { value: "" } });
-    // await waitFor(() => {
-    //   expect(screen.getByText("Court name cannot be empty")).toBeVisible();
-    // });
+    fireEvent.change(courtNameInput, { target: { value: "" } });
+    await waitFor(() => {
+      expect(screen.getByText("Court name cannot be empty")).toBeVisible();
+    });
   });
 
-  it("The discription word count should correctly count the input description length", async () => {
+  it("Should show error message when click punish button and court name is empty", async () => {
+    renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
+    const publishBtn = screen.getByRole("publishBtn");
+    userEvent.click(publishBtn);
+    await waitFor(() => {
+      expect(screen.getByText("Court name cannot be empty")).toBeVisible();
+    });
+  });
+
+  it("Error message should disappear when court name length is not empty", async () => {
+    renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
+    const courtNameInput = screen.getByRole("courtNameInput");
+    fireEvent.change(courtNameInput, { target: { value: "1" } });
+    await waitFor(() => {
+      expect(screen.getByText("Court name cannot be empty")).not.toBeVisible();
+    });
+  });
+
+  it("The description word count should correctly count the input description length", async () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
     const descriptionInput = screen.getByRole("textbox");
     fireEvent.change(descriptionInput, {

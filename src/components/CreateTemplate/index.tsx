@@ -19,9 +19,9 @@ import {
   Badge,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { useAddTemplateMutation, useGetTemplatesQuery } from "@/redux/api/templateApi";
+import { useAddTemplateMutation } from "@/redux/api/templateApi";
 import SuccessNotice from "./SuccessNotice";
 import generateNewTemplate from "@/utils/generateNewTemplate";
 import { userNameEllip } from "../../utils/handleLongUserName";
@@ -56,9 +56,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
   const { court: selectedCourtTileData } = useStoreSelector((state) => state.tile.present);
-  // 问下桃桃这个error到底咋搞，不想用lowb promise chain
-  const [addTemplate, { error }] = useAddTemplateMutation();
-  // const { data, isSuccess, error: queryError } = useGetTemplatesQuery(userId);
+  const [addTemplate] = useAddTemplateMutation();
   const courtType = "basketball";
   const userFullName = userNameEllip(`${firstName} ${lastName}`, maxUserNameDisplay);
   const {
@@ -78,6 +76,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
     setInputError((inputError) => ({
       ...inputError,
       courtNameFullErr: nameInputLen >= maxCourtNameLen,
+      courtNameNullErr: nameInputLen === 0,
     }));
   };
 
@@ -116,7 +115,6 @@ function CreateTemplate({ isOpen, onClose }: Props) {
         handleSuccessNoticeOpen();
       })
       .catch((err) => {
-        console.log(err);
         alert(`Woops! unsuccessful publish of your template, please try again!`);
       });
     closeWindow();
@@ -159,12 +157,11 @@ function CreateTemplate({ isOpen, onClose }: Props) {
                 />
               </FormControl>
               <Box width="50%">
-                <Text margin="16px 0px" fontSize="middium" fontWeight="500">
+                <Text margin="16px 0px" fontSize="medium" fontWeight="500">
                   Publisher:
                 </Text>
                 <Flex alignItems="center">
                   <Icon as={FaUserCircle} fontSize="40px" marginRight="30px" />
-                  {/* User icon may need to be fetched from the database or s3 */}
                   <Text fontSize="large" fontWeight="500">
                     {userFullName}
                   </Text>

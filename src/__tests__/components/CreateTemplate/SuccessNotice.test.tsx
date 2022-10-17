@@ -17,11 +17,6 @@ describe("SuccessNotice", () => {
   });
 
   test("should not render successNotice when user click the close button", async () => {
-    // const setCloseState = jest.fn();
-    // const useStateSpy = jest.spyOn(React, "useState");
-    // useStateSpy.mockImplementation((initialState:boolean) => [initialState, setState]);
-    // const closeState: any = (useState: boolean) => [closeState, setCloseState];
-    // jest.spyOn(React, "useState").mockImplementation(closeState);
     const { getByText } = renderWithMockedProvider(
       <SuccessNotice isOpen onClose={() => void {}} />
     );
