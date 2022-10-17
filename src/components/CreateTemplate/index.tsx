@@ -38,7 +38,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const courtNameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const [courtNameFull, setCourtNameFull] = useState(false);
-  const [courtNameNull, setCourtNameNull] = useState(false);
+  const [courtNameNull, setCourtNameNull] = useState(true);
   const [textAreaLen, setTextAreaLen] = useState(0);
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
@@ -50,12 +50,12 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const userFullName = userNameEllip(`${firstName} ${lastName}`, maxUserNameDisplay);
   const {
     isOpen: isSuccessNoticeOpen,
-    onOpen: handleSucessNoticeOpen,
-    onClose: handleSucessNoticeClose,
+    onOpen: handleSuccessNoticeOpen,
+    onClose: handleSuccessNoticeClose,
   } = useDisclosure();
 
   const closeWindow = () => {
-    setCourtNameNull(false);
+    setCourtNameNull(true);
     setTextAreaLen(0);
     setCourtNameFull(false);
     onClose();
@@ -91,7 +91,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
     await addTemplate(packedTemplate)
       .unwrap()
       .then((_res) => {
-        handleSucessNoticeOpen();
+        handleSuccessNoticeOpen();
       })
       .catch((err) => {
         console.log(err);
@@ -179,6 +179,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
               variant="shareBtn"
               width="100px"
               onClick={submitTemplate}
+              disabled={courtNameNull}
             >
               Publish
             </Button>
@@ -188,7 +189,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
           </Flex>
         </ModalContent>
       </Modal>
-      <SuccessNotice isOpen={isSuccessNoticeOpen} onClose={handleSucessNoticeClose} />
+      <SuccessNotice isOpen={isSuccessNoticeOpen} onClose={handleSuccessNoticeClose} />
     </>
   );
 }
