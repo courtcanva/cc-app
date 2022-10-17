@@ -30,16 +30,28 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
+
 const maxCourtNameLen = 15;
 const maxDescriptionLen = 200;
 const maxUserNameDisplay = 20;
 const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
 
+const inputErrorInit = {
+  courtNameFullErr: false,
+  courtNameNullErr: false,
+  descriptionOverLimit: false,
+};
+
+const inputErrorMsg = {
+  nameFullErrMsg: `Court name cannot have more than ${maxCourtNameLen} characters`,
+  nameNullErrMsg: "Court name cannot be empty",
+  descriptionLenErrMsg: `Description can not over ${maxDescriptionLen} words`,
+};
+
 function CreateTemplate({ isOpen, onClose }: Props) {
   const courtNameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
-  const [courtNameFull, setCourtNameFull] = useState(false);
-  const [courtNameNull, setCourtNameNull] = useState(true);
+  const [inputError, setInputError] = useState(inputErrorInit);
   const [textAreaLen, setTextAreaLen] = useState(0);
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
@@ -56,16 +68,17 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   } = useDisclosure();
 
   const closeWindow = () => {
-    setCourtNameNull(true);
+    setInputError(inputErrorInit);
     setTextAreaLen(0);
-    setCourtNameFull(false);
     onClose();
   };
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nameInputLen = e.currentTarget.value.length;
-    nameInputLen === 0 ? setCourtNameNull(true) : setCourtNameNull(false);
-    nameInputLen >= maxCourtNameLen ? setCourtNameFull(true) : setCourtNameFull(false);
+    setInputError((inputError) => ({
+      ...inputError,
+      courtNameFullErr: nameInputLen >= maxCourtNameLen,
+    }));
   };
 
   const handleTextAreaLenChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -74,12 +87,20 @@ function CreateTemplate({ isOpen, onClose }: Props) {
       .split(" ")
       .filter((item) => item != "").length;
     setTextAreaLen(textAreaLength);
+    setInputError((inputError) => ({
+      ...inputError,
+      descriptionOverLimit: textAreaLength >= maxDescriptionLen,
+    }));
   };
 
   const submitTemplate = async () => {
     const courtName = courtNameRef.current?.value;
     const description = descriptionRef.current?.value;
-    if (!courtName) {
+    if (!courtName || inputError.descriptionOverLimit || inputError.courtNameFullErr) {
+      setInputError((inputError) => ({
+        ...inputError,
+        courtNameNullErr: !courtName,
+      }));
       return;
     }
     const packedTemplate = generateNewTemplate(
@@ -96,14 +117,10 @@ function CreateTemplate({ isOpen, onClose }: Props) {
       })
       .catch((err) => {
         console.log(err);
-        alert(`Error Status: ${err.status}`);
+        alert(`Woops! unsuccessful publish of your template, please try again!`);
       });
-    onClose();
+    closeWindow();
   };
-
-  // useEffect(() => {
-  //   setCourtNameFull(false);
-  // }, []);
 
   return (
     <>
@@ -126,13 +143,17 @@ function CreateTemplate({ isOpen, onClose }: Props) {
               <Badge margin="16px">{selectedCourt.courtName}</Badge>
             </Flex>
             <Flex>
-              <FormControl width="50%" marginTop="1rem" isRequired isInvalid={courtNameFull}>
+              <FormControl
+                width="50%"
+                marginTop="1rem"
+                isRequired
+                isInvalid={inputError.courtNameFullErr}
+              >
                 <FormLabel marginBottom="1rem">Template Court Name:</FormLabel>
                 <Input
                   role="courtNameInput"
                   placeholder="Court name"
                   width="240px"
-                  maxLength={maxCourtNameLen}
                   onChange={checkNameLength}
                   ref={courtNameRef}
                 />
@@ -150,16 +171,17 @@ function CreateTemplate({ isOpen, onClose }: Props) {
                 </Flex>
               </Box>
             </Flex>
-            {!courtNameNull ? (
-              <Text color="crimson" opacity={!courtNameFull ? "0" : "100%"} fontSize="0.8rem">
-                Court name cannot have more than 15 characters
-              </Text>
-            ) : (
-              <Text color="crimson" fontSize="0.8rem">
-                {" "}
-                Court name cannot be null
-              </Text>
-            )}
+            <Text
+              color="crimson"
+              visibility={
+                inputError.courtNameFullErr || inputError.courtNameNullErr ? "visible" : "hidden"
+              }
+              fontSize="0.8rem"
+            >
+              {inputError.courtNameFullErr
+                ? inputErrorMsg.nameFullErrMsg
+                : inputErrorMsg.nameNullErrMsg}
+            </Text>
             <FormControl marginTop="1rem">
               <FormLabel marginBottom="1rem">Description:</FormLabel>
               <Textarea
@@ -170,7 +192,9 @@ function CreateTemplate({ isOpen, onClose }: Props) {
               />
             </FormControl>
             <Text role="wordCount" color={textAreaLen < maxDescriptionLen ? "black" : "crimson"}>
-              {textAreaLen}/{maxDescriptionLen} words
+              {inputError.descriptionOverLimit
+                ? inputErrorMsg.descriptionLenErrMsg
+                : `${textAreaLen}/${maxDescriptionLen} words`}
             </Text>
           </ModalBody>
           <Flex justifyContent="space-around" margin="24px" flexWrap="wrap">
@@ -180,7 +204,6 @@ function CreateTemplate({ isOpen, onClose }: Props) {
               variant="shareBtn"
               width="100px"
               onClick={submitTemplate}
-              disabled={courtNameNull}
             >
               Publish
             </Button>
