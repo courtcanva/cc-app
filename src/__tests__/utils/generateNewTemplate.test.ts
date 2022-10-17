@@ -3,7 +3,7 @@ import { Court } from "@/store/reducer/tileSlice";
 import generateNewTemplate from "@/utils/generateNewTemplate";
 
 describe("generateNewTemplate", () => {
-  it("it should return the correct template data", () => {
+  it("should the correct template data", () => {
     const mockTemplateData = {
       _id: "",
       user_id: "123456",
