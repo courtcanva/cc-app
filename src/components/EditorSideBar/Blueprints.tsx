@@ -17,7 +17,7 @@ const Blueprints = ({ fetchedCourtsData }: Props) => {
   const [activateCourt, setActivateCourt] = useState<string>("");
   const { courtsData } = useStoreSelector((state) => state.courtSpecData);
 
-  const displayedCourt = fetchedCourtsData?.filter((item: ICourtData) => item.isHidden === false);
+  const displayedCourt = fetchedCourtsData?.filter((item: ICourtData) => !item.isHidden);
   const filteredCourtList = courtList.filter((court) =>
     displayedCourt?.some((item: ICourtData) => item.name === court.courtSizeName)
   );
