@@ -23,7 +23,14 @@ const showContainerItem = (iconClickTitle: string, courtsData: ICourtData[] | un
 };
 
 const SideBarContainer = (props: Props) => {
-  const { data: courtsData } = useGetCourtsQuery(0);
+  const { data: courtsData } = useGetCourtsQuery(0, {
+    selectFromResult(result) {
+      if (result.data) {
+        result.data = result.data.filter((item: ICourtData) => !item.isHidden);
+      }
+      return result;
+    },
+  });
 
   return (
     <Box
