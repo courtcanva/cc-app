@@ -6,9 +6,11 @@ export const courtsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: environment.apiBaseUrl,
   }),
+  tagTypes: ["courts"],
   endpoints: (builder) => ({
     getCourts: builder.query({
       query: () => `/courts`,
+      providesTags: [{ type: "courts", id: "LIST" }],
     }),
 
     // future feature

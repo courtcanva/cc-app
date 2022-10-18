@@ -11,6 +11,14 @@ export interface ITileColor {
   color: string;
 }
 
+export interface ICourtData extends ICourtSize {
+  _id: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  isDeleted?: boolean;
+  isHidden: boolean;
+}
 interface ICourtSize {
   name: string;
   length: number;

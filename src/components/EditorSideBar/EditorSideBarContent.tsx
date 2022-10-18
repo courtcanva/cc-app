@@ -3,16 +3,18 @@ import React from "react";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import Blueprints from "./Blueprints";
 import Folder from "./Folder";
+import { useGetCourtsQuery } from "@/redux/api/courtSizeApi";
+import { ICourtData } from "@/interfaces/design";
 import { IconContext } from "react-icons";
 
 interface Props {
   iconClickTitle: string;
   onHandleCloseClick: () => void;
 }
-const showContainerItem = (iconClickTitle: string) => {
+const showContainerItem = (iconClickTitle: string, courtsData: ICourtData[] | undefined) => {
   switch (iconClickTitle) {
     case "Blueprints":
-      return <Blueprints />;
+      return <Blueprints fetchedCourtsData={courtsData} />;
     case "Folder":
       return <Folder />;
     default:
@@ -21,6 +23,15 @@ const showContainerItem = (iconClickTitle: string) => {
 };
 
 const SideBarContainer = (props: Props) => {
+  const { data: courtsData } = useGetCourtsQuery(0, {
+    selectFromResult(result) {
+      if (result.data) {
+        result.data = result.data.filter((item: ICourtData) => !item.isHidden);
+      }
+      return result;
+    },
+  });
+
   return (
     <Box
       background="background.secondaryLight"
@@ -32,7 +43,7 @@ const SideBarContainer = (props: Props) => {
       zIndex="2000"
       color="fontcolor.primary"
     >
-      {showContainerItem(props.iconClickTitle)}
+      {showContainerItem(props.iconClickTitle, courtsData)}
       <Box
         as="button"
         onClick={props.onHandleCloseClick}
