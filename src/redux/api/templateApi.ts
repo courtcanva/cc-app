@@ -3,7 +3,6 @@ import { environment } from "@/constants/environment";
 import { ITemplate, ITemplateDataDb } from "@/interfaces/template";
 import _ from "lodash";
 
-
 export const templateApi = createApi({
   reducerPath: "templates",
   baseQuery: fetchBaseQuery({
@@ -14,7 +13,7 @@ export const templateApi = createApi({
     getTemplates: builder.query<Omit<ITemplateDataDb, "__v" | "isDeleted">[], string>({
       query: (userId) => `/templates?user_id=${userId}`,
       transformResponse: (result: ITemplateDataDb[], _mega, _arg) => {
-        return result.map(item => _.omit(item, ["__v", "isDeleted"]));
+        return result.map((item) => _.omit(item, ["__v", "isDeleted"]));
       },
       providesTags: (result, _err, _arg) =>
         result

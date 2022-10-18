@@ -58,7 +58,6 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const { court: selectedCourtTileData } = useStoreSelector((state) => state.tile.present);
   const [addTemplate] = useAddTemplateMutation();
 
-
   const courtType = "basketball";
   const userFullName = userNameEllip(`${firstName} ${lastName}`, maxUserNameDisplay);
   const {
@@ -217,12 +216,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
             >
               Publish
             </Button>
-            <Button 
-              role="cancelBtn" 
-              fontSize="18px" 
-              onClick={closeWindow} 
-              paddingX="3rem"
-            >
+            <Button role="cancelBtn" fontSize="18px" onClick={closeWindow} paddingX="3rem">
               Cancel
             </Button>
           </Flex>
