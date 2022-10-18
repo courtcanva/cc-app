@@ -7,6 +7,7 @@ import {
   ModalFooter,
   ModalHeader,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import React, { Dispatch, SetStateAction } from "react";
 import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
@@ -33,39 +34,52 @@ const AccountConnection: React.FC<Props> = ({
   onClose,
   currentStep,
 }) => {
+  const toast = useToast();
   const dispatch = useStoreDispatch();
+  const closeModal = () => {
+    onClose();
+    setStep(1);
+  };
   // if this call is needed else where in the future, please move it to redux
   const onConnect = async () => {
-    const axiosResponse = await api("/user/connect", {
-      method: "put",
-      requestData: {
-        googleId: existedUserInfo?.googleId,
-        email: existedUserInfo?.email,
-      },
-    });
-    const loginRes: GoogleLoginRes = axiosResponse.data;
-    const userInfo: IUser = {
-      userId: loginRes.userId,
-      email: loginRes.email,
-      firstName: loginRes.firstName,
-      lastName: loginRes.lastName,
-    };
     try {
-      if (userInfo) {
-        localStorage.setItem("UserInfo", JSON.stringify(userInfo));
-        dispatch(updateUserInfo(userInfo));
-        updateLoginData(userInfo);
-        setStep(1);
-        onClose();
-      }
+      const axiosResponse = await api("/user/connect", {
+        method: "put",
+        requestData: {
+          googleId: existedUserInfo?.googleId,
+          email: existedUserInfo?.email,
+        },
+      });
+      const loginRes: GoogleLoginRes = axiosResponse.data;
+      const userInfo: IUser = {
+        userId: loginRes.userId,
+        email: loginRes.email,
+        firstName: loginRes.firstName,
+        lastName: loginRes.lastName,
+      };
+      toast({
+        title: "Connection successful! Enjoy designing!",
+        status: "success",
+        isClosable: true,
+        position: "top",
+      });
+      localStorage.setItem("UserInfo", JSON.stringify(userInfo));
+      dispatch(updateUserInfo(userInfo));
+      updateLoginData(userInfo);
+      closeModal();
     } catch (err) {
-      console.warn(err);
+      toast({
+        title: "Connection failed, please try again",
+        status: "error",
+        isClosable: true,
+        position: "top",
+      });
     }
   };
   return (
     <>
       <ModalOperator
-        handleCloseModal={() => setStep(1)}
+        handleCloseModal={closeModal}
         prevStep={() => setStep(1)}
         currentStep={currentStep}
       />
@@ -75,10 +89,10 @@ const AccountConnection: React.FC<Props> = ({
             <MainLogoSvg />
           </Icon>
           <Text fontSize="17px" textAlign="center">
-            Account registered by this email exists
+            Account registered by your email exists
           </Text>
           <Text fontSize="11px" textAlign="center" fontWeight="light" marginTop="15px">
-            To login with Google, please connect your existing account with your Google account
+            To continue, please connect your existing account with your Google account
           </Text>
         </Flex>
       </ModalHeader>
