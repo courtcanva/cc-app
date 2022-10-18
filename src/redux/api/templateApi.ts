@@ -12,7 +12,7 @@ export const templateApi = createApi({
   endpoints: (builder) => ({
     getTemplates: builder.query<Omit<ITemplateDataDb, "__v" | "isDeleted">[], string>({
       query: (userId) => `/templates?user_id=${userId}`,
-      transformResponse: (result: ITemplateDataDb[], _mega, _arg) => {
+      transformResponse: (result: ITemplateDataDb[], _meta, _arg) => {
         return result.map((item) => _.omit(item, ["__v", "isDeleted"]));
       },
       providesTags: (result, _err, _arg) =>
@@ -23,7 +23,7 @@ export const templateApi = createApi({
 
     getTemplateById: builder.query<Omit<ITemplateDataDb, "__v" | "isDeleted">, string>({
       query: (templateId) => `templates/${templateId}`,
-      transformResponse: (result: ITemplateDataDb, _mega, _arg) => {
+      transformResponse: (result: ITemplateDataDb, _meta, _arg) => {
         return _.omit(result, ["__v", "isDeleted"]);
       },
       providesTags: (result, _err, _arg) =>
