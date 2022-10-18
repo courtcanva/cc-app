@@ -5,27 +5,23 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 
 describe("SuccessNotice", () => {
-  test("should render successNotice page when user punish template successfully", () => {
-    const { getByText } = renderWithMockedProvider(
-      <SuccessNotice isOpen={true} onClose={() => void {}} />
-    );
+  test("it should render successNotice page when user punish template successfully", () => {
+    renderWithMockedProvider(<SuccessNotice isOpen={true} onClose={() => void {}} />);
     const closeBtn = screen.getByRole("closeBtn");
     expect(
-      getByText("Congratulations You have successfully submitted a new template!")
+      screen.getByText("Congratulations You have successfully submitted a new template!")
     ).toBeInTheDocument();
     expect(closeBtn).toBeInTheDocument();
   });
 
-  test("should not render successNotice when user click the close button", async () => {
-    const { getByText } = renderWithMockedProvider(
-      <SuccessNotice isOpen onClose={() => void {}} />
-    );
+  test("it should not render successNotice when user click the close button", async () => {
+    renderWithMockedProvider(<SuccessNotice isOpen onClose={() => void {}} />);
     const closeBtn = screen.getByRole("closeBtn");
     userEvent.click(closeBtn);
     await waitFor(() => expect(closeBtn).not.toBeVisible());
     await waitFor(() =>
       expect(
-        getByText("Congratulations You have successfully submitted a new template!")
+        screen.getByText("Congratulations You have successfully submitted a new template!")
       ).not.toBeVisible()
     );
   });
