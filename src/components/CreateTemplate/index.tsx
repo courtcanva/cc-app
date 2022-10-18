@@ -57,6 +57,8 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
   const { court: selectedCourtTileData } = useStoreSelector((state) => state.tile.present);
   const [addTemplate] = useAddTemplateMutation();
+
+
   const courtType = "basketball";
   const userFullName = userNameEllip(`${firstName} ${lastName}`, maxUserNameDisplay);
   const {

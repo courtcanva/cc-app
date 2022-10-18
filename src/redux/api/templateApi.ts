@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { environment } from "@/constants/environment";
 import { ITemplate, ITemplateDataDb } from "@/interfaces/template";
+import _ from "lodash";
+
 
 export const templateApi = createApi({
   reducerPath: "templates",
@@ -9,16 +11,22 @@ export const templateApi = createApi({
   }),
   tagTypes: ["template"],
   endpoints: (builder) => ({
-    getTemplates: builder.query<ITemplateDataDb[], string>({
+    getTemplates: builder.query<Omit<ITemplateDataDb, "__v" | "isDeleted">[], string>({
       query: (userId) => `/templates?user_id=${userId}`,
+      transformResponse: (result: ITemplateDataDb[], _mega, _arg) => {
+        return result.map(item => _.omit(item, ["__v", "isDeleted"]));
+      },
       providesTags: (result, _err, _arg) =>
         result
           ? [...result.map(({ _id }) => ({ type: "template" as const, id: _id })), "template"]
           : ["template"],
     }),
 
-    getTemplateById: builder.query<ITemplateDataDb, string>({
+    getTemplateById: builder.query<Omit<ITemplateDataDb, "__v" | "isDeleted">, string>({
       query: (templateId) => `templates/${templateId}`,
+      transformResponse: (result: ITemplateDataDb, _mega, _arg) => {
+        return _.omit(result, ["__v", "isDeleted"]);
+      },
       providesTags: (result, _err, _arg) =>
         result ? [{ type: "template", id: result._id }] : ["template"],
     }),
