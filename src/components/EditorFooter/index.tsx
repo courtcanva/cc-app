@@ -64,7 +64,7 @@ const EditorFooter = () => {
             color="brand.primary"
             data-testid="zoom-out-btn"
             onClick={handleZoomOut}
-            isDisabled={zoomScale <= MIN_ZOOM ? true : false}
+            isDisabled={zoomScale <= MIN_ZOOM}
           />
         </Tooltip>
 
@@ -76,7 +76,7 @@ const EditorFooter = () => {
             color="brand.primary"
             data-testid="zoom-in-btn"
             onClick={handleZoomIn}
-            isDisabled={zoomScale > MAX_ZOOM ? true : false}
+            isDisabled={zoomScale > MAX_ZOOM}
           />
         </Tooltip>
 
