@@ -127,18 +127,27 @@ function CreateTemplate({ isOpen, onClose }: Props) {
         <ModalContent>
           <ModalHeader role="modalTitle">Template sharing</ModalHeader>
           <ModalCloseButton />
-          <ModalBody padding="8px 24px">
+          <ModalBody padding="0.5rem 1.5rem">
             <FormControl>
               <FormLabel>Court Preview:</FormLabel>
-              <Box width={300} height={150} backgroundColor="orange" margin="30px auto">
+              <Flex
+                fontSize="2rem"
+                fontWeight="500"
+                width="20rem"
+                height="11rem"
+                backgroundColor="orange"
+                justifyContent="center"
+                alignItems="center"
+                margin="1.8rem auto"
+              >
                 Court Image
-              </Box>
+              </Flex>
             </FormControl>
-            <Flex gap="24px" justifyContent="center" flexWrap="wrap">
-              <Badge margin="16px" colorScheme="green">
+            <Flex gap="1.5rem" justifyContent="center" flexWrap="wrap">
+              <Badge margin="1rem" colorScheme="green">
                 {courtType}
               </Badge>
-              <Badge margin="16px">{selectedCourt.courtName}</Badge>
+              <Badge margin="1rem">{selectedCourt.courtName}</Badge>
             </Flex>
             <Flex>
               <FormControl
@@ -151,17 +160,18 @@ function CreateTemplate({ isOpen, onClose }: Props) {
                 <Input
                   role="courtNameInput"
                   placeholder="Court name"
-                  width="240px"
+                  width="15rem"
                   onChange={checkNameLength}
+                  autoFocus
                   ref={courtNameRef}
                 />
               </FormControl>
               <Box width="50%">
-                <Text margin="16px 0px" fontSize="medium" fontWeight="500">
+                <Text margin="1rem 0px" fontSize="medium" fontWeight="500">
                   Publisher:
                 </Text>
                 <Flex alignItems="center">
-                  <Icon as={FaUserCircle} fontSize="40px" marginRight="30px" />
+                  <Icon as={FaUserCircle} fontSize="2.5rem" marginRight="1.8rem" />
                   <Text fontSize="large" fontWeight="500">
                     {userFullName}
                   </Text>
@@ -182,9 +192,10 @@ function CreateTemplate({ isOpen, onClose }: Props) {
             <FormControl marginTop="1rem">
               <FormLabel marginBottom="1rem">Description:</FormLabel>
               <Textarea
-                height="150px"
+                height="9.5rem"
                 placeholder={`Description: maximum ${maxDescriptionLen} words`}
                 onChange={handleTextAreaLenChange}
+                resize="none"
                 ref={descriptionRef}
               />
             </FormControl>
@@ -194,17 +205,17 @@ function CreateTemplate({ isOpen, onClose }: Props) {
                 : `${textAreaLen}/${maxDescriptionLen} words`}
             </Text>
           </ModalBody>
-          <Flex justifyContent="space-around" margin="24px" flexWrap="wrap">
+          <Flex justifyContent="space-around" margin="1.5rem" flexWrap="wrap">
             <Button
               role="publishBtn"
               colorScheme="blue"
               variant="shareBtn"
-              width="100px"
+              paddingX="3rem"
               onClick={submitTemplate}
             >
               Publish
             </Button>
-            <Button role="cancelBtn" onClick={closeWindow} width="100px">
+            <Button role="cancelBtn" fontSize="18px" onClick={closeWindow} paddingX="3rem">
               Cancel
             </Button>
           </Flex>
