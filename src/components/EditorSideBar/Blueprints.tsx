@@ -10,16 +10,15 @@ import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { ICourtData } from "@/interfaces/design";
 
 interface Props {
-  fetchedCourtsData: ICourtData[];
+  fetchedCourtsData: ICourtData[] | undefined;
 }
 const Blueprints = ({ fetchedCourtsData }: Props) => {
   const dispatch = useDispatch();
   const [activateCourt, setActivateCourt] = useState<string>("");
   const { courtsData } = useStoreSelector((state) => state.courtSpecData);
 
-  const displayedCourt = fetchedCourtsData?.filter((item: ICourtData) => !item.isHidden);
   const filteredCourtList = courtList.filter((court) =>
-    displayedCourt?.some((item: ICourtData) => item.name === court.courtSizeName)
+    fetchedCourtsData?.some((item: ICourtData) => item.name === court.courtSizeName)
   );
   const handleCourtSelecting = (imgUrl: string, courtId: string, courtSizeName: string): void => {
     setActivateCourt(imgUrl);

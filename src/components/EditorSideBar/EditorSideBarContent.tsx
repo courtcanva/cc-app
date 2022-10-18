@@ -11,7 +11,7 @@ interface Props {
   iconClickTitle: string;
   onHandleCloseClick: () => void;
 }
-const showContainerItem = (iconClickTitle: string, courtsData: ICourtData[]) => {
+const showContainerItem = (iconClickTitle: string, courtsData: ICourtData[] | undefined) => {
   switch (iconClickTitle) {
     case "Blueprints":
       return <Blueprints fetchedCourtsData={courtsData} />;
@@ -24,6 +24,7 @@ const showContainerItem = (iconClickTitle: string, courtsData: ICourtData[]) => 
 
 const SideBarContainer = (props: Props) => {
   const { data: courtsData } = useGetCourtsQuery(0);
+
   return (
     <Box
       background="background.secondaryLight"
