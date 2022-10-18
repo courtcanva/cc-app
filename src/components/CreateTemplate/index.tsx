@@ -75,7 +75,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
     const nameInputLen = e.currentTarget.value.length;
     setInputError((inputError) => ({
       ...inputError,
-      courtNameFullErr: nameInputLen >= maxCourtNameLen,
+      courtNameFullErr: nameInputLen > maxCourtNameLen,
       courtNameNullErr: nameInputLen === 0,
     }));
   };
@@ -88,7 +88,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
     setTextAreaLen(textAreaLength);
     setInputError((inputError) => ({
       ...inputError,
-      descriptionOverLimit: textAreaLength >= maxDescriptionLen,
+      descriptionOverLimit: textAreaLength > maxDescriptionLen,
     }));
   };
 
@@ -115,7 +115,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
         handleSuccessNoticeOpen();
       })
       .catch((err) => {
-        alert(`Woops! unsuccessful publish of your template, please try again!`);
+        alert("Whoops! unsuccessful publish your template, please try again!");
       });
     closeWindow();
   };
