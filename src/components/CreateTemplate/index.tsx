@@ -217,7 +217,12 @@ function CreateTemplate({ isOpen, onClose }: Props) {
             >
               Publish
             </Button>
-            <Button role="cancelBtn" fontSize="18px" onClick={closeWindow} paddingX="3rem">
+            <Button 
+              role="cancelBtn" 
+              fontSize="18px" 
+              onClick={closeWindow} 
+              paddingX="3rem"
+            >
               Cancel
             </Button>
           </Flex>
