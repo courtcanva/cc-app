@@ -15,8 +15,13 @@ const DropDownButton = ({ detail }: detail) => {
     length: length,
     width: width,
     sideBorderWidth: sideBorderWidth,
+    // fencingLength: fencingLength,
+    // fencingWidth: fencingWidth,
+    // hoopsCount: hoopsCount,
   } = detail;
-
+  {
+    /* todo: add fencing and hoops in detail */
+  }
   const lengthInMeter = (length + sideBorderWidth * 2) / 1000;
   const widthInMeter = (width + sideBorderWidth * 2) / 1000;
 
@@ -43,8 +48,10 @@ const DropDownButton = ({ detail }: detail) => {
               Tile: {lengthInMeter}*{widthInMeter}m,{courtName}
               <br />
               Hoops
+              {/* todo: Hoops x {hoopsCount} */}
               <br />
               Fencing
+              {/* todo: {fencingLength}*{fencingWidth}m */}
             </Text>
           </ListItem>
           <ListItem>
