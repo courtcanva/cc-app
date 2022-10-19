@@ -13,10 +13,13 @@ import useCourt from "@/hooks/useCourt";
 import { IZoomShift } from "@/interfaces/zoomShift";
 import { useRef, useEffect } from "react";
 import canvasControlModel from "../../utils/canvasControlModel";
+import { useStoreSelector } from "@/store/hooks";
+import { updateCourtStage } from "@/utils/uploadImage";
 
 const HalfCourt = () => {
   const dispatch = useDispatch();
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
+  const rulerState = useStoreSelector((state) => state.buttonToggle.isRulerOn);
   const ref = useRef<any>(null);
 
   const zoomShift: IZoomShift = {
@@ -36,6 +39,10 @@ const HalfCourt = () => {
     ref.current.x(0);
     ref.current.y(0);
   }, [canvasContorl.canvasStates.resetState]);
+
+  useEffect(() => {
+    updateCourtStage(dispatch, ref, rulerState);
+  }, [canvasStates.selectedColor]);
 
   return (
     <Flex

@@ -14,9 +14,13 @@ import useCourt from "@/hooks/useCourt";
 import { IZoomShift } from "@/interfaces/zoomShift";
 import { useRef, useEffect } from "react";
 import canvasControlModel from "../../utils/canvasControlModel";
+import { useStoreSelector } from "@/store/hooks";
+import { updateCourtStage } from "@/utils/uploadImage";
 
 const ProFullCourt = () => {
+  const dispatch = useDispatch();
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
+  const rulerState = useStoreSelector((state) => state.buttonToggle.isRulerOn);
   const ref = useRef<any>(null);
 
   const zoomShift: IZoomShift = {
@@ -37,6 +41,10 @@ const ProFullCourt = () => {
     ref.current.y(0);
   }, [canvasStates.resetState]);
 
+  useEffect(() => {
+    updateCourtStage(dispatch, ref, rulerState);
+  }, [canvasStates.selectedColor]);
+
   return (
     <Flex
       position="fixed"
@@ -53,6 +61,7 @@ const ProFullCourt = () => {
       <ReactReduxContext.Consumer>
         {({ store }) => (
           <Stage
+            className="ProFullCourtStage"
             id="basketball-court"
             data-testid="stage"
             height={court.stageHeight}

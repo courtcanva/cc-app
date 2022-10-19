@@ -5,9 +5,8 @@ import { ICartItem } from "@/interfaces/cartItem";
 import { saveDesignMapping } from "@/utils/designMapping";
 import { IDesign, ITileColor } from "@/interfaces/design";
 import { useDispatch } from "react-redux";
-import { switchLoginModal, switchSideBar } from "@/store/reducer/buttonToggleSlice";
-import { resetAll } from "@/store/reducer/canvasControlSlice";
-import { upLoadImage } from "@/utils/uploadImage";
+import { switchLoginModal } from "@/store/reducer/buttonToggleSlice";
+import { upLoadScreenshot } from "@/utils/uploadImage";
 
 interface IBudgetBoardprops {
   useTotalPrice: string;
@@ -19,6 +18,7 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
   const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
   const tileData = useStoreSelector((state) => state.tile.present.court);
+  const screenshot = useStoreSelector((state) => state.courtStage.screenshot);
   const tiles: ITileColor[] = [...tileData];
   const userId = useStoreSelector((state) => state.user.userId);
   const [addToCart] = useAddToCartMutation();
@@ -44,11 +44,11 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
 
   const handleAddToCart = async () => {
     if (!userId) return dispatch(switchLoginModal(true));
-    dispatch(switchSideBar(false));
-    dispatch(resetAll());
-    const imageUrl = await upLoadImage();
+    if (!screenshot) return console.log("No screenshot!");
+    const imgUrl = await upLoadScreenshot(screenshot);
+    console.log(imgUrl);
     addToCart({
-      item: { ...newCartItem, image: imageUrl },
+      item: { ...newCartItem, image: imgUrl },
     });
   };
 
