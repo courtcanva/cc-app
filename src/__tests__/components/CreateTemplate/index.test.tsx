@@ -1,5 +1,4 @@
 import CreateTemplate from "@/components/CreateTemplate";
-import { userNameEllip } from "@/utils/handleLongUserName";
 import renderWithMockedProvider from "../../utils";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";

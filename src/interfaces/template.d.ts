@@ -22,3 +22,15 @@ export interface ITemplateDataDb extends ITemplate {
   isDeleted: boolean;
   __v: number;
 }
+
+export interface ITemplateErrorInput {
+  courtNameFullErr: boolean;
+  courtNameNullErr: boolean;
+  descriptionOverLimit: boolean;
+}
+
+export interface ITemplateErrorMsg {
+  nameFullErrMsg: string;
+  nameNullErrMsg: string;
+  descriptionLenErrMsg: string;
+}

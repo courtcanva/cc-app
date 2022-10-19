@@ -24,34 +24,24 @@ import { FaUserCircle } from "react-icons/fa";
 import { useAddTemplateMutation } from "@/redux/api/templateApi";
 import SuccessNotice from "./SuccessNotice";
 import generateNewTemplate from "@/utils/generateNewTemplate";
-import { userNameEllip } from "../../utils/handleLongUserName";
+import {
+  INPUT_ERROR_MSG,
+  INPUT_ERR_INIT,
+  MAX_COURTNAME_LEN,
+  MAX_DESCRIPTION_LEN,
+  REGEX,
+} from "@/constants/templateCreate";
+import ErrorMsg from "./ErrorMsg";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const maxCourtNameLen = 15;
-const maxDescriptionLen = 200;
-const maxUserNameDisplay = 20;
-const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
-
-const inputErrorInit = {
-  courtNameFullErr: false,
-  courtNameNullErr: false,
-  descriptionOverLimit: false,
-};
-
-const inputErrorMsg = {
-  nameFullErrMsg: `Court name cannot have more than ${maxCourtNameLen} characters`,
-  nameNullErrMsg: "Court name cannot be empty",
-  descriptionLenErrMsg: `Description can not over ${maxDescriptionLen} words`,
-};
-
 function CreateTemplate({ isOpen, onClose }: Props) {
   const courtNameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
-  const [inputError, setInputError] = useState(inputErrorInit);
+  const [inputError, setInputError] = useState(INPUT_ERR_INIT);
   const [textAreaLen, setTextAreaLen] = useState(0);
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
@@ -59,7 +49,6 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const [addTemplate] = useAddTemplateMutation();
 
   const courtType = "basketball";
-  const userFullName = userNameEllip(`${firstName} ${lastName}`, maxUserNameDisplay);
   const {
     isOpen: isSuccessNoticeOpen,
     onOpen: handleSuccessNoticeOpen,
@@ -67,7 +56,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   } = useDisclosure();
 
   const closeWindow = () => {
-    setInputError(inputErrorInit);
+    setInputError(INPUT_ERR_INIT);
     setTextAreaLen(0);
     onClose();
   };
@@ -76,20 +65,20 @@ function CreateTemplate({ isOpen, onClose }: Props) {
     const nameInputLen = e.currentTarget.value.length;
     setInputError((inputError) => ({
       ...inputError,
-      courtNameFullErr: nameInputLen > maxCourtNameLen,
+      courtNameFullErr: nameInputLen > MAX_COURTNAME_LEN,
       courtNameNullErr: nameInputLen === 0,
     }));
   };
 
   const handleTextAreaLenChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textAreaLength = e.currentTarget.value
-      .replace(regex, " ")
+      .replace(REGEX, " ")
       .split(" ")
       .filter((item) => item != "").length;
     setTextAreaLen(textAreaLength);
     setInputError((inputError) => ({
       ...inputError,
-      descriptionOverLimit: textAreaLength > maxDescriptionLen,
+      descriptionOverLimit: textAreaLength > MAX_DESCRIPTION_LEN,
     }));
   };
 
@@ -129,21 +118,19 @@ function CreateTemplate({ isOpen, onClose }: Props) {
           <ModalHeader role="modalTitle">Template sharing</ModalHeader>
           <ModalCloseButton />
           <ModalBody padding="0.5rem 1.5rem">
-            <FormControl>
-              <FormLabel>Court Preview:</FormLabel>
-              <Flex
-                fontSize="2rem"
-                fontWeight="500"
-                width="20rem"
-                height="11rem"
-                backgroundColor="orange"
-                justifyContent="center"
-                alignItems="center"
-                margin="1.8rem auto"
-              >
-                Court Image
-              </Flex>
-            </FormControl>
+            <FormLabel>Court Preview:</FormLabel>
+            <Flex
+              fontSize="2rem"
+              fontWeight="500"
+              width="20rem"
+              height="11rem"
+              backgroundColor="orange"
+              justifyContent="center"
+              alignItems="center"
+              margin="1.8rem auto"
+            >
+              Court Image
+            </Flex>
             <Flex gap="1.5rem" justifyContent="center" flexWrap="wrap">
               <Badge margin="1rem" colorScheme="green">
                 {courtType}
@@ -173,37 +160,31 @@ function CreateTemplate({ isOpen, onClose }: Props) {
                 </Text>
                 <Flex alignItems="center">
                   <Icon as={FaUserCircle} fontSize="2.5rem" marginRight="1.8rem" />
-                  <Text fontSize="large" fontWeight="500">
-                    {userFullName}
+                  <Text
+                    fontSize="large"
+                    fontWeight="500"
+                    whiteSpace="nowrap"
+                    overflow="hidden"
+                    textOverflow="ellipsis"
+                  >
+                    {`${firstName} ${lastName}`}
                   </Text>
                 </Flex>
               </Box>
             </Flex>
-            <Text
-              color="crimson"
-              visibility={
-                inputError.courtNameFullErr || inputError.courtNameNullErr ? "visible" : "hidden"
-              }
-              fontSize="0.8rem"
-            >
-              {inputError.courtNameFullErr
-                ? inputErrorMsg.nameFullErrMsg
-                : inputErrorMsg.nameNullErrMsg}
-            </Text>
-            <FormControl marginTop="1rem">
-              <FormLabel marginBottom="1rem">Description:</FormLabel>
-              <Textarea
-                height="9.5rem"
-                placeholder={`Description: maximum ${maxDescriptionLen} words`}
-                onChange={handleTextAreaLenChange}
-                resize="none"
-                ref={descriptionRef}
-              />
-            </FormControl>
-            <Text role="wordCount" color={textAreaLen < maxDescriptionLen ? "black" : "crimson"}>
+            <ErrorMsg userInputError={inputError} inputErrorMsg={INPUT_ERROR_MSG} />
+            <FormLabel marginBottom="1rem">Description:</FormLabel>
+            <Textarea
+              height="9.5rem"
+              placeholder={`Description: maximum ${MAX_DESCRIPTION_LEN} words`}
+              onChange={handleTextAreaLenChange}
+              resize="none"
+              ref={descriptionRef}
+            />
+            <Text role="wordCount" color={textAreaLen < MAX_DESCRIPTION_LEN ? "black" : "crimson"}>
               {inputError.descriptionOverLimit
-                ? inputErrorMsg.descriptionLenErrMsg
-                : `${textAreaLen}/${maxDescriptionLen} words`}
+                ? INPUT_ERROR_MSG.descriptionLenErrMsg
+                : `${textAreaLen}/${MAX_DESCRIPTION_LEN} words`}
             </Text>
           </ModalBody>
           <Flex justifyContent="space-around" margin="1.5rem" flexWrap="wrap">
