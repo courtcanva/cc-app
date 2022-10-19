@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GrDown, GrUp } from "react-icons/gr";
-import { Flex, IconButton, ListItem, UnorderedList, Text } from "@chakra-ui/react";
+import { Flex, Box, IconButton, ListItem, UnorderedList, Text } from "@chakra-ui/react";
 import { Collapse } from "@chakra-ui/react";
 import { MotionStyle } from "framer-motion";
 import { ICourtSize } from "@/interfaces/design";
@@ -34,24 +34,29 @@ const DropDownButton = ({ detail }: detail) => {
     whiteSpace: show ? "normal" : "nowrap",
     textOverflow: show ? "clip" : "ellipsis",
     textAlign: "left",
-    paddingLeft: "10px",
+    lineHeight: "140%",
   };
 
   return (
     <Flex w="100%" flexDirection="row" overflow="auto">
-      <Collapse startingHeight={25} in={show} style={collapseStyle} data-testid="testShow">
+      <Collapse startingHeight={20} in={show} style={collapseStyle} data-testid="testShow">
         <UnorderedList>
           <ListItem>
             <Text size="xs">
               Court Material
-              <br />
-              Tile: {lengthInMeter}*{widthInMeter}m,{courtName}
-              <br />
-              Hoops
-              {/* todo: Hoops x {hoopsCount} */}
-              <br />
-              Fencing
-              {/* todo: {fencingLength}*{fencingWidth}m */}
+              <UnorderedList>
+                <ListItem>
+                  Tile: ({lengthInMeter}m*{widthInMeter}m,{courtName})
+                </ListItem>
+                <ListItem style={{ listStyle: "none" }}>
+                  Hoops (fixed height)
+                  {/* todo: Hoops x {hoopsCount} */}
+                </ListItem>
+                <ListItem style={{ listStyle: "none" }}>
+                  Fencing (2m height)
+                  {/* todo: {fencingLength}*{fencingWidth}m */}
+                </ListItem>
+              </UnorderedList>
             </Text>
           </ListItem>
           <ListItem>

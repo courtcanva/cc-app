@@ -66,10 +66,10 @@ describe("ShoppingCart component", () => {
     const { getByTestId } = render(<DropDownButton detail={courtDetail} />);
     const textShow = getByTestId("testShow");
     expect(textShow.textContent).toBe(
-      "Court MaterialTile: 9*5m,Small CourtHoopsFencingShipping costInstallation fee"
+      "Court MaterialTile: (9m*5m,Small Court)Hoops (fixed height)Fencing (2m height)Shipping costInstallation fee"
     );
     expect(textShow).toHaveStyle(
-      ` overflow-y: hidden; height:25px; white-space:nowrap; text-overflow:ellipsis `
+      ` overflow-y: hidden; height:20px; white-space:nowrap; text-overflow:ellipsis `
     );
   });
 
