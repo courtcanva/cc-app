@@ -19,7 +19,7 @@ export interface ICourtData extends ICourtSize {
   isDeleted?: boolean;
   isHidden: boolean;
 }
-interface ICourtSize {
+export interface ICourtSize {
   name: string;
   length: number;
   width: number;
