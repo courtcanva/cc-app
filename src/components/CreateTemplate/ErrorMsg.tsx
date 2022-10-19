@@ -6,20 +6,21 @@ interface Props {
   inputErrorMsg: ITemplateErrorMsg;
 }
 
-const ErrorMsg = (prop: Props) => {
+const ErrorMsg = (props: Props) => {
+  const { userInputError, inputErrorMsg } = props;
   return (
     <Text
       color="crimson"
       visibility={
-        prop.userInputError.courtNameFullErr || prop.userInputError.courtNameNullErr
+        userInputError.courtNameFullErr || userInputError.courtNameNullErr
           ? "visible"
           : "hidden"
       }
       fontSize="0.8rem"
     >
-      {prop.userInputError.courtNameFullErr
-        ? prop.inputErrorMsg.nameFullErrMsg
-        : prop.inputErrorMsg.nameNullErrMsg}
+      {userInputError.courtNameFullErr
+        ? inputErrorMsg.nameFullErrMsg
+        : inputErrorMsg.nameNullErrMsg}
     </Text>
   );
 };
