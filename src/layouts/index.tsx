@@ -9,7 +9,6 @@ import PriceBar from "@/components/PriceBar";
 import TopBar from "@/components/TopBar";
 import ShoppingCart from "@/components/ShoppingCart";
 import { PAGE_NOT_FOUND, TEAM_PAGE } from "../../src/constants";
-import CreateTemplate from "@/components/CreateTemplate";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
@@ -37,7 +36,6 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
     default:
       return (
         <>
-          {/* <CreateTemplate isOpen={true} onClose={() => void {}} /> */}
           <Header />
           <Box as="main">
             <NavigationBar />

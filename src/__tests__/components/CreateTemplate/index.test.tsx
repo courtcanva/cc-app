@@ -3,8 +3,8 @@ import renderWithMockedProvider from "../../utils";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-describe("Creat Template", () => {
-  test("Should render all page titles", () => {
+describe("Create Template", () => {
+  it("Should render all page titles", () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
 
     const modalTitle = screen.getByText("Template sharing");
@@ -20,7 +20,7 @@ describe("Creat Template", () => {
     expect(publisherTitle).toBeInTheDocument();
   });
 
-  test("Should render buttons in modal footer", () => {
+  it("Should render buttons in modal footer", () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
 
     const publishBtn = screen.getByRole("publishBtn");

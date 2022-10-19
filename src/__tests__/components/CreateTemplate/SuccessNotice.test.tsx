@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 
 describe("SuccessNotice", () => {
-  test("it should render successNotice page when user punish template successfully", () => {
+  it("should render successNotice page when user punish template successfully", () => {
     renderWithMockedProvider(<SuccessNotice isOpen={true} onClose={() => void {}} />);
     const closeBtn = screen.getByRole("closeBtn");
     expect(
@@ -14,7 +14,7 @@ describe("SuccessNotice", () => {
     expect(closeBtn).toBeInTheDocument();
   });
 
-  test("it should not render successNotice when user click the close button", async () => {
+  it("should not render successNotice when user click the close button", async () => {
     renderWithMockedProvider(<SuccessNotice isOpen onClose={() => void {}} />);
     const closeBtn = screen.getByRole("closeBtn");
     userEvent.click(closeBtn);
