@@ -5,11 +5,11 @@ import { Collapse } from "@chakra-ui/react";
 import { MotionStyle } from "framer-motion";
 import { ICourtSize } from "@/interfaces/design";
 
-interface detail {
+interface Detail {
   detail: ICourtSize;
 }
 
-const DropDownButton = ({ detail }: detail) => {
+const DropDownButton = ({ detail }: Detail) => {
   const {
     name: courtName,
     length: length,
@@ -34,7 +34,9 @@ const DropDownButton = ({ detail }: detail) => {
     whiteSpace: show ? "normal" : "nowrap",
     textOverflow: show ? "clip" : "ellipsis",
     textAlign: "left",
-    lineHeight: "140%",
+    lineHeight: "160%",
+    alignItems: "center",
+    paddingLeft: "2px",
   };
 
   return (
