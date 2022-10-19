@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import { GrDown, GrUp } from "react-icons/gr";
-import { Flex, IconButton } from "@chakra-ui/react";
+import { Flex, IconButton, ListItem, UnorderedList, Text } from "@chakra-ui/react";
 import { Collapse } from "@chakra-ui/react";
-import { PriceBar } from "@/store/reducer/priceBarSlice";
 import { MotionStyle } from "framer-motion";
+import { ICourtSize } from "@/interfaces/design";
 
-type detail = {
-  detail: PriceBar[];
-};
+interface detail {
+  detail: ICourtSize;
+}
 
 const DropDownButton = ({ detail }: detail) => {
+  const {
+    name: courtName,
+    length: length,
+    width: width,
+    sideBorderWidth: sideBorderWidth,
+  } = detail;
+
+  const lengthInMeter = (length + sideBorderWidth * 2) / 1000;
+  const widthInMeter = (width + sideBorderWidth * 2) / 1000;
+
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
   const collapseStyle: MotionStyle = {
@@ -18,15 +28,32 @@ const DropDownButton = ({ detail }: detail) => {
     userSelect: "none",
     whiteSpace: show ? "normal" : "nowrap",
     textOverflow: show ? "clip" : "ellipsis",
-    textAlign: "center",
+    textAlign: "left",
+    paddingLeft: "10px",
   };
 
   return (
     <Flex w="100%" flexDirection="row" overflow="auto">
       <Collapse startingHeight={25} in={show} style={collapseStyle} data-testid="testShow">
-        {detail.map(
-          (content: PriceBar) => `Color:${content.color},  Quantity:${content.quantity},  `
-        )}
+        <UnorderedList>
+          <ListItem>
+            <Text size="xs">
+              Court Material
+              <br />
+              Tile: {lengthInMeter}*{widthInMeter}m,{courtName}
+              <br />
+              Hoops
+              <br />
+              Fencing
+            </Text>
+          </ListItem>
+          <ListItem>
+            <Text size="xs">Shipping cost</Text>
+          </ListItem>
+          <ListItem>
+            <Text size="xs">Installation fee</Text>
+          </ListItem>
+        </UnorderedList>
       </Collapse>
       <IconButton
         icon={show ? <GrUp /> : <GrDown />}
