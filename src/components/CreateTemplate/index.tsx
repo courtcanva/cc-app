@@ -62,7 +62,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   };
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const nameInputLen = e.currentTarget.value.length;
+    const nameInputLen = e.currentTarget.value.trim().length;
     setInputError((inputError) => ({
       ...inputError,
       courtNameFullErr: nameInputLen > MAX_COURTNAME_LEN,
@@ -74,7 +74,8 @@ function CreateTemplate({ isOpen, onClose }: Props) {
     const textAreaLength = e.currentTarget.value
       .replace(REGEX, " ")
       .split(" ")
-      .filter((item) => item != "").length;
+      .filter((item) => item != "")
+      .length;
     setTextAreaLen(textAreaLength);
     setInputError((inputError) => ({
       ...inputError,
@@ -103,11 +104,11 @@ function CreateTemplate({ isOpen, onClose }: Props) {
       .unwrap()
       .then((_res) => {
         handleSuccessNoticeOpen();
+        closeWindow();
       })
-      .catch((err) => {
+      .catch((_err) => {
         alert("Whoops! unsuccessful publish your template, please try again!");
       });
-    closeWindow();
   };
 
   return (
@@ -173,7 +174,9 @@ function CreateTemplate({ isOpen, onClose }: Props) {
               </Box>
             </Flex>
             <ErrorMsg userInputError={inputError} inputErrorMsg={INPUT_ERROR_MSG} />
-            <FormLabel marginBottom="1rem">Description:</FormLabel>
+            <Text margin="1rem 0px" fontSize="medium" fontWeight="500">
+              Description:
+            </Text>
             <Textarea
               height="9.5rem"
               placeholder={`Description: maximum ${MAX_DESCRIPTION_LEN} words`}
