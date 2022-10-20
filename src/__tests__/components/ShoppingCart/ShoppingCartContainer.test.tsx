@@ -4,6 +4,7 @@ import { mockCartData } from "@/components/MockData/MockCartData";
 import DeleteComfirmModal from "@/components/DeleteComfirmModal";
 import renderWithMockedProvider from "../../utils";
 import DropDownButton from "@/components/ShoppingCart/dropDownButton";
+import { ICourtSize } from "@/interfaces/design";
 
 describe("ShoppingCart component", () => {
   test("Should render checkout button", () => {
@@ -60,17 +61,21 @@ describe("ShoppingCart component", () => {
     await waitFor(() => expect(deleteConfirmModalDialog).not.toBeVisible());
   });
 
-  it("Collapse Text element should render correct value and style", () => {
-    const { getByTestId } = render(<DropDownButton detail={[{ color: "7088B1", quantity: 71 }]} />);
+  it("Collapse Text element should render correct text and style", () => {
+    const courtDetail = mockCartData[0].design.courtSize as ICourtSize;
+    const { getByTestId } = render(<DropDownButton detail={courtDetail} />);
     const textShow = getByTestId("testShow");
-    expect(textShow.textContent).toBe("Color:7088B1,  Quantity:71,  ");
+    expect(textShow.textContent).toBe(
+      "Court MaterialTile: (9m*5m,Small Court)Hoops (fixed height)Fencing (2m height)Shipping costInstallation fee"
+    );
     expect(textShow).toHaveStyle(
-      ` overflow-y: hidden; height:25px; white-space:nowrap; text-overflow:ellipsis `
+      ` overflow-y: hidden; height:20px; white-space:nowrap; text-overflow:ellipsis `
     );
   });
 
   it("click Button work correctly", () => {
-    const { getByTestId } = render(<DropDownButton detail={[]} />);
+    const courtDetail = mockCartData[0].design.courtSize as ICourtSize;
+    const { getByTestId } = render(<DropDownButton detail={courtDetail} />);
     const textShow = getByTestId("testShow");
     const collapseBtn = getByTestId("collapseBtn");
     fireEvent.click(collapseBtn);

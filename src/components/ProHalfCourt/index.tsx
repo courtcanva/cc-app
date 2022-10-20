@@ -73,9 +73,7 @@ const ProHalfCourt = () => {
             onDragStart={canvasControl.handleMouseDragStart}
             onDragEnd={canvasControl.handleCursorChange}
             ref={ref}
-            draggable={
-              canvasStates.dragActivate && canvasStates.selectedColor === "none" ? true : false
-            }
+            draggable={canvasStates.dragActivate && canvasStates.selectedColor === "none"}
             visible
           >
             <Provider store={store}>

@@ -7,12 +7,19 @@ import { setActiveCourt } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
+import { ICourtData } from "@/interfaces/design";
 
-const Blueprints: React.FC = () => {
+interface Props {
+  fetchedCourtsData: ICourtData[] | undefined;
+}
+const Blueprints = ({ fetchedCourtsData }: Props) => {
   const dispatch = useDispatch();
   const [activateCourt, setActivateCourt] = useState<string>("");
   const { courtsData } = useStoreSelector((state) => state.courtSpecData);
 
+  const filteredCourtList = courtList.filter((court) =>
+    fetchedCourtsData?.some((item: ICourtData) => item.name === court.courtSizeName)
+  );
   const handleCourtSelecting = (imgUrl: string, courtId: string, courtSizeName: string): void => {
     setActivateCourt(imgUrl);
     dispatch(setActiveCourt(courtSizeName));
@@ -26,7 +33,7 @@ const Blueprints: React.FC = () => {
 
   return (
     <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">
-      {courtList.map((court) => {
+      {filteredCourtList.map((court) => {
         const { imgUrl, courtId, courtSizeName } = court;
         return (
           <Box

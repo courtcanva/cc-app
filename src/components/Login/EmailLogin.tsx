@@ -15,22 +15,43 @@ import MainLogoSvg from "@/assets/svg/CourtCanva-main-LOGO.svg";
 import React, { useEffect, useState } from "react";
 import useAuthRequest from "@/components/Login/helpers/authRequest";
 import ModalOperator from "./ModalOperater";
+import { AxiosResponse } from "axios";
 
 interface Props {
   initialRef: React.LegacyRef<HTMLInputElement> | undefined;
-  onClose: any;
+  onClose: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   nextStep: () => void;
   prevStep: () => void;
-  findUser: (isExisted: boolean) => void;
+  setUserExisted: React.Dispatch<React.SetStateAction<boolean>>;
+  setNeedPwd: React.Dispatch<React.SetStateAction<boolean>>;
   inputEmail: (input: string) => void;
   currentStep: string;
+  setUserId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function EmailLogin(props: Props) {
-  const { initialRef, nextStep, prevStep, findUser, inputEmail, onClose, setStep, currentStep } =
-    props;
+export interface CheckResponse {
+  findUser: boolean;
+  needPwd?: boolean;
+  emailRes?: {
+    status: string;
+    message: string;
+  };
+  userId?: string;
+}
 
+const EmailLogin: React.FC<Props> = ({
+  initialRef,
+  nextStep,
+  prevStep,
+  setUserExisted,
+  inputEmail,
+  onClose,
+  setStep,
+  currentStep,
+  setNeedPwd,
+  setUserId,
+}) => {
   const [input, setInput] = useState("");
   const [isEmpty, setIsEmpty] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(true);
@@ -50,16 +71,33 @@ export default function EmailLogin(props: Props) {
   };
 
   const handleEmailCheck = async () => {
-    try {
-      const { data } = await checkEmail(input);
-      data ? findUser(true) : findUser(false);
-      typeof data === "boolean" && nextStep();
-    } catch (err) {
+    const axiosResponse: AxiosResponse = await checkEmail(input);
+    if (axiosResponse.status !== 201) {
       toast({
         title: "network error",
         status: "error",
         isClosable: true,
+        position: "top",
       });
+      return;
+    }
+    const res: CheckResponse = axiosResponse.data;
+    setUserExisted(res.findUser);
+    if (res.findUser && res.needPwd && res.emailRes && res.userId) {
+      if (res.emailRes.status !== "PENDING") {
+        toast({
+          title: "Failed to send verification email",
+          status: "error",
+          isClosable: true,
+          position: "top",
+        });
+        return;
+      }
+      setNeedPwd(true);
+      setUserId(res.userId);
+      setStep(4);
+    } else {
+      nextStep();
     }
   };
 
@@ -73,8 +111,8 @@ export default function EmailLogin(props: Props) {
     }
   };
   const handleCloseModal = () => {
-    setStep(1);
     onClose();
+    setStep(1);
   };
   return (
     <>
@@ -85,7 +123,7 @@ export default function EmailLogin(props: Props) {
       />
       <ModalHeader width="100%" marginTop="-20px">
         <Flex flexDir="column" alignItems="center" width="100%">
-          <Icon width="240px" height="180px" viewBox="120 0 600 600" role="logo">
+          <Icon width="240px" height="180px" viewBox="100 0 600 600" role="logo">
             <MainLogoSvg />
           </Icon>
           <Text fontSize="md" marginTop="10px">
@@ -97,7 +135,7 @@ export default function EmailLogin(props: Props) {
       <ModalBody width="100%" marginTop="10px" marginBottom="30px">
         <FormControl display="flex" flexDirection="column">
           <FormLabel fontSize="sm" color={isValidEmail ? "black" : "red.500"}>
-            {isValidEmail ? "Enter your email address!" : "Please enter a valid email!"}
+            {isValidEmail ? "Please enter your email address!" : "Please enter a valid email!"}
           </FormLabel>
           <Input
             id="email"
@@ -126,4 +164,6 @@ export default function EmailLogin(props: Props) {
       </ModalBody>
     </>
   );
-}
+};
+
+export default EmailLogin;

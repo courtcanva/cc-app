@@ -37,6 +37,7 @@ const FullCourt = () => {
   const canvasStates = canvasControl.canvasStates;
 
   useEffect(() => {
+    console.log(canvasStates.selectedColor);
     ref.current.x(0);
     ref.current.y(0);
   }, [canvasStates.resetState]);
@@ -73,9 +74,7 @@ const FullCourt = () => {
             onDragStart={canvasControl.handleMouseDragStart}
             onDragEnd={canvasControl.handleCursorChange}
             ref={ref}
-            draggable={
-              canvasStates.dragActivate && canvasStates.selectedColor === "none" ? true : false
-            }
+            draggable={canvasStates.dragActivate && canvasStates.selectedColor === "none"}
             visible
           >
             <Provider store={store}>

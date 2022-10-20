@@ -72,9 +72,7 @@ const HalfCourt = () => {
             onDragStart={canvasContorl.handleMouseDragStart}
             onDragEnd={canvasContorl.handleCursorChange}
             ref={ref}
-            draggable={
-              canvasStates.dragActivate && canvasStates.selectedColor === "none" ? true : false
-            }
+            draggable={canvasStates.dragActivate && canvasStates.selectedColor === "none"}
             visible
           >
             <Provider store={store}>

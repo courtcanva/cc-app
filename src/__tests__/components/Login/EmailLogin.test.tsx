@@ -19,7 +19,7 @@ describe("Login", () => {
       const continueButton = screen.getByRole("button", { name: /continue/i });
       expect(logoEl).toBeInTheDocument();
       expect(screen.getByText("Continue with Email")).toBeInTheDocument();
-      expect(screen.getByText("Enter your email address!")).toBeInTheDocument();
+      expect(screen.getByText("Please enter your email address!")).toBeInTheDocument();
       expect(inputEl).toBeInTheDocument();
       expect(continueButton).toBeInTheDocument();
     });
