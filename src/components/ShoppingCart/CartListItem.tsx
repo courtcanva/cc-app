@@ -22,7 +22,7 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
   return (
     <>
       <Tr alignItems="center" role="dataRow">
-        <Td sx={{ "vertical-align": "top" }} height="180px">
+        <Td padding="25px" sx={{ "vertical-align": "top" }} height="180px">
           {/* Todo: space for thumbnail images that implementing in the future. */}
           <Flex alignItems="center">
             <Box minWidth="57px">
