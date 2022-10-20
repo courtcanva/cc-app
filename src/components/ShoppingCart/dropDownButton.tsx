@@ -12,12 +12,12 @@ interface Detail {
 const DropDownButton = ({ detail }: Detail) => {
   const {
     name: courtName,
-    length: length,
-    width: width,
-    sideBorderWidth: sideBorderWidth,
-    // fencingLength: fencingLength,
-    // fencingWidth: fencingWidth,
-    // hoopsCount: hoopsCount,
+    length,
+    width,
+    sideBorderWidth,
+    // fencingLength,
+    // fencingWidth,
+    // hoopsCount,
   } = detail;
   {
     /* todo: add fencing and hoops in detail */
