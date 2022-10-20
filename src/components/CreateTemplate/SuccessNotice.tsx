@@ -28,7 +28,12 @@ const SuccessNotice = (prop: Props) => {
           Congratulations You have successfully submitted a new template!
         </ModalHeader>
         <ModalFooter>
-          <Button background="button.hover" color="fontcolor.primary" onClick={onClose} role="closeBtn">
+          <Button
+            background="button.hover"
+            color="fontcolor.primary"
+            onClick={onClose}
+            aria-label="closeBtn"
+          >
             Close
           </Button>
         </ModalFooter>

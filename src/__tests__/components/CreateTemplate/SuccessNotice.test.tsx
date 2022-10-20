@@ -6,7 +6,7 @@ import React from "react";
 describe("SuccessNotice", () => {
   it("should render successNotice page when user punish template successfully", () => {
     render(<SuccessNotice isOpen={true} onClose={() => void {}} />);
-    const closeBtn = screen.getByRole("closeBtn");
+    const closeBtn = screen.getByRole("button", { name: "closeBtn" });
     expect(
       screen.getByText("Congratulations You have successfully submitted a new template!")
     ).toBeInTheDocument();
@@ -15,7 +15,7 @@ describe("SuccessNotice", () => {
 
   it("should not render successNotice when user click the close button", async () => {
     render(<SuccessNotice isOpen onClose={() => void {}} />);
-    const closeBtn = screen.getByRole("closeBtn");
+    const closeBtn = screen.getByRole("button", { name: "closeBtn" });
     userEvent.click(closeBtn);
     await waitFor(() => expect(closeBtn).not.toBeVisible());
     await waitFor(() =>

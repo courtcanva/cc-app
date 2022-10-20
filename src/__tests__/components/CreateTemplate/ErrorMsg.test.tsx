@@ -3,7 +3,6 @@ import { render, screen } from "@testing-library/react";
 import { INPUT_ERROR_MSG } from "@/constants/templateCreate";
 import { ITemplateErrorInput } from "@/interfaces/template";
 
-
 describe("ErrorMsg", () => {
   let userInputError: ITemplateErrorInput;
 

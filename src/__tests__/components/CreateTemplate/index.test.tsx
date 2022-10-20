@@ -23,8 +23,8 @@ describe("Create Template", () => {
   it("Should render buttons in modal footer", () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
 
-    const publishBtn = screen.getByRole("publishBtn");
-    const cancelBtn = screen.getByRole("cancelBtn");
+    const publishBtn = screen.getByRole("button", { name: "publishBtn" });
+    const cancelBtn = screen.getByRole("button", { name: "cancelBtn" });
 
     expect(publishBtn).toBeInTheDocument();
     expect(cancelBtn).toBeInTheDocument();
@@ -32,7 +32,7 @@ describe("Create Template", () => {
 
   it("Should show error massage when court name input reaches the maximum length or court name input is empty", async () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
-    const courtNameInput = screen.getByRole("courtNameInput");
+    const courtNameInput = screen.getByRole("textbox", { name: "courtNameInput" });
     fireEvent.change(courtNameInput, { target: { value: "12345678901234567890" } });
     await waitFor(() => {
       expect(screen.getByText("Court name cannot have more than 15 characters")).toBeVisible();
@@ -45,7 +45,7 @@ describe("Create Template", () => {
 
   it("Should show error message when click punish button and court name is empty", async () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
-    const publishBtn = screen.getByRole("publishBtn");
+    const publishBtn = screen.getByRole("button", { name: "publishBtn" });
     userEvent.click(publishBtn);
     await waitFor(() => {
       expect(screen.getByText("Court name cannot be empty")).toBeVisible();
@@ -54,7 +54,7 @@ describe("Create Template", () => {
 
   it("Error message should disappear when court name length is not empty", async () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
-    const courtNameInput = screen.getByRole("courtNameInput");
+    const courtNameInput = screen.getByRole("textbox", { name: "courtNameInput" });
     fireEvent.change(courtNameInput, { target: { value: "1" } });
     await waitFor(() => {
       expect(screen.getByText("Court name cannot be empty")).not.toBeVisible();
@@ -63,7 +63,7 @@ describe("Create Template", () => {
 
   it("The description word count should correctly count the input description length", async () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
-    const descriptionInput = screen.getByRole("textbox");
+    const descriptionInput = screen.getByRole("textbox", { name: "textArea" });
     fireEvent.change(descriptionInput, {
       target: { value: "This is my first basketball court template" },
     });

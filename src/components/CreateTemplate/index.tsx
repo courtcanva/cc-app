@@ -74,8 +74,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
     const textAreaLength = e.currentTarget.value
       .replace(REGEX, " ")
       .split(" ")
-      .filter((item) => item != "")
-      .length;
+      .filter((item) => item != "").length;
     setTextAreaLen(textAreaLength);
     setInputError((inputError) => ({
       ...inputError,
@@ -147,12 +146,13 @@ function CreateTemplate({ isOpen, onClose }: Props) {
               >
                 <FormLabel marginBottom="1rem">Template Court Name:</FormLabel>
                 <Input
-                  role="courtNameInput"
+                  // role="courtNameInput"
                   placeholder="Court name"
                   width="15rem"
                   onChange={checkNameLength}
                   autoFocus
                   ref={courtNameRef}
+                  aria-label="courtNameInput"
                 />
               </FormControl>
               <Box width="50%">
@@ -183,6 +183,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
               onChange={handleTextAreaLenChange}
               resize="none"
               ref={descriptionRef}
+              aria-label="textArea"
             />
             <Text role="wordCount" color={textAreaLen < MAX_DESCRIPTION_LEN ? "black" : "crimson"}>
               {inputError.descriptionOverLimit
@@ -192,15 +193,22 @@ function CreateTemplate({ isOpen, onClose }: Props) {
           </ModalBody>
           <Flex justifyContent="space-around" margin="1.5rem" flexWrap="wrap">
             <Button
-              role="publishBtn"
+              // role="publishBtn"
               colorScheme="blue"
               variant="shareBtn"
               paddingX="3rem"
               onClick={submitTemplate}
+              aria-label="publishBtn"
             >
               Publish
             </Button>
-            <Button role="cancelBtn" fontSize="18px" onClick={closeWindow} paddingX="3rem">
+            <Button
+              // role="cancelBtn"
+              fontSize="18px"
+              onClick={closeWindow}
+              paddingX="3rem"
+              aria-label="cancelBtn"
+            >
               Cancel
             </Button>
           </Flex>
