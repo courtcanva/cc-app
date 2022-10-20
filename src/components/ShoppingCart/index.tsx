@@ -5,7 +5,7 @@ import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
 import { userData } from "@/store/reducer/userSlice";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import EmptyCart from "./EmptyCart";
-import { ICartItem, ICartItem2 } from "@/interfaces/cartItem";
+import { ICartItem } from "@/interfaces/cartItem";
 
 const ShoppingCart = () => {
   const isCartOpen = useStoreSelector((state) => state.buttonToggle.isCartOpen);
@@ -13,7 +13,7 @@ const ShoppingCart = () => {
   const { data } = useGetItemQuantityQuery(currentUserId ? currentUserId : skipToken);
   const quantity = data?.length;
 
-  const cart: ICartItem[] = data?.map((item: ICartItem2) => {
+  const cart: ICartItem[] = data?.map((item: any) => {
     return {
       id: item._id,
       user_id: item.user_id,

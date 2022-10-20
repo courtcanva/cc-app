@@ -46,7 +46,6 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
     if (!userId) return dispatch(switchLoginModal(true));
     if (!screenshot) return console.log("No screenshot!");
     const imgUrl = await upLoadScreenshot(screenshot);
-    console.log(imgUrl);
     addToCart({
       item: { ...newCartItem, image: imgUrl },
     });
