@@ -13,9 +13,8 @@ interface CartListItemProps {
 
 const CartListItem = ({ item, onDelete }: CartListItemProps) => {
   const {
-    design: { designName: productName },
+    design: { designName: productName, courtSize: courtDetail },
     quotation: quotation,
-    quotationDetails: quotationDetails,
     isExpired,
   } = item;
   const image = item.previewPic;
@@ -23,7 +22,7 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
   return (
     <>
       <Tr alignItems="center" role="dataRow">
-        <Td sx={{ "vertical-align": "top" }} height="180px">
+        <Td padding="25px" sx={{ "vertical-align": "top" }} height="180px">
           {/* Todo: space for thumbnail images that implementing in the future. */}
           <Flex alignItems="center">
             <Box minWidth="57px">
@@ -53,7 +52,7 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
         </Td>
         <Td padding="25px 40px" fontSize="13px" sx={{ "vertical-align": "top" }}>
           <Box width="100%" height="120px" flexDirection="column">
-            <DropDownButton detail={quotationDetails} />
+            <DropDownButton detail={courtDetail} />
             <ButtonGroup display="flex" justifyContent="flex-end" variant="outline" spacing="4">
               <Button
                 fontSize="16px"

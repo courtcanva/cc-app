@@ -19,7 +19,7 @@ export interface ICourtData extends ICourtSize {
   isDeleted?: boolean;
   isHidden: boolean;
 }
-interface ICourtSize {
+export interface ICourtSize {
   name: string;
   length: number;
   width: number;
@@ -31,7 +31,11 @@ interface ICourtSize {
   restrictedAreaWidth: number;
   sideBorderWidth: number;
   lineBorderWidth: number;
+  // fencingLength: number;
+  // fencingWidth: number;
+  // hoopsCount: number;
 }
+// todo: add fencing and hoops data - now waiting for backend
 
 export interface ICourtColor {
   designId: string;
