@@ -48,9 +48,10 @@ export const templateApi = createApi({
     }),
 
     updateTemplate: builder.mutation<ITemplateDataDb, Partial<ITemplate> & Pick<ITemplate, "_id">>({
-      query: (templateid) => ({
-        url: `/templates/${templateid}`,
+      query: (template) => ({
+        url: `/templates/${template._id}`,
         method: "PUT",
+        body: template,
       }),
       invalidatesTags: (_result, _err, arg) => [{ type: "template", id: arg._id }],
     }),

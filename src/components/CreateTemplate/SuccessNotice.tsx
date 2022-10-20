@@ -19,16 +19,16 @@ const SuccessNotice = (prop: Props) => {
       <ModalOverlay />
       <ModalContent
         display="flex"
-        ml="98px"
+        marginLeft="98px"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
       >
-        <ModalHeader mt="15px" mb="-10px" color="brand.primary" fontSize="md">
+        <ModalHeader marginTop="15px" marginBottom="-10px" color="brand.primary" fontSize="md">
           Congratulations You have successfully submitted a new template!
         </ModalHeader>
         <ModalFooter>
-          <Button bg="button.hover" color="fontcolor.primary" onClick={onClose} role="closeBtn">
+          <Button background="button.hover" color="fontcolor.primary" onClick={onClose} role="closeBtn">
             Close
           </Button>
         </ModalFooter>
