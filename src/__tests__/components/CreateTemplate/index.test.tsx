@@ -23,8 +23,8 @@ describe("Create Template", () => {
   it("Should render buttons in modal footer", () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
 
-    const publishBtn = screen.getByRole("button", { name: "publishBtn" });
-    const cancelBtn = screen.getByRole("button", { name: "cancelBtn" });
+    const publishBtn = screen.getByRole("button", { name: "Publish" });
+    const cancelBtn = screen.getByRole("button", { name: "Cancel" });
 
     expect(publishBtn).toBeInTheDocument();
     expect(cancelBtn).toBeInTheDocument();
@@ -45,7 +45,7 @@ describe("Create Template", () => {
 
   it("Should show error message when click punish button and court name is empty", async () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
-    const publishBtn = screen.getByRole("button", { name: "publishBtn" });
+    const publishBtn = screen.getByRole("button", { name: "Publish" });
     userEvent.click(publishBtn);
     await waitFor(() => {
       expect(screen.getByText("Court name cannot be empty")).toBeVisible();
@@ -65,10 +65,10 @@ describe("Create Template", () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
     const descriptionInput = screen.getByRole("textbox", { name: "textArea" });
     fireEvent.change(descriptionInput, {
-      target: { value: "This is my first basketball court template" },
+      target: { value: "This my bag" },
     });
     await waitFor(() => {
-      expect(screen.getByText("7/200 words")).toBeVisible();
+      expect(screen.getByText("11/200 letters")).toBeVisible();
     });
   });
 });

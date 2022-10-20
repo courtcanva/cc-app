@@ -32,7 +32,7 @@ const SuccessNotice = (prop: Props) => {
             background="button.hover"
             color="fontcolor.primary"
             onClick={onClose}
-            aria-label="closeBtn"
+            variant="shareBtn"
           >
             Close
           </Button>

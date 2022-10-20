@@ -18,6 +18,8 @@ import {
   Icon,
   Badge,
   useDisclosure,
+  FormHelperText,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
@@ -71,10 +73,10 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   };
 
   const handleTextAreaLenChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const textAreaLength = e.currentTarget.value
-      .replace(REGEX, " ")
-      .split(" ")
-      .filter((item) => item != "").length;
+    const textAreaLength = e.currentTarget.value.trim().length;
+    // .replace(REGEX, " ")
+    // .split(" ")
+    // .filter((item) => item != "").length;
     setTextAreaLen(textAreaLength);
     setInputError((inputError) => ({
       ...inputError,
@@ -146,7 +148,6 @@ function CreateTemplate({ isOpen, onClose }: Props) {
               >
                 <FormLabel marginBottom="1rem">Template Court Name:</FormLabel>
                 <Input
-                  // role="courtNameInput"
                   placeholder="Court name"
                   width="15rem"
                   onChange={checkNameLength}
@@ -174,41 +175,34 @@ function CreateTemplate({ isOpen, onClose }: Props) {
               </Box>
             </Flex>
             <ErrorMsg userInputError={inputError} inputErrorMsg={INPUT_ERROR_MSG} />
-            <Text margin="1rem 0px" fontSize="medium" fontWeight="500">
-              Description:
-            </Text>
-            <Textarea
-              height="9.5rem"
-              placeholder={`Description: maximum ${MAX_DESCRIPTION_LEN} words`}
-              onChange={handleTextAreaLenChange}
-              resize="none"
-              ref={descriptionRef}
-              aria-label="textArea"
-            />
-            <Text role="wordCount" color={textAreaLen < MAX_DESCRIPTION_LEN ? "black" : "crimson"}>
-              {inputError.descriptionOverLimit
-                ? INPUT_ERROR_MSG.descriptionLenErrMsg
-                : `${textAreaLen}/${MAX_DESCRIPTION_LEN} words`}
-            </Text>
+            <FormControl isInvalid={inputError.descriptionOverLimit}>
+              <FormLabel margin="1rem 0px" fontSize="medium" fontWeight="500">
+                Description:
+              </FormLabel>
+              <Textarea
+                height="8rem"
+                placeholder={`Description: maximum ${MAX_DESCRIPTION_LEN} words`}
+                onChange={handleTextAreaLenChange}
+                resize="none"
+                ref={descriptionRef}
+                aria-label="textArea"
+              />
+              <Text color={textAreaLen < MAX_DESCRIPTION_LEN ? "black" : "crimson"}>
+                {inputError.descriptionOverLimit ? (
+                  <FormErrorMessage>{INPUT_ERROR_MSG.descriptionLenErrMsg}</FormErrorMessage>
+                ) : (
+                  <FormHelperText>
+                    {textAreaLen}/{MAX_DESCRIPTION_LEN} letters
+                  </FormHelperText>
+                )}
+              </Text>
+            </FormControl>
           </ModalBody>
           <Flex justifyContent="space-around" margin="1.5rem" flexWrap="wrap">
-            <Button
-              // role="publishBtn"
-              colorScheme="blue"
-              variant="shareBtn"
-              paddingX="3rem"
-              onClick={submitTemplate}
-              aria-label="publishBtn"
-            >
+            <Button colorScheme="blue" variant="shareBtn" paddingX="3rem" onClick={submitTemplate}>
               Publish
             </Button>
-            <Button
-              // role="cancelBtn"
-              fontSize="18px"
-              onClick={closeWindow}
-              paddingX="3rem"
-              aria-label="cancelBtn"
-            >
+            <Button fontSize="18px" onClick={closeWindow} paddingX="3rem">
               Cancel
             </Button>
           </Flex>
