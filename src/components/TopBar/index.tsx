@@ -73,6 +73,7 @@ const TopBar = () => {
   };
 
   const handleChange = (val: number) => {
+    dispatch(resetAll());
     dispatch(switchSideBar(false));
     setSliderValue(val);
     dispatch(updateBorderLength(val * 1000));
