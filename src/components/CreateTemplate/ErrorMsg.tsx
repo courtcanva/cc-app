@@ -11,6 +11,8 @@ const ErrorMsg = (props: Props) => {
   return (
     <Text
       color="crimson"
+      width="15rem"
+      marginTop="0.2rem"
       visibility={
         userInputError.courtNameFullErr || userInputError.courtNameNullErr ? "visible" : "hidden"
       }

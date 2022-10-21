@@ -31,7 +31,6 @@ import {
   INPUT_ERR_INIT,
   MAX_COURTNAME_LEN,
   MAX_DESCRIPTION_LEN,
-  REGEX,
 } from "@/constants/templateCreate";
 import ErrorMsg from "./ErrorMsg";
 
@@ -74,9 +73,6 @@ function CreateTemplate({ isOpen, onClose }: Props) {
 
   const handleTextAreaLenChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textAreaLength = e.currentTarget.value.trim().length;
-    // .replace(REGEX, " ")
-    // .split(" ")
-    // .filter((item) => item != "").length;
     setTextAreaLen(textAreaLength);
     setInputError((inputError) => ({
       ...inputError,
@@ -175,7 +171,6 @@ function CreateTemplate({ isOpen, onClose }: Props) {
                 </Flex>
               </Box>
             </Flex>
-            {/* <ErrorMsg userInputError={inputError} inputErrorMsg={INPUT_ERROR_MSG} /> */}
             <FormControl isInvalid={inputError.descriptionOverLimit}>
               <FormLabel margin="1rem 0px" fontSize="medium" fontWeight="500">
                 Description:
