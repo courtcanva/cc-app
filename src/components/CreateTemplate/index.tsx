@@ -155,6 +155,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
                   ref={courtNameRef}
                   aria-label="courtNameInput"
                 />
+                <ErrorMsg userInputError={inputError} inputErrorMsg={INPUT_ERROR_MSG} />
               </FormControl>
               <Box width="50%">
                 <Text margin="1rem 0px" fontSize="medium" fontWeight="500">
@@ -174,7 +175,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
                 </Flex>
               </Box>
             </Flex>
-            <ErrorMsg userInputError={inputError} inputErrorMsg={INPUT_ERROR_MSG} />
+            {/* <ErrorMsg userInputError={inputError} inputErrorMsg={INPUT_ERROR_MSG} /> */}
             <FormControl isInvalid={inputError.descriptionOverLimit}>
               <FormLabel margin="1rem 0px" fontSize="medium" fontWeight="500">
                 Description:
@@ -202,7 +203,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
             <Button colorScheme="blue" variant="shareBtn" paddingX="3rem" onClick={submitTemplate}>
               Publish
             </Button>
-            <Button fontSize="18px" onClick={closeWindow} paddingX="3rem">
+            <Button fontSize="lg" onClick={closeWindow} paddingX="3rem" borderRadius="6px">
               Cancel
             </Button>
           </Flex>
