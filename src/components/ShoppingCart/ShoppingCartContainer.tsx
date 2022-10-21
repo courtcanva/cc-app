@@ -32,8 +32,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
     const imageUrl = shoppingCart.find((cartItem) => {
       return cartItem.id === id;
     })?.image;
-    if (!imageUrl) return console.log("No picture to delete.");
-    deleteImage(imageUrl);
+    if (imageUrl) deleteImage(imageUrl);
   };
   const [cartItemIdToDelete, setCartItemIdToDelete] = useState("");
   const anyExpired = shoppingCart.some((item) => item.isExpired);

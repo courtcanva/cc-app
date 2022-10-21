@@ -39,11 +39,13 @@ it("should reset all states and scales to initial", () => {
     dragActivate: true,
     dragStart: true,
     resetState: false,
+    screenshot: null,
   };
   expect(reducer(previousState, resetAll())).toEqual({
     zoomScale: 1,
     dragStart: false,
     dragActivate: false,
     resetState: true,
+    screenshot: null,
   });
 });

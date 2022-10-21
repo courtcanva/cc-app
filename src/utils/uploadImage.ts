@@ -1,11 +1,11 @@
-import { setScreenshot } from "@/store/reducer/courtStageSlice";
+import { setScreenshot } from "@/store/reducer/canvasControlSlice";
 import { switchRuler } from "@/store/reducer/buttonToggleSlice";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import { RefObject } from "react";
 import Konva from "konva";
 
-export const upLoadScreenshot = async (screenshot: string) => {
+export const upLoadScreenshot = async (screenshot: string, toast: any) => {
   const { default: AWS } = await import(/* webpackChunkName: "aws-sdk" */ "aws-sdk");
   const { nanoid } = await import("nanoid");
 
@@ -41,7 +41,14 @@ export const upLoadScreenshot = async (screenshot: string) => {
       imageUrl = data.Location;
     },
     function (err) {
-      console.log(err.message);
+      return toast({
+        title: `Image update failure: ${err.message}.`,
+        description: "Try again or contact IT support",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      });
     }
   );
   return imageUrl;
@@ -67,25 +74,30 @@ export const deleteImage = async (imageUrl: string) => {
     params: { Bucket: albumBucketName },
   });
 
-  s3.deleteObject({ Bucket: albumBucketName, Key: photoKey }, function (err, data) {
-    if (err) {
-      return console.log(`Error: ${err.message}`);
-    }
-  });
+  s3.deleteObject({ Bucket: albumBucketName, Key: photoKey });
 };
 
 export const updateCourtStage = (
   dispatch: Dispatch,
   stageRef: RefObject<Konva.Stage>,
-  rulerState: boolean
+  rulerState: boolean,
+  toast: any
 ) => {
   dispatch(resetAll());
-  const prevRulerState = rulerState;
-  prevRulerState ? dispatch(switchRuler(false)) : null;
-  if (!stageRef.current) return console.log("Error in Stage node.");
+  rulerState ? dispatch(switchRuler(false)) : null;
+  if (!stageRef.current) {
+    return toast({
+      title: "Cannot get Konva Stage!",
+      description: "Try again or contact IT support",
+      status: "error",
+      duration: 9000,
+      isClosable: true,
+      position: "top",
+    });
+  }
   const image = stageRef.current.toDataURL({
-    pixelRatio: 1,
+    pixelRatio: 1.5,
   });
   dispatch(setScreenshot(image));
-  prevRulerState ? dispatch(switchRuler(true)) : null;
+  rulerState ? dispatch(switchRuler(true)) : null;
 };

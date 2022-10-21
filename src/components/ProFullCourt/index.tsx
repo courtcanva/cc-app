@@ -1,5 +1,5 @@
 import { Stage, Layer, Group } from "react-konva";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useToast } from "@chakra-ui/react";
 import { ReactReduxContext, Provider, useDispatch } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
@@ -19,6 +19,7 @@ import { updateCourtStage } from "@/utils/uploadImage";
 
 const ProFullCourt = () => {
   const dispatch = useDispatch();
+  const toast = useToast();
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
   const rulerState = useStoreSelector((state) => state.buttonToggle.isRulerOn);
   const ref = useRef<any>(null);
@@ -42,7 +43,7 @@ const ProFullCourt = () => {
   }, [canvasStates.resetState]);
 
   useEffect(() => {
-    updateCourtStage(dispatch, ref, rulerState);
+    updateCourtStage(dispatch, ref, rulerState, toast);
   }, [canvasStates.selectedColor, borderLength]);
 
   return (
@@ -61,7 +62,6 @@ const ProFullCourt = () => {
       <ReactReduxContext.Consumer>
         {({ store }) => (
           <Stage
-            className="ProFullCourtStage"
             id="basketball-court"
             data-testid="stage"
             height={court.stageHeight}

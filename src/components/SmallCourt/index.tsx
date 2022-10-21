@@ -1,5 +1,5 @@
 import { Stage, Layer, Group } from "react-konva";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useToast } from "@chakra-ui/react";
 import { ReactReduxContext, Provider, useDispatch } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
@@ -19,6 +19,7 @@ import { updateCourtStage } from "@/utils/uploadImage";
 
 const SmallCourt = () => {
   const dispatch = useDispatch();
+  const toast = useToast();
   const {
     courtAreaXLength,
     courtAreaYLength,
@@ -50,7 +51,7 @@ const SmallCourt = () => {
   }, [canvasStates.resetState]);
 
   useEffect(() => {
-    updateCourtStage(dispatch, ref, rulerState);
+    updateCourtStage(dispatch, ref, rulerState, toast);
   }, [canvasStates.selectedColor, borderLength]);
 
   return (

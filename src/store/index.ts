@@ -15,7 +15,6 @@ import courtSpecDataReducer from "./reducer/courtSpecDataSlice";
 import designTileListReducer from "./reducer/designsTileListSlice";
 import colorListReducer from "./reducer/colorListSlice";
 import canvasControlReducer from "./reducer/canvasControlSlice";
-import courtStageReducer from "./reducer/courtStageSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -36,7 +35,6 @@ export const makeStore = () =>
       areaTileQty: areaTileQtyReducer,
       colorList: colorListReducer,
       canvasControl: canvasControlReducer,
-      courtStage: courtStageReducer,
     },
 
     middleware: (getDefaultMiddleware) =>

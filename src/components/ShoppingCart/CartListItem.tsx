@@ -16,7 +16,6 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
   const {
     design: { designName: productName, courtSize: courtDetail },
     quotation: quotation,
-    quotationDetails: quotationDetails,
     image: image,
     isExpired,
   } = item;
@@ -32,17 +31,8 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
                 <RiErrorWarningLine size={36} color="#F55252" data-testid="expired-icon" />
               )}
             </Box>
-            <Box
-              width="340px"
-              height="140px"
-              line-height="140px"
-              borderRadius="10px"
-              backgroundColor="#dddddd"
-              display="flex"
-            >
-              <Box width="100%" height="100%" position="relative">
-                <Image src={image} alt="Court image" layout="fill" objectFit="contain"></Image>
-              </Box>
+            <Box width="340px" height="140px" position="relative">
+              <Image src={image} alt="Court image" layout="fill" objectFit="contain"></Image>
             </Box>
           </Flex>
         </Td>
