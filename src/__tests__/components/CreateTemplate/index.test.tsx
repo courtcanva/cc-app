@@ -1,6 +1,6 @@
 import CreateTemplate from "@/components/CreateTemplate";
 import renderWithMockedProvider from "../../utils";
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 describe("Create Template", () => {
@@ -30,16 +30,12 @@ describe("Create Template", () => {
     expect(cancelBtn).toBeInTheDocument();
   });
 
-  it("Should show error massage when court name input reaches the maximum length or court name input is empty", async () => {
+  it("Should show error massage when court name input reaches the maximum length", async () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
     const courtNameInput = screen.getByRole("textbox", { name: "courtNameInput" });
-    fireEvent.change(courtNameInput, { target: { value: "12345678901234567890" } });
+    userEvent.type(courtNameInput, "12345678901234567890");
     await waitFor(() => {
       expect(screen.getByText("Court name cannot have more than 15 characters")).toBeVisible();
-    });
-    fireEvent.change(courtNameInput, { target: { value: "" } });
-    await waitFor(() => {
-      expect(screen.getByText("Court name cannot be empty")).toBeVisible();
     });
   });
 
@@ -55,7 +51,7 @@ describe("Create Template", () => {
   it("Error message should disappear when court name length is not empty", async () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
     const courtNameInput = screen.getByRole("textbox", { name: "courtNameInput" });
-    fireEvent.change(courtNameInput, { target: { value: "1" } });
+    userEvent.type(courtNameInput, "1");
     await waitFor(() => {
       expect(screen.getByText("Court name cannot be empty")).not.toBeVisible();
     });
@@ -64,9 +60,7 @@ describe("Create Template", () => {
   it("The description word count should correctly count the input description length", async () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
     const descriptionInput = screen.getByRole("textbox", { name: "textArea" });
-    fireEvent.change(descriptionInput, {
-      target: { value: "This my bag" },
-    });
+    userEvent.type(descriptionInput, "This my bag");
     await waitFor(() => {
       expect(screen.getByText("11/200 letters")).toBeVisible();
     });
