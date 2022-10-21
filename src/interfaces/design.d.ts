@@ -11,7 +11,15 @@ export interface ITileColor {
   color: string;
 }
 
-interface ICourtSize {
+export interface ICourtData extends ICourtSize {
+  _id: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  isDeleted?: boolean;
+  isHidden: boolean;
+}
+export interface ICourtSize {
   name: string;
   length: number;
   width: number;
@@ -23,7 +31,11 @@ interface ICourtSize {
   restrictedAreaWidth: number;
   sideBorderWidth: number;
   lineBorderWidth: number;
+  // fencingLength: number;
+  // fencingWidth: number;
+  // hoopsCount: number;
 }
+// todo: add fencing and hoops data - now waiting for backend
 
 export interface ICourtColor {
   designId: string;

@@ -235,7 +235,7 @@ const SaveBoard: React.FC = () => {
                   color="fontcolor.primary"
                   w="75px"
                   ml={3}
-                  disabled={nameCheck === "passCheck" ? false : true}
+                  disabled={nameCheck !== "passCheck"}
                   onClick={handleSaveAsDesign}
                   ref={cancelRef}
                   _hover={{ bg: "brand.secondary", opacity: "0.60" }}

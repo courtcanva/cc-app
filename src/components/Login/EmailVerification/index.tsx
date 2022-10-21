@@ -25,46 +25,49 @@ type Props = {
   currentStep: string;
   validation: (verified: boolean) => void;
   updateLoginData: (data: any) => void;
-  onClose: any;
+  onClose: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   userEmail: string;
   userId: string;
   initialRef: React.MutableRefObject<null>;
+  needPwd: boolean;
+  setPwdStep: () => void;
 };
-const EmailVerification: React.FC<Props> = (props: Props) => {
+const EmailVerification: React.FC<Props> = ({
+  userEmail,
+  nextStep,
+  onClose,
+  setStep,
+  prevStep,
+  userId,
+  validation,
+  updateLoginData,
+  currentStep,
+  needPwd,
+  setPwdStep,
+}) => {
   const toast = useToast();
   const [otp, setOtp] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [timer, setTimer] = useState(60);
   const dispatch = useDispatch();
   const { verifyOTP, resendOTP } = useAuthRequest();
-  const {
-    userEmail,
-    nextStep,
-    onClose,
-    setStep,
-    prevStep,
-    userId,
-    validation,
-    updateLoginData,
-    currentStep,
-  } = props;
-  const CODELENGTH = 6;
+  const CODE_LENGTH = 6;
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (otp.length < CODELENGTH) {
+    if (otp.length < CODE_LENGTH) {
       setErrorMessage("Please Input a 6 digits number!");
       return;
     }
     try {
       const { data } = await verifyOTP(userId, otp);
       if (data.tokens) {
+        if (needPwd) setPwdStep();
         localStorage.setItem("UserInfo", JSON.stringify(data));
         dispatch(updateUserInfo(data));
         updateLoginData(data);
         validation(true);
-        nextStep();
       } else {
         validation(false);
         nextStep();
@@ -74,6 +77,7 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
         title: "network error",
         status: "error",
         isClosable: true,
+        position: "top",
       });
     }
   };
@@ -87,17 +91,18 @@ const EmailVerification: React.FC<Props> = (props: Props) => {
         title: "network error",
         status: "error",
         isClosable: true,
+        position: "top",
       });
     }
     resetTimer();
   };
   const handleOtpInput = (value: string) => {
-    const verificationCode = value.length > CODELENGTH ? value.substring(0, CODELENGTH) : value;
+    const verificationCode = value.length > CODE_LENGTH ? value.substring(0, CODE_LENGTH) : value;
     setOtp(verificationCode);
   };
   const handleCloseModal = () => {
-    setStep(1);
     onClose();
+    setStep(1);
   };
   const resetTimer = () => setTimer(60);
   useEffect(() => {
