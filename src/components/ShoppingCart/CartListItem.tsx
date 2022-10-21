@@ -36,7 +36,8 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
               width="340px"
               height="140px"
               line-height="140px"
-              backgroundColor="white"
+              borderRadius="10px"
+              backgroundColor="#dddddd"
               display="flex"
             >
               <Box width="100%" height="100%" position="relative">

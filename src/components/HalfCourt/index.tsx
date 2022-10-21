@@ -42,7 +42,7 @@ const HalfCourt = () => {
 
   useEffect(() => {
     updateCourtStage(dispatch, ref, rulerState);
-  }, [canvasStates.selectedColor]);
+  }, [canvasStates.selectedColor, borderLength]);
 
   return (
     <Flex
