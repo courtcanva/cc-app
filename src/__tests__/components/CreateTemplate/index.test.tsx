@@ -30,12 +30,16 @@ describe("Create Template", () => {
     expect(cancelBtn).toBeInTheDocument();
   });
 
-  it("Should show error massage when court name input reaches the maximum length", async () => {
+  it("Should show error massage when court name input reaches the maximum length or court name input is empty", async () => {
     renderWithMockedProvider(<CreateTemplate isOpen={true} onClose={() => void {}} />);
     const courtNameInput = screen.getByRole("textbox", { name: "courtNameInput" });
     userEvent.type(courtNameInput, "12345678901234567890");
     await waitFor(() => {
       expect(screen.getByText("Court name cannot have more than 15 characters")).toBeVisible();
+    });
+    userEvent.clear(courtNameInput);
+    await waitFor(() => {
+      expect(screen.getByText("Court name cannot be empty")).toBeVisible();
     });
   });
 
