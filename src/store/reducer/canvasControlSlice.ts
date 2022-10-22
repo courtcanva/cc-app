@@ -6,6 +6,7 @@ export interface canvasState {
   dragActivate: boolean; // enable the drag action
   dragStart: boolean; // Track the start of user drag action
   resetState: boolean;
+  courtDataUrl: string | null;
 }
 
 export const initialState: canvasState = {
@@ -13,6 +14,7 @@ export const initialState: canvasState = {
   dragActivate: false,
   dragStart: false,
   resetState: false,
+  courtDataUrl: null,
 };
 
 export const canvasControlSlice = createSlice({
@@ -34,9 +36,13 @@ export const canvasControlSlice = createSlice({
       state.dragStart = false;
       state.resetState = !state.resetState;
     },
+    setCourtDataUrl: (state: canvasState, action: PayloadAction<string>) => {
+      state.courtDataUrl = action.payload;
+    },
   },
 });
 
-export const { changeZoomScale, dragSwitch, dragState, resetAll } = canvasControlSlice.actions;
+export const { changeZoomScale, dragSwitch, dragState, resetAll, setCourtDataUrl } =
+  canvasControlSlice.actions;
 
 export default canvasControlSlice.reducer;

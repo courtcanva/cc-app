@@ -1,4 +1,4 @@
-import { Button, Center, Text } from "@chakra-ui/react";
+import { Button, Center, Text, useToast } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import { useAddToCartMutation } from "@/redux/api/cartApi";
 import { ICartItem } from "@/interfaces/cartItem";
@@ -6,6 +6,7 @@ import { saveDesignMapping } from "@/utils/designMapping";
 import { IDesign, ITileColor } from "@/interfaces/design";
 import { useDispatch } from "react-redux";
 import { switchLoginModal } from "@/store/reducer/buttonToggleSlice";
+import { upLoadScreenshot } from "@/utils/manageExternalImage";
 
 interface IBudgetBoardprops {
   useTotalPrice: string;
@@ -13,10 +14,12 @@ interface IBudgetBoardprops {
 
 const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
   const dispatch = useDispatch();
+  const toast = useToast();
 
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
   const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
   const tileData = useStoreSelector((state) => state.tile.present.court);
+  const courtDataUrl = useStoreSelector((state) => state.canvasControl.courtDataUrl);
   const tiles: ITileColor[] = [...tileData];
   const userId = useStoreSelector((state) => state.user.userId);
   const [addToCart] = useAddToCartMutation();
@@ -35,13 +38,26 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
     design: currentDesign,
     quotation: useTotalPrice,
     quotationDetails: tileBlocks,
-    previewPic: "",
+    image: "",
     id: "",
     isExpired: false,
   };
 
-  const handleAddToCart = () => {
-    userId ? addToCart({ item: newCartItem }) : dispatch(switchLoginModal(true));
+  const handleAddToCart = async () => {
+    if (!userId) return dispatch(switchLoginModal(true));
+    if (!courtDataUrl) {
+      return toast({
+        title: `Fail to get courtDataUrl`,
+        description: "Try again or contact IT support",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+    const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
+    addToCart({
+      item: { ...newCartItem, image: imgUrl },
+    });
   };
 
   return (

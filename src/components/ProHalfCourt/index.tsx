@@ -1,6 +1,6 @@
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
-import { ReactReduxContext, Provider, useDispatch } from "react-redux";
+import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
@@ -14,6 +14,7 @@ import useCourt from "@/hooks/useCourt";
 import { IZoomShift } from "@/interfaces/zoomShift";
 import { useRef, useEffect } from "react";
 import canvasControlModel from "../../utils/canvasControlModel";
+import useImageDataUrl from "@/hooks/useImageDataUrl";
 
 const ProHalfCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
@@ -36,6 +37,8 @@ const ProHalfCourt = () => {
     ref.current.x(0);
     ref.current.y(0);
   }, [canvasStates.resetState]);
+
+  useImageDataUrl(ref);
 
   return (
     <Flex

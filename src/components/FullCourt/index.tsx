@@ -14,6 +14,7 @@ import useCourt from "@/hooks/useCourt";
 import { IZoomShift } from "@/interfaces/zoomShift";
 import { useRef, useEffect } from "react";
 import canvasControlModel from "../../utils/canvasControlModel";
+import useImageDataUrl from "@/hooks/useImageDataUrl";
 
 const FullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
@@ -37,6 +38,8 @@ const FullCourt = () => {
     ref.current.x(0);
     ref.current.y(0);
   }, [canvasStates.resetState]);
+
+  useImageDataUrl(ref);
 
   return (
     <Flex

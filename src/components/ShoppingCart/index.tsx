@@ -20,7 +20,7 @@ const ShoppingCart = () => {
       design: item.design,
       quotation: item.quotation,
       quotationDetails: item.quotationDetails,
-      previewPic: item.image,
+      image: item.image,
       isExpired: item.isExpired,
     };
   });
