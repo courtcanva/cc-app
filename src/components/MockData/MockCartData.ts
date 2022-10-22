@@ -72,6 +72,8 @@ export const mockCartDataRaw: any = [
         },
       ],
     },
+    image:
+      "https://jr-bookinglet-2.s3.ap-southeast-2.amazonaws.com/court_canva_test/m8i7liw-KKm9Dl2OYwgi_.png",
     createdAt: {
       $date: {
         $numberLong: "1663723329368",
@@ -156,6 +158,8 @@ export const mockCartDataRaw: any = [
         },
       ],
     },
+    image:
+      "https://jr-bookinglet-2.s3.ap-southeast-2.amazonaws.com/court_canva_test/m8i7liw-KKm9Dl2OYwgi_.png",
     createdAt: {
       $date: {
         $numberLong: "1663723361318",
@@ -240,6 +244,8 @@ export const mockCartDataRaw: any = [
         },
       ],
     },
+    image:
+      "https://jr-bookinglet-2.s3.ap-southeast-2.amazonaws.com/court_canva_test/m8i7liw-KKm9Dl2OYwgi_.png",
     createdAt: {
       $date: {
         $numberLong: "1663723361318",
@@ -262,7 +268,7 @@ export const mockCartData: ICartItem[] = mockCartDataRaw.map((cartItem: any) => 
     design: cartItem.design,
     quotation: cartItem.quotation,
     quotationDetails: cartItem.quotationDetails,
-    previewPic: cartItem.image,
+    image: cartItem.image,
     isExpired: cartItem.isExpired,
   };
 });

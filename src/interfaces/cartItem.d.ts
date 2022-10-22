@@ -7,6 +7,6 @@ export interface ICartItem {
   design: IDesign;
   quotation: string;
   quotationDetails: PriceBar[];
-  previewPic: string;
+  image: string;
   isExpired: boolean;
 }
