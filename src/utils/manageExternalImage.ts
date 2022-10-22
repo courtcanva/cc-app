@@ -11,7 +11,6 @@ export const upLoadScreenshot = async (courtDataUrl: string, toast: any) => {
   const base64 = await fetch(courtDataUrl);
   const blob = await base64.blob();
   const imgFile = new File([blob], "default", { type: "image/png" });
-  let imageUrl = "";
 
   AWS.config.update({
     region: bucketRegion,
@@ -28,22 +27,17 @@ export const upLoadScreenshot = async (courtDataUrl: string, toast: any) => {
     },
   });
 
-  const promise = upload.promise();
-  await promise.then(
-    function (data) {
-      imageUrl = data.Location;
-    },
-    function (err) {
-      return toast({
-        title: `Image update failure: ${err.message}.`,
-        description: "Try again or contact IT support",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-        position: "top",
-      });
-    }
-  );
+  const imageUrl = (await upload.promise()).Location;
+  if (!imageUrl) {
+    return toast({
+      title: "Image update failure.",
+      description: "Try again or contact IT support",
+      status: "error",
+      duration: 9000,
+      isClosable: true,
+      position: "top",
+    });
+  }
   return imageUrl;
 };
 
