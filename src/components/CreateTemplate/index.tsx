@@ -33,6 +33,9 @@ import {
   MAX_DESCRIPTION_LEN,
 } from "@/constants/templateCreate";
 import ErrorMsg from "./ErrorMsg";
+import { useDispatch } from "react-redux";
+import { switchMyTemplateDisplay } from "@/store/reducer/buttonToggleSlice";
+import MyTemplate from "../MyTemplate";
 
 interface Props {
   isOpen: boolean;
@@ -48,6 +51,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
   const { court: selectedCourtTileData } = useStoreSelector((state) => state.tile.present);
   const [addTemplate] = useAddTemplateMutation();
+  const disPatch = useDispatch();
 
   const courtType = "basketball";
   const {
@@ -106,6 +110,13 @@ function CreateTemplate({ isOpen, onClose }: Props) {
       .catch((_err) => {
         alert("Whoops! unsuccessful publish your template, please try again!");
       });
+  };
+  const { isMyTemplateOpen } = useStoreSelector((state) => state.buttonToggle);
+
+  // FIXME: 当open 的时候，要记得把其他的所有状态都设置为false
+  const handleOpenMyTemplate = () => {
+    disPatch(switchMyTemplateDisplay(true));
+    closeWindow();
   };
 
   return (
@@ -200,6 +211,9 @@ function CreateTemplate({ isOpen, onClose }: Props) {
             </Button>
             <Button fontSize="lg" onClick={closeWindow} paddingX="3rem" borderRadius="6px">
               Cancel
+            </Button>
+            <Button fontSize="lg" onClick={handleOpenMyTemplate}>
+              Go My Design
             </Button>
           </Flex>
         </ModalContent>

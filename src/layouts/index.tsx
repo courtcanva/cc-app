@@ -8,6 +8,7 @@ import EditorFooter from "@/components/EditorFooter";
 import PriceBar from "@/components/PriceBar";
 import TopBar from "@/components/TopBar";
 import ShoppingCart from "@/components/ShoppingCart";
+import MyTemplate from "@/components/MyTemplate";
 import { PAGE_NOT_FOUND, TEAM_PAGE } from "../../src/constants";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -39,6 +40,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
           <Header />
           <Box as="main">
             <NavigationBar />
+            <MyTemplate />
             <ShoppingCart />
             <EditorSideBar />
             {children}
