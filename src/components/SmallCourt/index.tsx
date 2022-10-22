@@ -1,6 +1,6 @@
 import { Stage, Layer, Group } from "react-konva";
-import { Flex, useToast } from "@chakra-ui/react";
-import { ReactReduxContext, Provider, useDispatch } from "react-redux";
+import { Flex } from "@chakra-ui/react";
+import { ReactReduxContext, Provider } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import TopKeyArea from "../BasketballCourt/TopKeyArea";
@@ -14,12 +14,9 @@ import useCourt from "@/hooks/useCourt";
 import { IZoomShift } from "@/interfaces/zoomShift";
 import { useRef, useEffect } from "react";
 import canvasControlModel from "../../utils/canvasControlModel";
-import { useStoreSelector } from "@/store/hooks";
-import { updateCourtStage } from "@/utils/uploadImage";
+import useImageDataUrl from "@/hooks/useImageDataUrl";
 
 const SmallCourt = () => {
-  const dispatch = useDispatch();
-  const toast = useToast();
   const {
     courtAreaXLength,
     courtAreaYLength,
@@ -29,7 +26,6 @@ const SmallCourt = () => {
     courtStartPoint,
     componentsStartPoint,
   } = useCourt();
-  const rulerState = useStoreSelector((state) => state.buttonToggle.isRulerOn);
   const ref = useRef<any>(null);
 
   const zoomShift: IZoomShift = {
@@ -50,9 +46,7 @@ const SmallCourt = () => {
     ref.current.y(0);
   }, [canvasStates.resetState]);
 
-  useEffect(() => {
-    updateCourtStage(dispatch, ref, rulerState, toast);
-  }, [canvasStates.selectedColor, borderLength]);
+  useImageDataUrl(ref);
 
   return (
     <Flex

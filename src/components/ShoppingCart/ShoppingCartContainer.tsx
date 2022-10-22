@@ -16,7 +16,7 @@ import { ICartItem } from "@/interfaces/cartItem";
 import DeleteComfirmModal from "@/components/DeleteComfirmModal";
 import { useDeleteItemFromCartMutation } from "@/redux/api/cartApi";
 import { RiErrorWarningLine } from "react-icons/ri";
-import { deleteImage } from "@/utils/uploadImage";
+import { deleteImage } from "@/utils/manageExternalImage";
 
 interface userCartList {
   shoppingCart: ICartItem[];

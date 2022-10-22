@@ -1,11 +1,4 @@
-import { setScreenshot } from "@/store/reducer/canvasControlSlice";
-import { switchRuler } from "@/store/reducer/buttonToggleSlice";
-import { resetAll } from "@/store/reducer/canvasControlSlice";
-import { Dispatch } from "@reduxjs/toolkit";
-import { RefObject } from "react";
-import Konva from "konva";
-
-export const upLoadScreenshot = async (screenshot: string, toast: any) => {
+export const upLoadScreenshot = async (courtDataUrl: string, toast: any) => {
   const { default: AWS } = await import(/* webpackChunkName: "aws-sdk" */ "aws-sdk");
   const { nanoid } = await import("nanoid");
 
@@ -15,10 +8,10 @@ export const upLoadScreenshot = async (screenshot: string, toast: any) => {
   const albumName = process.env.NEXT_PUBLIC_ALBUM_NAME as string;
   const albumPhotosKey = encodeURIComponent(albumName) + "/";
 
-  const base64 = await fetch(screenshot);
+  const base64 = await fetch(courtDataUrl);
   const blob = await base64.blob();
   const imgFile = new File([blob], "default", { type: "image/png" });
-  let imageUrl = "" as string;
+  let imageUrl = "";
 
   AWS.config.update({
     region: bucketRegion,
@@ -75,29 +68,4 @@ export const deleteImage = async (imageUrl: string) => {
   });
 
   s3.deleteObject({ Bucket: albumBucketName, Key: photoKey });
-};
-
-export const updateCourtStage = (
-  dispatch: Dispatch,
-  stageRef: RefObject<Konva.Stage>,
-  rulerState: boolean,
-  toast: any
-) => {
-  dispatch(resetAll());
-  rulerState ? dispatch(switchRuler(false)) : null;
-  if (!stageRef.current) {
-    return toast({
-      title: "Cannot get Konva Stage!",
-      description: "Try again or contact IT support",
-      status: "error",
-      duration: 9000,
-      isClosable: true,
-      position: "top",
-    });
-  }
-  const image = stageRef.current.toDataURL({
-    pixelRatio: 1.5,
-  });
-  dispatch(setScreenshot(image));
-  rulerState ? dispatch(switchRuler(true)) : null;
 };

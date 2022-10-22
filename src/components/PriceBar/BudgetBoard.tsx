@@ -6,7 +6,7 @@ import { saveDesignMapping } from "@/utils/designMapping";
 import { IDesign, ITileColor } from "@/interfaces/design";
 import { useDispatch } from "react-redux";
 import { switchLoginModal } from "@/store/reducer/buttonToggleSlice";
-import { upLoadScreenshot } from "@/utils/uploadImage";
+import { upLoadScreenshot } from "@/utils/manageExternalImage";
 
 interface IBudgetBoardprops {
   useTotalPrice: string;
@@ -19,7 +19,7 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
   const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
   const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
   const tileData = useStoreSelector((state) => state.tile.present.court);
-  const screenshot = useStoreSelector((state) => state.canvasControl.screenshot);
+  const courtDataUrl = useStoreSelector((state) => state.canvasControl.courtDataUrl);
   const tiles: ITileColor[] = [...tileData];
   const userId = useStoreSelector((state) => state.user.userId);
   const [addToCart] = useAddToCartMutation();
@@ -45,16 +45,16 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
 
   const handleAddToCart = async () => {
     if (!userId) return dispatch(switchLoginModal(true));
-    if (!screenshot) {
+    if (!courtDataUrl) {
       return toast({
-        title: `Fail to get screenshot`,
+        title: `Fail to get courtDataUrl`,
         description: "Try again or contact IT support",
         status: "error",
         duration: 9000,
         isClosable: true,
       });
     }
-    const imgUrl = await upLoadScreenshot(screenshot, toast);
+    const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
     addToCart({
       item: { ...newCartItem, image: imgUrl },
     });
