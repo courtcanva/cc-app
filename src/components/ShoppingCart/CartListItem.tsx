@@ -32,7 +32,9 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
               )}
             </Box>
             <Box width="340px" height="140px" position="relative">
-              <Image src={image} alt="Court image" layout="fill" objectFit="contain"></Image>
+              {image && (
+                <Image src={image} alt="Court image" layout="fill" objectFit="contain"></Image>
+              )}
             </Box>
           </Flex>
         </Td>
