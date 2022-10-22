@@ -21,8 +21,8 @@ function MyTemplate() {
           width="calc(100vw - 98px)"
           height="100vh"
         >
-          {/* <MyTemplateContainer /> */}
-          <EmptyTemplate />
+          <MyTemplateContainer />
+          {/* <EmptyTemplate /> */}
         </Flex>
       )}
     </>
