@@ -25,6 +25,8 @@ describe("Court Specifications Reducer", () => {
       strokeWidth: 200,
       borderLength: 1000,
       designName: "Court Canva 1",
+      customizeCourtAreaXLength: undefined,
+      customizeCourtAreaYLength: undefined,
     },
   ];
 
@@ -45,6 +47,8 @@ describe("Court Specifications Reducer", () => {
       strokeWidth: 200,
       borderLength: 1000,
       designName: "Court Canva 1",
+      customizeCourtAreaXLength: undefined,
+      customizeCourtAreaYLength: undefined
     },
     isLoading: true,
     isError: "",
