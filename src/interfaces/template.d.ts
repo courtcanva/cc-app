@@ -34,3 +34,13 @@ export interface ITemplateErrorMsg {
   nameNullErrMsg: string;
   descriptionLenErrMsg: string;
 }
+
+export interface IMyTemplates {
+  _id: string;
+  courtName: string;
+  user_id: string;
+  description: string | undefined | null;
+  image: string;
+  createdAt: string;
+  status: string;
+}

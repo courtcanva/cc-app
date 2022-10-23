@@ -29,6 +29,7 @@ import {
   switchSideBar,
   switchLoginModal,
   switchCreateTemplate,
+  switchMyTemplateDisplay,
 } from "@/store/reducer/buttonToggleSlice";
 import { useHandleLocalStorageItem } from "@/hooks/useHandleLocalStorage";
 import CreateTemplate from "../CreateTemplate";
@@ -116,6 +117,7 @@ const NavigationBar = () => {
 
   const handleCreateTemplateOpen = () => {
     dispatch(switchCreateTemplate(true));
+    dispatch(switchMyTemplateDisplay(false));
   };
   const handleCreateTemplateClose = () => {
     dispatch(switchCreateTemplate(false));

@@ -4,14 +4,35 @@ import EmptyTemplate from "./EmptyTemplate";
 import MyTemplateContainer from "./MyTemplateContainer";
 import { Flex } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
+import { useGetTemplatesQuery } from "@/redux/api/templateApi";
+import { userData } from "@/store/reducer/userSlice";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
+import { IMyTemplates } from "@/interfaces/template";
 
 function MyTemplate() {
   const isMyTemplateOpen = useStoreSelector((state) => state.buttonToggle.isMyTemplateOpen);
+  const isCreateTemplateOpen = useStoreSelector((state) => state.buttonToggle.isCreateTemplateOpen);
+  const isCartOpen = useStoreSelector((state) => state.buttonToggle.isCartOpen);
+  const currentUserId = useStoreSelector(userData).userId;
+  const { data } = useGetTemplatesQuery(currentUserId ? currentUserId : skipToken);
+  const quantity = data?.length;
+
+  const myTemplates: IMyTemplates[] | undefined = data?.map((item: any) => {
+    return {
+      _id: item._id,
+      courtName: item.design.designName,
+      user_id: item.user_id,
+      description: item.description,
+      image: item.image,
+      status: item.status,
+      createdAt: item.createdAt,
+    };
+  });
   return (
     <>
-      {isMyTemplateOpen && (
+      {isMyTemplateOpen && currentUserId && !isCreateTemplateOpen && !isCartOpen && (
         <Flex
-          zIndex={1800}
+          zIndex={1600}
           position="fixed"
           backgroundColor="#fff"
           top="72px"
@@ -21,8 +42,8 @@ function MyTemplate() {
           width="calc(100vw - 98px)"
           height="100vh"
         >
-          <MyTemplateContainer />
-          {/* <EmptyTemplate /> */}
+          {(quantity as number) > 0 && <MyTemplateContainer myTemplates={myTemplates} />}
+          {quantity === 0 && <EmptyTemplate />}
         </Flex>
       )}
     </>
