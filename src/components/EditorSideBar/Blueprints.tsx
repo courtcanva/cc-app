@@ -12,6 +12,8 @@ import { ICourtData } from "@/interfaces/design";
 interface Props {
   fetchedCourtsData: ICourtData[] | undefined;
 }
+
+console.log("click");
 const Blueprints = ({ fetchedCourtsData }: Props) => {
   const dispatch = useDispatch();
   const [activateCourt, setActivateCourt] = useState<string>("");
@@ -32,7 +34,7 @@ const Blueprints = ({ fetchedCourtsData }: Props) => {
   };
 
   return (
-    <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">
+    <Box height="100%" className="scrollbox">
       {filteredCourtList.map((court) => {
         const { imgUrl, courtId, courtSizeName } = court;
         return (

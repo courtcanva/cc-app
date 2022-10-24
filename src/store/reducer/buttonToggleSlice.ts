@@ -8,6 +8,7 @@ export interface ButtonToggleState {
   isSideBarOpen: boolean;
   isLoginModalOpen: boolean;
   isCreateTemplateOpen: boolean;
+  isTemplateSelect: boolean;
 }
 
 export const initialState: ButtonToggleState = {
@@ -18,6 +19,7 @@ export const initialState: ButtonToggleState = {
   isSideBarOpen: false,
   isLoginModalOpen: false,
   isCreateTemplateOpen: false,
+  isTemplateSelect: false,
 };
 
 export const ButtonToggleSlice = createSlice({
@@ -73,6 +75,12 @@ export const ButtonToggleSlice = createSlice({
         isSideBarOpen: false,
       };
     },
+    startSelectTemplate: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isTemplateSelect: action.payload,
+      };
+    },
   },
 });
 
@@ -84,6 +92,7 @@ export const {
   switchSideBar,
   switchLoginModal,
   switchCreateTemplate,
+  startSelectTemplate,
 } = ButtonToggleSlice.actions;
 
 export default ButtonToggleSlice.reducer;

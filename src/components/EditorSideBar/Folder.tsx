@@ -13,6 +13,7 @@ const Folder: React.FC = () => {
   const { designsData, activeCourt } = useStoreSelector((state) => state.courtSpecData);
   const [activateDesign, setActivateDesign] = useState<string>(activeCourt.courtId);
   const { designTileList } = useStoreSelector((state) => state.designTileList);
+  console.log("click");
 
   useEffect(() => {
     if (designsData === undefined) return;
@@ -35,7 +36,7 @@ const Folder: React.FC = () => {
   };
 
   return (
-    <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">
+    <Box height="100%" className="scrollbox">
       {designsData.map((design) => {
         const { courtId, courtName, designName } = design;
         return (

@@ -6,6 +6,7 @@ import Folder from "./Folder";
 import { useGetCourtsQuery } from "@/redux/api/courtSizeApi";
 import { ICourtData } from "@/interfaces/design";
 import { IconContext } from "react-icons";
+import Template from "./Template/Template";
 
 interface Props {
   iconClickTitle: string;
@@ -17,6 +18,8 @@ const showContainerItem = (iconClickTitle: string, courtsData: ICourtData[] | un
       return <Blueprints fetchedCourtsData={courtsData} />;
     case "Folder":
       return <Folder />;
+    case "Template":
+      return <Template />;
     default:
       return iconClickTitle;
   }
@@ -35,12 +38,13 @@ const SideBarContainer = (props: Props) => {
   return (
     <Box
       background="background.secondaryLight"
-      width="280px"
+      // width="280px"
+      padding="24px"
       height="calc(100vh - 72px)"
       top="72px"
       left="96px"
       position="fixed"
-      zIndex="2000"
+      zIndex="1510"
       color="fontcolor.primary"
     >
       {showContainerItem(props.iconClickTitle, courtsData)}
@@ -48,6 +52,7 @@ const SideBarContainer = (props: Props) => {
         as="button"
         onClick={props.onHandleCloseClick}
         position="absolute"
+        padding="0px"
         top="calc(48% - 84px)"
         right="-14px"
         height="100px"
