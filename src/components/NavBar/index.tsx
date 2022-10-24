@@ -36,7 +36,7 @@ import CreateTemplate from "../CreateTemplate";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
-  const { isCartOpen, isLoginModalOpen, isCreateTemplateOpen } = useStoreSelector(
+  const { isCartOpen, isLoginModalOpen, isCreateTemplateOpen, isMyTemplateOpen } = useStoreSelector(
     (state) => state.buttonToggle
   );
   const { userLogout, updateToken } = useAuthRequest();
@@ -182,7 +182,7 @@ const NavigationBar = () => {
           </Flex>
         )}
       </Flex>
-      {!isCartOpen ? <EditorDesignName /> : <Box></Box>}
+      {!isCartOpen && !isMyTemplateOpen ? <EditorDesignName /> : <Box></Box>}
       <Flex alignItems="center" justifyContent="flex-end">
         {!loginState ? (
           <Menu>

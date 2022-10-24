@@ -30,7 +30,7 @@ function EmptyTemplate() {
           </Text>{" "}
           in your Template
         </Text>
-        <Button
+        {/* <Button
           aria-label="ReturnHomeBtn"
           variant="shareBtn"
           size="lg"
@@ -38,7 +38,7 @@ function EmptyTemplate() {
           onClick={handleReturnToDesign}
         >
           RETURN TO DESIGN
-        </Button>
+        </Button> */}
       </Flex>
     </Flex>
   );

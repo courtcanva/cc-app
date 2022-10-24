@@ -1,6 +1,6 @@
 /* eslint-disable require-jsdoc */
 import React from "react";
-import { Flex, Box, Button, Heading, Text, Grid, ButtonGroup } from "@chakra-ui/react";
+import { Flex, Box, Button, Text, Grid } from "@chakra-ui/react";
 import moment from "moment";
 
 function MyTemplateListItem({ ...item }) {
@@ -8,10 +8,10 @@ function MyTemplateListItem({ ...item }) {
     <Grid
       justifyContent="space-around"
       alignItems="center"
-      width="100%"
+      margin="auto 20px"
       border="solid"
       padding="1rem"
-      templateColumns="repeat(4, 25%)"
+      templateColumns="repeat(4, 1fr)"
       placeItems="center"
       // gap={6}
     >
@@ -23,7 +23,7 @@ function MyTemplateListItem({ ...item }) {
         <Text>{item.description}</Text>
       </Flex>
       <Box>
-        <Text>{moment(item.createdAt).format("YYYY-MM-DD")}</Text>
+        <Text>{moment(item.createdAt).format("DD/MM/YYYY")}</Text>
         <Text fontSize="sm" color={item.status === "published" ? "green" : "red"}>
           {item.status}
         </Text>

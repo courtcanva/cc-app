@@ -1,13 +1,15 @@
 /* eslint-disable require-jsdoc */
-import React, { useState } from "react";
+import React from "react";
 import EmptyTemplate from "./EmptyTemplate";
 import MyTemplateContainer from "./MyTemplateContainer";
-import { Flex } from "@chakra-ui/react";
+import { Flex, Button } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import { useGetTemplatesQuery } from "@/redux/api/templateApi";
 import { userData } from "@/store/reducer/userSlice";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import { IMyTemplates } from "@/interfaces/template";
+import { useDispatch } from "react-redux";
+import { switchMyTemplateDisplay } from "@/store/reducer/buttonToggleSlice";
 
 function MyTemplate() {
   const isMyTemplateOpen = useStoreSelector((state) => state.buttonToggle.isMyTemplateOpen);
@@ -26,24 +28,36 @@ function MyTemplate() {
       image: item.image,
       status: item.status,
       createdAt: item.createdAt,
+      tags: item.tags,
     };
   });
+
+  const disPatch = useDispatch();
+  const handleReturnToDesign = () => {
+    disPatch(switchMyTemplateDisplay(false));
+  };
   return (
     <>
       {isMyTemplateOpen && currentUserId && !isCreateTemplateOpen && !isCartOpen && (
         <Flex
-          zIndex={1600}
           position="fixed"
           backgroundColor="#fff"
           top="72px"
-          left="98px"
           padding="20px 20px 80px 20px"
           color="rgb(58, 75, 92)"
-          width="calc(100vw - 98px)"
+          width="calc(100vw)"
           height="100vh"
+          zIndex={1600}
+          gap="1rem"
+          overflowY="scroll"
+          flexDirection="column"
+          alignItems="center"
         >
           {(quantity as number) > 0 && <MyTemplateContainer myTemplates={myTemplates} />}
           {quantity === 0 && <EmptyTemplate />}
+          <Button variant="shareBtn" size="lg" padding="10px 20px" onClick={handleReturnToDesign}>
+            RETURN TO DESIGN
+          </Button>
         </Flex>
       )}
     </>

@@ -43,4 +43,5 @@ export interface IMyTemplates {
   image: string;
   createdAt: string;
   status: string;
+  tags: ITags;
 }
