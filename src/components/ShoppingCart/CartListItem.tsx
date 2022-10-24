@@ -1,5 +1,5 @@
-import { Box, Button, ButtonGroup, Flex, Td, Tr, Text } from "@chakra-ui/react";
-import React from "react";
+import { Box, Button, ButtonGroup, Flex, Td, Tr, Text, Checkbox, Center } from "@chakra-ui/react";
+import { Dispatch, SetStateAction } from "react";
 import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { ICartItem } from "@/interfaces/cartItem";
@@ -10,9 +10,18 @@ import Image from "next/image";
 interface CartListItemProps {
   item: ICartItem;
   onDelete: (id: string) => void;
+  checkedItems: boolean[];
+  setCheckedItems: Dispatch<SetStateAction<boolean[]>>;
+  index: number;
 }
 
-const CartListItem = ({ item, onDelete }: CartListItemProps) => {
+const CartListItem = ({
+  item,
+  onDelete,
+  checkedItems,
+  setCheckedItems,
+  index,
+}: CartListItemProps) => {
   const {
     design: { designName: productName, courtSize: courtDetail },
     quotation: quotation,
@@ -20,17 +29,29 @@ const CartListItem = ({ item, onDelete }: CartListItemProps) => {
     isExpired,
   } = item;
 
+  const handleCheckBox = (e: { target: { checked: boolean } }) => {
+    const newCheckedItems = [...checkedItems];
+    newCheckedItems[index] = e.target.checked;
+    setCheckedItems(newCheckedItems);
+  };
+
   return (
     <>
       <Tr alignItems="center" role="dataRow">
         <Td padding="25px" sx={{ "vertical-align": "top" }} height="180px">
           {/* Todo: space for thumbnail images that implementing in the future. */}
           <Flex alignItems="center">
-            <Box minWidth="57px">
-              {isExpired && (
+            <Center minWidth="57px">
+              {isExpired ? (
                 <RiErrorWarningLine size={36} color="#F55252" data-testid="expired-icon" />
+              ) : (
+                <Checkbox
+                  borderColor="#DCDCDC"
+                  isChecked={checkedItems[index]}
+                  onChange={handleCheckBox}
+                />
               )}
-            </Box>
+            </Center>
             <Box width="340px" height="140px" position="relative">
               {image && (
                 <Image src={image} alt="Court image" layout="fill" objectFit="contain"></Image>
