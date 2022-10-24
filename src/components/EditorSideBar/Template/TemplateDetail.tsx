@@ -5,7 +5,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Flex,
   Box,
   Text,
@@ -26,7 +25,7 @@ const TemplateDetail = ({ isOpen, onClose, template }: Props) => {
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
-        {/* <ModalOverlay /> */}
+        <ModalOverlay />
         <ModalContent marginTop="30vh">
           <ModalHeader fontSize="2xl">{template.design.designName}</ModalHeader>
           <ModalBody>

@@ -1,7 +1,6 @@
 import { ITemplateDataDb } from "@/interfaces/template";
-import { Box, Fade, Flex } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { useState } from "react";
-import { AiOutlineEllipsis } from "react-icons/ai";
 import CourtTags from "./CourtTags";
 import TemplateDetail from "./TemplateDetail";
 import Image from "next/image";
@@ -16,14 +15,30 @@ interface Props {
 
 const TemplateItem = (prop: Props) => {
   const dispatch = useDispatch();
-  const [detailBtnFade, setDetailBtnFade] = useState<boolean>(false);
+  const [hoverOn, setHoverOn] = useState<boolean>(false);
   const { isTemplateSelect } = useStoreSelector((state) => state.buttonToggle);
-  const [selectTemplate, setSelectTemplate] = useState(false);
+  const [enableTempDetail, setEnableTempDetail] = useState<boolean>(false);
+  const highLight = isTemplateSelect && !hoverOn ? false : true;
   const { user_id: userId, tags } = prop.template;
 
   const handleMouseEnter = () => {
-    setSelectTemplate(true);
+    setHoverOn(true);
     dispatch(startSelectTemplate(true));
+  };
+
+  const resetHeightLight = () => {
+    setHoverOn(false);
+    dispatch(startSelectTemplate(false));
+  };
+
+  const handleTemplateSelect = () => {
+    setEnableTempDetail(true);
+  };
+
+  const detailOnClose = () => {
+    setEnableTempDetail(false);
+    setHoverOn(false);
+    dispatch(startSelectTemplate(false));
   };
 
   return (
@@ -33,14 +48,15 @@ const TemplateItem = (prop: Props) => {
       width="300px"
       height="200px"
       background="transparent"
-      marginBottom="18px"
       display="flex"
+      marginBottom="16px"
       alignItems="center"
       justifyContent="left"
       cursor="pointer"
       fontSize="14"
-      // opacity={!detailBtnFade || isTemplateSelect ? "1" : "0.4"}
-      // onClick={() => handleCourtSelecting(courtId)}
+      opacity={highLight ? "1" : "0.4"}
+      animation="ease-in-out"
+      onClick={handleTemplateSelect}
     >
       <Box
         position="relative"
@@ -49,31 +65,16 @@ const TemplateItem = (prop: Props) => {
         padding="10px"
         backgroundColor="white"
         onMouseEnter={handleMouseEnter}
-        onMouseLeave={() => setDetailBtnFade(false)}
+        onMouseLeave={resetHeightLight}
       >
         <Box width="90%" height="90%" position="absolute" zIndex={2010}>
           <CourtTags tags={tags} />
         </Box>
-        {/* <Fade in={detailBtnFade}>
-          <Flex
-            position="absolute"
-            backgroundColor="gray"
-            right="1em"
-            top="1em"
-            width="2em"
-            height="2em"
-            justifyContent="center"
-            alignItems="center"
-            borderRadius="20%"
-            zIndex={2010}
-          >
-            <AiOutlineEllipsis fontSize="1.5em" />
-          </Flex>
-        </Fade> */}
-        {detailBtnFade && (
+
+        {enableTempDetail && (
           <TemplateDetail
-            isOpen={detailBtnFade}
-            onClose={() => setDetailBtnFade(false)}
+            isOpen={enableTempDetail}
+            onClose={detailOnClose}
             template={prop.template}
           />
         )}
