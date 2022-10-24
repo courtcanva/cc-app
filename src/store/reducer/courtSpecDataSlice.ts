@@ -14,6 +14,8 @@ export interface CourtSizeState {
   circleRadius: number;
   strokeWidth: number;
   borderLength: number;
+  customizeCourtAreaXLength?: number;
+  customizeCourtAreaYLength?: number;
   designName: string;
 }
 export interface CourtSpecMapper {
@@ -44,6 +46,8 @@ export const initialState: CourtSpec = {
     circleRadius: 1800,
     strokeWidth: 200,
     borderLength: 1000,
+    customizeCourtAreaXLength: undefined,
+    customizeCourtAreaYLength: undefined,
     designName: "Court Canva 1",
   },
   isLoading: true,
@@ -69,6 +73,14 @@ export const Slice = createSlice({
     },
     updateBorderLength: (state: CourtSpec, action: PayloadAction<number>) => {
       state.activeCourt = { ...state.activeCourt, borderLength: action.payload };
+      return state;
+    },
+    setNewCourtAreaXLength: (state: CourtSpec, action?: PayloadAction<number>) => {
+      state.activeCourt = { ...state.activeCourt, customizeCourtAreaXLength: action?.payload };
+      return state;
+    },
+    setNewCourtAreaYLength: (state: CourtSpec, action?: PayloadAction<number>) => {
+      state.activeCourt = { ...state.activeCourt, customizeCourtAreaYLength: action?.payload };
       return state;
     },
     setActiveDesign: (state, action: PayloadAction<string>) => {
@@ -97,6 +109,8 @@ export const {
   getDesignsData,
   setActiveCourt,
   updateBorderLength,
+  setNewCourtAreaXLength,
+  setNewCourtAreaYLength,
   setActiveDesign,
   setNewDesignActive,
   changeDesignName,

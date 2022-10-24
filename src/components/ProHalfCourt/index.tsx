@@ -1,6 +1,6 @@
-import { Stage, Layer, Group } from "react-konva";
-import { Flex } from "@chakra-ui/react";
-import { ReactReduxContext, Provider } from "react-redux";
+import { Stage, Layer, Group, Line } from "react-konva";
+import { Box, Flex } from "@chakra-ui/react";
+import { ReactReduxContext, Provider, useDispatch } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
@@ -12,13 +12,23 @@ import BorderDimension from "../BasketballCourt/BorderDimension";
 import DashedLine from "../BasketballCourt/DashedLine";
 import useCourt from "@/hooks/useCourt";
 import { IZoomShift } from "@/interfaces/zoomShift";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import canvasControlModel from "../../utils/canvasControlModel";
 import useImageDataUrl from "@/hooks/useImageDataUrl";
+import CustomiseWindow from "./CustomiseWindow";
+import CustomiseCourtDimension from "./CustomiseCourtDimension";
+import { setNewCourtAreaYLength, setNewCourtAreaXLength } from "@/store/reducer/courtSpecDataSlice";
 
 const ProHalfCourt = () => {
+  const dispatch = useDispatch();
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
   const ref = useRef<any>(null);
+  const [clipWidth, setClipWidth] = useState("");
+  const [clipLength, setClipLength] = useState("");
+  useEffect(() => {
+    dispatch(setNewCourtAreaXLength(Number(clipWidth) * 1000));
+    dispatch(setNewCourtAreaYLength(Number(clipLength) * 1000));
+  }, [clipWidth, clipLength]);
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -73,28 +83,44 @@ const ProHalfCourt = () => {
           >
             <Provider store={store}>
               <Layer>
-                <Border
-                  startPoint={courtStartPoint}
-                  borderLength={borderLength}
-                  courtAreaXLength={courtAreaXLength}
-                  courtAreaYLength={courtAreaYLength}
-                />
-                <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
-                <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
-                <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
-                <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                {Number(clipLength) * Number(clipWidth) !== 0 && (
+                  <CustomiseCourtDimension
+                    startPoint={courtStartPoint}
+                    borderLength={borderLength}
+                    inputX={clipWidth}
+                    inputY={clipLength}
+                  />
+                )}
+                <Group
+                  clipX={courtStartPoint.X}
+                  clipY={courtStartPoint.Y + courtAreaYLength / 2 - (Number(clipLength) * 1000) / 2}
+                  clipHeight={Number(clipLength) * 1000}
+                  clipWidth={Number(clipWidth) * 1000}
+                >
+                  <Border
+                    startPoint={courtStartPoint}
+                    borderLength={borderLength}
+                    courtAreaXLength={courtAreaXLength}
+                    courtAreaYLength={courtAreaYLength}
+                  />
+                  <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
+                  <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
                   <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                  <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                    <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                  </Group>
+                  <CourtArea startPoint={courtStartPoint} courtWidth={courtAreaXLength} />
+                  <ThreePointArea startPoint={courtStartPoint} />
+                  <KeyArea startPoint={courtStartPoint} />
+                  <CircleArea startPoint={courtStartPoint} />
+                  <TopKeyArea startPoint={courtStartPoint} />
                 </Group>
-                <CourtArea startPoint={courtStartPoint} courtWidth={courtAreaXLength} />
-                <ThreePointArea startPoint={courtStartPoint} />
-                <KeyArea startPoint={courtStartPoint} />
-                <CircleArea startPoint={courtStartPoint} />
-                <TopKeyArea startPoint={courtStartPoint} />
               </Layer>
             </Provider>
           </Stage>
         )}
       </ReactReduxContext.Consumer>
+      <CustomiseWindow setInputWidth={setClipWidth} setInputLength={setClipLength} />
     </Flex>
   );
 };

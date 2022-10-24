@@ -1,5 +1,5 @@
 import courtList from "../ChangeCourtSize/CourtList";
-import { Image, Box } from "@chakra-ui/react";
+import { Image, Box, Text } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import React, { useState } from "react";
 import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
@@ -38,6 +38,7 @@ const Blueprints = ({ fetchedCourtsData }: Props) => {
         return (
           <Box
             key={imgUrl}
+            flexDirection="column"
             width="219px"
             height="150px"
             background="#fff"
@@ -51,7 +52,12 @@ const Blueprints = ({ fetchedCourtsData }: Props) => {
             _hover={{ border: "4px solid button.hover" }}
             opacity={!activateCourt || activateCourt === imgUrl ? "1" : "0.4"}
           >
-            <Image src={imgUrl} objectFit="contain" width="200px" height="140px" />
+            {courtSizeName === "Pro Half Court" && (
+              <Text height={2} position="relative" color="red" fontWeight="bold">
+                Customize
+              </Text>
+            )}
+            <Image src={imgUrl} objectFit="contain" width="200px" height="140px"></Image>
           </Box>
         );
       })}
