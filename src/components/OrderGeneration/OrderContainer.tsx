@@ -47,6 +47,7 @@ const OrderContainer = () => {
         gap="30px"
         overflow="auto"
         justifyContent="space-between"
+        width="100vw"
       >
         <Text fontSize="32px" fontWeight="700" textAlign="center">
           Order Generation
