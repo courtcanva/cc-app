@@ -2,7 +2,7 @@
 import React from "react";
 import EmptyTemplate from "./EmptyTemplate";
 import MyTemplateContainer from "./MyTemplateContainer";
-import { Flex, Button } from "@chakra-ui/react";
+import { Flex, Button, Text } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import { useGetTemplatesQuery } from "@/redux/api/templateApi";
 import { userData } from "@/store/reducer/userSlice";
@@ -48,15 +48,24 @@ function MyTemplate() {
           width="calc(100vw)"
           height="100vh"
           zIndex={1600}
-          gap="1rem"
+          gap="28px"
           overflowY="scroll"
           flexDirection="column"
           alignItems="center"
         >
+          <Text fontSize="32px" fontWeight="700" textAlign="center">
+            My Template
+          </Text>
           {(quantity as number) > 0 && <MyTemplateContainer myTemplates={myTemplates} />}
           {quantity === 0 && <EmptyTemplate />}
-          <Button variant="shareBtn" size="lg" padding="10px 20px" onClick={handleReturnToDesign}>
-            RETURN TO DESIGN
+          <Button
+            variant="shareBtn"
+            size="lg"
+            padding="10px 24px"
+            borderRadius="6px"
+            onClick={handleReturnToDesign}
+          >
+            Return To Design
           </Button>
         </Flex>
       )}
