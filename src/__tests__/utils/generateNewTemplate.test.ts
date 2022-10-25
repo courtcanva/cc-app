@@ -9,7 +9,7 @@ describe("generateNewTemplate", () => {
       user_id: "123456",
       description: "This is description",
       design: {
-        _id: "",
+        designer: "Zark",
         user_id: "",
         designName: "Cecilia's Court",
         tileColor: [],
@@ -34,8 +34,10 @@ describe("generateNewTemplate", () => {
         CourtType: "basketball",
       },
     };
+    const designer = "Zark";
     const userId = "123456";
     const name = "Cecilia's Court";
+    const imageUrl = "image_url"
     const description = "This is description";
     const selectedCourtTileData: Court[] = [];
     const selectedCourt: CourtSizeState = {
@@ -58,7 +60,9 @@ describe("generateNewTemplate", () => {
       name,
       description,
       selectedCourtTileData,
-      selectedCourt
+      selectedCourt,
+      imageUrl,
+      designer
     );
     expect(newTemplate).toEqual(mockTemplateData);
   });

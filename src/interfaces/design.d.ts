@@ -43,6 +43,7 @@ export interface ICourtColor {
 }
 
 export interface ISaveDesign {
+  designer?: string;
   user_id: string;
   designName: string;
   tileColor: ITileColor[];
