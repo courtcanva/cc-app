@@ -21,19 +21,16 @@ import {
 import { ITileColor } from "@/interfaces/design";
 import { designMapping, saveDesignMapping } from "@/utils/designMapping";
 import { useDispatch } from "react-redux";
-import checkName, { setValidation } from "@/utils/checkName";
+import checkDesignName from "@/utils/checkDesignName";
 import {
   changeDesignName,
-  defaultCourt,
   getDesignsData,
   setNewDesignActive,
 } from "@/store/reducer/courtSpecDataSlice";
 import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
-import errorMessage from "@/utils/setNameErrorMessage";
-import { CHECK_START_END_SPACE } from "@/constants/courtData";
+import { CHECK_START_END_SPACE, DESIGN_NAME_MAX_CHAR_LENGTH } from "@/constants/courtData";
 import SaveDesignModal from "./SaveDesignModal";
-import { DESIGN_NAME_MAXCHARLENGTH } from "@/constants/index";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();
@@ -43,12 +40,10 @@ const SaveBoard: React.FC = () => {
   const designsData = useStoreSelector((state) => state.courtSpecData.designsData);
   const designNames = useStoreSelector((state) => state.designName.nameList);
   const cancelRef = useRef(null);
-  const [nameCheck, setNameCheck] = useState<string>("exsited");
+  const [nameCheck, setNameCheck] = useState<string>("");
   const [useDesignName, setDesignName] = useState(courtData.designName);
   const [useCourtId, setCourtId] = useState(courtData.courtId);
-  const [useUserId, setUserId] = useState("");
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [useNameError, setNameError] = useState("");
   const [useFeedback, setFeedback] = useState("");
   const [useSaveDesignModal, setSaveDesignModal] = useState(false);
 
@@ -57,34 +52,27 @@ const SaveBoard: React.FC = () => {
     tiles.push(tile);
   }
 
-  const mappedcourtSize = saveDesignMapping(courtData);
-  const validation = setValidation({
-    maxCharLength: DESIGN_NAME_MAXCHARLENGTH,
-    onlyWordChar: true,
-  });
+  const mappedCourtSize = saveDesignMapping(courtData);
 
   useEffect(() => {
-    setUserId(userData.userId);
-    const nameCheck = checkName(courtData.designName, designNames, validation);
-    setNameCheck(nameCheck);
     setDesignName(courtData.designName);
-    if (courtData.courtId === "" && nameCheck === "existed") {
-      const index = designsData.findIndex((item) => item.designName === defaultCourt.designName);
+    if (designNames.includes(useDesignName)) {
+      const index = designsData.findIndex((item) => item.designName === useDesignName);
       setCourtId(designsData[index]?.courtId);
-      return;
+    } else {
+      setCourtId(courtData.courtId);
     }
-    setCourtId(courtData.courtId);
-  }, [designNames, courtData, userData]);
+  }, [designNames, courtData]);
 
   const designData = {
-    user_id: useUserId,
+    user_id: userData.userId,
     designName: useDesignName,
     tileColor: tiles,
-    courtSize: mappedcourtSize,
+    courtSize: mappedCourtSize,
   };
 
   const mappedDesignData = async (designName: string) => {
-    const design = await fetchDesignData(useUserId);
+    const design = await fetchDesignData(userData.userId);
     if (design.data === undefined) return;
     const { mappedDesignsData, mappedTileData, mappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));
@@ -98,7 +86,18 @@ const SaveBoard: React.FC = () => {
 
   const handleSaveDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (nameCheck === "existed") {
+    if (useCourtId === "") {
+      await addDesign({ design: designData })
+        .unwrap()
+        .then(() => {
+          setFeedback("Your design has been saved.");
+          setSaveDesignModal(true);
+        })
+        .catch(() => {
+          setFeedback("Saved design failed, please try it again.");
+          setSaveDesignModal(true);
+        });
+    } else {
       await updateDesign({ _id: useCourtId, design: designData })
         .unwrap()
         .then(() => {
@@ -110,54 +109,27 @@ const SaveBoard: React.FC = () => {
           setSaveDesignModal(true);
         });
     }
-    if (nameCheck === "passCheck") {
-      if (courtData.courtId === "") {
-        await addDesign({ design: designData })
-          .unwrap()
-          .then(() => {
-            setFeedback("Your design has been saved.");
-            setSaveDesignModal(true);
-          })
-          .catch(() => {
-            setFeedback("Saved design failed, please try it again.");
-            setSaveDesignModal(true);
-          });
-        setNameCheck("existed");
-      }
-      if (courtData.courtId !== "") {
-        await updateDesign({ _id: useCourtId, design: designData })
-          .unwrap()
-          .then(() => {
-            setFeedback("Your design has been updated.");
-            setSaveDesignModal(true);
-          })
-          .catch(() => {
-            setFeedback("Updated design failed, please try it again.");
-            setSaveDesignModal(true);
-          });
-      }
-    }
     mappedDesignData(designData.designName);
   };
 
   const open = () => {
     setDialogOpen(true);
-    const nameCheck = checkName(useDesignName, designNames, validation);
-    setNameCheck(nameCheck);
-    setNameError(errorMessage(nameCheck));
+    setNameCheck(checkDesignName(useDesignName, designNames));
   };
   const close = () => {
     setDialogOpen(false);
-    setDesignName(courtData.designName);
-    setNameCheck("existed");
+    setDesignName(useDesignName);
+    setNameCheck("");
   };
 
   const handleCheckName = (event: { target: { value: React.SetStateAction<string> } }) => {
     const editedName = String(event.target.value);
-    setDesignName(event.target.value);
-    const nameCheck = checkName(editedName, designNames, validation);
-    setNameCheck(nameCheck);
-    setNameError(errorMessage(nameCheck));
+    if (editedName.length > DESIGN_NAME_MAX_CHAR_LENGTH) {
+      setNameCheck(`The design name should less than ${DESIGN_NAME_MAX_CHAR_LENGTH} characters.`);
+    } else {
+      setDesignName(editedName);
+      setNameCheck(checkDesignName(editedName.trim(), designNames));
+    }
   };
 
   const handleSaveAsDesign = async (e: { preventDefault: () => void }) => {
@@ -173,7 +145,7 @@ const SaveBoard: React.FC = () => {
         setFeedback("Saved design failed, please try it again.");
         setSaveDesignModal(true);
       });
-    setNameCheck("existed");
+    setNameCheck("");
     dispatch(changeDesignName(useDesignName));
     mappedDesignData(designData.designName);
     setDialogOpen(false);
@@ -190,6 +162,7 @@ const SaveBoard: React.FC = () => {
           h="44px"
           justifyContent="left"
           onClick={handleSaveDesign}
+          data-testid="save"
         >
           Save
         </Button>
@@ -201,6 +174,7 @@ const SaveBoard: React.FC = () => {
           h="44px"
           justifyContent="left"
           onClick={open}
+          data-testid="sava-as"
         >
           <AlertDialog
             motionPreset="slideInBottom"
@@ -215,16 +189,16 @@ const SaveBoard: React.FC = () => {
               <AlertDialogCloseButton />
               <AlertDialogBody>
                 Your design will be saved in FOLDER.
-                <Text margin="5px 0">
-                  Court Name: {useDesignName}
-                  {useNameError}
-                </Text>
+                <Text margin="5px 0">Court Name: {useDesignName}</Text>
                 <Input
                   marginTop="5px"
                   value={useDesignName}
                   onChange={handleCheckName}
                   placeholder="Make your unique court name."
                 />
+                <Text color="crimson" marginTop="0.2rem" fontSize="0.8rem">
+                  {nameCheck}
+                </Text>
               </AlertDialogBody>
               <AlertDialogFooter>
                 <Button ref={cancelRef} onClick={close} w="75px">
@@ -235,7 +209,7 @@ const SaveBoard: React.FC = () => {
                   color="fontcolor.primary"
                   w="75px"
                   ml={3}
-                  disabled={nameCheck !== "passCheck"}
+                  disabled={nameCheck !== ""}
                   onClick={handleSaveAsDesign}
                   ref={cancelRef}
                   _hover={{ bg: "brand.secondary", opacity: "0.60" }}

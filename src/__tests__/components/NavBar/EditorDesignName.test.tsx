@@ -21,17 +21,35 @@ describe("EditorDesignName", () => {
     expect(spanElement.hidden).toBeTruthy();
     expect(inputElement.hidden).toBeFalsy();
   });
+
+  test("show feedback modal when name is more than 15 characters", () => {
+    renderWithMockedProvider(<EditorDesignName />);
+    const btnElement = screen.getByLabelText("Edit");
+    const inputElement = screen.getByDisplayValue("Court Canva 1");
+
+    userEvent.click(btnElement);
+    userEvent.type(inputElement, "new design court canva");
+    userEvent.click(document.body);
+    const feedbackModal = screen.getByRole("dialog");
+    expect(feedbackModal).toBeInTheDocument();
+    expect(
+      screen.getByText(/The design name should less than 15 characters./i)
+    ).toBeInTheDocument();
+  });
+
   test("show feedback modal when invalid name was input", () => {
     renderWithMockedProvider(<EditorDesignName />);
     const btnElement = screen.getByLabelText("Edit");
     const inputElement = screen.getByDisplayValue("Court Canva 1");
 
     userEvent.click(btnElement);
-    userEvent.type(inputElement, "new design name-!");
+    userEvent.type(inputElement, "design name!");
     userEvent.click(document.body);
     const feedbackModal = screen.getByRole("dialog");
     expect(feedbackModal).toBeInTheDocument();
-    expect(screen.getByText(/not a valid name/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Design name should only contain letter, number and space./i)
+    ).toBeInTheDocument();
 
     const closeBtnEl = screen.getByText("Close");
     userEvent.click(closeBtnEl);
