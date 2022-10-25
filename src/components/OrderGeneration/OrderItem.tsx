@@ -43,7 +43,7 @@ const OrderItem = ({ item, index }: IOrderProps) => {
         <Text fontSize="16px" marginBottom="25px">
           Design Preview
         </Text>
-        <Box width="372px" height="217px">
+        <Box width="372px" height="217px" position="relative">
           <Image src={image} alt="Court image" layout="fill" objectFit="contain" />
         </Box>
       </GridItem>
