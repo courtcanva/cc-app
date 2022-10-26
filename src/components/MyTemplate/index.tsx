@@ -53,17 +53,16 @@ function MyTemplate() {
           flexDirection="column"
           alignItems="center"
         >
-          <Text fontSize="32px" fontWeight="700" textAlign="center">
-            My Template
-          </Text>
           {(quantity as number) > 0 && <MyTemplateContainer myTemplates={myTemplates} />}
           {quantity === 0 && <EmptyTemplate />}
+          <EmptyTemplate />
           <Button
             variant="shareBtn"
             size="lg"
             padding="10px 24px"
             borderRadius="6px"
             onClick={handleReturnToDesign}
+            data-testid="return"
           >
             Return To Design
           </Button>

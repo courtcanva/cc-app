@@ -17,6 +17,7 @@ function MyTemplateListItem({ ...item }) {
       height="300px"
       fontWeight="700"
       boxShadow="4px 4px 8px rgba(0, 0, 0, 0.25), -4px -4px 8px #EBECF0"
+      data-testid="templateListItems"
     >
       <Flex
         borderRight="2px solid #EBECF0"

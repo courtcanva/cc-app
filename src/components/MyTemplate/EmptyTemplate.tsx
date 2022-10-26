@@ -23,11 +23,11 @@ function EmptyTemplate() {
         <Text fontSize="50px" fontWeight="700">
           My Template
         </Text>
-        <Text fontSize="lg" fontWeight="500" role="text" aria-label="paragraph" color="black">
-          You currently have{" "}
+        <Text fontSize="lg" fontWeight="500" color="black" data-testid="emptyText">
+          You currently have
           <Text display="inline" fontWeight="900">
             no items
-          </Text>{" "}
+          </Text>
           in your Template
         </Text>
         {/* <Button

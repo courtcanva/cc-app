@@ -114,10 +114,10 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const { isMyTemplateOpen } = useStoreSelector((state) => state.buttonToggle);
 
   // FIXME: 当open 的时候，要记得把其他的所有状态都设置为false
-  const handleOpenMyTemplate = () => {
-    disPatch(switchMyTemplateDisplay(true));
-    closeWindow();
-  };
+  // const handleOpenMyTemplate = () => {
+  //   disPatch(switchMyTemplateDisplay(true));
+  //   closeWindow();
+  // };
 
   return (
     <>
@@ -212,9 +212,9 @@ function CreateTemplate({ isOpen, onClose }: Props) {
             <Button fontSize="lg" onClick={closeWindow} paddingX="3rem" borderRadius="6px">
               Cancel
             </Button>
-            <Button fontSize="lg" onClick={handleOpenMyTemplate}>
+            {/* <Button fontSize="lg" onClick={handleOpenMyTemplate}>
               Go My Design
-            </Button>
+            </Button> */}
           </Flex>
         </ModalContent>
       </Modal>
