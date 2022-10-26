@@ -1,6 +1,8 @@
 import { ControlPanelSlider } from "./ControlPanelSlider";
-import { ReactNode, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 import { Button, Switch } from "@chakra-ui/react";
+import useDrag from "@/hooks/useDrag";
+
 const Container3D = ({
   stageWidth,
   stageHeight,
@@ -13,6 +15,8 @@ const Container3D = ({
   const [rotateHorizontalDeg, setRotateHorizontalDeg] = useState<number>(1);
   const [rotateVerticalDeg, setRotateVerticalDeg] = useState<number>(40);
   const [switch3D, setSwitch3D] = useState<boolean>(true);
+  const ref = useRef<HTMLDivElement>(null);
+  const [movedPosRefLeft, movedPosRefTop] = useDrag({ ref });
   return (
     <>
       <style jsx>{`
@@ -33,7 +37,9 @@ const Container3D = ({
 
           transform-style: preserve-3d;
           transform-origin: 50% 50%;
-          transform: rotateX(calc(${rotateVerticalDeg} * 1deg)) rotateZ(calc(${rotateHorizontalDeg} * 1deg))
+          transform: rotateX(calc(${rotateVerticalDeg} * ${
+        movedPosRefTop * 0.1
+      } * 1deg)) rotateZ(calc(${rotateHorizontalDeg} * ${movedPosRefLeft} * 1deg))
              translate3d(0, 0, 0) translate(0px, 0px) scale(0.8);
         }
         .hoop_left {
@@ -99,7 +105,7 @@ const Container3D = ({
       </div>
 
       {switch3D ? (
-        <div className="scene_3d">
+        <div className="scene_3d" ref={ref}>
           <div className="court_plane">
             <div className="hoop_left"></div>
             <div className="hoop_right"></div>
