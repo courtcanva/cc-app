@@ -45,3 +45,14 @@ export interface IMyTemplates {
   status: string;
   tags: ITags;
 }
+
+export interface testImyTemplates {
+  _id: string;
+  courtName: string;
+  user_id: string;
+  description: string;
+  image: string;
+  createdAt: string;
+  status: string;
+  tags: ITags;
+}

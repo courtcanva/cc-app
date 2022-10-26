@@ -1,4 +1,4 @@
-import { IMyTemplates } from "@/interfaces/template";
+import { testImyTemplates } from "@/interfaces/template";
 
 export const mockTemplateDataRaw: any = [
   {
@@ -63,8 +63,8 @@ export const mockTemplateDataRaw: any = [
     status: "Published",
     description: "loreamsdhuhihuhuihu",
     tags: {
-      courtType: "PROFULLCOURT",
-      CourtCategory: "basketball",
+      CourtType: "PROFULLCOURT",
+      CourtCategory: "BASKETBALL",
     },
     isDeleted: false,
     __v: 0,
@@ -132,8 +132,8 @@ export const mockTemplateDataRaw: any = [
     status: "Published",
     description: "loreamsdhuhihuhuihu",
     tags: {
-      courtType: "PROFULLCOURT",
-      CourtCategory: "basketball",
+      CourtType: "PROFULLCOURT",
+      CourtCategory: "BASKETBALL",
     },
     __v: 0,
   },
@@ -199,15 +199,15 @@ export const mockTemplateDataRaw: any = [
     status: "Published",
     description: "lorea msdhuhi huhu ihu",
     tags: {
-      courtType: "PROFULLCOURT",
-      CourtCategory: "basketball",
+      CourtType: "PROFULLCOURT",
+      CourtCategory: "BASKETBALL",
     },
     isDeleted: false,
     __v: 0,
   },
 ];
 
-export const mockTemplateData: IMyTemplates[] | undefined = mockTemplateDataRaw.map((item: any) => {
+export const mockTemplateData: testImyTemplates[] = mockTemplateDataRaw.map((item: any) => {
   return {
     _id: item._id,
     courtName: item.design.designName,
