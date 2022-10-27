@@ -16,6 +16,7 @@ function MyTemplate() {
   const currentUserId = useStoreSelector(userData).userId;
   const { data } = useGetTemplatesQuery(currentUserId ? currentUserId : skipToken);
   const quantity = data?.length;
+  console.log(data);
 
   const myTemplates: IMyTemplates[] | undefined = data?.map((item: any) => {
     return {

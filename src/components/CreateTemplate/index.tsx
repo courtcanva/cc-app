@@ -36,8 +36,6 @@ import {
 } from "@/constants/templateCreate";
 import ErrorMsg from "./ErrorMsg";
 import { useDispatch } from "react-redux";
-import { switchMyTemplateDisplay } from "@/store/reducer/buttonToggleSlice";
-import MyTemplate from "../MyTemplate";
 import { upLoadScreenshot } from "@/utils/manageExternalImage";
 import { FcRemoveImage } from "react-icons/fc";
 
@@ -137,13 +135,6 @@ function CreateTemplate({ isOpen, onClose }: Props) {
         return generateToast(title);
       });
   };
-  const { isMyTemplateOpen } = useStoreSelector((state) => state.buttonToggle);
-
-  // FIXME: 当open 的时候，要记得把其他的所有状态都设置为false
-  // const handleOpenMyTemplate = () => {
-  //   disPatch(switchMyTemplateDisplay(true));
-  //   closeWindow();
-  // };
 
   return (
     <>

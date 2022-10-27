@@ -3,8 +3,10 @@ import React from "react";
 import { Flex, Box, Button, Text, Grid, Stack, Badge } from "@chakra-ui/react";
 import moment from "moment";
 import { MdDeleteOutline, MdRemoveRedEye } from "react-icons/md";
+import Image from "next/image";
 
 function MyTemplateListItem({ ...item }) {
+  console.log(item.image);
   return (
     <Grid
       justifyContent="space-around"
@@ -30,8 +32,8 @@ function MyTemplateListItem({ ...item }) {
         alignItems="center"
         color="#000"
       >
-        <Box backgroundColor="orange" width="80%" height="100%" textAlign="center">
-          Img
+        <Box width="80%" height="100%" textAlign="center" position="relative">
+          <Image src={item.image} alt="Court image" layout="fill" objectFit="contain"></Image>
         </Box>
       </Flex>
       <Flex
