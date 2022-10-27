@@ -109,7 +109,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
       return;
     }
     if (!courtDataUrl) {
-      const title = `Fail to get courtDataUrl`;
+      const title = `Fail to generate court preview image`;
       return generateToast(title);
     }
     const imageUrl = await upLoadScreenshot(courtDataUrl, toast);

@@ -1,4 +1,4 @@
-export const generateImageFromDataUrl = async (courtDataUrl: string) => {
+const generateImageFromDataUrl = async (courtDataUrl: string) => {
   const base64 = await fetch(courtDataUrl);
   const blob = await base64.blob();
   return new File([blob], "default", { type: "image/png" });
