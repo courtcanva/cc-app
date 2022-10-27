@@ -84,7 +84,6 @@ describe("Court Specifications Reducer", () => {
     strokeWidth: 200,
     borderLength: 1000,
     designName: "Court Canva 1",
-   
   };
 
   const courtSpecWithIdAndName = {
@@ -101,7 +100,6 @@ describe("Court Specifications Reducer", () => {
     strokeWidth: 200,
     borderLength: 1000,
     designName: "CourtCanva 2",
-    
   };
 
   const designData = {
