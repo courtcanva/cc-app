@@ -24,21 +24,15 @@ function EmptyTemplate() {
           My Template
         </Text>
         <Text fontSize="lg" fontWeight="500" color="black" data-testid="emptyText">
-          You currently have
+          You currently have{" "}
           <Text display="inline" fontWeight="900">
-            no items
+            no items{" "}
           </Text>
           in your Template
         </Text>
-        {/* <Button
-          aria-label="ReturnHomeBtn"
-          variant="shareBtn"
-          size="lg"
-          padding="10px 20px"
-          onClick={handleReturnToDesign}
-        >
+        <Button variant="shareBtn" size="lg" padding="10px 20px" onClick={handleReturnToDesign}>
           RETURN TO DESIGN
-        </Button> */}
+        </Button>
       </Flex>
     </Flex>
   );

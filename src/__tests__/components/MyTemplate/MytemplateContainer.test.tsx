@@ -18,7 +18,7 @@ describe("MyTemplate component", () => {
     expect(listItems.length).toBe(templateLength);
   });
 
-  it("Should render correct the item data of template items", () => {
+  it("Should render correct item data of template items", () => {
     renderWithMockedProvider(<MyTemplateContainer myTemplates={mockTemplateData} />);
     const listItems = screen.getAllByTestId("templateListItems");
     listItems.forEach((item, index) => {
@@ -30,6 +30,14 @@ describe("MyTemplate component", () => {
       expect(within(item).getByText(mockTemplateData[index].status)).toBeVisible();
       expect(within(item).getByText(mockTemplateData[index].tags.CourtCategory)).toBeVisible();
       expect(within(item).getByText(mockTemplateData[index].tags.CourtType)).toBeVisible();
+      expect(within(item).getByRole("button", { name: "Delete" })).toBeVisible();
+      expect(within(item).getByRole("button", { name: "Undisplayed" })).toBeVisible();
     });
+  });
+
+  it("Should render return to design button", async () => {
+    renderWithMockedProvider(<MyTemplateContainer myTemplates={mockTemplateData} />);
+    const returnBtn = screen.getByRole("button", { name: "RETURN TO DESIGN" });
+    expect(returnBtn).toBeVisible();
   });
 });

@@ -8,8 +8,6 @@ import { useGetTemplatesQuery } from "@/redux/api/templateApi";
 import { userData } from "@/store/reducer/userSlice";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import { IMyTemplates } from "@/interfaces/template";
-import { useDispatch } from "react-redux";
-import { switchMyTemplateDisplay } from "@/store/reducer/buttonToggleSlice";
 
 function MyTemplate() {
   const isMyTemplateOpen = useStoreSelector((state) => state.buttonToggle.isMyTemplateOpen);
@@ -32,10 +30,6 @@ function MyTemplate() {
     };
   });
 
-  const disPatch = useDispatch();
-  const handleReturnToDesign = () => {
-    disPatch(switchMyTemplateDisplay(false));
-  };
   return (
     <>
       {isMyTemplateOpen && currentUserId && !isCreateTemplateOpen && !isCartOpen && (
@@ -55,17 +49,6 @@ function MyTemplate() {
         >
           {(quantity as number) > 0 && <MyTemplateContainer myTemplates={myTemplates} />}
           {quantity === 0 && <EmptyTemplate />}
-          <EmptyTemplate />
-          <Button
-            variant="shareBtn"
-            size="lg"
-            padding="10px 24px"
-            borderRadius="6px"
-            onClick={handleReturnToDesign}
-            data-testid="return"
-          >
-            Return To Design
-          </Button>
         </Flex>
       )}
     </>

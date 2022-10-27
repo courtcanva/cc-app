@@ -47,6 +47,20 @@ const buttonStyles = {
       _hover: { bg: "button.hover" },
       _active: { bg: "button.active" },
     },
+    displayBtn: {
+      bg: "white",
+      border: "1px",
+      borderColor: "background.primary",
+      color: "#2C4E8A",
+      _hover: { bg: "#2C4E8A", opacity: "0.60", color: "white" },
+      _active: { bg: "#2C4E8A", opacity: "0.60" },
+    },
+    deleteBtn: {
+      bg: "#C13D46",
+      color: "white",
+      _hover: { bg: "#C13D46", opacity: "0.60" },
+      _active: { bg: "#C13D46", opacity: "0.60" },
+    },
   },
 };
 

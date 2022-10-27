@@ -9,6 +9,7 @@ function MyTemplateListItem({ ...item }) {
     <Grid
       justifyContent="space-around"
       alignItems="center"
+      width="1200px"
       margin="auto 120px"
       padding="1rem"
       placeItems="center"
@@ -27,20 +28,35 @@ function MyTemplateListItem({ ...item }) {
         height="100%"
         justifyContent="center"
         alignItems="center"
+        color="#000"
       >
         <Box backgroundColor="orange" width="80%" height="100%" textAlign="center">
           Img
         </Box>
       </Flex>
-      <Flex flexDirection="column" maxWidth="15rem" overflow="hidden" height="100%" gap="10px">
-        <Text fontSize="24px" fontWeight={700} whiteSpace="pre-wrap" width="100%" color="#344C5C">
+      <Flex
+        flexDirection="column"
+        maxWidth="15rem"
+        overflow="hidden"
+        height="100%"
+        gap="10px"
+        position="relative"
+      >
+        <Text
+          fontSize="24px"
+          fontWeight={700}
+          whiteSpace="pre-wrap"
+          width="100%"
+          color="#344C5C"
+          paddingTop="1rem"
+        >
           {item.courtName}
         </Text>
         <Stack direction="row" marginTop="00px">
-          <Badge backgroundColor="#7c9fdf" fontSize="12px">
+          <Badge backgroundColor="tag.courtCategory" fontSize="12px">
             {item.tags.CourtCategory}
           </Badge>
-          <Badge backgroundColor="#E18E11" fontSize="12px">
+          <Badge backgroundColor="tag.courtType" fontSize="12px">
             {item.tags.CourtType}
           </Badge>
         </Stack>
@@ -49,9 +65,10 @@ function MyTemplateListItem({ ...item }) {
             Status
           </Text>
           <Text
+            marginTop="0"
             fontSize="16px"
             lineHeight="20px"
-            color={item.status === "published" ? "green" : "gray"}
+            color={item.status === "published" ? "CourtSizecolor.btc" : "fontcolor.quaternary"}
           >
             {item.status}
           </Text>
@@ -62,28 +79,23 @@ function MyTemplateListItem({ ...item }) {
           </Text>
           <Text fontSize="16px">{moment(item.createdAt).format("DD/MM/YYYY")}</Text>
         </Box>
-        <Text fontSize="xs" fontWeight="400">
+        <Text
+          fontSize="xs"
+          fontWeight="400"
+          marginTop="12px"
+          textOverflow="ellipsis
+        "
+        >
           {item.description}
         </Text>
       </Flex>
 
-      <Flex gap="1rem" flexDirection="column">
-        <Button
-          leftIcon={<MdDeleteOutline />}
-          backgroundColor="#C13D46"
-          variant="solid"
-          color="white"
-        >
+      <Flex gap="28px" flexDirection="column">
+        <Button leftIcon={<MdDeleteOutline />} variant="deleteBtn">
           Delete
         </Button>
-        {/* FIXME: UPDATE COLOR THEME and button color */}
-        <Button
-          leftIcon={<MdRemoveRedEye />}
-          variant="outline"
-          color="#2C4E8A"
-          border="2px solid #2C4E8A"
-        >
-          Display
+        <Button leftIcon={<MdRemoveRedEye />} variant="displayBtn">
+          Undisplayed
         </Button>
       </Flex>
     </Grid>
