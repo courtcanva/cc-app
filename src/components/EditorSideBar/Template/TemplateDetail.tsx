@@ -1,24 +1,36 @@
-import { ITemplateDataDb } from "@/interfaces/template";
+import { ITags } from "@/interfaces/template";
 import {
   Button,
   Modal,
   ModalContent,
-  ModalHeader,
   ModalBody,
   Flex,
   Box,
   Text,
   Icon,
   ModalOverlay,
+  ModalFooter,
 } from "@chakra-ui/react";
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import CourtTags from "./CourtTags";
+import courtPic from "../courtImg.png";
+import Image from "next/image";
+import { IDesign } from "@/interfaces/design";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  template: Omit<ITemplateDataDb, "__v" | "isDeleted">;
+  template: TemplateItem;
+}
+
+interface TemplateItem {
+  userId: string;
+  description: string | null | undefined;
+  courtImgUrl: string;
+  createDate: string;
+  tags: ITags;
+  designDetail: IDesign;
 }
 
 const TemplateDetail = ({ isOpen, onClose, template }: Props) => {
@@ -26,52 +38,62 @@ const TemplateDetail = ({ isOpen, onClose, template }: Props) => {
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent marginTop="30vh">
-          <ModalHeader fontSize="2xl">{template.design.designName}</ModalHeader>
-          <ModalBody>
-            <Flex>
-              <Box marginRight="1em" width="80%">
-                <Text fontSize="lg" fontWeight="bold">
-                  Description:
+        <ModalContent marginTop="74px" width="480px">
+          <ModalBody marginX="1em" marginTop="2em">
+            <Box width="full" height="280px" marginBottom="1em" position="relative">
+              <Image src={courtPic} layout="fill" objectFit="contain" />
+            </Box>
+
+            <Box marginBottom="0.2em">
+              <Text color="black" fontSize="1.3em" fontWeight="700" line-height="15px">
+                {template.designDetail.designName}
+              </Text>
+              <Text
+                color="black"
+                fontSize="1em"
+                marginY="1.1em"
+                fontWeight="400"
+                line-height="15px"
+              >
+                {template.description}
+              </Text>
+              <Flex width="full" marginY="0.5em" gap="2em">
+                <CourtTags tags={template.tags} />
+              </Flex>
+            </Box>
+
+            <Box>
+              <Text fontStyle="italic" fontSize="0.8em">
+                Publisher
+              </Text>
+              <Flex margin="0.5em" alignItems="center" gap="5px">
+                <Icon as={FaUserCircle} fontSize="2.5rem" />
+                <Text
+                  fontSize="large"
+                  fontWeight="500"
+                  whiteSpace="nowrap"
+                  overflow="hidden"
+                  textOverflow="ellipsis"
+                >
+                  {"Anonymous"}
                 </Text>
-                <Text fontSize="lg">
-                  {template.description
-                    ? template.description
-                    : "Creater is too lazy to write a discription."}
-                </Text>
-              </Box>
-              <Box>
-                <Text fontSize="lg" fontWeight="bold">
-                  Publisher:
-                </Text>
-                <Flex margin="0.5em">
-                  <Icon as={FaUserCircle} fontSize="2.5rem" marginRight="1.8rem" />
-                  <Text
-                    fontSize="large"
-                    fontWeight="500"
-                    whiteSpace="nowrap"
-                    overflow="hidden"
-                    textOverflow="ellipsis"
-                  >
-                    {"Anonymous"}
-                  </Text>
-                </Flex>
-                <Box width="100%" margin="0">
-                  <CourtTags tags={template.tags} />
-                </Box>
-                <Text fontSize="lg" fontWeight="bold">
-                  Create at:
-                </Text>
-                <Text fontSize="lg" fontWeight="500">
-                  {template.createdAt.split("T")[0]}
-                </Text>
-              </Box>
-            </Flex>
+              </Flex>
+
+              <Text fontStyle="italic" fontSize="0.8em">
+                Created at
+              </Text>
+              <Text fontWeight="700">{template.createDate}</Text>
+            </Box>
           </ModalBody>
 
-          <Button variant="shareBtn" onClick={onClose} width="8em" margin="1em auto">
-            Use
-          </Button>
+          <ModalFooter justifyContent="space-around">
+            <Button variant="outline" colorScheme="teal" onClick={onClose} width="8em" autoFocus>
+              Back
+            </Button>
+            <Button variant="shareBtn" onClick={onClose} width="8em" autoFocus>
+              Use
+            </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

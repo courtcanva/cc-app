@@ -5,14 +5,14 @@ interface Props {
 }
 const CourtTags = (prop: Props) => {
   return (
-    <Flex width="80%" wrap="wrap" gap="1em">
-      <Tag size="sm" variant="solid" colorScheme="orange">
-        {prop.tags.CourtType.toUpperCase()}
-      </Tag>
-      <Tag size="sm" variant="solid" colorScheme="purple">
+    <>
+      <Tag size="sm" borderRadius="0" variant="solid" colorScheme="purple">
         {prop.tags.CourtCategory.toUpperCase()}
       </Tag>
-    </Flex>
+      <Tag size="sm" borderRadius="0" variant="solid" colorScheme="orange">
+        {prop.tags.CourtType.toUpperCase()}
+      </Tag>
+    </>
   );
 };
 export default CourtTags;
