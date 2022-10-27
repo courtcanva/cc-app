@@ -1,7 +1,4 @@
-import { Flex, Button, IconButton, Grid, Tooltip, Box } from "@chakra-ui/react";
-import { Menu, MenuButton, MenuList, MenuItem, MenuDivider, MenuGroup } from "@chakra-ui/react";
-import { FaRegUser } from "react-icons/fa";
-import { BiChevronDown } from "react-icons/bi";
+import { Flex, Button, IconButton, Grid, Tooltip, Box, useDisclosure } from "@chakra-ui/react";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import { BsArrowCounterclockwise } from "react-icons/bs";
@@ -33,7 +30,7 @@ import {
 } from "@/store/reducer/buttonToggleSlice";
 import { useHandleLocalStorageItem } from "@/hooks/useHandleLocalStorage";
 import CreateTemplate from "../CreateTemplate";
-import { profileLists } from "@/constants/profileLists";
+import Profile from "./Profile";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -42,6 +39,7 @@ const NavigationBar = () => {
   );
   const { userLogout, updateToken } = useAuthRequest();
   const { getLocalStorageItem } = useHandleLocalStorageItem();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   // Get user info from local storage
   const getInfo = () => {
@@ -140,6 +138,7 @@ const NavigationBar = () => {
       minW="768px"
       w="100vw"
       position="fixed"
+      zIndex={1}
     >
       <Flex alignItems="center">
         <Link href={HOME_PAGE_LINK} passHref>
@@ -187,33 +186,7 @@ const NavigationBar = () => {
         {!loginState ? (
           <Button onClick={handleLoginModalOpen}>Sign up / Login</Button>
         ) : (
-          <Menu closeOnSelect={false}>
-            <MenuButton
-              as={IconButton}
-              aria-label="User information"
-              icon={<FaRegUser />}
-              // rightIcon={<BiChevronDown />}
-              variant="navbarIconBtn"
-              bg="background.tertiary"
-              color="brand.primary"
-              marginRight="10px"
-              isRound
-              // onClick={handleLogout}
-            />
-            <MenuList position="absolute" left="-44px" zIndex="2000">
-              {profileLists.map((item) => (
-                <MenuGroup key={item}>
-                  <MenuItem marginLeft="10px">{item}</MenuItem>
-                  <MenuDivider />
-                </MenuGroup>
-              ))}
-              <MenuGroup>
-                <MenuItem marginLeft="10px" onClick={handleLogout}>
-                  Sign Out
-                </MenuItem>
-              </MenuGroup>
-            </MenuList>
-          </Menu>
+          <Profile isOpen={isOpen} onOpen={onOpen} onClose={onClose} handleLogout={handleLogout} />
         )}
         <LoginModalContent
           isOpen={isLoginModalOpen}
