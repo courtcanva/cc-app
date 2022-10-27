@@ -1,6 +1,7 @@
 import { Flex, Button, IconButton, Grid, Tooltip, Box } from "@chakra-ui/react";
-import { Menu, MenuButton } from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem, MenuDivider, MenuGroup } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
+import { BiChevronDown } from "react-icons/bi";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import { BsArrowCounterclockwise } from "react-icons/bs";
@@ -32,6 +33,7 @@ import {
 } from "@/store/reducer/buttonToggleSlice";
 import { useHandleLocalStorageItem } from "@/hooks/useHandleLocalStorage";
 import CreateTemplate from "../CreateTemplate";
+import { profileLists } from "@/constants/profileLists";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -183,21 +185,35 @@ const NavigationBar = () => {
       {!isCartOpen ? <EditorDesignName /> : <Box></Box>}
       <Flex alignItems="center" justifyContent="flex-end">
         {!loginState ? (
-          <Menu>
+          <Button onClick={handleLoginModalOpen}>Sign up / Login</Button>
+        ) : (
+          <Menu closeOnSelect={false}>
             <MenuButton
               as={IconButton}
               aria-label="User information"
               icon={<FaRegUser />}
+              // rightIcon={<BiChevronDown />}
               variant="navbarIconBtn"
               bg="background.tertiary"
               color="brand.primary"
               marginRight="10px"
               isRound
-              onClick={handleLoginModalOpen}
-            ></MenuButton>
+              // onClick={handleLogout}
+            />
+            <MenuList position="absolute" left="-44px" zIndex="2000">
+              {profileLists.map((item) => (
+                <MenuGroup key={item}>
+                  <MenuItem marginLeft="10px">{item}</MenuItem>
+                  <MenuDivider />
+                </MenuGroup>
+              ))}
+              <MenuGroup>
+                <MenuItem marginLeft="10px" onClick={handleLogout}>
+                  Sign Out
+                </MenuItem>
+              </MenuGroup>
+            </MenuList>
           </Menu>
-        ) : (
-          <Button onClick={handleLogout}>Sign out</Button>
         )}
         <LoginModalContent
           isOpen={isLoginModalOpen}
