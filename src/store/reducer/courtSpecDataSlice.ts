@@ -46,8 +46,8 @@ export const initialState: CourtSpec = {
     circleRadius: 1800,
     strokeWidth: 200,
     borderLength: 1000,
-    customizeCourtAreaXLength: undefined,
-    customizeCourtAreaYLength: undefined,
+    customizeCourtAreaXLength: 0,
+    customizeCourtAreaYLength: 0,
     designName: "Court Canva 1",
   },
   isLoading: true,
@@ -75,12 +75,12 @@ export const Slice = createSlice({
       state.activeCourt = { ...state.activeCourt, borderLength: action.payload };
       return state;
     },
-    setNewCourtAreaXLength: (state: CourtSpec, action?: PayloadAction<number>) => {
-      state.activeCourt = { ...state.activeCourt, customizeCourtAreaXLength: action?.payload };
+    setNewCourtAreaXLength: (state: CourtSpec, action: PayloadAction<number>) => {
+      state.activeCourt = { ...state.activeCourt, customizeCourtAreaXLength: action.payload };
       return state;
     },
-    setNewCourtAreaYLength: (state: CourtSpec, action?: PayloadAction<number>) => {
-      state.activeCourt = { ...state.activeCourt, customizeCourtAreaYLength: action?.payload };
+    setNewCourtAreaYLength: (state: CourtSpec, action: PayloadAction<number>) => {
+      state.activeCourt = { ...state.activeCourt, customizeCourtAreaYLength: action.payload };
       return state;
     },
     setActiveDesign: (state, action: PayloadAction<string>) => {

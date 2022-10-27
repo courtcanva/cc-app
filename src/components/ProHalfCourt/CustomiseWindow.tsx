@@ -10,45 +10,60 @@ import {
   Spacer,
   useDisclosure,
   Text,
-  ButtonGroup,
   FormHelperText,
+  Stack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BiChevronDown, BiChevronUp, BiPencil } from "react-icons/bi";
-// inputWidth={clipWidth} setInputWidth={setClipWidth} inputLength = {clipLength} setInputLength={setClipLength
-const CustomiseWindow = ({ setInputWidth, setInputLength }: any) => {
+const CustomiseWindow = ({
+  setInputWidth,
+  setInputLength,
+}: {
+  setInputWidth: React.Dispatch<React.SetStateAction<number>>;
+  setInputLength: React.Dispatch<React.SetStateAction<number>>;
+}) => {
   const { isOpen, onToggle } = useDisclosure();
-
-  const [widthValue, setWidthValue] = useState("");
-  const [hightValue, setHightValue] = useState("");
+  const [widthValue, setWidthValue] = useState(-1);
+  const [lengthValue, setLengthValue] = useState(-1);
   const [isValid, setIsValid] = useState(true);
 
-  const handleInput = () => {
-    if (Number(widthValue) < 2 || Number(hightValue) < 2) {
-      setIsValid(false);
-    } else if (Number(widthValue) > 14 || Number(hightValue) > 15) {
-      setIsValid(false);
-    } else {
-      setIsValid(true);
-      setInputWidth(widthValue);
-      setInputLength(hightValue);
-    }
+  const inRange = (number: number, maxNum: number, minNum: number): boolean => {
+    return Math.min(maxNum, minNum) <= number && Math.max(maxNum, minNum) >= number;
   };
+  const handleInput = () => {
+    inRange(widthValue, 14, 2) && inRange(lengthValue, 15, 2)
+      ? (setIsValid(true), setInputWidth(widthValue), setInputLength(lengthValue))
+      : setIsValid(false);
+  };
+
   const resetHandle = () => {
-    setWidthValue("");
-    setHightValue("");
-    setInputWidth("");
-    setInputLength("");
+    setWidthValue(-1);
+    setLengthValue(-1);
+    setInputWidth(0);
+    setInputLength(0);
     setIsValid(true);
   };
+
+  const enterPress = (event: any) => {
+    if (event.key === "Enter" && widthValue !== -1 && lengthValue !== -1) {
+      event.preventDefault();
+      handleInput();
+    }
+  };
+
+  const inputWidthBlur = () => {
+    inRange(widthValue, 14, 2) || widthValue === -1 ? setIsValid(true) : setIsValid(false);
+  };
+  const inputHeightBlur = () => {
+    inRange(lengthValue, 15, 2) || lengthValue === -1 ? setIsValid(true) : setIsValid(false);
+  };
   return (
-    <Box position="fixed" right={0} bottom="109px">
+    <Box position="fixed" right={0} bottom="104px" cursor="default" width="20vw" minWidth="280px">
       <Flex
-        backgroundColor="#2C4E8A"
-        width="20vw"
+        backgroundColor="background.primary"
+        width="100%"
         height="5vh"
-        zIndex="2"
-        padding="5"
+        padding={5}
         alignItems="center"
         fontSize="xl"
         onClick={onToggle}
@@ -65,52 +80,57 @@ const CustomiseWindow = ({ setInputWidth, setInputLength }: any) => {
       <Collapse in={isOpen} animateOpacity>
         <Flex
           direction="column"
-          width="20vw"
+          width="100%"
           padding={5}
-          border="1px solid #2C4E8A"
-          height={360}
+          height={366}
+          borderLeft="1px solid #2C4E8A"
           backgroundColor="white"
         >
-          <FormControl isRequired colorScheme="blackAlpha">
+          <FormControl isRequired colorScheme="blackAlpha" paddingBottom={3}>
             <FormLabel color="black">Width</FormLabel>
             <Input
               variant="filled"
-              marginBottom={8}
-              value={widthValue}
+              marginBottom={3}
+              value={widthValue === -1 ? "" : widthValue}
               onChange={(e) => {
-                setWidthValue(e.target.value);
+                e.target.value ? setWidthValue(Number(e.target.value)) : setWidthValue(-1);
               }}
               type="number"
+              onKeyPress={enterPress}
+              onBlur={inputWidthBlur}
             />
             <FormLabel color="black">Length</FormLabel>
             <Input
               variant="filled"
-              value={hightValue}
+              value={lengthValue === -1 ? "" : lengthValue}
               onChange={(e) => {
-                setHightValue(e.target.value);
+                e.target.value ? setLengthValue(Number(e.target.value)) : setLengthValue(-1);
               }}
               type="number"
+              onKeyPress={enterPress}
+              onBlur={inputHeightBlur}
+              marginBottom={2}
             />
             {!isValid && (
               <FormHelperText width="100%" color="red">
-                Width must be between 2m and 14 and Length must be between 2m and 15m.{" "}
+                Width must be between 2m and 14m and length must be between 2m and 15m.
               </FormHelperText>
             )}
           </FormControl>
           <Spacer />
-          <ButtonGroup flexDirection="column" gap={5} alignItems="center">
+          <Stack direction="column" spacing={5}>
             <Button
               colorScheme="blue"
               width="100%"
-              isDisabled={widthValue === "" || hightValue === ""}
+              isDisabled={widthValue === -1 || lengthValue === -1}
               onClick={handleInput}
             >
               Set
             </Button>
-            <Button colorScheme="blue" width="100%" onClick={resetHandle}>
+            <Button colorScheme="orange" width="100%" onClick={resetHandle}>
               Reset
             </Button>
-          </ButtonGroup>
+          </Stack>
         </Flex>
       </Collapse>
     </Box>

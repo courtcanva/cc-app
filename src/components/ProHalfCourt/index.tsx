@@ -1,5 +1,5 @@
-import { Stage, Layer, Group, Line } from "react-konva";
-import { Box, Flex } from "@chakra-ui/react";
+import { Stage, Layer, Group } from "react-konva";
+import { Flex } from "@chakra-ui/react";
 import { ReactReduxContext, Provider, useDispatch } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
@@ -18,16 +18,17 @@ import useImageDataUrl from "@/hooks/useImageDataUrl";
 import CustomiseWindow from "./CustomiseWindow";
 import CustomiseCourtDimension from "./CustomiseCourtDimension";
 import { setNewCourtAreaYLength, setNewCourtAreaXLength } from "@/store/reducer/courtSpecDataSlice";
+import CustomiseBorder from "../BasketballCourt/CustomiseBorder";
 
 const ProHalfCourt = () => {
   const dispatch = useDispatch();
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
   const ref = useRef<any>(null);
-  const [clipWidth, setClipWidth] = useState("");
-  const [clipLength, setClipLength] = useState("");
+  const [clipWidth, setClipWidth] = useState(0);
+  const [clipLength, setClipLength] = useState(0);
   useEffect(() => {
-    dispatch(setNewCourtAreaXLength(Number(clipWidth) * 1000));
-    dispatch(setNewCourtAreaYLength(Number(clipLength) * 1000));
+    dispatch(setNewCourtAreaXLength(clipWidth * 1000));
+    dispatch(setNewCourtAreaYLength(clipLength * 1000));
   }, [clipWidth, clipLength]);
 
   const zoomShift: IZoomShift = {
@@ -83,19 +84,28 @@ const ProHalfCourt = () => {
           >
             <Provider store={store}>
               <Layer>
-                {Number(clipLength) * Number(clipWidth) !== 0 && (
-                  <CustomiseCourtDimension
-                    startPoint={courtStartPoint}
-                    borderLength={borderLength}
-                    inputX={clipWidth}
-                    inputY={clipLength}
-                  />
+                {clipLength * clipWidth !== 0 && (
+                  <>
+                    <CustomiseBorder
+                      startPoint={courtStartPoint}
+                      borderLength={borderLength}
+                      customizeXLength={clipWidth}
+                      customizeYLength={clipLength}
+                      courtAreaYLength={courtAreaYLength}
+                    />
+                    <CustomiseCourtDimension
+                      startPoint={courtStartPoint}
+                      borderLength={borderLength}
+                      inputX={clipWidth}
+                      inputY={clipLength}
+                    />
+                  </>
                 )}
                 <Group
                   clipX={courtStartPoint.X}
-                  clipY={courtStartPoint.Y + courtAreaYLength / 2 - (Number(clipLength) * 1000) / 2}
-                  clipHeight={Number(clipLength) * 1000}
-                  clipWidth={Number(clipWidth) * 1000}
+                  clipY={courtStartPoint.Y + courtAreaYLength / 2 - (clipLength * 1000) / 2}
+                  clipHeight={clipLength * 1000}
+                  clipWidth={clipWidth * 1000}
                 >
                   <Border
                     startPoint={courtStartPoint}

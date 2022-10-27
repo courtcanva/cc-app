@@ -6,8 +6,8 @@ import { Arrow, Text } from "react-konva";
 type CustomiseCourtDimensionPro = {
   startPoint: ICourtStartPoint;
   borderLength: number;
-  inputX: string;
-  inputY: string;
+  inputX: number;
+  inputY: number;
 };
 const CustomiseCourtDimension = ({
   startPoint,
@@ -15,9 +15,7 @@ const CustomiseCourtDimension = ({
   inputX,
   inputY,
 }: CustomiseCourtDimensionPro) => {
-  const { courtAreaYLength, courtAreaXLength } = useStoreSelector(
-    (state) => state.courtSpecData.activeCourt
-  );
+  const { courtAreaYLength } = useStoreSelector((state) => state.courtSpecData.activeCourt);
   const { isRulerOn } = useStoreSelector((state) => state.buttonToggle);
   const dimensionColor = borderLength < MIN_DIMENSION_BOX ? "black" : "white";
   const borderSize = borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : borderLength;
