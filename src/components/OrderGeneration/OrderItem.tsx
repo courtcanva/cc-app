@@ -23,59 +23,63 @@ const OrderItem = ({ item, index }: IOrderProps) => {
 
   return (
     <Grid
+      templateColumns="5fr 7.84fr"
       templateRows="repeat(6, 1fr)"
-      templateColumns="repeat(3, 1fr)"
-      rounded="2xl"
+      rounded="20px"
       height="420px"
       fontWeight="700"
       boxShadow="4px 4px 8px rgba(0, 0, 0, 0.25), -4px -4px 8px #EBECF0"
+      maxWidth="1284px"
     >
       <GridItem
-        colSpan={3}
-        rowSpan={1}
-        padding="19px 64px"
+        colSpan={2}
+        padding={{ base: "19px 16px", lg: "19px 46px", xl: "19px 76px" }}
         fontSize="24px"
-        borderBottom="1px #e2e1e1 solid"
+        borderBottom="2px solid #EBECF0"
       >
         Qutation {index + 1}
       </GridItem>
-      <GridItem colSpan={1} rowSpan={5} padding="30px 64px" borderRight="1px #e2e1e1 solid">
+      <GridItem
+        rowSpan={5}
+        padding={{ base: "44px 16px", lg: "44px 46px", xl: "44px 76px" }}
+        borderRight="2px solid #EBECF0"
+      >
         <Text fontSize="16px" marginBottom="25px">
           Design Preview
         </Text>
-        <Box width="372px" height="217px" position="relative">
+        <Box width="100%" height="217px" position="relative" borderWidth="2px">
           <Image src={image} alt="Court image" layout="fill" objectFit="contain" />
         </Box>
       </GridItem>
-      <GridItem colSpan={2} padding="30px 64px" borderBottom="1px #e2e1e1 solid">
+      <GridItem padding={{ base: "30px 14px", md: "30px 44px" }} borderBottom="2px solid #EBECF0">
         <Flex alignItems="center">
           <Text fontSize="16px" flex="2 1 0">
             Design Name
           </Text>
           <Spacer />
-          <Text fontSize="14px" fontWeight="500!important" flex="1.2 1 0">
+          <Text fontSize="14px" fontWeight="500" flex="1.6 1 0">
             {designName}
           </Text>
         </Flex>
       </GridItem>
-      <GridItem colSpan={2} padding="30px 64px" borderBottom="1px #e2e1e1 solid">
+      <GridItem padding={{ base: "30px 14px", md: "30px 44px" }} borderBottom="2px solid #EBECF0">
         <Flex alignItems="center">
           <Text fontSize="16px" flex="2 1 0">
             Quotation
           </Text>
           <Spacer />
-          <Text fontSize="14px" fontWeight="500!important" flex="1.2 1 0">
-            AU${quotation}
+          <Text fontSize="14px" fontWeight="500" flex="1.6 1 0">
+            A${quotation}
           </Text>
         </Flex>
       </GridItem>
-      <GridItem colSpan={2} rowSpan={3} padding="30px 64px ">
+      <GridItem rowSpan={3} padding={{ base: "30px 16px", md: "30px 44px" }}>
         <Flex>
           <Text fontSize="16px" flex="2 1 0">
             Details
           </Text>
           <Spacer />
-          <UnorderedList fontSize="14px" fontWeight="500!important" flex="1.2 1 0 ">
+          <UnorderedList fontSize="14px" fontWeight="500" flex="1.6 1 0 " marginLeft="40px">
             <ListItem>
               Court material
               <br /> Tiles({lengthInMeter}m*{widthInMeter}m, {name})

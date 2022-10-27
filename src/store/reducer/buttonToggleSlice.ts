@@ -35,7 +35,7 @@ export const ButtonToggleSlice = createSlice({
     switchCartDisplay: (state: ButtonToggleState) => {
       return {
         ...state,
-        isCartOpen: !state.isCartOpen,
+        isCartOpen: state.isOrderGenerationOpen || !state.isCartOpen,
         isSideBarOpen: false,
         isOrderGenerationOpen: false,
       };

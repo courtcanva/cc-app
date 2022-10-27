@@ -47,7 +47,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
   const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
 
   const handleCreateOrder = () => {
-    const orders = shoppingCart.filter((e, index) => checkedItems[index] === true);
+    const orders = shoppingCart.filter((e, index) => checkedItems[index]);
     dispatch(addOrderItems(orders));
     dispatch(switchOrderGeneration(true));
   };

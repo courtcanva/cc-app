@@ -29,10 +29,12 @@ const CartListItem = ({
     isExpired,
   } = item;
 
-  const handleCheckBox = (e: { target: { checked: boolean } }) => {
-    const newCheckedItems = [...checkedItems];
-    newCheckedItems[index] = e.target.checked;
-    setCheckedItems(newCheckedItems);
+  const handleCheckBox = () => {
+    setCheckedItems(
+      checkedItems.map((item, i) => {
+        return index === i ? !item : item;
+      })
+    );
   };
 
   return (

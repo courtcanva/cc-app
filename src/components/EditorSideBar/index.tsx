@@ -43,54 +43,50 @@ const EditorSideBar = () => {
   };
 
   return (
-    <>
-      {isOrderGenerationOpen || (
-        <Box>
-          <Box bg="background.secondary" w="98px" h="100vh" position="fixed" top="72px" left="0">
-            <Flex
-              alignItems="center"
-              justifyContent="center"
-              flexDirection="column"
-              maxW="98px"
-              h="calc(100% - 305px)"
-            >
-              {sideBarItemList.map((item) => (
-                <EditorSideBarItem
-                  key={item.title}
-                  title={item.title}
-                  icon={item.icon}
-                  onHandleIconClick={() => handleIconClick(item.title)}
-                  iconClickTitle={iconClickTitle}
-                />
-              ))}
-            </Flex>
-            <Flex
-              flexDirection="column"
-              alignItems="center"
-              margin="180px auto 0 auto"
-              color="fontcolor.primary"
-              fontSize="x-small"
-              fontWeight="bold"
-            >
-              <AiOutlineTeam size="24px" />
-              <Link href="/team">
-                <Flex flexDirection="row" alignItems="center">
-                  <Text paddingRight="5px">Our Team </Text>
-                  <RiShareBoxLine />
-                </Flex>
-              </Link>
-            </Flex>
-          </Box>
-
-          {isSideBarOpen && (
-            <EditorSideBarContent
+    <Box>
+      <Box bg="background.secondary" w="98px" h="100vh" position="fixed" top="72px" left="0">
+        <Flex
+          alignItems="center"
+          justifyContent="center"
+          flexDirection="column"
+          maxW="98px"
+          h="calc(100% - 305px)"
+        >
+          {sideBarItemList.map((item) => (
+            <EditorSideBarItem
+              key={item.title}
+              title={item.title}
+              icon={item.icon}
+              onHandleIconClick={() => handleIconClick(item.title)}
               iconClickTitle={iconClickTitle}
-              onHandleCloseClick={handleCloseClick}
             />
-          )}
-        </Box>
+          ))}
+        </Flex>
+        <Flex
+          flexDirection="column"
+          alignItems="center"
+          margin="180px auto 0 auto"
+          color="fontcolor.primary"
+          fontSize="x-small"
+          fontWeight="bold"
+        >
+          <AiOutlineTeam size="24px" />
+          <Link href="/team">
+            <Flex flexDirection="row" alignItems="center">
+              <Text paddingRight="5px">Our Team </Text>
+              <RiShareBoxLine />
+            </Flex>
+          </Link>
+        </Flex>
+      </Box>
+
+      {isSideBarOpen && (
+        <EditorSideBarContent
+          iconClickTitle={iconClickTitle}
+          onHandleCloseClick={handleCloseClick}
+        />
       )}
-    </>
+    </Box>
   );
 };
 
