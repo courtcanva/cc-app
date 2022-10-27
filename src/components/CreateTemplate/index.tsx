@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 import { useStoreSelector } from "@/store/hooks";
+import Image from "next/image";
 import {
   Button,
   Modal,
@@ -20,6 +21,7 @@ import {
   useDisclosure,
   FormHelperText,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
@@ -36,6 +38,8 @@ import ErrorMsg from "./ErrorMsg";
 import { useDispatch } from "react-redux";
 import { switchMyTemplateDisplay } from "@/store/reducer/buttonToggleSlice";
 import MyTemplate from "../MyTemplate";
+import { upLoadScreenshot } from "@/utils/manageExternalImage";
+import { FcRemoveImage } from "react-icons/fc";
 
 interface Props {
   isOpen: boolean;
@@ -50,7 +54,10 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const { userId, firstName, lastName } = useStoreSelector((state) => state.user);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
   const { court: selectedCourtTileData } = useStoreSelector((state) => state.tile.present);
+  const { courtDataUrl } = useStoreSelector((state) => state.canvasControl);
   const [addTemplate] = useAddTemplateMutation();
+  const toast = useToast();
+  const designerName = `${firstName} ${lastName}`;
   const disPatch = useDispatch();
 
   const courtType = "basketball";
@@ -64,6 +71,17 @@ function CreateTemplate({ isOpen, onClose }: Props) {
     setInputError(INPUT_ERR_INIT);
     setTextAreaLen(0);
     onClose();
+  };
+
+  const generateToast = (title: string) => {
+    return toast({
+      title,
+      description: "Please try again or contact IT support",
+      status: "error",
+      duration: 9000,
+      isClosable: true,
+      position: "bottom",
+    });
   };
 
   const checkNameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,12 +112,19 @@ function CreateTemplate({ isOpen, onClose }: Props) {
       }));
       return;
     }
+    if (!courtDataUrl) {
+      const title = `Fail to generate court preview image`;
+      return generateToast(title);
+    }
+    const imageUrl = await upLoadScreenshot(courtDataUrl, toast);
     const packedTemplate = generateNewTemplate(
       userId,
       courtName,
       description,
       selectedCourtTileData,
-      selectedCourt
+      selectedCourt,
+      imageUrl,
+      designerName
     );
     await addTemplate(packedTemplate)
       .unwrap()
@@ -108,7 +133,8 @@ function CreateTemplate({ isOpen, onClose }: Props) {
         closeWindow();
       })
       .catch((_err) => {
-        alert("Whoops! unsuccessful publish your template, please try again!");
+        const title = `Fail to publish your template`;
+        return generateToast(title);
       });
   };
   const { isMyTemplateOpen } = useStoreSelector((state) => state.buttonToggle);
@@ -129,16 +155,18 @@ function CreateTemplate({ isOpen, onClose }: Props) {
           <ModalBody padding="0.5rem 1.5rem">
             <FormLabel>Court Preview:</FormLabel>
             <Flex
-              fontSize="2rem"
-              fontWeight="500"
               width="20rem"
               height="11rem"
-              backgroundColor="orange"
-              justifyContent="center"
-              alignItems="center"
               margin="1.8rem auto"
+              alignItems="center"
+              justifyContent="center"
+              position="relative"
             >
-              Court Image
+              {courtDataUrl ? (
+                <Image src={courtDataUrl} alt="court preview" layout="fill" objectFit="contain" />
+              ) : (
+                <FcRemoveImage size={42} />
+              )}
             </Flex>
             <Flex gap="1.5rem" justifyContent="center" flexWrap="wrap">
               <Badge margin="1rem" colorScheme="green">
@@ -177,7 +205,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
                     overflow="hidden"
                     textOverflow="ellipsis"
                   >
-                    {`${firstName} ${lastName}`}
+                    {designerName}
                   </Text>
                 </Flex>
               </Box>
