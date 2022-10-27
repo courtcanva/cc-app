@@ -7,7 +7,7 @@ describe("Order Generation", () => {
   it("Should render all content properly", () => {
     renderWithMockedProvider(<OrderItem item={mockCartData[0]} index={0} />);
 
-    const quotationTitle = screen.getByText("Qutation 1");
+    const quotationTitle = screen.getByText("Quotation 1");
     const previewTitle = screen.getByText("Design Preview");
     const nameTitle = screen.getByText("Design Name");
     const detailTitle = screen.getByText("Details");

@@ -29,7 +29,6 @@ const OrderItem = ({ item, index }: IOrderProps) => {
       height="420px"
       fontWeight="700"
       boxShadow="4px 4px 8px rgba(0, 0, 0, 0.25), -4px -4px 8px #EBECF0"
-      maxWidth="1284px"
     >
       <GridItem
         colSpan={2}
@@ -37,7 +36,7 @@ const OrderItem = ({ item, index }: IOrderProps) => {
         fontSize="24px"
         borderBottom="2px solid #EBECF0"
       >
-        Qutation {index + 1}
+        Quotation {index + 1}
       </GridItem>
       <GridItem
         rowSpan={5}
@@ -47,7 +46,7 @@ const OrderItem = ({ item, index }: IOrderProps) => {
         <Text fontSize="16px" marginBottom="25px">
           Design Preview
         </Text>
-        <Box width="100%" height="217px" position="relative" borderWidth="2px">
+        <Box width="100%" height="217px" position="relative">
           <Image src={image} alt="Court image" layout="fill" objectFit="contain" />
         </Box>
       </GridItem>

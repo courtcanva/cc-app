@@ -12,7 +12,7 @@ import { switchSideBar, switchLoginModal } from "@/store/reducer/buttonToggleSli
 const EditorSideBar = () => {
   const dispatch = useDispatch();
   const { userId } = useStoreSelector((state) => state.user);
-  const { isSideBarOpen, isOrderGenerationOpen } = useStoreSelector((state) => state.buttonToggle);
+  const { isSideBarOpen } = useStoreSelector((state) => state.buttonToggle);
   const [iconClickTitle, setIconClick] = useState("");
 
   useEffect(() => {
