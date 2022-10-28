@@ -1,14 +1,6 @@
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  MenuGroup,
-  Flex,
-} from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem, Flex } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
-import { profileLists } from "@/constants/profileLists";
+import { PROFILE_LISTS } from "@/constants/profileLists";
 import { BiChevronDown } from "react-icons/bi";
 
 interface Props {
@@ -23,7 +15,7 @@ const Profile = ({ isOpen, onOpen, onClose, handleLogout }: Props) => {
     <Menu isOpen={isOpen}>
       <MenuButton
         aria-label="User information"
-        bg="background.tertiary"
+        background="background.tertiary"
         color="brand.primary"
         marginRight="10px"
         onMouseEnter={onOpen}
@@ -38,15 +30,10 @@ const Profile = ({ isOpen, onOpen, onClose, handleLogout }: Props) => {
         </Flex>
       </MenuButton>
       <MenuList onMouseEnter={onOpen} onMouseLeave={onClose} position="absolute" left="-44px">
-        {profileLists.map((item) => (
-          <MenuGroup key={item}>
-            <MenuItem>{item}</MenuItem>
-            <MenuDivider />
-          </MenuGroup>
+        {PROFILE_LISTS.map((item) => (
+          <MenuItem key={item}>{item}</MenuItem>
         ))}
-        <MenuGroup>
-          <MenuItem onClick={handleLogout}>Sign Out</MenuItem>
-        </MenuGroup>
+        <MenuItem onClick={handleLogout}>Sign Out</MenuItem>
       </MenuList>
     </Menu>
   );

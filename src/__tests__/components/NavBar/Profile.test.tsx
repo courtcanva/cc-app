@@ -1,6 +1,5 @@
-import { screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Profile from "@/components/NavBar/Profile";
-import renderWithMockedProvider from "../../utils";
 
 describe("Profile", () => {
   const props = {
@@ -10,7 +9,7 @@ describe("Profile", () => {
     handleLogout: jest.fn(),
   };
   it("should render text correctly", () => {
-    renderWithMockedProvider(
+    render(
       <Profile
         isOpen={props.isOpen}
         onClose={props.onClose}
