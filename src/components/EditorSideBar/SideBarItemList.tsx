@@ -11,7 +11,7 @@ const sideBarItemList = [
     icon: <Folder />,
   },
   {
-    title: "Template",
+    title: "Templates",
     icon: <HiOutlineTemplate fontSize="24px" />,
   },
 ];

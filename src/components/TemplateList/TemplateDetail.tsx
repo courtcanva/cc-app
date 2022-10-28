@@ -14,9 +14,8 @@ import {
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import CourtTags from "./CourtTags";
-import courtPic from "../courtImg.png";
 import Image from "next/image";
-import { IDesign } from "@/interfaces/design";
+import { ISaveDesign } from "@/interfaces/design";
 
 interface Props {
   isOpen: boolean;
@@ -30,7 +29,7 @@ interface TemplateItem {
   courtImgUrl: string;
   createDate: string;
   tags: ITags;
-  designDetail: IDesign;
+  designDetail: ISaveDesign;
 }
 
 const TemplateDetail = ({ isOpen, onClose, template }: Props) => {
@@ -40,8 +39,8 @@ const TemplateDetail = ({ isOpen, onClose, template }: Props) => {
         <ModalOverlay />
         <ModalContent marginTop="74px" width="480px">
           <ModalBody marginX="1em" marginTop="2em">
-            <Box width="full" height="280px" marginBottom="1em" position="relative">
-              <Image src={courtPic} layout="fill" objectFit="contain" />
+            <Box width="full" height="220px" marginBottom="1em" position="relative">
+              <Image src={template.courtImgUrl} layout="fill" objectFit="contain" />
             </Box>
 
             <Box marginBottom="0.2em">
@@ -66,7 +65,7 @@ const TemplateDetail = ({ isOpen, onClose, template }: Props) => {
               <Text fontStyle="italic" fontSize="0.8em">
                 Publisher
               </Text>
-              <Flex margin="0.5em" alignItems="center" gap="5px">
+              <Flex margin="0.5em" alignItems="center" gap="10px">
                 <Icon as={FaUserCircle} fontSize="2.5rem" />
                 <Text
                   fontSize="large"
@@ -75,7 +74,7 @@ const TemplateDetail = ({ isOpen, onClose, template }: Props) => {
                   overflow="hidden"
                   textOverflow="ellipsis"
                 >
-                  {"Anonymous"}
+                  {template.designDetail.designer}
                 </Text>
               </Flex>
 

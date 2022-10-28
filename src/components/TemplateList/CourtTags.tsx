@@ -1,5 +1,5 @@
 import { ITags } from "@/interfaces/template";
-import { Flex, Tag } from "@chakra-ui/react";
+import { Tag } from "@chakra-ui/react";
 interface Props {
   tags: ITags;
 }

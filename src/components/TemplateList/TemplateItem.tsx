@@ -4,7 +4,6 @@ import { useState } from "react";
 import CourtTags from "./CourtTags";
 import TemplateDetail from "./TemplateDetail";
 import Image from "next/image";
-import courtPic from "../courtImg.png";
 import { startSelectTemplate } from "@/store/reducer/buttonToggleSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
@@ -19,7 +18,7 @@ const TemplateItem = (prop: Props) => {
   const { isTemplateSelect } = useStoreSelector((state) => state.buttonToggle);
   const [hoverOn, setHoverOn] = useState<boolean>(false);
   const [enableTempDetail, setEnableTempDetail] = useState<boolean>(false);
-  const highLight = isTemplateSelect && !hoverOn ? false : true;
+  const highLightItem = isTemplateSelect && !hoverOn ? false : true;
   const createDate = new Date(prop.template.createdAt.split("T")[0]);
 
   const templateItem = {
@@ -29,7 +28,6 @@ const TemplateItem = (prop: Props) => {
     createDate: createDate.toLocaleDateString(),
     tags: prop.template.tags,
     designDetail: prop.template.design,
-    // publisherName: prop.template.
   };
 
   const handleMouseEnter = () => {
@@ -48,7 +46,7 @@ const TemplateItem = (prop: Props) => {
 
   const detailOnClose = () => {
     setEnableTempDetail(false);
-    dispatch(startSelectTemplate(true));
+    resetHeightLight();
   };
 
   return (
@@ -63,16 +61,19 @@ const TemplateItem = (prop: Props) => {
       padding="5px 10px 10px 10px"
       backgroundColor="white"
       cursor="pointer"
-      opacity={highLight ? "1" : "0.4"}
+      opacity={highLightItem ? "1" : "0.4"}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={resetHeightLight}
     >
-      <Box width="95%" marginBottom="0.2em">
+      <Box width="95%">
         <Box>
           <Text color="black" fontSize="1em" fontWeight="700" line-height="15px">
             {templateItem.designDetail.designName}
           </Text>
-          <Text color="#2C4E8A" fontSize="0.8em">{`Created at ${templateItem.createDate}`}</Text>
+          <Text
+            color="fontcolor.tealishBlue"
+            fontSize="0.8em"
+          >{`Created at ${templateItem.createDate}`}</Text>
         </Box>
         {hoverOn && (
           <Box top="10px" position="absolute" zIndex="1" right="1em">
@@ -92,7 +93,7 @@ const TemplateItem = (prop: Props) => {
       </Box>
 
       <Box width="80%" height="full" position="relative">
-        <Image src={courtPic} layout="fill" objectFit="contain" />
+        <Image src={templateItem.courtImgUrl} layout="fill" objectFit="contain" />
       </Box>
 
       <Flex width="full" wrap="wrap" gap="1em" justifyContent="space-around">
