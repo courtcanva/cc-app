@@ -30,7 +30,7 @@ const TemplateItem = (prop: Props) => {
     designDetail: prop.template.design,
   };
 
-  const handleMouseEnter = () => {
+  const handleTemplateSelect = () => {
     setHoverOn(true);
     dispatch(startSelectTemplate(true));
   };
@@ -40,7 +40,7 @@ const TemplateItem = (prop: Props) => {
     dispatch(startSelectTemplate(false));
   };
 
-  const handleTemplateSelect = () => {
+  const templateDetailOn = () => {
     setEnableTempDetail(true);
   };
 
@@ -62,7 +62,8 @@ const TemplateItem = (prop: Props) => {
       backgroundColor="white"
       cursor="pointer"
       opacity={highLightItem ? "1" : "0.4"}
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={handleTemplateSelect}
+      onClick={handleTemplateSelect}
       onMouseLeave={resetHeightLight}
     >
       <Box width="95%">
@@ -84,7 +85,7 @@ const TemplateItem = (prop: Props) => {
               _hover={{
                 backgroundColor: "gray.500",
               }}
-              onClick={handleTemplateSelect}
+              onClick={templateDetailOn}
             >
               <FaEllipsisH color="white" fontSize="1.1em" />
             </Button>
