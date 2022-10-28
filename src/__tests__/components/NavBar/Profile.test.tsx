@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Profile from "@/components/NavBar/Profile";
 
 describe("Profile", () => {
@@ -26,5 +27,31 @@ describe("Profile", () => {
     expect(MyTemplateElement).toBeInTheDocument();
     expect(MyOrderElement).toBeInTheDocument();
     expect(SignOutElement).toBeInTheDocument();
+  });
+  it("should call onOpen when hover the menuButton and call onClose when unhover the menuButton", () => {
+    render(
+      <Profile
+        isOpen={props.isOpen}
+        onClose={props.onClose}
+        onOpen={props.onOpen}
+        handleLogout={props.handleLogout}
+      />
+    );
+    const buttonElement = screen.getByRole("button", { name: "User information" });
+    userEvent.hover(buttonElement);
+    expect(props.onOpen).toHaveBeenCalledTimes(1);
+  });
+  it("should call onClose when unhover the menuButton", () => {
+    render(
+      <Profile
+        isOpen={props.isOpen}
+        onClose={props.onClose}
+        onOpen={props.onOpen}
+        handleLogout={props.handleLogout}
+      />
+    );
+    const buttonElement = screen.getByRole("button", { name: "User information" });
+    userEvent.unhover(buttonElement);
+    expect(props.onClose).toHaveBeenCalledTimes(1);
   });
 });
