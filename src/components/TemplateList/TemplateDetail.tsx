@@ -35,9 +35,9 @@ interface TemplateItem {
 const TemplateDetail = ({ isOpen, onClose, template }: Props) => {
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent marginTop="74px" width="480px">
+        <ModalContent width="480px">
           <ModalBody marginX="1em" marginTop="2em">
             <Box width="full" height="220px" marginBottom="1em" position="relative">
               <Image src={template.courtImgUrl} layout="fill" objectFit="contain" />
