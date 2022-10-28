@@ -1,17 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Box, Flex, Input, Text } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Box, Flex } from "@chakra-ui/react";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import SaveSvg from "@/assets/svg/TopBarSvg/save.svg";
-import {
-  AlertDialogCloseButton,
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
-  Button,
-} from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import {
   fetchDesignData,
@@ -31,6 +22,7 @@ import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { CHECK_START_END_SPACE, DESIGN_NAME_MAX_CHAR_LENGTH } from "@/constants/courtData";
 import SaveDesignModal from "./SaveDesignModal";
+import SaveAlert from "./SaveAlert";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();
@@ -39,8 +31,7 @@ const SaveBoard: React.FC = () => {
   const tileData = useStoreSelector((state) => state.tile.present.court);
   const designsData = useStoreSelector((state) => state.courtSpecData.designsData);
   const designNames = useStoreSelector((state) => state.designName.nameList);
-  const cancelRef = useRef(null);
-  const [nameCheck, setNameCheck] = useState<string>("");
+  const [nameCheck, setNameCheck] = useState("");
   const [useDesignName, setDesignName] = useState(courtData.designName);
   const [useCourtId, setCourtId] = useState(courtData.courtId);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
@@ -116,11 +107,11 @@ const SaveBoard: React.FC = () => {
     setDialogOpen(true);
     setNameCheck(checkDesignName(useDesignName, designNames));
   };
-  const close = () => {
-    setDialogOpen(false);
-    setDesignName(useDesignName);
-    setNameCheck("");
-  };
+  // const close = () => {
+  //   setDialogOpen(false);
+  //   setDesignName(useDesignName);
+  //   setNameCheck("");
+  // };
 
   const handleCheckName = (event: { target: { value: React.SetStateAction<string> } }) => {
     const editedName = String(event.target.value);
@@ -176,50 +167,16 @@ const SaveBoard: React.FC = () => {
           onClick={open}
           data-testid="sava-as"
         >
-          <AlertDialog
-            motionPreset="slideInBottom"
-            leastDestructiveRef={cancelRef}
-            onClose={close}
-            isOpen={dialogOpen}
-            isCentered
-          >
-            <AlertDialogOverlay />
-            <AlertDialogContent>
-              <AlertDialogHeader>Save As</AlertDialogHeader>
-              <AlertDialogCloseButton />
-              <AlertDialogBody>
-                Your design will be saved in FOLDER.
-                <Text margin="5px 0">Court Name: {useDesignName}</Text>
-                <Input
-                  marginTop="5px"
-                  value={useDesignName}
-                  onChange={handleCheckName}
-                  placeholder="Make your unique court name."
-                />
-                <Text color="crimson" marginTop="0.2rem" fontSize="0.8rem">
-                  {nameCheck}
-                </Text>
-              </AlertDialogBody>
-              <AlertDialogFooter>
-                <Button ref={cancelRef} onClick={close} w="75px">
-                  Cancel
-                </Button>
-                <Button
-                  bg="button.hover"
-                  color="fontcolor.primary"
-                  w="75px"
-                  ml={3}
-                  disabled={nameCheck !== ""}
-                  onClick={handleSaveAsDesign}
-                  ref={cancelRef}
-                  _hover={{ bg: "brand.secondary", opacity: "0.60" }}
-                  _active={{ bg: "brand.secondary", opacity: "0.60" }}
-                >
-                  Save
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <SaveAlert
+            dialogOpen={dialogOpen}
+            useDesignName={useDesignName}
+            handleCheckName={handleCheckName}
+            nameCheck={nameCheck}
+            handleSaveAsDesign={handleSaveAsDesign}
+            setDialogOpen={setDialogOpen}
+            setDesignName={setDesignName}
+            setNameCheck={setNameCheck}
+          />
           Save as
         </Button>
       </Box>

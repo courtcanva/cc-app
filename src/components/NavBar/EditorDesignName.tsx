@@ -14,7 +14,6 @@ import NameChangeAlertModal from "./NameChangeAlertModal";
 import checkDesignName from "@/utils/checkDesignName";
 import { useDispatch } from "react-redux";
 import { changeDesignName } from "@/store/reducer/courtSpecDataSlice";
-import { DESIGN_NAME_MAX_CHAR_LENGTH } from "@/constants/courtData";
 
 const DesignName = () => {
   const dispatch = useDispatch();
@@ -41,17 +40,12 @@ const DesignName = () => {
   };
 
   const saveNameChange = () => {
-    if (newDesignName.trim().length > DESIGN_NAME_MAX_CHAR_LENGTH) {
+    const errorMessage = checkDesignName(newDesignName.trim(), nameList);
+    if (errorMessage) {
       setFeedbackModalOpen(true);
-      setFeedback(`The design name should less than ${DESIGN_NAME_MAX_CHAR_LENGTH} characters.`);
+      setFeedback(errorMessage);
     } else {
-      const errorMessage = checkDesignName(newDesignName.trim(), nameList);
-      if (errorMessage) {
-        setFeedbackModalOpen(true);
-        setFeedback(errorMessage);
-      } else {
-        dispatch(changeDesignName(newDesignName.trim()));
-      }
+      dispatch(changeDesignName(newDesignName.trim()));
     }
   };
 
