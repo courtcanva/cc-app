@@ -11,7 +11,6 @@ interface IOrderItem {
 
 export interface IOrder {
   user_id: string;
-  status: string;
   items: IOrderItem[];
   depositRatio: number;
 }

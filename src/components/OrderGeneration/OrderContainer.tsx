@@ -19,11 +19,11 @@ const OrderContainer = () => {
       quotation: item.quotation,
       quotationDetails: item.quotationDetails,
       image: item.image,
-      constructionDrawing: "todo",
+      constructionDrawing: "https://developer.mozilla.org",
     };
     return orderItem;
   });
-  const newOrder = { user_id: userId, status: "unpaid", items, depositRatio: 0.02 };
+  const newOrder = { user_id: userId, items, depositRatio: 0.02 };
 
   const handleProceedToCheckOut = () => createOrder(newOrder);
 
