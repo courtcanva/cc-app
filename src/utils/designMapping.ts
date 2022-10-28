@@ -1,9 +1,9 @@
-import { IDesign } from "@/interfaces/design";
+import { IDesignDetailed } from "@/interfaces/design";
 import { CourtSizeState } from "@/store/reducer/courtSpecDataSlice";
 
-export const designMapping = (design: IDesign[]) => {
-  const mappedDesignsData = design.map((item: IDesign) => designCourtMapping(item));
-  const mappedTileData = design.map((item: IDesign) => designTileMapping(item));
+export const designMapping = (design: IDesignDetailed[]) => {
+  const mappedDesignsData = design.map((item: IDesignDetailed) => designCourtMapping(item));
+  const mappedTileData = design.map((item: IDesignDetailed) => designTileMapping(item));
   const mappedNameList: string[] = [];
   for (const designData of mappedDesignsData) {
     mappedNameList.push(designData.designName);
@@ -12,7 +12,7 @@ export const designMapping = (design: IDesign[]) => {
   return { mappedDesignsData, mappedTileData, mappedNameList };
 };
 
-export const designCourtMapping = (item: IDesign) => ({
+export const designCourtMapping = (item: IDesignDetailed) => ({
   courtId: item._id,
   courtName: item.courtSize.name,
   courtAreaXLength: item.courtSize.length,
@@ -26,9 +26,11 @@ export const designCourtMapping = (item: IDesign) => ({
   cornerThreePointLineLength: item.courtSize.lengthOfCorner,
   strokeWidth: item.courtSize.lineBorderWidth,
   designName: item.designName,
+  createdAt: item.createdAt,
+  updatedAt: item.updatedAt,
 });
 
-export const designTileMapping = (item: IDesign) => ({
+export const designTileMapping = (item: IDesignDetailed) => ({
   courtId: item._id,
   tileColor: item.tileColor,
 });

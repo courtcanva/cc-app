@@ -24,6 +24,10 @@ it("should return mapped data", () => {
       },
     ],
     user_id: "user001",
+    description: "testing",
+    createdAt: "2022-04-12T11:02:58.964+0000",
+    updatedAt: "2022-04-12T11:02:58.964+0000",
+    isDeleted: false,
   };
 
   const { mappedDesignsData, mappedTileData } = designMapping([design]);

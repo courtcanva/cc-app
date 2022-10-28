@@ -54,6 +54,8 @@ describe("generateNewTemplate", () => {
       strokeWidth: 1,
       borderLength: 9,
       designName: "",
+      createdAt: "",
+      updatedAt: "",
     };
     const newTemplate = generateNewTemplate(
       userId,

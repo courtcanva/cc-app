@@ -6,6 +6,13 @@ export interface IDesign {
   courtSize: ICourtSize;
 }
 
+export interface IDesignDetailed extends IDesign {
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  isDeleted: boolean;
+}
+
 export interface ITileColor {
   location: string;
   color: string;
