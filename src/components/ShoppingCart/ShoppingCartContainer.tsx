@@ -10,6 +10,9 @@ import {
   Button,
   Flex,
   useDisclosure,
+  Checkbox,
+  Tooltip,
+  Box,
 } from "@chakra-ui/react";
 import CartListItem from "./CartListItem";
 import { ICartItem } from "@/interfaces/cartItem";
@@ -17,12 +20,16 @@ import DeleteComfirmModal from "@/components/DeleteComfirmModal";
 import { useDeleteItemFromCartMutation } from "@/redux/api/cartApi";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { deleteImage } from "@/utils/manageExternalImage";
+import { addOrderItems } from "@/store/reducer/orderSlice";
+import { useDispatch } from "react-redux";
+import { switchOrderGeneration } from "@/store/reducer/buttonToggleSlice";
 
 interface userCartList {
   shoppingCart: ICartItem[];
 }
 
 const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
+  const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [deleteItemFromCart] = useDeleteItemFromCartMutation();
 
@@ -36,6 +43,16 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
   };
   const [cartItemIdToDelete, setCartItemIdToDelete] = useState("");
   const anyExpired = shoppingCart.some((item) => item.isExpired);
+
+  const [checkedItems, setCheckedItems] = useState(shoppingCart.map(() => false));
+  const allChecked = checkedItems.every(Boolean);
+  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+
+  const handleCreateOrder = () => {
+    const orders = shoppingCart.filter((e, index) => checkedItems[index]);
+    dispatch(addOrderItems(orders));
+    dispatch(switchOrderGeneration(true));
+  };
 
   return (
     <Flex flexDirection="column" alignItems="center">
@@ -75,7 +92,17 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
         >
           <Thead>
             <Tr>
-              <Th></Th>
+              <Th>
+                <Checkbox
+                  paddingLeft="10px"
+                  borderColor="#b3b2b2"
+                  isChecked={allChecked}
+                  isIndeterminate={isIndeterminate}
+                  onChange={(e) => setCheckedItems(shoppingCart.map(() => e.target.checked))}
+                >
+                  All
+                </Checkbox>
+              </Th>
               <Th
                 fontSize="16px"
                 fontWeight="800"
@@ -103,7 +130,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
             </Tr>
           </Thead>
           <Tbody>
-            {shoppingCart.map((cartRow) => (
+            {shoppingCart.map((cartRow, index) => (
               <CartListItem
                 key={cartRow.id}
                 item={cartRow}
@@ -111,22 +138,30 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                   setCartItemIdToDelete(id);
                   onOpen();
                 }}
+                checkedItems={checkedItems}
+                setCheckedItems={setCheckedItems}
+                index={index}
               />
             ))}
           </Tbody>
         </Table>
       </TableContainer>
-      <Button
-        variant="shareBtn"
-        size="lg"
-        marginBottom="20px"
-        marginTop="20px"
-        width="200px"
-        padding="10px"
-        data-testid="checkout-btn"
-      >
-        Proceed to Checkout
-      </Button>
+      <Tooltip label="Please select items" isDisabled={checkedItems.some(Boolean)}>
+        <Box>
+          <Button
+            variant="shareBtn"
+            marginBottom="20px"
+            marginTop="20px"
+            width="160px"
+            padding="10px"
+            data-testid="checkout-btn"
+            onClick={handleCreateOrder}
+            isDisabled={!checkedItems.some(Boolean)}
+          >
+            Create Order
+          </Button>
+        </Box>
+      </Tooltip>
 
       <DeleteComfirmModal
         isOpen={isOpen}

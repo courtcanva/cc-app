@@ -15,8 +15,19 @@ const buttonStyles = {
       fontWeights: "bold",
       lineHeights: "22",
       borderRadius: "6px",
-      _hover: { bg: "brand.secondary", opacity: "0.60" },
+      _hover: {
+        bg: "brand.secondary",
+        opacity: "0.60",
+        _disabled: {
+          bg: "brand.secondary",
+          opacity: "0.60",
+        },
+      },
       _active: { bg: "brand.secondary", opacity: "0.60" },
+      _disabled: {
+        bg: "brand.secondary",
+        opacity: "0.60",
+      },
     },
     failedBtn: {
       bg: "red.500",

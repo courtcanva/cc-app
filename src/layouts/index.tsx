@@ -10,6 +10,7 @@ import TopBar from "@/components/TopBar";
 import ShoppingCart from "@/components/ShoppingCart";
 import MyTemplate from "@/components/MyTemplate";
 import { PAGE_NOT_FOUND, TEAM_PAGE } from "../../src/constants";
+import OrderGeneration from "@/components/OrderGeneration";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
@@ -42,6 +43,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
             <NavigationBar />
             <MyTemplate />
             <ShoppingCart />
+            <OrderGeneration />
             <EditorSideBar />
             {children}
             <TopBar />

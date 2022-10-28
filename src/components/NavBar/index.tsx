@@ -1,6 +1,4 @@
-import { Flex, Button, IconButton, Grid, Tooltip, Box } from "@chakra-ui/react";
-import { Menu, MenuButton } from "@chakra-ui/react";
-import { FaRegUser } from "react-icons/fa";
+import { Flex, Button, IconButton, Grid, Tooltip, Box, useDisclosure } from "@chakra-ui/react";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
 import { BsArrowCounterclockwise } from "react-icons/bs";
@@ -33,6 +31,7 @@ import {
 } from "@/store/reducer/buttonToggleSlice";
 import { useHandleLocalStorageItem } from "@/hooks/useHandleLocalStorage";
 import CreateTemplate from "../CreateTemplate";
+import Profile from "./Profile";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -41,6 +40,7 @@ const NavigationBar = () => {
   );
   const { userLogout, updateToken } = useAuthRequest();
   const { getLocalStorageItem } = useHandleLocalStorageItem();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   // Get user info from local storage
   const getInfo = () => {
@@ -100,6 +100,7 @@ const NavigationBar = () => {
     userLogout(loginData.userId);
     setLoginData(null);
     setLoginState(false);
+    onClose();
   };
 
   const handleUndo = () => {
@@ -140,6 +141,7 @@ const NavigationBar = () => {
       minW="768px"
       w="100vw"
       position="fixed"
+      zIndex={9999}
     >
       <Flex alignItems="center">
         <Link href={HOME_PAGE_LINK} passHref>
@@ -185,21 +187,9 @@ const NavigationBar = () => {
       {!isCartOpen && !isMyTemplateOpen ? <EditorDesignName /> : <Box></Box>}
       <Flex alignItems="center" justifyContent="flex-end">
         {!loginState ? (
-          <Menu>
-            <MenuButton
-              as={IconButton}
-              aria-label="User information"
-              icon={<FaRegUser />}
-              variant="navbarIconBtn"
-              bg="background.tertiary"
-              color="brand.primary"
-              marginRight="10px"
-              isRound
-              onClick={handleLoginModalOpen}
-            ></MenuButton>
-          </Menu>
+          <Button onClick={handleLoginModalOpen}>Sign up / Login</Button>
         ) : (
-          <Button onClick={handleLogout}>Sign out</Button>
+          <Profile isOpen={isOpen} onOpen={onOpen} onClose={onClose} handleLogout={handleLogout} />
         )}
         <LoginModalContent
           isOpen={isLoginModalOpen}
