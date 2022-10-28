@@ -3,6 +3,7 @@ import { StyleFunctionProps } from "@chakra-ui/theme-tools";
 import buttonStyles from "./components/buttonStyles";
 import modal from "./modal";
 import drawerButtonStyles from "./components/drawerButtonStyles";
+import tagStyles from "./components/tagStyles";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -31,6 +32,8 @@ const colors = {
     tertiary: "#FFFFFF",
     secondaryLight: "#2c5282",
     lightOrange: "#DD6B20",
+    veryLightOrange: "#E18E11",
+    darkRed: "#9F100F",
   },
   fontcolor: {
     primary: "#FFFFFF",
@@ -73,6 +76,7 @@ const components = {
   Modal: { ...modal },
   Drawer: { ...drawerButtonStyles },
   drawerButtonStyles,
+  Tag: { ...tagStyles },
 };
 
 const theme = extendTheme({
