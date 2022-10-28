@@ -11,6 +11,8 @@ import {
   Flex,
   useDisclosure,
   Checkbox,
+  Tooltip,
+  Box,
 } from "@chakra-ui/react";
 import CartListItem from "./CartListItem";
 import { ICartItem } from "@/interfaces/cartItem";
@@ -144,19 +146,22 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
           </Tbody>
         </Table>
       </TableContainer>
-      <Button
-        variant="shareBtn"
-        size="lg"
-        marginBottom="20px"
-        marginTop="20px"
-        width="160px"
-        padding="10px"
-        data-testid="checkout-btn"
-        onClick={handleCreateOrder}
-        isDisabled={!checkedItems.some(Boolean)}
-      >
-        Create Order
-      </Button>
+      <Tooltip label="Please select items" isDisabled={checkedItems.some(Boolean)}>
+        <Box>
+          <Button
+            variant="shareBtn"
+            marginBottom="20px"
+            marginTop="20px"
+            width="160px"
+            padding="10px"
+            data-testid="checkout-btn"
+            onClick={handleCreateOrder}
+            isDisabled={!checkedItems.some(Boolean)}
+          >
+            Create Order
+          </Button>
+        </Box>
+      </Tooltip>
 
       <DeleteComfirmModal
         isOpen={isOpen}

@@ -1,5 +1,5 @@
 import { useStoreSelector } from "@/store/hooks";
-import { Flex, Text, Checkbox, Button, Link, Box } from "@chakra-ui/react";
+import { Flex, Text, Checkbox, Button, Link, Box, Tooltip } from "@chakra-ui/react";
 import React, { useState } from "react";
 import OrderItem from "./OrderItem";
 import { switchOrderGeneration } from "@/store/reducer/buttonToggleSlice";
@@ -80,15 +80,19 @@ const OrderContainer = () => {
           >
             Back
           </Button>
-          <Button
-            variant="shareBtn"
-            onClick={handleProceedToCheckOut}
-            isDisabled={!isChecked}
-            padding="10px 24px"
-            fontWeight="700"
-          >
-            Proceed to Checkout
-          </Button>
+          <Tooltip label="Please agree the terms and conditions" isDisabled={isChecked}>
+            <Box>
+              <Button
+                variant="shareBtn"
+                onClick={handleProceedToCheckOut}
+                isDisabled={!isChecked}
+                padding="10px 24px"
+                fontWeight="700"
+              >
+                Proceed to Checkout
+              </Button>
+            </Box>
+          </Tooltip>
         </Flex>
       </Box>
     </>
