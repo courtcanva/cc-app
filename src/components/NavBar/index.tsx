@@ -99,6 +99,7 @@ const NavigationBar = () => {
     userLogout(loginData.userId);
     setLoginData(null);
     setLoginState(false);
+    onClose();
   };
 
   const handleUndo = () => {
@@ -138,7 +139,7 @@ const NavigationBar = () => {
       minW="768px"
       w="100vw"
       position="fixed"
-      zIndex={1}
+      zIndex={9999}
     >
       <Flex alignItems="center">
         <Link href={HOME_PAGE_LINK} passHref>
