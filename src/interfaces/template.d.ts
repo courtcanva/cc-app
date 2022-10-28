@@ -42,4 +42,5 @@ export type IMyTemplates = Omit<
 
 export interface ITestImyTemplates extends Omit<IMyTemplates, "description"> {
   description: string;
+  courtName: string;
 }
