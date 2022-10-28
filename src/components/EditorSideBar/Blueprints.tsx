@@ -13,7 +13,6 @@ interface Props {
   fetchedCourtsData: ICourtData[] | undefined;
 }
 
-console.log("click");
 const Blueprints = ({ fetchedCourtsData }: Props) => {
   const dispatch = useDispatch();
   const [activateCourt, setActivateCourt] = useState<string>("");
