@@ -35,24 +35,11 @@ export interface ITemplateErrorMsg {
   descriptionLenErrMsg: string;
 }
 
-export interface IMyTemplates {
-  _id: string;
-  courtName: string;
-  user_id: string;
-  description: string | undefined | null;
-  image: string;
-  createdAt: string;
-  status: string;
-  tags: ITags;
-}
+export type IMyTemplates = Omit<
+  ITemplateDataDb,
+  "__v" | "isOfficial" | "updatedAt" | "design" | "isDeleted"
+>;
 
-export interface testImyTemplates {
-  _id: string;
-  courtName: string;
-  user_id: string;
+export interface ITestImyTemplates extends Omit<IMyTemplates, "description"> {
   description: string;
-  image: string;
-  createdAt: string;
-  status: string;
-  tags: ITags;
 }

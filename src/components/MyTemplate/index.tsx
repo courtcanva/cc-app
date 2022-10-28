@@ -2,7 +2,7 @@
 import React from "react";
 import EmptyTemplate from "./EmptyTemplate";
 import MyTemplateContainer from "./MyTemplateContainer";
-import { Flex, Button, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import { useGetTemplatesQuery } from "@/redux/api/templateApi";
 import { userData } from "@/store/reducer/userSlice";
@@ -16,7 +16,6 @@ function MyTemplate() {
   const currentUserId = useStoreSelector(userData).userId;
   const { data } = useGetTemplatesQuery(currentUserId ? currentUserId : skipToken);
   const quantity = data?.length;
-  console.log(data);
 
   const myTemplates: IMyTemplates[] | undefined = data?.map((item: any) => {
     return {

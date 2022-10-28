@@ -3,7 +3,6 @@ import { Text, Button, Flex } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { switchMyTemplateDisplay } from "@/store/reducer/buttonToggleSlice";
 
-// FIXME: need to optimize ui
 function EmptyTemplate() {
   const disPatch = useDispatch();
   const handleReturnToDesign = () => {

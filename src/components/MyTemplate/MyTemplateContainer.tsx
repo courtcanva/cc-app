@@ -22,14 +22,7 @@ export default function MyTemplateContainer({ myTemplates }: myTemplates) {
   };
 
   return (
-    <Flex
-      flexDirection="column"
-      width="1440px"
-      gap="28px"
-      position="relative"
-      // justifyContent="space-evenly"
-      alignItems="center"
-    >
+    <Flex flexDirection="column" width="1440px" gap="28px" position="relative" alignItems="center">
       <Text fontSize="32px" fontWeight="700" textAlign="center">
         My Template
       </Text>

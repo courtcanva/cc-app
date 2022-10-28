@@ -1,4 +1,4 @@
-import { testImyTemplates } from "@/interfaces/template";
+import { ITestImyTemplates } from "@/interfaces/template";
 
 export const mockTemplateDataRaw: any = [
   {
@@ -207,7 +207,7 @@ export const mockTemplateDataRaw: any = [
   },
 ];
 
-export const mockTemplateData: testImyTemplates[] = mockTemplateDataRaw.map((item: any) => {
+export const mockTemplateData: ITestImyTemplates[] = mockTemplateDataRaw.map((item: any) => {
   return {
     _id: item._id,
     courtName: item.design.designName,
