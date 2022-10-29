@@ -40,6 +40,7 @@ export const ButtonToggleSlice = createSlice({
         isCartOpen: state.isOrderGenerationOpen || !state.isCartOpen,
         isSideBarOpen: false,
         isOrderGenerationOpen: false,
+        isMyTemplateOpen: false,
       };
     },
     switchPaintBucket: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
@@ -77,6 +78,7 @@ export const ButtonToggleSlice = createSlice({
         isCartOpen: false,
         isSideBarOpen: false,
         isOrderGenerationOpen: false,
+        isMyTemplateOpen: false,
       };
     },
     switchOrderGeneration: (state: ButtonToggleState, action: PayloadAction<boolean>) => {

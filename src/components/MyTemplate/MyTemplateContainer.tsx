@@ -6,27 +6,42 @@ import { IMyTemplates } from "@/interfaces/template";
 import { useDispatch } from "react-redux";
 import { switchMyTemplateDisplay } from "@/store/reducer/buttonToggleSlice";
 
-interface myTemplates {
+interface MyTemplates {
   myTemplates: IMyTemplates[] | undefined;
 }
 
-export default function MyTemplateContainer({ myTemplates }: myTemplates) {
-  const disPatch = useDispatch();
+export default function MyTemplateContainer({ myTemplates }: MyTemplates) {
+  const dispatch = useDispatch();
   const handleReturnToDesign = () => {
-    disPatch(switchMyTemplateDisplay(false));
+    dispatch(switchMyTemplateDisplay(false));
   };
   const myTemplateLists = (): JSX.Element[] | undefined => {
-    return myTemplates
-      ?.sort((itemA, itemB) => +itemB.createdAt - +itemA.createdAt)
-      .map((item) => <MyTemplateListItem key={item._id} {...item} />);
+    return myTemplates?.map((item) => <MyTemplateListItem key={item._id} {...item} />);
   };
 
   return (
-    <Flex flexDirection="column" width="1440px" gap="28px" position="relative" alignItems="center">
+    <Flex
+      flexDirection="column"
+      width="100vw"
+      gap="28px"
+      position="relative"
+      alignItems="center"
+      min-height="100vh"
+    >
       <Text fontSize="32px" fontWeight="700" textAlign="center">
         My Template
       </Text>
-      {myTemplateLists()}
+      {myTemplates ? (
+        myTemplateLists()
+      ) : (
+        <Text fontSize="lg" fontWeight="500" color="black" data-testid="emptyText">
+          You currently have{" "}
+          <Text display="inline" fontWeight="900">
+            no items{" "}
+          </Text>
+          in your Template
+        </Text>
+      )}
       <Button
         variant="shareBtn"
         size="lg"
@@ -34,7 +49,7 @@ export default function MyTemplateContainer({ myTemplates }: myTemplates) {
         onClick={handleReturnToDesign}
         marginBottom="28px"
       >
-        RETURN TO DESIGN
+        Return To Design
       </Button>
     </Flex>
   );

@@ -6,18 +6,17 @@ import { MdDeleteOutline, MdRemoveRedEye } from "react-icons/md";
 import Image from "next/image";
 
 function MyTemplateListItem({ ...item }) {
-  console.log(item.image);
   return (
     <Grid
       justifyContent="space-around"
       alignItems="center"
-      width="1200px"
+      width="82%"
       margin="auto 120px"
       padding="1rem"
       placeItems="center"
-      templateColumns="45% 30% 25%"
+      templateColumns="minmax(min(300px,100%), 45%) minmax(min(200px,100%), 30%)minmax(min(150px,100%), 25%)"
       rounded="2xl"
-      height="300px"
+      minHeight="300px"
       fontWeight="700"
       boxShadow="4px 4px 8px rgba(0, 0, 0, 0.25), -4px -4px 8px #EBECF0"
       data-testid="templateListItems"
@@ -32,7 +31,7 @@ function MyTemplateListItem({ ...item }) {
         alignItems="center"
         color="#000"
       >
-        <Box width="80%" height="100%" textAlign="center" position="relative">
+        <Box width="80%" height="100%" position="relative">
           <Image src={item.image} alt="Court image" layout="fill" objectFit="contain"></Image>
         </Box>
       </Flex>
@@ -54,11 +53,11 @@ function MyTemplateListItem({ ...item }) {
         >
           {item.courtName}
         </Text>
-        <Stack direction="row" marginTop="00px">
-          <Badge backgroundColor="tag.courtCategory" fontSize="12px">
+        <Stack direction="row">
+          <Badge backgroundColor="tag.courtCategory" fontSize={{ base: "10px", lg: "12px" }}>
             {item.tags.CourtCategory}
           </Badge>
-          <Badge backgroundColor="tag.courtType" fontSize="12px">
+          <Badge backgroundColor="tag.courtType" fontSize={{ base: "10px", lg: "12px" }}>
             {item.tags.CourtType}
           </Badge>
         </Stack>
@@ -68,7 +67,7 @@ function MyTemplateListItem({ ...item }) {
           </Text>
           <Text
             marginTop="0"
-            fontSize="16px"
+            fontSize="1rem"
             lineHeight="20px"
             color={item.status === "published" ? "CourtSizecolor.btc" : "fontcolor.quaternary"}
           >
@@ -79,24 +78,28 @@ function MyTemplateListItem({ ...item }) {
           <Text fontSize="xs" fontWeight="300" fontStyle="italic">
             Created at
           </Text>
-          <Text fontSize="16px">{moment(item.createdAt).format("DD/MM/YYYY")}</Text>
+          <Text fontSize="1rem">{moment(item.createdAt).format("DD/MM/YYYY")}</Text>
         </Box>
-        <Text
-          fontSize="xs"
-          fontWeight="400"
-          marginTop="12px"
-          textOverflow="ellipsis
-        "
-        >
+        <Text fontSize={{ base: "6px", md: "xs" }} fontWeight="400" marginTop="12px">
           {item.description}
         </Text>
       </Flex>
 
       <Flex gap="28px" flexDirection="column">
-        <Button leftIcon={<MdDeleteOutline />} variant="deleteBtn">
+        <Button
+          leftIcon={<MdDeleteOutline />}
+          variant="deleteBtn"
+          width={{ base: "60px", md: "100px", lg: "120px", xl: "180px" }}
+          fontSize={{ base: "0.4rem", md: "0.6rem", lg: "1rem" }}
+        >
           Delete
         </Button>
-        <Button leftIcon={<MdRemoveRedEye />} variant="displayBtn">
+        <Button
+          leftIcon={<MdRemoveRedEye />}
+          variant="displayBtn"
+          width={{ base: "60px", md: "100px", lg: "120px", xl: "180px" }}
+          fontSize={{ base: "0.4rem", md: "0.6rem", lg: "1rem" }}
+        >
           Undisplayed
         </Button>
       </Flex>

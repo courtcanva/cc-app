@@ -1,6 +1,5 @@
 /* eslint-disable require-jsdoc */
 import React from "react";
-import EmptyTemplate from "./EmptyTemplate";
 import MyTemplateContainer from "./MyTemplateContainer";
 import { Flex } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
@@ -11,11 +10,8 @@ import { IMyTemplates } from "@/interfaces/template";
 
 function MyTemplate() {
   const isMyTemplateOpen = useStoreSelector((state) => state.buttonToggle.isMyTemplateOpen);
-  const isCreateTemplateOpen = useStoreSelector((state) => state.buttonToggle.isCreateTemplateOpen);
-  const isCartOpen = useStoreSelector((state) => state.buttonToggle.isCartOpen);
   const currentUserId = useStoreSelector(userData).userId;
   const { data } = useGetTemplatesQuery(currentUserId ? currentUserId : skipToken);
-  const quantity = data?.length;
 
   const myTemplates: IMyTemplates[] | undefined = data?.map((item: any) => {
     return {
@@ -32,23 +28,21 @@ function MyTemplate() {
 
   return (
     <>
-      {isMyTemplateOpen && currentUserId && !isCreateTemplateOpen && !isCartOpen && (
+      {isMyTemplateOpen && currentUserId && (
         <Flex
           position="fixed"
           backgroundColor="#fff"
           top="72px"
           padding="20px 20px 80px 20px"
-          color="rgb(58, 75, 92)"
-          width="calc(100vw)"
+          width="100vw"
           height="100vh"
           zIndex={1600}
           gap="28px"
           overflowY="scroll"
           flexDirection="column"
-          alignItems="center"
+          color="brand.primary"
         >
-          {(quantity as number) > 0 && <MyTemplateContainer myTemplates={myTemplates} />}
-          {quantity === 0 && <EmptyTemplate />}
+          <MyTemplateContainer myTemplates={myTemplates} />
         </Flex>
       )}
     </>

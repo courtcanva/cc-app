@@ -37,7 +37,15 @@ describe("MyTemplate component", () => {
 
   it("Should render return to design button", async () => {
     renderWithMockedProvider(<MyTemplateContainer myTemplates={mockTemplateData} />);
-    const returnBtn = screen.getByRole("button", { name: "RETURN TO DESIGN" });
+    const returnBtn = screen.getByRole("button", { name: "Return To Design" });
     expect(returnBtn).toBeVisible();
+  });
+
+  it("Should render emplaty text then template data is null", () => {
+    renderWithMockedProvider(<MyTemplateContainer myTemplates={undefined} />);
+    const templateTitle = screen.getByText("My Template");
+    const templateInfo = screen.getByTestId("emptyText");
+    expect(templateTitle).toBeVisible();
+    expect(templateInfo).toBeVisible();
   });
 });

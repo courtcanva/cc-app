@@ -27,7 +27,6 @@ import {
   switchSideBar,
   switchLoginModal,
   switchCreateTemplate,
-  switchMyTemplateDisplay,
 } from "@/store/reducer/buttonToggleSlice";
 import { useHandleLocalStorageItem } from "@/hooks/useHandleLocalStorage";
 import CreateTemplate from "../CreateTemplate";
@@ -118,7 +117,6 @@ const NavigationBar = () => {
 
   const handleCreateTemplateOpen = () => {
     dispatch(switchCreateTemplate(true));
-    dispatch(switchMyTemplateDisplay(false));
   };
   const handleCreateTemplateClose = () => {
     dispatch(switchCreateTemplate(false));
@@ -184,7 +182,7 @@ const NavigationBar = () => {
           </Flex>
         )}
       </Flex>
-      {!isCartOpen && !isMyTemplateOpen ? <EditorDesignName /> : <Box></Box>}
+      {!isCartOpen || !isMyTemplateOpen ? <EditorDesignName /> : <Box></Box>}
       <Flex alignItems="center" justifyContent="flex-end">
         {!loginState ? (
           <Button onClick={handleLoginModalOpen}>Sign up / Login</Button>

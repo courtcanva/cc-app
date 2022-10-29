@@ -35,7 +35,6 @@ import {
   MAX_DESCRIPTION_LEN,
 } from "@/constants/templateCreate";
 import ErrorMsg from "./ErrorMsg";
-import { useDispatch } from "react-redux";
 import { upLoadScreenshot } from "@/utils/manageExternalImage";
 import { FcRemoveImage } from "react-icons/fc";
 
@@ -56,7 +55,6 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const [addTemplate] = useAddTemplateMutation();
   const toast = useToast();
   const designerName = `${firstName} ${lastName}`;
-  const disPatch = useDispatch();
 
   const courtType = "basketball";
   const {
@@ -231,9 +229,6 @@ function CreateTemplate({ isOpen, onClose }: Props) {
             <Button fontSize="lg" onClick={closeWindow} paddingX="3rem" borderRadius="6px">
               Cancel
             </Button>
-            {/* <Button fontSize="lg" onClick={handleOpenMyTemplate}>
-              Go My Design
-            </Button> */}
           </Flex>
         </ModalContent>
       </Modal>
