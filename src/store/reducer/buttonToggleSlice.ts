@@ -9,6 +9,7 @@ export interface ButtonToggleState {
   isLoginModalOpen: boolean;
   isCreateTemplateOpen: boolean;
   isOrderGenerationOpen: boolean;
+  isMyTemplateOpen: boolean;
 }
 
 export const initialState: ButtonToggleState = {
@@ -20,6 +21,7 @@ export const initialState: ButtonToggleState = {
   isLoginModalOpen: false,
   isCreateTemplateOpen: false,
   isOrderGenerationOpen: false,
+  isMyTemplateOpen: false,
 };
 
 export const ButtonToggleSlice = createSlice({
@@ -38,6 +40,7 @@ export const ButtonToggleSlice = createSlice({
         isCartOpen: state.isOrderGenerationOpen || !state.isCartOpen,
         isSideBarOpen: false,
         isOrderGenerationOpen: false,
+        isMyTemplateOpen: false,
       };
     },
     switchPaintBucket: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
@@ -75,12 +78,19 @@ export const ButtonToggleSlice = createSlice({
         isCartOpen: false,
         isSideBarOpen: false,
         isOrderGenerationOpen: false,
+        isMyTemplateOpen: false,
       };
     },
     switchOrderGeneration: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
       return {
         ...state,
         isOrderGenerationOpen: action.payload,
+      };
+    },
+    switchMyTemplateDisplay: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isMyTemplateOpen: action.payload,
       };
     },
   },
@@ -94,6 +104,7 @@ export const {
   switchSideBar,
   switchLoginModal,
   switchCreateTemplate,
+  switchMyTemplateDisplay,
   switchOrderGeneration,
 } = ButtonToggleSlice.actions;
 

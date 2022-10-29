@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Profile from "@/components/NavBar/Profile";
+import renderWithMockedProvider from "../../utils";
 
 describe("Profile", () => {
   const props = {
@@ -10,7 +11,7 @@ describe("Profile", () => {
     handleLogout: jest.fn(),
   };
   it("should render text correctly", () => {
-    render(
+    renderWithMockedProvider(
       <Profile
         isOpen={props.isOpen}
         onClose={props.onClose}
@@ -29,7 +30,7 @@ describe("Profile", () => {
     expect(SignOutElement).toBeInTheDocument();
   });
   it("should call onOpen when hover the menuButton and call onClose when unhover the menuButton", () => {
-    render(
+    renderWithMockedProvider(
       <Profile
         isOpen={props.isOpen}
         onClose={props.onClose}
@@ -42,7 +43,7 @@ describe("Profile", () => {
     expect(props.onOpen).toHaveBeenCalledTimes(1);
   });
   it("should call onClose when unhover the menuButton", () => {
-    render(
+    renderWithMockedProvider(
       <Profile
         isOpen={props.isOpen}
         onClose={props.onClose}
