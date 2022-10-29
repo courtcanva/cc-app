@@ -1,5 +1,5 @@
 import CustomiseWindow from "@/components/ProHalfCourt/CustomiseWindow";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 describe("CustomiseWindow.test", () => {
@@ -9,13 +9,11 @@ describe("CustomiseWindow.test", () => {
     render(<CustomiseWindow setInputLength={setClipLength} setInputWidth={setClipWidth} />);
   });
 
-  it("should render Customize Window correctly and have click function", () => {
+  it("should render Customize Window correctly and have click function", async () => {
     const headWindow = screen.getByTestId("headWindow");
     expect(headWindow).toBeVisible();
-    const bodyWindow = screen.getByTestId("bodyWindow");
-    userEvent.click(headWindow);
-    userEvent.click(headWindow);
-    expect(bodyWindow).not.toBeVisible();
+    fireEvent.click(headWindow);
+    await waitFor(() => expect(screen.getByTestId("bodyWindow")).toBeVisible());
   });
   it("only allow input number in the input filed", () => {
     const widthInput = screen.getByTestId("WidthInput");
