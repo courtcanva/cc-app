@@ -69,6 +69,7 @@ const CustomiseWindow = ({
         onClick={onToggle}
         cursor="pointer"
         borderTopRadius={8}
+        data-testid="headWindow"
       >
         <Icon as={BiPencil} color="white" marginRight="5" width={6} height={6} />
         <Text color="white" fontWeight="bold">
@@ -77,7 +78,7 @@ const CustomiseWindow = ({
         <Spacer />
         <Icon as={isOpen ? BiChevronDown : BiChevronUp} color="white" width={6} height={6} />
       </Flex>
-      <Collapse in={isOpen} animateOpacity>
+      <Collapse in={isOpen} animateOpacity data-testid="bodyWindow">
         <Flex
           direction="column"
           width="100%"
@@ -98,6 +99,7 @@ const CustomiseWindow = ({
               type="number"
               onKeyPress={enterPress}
               onBlur={inputWidthBlur}
+              data-testid="WidthInput"
             />
             <FormLabel color="black">Length</FormLabel>
             <Input
@@ -110,6 +112,7 @@ const CustomiseWindow = ({
               onKeyPress={enterPress}
               onBlur={inputHeightBlur}
               marginBottom={2}
+              data-testid="LengthInput"
             />
             {!isValid && (
               <FormHelperText width="100%" color="red">
@@ -124,10 +127,11 @@ const CustomiseWindow = ({
               width="100%"
               isDisabled={widthValue === -1 || lengthValue === -1}
               onClick={handleInput}
+              data-testid="setBtn"
             >
               Set
             </Button>
-            <Button colorScheme="orange" width="100%" onClick={resetHandle}>
+            <Button colorScheme="orange" width="100%" onClick={resetHandle} data-testid="resetBtn">
               Reset
             </Button>
           </Stack>
