@@ -64,5 +64,13 @@ describe("CustomiseWindow.test", () => {
     expect(
       screen.getByText("Width must be between 2m and 14m and length must be between 2m and 15m.")
     ).toBeInTheDocument();
+    userEvent.tab();
+    fireEvent.focus(lengthInput);
+    userEvent.type(lengthInput, "20");
+    userEvent.tab();
+    fireEvent.focusOut(lengthInput);
+    expect(
+      screen.getByText("Width must be between 2m and 14m and length must be between 2m and 15m.")
+    ).toBeInTheDocument();
   });
 });

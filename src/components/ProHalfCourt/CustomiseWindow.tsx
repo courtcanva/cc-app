@@ -123,7 +123,8 @@ const CustomiseWindow = ({
           <Spacer />
           <Stack direction="column" spacing={5}>
             <Button
-              colorScheme="blue"
+              color="white"
+              backgroundColor="brand.secondary"
               width="100%"
               isDisabled={widthValue === -1 || lengthValue === -1}
               onClick={handleInput}
@@ -131,7 +132,14 @@ const CustomiseWindow = ({
             >
               Set
             </Button>
-            <Button colorScheme="orange" width="100%" onClick={resetHandle} data-testid="resetBtn">
+            <Button
+              color="brand.secondary"
+              borderColor="brand.secondary"
+              border="1px"
+              width="100%"
+              onClick={resetHandle}
+              data-testid="resetBtn"
+            >
               Reset
             </Button>
           </Stack>
