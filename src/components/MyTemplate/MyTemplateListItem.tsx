@@ -80,7 +80,12 @@ function MyTemplateListItem({ ...item }) {
           </Text>
           <Text fontSize="1rem">{moment(item.createdAt).format("DD/MM/YYYY")}</Text>
         </Box>
-        <Text fontSize={{ base: "6px", md: "xs" }} fontWeight="400" marginTop="12px">
+        <Text
+          fontSize={{ base: "6px", md: "xs" }}
+          fontWeight="400"
+          marginTop="12px"
+          maxWidth="180px"
+        >
           {item.description}
         </Text>
       </Flex>
