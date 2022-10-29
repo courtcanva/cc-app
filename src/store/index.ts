@@ -16,6 +16,8 @@ import designTileListReducer from "./reducer/designsTileListSlice";
 import colorListReducer from "./reducer/colorListSlice";
 import canvasControlReducer from "./reducer/canvasControlSlice";
 import { templateApi } from "@/redux/api/templateApi";
+import orderReducer from "./reducer/orderSlice";
+import { orderApi } from "@/redux/api/orderApi";
 
 export const makeStore = () =>
   configureStore({
@@ -34,9 +36,11 @@ export const makeStore = () =>
       [courtColorApi.reducerPath]: courtColorApi.reducer,
       [cartApi.reducerPath]: cartApi.reducer,
       [templateApi.reducerPath]: templateApi.reducer,
+      [orderApi.reducerPath]: orderApi.reducer,
       areaTileQty: areaTileQtyReducer,
       colorList: colorListReducer,
       canvasControl: canvasControlReducer,
+      order: orderReducer,
     },
 
     middleware: (getDefaultMiddleware) =>
@@ -46,7 +50,8 @@ export const makeStore = () =>
         designApi.middleware,
         courtColorApi.middleware,
         cartApi.middleware,
-        templateApi.middleware
+        templateApi.middleware,
+        orderApi.middleware
       ),
   });
 

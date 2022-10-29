@@ -11,14 +11,18 @@ import { BiPencil } from "react-icons/bi";
 import { useStoreSelector } from "@/store/hooks";
 import { useEffect, useState } from "react";
 import NameChangeAlertModal from "./NameChangeAlertModal";
-import { useNameCheckFeedback } from "@/hooks/useNameCheckFeedback";
+import checkDesignName from "@/utils/checkDesignName";
+import { useDispatch } from "react-redux";
+import { changeDesignName } from "@/store/reducer/courtSpecDataSlice";
+import { DESIGN_NAME_MAX_CHAR_LENGTH } from "@/constants/courtData";
 
 const DesignName = () => {
+  const dispatch = useDispatch();
   const designName = useStoreSelector((state) => state.courtSpecData.activeCourt.designName);
   const nameList = useStoreSelector((state) => state.designName.nameList);
   const [newDesignName, setNewDesignName] = useState(designName);
-  const { feedbackModalOpen, setFeedbackModalOpen, feedback, saveNameChange } =
-    useNameCheckFeedback(newDesignName, nameList);
+  const [feedback, setFeedback] = useState("");
+  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
 
   useEffect(() => {
     setNewDesignName(designName);
@@ -36,6 +40,20 @@ const DesignName = () => {
     );
   };
 
+  const saveNameChange = () => {
+    if (newDesignName.trim().length > DESIGN_NAME_MAX_CHAR_LENGTH) {
+      setFeedback(`The design name should less than ${DESIGN_NAME_MAX_CHAR_LENGTH} characters.`);
+    } else {
+      const errorMessage = checkDesignName(newDesignName, nameList);
+      if (errorMessage) {
+        setFeedbackModalOpen(true);
+        setFeedback(errorMessage);
+      } else {
+        dispatch(changeDesignName(newDesignName.trim()));
+      }
+    }
+  };
+
   return (
     <>
       <Flex justifyContent="center" alignItems="center" fontSize="xl">
@@ -49,7 +67,7 @@ const DesignName = () => {
           onChange={(value) => {
             setNewDesignName(value);
           }}
-          onSubmit={() => saveNameChange()}
+          onSubmit={saveNameChange}
         >
           <EditablePreview p="0px 8px" />
           <Input as={EditableInput} />
