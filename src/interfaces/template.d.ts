@@ -1,4 +1,4 @@
-import { IDesign } from "@/interfaces/design";
+import { ISaveDesign } from "@/interfaces/design";
 
 export interface ITags {
   CourtType: string;
@@ -9,7 +9,7 @@ export interface ITemplate {
   _id: string;
   user_id: string;
   description: string | undefined | null;
-  design: IDesign;
+  design: ISaveDesign;
   image: string;
   tags: ITags;
 }

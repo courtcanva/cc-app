@@ -1,4 +1,4 @@
-import { IDesign } from "@/interfaces/design";
+import { ISaveDesign } from "@/interfaces/design";
 import { ITemplate } from "@/interfaces/template";
 import { CourtSizeState } from "@/store/reducer/courtSpecDataSlice";
 import { Court } from "@/store/reducer/tileSlice";
@@ -9,15 +9,17 @@ const generateNewTemplate = (
   name: string,
   description: string | undefined,
   selectedCourtTileData: Court[],
-  selectedCourt: CourtSizeState
+  selectedCourt: CourtSizeState,
+  imageUrl: string,
+  designer?: string
 ): ITemplate => {
   const courtSizeData = saveDesignMapping(selectedCourt);
   const tiles = selectedCourtTileData;
   const selectedCourtCategory = selectedCourt.courtName.replace(/ /g, "");
   const courtType = "basketball";
 
-  const newDesign: IDesign = {
-    _id: "",
+  const newDesign: ISaveDesign = {
+    designer: designer,
     user_id: "",
     designName: name,
     tileColor: tiles,
@@ -29,7 +31,7 @@ const generateNewTemplate = (
     user_id: userId,
     description,
     design: newDesign,
-    image: "image_url",
+    image: imageUrl,
     tags: {
       CourtCategory: selectedCourtCategory,
       CourtType: courtType,
