@@ -12,8 +12,10 @@ describe("CustomiseWindow.test", () => {
   it("should render Customize Window correctly and have click function", async () => {
     const headWindow = screen.getByTestId("headWindow");
     expect(headWindow).toBeVisible();
-    fireEvent.click(headWindow);
+    userEvent.click(headWindow);
     await waitFor(() => expect(screen.getByTestId("bodyWindow")).toBeVisible());
+    userEvent.click(headWindow);
+    await waitFor(() => expect(screen.getByTestId("bodyWindow")).not.toBeVisible());
   });
   it("only allow input number in the input filed", () => {
     const widthInput = screen.getByTestId("WidthInput");
