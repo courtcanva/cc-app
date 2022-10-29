@@ -34,7 +34,7 @@ const SaveBoard: React.FC = () => {
   const [nameCheck, setNameCheck] = useState("");
   const [useDesignName, setDesignName] = useState(courtData.designName);
   const [useCourtId, setCourtId] = useState(courtData.courtId);
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [useFeedback, setFeedback] = useState("");
   const [useSaveDesignModal, setSaveDesignModal] = useState(false);
 
@@ -107,11 +107,6 @@ const SaveBoard: React.FC = () => {
     setDialogOpen(true);
     setNameCheck(checkDesignName(useDesignName, designNames));
   };
-  // const close = () => {
-  //   setDialogOpen(false);
-  //   setDesignName(useDesignName);
-  //   setNameCheck("");
-  // };
 
   const handleCheckName = (event: { target: { value: React.SetStateAction<string> } }) => {
     const editedName = String(event.target.value);
@@ -119,7 +114,7 @@ const SaveBoard: React.FC = () => {
       setNameCheck(`The design name should less than ${DESIGN_NAME_MAX_CHAR_LENGTH} characters.`);
     } else {
       setDesignName(editedName);
-      setNameCheck(checkDesignName(editedName.trim(), designNames));
+      setNameCheck(checkDesignName(editedName, designNames));
     }
   };
 
