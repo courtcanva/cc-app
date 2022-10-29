@@ -51,7 +51,6 @@ const TemplateItem = (prop: Props) => {
 
   return (
     <Flex
-      key={templateItem.userId}
       position="relative"
       width="300px"
       height="240px"
@@ -68,16 +67,16 @@ const TemplateItem = (prop: Props) => {
     >
       <Box width="95%">
         <Box>
-          <Text color="black" fontSize="1em" fontWeight="700" line-height="15px">
+          <Text color="black" fontSize="1rem" fontWeight="700">
             {templateItem.designDetail.designName}
           </Text>
           <Text
             color="fontcolor.tealishBlue"
-            fontSize="0.8em"
+            fontSize="0.8rem"
           >{`Created at ${templateItem.createDate}`}</Text>
         </Box>
         {hoverOn && (
-          <Box top="10px" position="absolute" zIndex="1" right="1em">
+          <Box top="10px" position="absolute" right="1rem">
             <Button
               backgroundColor="gray.400"
               size="sm"
@@ -87,7 +86,7 @@ const TemplateItem = (prop: Props) => {
               }}
               onClick={templateDetailOn}
             >
-              <FaEllipsisH color="white" fontSize="1.1em" />
+              <FaEllipsisH color="white" fontSize="1.1rem" />
             </Button>
           </Box>
         )}
@@ -97,7 +96,7 @@ const TemplateItem = (prop: Props) => {
         <Image src={templateItem.courtImgUrl} layout="fill" objectFit="contain" />
       </Box>
 
-      <Flex width="full" wrap="wrap" gap="1em" justifyContent="space-around">
+      <Flex width="full" wrap="wrap" gap="1rem" justifyContent="space-around">
         <CourtTags tags={templateItem.tags} />
       </Flex>
 
