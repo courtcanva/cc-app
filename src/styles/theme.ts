@@ -37,6 +37,7 @@ const colors = {
     secondary: "#1A202C",
     tertiary: "#4285f4",
     quaternary: "#C8C5C5",
+    tealishBlue: "#2C4E8A",
   },
   CourtSizecolor: {
     btc: "#40B484",
@@ -49,6 +50,10 @@ const colors = {
   },
   footerSwitch: {
     500: "#40B484",
+  },
+  tag: {
+    courtCategory: "#7c9fdf",
+    courtType: "#E18E11",
   },
 };
 

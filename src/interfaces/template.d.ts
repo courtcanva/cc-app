@@ -34,3 +34,13 @@ export interface ITemplateErrorMsg {
   nameNullErrMsg: string;
   descriptionLenErrMsg: string;
 }
+
+export type IMyTemplates = Omit<
+  ITemplateDataDb,
+  "__v" | "isOfficial" | "updatedAt" | "design" | "isDeleted"
+>;
+
+export interface ITestImyTemplates extends Omit<IMyTemplates, "description"> {
+  description: string;
+  courtName: string;
+}

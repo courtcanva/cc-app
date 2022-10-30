@@ -5,7 +5,10 @@ import {
   Button,
   Modal,
   ModalOverlay,
+  Flex,
 } from "@chakra-ui/react";
+import { switchMyTemplateDisplay } from "@/store/reducer/buttonToggleSlice";
+import { useDispatch } from "react-redux";
 
 interface Props {
   isOpen: boolean;
@@ -13,6 +16,12 @@ interface Props {
 }
 
 const SuccessNotice = (prop: Props) => {
+  const disPatch = useDispatch();
+
+  const handleOpenMyTemplate = () => {
+    disPatch(switchMyTemplateDisplay(true));
+    onClose();
+  };
   const { isOpen, onClose } = prop;
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="2xl" isCentered>
@@ -28,14 +37,19 @@ const SuccessNotice = (prop: Props) => {
           Congratulations You have successfully submitted a new template!
         </ModalHeader>
         <ModalFooter>
-          <Button
-            background="button.hover"
-            color="fontcolor.primary"
-            onClick={onClose}
-            variant="shareBtn"
-          >
-            Close
-          </Button>
+          <Flex gap="5rem">
+            <Button
+              background="button.hover"
+              color="fontcolor.primary"
+              onClick={onClose}
+              variant="shareBtn"
+            >
+              Close
+            </Button>
+            <Button fontSize="lg" onClick={handleOpenMyTemplate}>
+              Go My Template
+            </Button>
+          </Flex>
         </ModalFooter>
       </ModalContent>
     </Modal>
