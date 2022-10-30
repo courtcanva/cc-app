@@ -134,7 +134,7 @@ const CustomiseWindow = ({
             <Button
               color="brand.secondary"
               borderColor="brand.secondary"
-              _hover={{color:"fontcolor.quaternary"}}
+              _hover={{ color: "fontcolor.quaternary" }}
               border="1px"
               width="100%"
               onClick={resetHandle}
