@@ -2,30 +2,33 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import EditorSideBar from "@/components/EditorSideBar";
 import sideBarItemList from "@/components/EditorSideBar/SideBarItemList";
 import renderWithMockedProvider from "../../utils";
+import userEvent from "@testing-library/user-event";
 
 describe("EditorSideBar component", () => {
   test("Each box in the sidebar should render the correct text", () => {
     renderWithMockedProvider(<EditorSideBar />);
     const bluePrintsText = screen.getByText("Blueprints");
     const folderText = screen.getByText("Folder");
+    const templateText = screen.getByText("Templates");
 
     expect(bluePrintsText).toBeInTheDocument();
     expect(folderText).toBeInTheDocument();
+    expect(templateText).toBeInTheDocument();
   });
 
-  it("When clicking icon button and closing button should be working", () => {
+  test("When clicking icon button and closing button should be working", () => {
     renderWithMockedProvider(<EditorSideBar />);
     const element = screen.getByText("Blueprints");
 
-    fireEvent.click(element);
+    userEvent.click(element);
     const closingBtn = screen.getByRole("button");
     expect(closingBtn).toBeInTheDocument();
 
-    fireEvent.click(closingBtn);
+    userEvent.click(closingBtn);
     expect(closingBtn).not.toBeInTheDocument();
 
-    fireEvent.click(element);
-    fireEvent.click(element);
+    userEvent.click(element);
+    userEvent.click(element);
     expect(closingBtn).not.toBeInTheDocument();
   });
 });
