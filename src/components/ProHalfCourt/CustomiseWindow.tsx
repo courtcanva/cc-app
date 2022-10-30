@@ -123,8 +123,7 @@ const CustomiseWindow = ({
           <Spacer />
           <Stack direction="column" spacing={5}>
             <Button
-              color="white"
-              backgroundColor="brand.secondary"
+              variant="shareBtn"
               width="100%"
               isDisabled={widthValue === -1 || lengthValue === -1}
               onClick={handleInput}
@@ -135,6 +134,7 @@ const CustomiseWindow = ({
             <Button
               color="brand.secondary"
               borderColor="brand.secondary"
+              _hover={{color:"fontcolor.quaternary"}}
               border="1px"
               width="100%"
               onClick={resetHandle}
