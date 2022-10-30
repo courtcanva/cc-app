@@ -10,7 +10,7 @@ export const templateApi = createApi({
   }),
   tagTypes: ["template"],
   endpoints: (builder) => ({
-    getTemplates: builder.query<Omit<ITemplateDataDb, "__v" | "isDeleted">[], string>({
+    getTemplates: builder.query<Omit<ITemplateDataDb, "__v" | "isDeleted">[], string | void>({
       query: (userId) => (userId ? `/templates?user_id=${userId}` : `/templates`),
       transformResponse: (result: ITemplateDataDb[], _meta, _arg) => {
         return result.map((item) => _.omit(item, ["__v", "isDeleted"]));
