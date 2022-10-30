@@ -44,10 +44,10 @@ const TemplateDetail = ({ isOpen, onClose, template }: Props) => {
             </Box>
 
             <Box marginBottom="0.2rem">
-              <Text color="black" fontSize="1.3rem" fontWeight="700">
+              <Text color="black" fontSize="20px" fontWeight="700">
                 {template.designDetail.designName}
               </Text>
-              <Text color="black" fontSize="1rem" marginY="1.1rem" line-height="15px">
+              <Text color="black" fontSize="12px" marginY="1.1rem">
                 {template.description}
               </Text>
               <Flex width="full" marginY="0.5rem" gap="2rem">

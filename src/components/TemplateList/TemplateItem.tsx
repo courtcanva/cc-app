@@ -8,6 +8,7 @@ import { startSelectTemplate } from "@/store/reducer/buttonToggleSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { FaEllipsisH } from "react-icons/fa";
+import moment from "moment";
 
 interface Props {
   template: Omit<ITemplateDataDb, "__v" | "isDeleted">;
@@ -19,13 +20,12 @@ const TemplateItem = (prop: Props) => {
   const [hoverOn, setHoverOn] = useState<boolean>(false);
   const [enableTempDetail, setEnableTempDetail] = useState<boolean>(false);
   const highLightItem = isTemplateSelect && !hoverOn ? false : true;
-  const createDate = new Date(prop.template.createdAt.split("T")[0]);
 
   const templateItem = {
     userId: prop.template.user_id,
     description: prop.template.description,
     courtImgUrl: prop.template.image,
-    createDate: createDate.toLocaleDateString(),
+    createDate: moment(prop.template.createdAt).format("DD/MM/YYYY"),
     tags: prop.template.tags,
     designDetail: prop.template.design,
   };

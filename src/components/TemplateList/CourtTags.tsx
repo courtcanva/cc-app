@@ -6,10 +6,10 @@ interface Props {
 const CourtTags = (prop: Props) => {
   return (
     <>
-      <Tag size="sm" borderRadius="0" variant="solid" colorScheme="purple">
+      <Tag size="sm" fontWeight="bold" borderRadius="0" backgroundColor="tag.courtCategory">
         {prop.tags.CourtCategory.toUpperCase()}
       </Tag>
-      <Tag size="sm" borderRadius="0" variant="solid" colorScheme="orange">
+      <Tag size="sm" fontWeight="bold" borderRadius="0" backgroundColor="tag.courtType">
         {prop.tags.CourtType.toUpperCase()}
       </Tag>
     </>

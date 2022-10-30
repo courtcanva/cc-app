@@ -51,8 +51,16 @@ export const mockTemplateDataRaw: any = [
     },
     image:
       "https://jr-bookinglet-2.s3.ap-southeast-2.amazonaws.com/court_canva_test/m8i7liw-KKm9Dl2OYwgi_.png",
-    createdAt: "2022-10-27T13:26:36.761+00:00",
-    updatedAt: "2022-10-27T13:26:36.761+00:00",
+    createdAt: {
+      $date: {
+        $numberLong: "1663723361318",
+      },
+    },
+    updatedAt: {
+      $date: {
+        $numberLong: "1663723361318",
+      },
+    },
     status: "Published",
     description: "loreamsdhuhihuhuihu",
     tags: {
@@ -112,8 +120,16 @@ export const mockTemplateDataRaw: any = [
     },
     image:
       "https://jr-bookinglet-2.s3.ap-southeast-2.amazonaws.com/court_canva_test/m8i7liw-KKm9Dl2OYwgi_.png",
-    createdAt: "2022-10-27T13:26:36.761+00:00",
-    updatedAt: "2022-10-27T13:26:36.761+00:00",
+    createdAt: {
+      $date: {
+        $numberLong: "1663723361318",
+      },
+    },
+    updatedAt: {
+      $date: {
+        $numberLong: "1663723361318",
+      },
+    },
     isDeleted: false,
     status: "Published",
     description: "loreamsdhuhihuhuihu",
@@ -173,8 +189,16 @@ export const mockTemplateDataRaw: any = [
     },
     image:
       "https://jr-bookinglet-2.s3.ap-southeast-2.amazonaws.com/court_canva_test/m8i7liw-KKm9Dl2OYwgi_.png",
-    createdAt: "2022-10-27T13:26:36.761+00:00",
-    updatedAt: "2022-10-27T13:26:36.761+00:00",
+    createdAt: {
+      $date: {
+        $numberLong: "1663723361318",
+      },
+    },
+    updatedAt: {
+      $date: {
+        $numberLong: "1663723361318",
+      },
+    },
     status: "Published",
     description: "lorea msdhuhi huhu ihu",
     tags: {
