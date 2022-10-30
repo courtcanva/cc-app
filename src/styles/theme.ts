@@ -51,6 +51,10 @@ const colors = {
   footerSwitch: {
     500: "#40B484",
   },
+  tag: {
+    courtCategory: "#7c9fdf",
+    courtType: "#E18E11",
+  },
 };
 
 const components = {

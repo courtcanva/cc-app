@@ -100,9 +100,7 @@ const TemplateItem = (prop: Props) => {
         <CourtTags tags={templateItem.tags} />
       </Flex>
 
-      {enableTempDetail && (
-        <TemplateDetail isOpen={enableTempDetail} onClose={detailOnClose} template={templateItem} />
-      )}
+      <TemplateDetail isOpen={enableTempDetail} onClose={detailOnClose} template={templateItem} />
     </Flex>
   );
 };
