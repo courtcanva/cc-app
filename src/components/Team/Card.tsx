@@ -1,22 +1,16 @@
 import React from "react";
-import { Flex, Image, Text, Link } from "@chakra-ui/react";
+import { Flex, Text, Link, Box } from "@chakra-ui/react";
 import { BsLinkedin, BsGithub, BsFillEnvelopeFill } from "react-icons/bs";
+import { IMember } from "@/interfaces/team";
+import Image from "next/image";
 
 interface Props {
   key: string;
-  member: {
-    id: string;
-    name: string;
-    profileImg: string;
-    role: string;
-    linkedInUrl: string;
-    githubUrl: string;
-    emailAddress: string;
-  };
+  member: IMember;
 }
 
 const Card = (props: Props) => {
-  const { name, profileImg, linkedInUrl, githubUrl, role, emailAddress } = props.member;
+  const { name, profileImgUrl, linkedInUrl, githubUrl, role, emailAddress } = props.member;
 
   return (
     <Flex
@@ -28,15 +22,19 @@ const Card = (props: Props) => {
       justifyContent="center"
       boxShadow="-1px 0px 20px rgba(0, 0, 0, .1)"
     >
-      <Image
-        src={profileImg}
+      <Box
         marginX="auto"
         width="100px"
         height="100px"
         borderRadius="50%"
         border="5px solid rgba(0, 0, 0, .1)"
-      />
-      <Flex flexDirection="column" marginX="20px" width="150px">
+        flex="1.5"
+        position="relative"
+        overflow="hidden"
+      >
+        <Image src={profileImgUrl} layout="fill" objectFit="cover" />
+      </Box>
+      <Flex flexDirection="column" marginX="20px" width="150px" flex="2">
         <Text fontWeight="600" textAlign="center" fontSize="sm">
           {name}
         </Text>
