@@ -34,6 +34,11 @@ interface TemplateItem {
 }
 
 const TemplateDetail = (prop: Props) => {
+  const applyTemplateControl = () => {
+    prop.applyTemplate();
+    prop.onClose();
+  };
+
   return (
     <>
       <Modal isOpen={prop.isOpen} onClose={prop.onClose} isCentered>
@@ -90,7 +95,7 @@ const TemplateDetail = (prop: Props) => {
             >
               Back
             </Button>
-            <Button variant="shareBtn" onClick={prop.applyTemplate} width="8rem" autoFocus>
+            <Button variant="shareBtn" onClick={applyTemplateControl} width="8rem" autoFocus>
               Use
             </Button>
           </ModalFooter>
