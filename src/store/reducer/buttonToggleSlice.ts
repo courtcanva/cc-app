@@ -93,6 +93,8 @@ export const ButtonToggleSlice = createSlice({
       return {
         ...state,
         isMyTemplateOpen: action.payload,
+        isCartOpen: false,
+        isOrderGenerationOpen: false,
       };
     },
     startSelectTemplate: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
