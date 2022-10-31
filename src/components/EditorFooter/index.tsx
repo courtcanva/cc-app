@@ -7,6 +7,7 @@ import {
   FormLabel,
   Text,
   Tooltip,
+  Button,
 } from "@chakra-ui/react";
 import { RiZoomInLine, RiZoomOutLine } from "react-icons/ri";
 import { useState } from "react";
@@ -16,10 +17,20 @@ import { useStoreSelector } from "@/store/hooks";
 import { changeZoomScale, dragSwitch, resetAll } from "@/store/reducer/canvasControlSlice";
 import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
 import { RiRepeatLine } from "react-icons/ri";
+import ThreeDimensionalContainer from "../ThreeDimensionalCourt/ThreeDimensionalContainer";
 
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
   const { zoomScale } = useStoreSelector((state) => state.canvasControl);
+  const [isSwitchTo3D, setIsSwitchTo3D] = useState(false);
+
+  const handleSwitchTo3D = () => {
+    setIsSwitchTo3D((isSwitchTo3d) => !isSwitchTo3d);
+  };
+
+  const closeSwitchTo3D = () => {
+    setIsSwitchTo3D(false);
+  };
 
   const dispatch = useDispatch();
   const handleRulerState = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,6 +144,8 @@ const EditorFooter = () => {
             onChange={handleRulerState}
           />
         </FormControl>
+        <Button onClick={handleSwitchTo3D}>Switch to 3D</Button>
+        <ThreeDimensionalContainer isOpen={isSwitchTo3D} onClose={closeSwitchTo3D} />
       </Flex>
     </Flex>
   );
