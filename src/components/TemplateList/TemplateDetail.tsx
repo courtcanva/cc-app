@@ -21,6 +21,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   template: TemplateItem;
+  applyTemplate: () => void;
 }
 
 interface TemplateItem {
@@ -32,26 +33,26 @@ interface TemplateItem {
   designDetail: ISaveDesign;
 }
 
-const TemplateDetail = ({ isOpen, onClose, template }: Props) => {
+const TemplateDetail = (prop: Props) => {
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal isOpen={prop.isOpen} onClose={prop.onClose} isCentered>
         <ModalOverlay />
         <ModalContent width="480px">
           <ModalBody marginX="1rem" marginTop="2rem">
             <Box width="full" height="220px" marginBottom="1rem" position="relative">
-              <Image src={template.courtImgUrl} layout="fill" objectFit="contain" />
+              <Image src={prop.template.courtImgUrl} layout="fill" objectFit="contain" />
             </Box>
 
             <Box marginBottom="0.2rem">
               <Text color="black" fontSize="20px" fontWeight="700">
-                {template.designDetail.designName}
+                {prop.template.designDetail.designName}
               </Text>
               <Text color="black" fontSize="12px" marginY="1.1rem">
-                {template.description}
+                {prop.template.description}
               </Text>
               <Flex width="full" marginY="0.5rem" gap="2rem">
-                <CourtTags tags={template.tags} />
+                <CourtTags tags={prop.template.tags} />
               </Flex>
             </Box>
 
@@ -68,14 +69,14 @@ const TemplateDetail = ({ isOpen, onClose, template }: Props) => {
                   overflow="hidden"
                   textOverflow="ellipsis"
                 >
-                  {template.designDetail.designer}
+                  {prop.template.designDetail.designer}
                 </Text>
               </Flex>
 
               <Text fontStyle="italic" fontSize="0.8rem">
                 Created at
               </Text>
-              <Text fontWeight="700">{template.createDate}</Text>
+              <Text fontWeight="700">{prop.template.createDate}</Text>
             </Box>
           </ModalBody>
 
@@ -84,12 +85,12 @@ const TemplateDetail = ({ isOpen, onClose, template }: Props) => {
               variant="outline"
               colorScheme="teal"
               fontSize="18px"
-              onClick={onClose}
+              onClick={prop.onClose}
               width="8rem"
             >
               Back
             </Button>
-            <Button variant="shareBtn" onClick={onClose} width="8rem" autoFocus>
+            <Button variant="shareBtn" onClick={prop.applyTemplate} width="8rem" autoFocus>
               Use
             </Button>
           </ModalFooter>

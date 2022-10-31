@@ -9,6 +9,11 @@ import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { FaEllipsisH } from "react-icons/fa";
 import moment from "moment";
+import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
+import { setActiveCourt } from "@/store/reducer/courtSpecDataSlice";
+import { changeWholeCourtColor } from "@/store/reducer/tileSlice";
+import { mockTileData } from "../MockData/MockTileData";
+import { resetAll } from "@/store/reducer/canvasControlSlice";
 
 interface Props {
   template: Omit<ITemplateDataDb, "__v" | "isDeleted">;
@@ -20,6 +25,18 @@ const TemplateItem = (prop: Props) => {
   const [hoverOn, setHoverOn] = useState<boolean>(false);
   const [enableTempDetail, setEnableTempDetail] = useState<boolean>(false);
   const highLightItem = isTemplateSelect && !hoverOn ? false : true;
+  const { courtsData } = useStoreSelector((state) => state.courtSpecData);
+
+  const handleCourtSelecting = (courtSizeName: string): void => {
+    dispatch(setActiveCourt(courtSizeName));
+    const selectedCourt = courtsData.find((item) => item.courtName === courtSizeName);
+    const tileQtyOfSelectedCourt = mockTileData.find(
+      (item) => item.name === selectedCourt?.courtName
+    )?.tileQty as AreaTileQty[];
+    dispatch(changeCourtType(tileQtyOfSelectedCourt));
+    dispatch(changeWholeCourtColor(prop.template.design.tileColor));
+    dispatch(resetAll());
+  };
 
   const templateItem = {
     userId: prop.template.user_id,
@@ -30,9 +47,14 @@ const TemplateItem = (prop: Props) => {
     designDetail: prop.template.design,
   };
 
-  const handleTemplateSelect = () => {
+  const selectTemplate = () => {
     setHoverOn(true);
     dispatch(startSelectTemplate(true));
+  };
+
+  const applyTemplate = () => {
+    handleCourtSelecting(prop.template.design.courtSize.name);
+    selectTemplate();
   };
 
   const resetHeightLight = () => {
@@ -59,10 +81,8 @@ const TemplateItem = (prop: Props) => {
       alignItems="center"
       padding="5px 10px 10px 10px"
       backgroundColor="white"
-      cursor="pointer"
       opacity={highLightItem ? "1" : "0.4"}
-      onMouseEnter={handleTemplateSelect}
-      onClick={handleTemplateSelect}
+      onMouseEnter={selectTemplate}
       onMouseLeave={resetHeightLight}
     >
       <Box width="95%">
@@ -92,15 +112,18 @@ const TemplateItem = (prop: Props) => {
         )}
       </Box>
 
-      <Box width="80%" height="full" position="relative">
+      <Box width="80%" height="full" position="relative" cursor="pointer" onClick={applyTemplate}>
         <Image src={templateItem.courtImgUrl} layout="fill" objectFit="contain" />
       </Box>
-
       <Flex width="full" wrap="wrap" gap="1rem" justifyContent="space-around">
         <CourtTags tags={templateItem.tags} />
       </Flex>
-
-      <TemplateDetail isOpen={enableTempDetail} onClose={detailOnClose} template={templateItem} />
+      <TemplateDetail
+        isOpen={enableTempDetail}
+        onClose={detailOnClose}
+        template={templateItem}
+        applyTemplate={() => handleCourtSelecting(prop.template.design.courtSize.name)}
+      />
     </Flex>
   );
 };
