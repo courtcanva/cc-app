@@ -26,6 +26,7 @@ describe("generateNewTemplate", () => {
           lengthOfCorner: 5,
           lineBorderWidth: 1,
           designName: "",
+          image: "",
         },
       },
       image: "image_url",
