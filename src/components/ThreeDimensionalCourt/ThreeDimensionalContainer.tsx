@@ -16,9 +16,10 @@ import {
 } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import Image from "next/image";
-import dynamic from "next/dynamic";
+
 import { FcRemoveImage } from "react-icons/fc";
 import Sidebar from "@/components/ThreeDimensionalCourt/Sidebar";
+import useCourt from "@/hooks/useCourt";
 
 interface Props {
   isOpen: boolean;
@@ -29,7 +30,6 @@ interface Props {
 const ThreeDimensionalContainer = ({ isOpen, onClose }: Props) => {
   const { courtDataUrl } = useStoreSelector((state) => state.canvasControl);
 
-  // const ProFullCourt = dynamic(() => import("@/components/ProFullCourt"), { ssr: false });
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} isCentered size="6xl">

@@ -7,33 +7,20 @@ import {
   FormLabel,
   Text,
   Tooltip,
-  Button,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { RiZoomInLine, RiZoomOutLine } from "react-icons/ri";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { switchRuler, switch3D } from "@/store/reducer/buttonToggleSlice";
+import { switchRuler } from "@/store/reducer/buttonToggleSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { changeZoomScale, dragSwitch, resetAll } from "@/store/reducer/canvasControlSlice";
 import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
 import { RiRepeatLine } from "react-icons/ri";
-import ThreeDimensionalContainer from "../ThreeDimensionalCourt/ThreeDimensionalContainer";
 
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
   const { zoomScale } = useStoreSelector((state) => state.canvasControl);
-  const { isOpen: isOpen3D, onOpen: onOpen3D, onClose: onClose3D } = useDisclosure();
-  const [isSwitchTo3D, setIsSwitchTo3D] = useState(false);
 
-  const handleSwitchTo3D = () => {
-    setIsSwitchTo3D((isSwitchTo3d) => !isSwitchTo3d);
-    dispatch(switch3D(isSwitchTo3D));
-  };
-
-  const handleCloseSwitch3D = () => {
-    dispatch(switch3D(false));
-  };
   const dispatch = useDispatch();
   const handleRulerState = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRuler(e.target.checked ? "RULER ON" : "RULER OFF");
@@ -146,8 +133,6 @@ const EditorFooter = () => {
             onChange={handleRulerState}
           />
         </FormControl>
-        <Button onClick={onOpen3D}>Switch to 3D</Button>
-        <ThreeDimensionalContainer isOpen={isOpen3D} onClose={onClose3D} />
       </Flex>
     </Flex>
   );
