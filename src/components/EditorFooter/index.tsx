@@ -12,7 +12,7 @@ import {
 import { RiZoomInLine, RiZoomOutLine } from "react-icons/ri";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { switchRuler } from "@/store/reducer/buttonToggleSlice";
+import { switchRuler, switch3D } from "@/store/reducer/buttonToggleSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { changeZoomScale, dragSwitch, resetAll } from "@/store/reducer/canvasControlSlice";
 import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
@@ -26,12 +26,12 @@ const EditorFooter = () => {
 
   const handleSwitchTo3D = () => {
     setIsSwitchTo3D((isSwitchTo3d) => !isSwitchTo3d);
+    dispatch(switch3D(isSwitchTo3D));
   };
 
-  const closeSwitchTo3D = () => {
-    setIsSwitchTo3D(false);
+  const handleCloseSwitch3D = () => {
+    dispatch(switch3D(false));
   };
-
   const dispatch = useDispatch();
   const handleRulerState = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRuler(e.target.checked ? "RULER ON" : "RULER OFF");
@@ -145,7 +145,7 @@ const EditorFooter = () => {
           />
         </FormControl>
         <Button onClick={handleSwitchTo3D}>Switch to 3D</Button>
-        <ThreeDimensionalContainer isOpen={isSwitchTo3D} onClose={closeSwitchTo3D} />
+        <ThreeDimensionalContainer isOpen={isSwitchTo3D} onClose={handleCloseSwitch3D} />
       </Flex>
     </Flex>
   );

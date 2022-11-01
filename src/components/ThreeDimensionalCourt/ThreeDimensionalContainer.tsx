@@ -10,8 +10,11 @@ import {
   Icon,
   ModalOverlay,
   ModalFooter,
+  ModalCloseButton,
+  ModalHeader,
 } from "@chakra-ui/react";
-import ProFullCourt from "../ProFullCourt";
+
+import dynamic from "next/dynamic";
 
 interface Props {
   isOpen: boolean;
@@ -20,12 +23,23 @@ interface Props {
 
 // NOTE: need to add state to redux like ruler and drag
 const ThreeDimensionalContainer = ({ isOpen, onClose }: Props) => {
+  const ProFullCourt = dynamic(() => import("@/components/ProFullCourt"), { ssr: false });
   return (
     <>
-      <Modal isCentered isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent width="1200px"></ModalContent>
-        <Button onClick={onClose}>Close</Button>
+        <ModalContent width="100%">
+          <ModalHeader>3D Preview Court</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody height="2000px">
+            <ProFullCourt />
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
       </Modal>
     </>
   );
