@@ -8,13 +8,17 @@ import {
   Box,
   Text,
   Icon,
+  Badge,
   ModalOverlay,
   ModalFooter,
   ModalCloseButton,
   ModalHeader,
 } from "@chakra-ui/react";
-
+import { useStoreSelector } from "@/store/hooks";
+import Image from "next/image";
 import dynamic from "next/dynamic";
+import { FcRemoveImage } from "react-icons/fc";
+import Sidebar from "@/components/ThreeDimensionalCourt/Sidebar";
 
 interface Props {
   isOpen: boolean;
@@ -23,21 +27,28 @@ interface Props {
 
 // NOTE: need to add state to redux like ruler and drag
 const ThreeDimensionalContainer = ({ isOpen, onClose }: Props) => {
-  const ProFullCourt = dynamic(() => import("@/components/ProFullCourt"), { ssr: false });
+  const { courtDataUrl } = useStoreSelector((state) => state.canvasControl);
+
+  // const ProFullCourt = dynamic(() => import("@/components/ProFullCourt"), { ssr: false });
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered size="6xl">
         <ModalOverlay />
-        <ModalContent width="100%">
+        <ModalContent position="relative" height="80%">
           <ModalHeader>3D Preview Court</ModalHeader>
           <ModalCloseButton />
-          <ModalBody height="2000px">
-            <ProFullCourt />
+          <ModalBody>
+            {courtDataUrl ? (
+              <Box width="full" height="100%" position="relative">
+                <Image src={courtDataUrl} layout="fill" objectFit="contain" />
+              </Box>
+            ) : (
+              <FcRemoveImage size={42} />
+            )}
           </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
+          <ModalFooter display="Flex" justifyContent="center" alignItems="center" gap="1rem">
+            <Badge>Sidebar</Badge>
+            <Sidebar />
           </ModalFooter>
         </ModalContent>
       </Modal>

@@ -8,6 +8,7 @@ import {
   Text,
   Tooltip,
   Button,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { RiZoomInLine, RiZoomOutLine } from "react-icons/ri";
 import { useState } from "react";
@@ -22,6 +23,7 @@ import ThreeDimensionalContainer from "../ThreeDimensionalCourt/ThreeDimensional
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
   const { zoomScale } = useStoreSelector((state) => state.canvasControl);
+  const { isOpen: isOpen3D, onOpen: onOpen3D, onClose: onClose3D } = useDisclosure();
   const [isSwitchTo3D, setIsSwitchTo3D] = useState(false);
 
   const handleSwitchTo3D = () => {
@@ -144,8 +146,8 @@ const EditorFooter = () => {
             onChange={handleRulerState}
           />
         </FormControl>
-        <Button onClick={handleSwitchTo3D}>Switch to 3D</Button>
-        <ThreeDimensionalContainer isOpen={isSwitchTo3D} onClose={handleCloseSwitch3D} />
+        <Button onClick={onOpen3D}>Switch to 3D</Button>
+        <ThreeDimensionalContainer isOpen={isOpen3D} onClose={onClose3D} />
       </Flex>
     </Flex>
   );
