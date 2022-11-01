@@ -24,7 +24,7 @@ const TemplateItem = (prop: Props) => {
   const { isTemplateSelect } = useStoreSelector((state) => state.buttonToggle);
   const [hoverOn, setHoverOn] = useState<boolean>(false);
   const [enableTempDetail, setEnableTempDetail] = useState<boolean>(false);
-  const highLightItem = isTemplateSelect && !hoverOn ? false : true;
+  const templateOpacityDrop = isTemplateSelect && !hoverOn;
   const { courtsData } = useStoreSelector((state) => state.courtSpecData);
 
   const templateItem = {
@@ -82,7 +82,7 @@ const TemplateItem = (prop: Props) => {
       alignItems="center"
       padding="5px 10px 10px 10px"
       backgroundColor="white"
-      opacity={highLightItem ? "1" : "0.4"}
+      opacity={templateOpacityDrop ? "0.4" : "1"}
       onMouseEnter={selectTemplate}
       onMouseLeave={resetHeightLight}
     >
