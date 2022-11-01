@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { FaEllipsisH } from "react-icons/fa";
 import moment from "moment";
 import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
-import { setActiveCourt } from "@/store/reducer/courtSpecDataSlice";
+import { setActiveCourt, updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
 import { changeWholeCourtColor } from "@/store/reducer/tileSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
@@ -29,6 +29,7 @@ const TemplateItem = (prop: Props) => {
 
   const handleCourtSelecting = (courtSizeName: string): void => {
     dispatch(setActiveCourt(courtSizeName));
+    dispatch(updateBorderLength(prop.template.design.courtSize.sideBorderWidth));
     const selectedCourt = courtsData.find((item) => item.courtName === courtSizeName);
     const tileQtyOfSelectedCourt = mockTileData.find(
       (item) => item.name === selectedCourt?.courtName
