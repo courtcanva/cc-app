@@ -103,7 +103,7 @@ const ProFullCourt = () => {
           </Stage>
         )}
       </ReactReduxContext.Consumer>
-      <ThreeDimensionalToggle />
+      <ThreeDimensionalToggle width={court.stageWidth} height={court.stageHeight} />
     </Flex>
   );
 };

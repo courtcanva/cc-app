@@ -13,6 +13,7 @@ import {
   ModalFooter,
   ModalCloseButton,
   ModalHeader,
+  CloseButton,
 } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import Image from "next/image";
@@ -24,32 +25,44 @@ import useCourt from "@/hooks/useCourt";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  width: number;
+  height: number;
 }
 
 // NOTE: need to add state to redux like ruler and drag
-const ThreeDimensionalContainer = ({ isOpen, onClose }: Props) => {
+const ThreeDimensionalContainer = ({ isOpen, onClose, width, height }: Props) => {
   const { courtDataUrl } = useStoreSelector((state) => state.canvasControl);
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered size="6xl">
+      <Modal isOpen={isOpen} onClose={onClose} isCentered size="5xl">
         <ModalOverlay />
         <ModalContent position="relative" height="80%">
-          <ModalHeader>3D Preview Court</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            {courtDataUrl ? (
-              <Box width="full" height="100%" position="relative">
-                <Image src={courtDataUrl} layout="fill" objectFit="contain" />
-              </Box>
-            ) : (
-              <FcRemoveImage size={42} />
-            )}
-          </ModalBody>
-          <ModalFooter display="Flex" justifyContent="center" alignItems="center" gap="1rem">
-            <Badge>Sidebar</Badge>
-            <Sidebar />
-          </ModalFooter>
+          <Flex flexDirection="column" alignItems="center" gap="2rem">
+            <ModalBody>
+              {courtDataUrl ? (
+                <Image
+                  src={courtDataUrl}
+                  objectFit="cover"
+                  width={width * 0.8}
+                  height={height * 0.8}
+                />
+              ) : (
+                <FcRemoveImage size={42} />
+              )}
+            </ModalBody>
+            <ModalFooter
+              display="Flex"
+              justifyContent="center"
+              alignItems="center"
+              gap="2rem"
+              marginTop="10px"
+            >
+              {/* <Badge>Sidebar</Badge> */}
+              <Sidebar />
+            </ModalFooter>
+          </Flex>
         </ModalContent>
       </Modal>
     </>

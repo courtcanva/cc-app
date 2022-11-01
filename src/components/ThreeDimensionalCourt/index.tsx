@@ -3,7 +3,12 @@ import { IoCubeSharp } from "react-icons/io5";
 import { Icon, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import ThreeDimensionalContainer from "./ThreeDimensionalContainer";
 
-const ThreeDimensionalToggle = () => {
+interface Props {
+  width: number;
+  height: number;
+}
+
+const ThreeDimensionalToggle = ({ width, height }: Props) => {
   const { isOpen: isOpen3D, onOpen: onOpen3D, onClose: onClose3D } = useDisclosure();
   return (
     <>
@@ -24,7 +29,12 @@ const ThreeDimensionalToggle = () => {
         <Icon as={IoCubeSharp} width={6} height={6} />
         <Text fontSize="12px">3D Preview</Text>
       </Flex>
-      <ThreeDimensionalContainer isOpen={isOpen3D} onClose={onClose3D} />
+      <ThreeDimensionalContainer
+        isOpen={isOpen3D}
+        onClose={onClose3D}
+        width={width}
+        height={height}
+      />
     </>
   );
 };

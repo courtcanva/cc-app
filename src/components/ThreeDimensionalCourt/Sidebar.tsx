@@ -22,6 +22,7 @@ const Sidebar = () => {
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
       width="400px"
+      color="rgba(112, 136, 177, 0.5)"
     >
       {/* <SliderMark value={25} mt="1" ml="-2.5" fontSize="sm">
         25%
@@ -32,8 +33,8 @@ const Sidebar = () => {
       <SliderMark value={75} mt="1" ml="-2.5" fontSize="sm">
         75%
       </SliderMark> */}
-      <SliderTrack>
-        <SliderFilledTrack />
+      <SliderTrack backgroundColor="rgba(112, 136, 177, 0.5)">
+        <SliderFilledTrack backgroundColor="rgba(112, 136, 177, 0.5)" />
       </SliderTrack>
       <Tooltip
         hasArrow
@@ -42,6 +43,7 @@ const Sidebar = () => {
         placement="top"
         isOpen={showTooltip}
         label={`${sliderValue}%`}
+        background="rgba(112, 136, 177)"
       >
         <SliderThumb />
       </Tooltip>
