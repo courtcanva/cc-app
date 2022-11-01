@@ -19,6 +19,7 @@ export interface CourtSizeState {
   designName: string;
   createdAt: string;
   updatedAt: string;
+  image: string;
 }
 export interface CourtSpecMapper {
   [prop: string]: string;
@@ -53,6 +54,7 @@ export const initialState: CourtSpec = {
     designName: "Court Canva 1",
     createdAt: "",
     updatedAt: "",
+    image: "",
   },
   isLoading: true,
   isError: "",

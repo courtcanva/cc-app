@@ -11,6 +11,7 @@ export interface IDesignDetailed extends IDesign {
   createdAt: string;
   updatedAt: string;
   isDeleted: boolean;
+  image: string;
 }
 
 export interface ITileColor {

@@ -78,7 +78,7 @@ const FolderDeleteModal = () => {
             <Button variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button variant="DeleteBtn" onClick={handleDeleteDesign}>
+            <Button variant="folderDeleteBtn" onClick={handleDeleteDesign}>
               Delete
             </Button>
           </ModalFooter>

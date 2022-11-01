@@ -56,6 +56,7 @@ describe("generateNewTemplate", () => {
       designName: "",
       createdAt: "",
       updatedAt: "",
+      image: "",
     };
     const newTemplate = generateNewTemplate(
       userId,

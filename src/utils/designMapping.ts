@@ -28,6 +28,7 @@ export const designCourtMapping = (item: IDesignDetailed) => ({
   designName: item.designName,
   createdAt: item.createdAt,
   updatedAt: item.updatedAt,
+  image: item.image,
 });
 
 export const designTileMapping = (item: IDesignDetailed) => ({
@@ -48,4 +49,5 @@ export const saveDesignMapping = (item: CourtSizeState) => ({
   lengthOfCorner: item.cornerThreePointLineLength,
   lineBorderWidth: item.strokeWidth,
   designName: item.designName,
+  image: item.image,
 });

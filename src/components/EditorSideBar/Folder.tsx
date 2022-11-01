@@ -1,4 +1,4 @@
-import { Tag, Flex, Box } from "@chakra-ui/react";
+import { Tag, Flex, Box, HStack } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
@@ -67,36 +67,82 @@ const Folder = () => {
             opacity={!activateDesign || activateDesign === courtId ? "1" : "0.4"}
           >
             <Flex flexDirection="row" alignItems="flex-start" justifyContent="space-between">
-              <Tag>
-                {designName}
-                <br />
-                created at {createDate}
-              </Tag>
+              <Box
+                style={{
+                  background: "none",
+                  borderRadius: "0",
+                  minWidth: "100px",
+                  marginTop: "10px",
+                  marginRight: "70px",
+                }}
+              >
+                <Box
+                  style={{
+                    fontSize: "13px",
+                    background: "none",
+                    borderRadius: "0",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {designName}
+                </Box>
+                <Box
+                  style={{
+                    fontSize: "9px",
+                    color: "#2c5282",
+                    background: "none",
+                    borderRadius: "0",
+                  }}
+                >
+                  created at {createDate}
+                </Box>
+              </Box>
               <Box
                 style={{
                   backgroundColor: "#C13D46",
                   height: "25px",
                   width: "25px",
                   borderRadius: "20%",
-                  margin: "5px",
+                  marginTop: "10px",
+                  marginRight: "-10px",
                 }}
               >
                 <FolderDeleteModal />
               </Box>
             </Flex>
             <Box style={{ color: "black" }}>image</Box>
-            <Flex flexDirection="row" justifyContent="space-between">
+            {/* <Flex flexDirection="row" justifyContent="space-between"> */}
+            <HStack spacing={8}>
               <Tag
-              // variant="courtIDTag"
+                // variant="courtIDTag"
+                backgroundColor="tag.courtCategory"
+                size={"sm"}
+                style={{
+                  borderRadius: "0",
+                  fontSize: "8px",
+                  marginBottom: "5px",
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  padding: "0 20px 0 20px",
+                }}
               >
                 {courtName}
               </Tag>
               <Tag
-              // variant="courtTypeTag"
+                // variant="courtTypeTag"
+                backgroundColor="tag.courtType"
+                size={"sm"}
+                style={{
+                  borderRadius: "0",
+                  fontSize: "8px",
+                  marginBottom: "5px",
+                  padding: "0 20px 0 20px",
+                  fontWeight: "bold",
+                }}
               >
                 Basketball
               </Tag>
-            </Flex>
+            </HStack>
           </Flex>
         );
       })}
