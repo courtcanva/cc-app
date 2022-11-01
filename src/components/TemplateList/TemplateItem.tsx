@@ -27,18 +27,6 @@ const TemplateItem = (prop: Props) => {
   const highLightItem = isTemplateSelect && !hoverOn ? false : true;
   const { courtsData } = useStoreSelector((state) => state.courtSpecData);
 
-  const handleCourtSelecting = (courtSizeName: string): void => {
-    dispatch(setActiveCourt(courtSizeName));
-    dispatch(updateBorderLength(prop.template.design.courtSize.sideBorderWidth));
-    const selectedCourt = courtsData.find((item) => item.courtName === courtSizeName);
-    const tileQtyOfSelectedCourt = mockTileData.find(
-      (item) => item.name === selectedCourt?.courtName
-    )?.tileQty as AreaTileQty[];
-    dispatch(changeCourtType(tileQtyOfSelectedCourt));
-    dispatch(changeWholeCourtColor(prop.template.design.tileColor));
-    dispatch(resetAll());
-  };
-
   const templateItem = {
     userId: prop.template.user_id,
     description: prop.template.description,
@@ -46,6 +34,18 @@ const TemplateItem = (prop: Props) => {
     createDate: moment(prop.template.createdAt).format("DD/MM/YYYY"),
     tags: prop.template.tags,
     designDetail: prop.template.design,
+  };
+
+  const handleCourtSelecting = (courtSizeName: string): void => {
+    dispatch(setActiveCourt(courtSizeName));
+    dispatch(updateBorderLength(templateItem.designDetail.courtSize.sideBorderWidth));
+    const selectedCourt = courtsData.find((item) => item.courtName === courtSizeName);
+    const tileQtyOfSelectedCourt = mockTileData.find(
+      (item) => item.name === selectedCourt?.courtName
+    )?.tileQty as AreaTileQty[];
+    dispatch(changeCourtType(tileQtyOfSelectedCourt));
+    dispatch(changeWholeCourtColor(templateItem.designDetail.tileColor));
+    dispatch(resetAll());
   };
 
   const selectTemplate = () => {
