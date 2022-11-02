@@ -12,24 +12,50 @@ import BorderDimension from "../BasketballCourt/BorderDimension";
 import DashedLine from "../BasketballCourt/DashedLine";
 import useCourt from "@/hooks/useCourt";
 import { IZoomShift } from "@/interfaces/zoomShift";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState} from "react";
 import canvasControlModel from "../../utils/canvasControlModel";
 import useImageDataUrl from "@/hooks/useImageDataUrl";
 import CustomiseWindow from "./CustomiseWindow";
 import CustomiseCourtDimension from "./CustomiseCourtDimension";
-import { setNewCourtAreaYLength, setNewCourtAreaXLength } from "@/store/reducer/courtSpecDataSlice";
+import { setNewCourtAreaYLength, setNewCourtAreaXLength} from "@/store/reducer/courtSpecDataSlice";
 import CustomiseBorder from "../BasketballCourt/CustomiseBorder";
+import { calculation } from "@/utils/tileNumberCalculator";
+import { changeTileQuantity, PriceBar } from "@/store/reducer/priceBarSlice";
+import { useStoreSelector } from "@/store/hooks";
 
 const ProHalfCourt = () => {
   const dispatch = useDispatch();
-  const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
+  const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint, stageMargin } = useCourt();
   const ref = useRef<any>(null);
+  const reference = useRef<any>()
   const [clipWidth, setClipWidth] = useState(0);
   const [clipLength, setClipLength] = useState(0);
+  const clipCourt = {clipWidth,clipLength}
+  const courtColor = useStoreSelector((state) => state.tile.present.court)
+  const tileInfo = {
+    beginPointX:(courtStartPoint.X - borderLength)*court.courtRatio,
+    beginPointY:(courtStartPoint.Y + courtAreaYLength / 2 - (clipLength * 1000) / 2 - borderLength)*court.courtRatio,
+    endPointX: (courtStartPoint.X+clipWidth*1000 + borderLength)*court.courtRatio,
+    endPointY:(courtStartPoint.Y + courtAreaYLength / 2 - (clipLength * 1000) / 2 +clipLength*1000 + borderLength)*court.courtRatio,
+    tileSize: 300 * court.courtRatio
+   }
+   const courtAndTileInfo = {
+    beginPointX: (stageMargin - borderLength) * court.courtRatio,
+    beginPointY: (stageMargin - borderLength) * court.courtRatio,
+    endPointX: (stageMargin + courtAreaXLength + borderLength) * court.courtRatio,
+    endPointY: (stageMargin + courtAreaYLength + borderLength) * court.courtRatio,
+    tileSize: 300 * court.courtRatio,
+  };
+
   useEffect(() => {
     dispatch(setNewCourtAreaXLength(clipWidth * 1000));
     dispatch(setNewCourtAreaYLength(clipLength * 1000));
-  }, [clipWidth, clipLength]);
+   const timer = setTimeout(() => {
+ const tileNumberResult = calculation(reference, (clipLength===0 && clipWidth===0 ?courtAndTileInfo:tileInfo)) as PriceBar[]
+     dispatch(changeTileQuantity(tileNumberResult));
+   })
+return () => clearTimeout(timer)
+  }, [JSON.stringify(clipCourt), JSON.stringify(courtColor)]);
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -83,7 +109,7 @@ const ProHalfCourt = () => {
             visible
           >
             <Provider store={store}>
-              <Layer>
+              <Layer ref={reference}>
                 {clipLength * clipWidth !== 0 && (
                   <>
                     <CustomiseBorder
