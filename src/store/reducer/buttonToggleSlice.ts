@@ -11,7 +11,6 @@ export interface ButtonToggleState {
   isTemplateSelect: boolean;
   isOrderGenerationOpen: boolean;
   isMyTemplateOpen: boolean;
-  isSwitch3D: boolean;
 }
 
 export const initialState: ButtonToggleState = {
@@ -25,7 +24,6 @@ export const initialState: ButtonToggleState = {
   isTemplateSelect: false,
   isOrderGenerationOpen: false,
   isMyTemplateOpen: false,
-  isSwitch3D: false,
 };
 
 export const ButtonToggleSlice = createSlice({
@@ -105,12 +103,6 @@ export const ButtonToggleSlice = createSlice({
         isTemplateSelect: action.payload,
       };
     },
-    switch3D: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
-      return {
-        ...state,
-        isTemplateSelect: action.payload,
-      };
-    },
   },
 });
 
@@ -125,7 +117,6 @@ export const {
   switchMyTemplateDisplay,
   startSelectTemplate,
   switchOrderGeneration,
-  switch3D,
 } = ButtonToggleSlice.actions;
 
 export default ButtonToggleSlice.reducer;
