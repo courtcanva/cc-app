@@ -97,6 +97,7 @@ const EmailLogin: React.FC<Props> = ({
       setUserId(res.userId);
       setStep(4);
     } else {
+      res.userId ? setUserId(res.userId) : null;
       nextStep();
     }
   };
