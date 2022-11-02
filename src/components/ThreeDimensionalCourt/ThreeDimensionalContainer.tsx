@@ -31,7 +31,8 @@ const ThreeDimensionalContainer = ({ isOpen, onClose, width, height }: Props) =>
         .scene_3d {
           perspective: 2000px;
           transform-style: preserve-3d;
-          width: 90%;
+          max-height: 100vh;
+          max-width: 100vw;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -41,16 +42,21 @@ const ThreeDimensionalContainer = ({ isOpen, onClose, width, height }: Props) =>
           width: ${width}px;
           perspective: 10000px;
           transform-style: preserve-3d;
-          transform-origin: 50% 50%;
           transform: rotateX(calc(${rotateVerticalDeg} * 1.6deg))
-            rotateZ(calc(${rotateHorizontalDeg} * 1deg)) scale(0.9);
+            rotateZ(calc(${rotateHorizontalDeg} * 1deg)) scale(0.6);
         }
       `}</style>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered size="5xl">
+      <Modal isOpen={isOpen} onClose={onClose} isCentered size="4xl">
         <ModalOverlay />
         <ModalContent position="relative" height="80%">
           <ModalCloseButton />
-          <Flex flexDirection="column" alignItems="center">
+          <Flex
+            flexDirection="column"
+            alignItems="center"
+            position="relative"
+            maxHeight="100%"
+            maxWidth="100%"
+          >
             <div className="scene_3d">
               <div className="court_plane">
                 {courtDataUrl ? (
@@ -62,11 +68,11 @@ const ThreeDimensionalContainer = ({ isOpen, onClose, width, height }: Props) =>
             </div>
 
             <ModalFooter
+              position="absolute"
+              bottom="1rem"
               display="Flex"
               justifyContent="center"
               alignItems="center"
-              gap="2rem"
-              marginTop="10px"
               data-testid="sidebar"
             >
               <Sidebar setRotateDeg={setRotateHorizontalDeg} rotateDeg={rotateHorizontalDeg} />
