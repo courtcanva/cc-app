@@ -15,6 +15,7 @@ import { IZoomShift } from "@/interfaces/zoomShift";
 import { useRef, useEffect } from "react";
 import canvasControlModel from "../../utils/canvasControlModel";
 import useImageDataUrl from "@/hooks/useImageDataUrl";
+import ThreeDimensionalToggle from "../ThreeDimensionalCourt";
 
 const SmallCourt = () => {
   const {
@@ -117,6 +118,7 @@ const SmallCourt = () => {
           </Stage>
         )}
       </ReactReduxContext.Consumer>
+      <ThreeDimensionalToggle width={court.stageWidth} height={court.stageHeight} />
     </Flex>
   );
 };
