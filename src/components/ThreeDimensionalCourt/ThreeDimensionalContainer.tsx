@@ -42,7 +42,7 @@ const ThreeDimensionalContainer = ({ isOpen, onClose, width, height }: Props) =>
           perspective: 10000px;
           transform-style: preserve-3d;
           transform-origin: 50% 50%;
-          transform: rotateX(calc(${rotateVerticalDeg} * 1.8deg))
+          transform: rotateX(calc(${rotateVerticalDeg} * 1.6deg))
             rotateZ(calc(${rotateHorizontalDeg} * 1deg)) scale(0.9);
         }
       `}</style>
@@ -50,7 +50,7 @@ const ThreeDimensionalContainer = ({ isOpen, onClose, width, height }: Props) =>
         <ModalOverlay />
         <ModalContent position="relative" height="80%">
           <ModalCloseButton />
-          <Flex flexDirection="column" alignItems="center" gap="2rem">
+          <Flex flexDirection="column" alignItems="center">
             <div className="scene_3d">
               <div className="court_plane">
                 {courtDataUrl ? (
@@ -67,6 +67,7 @@ const ThreeDimensionalContainer = ({ isOpen, onClose, width, height }: Props) =>
               alignItems="center"
               gap="2rem"
               marginTop="10px"
+              data-testid="sidebar"
             >
               <Sidebar setRotateDeg={setRotateHorizontalDeg} rotateDeg={rotateHorizontalDeg} />
             </ModalFooter>

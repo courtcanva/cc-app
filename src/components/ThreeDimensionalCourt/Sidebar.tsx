@@ -15,6 +15,22 @@ interface Props {
 
 const Sidebar = ({ setRotateDeg, rotateDeg }: Props) => {
   const [showTooltip, setShowTooltip] = React.useState(false);
+  const sliderMarkData = [0, 90, -90, 180, -180];
+  const sliderMarkLists = (): JSX.Element[] => {
+    return sliderMarkData.map((item, index) => (
+      <SliderMark
+        key={index}
+        value={item}
+        marginTop="1"
+        marginLeft="-2.5"
+        fontSize="14px"
+        fontWeight="700"
+        color="#344C5C"
+      >
+        {item}%
+      </SliderMark>
+    ));
+  };
   return (
     <Slider
       id="slider"
@@ -28,21 +44,7 @@ const Sidebar = ({ setRotateDeg, rotateDeg }: Props) => {
       width="400px"
       color="rgba(112, 136, 177, 0.5)"
     >
-      <SliderMark value={0} mt="1" ml="-2.5" fontSize="sm">
-        0
-      </SliderMark>
-      <SliderMark value={90} mt="1" ml="-2.5" fontSize="sm">
-        90%
-      </SliderMark>
-      <SliderMark value={-90} mt="1" ml="-2.5" fontSize="sm">
-        -90%
-      </SliderMark>
-      <SliderMark value={180} mt="1" ml="-2.5" fontSize="sm">
-        180%
-      </SliderMark>
-      <SliderMark value={-180} mt="1" ml="-2.5" fontSize="sm">
-        -180%
-      </SliderMark>
+      {sliderMarkLists()}
       <SliderTrack backgroundColor="rgba(112, 136, 177, 0.5)">
         <SliderFilledTrack backgroundColor="rgba(112, 136, 177, 0.5)" />
       </SliderTrack>
