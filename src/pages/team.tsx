@@ -35,7 +35,7 @@ export default function Team({ groupedTeamMembers }: Props) {
         description={`Introduction and contact information of team members of CourtCanva`}
         canonical={`http://design.courtcanva.com/team`}
       />
-      <Center paddingY="85px" flexDirection="column" marginX="auto" overflow="hidden">
+      <Center paddingY="85px" flexDirection="column" overflow="hidden">
         <Text fontSize="32px" fontWeight="bold" marginTop="-20px">
           Meet the Team
         </Text>
@@ -49,35 +49,21 @@ export default function Team({ groupedTeamMembers }: Props) {
         >
           {Object.keys(groupedTeamMembers).map((key) => {
             return (
-              <Center
-                key={key}
-                marginX="60px"
-                paddingY="40px"
-                display="flex"
-                flexDirection="column"
-              >
-                <Text
-                  fontSize="18px"
-                  fontWeight="bold"
-                  textAlign="left"
-                  marginLeft="25px"
-                  color="#2C4E8A"
-                >
+              <Center key={key} marginX="60px" paddingY="40px" flexDirection="column">
+                <Text fontSize="18px" fontWeight="bold" color="#2C4E8A">
                   {key}
                 </Text>
-                <Box>
-                  <SimpleGrid columns={{ base: 2, lg: 3 }} spacing="16px" marginY="25px">
-                    {groupedTeamMembers[key].map((member) => {
-                      return <Card key={member._id} member={member} />;
-                    })}
-                  </SimpleGrid>
-                </Box>
+                <SimpleGrid columns={{ base: 2, lg: 3 }} spacing="16px" marginY="25px">
+                  {groupedTeamMembers[key].map((member) => {
+                    return <Card key={member._id} member={member} />;
+                  })}
+                </SimpleGrid>
               </Center>
             );
           })}
         </Carousel>
         <Link href={environment.designURL as string} passHref>
-          <Button pl="2.5rem" pr="2.5rem" variant="shareBtn">
+          <Button paddingX="2.5rem" variant="shareBtn">
             Take me back to homepage
           </Button>
         </Link>
