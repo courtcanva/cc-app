@@ -101,9 +101,7 @@ const LoginModalContent = (props: Props) => {
             prevStep={prevStep}
             initialRef={initialRef}
             userEmail={userEmail}
-            getUserId={(userId: string) => {
-              setUserId(userId);
-            }}
+            setUserId={setUserId}
           />
         );
       case 4:
@@ -118,9 +116,7 @@ const LoginModalContent = (props: Props) => {
             userEmail={userEmail}
             userId={userId}
             updateLoginData={updateLoginData}
-            validation={(verified: boolean) => {
-              setVerified(verified);
-            }}
+            setVerified={setVerified}
             needPwd={needPwd}
             setPwdStep={setPwdStep}
           />

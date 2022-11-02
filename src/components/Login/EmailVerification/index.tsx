@@ -23,10 +23,10 @@ type Props = {
   nextStep: () => void;
   prevStep: () => void;
   currentStep: string;
-  validation: (verified: boolean) => void;
   updateLoginData: (data: any) => void;
   onClose: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  setVerified: React.Dispatch<React.SetStateAction<boolean>>;
   userEmail: string;
   userId: string;
   initialRef: React.MutableRefObject<null>;
@@ -40,7 +40,7 @@ const EmailVerification: React.FC<Props> = ({
   setStep,
   prevStep,
   userId,
-  validation,
+  setVerified,
   updateLoginData,
   currentStep,
   needPwd,
@@ -67,9 +67,9 @@ const EmailVerification: React.FC<Props> = ({
         localStorage.setItem("UserInfo", JSON.stringify(data));
         dispatch(updateUserInfo(data));
         updateLoginData(data);
-        validation(true);
+        setVerified(true);
       } else {
-        validation(false);
+        setVerified(false);
         nextStep();
       }
     } catch (err) {

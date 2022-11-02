@@ -21,16 +21,16 @@ import validatePwd from "@/components/Login/helpers/validatePwd";
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
-  getUserId: (userId: string) => void;
   onClose: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  setUserId: React.Dispatch<React.SetStateAction<string>>;
   userEmail: string;
   initialRef: React.MutableRefObject<null>;
   currentStep: string;
 };
 
 const Register: React.FC<Props> = (props: Props) => {
-  const { nextStep, prevStep, userEmail, onClose, setStep, getUserId, currentStep } = props;
+  const { nextStep, prevStep, userEmail, onClose, setStep, setUserId, currentStep } = props;
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -72,7 +72,7 @@ const Register: React.FC<Props> = (props: Props) => {
       });
       return;
     }
-    getUserId(res.data.userId);
+    setUserId(res.data.userId);
     nextStep();
   };
   const handleCloseModal = () => {
