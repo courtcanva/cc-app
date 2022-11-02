@@ -16,7 +16,6 @@ interface Props {
 }
 
 export enum stepName {
-  SelectLogin = "SelectLogin",
   EmailLogin = "EmailLogin",
   LoginWithPwd = "LoginWithPwd",
   Register = "Register",

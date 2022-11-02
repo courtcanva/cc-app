@@ -50,10 +50,6 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
   const toast = useToast();
 
   const handleForgotPwd = async () => {
-    //
-    setNeedPwd(true);
-    setStep(4);
-    //
     const res = await resendOTP(userId, userEmail);
     if (res.status !== 201) {
       toast({

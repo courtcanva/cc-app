@@ -101,11 +101,13 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
               value={password}
               onChange={(event) => setPassword(event?.currentTarget.value)}
             />
-            <PwdInputGroup
-              label="Confirm Password"
-              value={confirmPassword}
-              onChange={(event) => setConfirmPassword(event?.currentTarget.value)}
-            />
+            <div style={{ marginTop: "8px" }}>
+              <PwdInputGroup
+                label="Confirm password"
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event?.currentTarget.value)}
+              />
+            </div>
             {weakPasswordMsg.length > 0 && (
               <Text fontSize="xs" color="red.500">
                 {weakPasswordMsg}

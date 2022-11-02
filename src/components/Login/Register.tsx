@@ -123,16 +123,20 @@ const Register: React.FC<Props> = (props: Props) => {
                 />
               </FormControl>
             </Flex>
-            <PwdInputGroup
-              label="Password"
-              value={password}
-              onChange={(event) => setPassword(event?.currentTarget.value)}
-            />
-            <PwdInputGroup
-              label="Confirm Password"
-              value={confirmPassword}
-              onChange={(event) => setConfirmPassword(event?.currentTarget.value)}
-            />
+            <div style={{ marginTop: "8px" }}>
+              <PwdInputGroup
+                label="Password"
+                value={password}
+                onChange={(event) => setPassword(event?.currentTarget.value)}
+              />
+            </div>
+            <div style={{ marginTop: "8px" }}>
+              <PwdInputGroup
+                label="Confirm password"
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event?.currentTarget.value)}
+              />
+            </div>
             {weakPasswordMsg.length > 0 && (
               <Text fontSize="xs" color="red.500">
                 {weakPasswordMsg}
