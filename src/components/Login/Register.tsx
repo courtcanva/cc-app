@@ -47,27 +47,33 @@ const Register: React.FC<Props> = (props: Props) => {
       return;
     }
     if (!validatePwd(password, confirmPassword, setWeakPasswordMsg, setErrorMessage)) return;
-    try {
-      const userInfo = {
-        email: userEmail,
-        password,
-        firstName,
-        lastName,
-      };
-      const { data } = await userRegister(userInfo);
-      if (data.status !== "PENDING") {
-        throw Error("Failed to send email.");
-      }
-      getUserId(data.data.userId);
-      nextStep();
-    } catch (err) {
+    const userInfo = {
+      email: userEmail,
+      password,
+      firstName,
+      lastName,
+    };
+    const res = await userRegister(userInfo);
+    if (res.status !== 201) {
       toast({
-        title: "network error",
+        title: "Network Error",
         status: "error",
         isClosable: true,
-        position: "top",
+        position: "bottom",
       });
+      return;
     }
+    if (res.data.status !== "PENDING") {
+      toast({
+        title: "Failed to send verification email",
+        status: "error",
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+    getUserId(res.data.userId);
+    nextStep();
   };
   const handleCloseModal = () => {
     setStep(1);

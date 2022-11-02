@@ -57,7 +57,7 @@ const EmailVerification: React.FC<Props> = ({
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (otp.length < CODE_LENGTH) {
-      setErrorMessage("Please Input a 6 digits number!");
+      setErrorMessage("Please input a 6 digits number!");
       return;
     }
     try {
@@ -74,25 +74,34 @@ const EmailVerification: React.FC<Props> = ({
       }
     } catch (err) {
       toast({
-        title: "network error",
+        title: "Network Error",
         status: "error",
         isClosable: true,
-        position: "top",
+        position: "bottom",
       });
     }
   };
 
   const handleResend = async () => {
     if (timer > 0) return;
-    try {
-      await resendOTP(userId, userEmail);
-    } catch (err) {
+    const res = await resendOTP(userId, userEmail);
+    if (res.status !== 201) {
       toast({
-        title: "network error",
+        title: "Network Error",
         status: "error",
         isClosable: true,
-        position: "top",
+        position: "bottom",
       });
+      return;
+    }
+    if (res.data.status !== "PENDING") {
+      toast({
+        title: "Failed to send verification email",
+        status: "error",
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
     }
     resetTimer();
   };

@@ -57,7 +57,7 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
         title: "Operation failed, please try again",
         status: "error",
         isClosable: true,
-        position: "top",
+        position: "bottom",
       });
       return;
     }
@@ -65,7 +65,7 @@ const ExistedAccountPwdSetting: React.FC<Props> = ({
       title: "Operation successful! Please login again",
       status: "success",
       isClosable: true,
-      position: "top",
+      position: "bottom",
     });
     closeModal();
   };
