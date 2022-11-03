@@ -3,6 +3,7 @@ import MyTemplateContainer from "@/components/MyTemplate/MyTemplateContainer";
 import { screen, within } from "@testing-library/react";
 import renderWithMockedProvider from "../../utils";
 import moment from "moment";
+import userEvent from "@testing-library/user-event";
 
 describe("MyTemplate component", () => {
   it("should render template title", () => {
@@ -31,7 +32,7 @@ describe("MyTemplate component", () => {
       expect(within(item).getByText(mockTemplateData[index].tags.CourtCategory)).toBeVisible();
       expect(within(item).getByText(mockTemplateData[index].tags.CourtType)).toBeVisible();
       expect(within(item).getByRole("button", { name: "Delete" })).toBeVisible();
-      expect(within(item).getByRole("button", { name: "Undisplayed" })).toBeVisible();
+      expect(within(item).getByRole("button", { name: "Undisplay" })).toBeVisible();
     });
   });
 
@@ -47,5 +48,20 @@ describe("MyTemplate component", () => {
     const templateInfo = screen.getByTestId("emptyText");
     expect(templateTitle).toBeVisible();
     expect(templateInfo).toBeVisible();
+  });
+
+  it("Should open alert dialog when delete/undisplay button is clicked", async () => {
+    renderWithMockedProvider(<MyTemplateContainer myTemplates={[mockTemplateData[0]]} />);
+
+    const deleteBtn = screen.getByRole("button", { name: "Delete" });
+    const undisplayBtn = screen.getByRole("button", { name: "Undisplay" });
+
+    userEvent.click(deleteBtn);
+    const deleteAlert = screen.getByRole("alertdialog", { name: "Delete Template" });
+    expect(deleteAlert).toBeInTheDocument();
+
+    userEvent.click(undisplayBtn);
+    const undisplayAlert = screen.getByRole("alertdialog", { name: "Undisplay Template" });
+    expect(undisplayAlert).toBeInTheDocument();
   });
 });

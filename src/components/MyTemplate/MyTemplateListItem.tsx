@@ -1,11 +1,35 @@
 /* eslint-disable require-jsdoc */
-import React from "react";
-import { Flex, Box, Button, Text, Grid, Stack, Badge } from "@chakra-ui/react";
+import React, { useState, useRef } from "react";
+import { Flex, Box, Button, Text, Grid, Stack, Badge, useDisclosure } from "@chakra-ui/react";
 import moment from "moment";
 import { MdDeleteOutline, MdRemoveRedEye } from "react-icons/md";
 import Image from "next/image";
+import MyTemplateAlert from "./MyTemplateAlert";
+import { useUpdateTemplateMutation } from "@/redux/api/templateApi";
+import { IUpdateTemplate } from "@/interfaces/template";
 
 function MyTemplateListItem({ ...item }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef();
+  const [alertHeader, setAlertHeader] = useState("");
+  const [updateTemplate] = useUpdateTemplateMutation();
+  const template: IUpdateTemplate = { _id: item._id };
+
+  const handleDelete = () => {
+    setAlertHeader("Delete");
+    onOpen();
+  };
+
+  const handleUndisplayOrPublish = () => {
+    if (item.status === "private") {
+      template.status = "censoring";
+      updateTemplate(template);
+      return;
+    }
+    setAlertHeader("Undisplay");
+    onOpen();
+  };
+
   return (
     <Grid
       justifyContent="space-around"
@@ -96,6 +120,7 @@ function MyTemplateListItem({ ...item }) {
           variant="deleteBtn"
           width={{ base: "60px", md: "100px", lg: "120px", xl: "180px" }}
           fontSize={{ base: "0.4rem", md: "0.6rem", lg: "1rem" }}
+          onClick={handleDelete}
         >
           Delete
         </Button>
@@ -104,10 +129,18 @@ function MyTemplateListItem({ ...item }) {
           variant="displayBtn"
           width={{ base: "60px", md: "100px", lg: "120px", xl: "180px" }}
           fontSize={{ base: "0.4rem", md: "0.6rem", lg: "1rem" }}
+          onClick={handleUndisplayOrPublish}
         >
-          Undisplayed
+          {item.status === "private" ? "Publish" : "Undisplay"}
         </Button>
       </Flex>
+      <MyTemplateAlert
+        isOpen={isOpen}
+        cancelRef={cancelRef}
+        onClose={onClose}
+        alertHeader={alertHeader}
+        template={template}
+      />
     </Grid>
   );
 }
