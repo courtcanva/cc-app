@@ -76,8 +76,8 @@ const Register: React.FC<Props> = (props: Props) => {
     nextStep();
   };
   const handleCloseModal = () => {
-    setStep(1);
     onClose();
+    setStep(1);
   };
 
   return (
@@ -123,20 +123,16 @@ const Register: React.FC<Props> = (props: Props) => {
                 />
               </FormControl>
             </Flex>
-            <div style={{ marginTop: "8px" }}>
-              <PwdInputGroup
-                label="Password"
-                value={password}
-                onChange={(event) => setPassword(event?.currentTarget.value)}
-              />
-            </div>
-            <div style={{ marginTop: "8px" }}>
-              <PwdInputGroup
-                label="Confirm password"
-                value={confirmPassword}
-                onChange={(event) => setConfirmPassword(event?.currentTarget.value)}
-              />
-            </div>
+            <PwdInputGroup
+              label="Password"
+              value={password}
+              onChange={(event) => setPassword(event?.currentTarget.value)}
+            />
+            <PwdInputGroup
+              label="Confirm password"
+              value={confirmPassword}
+              onChange={(event) => setConfirmPassword(event?.currentTarget.value)}
+            />
             {weakPasswordMsg.length > 0 && (
               <Text fontSize="xs" color="red.500">
                 {weakPasswordMsg}

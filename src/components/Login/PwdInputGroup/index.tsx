@@ -8,7 +8,8 @@ import {
   Button,
   Icon,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import React, { useState } from "react";
+
 type Props = {
   label: string;
   value: string;
@@ -20,7 +21,7 @@ const PwdInputGroup: React.FC<Props> = ({ label, value, onChange }) => {
   const handleClick = () => setShow(!show);
 
   return (
-    <FormControl isRequired>
+    <FormControl isRequired style={{ marginTop: 8 }}>
       <FormLabel>{label}</FormLabel>
       <InputGroup size="md">
         <Input

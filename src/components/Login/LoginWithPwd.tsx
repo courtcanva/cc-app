@@ -148,8 +148,14 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
             <Button variant="shareBtn" width="300px" marginTop="20px" type="submit">
               Continue Login
             </Button>
-            <Button variant="link" width="300px" marginTop="15px" onClick={handleForgotPwd}>
-              <Text fontSize="15px">Forgot password?</Text>
+            <Button
+              variant="link"
+              width="300px"
+              marginTop="15px"
+              fontSize="15px"
+              onClick={handleForgotPwd}
+            >
+              Forgot password?
             </Button>
           </form>
         </Flex>
