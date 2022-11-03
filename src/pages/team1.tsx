@@ -6,7 +6,6 @@ import Link from "next/link";
 import { environment } from "@/constants/environment";
 import { IGroupedMembers } from "@/interfaces/team";
 import { IMember } from "@/interfaces/team";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 interface Props {
   groupedTeamMembers: GroupedTeamMembers;
