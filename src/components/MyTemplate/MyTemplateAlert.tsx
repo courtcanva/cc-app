@@ -8,15 +8,20 @@ import {
   AlertDialogOverlay,
   Button,
 } from "@chakra-ui/react";
-import { useUpdateTemplateMutation } from "@/redux/api/templateApi";
+import { useUpdateTemplateMutation, useDeleteTemplateMutation } from "@/redux/api/templateApi";
 
 const MyTemplateAlert = ({ isOpen, cancelRef, onClose, alertHeader, template }: any) => {
   const isDeleteAlert = alertHeader === "Delete";
   const [updateTemplate] = useUpdateTemplateMutation();
+  const [deleteTemplate] = useDeleteTemplateMutation();
 
   const handleDeleteOrUndisplay = () => {
-    isDeleteAlert ? (template.isDeleted = true) : (template.status = "private");
-    updateTemplate(template);
+    if (isDeleteAlert) {
+      deleteTemplate(template._id);
+    } else {
+      template.status = "private";
+      updateTemplate(template);
+    }
     onClose();
   };
 
