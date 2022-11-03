@@ -7,6 +7,7 @@ export const mockTemplateDataRaw: any = [
     },
     user_id: "117321211547215290439",
     design: {
+      designer: "test designer",
       designName: "Small Court example",
       courtSize: {
         name: "Small Court",
@@ -52,18 +53,18 @@ export const mockTemplateDataRaw: any = [
       "https://jr-bookinglet-2.s3.ap-southeast-2.amazonaws.com/court_canva_test/m8i7liw-KKm9Dl2OYwgi_.png",
     createdAt: {
       $date: {
-        $numberLong: "1663723329368",
+        $numberLong: "1663723361318",
       },
     },
     updatedAt: {
       $date: {
-        $numberLong: "1663723329368",
+        $numberLong: "1663723361318",
       },
     },
     status: "Published",
     description: "loreamsdhuhihuhuihu",
     tags: {
-      CourtType: "PROFULLCOURT",
+      CourtType: "SMALLCOURT",
       CourtCategory: "BASKETBALL",
     },
     isDeleted: false,
@@ -75,6 +76,7 @@ export const mockTemplateDataRaw: any = [
     },
     user_id: "117321211547215290430",
     design: {
+      designer: "test designer",
       designName: "Pro Full Court example",
       courtSize: {
         name: "Pro Full Court",
@@ -143,6 +145,7 @@ export const mockTemplateDataRaw: any = [
     },
     user_id: "117321211547215290431",
     design: {
+      designer: "test designer",
       designName: "Pro Full Court example",
       courtSize: {
         name: "Pro Full Court",
@@ -217,5 +220,6 @@ export const mockTemplateData: ITestImyTemplates[] = mockTemplateDataRaw.map((it
     status: item.status,
     createdAt: item.createdAt,
     tags: item.tags,
+    design: item.design,
   };
 });

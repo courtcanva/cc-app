@@ -1,5 +1,6 @@
 import Blueprints from "@/assets/svg/blueprints.svg";
 import Folder from "@/assets/svg/folder.svg";
+import { HiOutlineTemplate } from "react-icons/hi";
 const sideBarItemList = [
   {
     title: "Blueprints",
@@ -8,6 +9,10 @@ const sideBarItemList = [
   {
     title: "Folder",
     icon: <Folder />,
+  },
+  {
+    title: "Templates",
+    icon: <HiOutlineTemplate fontSize="24px" />,
   },
 ];
 export default sideBarItemList;

@@ -35,7 +35,7 @@ const Folder: React.FC = () => {
   };
 
   return (
-    <Box paddingLeft="24px" paddingTop="24px" height="100%" className="scrollbox">
+    <Box height="100%" className="scrollbox">
       {designsData.map((design) => {
         const { courtId, courtName, designName } = design;
         return (

@@ -37,6 +37,7 @@ const colors = {
     secondary: "#1A202C",
     tertiary: "#4285f4",
     quaternary: "#C8C5C5",
+    tealishBlue: "#2C4E8A",
   },
   CourtSizecolor: {
     btc: "#40B484",

@@ -1,5 +1,5 @@
 /* eslint-disable require-jsdoc */
-import { SimpleGrid, Center, Text, Button } from "@chakra-ui/react";
+import { SimpleGrid, Center, Text, Button, Box } from "@chakra-ui/react";
 import NextHeadSeo from "next-head-seo";
 import Card from "@/components/Team/Card";
 import Link from "next/link";
