@@ -1,33 +1,55 @@
 /* eslint-disable require-jsdoc */
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Flex, Box, Button, Text, Grid, Stack, Badge, useDisclosure } from "@chakra-ui/react";
 import moment from "moment";
 import { MdDeleteOutline, MdRemoveRedEye } from "react-icons/md";
 import Image from "next/image";
-import MyTemplateAlert from "./MyTemplateAlert";
-import { useUpdateTemplateMutation } from "@/redux/api/templateApi";
+import { useUpdateTemplateMutation, useDeleteTemplateMutation } from "@/redux/api/templateApi";
 import { IUpdateTemplate } from "@/interfaces/template";
+import ConfirmModal from "../ComfirmModal";
 
 function MyTemplateListItem({ ...item }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = useRef();
-  const [alertHeader, setAlertHeader] = useState("");
+  const [buttonClicked, setButtonClicked] = useState("");
   const [updateTemplate] = useUpdateTemplateMutation();
+  const [deleteTemplate] = useDeleteTemplateMutation();
   const template: IUpdateTemplate = { _id: item._id };
+  const isPrivate = item.status === "private";
+
+  let alertText = "";
+  switch (buttonClicked) {
+    case "Delete":
+      alertText = "permanently delete your template";
+      break;
+    case "Undisplay":
+      alertText = "undisplay your template";
+      break;
+    case "Publish":
+      alertText = "publish your template";
+      break;
+  }
 
   const handleDelete = () => {
-    setAlertHeader("Delete");
+    setButtonClicked("Delete");
     onOpen();
   };
 
   const handleUndisplayOrPublish = () => {
-    if (item.status === "private") {
+    setButtonClicked(isPrivate ? "Publish" : "Undisplay");
+    onOpen();
+  };
+
+  const handleModalConfirm = () => {
+    if (buttonClicked === "Delete") {
+      deleteTemplate(template._id);
+    } else if (buttonClicked === "Undisplay") {
+      template.status = "private";
+      updateTemplate(template);
+    } else {
       template.status = "censoring";
       updateTemplate(template);
-      return;
     }
-    setAlertHeader("Undisplay");
-    onOpen();
+    onClose();
   };
 
   return (
@@ -131,15 +153,15 @@ function MyTemplateListItem({ ...item }) {
           fontSize={{ base: "0.4rem", md: "0.6rem", lg: "1rem" }}
           onClick={handleUndisplayOrPublish}
         >
-          {item.status === "private" ? "Publish" : "Undisplay"}
+          {isPrivate ? "Publish" : "Undisplay"}
         </Button>
       </Flex>
-      <MyTemplateAlert
+      <ConfirmModal
         isOpen={isOpen}
-        cancelRef={cancelRef}
         onClose={onClose}
-        alertHeader={alertHeader}
-        template={template}
+        onConfirm={handleModalConfirm}
+        buttonText={buttonClicked}
+        alertText={alertText}
       />
     </Grid>
   );

@@ -57,11 +57,19 @@ describe("MyTemplate component", () => {
     const undisplayBtn = screen.getByRole("button", { name: "Undisplay" });
 
     userEvent.click(deleteBtn);
-    const deleteAlert = screen.getByRole("alertdialog", { name: "Delete Template" });
+    const deleteAlert = screen.getByRole("dialog");
     expect(deleteAlert).toBeInTheDocument();
+    const deleteAlertText = screen.getByText(
+      "Are you sure you want to permanently delete your template?"
+    );
+    expect(deleteAlertText).toBeInTheDocument();
 
     userEvent.click(undisplayBtn);
-    const undisplayAlert = screen.getByRole("alertdialog", { name: "Undisplay Template" });
+    const undisplayAlert = screen.getByRole("dialog");
     expect(undisplayAlert).toBeInTheDocument();
+    const undisplayAlertText = screen.getByText(
+      "Are you sure you want to undisplay your template?"
+    );
+    expect(undisplayAlertText).toBeInTheDocument();
   });
 });
