@@ -34,9 +34,8 @@ import Profile from "./Profile";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
-  const { isCartOpen, isLoginModalOpen, isCreateTemplateOpen, isMyTemplateOpen } = useStoreSelector(
-    (state) => state.buttonToggle
-  );
+  const { isCartOpen, isLoginModalOpen, isCreateTemplateOpen, isMyTemplateOpen, isSwitch3D } =
+    useStoreSelector((state) => state.buttonToggle);
   const { userLogout, updateToken } = useAuthRequest();
   const { getLocalStorageItem } = useHandleLocalStorageItem();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -182,7 +181,7 @@ const NavigationBar = () => {
           </Flex>
         )}
       </Flex>
-      {!isCartOpen || !isMyTemplateOpen ? <EditorDesignName /> : <Box></Box>}
+      {!isCartOpen || !isMyTemplateOpen || !isSwitch3D ? <EditorDesignName /> : <Box></Box>}
       <Flex alignItems="center" justifyContent="flex-end">
         {!loginState ? (
           <Button onClick={handleLoginModalOpen}>Sign up / Login</Button>

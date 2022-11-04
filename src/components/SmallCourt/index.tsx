@@ -15,6 +15,7 @@ import { IZoomShift } from "@/interfaces/zoomShift";
 import { useRef, useEffect } from "react";
 import canvasControlModel from "../../utils/canvasControlModel";
 import useImageDataUrl from "@/hooks/useImageDataUrl";
+import ThreeDimensionalToggle from "../ThreeDimensionalCourt";
 
 const SmallCourt = () => {
   const {
@@ -63,58 +64,60 @@ const SmallCourt = () => {
     >
       <ReactReduxContext.Consumer>
         {({ store }) => (
-          <Stage
-            id="basketball-court"
-            data-testid="stage"
-            height={court.stageHeight}
-            width={court.stageWidth}
-            scaleX={court.courtRatio * canvasStates.zoomScale}
-            scaleY={court.courtRatio * canvasStates.zoomScale}
-            x={!canvasStates.dragStart ? canvasControl.xShift : 0}
-            y={!canvasStates.dragStart ? canvasControl.yShift : 0}
-            style={{ backgroundColor: "white" }}
-            onDragStart={canvasControl.handleMouseDragStart}
-            onDragEnd={canvasControl.handleCursorChange}
-            ref={ref}
-            draggable={canvasStates.dragActivate && canvasStates.selectedColor === "none"}
-            visible
-          >
-            <Provider store={store}>
-              <Layer>
-                <Border
-                  startPoint={courtStartPoint}
-                  borderLength={borderLength}
-                  courtAreaXLength={courtAreaXLength}
-                  courtAreaYLength={courtAreaYLength}
-                />
-                <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
-                <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
-                <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
-                <Line
-                  points={[2500, 2500, 11500, 2500, 11500, 7500, 2500, 7500]}
-                  stroke="white"
-                  strokeWidth={140}
-                  visible
-                  closed
-                />
-                <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+          <ThreeDimensionalToggle width={court.stageWidth} height={court.stageHeight}>
+            <Stage
+              id="basketball-court"
+              data-testid="stage"
+              height={court.stageHeight}
+              width={court.stageWidth}
+              scaleX={court.courtRatio * canvasStates.zoomScale}
+              scaleY={court.courtRatio * canvasStates.zoomScale}
+              x={!canvasStates.dragStart ? canvasControl.xShift : 0}
+              y={!canvasStates.dragStart ? canvasControl.yShift : 0}
+              style={{ backgroundColor: "white" }}
+              onDragStart={canvasControl.handleMouseDragStart}
+              onDragEnd={canvasControl.handleCursorChange}
+              ref={ref}
+              draggable={canvasStates.dragActivate && canvasStates.selectedColor === "none"}
+              visible
+            >
+              <Provider store={store}>
+                <Layer>
+                  <Border
+                    startPoint={courtStartPoint}
+                    borderLength={borderLength}
+                    courtAreaXLength={courtAreaXLength}
+                    courtAreaYLength={courtAreaYLength}
+                  />
+                  <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
+                  <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
                   <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
-                </Group>
-                <Group
-                  clipFunc={(ctx: any) => {
-                    ctx.beginPath();
-                    ctx.rect(stageMargin, stageMargin, courtAreaXLength, courtAreaYLength);
-                    ctx.clip();
-                  }}
-                >
-                  <CourtArea startPoint={componentsStartPoint} courtWidth={courtAreaXLength} />
-                  <ThreePointArea startPoint={componentsStartPoint} />
-                  <KeyArea startPoint={componentsStartPoint} />
-                  <TopKeyArea startPoint={componentsStartPoint} />
-                </Group>
-              </Layer>
-            </Provider>
-          </Stage>
+                  <Line
+                    points={[2500, 2500, 11500, 2500, 11500, 7500, 2500, 7500]}
+                    stroke="white"
+                    strokeWidth={140}
+                    visible
+                    closed
+                  />
+                  <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                    <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                  </Group>
+                  <Group
+                    clipFunc={(ctx: any) => {
+                      ctx.beginPath();
+                      ctx.rect(stageMargin, stageMargin, courtAreaXLength, courtAreaYLength);
+                      ctx.clip();
+                    }}
+                  >
+                    <CourtArea startPoint={componentsStartPoint} courtWidth={courtAreaXLength} />
+                    <ThreePointArea startPoint={componentsStartPoint} />
+                    <KeyArea startPoint={componentsStartPoint} />
+                    <TopKeyArea startPoint={componentsStartPoint} />
+                  </Group>
+                </Layer>
+              </Provider>
+            </Stage>
+          </ThreeDimensionalToggle>
         )}
       </ReactReduxContext.Consumer>
     </Flex>

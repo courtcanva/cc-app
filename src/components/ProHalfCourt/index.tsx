@@ -22,6 +22,7 @@ import CustomiseBorder from "../BasketballCourt/CustomiseBorder";
 import { calculation } from "@/utils/tileNumberCalculator";
 import { changeTileQuantity, PriceBar } from "@/store/reducer/priceBarSlice";
 import { useStoreSelector } from "@/store/hooks";
+import ThreeDimensionalToggle from "../ThreeDimensionalCourt";
 
 const ProHalfCourt = () => {
   const dispatch = useDispatch();
@@ -104,68 +105,70 @@ const ProHalfCourt = () => {
     >
       <ReactReduxContext.Consumer>
         {({ store }) => (
-          <Stage
-            id="basketball-court"
-            data-testid="stage"
-            height={court.stageHeight}
-            width={court.stageWidth}
-            scaleX={court.courtRatio * canvasStates.zoomScale}
-            scaleY={court.courtRatio * canvasStates.zoomScale}
-            x={!canvasStates.dragStart ? canvasControl.xShift : 0}
-            y={!canvasStates.dragStart ? canvasControl.yShift : 0}
-            style={{ backgroundColor: "white" }}
-            onDragStart={canvasControl.handleMouseDragStart}
-            onDragEnd={canvasControl.handleCursorChange}
-            ref={ref}
-            draggable={canvasStates.dragActivate && canvasStates.selectedColor === "none"}
-            visible
-          >
-            <Provider store={store}>
-              <Layer ref={reference}>
-                {clipLength * clipWidth !== 0 && (
-                  <>
-                    <CustomiseBorder
+          <ThreeDimensionalToggle width={court.stageWidth} height={court.stageHeight}>
+            <Stage
+              id="basketball-court"
+              data-testid="stage"
+              height={court.stageHeight}
+              width={court.stageWidth}
+              scaleX={court.courtRatio * canvasStates.zoomScale}
+              scaleY={court.courtRatio * canvasStates.zoomScale}
+              x={!canvasStates.dragStart ? canvasControl.xShift : 0}
+              y={!canvasStates.dragStart ? canvasControl.yShift : 0}
+              style={{ backgroundColor: "white" }}
+              onDragStart={canvasControl.handleMouseDragStart}
+              onDragEnd={canvasControl.handleCursorChange}
+              ref={ref}
+              draggable={canvasStates.dragActivate && canvasStates.selectedColor === "none"}
+              visible
+            >
+              <Provider store={store}>
+                <Layer ref={reference}>
+                  {clipLength * clipWidth !== 0 && (
+                    <>
+                      <CustomiseBorder
+                        startPoint={courtStartPoint}
+                        borderLength={borderLength}
+                        customizeXLength={clipWidth}
+                        customizeYLength={clipLength}
+                        courtAreaYLength={courtAreaYLength}
+                      />
+                      <CustomiseCourtDimension
+                        startPoint={courtStartPoint}
+                        borderLength={borderLength}
+                        inputX={clipWidth}
+                        inputY={clipLength}
+                      />
+                    </>
+                  )}
+                  <Group
+                    clipX={courtStartPoint.X}
+                    clipY={courtStartPoint.Y + courtAreaYLength / 2 - (clipLength * 1000) / 2}
+                    clipHeight={clipLength * 1000}
+                    clipWidth={clipWidth * 1000}
+                  >
+                    <Border
                       startPoint={courtStartPoint}
                       borderLength={borderLength}
-                      customizeXLength={clipWidth}
-                      customizeYLength={clipLength}
+                      courtAreaXLength={courtAreaXLength}
                       courtAreaYLength={courtAreaYLength}
                     />
-                    <CustomiseCourtDimension
-                      startPoint={courtStartPoint}
-                      borderLength={borderLength}
-                      inputX={clipWidth}
-                      inputY={clipLength}
-                    />
-                  </>
-                )}
-                <Group
-                  clipX={courtStartPoint.X}
-                  clipY={courtStartPoint.Y + courtAreaYLength / 2 - (clipLength * 1000) / 2}
-                  clipHeight={clipLength * 1000}
-                  clipWidth={clipWidth * 1000}
-                >
-                  <Border
-                    startPoint={courtStartPoint}
-                    borderLength={borderLength}
-                    courtAreaXLength={courtAreaXLength}
-                    courtAreaYLength={courtAreaYLength}
-                  />
-                  <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
-                  <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
-                  <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
-                  <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                    <BorderDimension startPoint={courtStartPoint} borderLength={borderLength} />
+                    <CourtDimension startPoint={courtStartPoint} borderLength={borderLength} />
                     <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                    <Group scaleX={-1} x={courtStartPoint.X * 2 + courtAreaXLength}>
+                      <DashedLine startPoint={courtStartPoint} borderLength={borderLength} />
+                    </Group>
+                    <CourtArea startPoint={courtStartPoint} courtWidth={courtAreaXLength} />
+                    <ThreePointArea startPoint={courtStartPoint} />
+                    <KeyArea startPoint={courtStartPoint} />
+                    <CircleArea startPoint={courtStartPoint} />
+                    <TopKeyArea startPoint={courtStartPoint} />
                   </Group>
-                  <CourtArea startPoint={courtStartPoint} courtWidth={courtAreaXLength} />
-                  <ThreePointArea startPoint={courtStartPoint} />
-                  <KeyArea startPoint={courtStartPoint} />
-                  <CircleArea startPoint={courtStartPoint} />
-                  <TopKeyArea startPoint={courtStartPoint} />
-                </Group>
-              </Layer>
-            </Provider>
-          </Stage>
+                </Layer>
+              </Provider>
+            </Stage>
+          </ThreeDimensionalToggle>
         )}
       </ReactReduxContext.Consumer>
       <CustomiseWindow setInputWidth={setClipWidth} setInputLength={setClipLength} />
