@@ -24,7 +24,7 @@ export default function MyTemplateContainer({ myTemplates }: MyTemplates) {
       <Text fontSize="32px" fontWeight="700" textAlign="center">
         My Template
       </Text>
-      {myTemplates ? (
+      {myTemplates?.length ? (
         myTemplateLists()
       ) : (
         <Text fontSize="lg" fontWeight="500" color="black" data-testid="emptyText">
