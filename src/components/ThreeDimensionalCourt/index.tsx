@@ -6,6 +6,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { switch3D } from "@/store/reducer/buttonToggleSlice";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
+import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
 
 interface Props {
   width: number;
@@ -21,7 +22,8 @@ const ThreeDimensionalToggle = ({ width, height, children }: Props) => {
     dispatch(resetAll());
     setTimeout(() => {
       dispatch(switch3D(true));
-      document.body.style.cursor = "pointer";
+      dispatch(changeSelectedColor("none"));
+      document.body.style.cursor = "auto";
     }, 0);
   };
   const handleClose3D = () => {
@@ -41,7 +43,7 @@ const ThreeDimensionalToggle = ({ width, height, children }: Props) => {
         alignItems="center"
         flexDirection="column"
         color="brand.primary"
-        filter="drop-shadow(2px 2px 4px brand.primary)"
+        filter="drop-shadow(2px 2px 4px #7088B1)"
         onClick={onOpen3D}
         cursor="pointer"
         zIndex={10}

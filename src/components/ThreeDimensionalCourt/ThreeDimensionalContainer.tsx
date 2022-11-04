@@ -22,7 +22,6 @@ interface Props {
 }
 
 const ThreeDimensionalContainer = ({ isOpen, onClose, width, height, content }: Props) => {
-  console.log(isOpen);
   const dispatch = useDispatch();
   const [rotateHorizontalDeg, setRotateHorizontalDeg] = useState<number>(0);
   const rotateVerticalDeg = 40;

@@ -26,6 +26,7 @@ const Home: NextPage = () => {
   const courtId = useStoreSelector((state) => state.courtSpecData.activeCourt.courtId);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const dispatch = useDispatch();
+  const isSwitch3D = useStoreSelector((state) => state.buttonToggle);
 
   const { data, isLoading } = useGetCourtsQuery(0);
 
