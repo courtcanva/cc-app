@@ -45,7 +45,7 @@ export const ButtonToggleSlice = createSlice({
         isSideBarOpen: false,
         isOrderGenerationOpen: false,
         isMyTemplateOpen: false,
-        switch3D: false,
+        isSwitch3D: false,
       };
     },
     switchPaintBucket: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
