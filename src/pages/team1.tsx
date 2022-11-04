@@ -6,8 +6,6 @@ import Link from "next/link";
 import { environment } from "@/constants/environment";
 import { IGroupedMembers } from "@/interfaces/team";
 import { IMember } from "@/interfaces/team";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 interface Props {
   groupedTeamMembers: GroupedTeamMembers;
@@ -18,16 +16,6 @@ interface GroupedTeamMembers {
 }
 
 export default function Team({ groupedTeamMembers }: Props) {
-  const CarouselIndicator = (onClickHandler: any, isSelected: boolean, index: number) => {
-    const defStyle = { marginLeft: 20, color: "lightgrey", cursor: "pointer", fontWeight: "bold" };
-    const style = isSelected ? { ...defStyle, color: "#2C4E8A" } : { ...defStyle };
-    return (
-      <span onClick={onClickHandler} style={style}>
-        {index + 1}
-      </span>
-    );
-  };
-
   return (
     <>
       <NextHeadSeo
@@ -39,14 +27,7 @@ export default function Team({ groupedTeamMembers }: Props) {
         <Text fontSize="32px" fontWeight="bold" marginTop="-20px">
           Meet the Team
         </Text>
-        <Carousel
-          showStatus={false}
-          showArrows={false}
-          emulateTouch={true}
-          autoPlay={true}
-          infiniteLoop={true}
-          renderIndicator={CarouselIndicator}
-        >
+        <Box>
           {Object.keys(groupedTeamMembers).map((key) => {
             return (
               <Center key={key} marginX="60px" paddingY="40px" flexDirection="column">
@@ -61,7 +42,7 @@ export default function Team({ groupedTeamMembers }: Props) {
               </Center>
             );
           })}
-        </Carousel>
+        </Box>
         <Link href={environment.designURL as string} passHref>
           <Button paddingX="2.5rem" variant="shareBtn">
             Take me back to homepage

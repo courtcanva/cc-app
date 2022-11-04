@@ -25,6 +25,8 @@ describe("Court Specifications Reducer", () => {
       strokeWidth: 200,
       borderLength: 1000,
       designName: "Court Canva 1",
+      customizeCourtAreaXLength: 0,
+      customizeCourtAreaYLength: 0,
     },
   ];
 
@@ -45,6 +47,8 @@ describe("Court Specifications Reducer", () => {
       strokeWidth: 200,
       borderLength: 1000,
       designName: "Court Canva 1",
+      customizeCourtAreaXLength: 0,
+      customizeCourtAreaYLength: 0,
     },
     isLoading: true,
     isError: "",
@@ -161,6 +165,8 @@ describe("Court Specifications Reducer", () => {
       strokeWidth: 200,
       borderLength: 1000,
       designName: "Court Canva 1",
+      customizeCourtAreaXLength: 0,
+      customizeCourtAreaYLength: 0,
     };
     const name = getCourtNameString(activeCourt);
     expect(name).toBe("420 m² Full Court ( 28 m × 15 m)");

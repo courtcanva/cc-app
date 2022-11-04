@@ -16,7 +16,14 @@ describe("Render template detail modal", () => {
   };
 
   it("Should render all element of the template detail modal", () => {
-    render(<TemplateDetail isOpen={true} onClose={() => {}} template={mockDetail} />);
+    render(
+      <TemplateDetail
+        isOpen={true}
+        onClose={() => {}}
+        template={mockDetail}
+        applyTemplate={() => {}}
+      />
+    );
     const courtImg = screen.getByRole("img");
     const designName = screen.getByText(mockDetail.designDetail.designName);
     const templateDescription = screen.getByText(mockDetail.description);
