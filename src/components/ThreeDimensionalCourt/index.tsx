@@ -46,7 +46,6 @@ const ThreeDimensionalToggle = ({ width, height, children }: Props) => {
         filter="drop-shadow(2px 2px 4px #7088B1)"
         onClick={onOpen3D}
         cursor="pointer"
-        zIndex={10}
       >
         <Icon as={IoCubeSharp} width={6} height={6} onClick={handleOpenSwitch3D} />
         <Text fontSize="12px">3D Preview</Text>
