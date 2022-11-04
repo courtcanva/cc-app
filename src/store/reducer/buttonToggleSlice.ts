@@ -11,6 +11,7 @@ export interface ButtonToggleState {
   isTemplateSelect: boolean;
   isOrderGenerationOpen: boolean;
   isMyTemplateOpen: boolean;
+  isSwitch3D: boolean;
 }
 
 export const initialState: ButtonToggleState = {
@@ -24,6 +25,7 @@ export const initialState: ButtonToggleState = {
   isTemplateSelect: false,
   isOrderGenerationOpen: false,
   isMyTemplateOpen: false,
+  isSwitch3D: false,
 };
 
 export const ButtonToggleSlice = createSlice({
@@ -43,6 +45,7 @@ export const ButtonToggleSlice = createSlice({
         isSideBarOpen: false,
         isOrderGenerationOpen: false,
         isMyTemplateOpen: false,
+        switch3D: false,
       };
     },
     switchPaintBucket: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
@@ -81,6 +84,7 @@ export const ButtonToggleSlice = createSlice({
         isSideBarOpen: false,
         isOrderGenerationOpen: false,
         isMyTemplateOpen: false,
+        isSwitch3D: false,
       };
     },
     switchOrderGeneration: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
@@ -95,12 +99,26 @@ export const ButtonToggleSlice = createSlice({
         isMyTemplateOpen: action.payload,
         isCartOpen: false,
         isOrderGenerationOpen: false,
+        isSwitch3D: false,
       };
     },
     startSelectTemplate: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
       return {
         ...state,
         isTemplateSelect: action.payload,
+      };
+    },
+    switch3D: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isSwitch3D: action.payload,
+        isCartOpen: false,
+        isOrderGenerationOpen: false,
+        isSideBarOpen: false,
+        isPaintPopoverOpen: false,
+        isTemplateSelect: false,
+        isMyTemplateOpen: false,
+        isSavePopoverOpen: false,
       };
     },
   },
@@ -117,6 +135,7 @@ export const {
   switchMyTemplateDisplay,
   startSelectTemplate,
   switchOrderGeneration,
+  switch3D,
 } = ButtonToggleSlice.actions;
 
 export default ButtonToggleSlice.reducer;

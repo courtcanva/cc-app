@@ -1,15 +1,30 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { IoCubeSharp } from "react-icons/io5";
 import { Icon, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import ThreeDimensionalContainer from "./ThreeDimensionalContainer";
+import { useStoreSelector } from "@/store/hooks";
+import { useDispatch } from "react-redux";
+import { switch3D } from "@/store/reducer/buttonToggleSlice";
 
 interface Props {
   width: number;
   height: number;
+  children: ReactNode;
 }
 
-const ThreeDimensionalToggle = ({ width, height }: Props) => {
-  const { isOpen: isOpen3D, onOpen: onOpen3D, onClose: onClose3D } = useDisclosure();
+const ThreeDimensionalToggle = ({ width, height, children }: Props) => {
+  const dispatch = useDispatch();
+  const { isSwitch3D } = useStoreSelector((state) => state.buttonToggle);
+  const { onOpen: onOpen3D, onClose } = useDisclosure();
+  const handleOpenSwitch3D = () => {
+    dispatch(switch3D(true));
+    document.body.style.cursor = "pointer";
+  };
+  const handleClose3D = () => {
+    onClose();
+    dispatch(switch3D(false));
+    document.body.style.cursor = "auto";
+  };
   return (
     <>
       <Flex
@@ -21,19 +36,21 @@ const ThreeDimensionalToggle = ({ width, height }: Props) => {
         justifyContent="center"
         alignItems="center"
         flexDirection="column"
-        color="#344C5C"
-        filter="drop-shadow(2px 2px 4px #344C5C)"
+        color="brand.primary"
+        filter="drop-shadow(2px 2px 4px brand.primary)"
         onClick={onOpen3D}
         cursor="pointer"
+        zIndex={10}
       >
-        <Icon as={IoCubeSharp} width={6} height={6} />
-        <Text fontSize="12px">3D Preview</Text>
+        <Icon as={IoCubeSharp} width={6} height={6} onClick={handleOpenSwitch3D} />
+        <Text fontSize="12px">2D/3D Preview</Text>
       </Flex>
       <ThreeDimensionalContainer
-        isOpen={isOpen3D}
-        onClose={onClose3D}
+        isOpen={isSwitch3D}
+        onClose={handleClose3D}
         width={width}
         height={height}
+        content={children}
       />
     </>
   );

@@ -27,23 +27,21 @@ const Sidebar = ({ setRotateDeg, rotateDeg }: Props) => {
         fontWeight="700"
         color="#344C5C"
       >
-        {item}%
+        {item}°
       </SliderMark>
     ));
   };
   return (
     <Slider
-      id="slider"
       defaultValue={0}
       min={-180}
       max={180}
-      colorScheme="teal"
       onChange={(val) => setRotateDeg(val)}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
       width="400px"
-      color="rgba(112, 136, 177, 0.5)"
       zIndex="10"
+      marginBottom={15}
     >
       {sliderMarkLists()}
       <SliderTrack backgroundColor="rgba(112, 136, 177, 0.5)">
@@ -51,12 +49,11 @@ const Sidebar = ({ setRotateDeg, rotateDeg }: Props) => {
       </SliderTrack>
       <Tooltip
         hasArrow
-        bg="teal.500"
         color="white"
         placement="top"
         isOpen={showTooltip}
-        label={`${rotateDeg}%`}
-        background="rgba(112, 136, 177)"
+        label={`${rotateDeg}°`}
+        background="background.secondary"
       >
         <SliderThumb />
       </Tooltip>
