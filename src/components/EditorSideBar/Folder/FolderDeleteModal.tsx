@@ -53,8 +53,8 @@ const FolderDeleteModal = () => {
         colorScheme="transparent"
         icon={
           <FaTrashAlt
-            size={15}
-            style={{ color: "white", marginTop: "-15px", marginLeft: "-15px", border: "none" }}
+            size={12}
+            style={{ color: "white", marginTop: "-18px", marginLeft: "-17px", border: "none" }}
           />
         }
         // variant="editorFooterIconBtn"

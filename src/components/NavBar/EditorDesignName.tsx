@@ -19,9 +19,6 @@ import { DESIGN_NAME_MAX_CHAR_LENGTH } from "@/constants/courtData";
 const DesignName = () => {
   const dispatch = useDispatch();
 
-  const activeCourtZYQ = useStoreSelector((state) => state.courtSpecData.activeCourt);
-  console.log("ahahah");
-  console.log(activeCourtZYQ);
   const designName = useStoreSelector((state) => state.courtSpecData.activeCourt.designName);
   const nameList = useStoreSelector((state) => state.designName.nameList);
   const [newDesignName, setNewDesignName] = useState(designName);

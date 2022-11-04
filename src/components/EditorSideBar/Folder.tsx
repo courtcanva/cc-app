@@ -9,7 +9,6 @@ import { changeWholeCourtColor } from "@/store/reducer/tileSlice";
 import { ActionCreators } from "redux-undo";
 import FolderDeleteModal from "./Folder/FolderDeleteModal";
 import Image from "next/image";
-import { upLoadScreenshot } from "@/utils/manageExternalImage";
 
 const Folder = () => {
   const dispatch = useDispatch();
@@ -40,14 +39,12 @@ const Folder = () => {
   return (
     <Box height="100%" className="scrollbox">
       {designsData.map((design) => {
-        const { courtId, courtName, designName, createdAt } = design;
+        const { courtId, courtName, designName, createdAt, image } = design;
         const createDate = [
           createdAt.slice(8, 10),
           createdAt.slice(5, 7),
           createdAt.slice(0, 4),
         ].join("/");
-
-        // list
         return (
           <Flex
             key={courtId}
@@ -66,14 +63,13 @@ const Folder = () => {
             _hover={{ border: "2px solid button.hover" }}
             opacity={!activateDesign || activateDesign === courtId ? "1" : "0.4"}
           >
-            <Flex flexDirection="row" alignItems="flex-start" justifyContent="space-between">
+            <HStack spacing={8}>
               <Box
                 style={{
                   background: "none",
                   borderRadius: "0",
                   minWidth: "100px",
-                  marginTop: "10px",
-                  marginRight: "70px",
+                  marginTop: "5px",
                 }}
               >
                 <Box
@@ -100,18 +96,26 @@ const Folder = () => {
               <Box
                 style={{
                   backgroundColor: "#C13D46",
-                  height: "25px",
-                  width: "25px",
+                  height: "22px",
+                  width: "22px",
                   borderRadius: "20%",
                   marginTop: "10px",
-                  marginRight: "-10px",
+                  // marginRight: "5px",
                 }}
               >
                 <FolderDeleteModal />
               </Box>
-            </Flex>
-            <Box style={{ color: "black" }}>image</Box>
-            {/* <Flex flexDirection="row" justifyContent="space-between"> */}
+            </HStack>
+            <Box width="80%" height="100%" position="relative">
+              {image && image.startsWith("http") && (
+                <Image
+                  src={image.toString()}
+                  alt="Court image"
+                  layout="fill"
+                  objectFit="contain"
+                ></Image>
+              )}
+            </Box>
             <HStack spacing={8}>
               <Tag
                 // variant="courtIDTag"
@@ -119,11 +123,11 @@ const Folder = () => {
                 size={"sm"}
                 style={{
                   borderRadius: "0",
-                  fontSize: "8px",
+                  fontSize: "9px",
                   marginBottom: "5px",
                   fontWeight: "bold",
                   textAlign: "center",
-                  padding: "0 20px 0 20px",
+                  padding: "0 15px 0 15px",
                 }}
               >
                 {courtName}
@@ -134,9 +138,9 @@ const Folder = () => {
                 size={"sm"}
                 style={{
                   borderRadius: "0",
-                  fontSize: "8px",
+                  fontSize: "9px",
                   marginBottom: "5px",
-                  padding: "0 20px 0 20px",
+                  padding: "0 15px 0 15px",
                   fontWeight: "bold",
                 }}
               >

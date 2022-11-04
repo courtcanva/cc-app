@@ -28,6 +28,7 @@ describe("generateNewTemplate", () => {
           designName: "",
           image: "",
         },
+        image: "",
       },
       image: "image_url",
       tags: {
@@ -40,6 +41,7 @@ describe("generateNewTemplate", () => {
     const name = "Cecilia's Court";
     const imageUrl = "image_url";
     const description = "This is description";
+    // const image = "";
     const selectedCourtTileData: Court[] = [];
     const selectedCourt: CourtSizeState = {
       courtId: "",
@@ -67,6 +69,7 @@ describe("generateNewTemplate", () => {
       selectedCourt,
       imageUrl,
       designer
+      // image
     );
     expect(newTemplate).toEqual(mockTemplateData);
   });
