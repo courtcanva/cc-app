@@ -44,3 +44,9 @@ export interface ITestImyTemplates extends Omit<IMyTemplates, "description"> {
   description: string;
   courtName: string;
 }
+
+export interface IUpdateTemplate {
+  _id: string;
+  status?: string;
+  isDeleted?: boolean;
+}

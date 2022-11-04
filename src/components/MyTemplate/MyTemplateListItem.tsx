@@ -1,11 +1,53 @@
 /* eslint-disable require-jsdoc */
-import React from "react";
-import { Flex, Box, Button, Text, Grid, Stack, Badge } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Flex, Box, Button, Text, Grid, Stack, Badge, useDisclosure } from "@chakra-ui/react";
 import moment from "moment";
 import { MdDeleteOutline, MdRemoveRedEye } from "react-icons/md";
 import Image from "next/image";
+import { useUpdateTemplateMutation, useDeleteTemplateMutation } from "@/redux/api/templateApi";
+import { IUpdateTemplate } from "@/interfaces/template";
+import ConfirmModal from "../ComfirmModal";
 
 function MyTemplateListItem({ ...item }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [buttonClicked, setButtonClicked] = useState("");
+  const [updateTemplate] = useUpdateTemplateMutation();
+  const [deleteTemplate] = useDeleteTemplateMutation();
+  const isPrivate = item.status === "private";
+  const template: IUpdateTemplate = { _id: item._id };
+  template.status = isPrivate ? "censoring" : "private";
+
+  const alertObj = {
+    Delete: { text: "permanently delete", action: () => deleteTemplate(template._id) },
+    Undisplay: {
+      text: "undisplay",
+      action: () => updateTemplate(template),
+    },
+    Publish: {
+      text: "publish",
+      action: () => updateTemplate(template),
+    },
+  };
+
+  type ObjectKey = keyof typeof alertObj;
+  const button = buttonClicked as ObjectKey;
+  const alertText = `${alertObj[button]?.text} your template`;
+
+  const handleDelete = () => {
+    setButtonClicked("Delete");
+    onOpen();
+  };
+
+  const handleUndisplayOrPublish = () => {
+    setButtonClicked(isPrivate ? "Publish" : "Undisplay");
+    onOpen();
+  };
+
+  const handleModalConfirm = () => {
+    alertObj[button].action();
+    onClose();
+  };
+
   return (
     <Grid
       justifyContent="space-around"
@@ -96,6 +138,7 @@ function MyTemplateListItem({ ...item }) {
           variant="deleteBtn"
           width={{ base: "60px", md: "100px", lg: "120px", xl: "180px" }}
           fontSize={{ base: "0.4rem", md: "0.6rem", lg: "1rem" }}
+          onClick={handleDelete}
         >
           Delete
         </Button>
@@ -104,10 +147,18 @@ function MyTemplateListItem({ ...item }) {
           variant="displayBtn"
           width={{ base: "60px", md: "100px", lg: "120px", xl: "180px" }}
           fontSize={{ base: "0.4rem", md: "0.6rem", lg: "1rem" }}
+          onClick={handleUndisplayOrPublish}
         >
-          Undisplayed
+          {isPrivate ? "Publish" : "Undisplay"}
         </Button>
       </Flex>
+      <ConfirmModal
+        isOpen={isOpen}
+        onClose={onClose}
+        onConfirm={handleModalConfirm}
+        buttonText={buttonClicked}
+        alertText={alertText}
+      />
     </Grid>
   );
 }
