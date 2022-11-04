@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import CartListItem from "./CartListItem";
 import { ICartItem } from "@/interfaces/cartItem";
-import DeleteComfirmModal from "@/components/DeleteComfirmModal";
+import ConfirmModal from "@/components/ComfirmModal";
 import { useDeleteItemFromCartMutation } from "@/redux/api/cartApi";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { deleteImage } from "@/utils/manageExternalImage";
@@ -163,10 +163,12 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
         </Box>
       </Tooltip>
 
-      <DeleteComfirmModal
+      <ConfirmModal
         isOpen={isOpen}
         onClose={onClose}
         onConfirm={() => confirmDeleteDesign(cartItemIdToDelete)}
+        buttonText="Remove"
+        alertText="remove this item from the shopping cart"
       />
     </Flex>
   );
