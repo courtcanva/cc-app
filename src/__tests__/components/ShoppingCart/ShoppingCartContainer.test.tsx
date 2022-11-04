@@ -1,7 +1,7 @@
 import { waitFor, screen, fireEvent, render, within } from "@testing-library/react";
 import ShoppingCartContainer from "@/components/ShoppingCart/ShoppingCartContainer";
 import { mockCartData } from "@/components/MockData/MockCartData";
-import DeleteComfirmModal from "@/components/DeleteComfirmModal";
+import ConfirmModal from "@/components/ComfirmModal";
 import renderWithMockedProvider from "../../utils";
 import DropDownButton from "@/components/ShoppingCart/dropDownButton";
 import { ICourtSize } from "@/interfaces/design";
@@ -38,7 +38,13 @@ describe("ShoppingCart component", () => {
 
   it("Should render delete confirm modal and close the modal when click cancel button", async () => {
     renderWithMockedProvider(
-      <DeleteComfirmModal isOpen onClose={() => void {}} onConfirm={() => void {}} />
+      <ConfirmModal
+        isOpen
+        onClose={() => void {}}
+        onConfirm={() => void {}}
+        buttonText="Remove"
+        alertText="remove this item from the shopping cart"
+      />
     );
     const cancelBtn = screen.getByRole("button", { name: /cancel/i });
     expect(
@@ -52,7 +58,13 @@ describe("ShoppingCart component", () => {
 
   it("Should close modal when click delete button", async () => {
     renderWithMockedProvider(
-      <DeleteComfirmModal isOpen onClose={() => void {}} onConfirm={() => void {}} />
+      <ConfirmModal
+        isOpen
+        onClose={() => void {}}
+        onConfirm={() => void {}}
+        buttonText="Remove"
+        alertText=""
+      />
     );
     const deleteConfirmBtn = screen.getByRole("button", { name: /Remove/i });
     expect(deleteConfirmBtn).toBeInTheDocument();
