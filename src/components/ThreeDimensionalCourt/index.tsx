@@ -17,14 +17,12 @@ interface Props {
 const ThreeDimensionalToggle = ({ width, height, children }: Props) => {
   const dispatch = useDispatch();
   const { isSwitch3D } = useStoreSelector((state) => state.buttonToggle);
-  const { onOpen: onOpen3D, onClose } = useDisclosure();
-  const handleOpenSwitch3D = () => {
-    dispatch(resetAll());
-    setTimeout(() => {
-      dispatch(switch3D(true));
-      dispatch(changeSelectedColor("none"));
-      document.body.style.cursor = "auto";
-    }, 0);
+  const { onClose } = useDisclosure();
+  const handleOpenSwitch3D = async () => {
+    await dispatch(resetAll());
+    dispatch(switch3D(true));
+    dispatch(changeSelectedColor("none"));
+    document.body.style.cursor = "auto";
   };
   const handleClose3D = () => {
     onClose();
@@ -44,10 +42,11 @@ const ThreeDimensionalToggle = ({ width, height, children }: Props) => {
         flexDirection="column"
         color="brand.primary"
         filter="drop-shadow(2px 2px 4px #7088B1)"
-        onClick={onOpen3D}
+        onClick={handleOpenSwitch3D}
         cursor="pointer"
+        zIndex={10}
       >
-        <Icon as={IoCubeSharp} width={6} height={6} onClick={handleOpenSwitch3D} />
+        <Icon as={IoCubeSharp} width={6} height={6} />
         <Text fontSize="12px">3D Preview</Text>
       </Flex>
       <ThreeDimensionalContainer

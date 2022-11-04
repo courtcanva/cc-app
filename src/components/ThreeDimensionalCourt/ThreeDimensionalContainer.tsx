@@ -6,12 +6,14 @@ import {
   ModalOverlay,
   ModalFooter,
   ModalCloseButton,
+  Box,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { switch3D } from "@/store/reducer/buttonToggleSlice";
 
 import Sidebar from "@/components/ThreeDimensionalCourt/Sidebar";
+import { useMediaQuery } from "@chakra-ui/react";
 
 interface Props {
   isOpen: boolean;
@@ -30,6 +32,10 @@ const ThreeDimensionalContainer = ({ isOpen, onClose, width, height, content }: 
     dispatch(switch3D(false));
     onClose();
   };
+  const [isSmallerThan1200, isSmallerThan768] = useMediaQuery(
+    "(max-width: 1200px),(max-width: 768px)"
+  );
+
   return (
     <>
       <style jsx>{`
@@ -52,34 +58,42 @@ const ThreeDimensionalContainer = ({ isOpen, onClose, width, height, content }: 
         }
       `}</style>
       {isOpen ? (
-        <Modal isOpen={isOpen} onClose={handleClose3D} isCentered size="4xl">
-          <ModalOverlay />
-          <ModalContent position="relative" height="80%">
-            <ModalCloseButton zIndex={10} />
-            <Flex
-              flexDirection="column"
-              alignItems="center"
-              position="relative"
-              maxHeight="100%"
-              maxWidth="100%"
-            >
-              <div className="scene_3d">
-                <div className="court_plane">{content}</div>
-              </div>
-
-              <ModalFooter
-                position="absolute"
-                bottom="1rem"
-                display="Flex"
-                justifyContent="center"
+        <Box>
+          <Modal
+            isOpen={isOpen}
+            onClose={handleClose3D}
+            isCentered
+            size={isSmallerThan768 ? "sm" : isSmallerThan1200 ? "4xl" : "6xl"}
+          >
+            <ModalOverlay />
+            <ModalContent position="relative" height="80%">
+              <ModalCloseButton zIndex={10} />
+              <Flex
+                flexDirection="column"
                 alignItems="center"
-                data-testid="sidebar"
+                position="relative"
+                maxHeight="100%"
+                maxWidth="100%"
+                justifyContent="center"
               >
-                <Sidebar setRotateDeg={setRotateHorizontalDeg} rotateDeg={rotateHorizontalDeg} />
-              </ModalFooter>
-            </Flex>
-          </ModalContent>
-        </Modal>
+                <div className="scene_3d">
+                  <div className="court_plane">{content}</div>
+                </div>
+
+                <ModalFooter
+                  position="absolute"
+                  bottom="1rem"
+                  display="Flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  data-testid="sidebar"
+                >
+                  <Sidebar setRotateDeg={setRotateHorizontalDeg} rotateDeg={rotateHorizontalDeg} />
+                </ModalFooter>
+              </Flex>
+            </ModalContent>
+          </Modal>
+        </Box>
       ) : (
         <>{content}</>
       )}
