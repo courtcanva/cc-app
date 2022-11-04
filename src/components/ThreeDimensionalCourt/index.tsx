@@ -49,7 +49,7 @@ const ThreeDimensionalToggle = ({ width, height, children }: Props) => {
         zIndex={10}
       >
         <Icon as={IoCubeSharp} width={6} height={6} onClick={handleOpenSwitch3D} />
-        <Text fontSize="12px">2D/3D Preview</Text>
+        <Text fontSize="12px">3D Preview</Text>
       </Flex>
       <ThreeDimensionalContainer
         isOpen={isSwitch3D}
