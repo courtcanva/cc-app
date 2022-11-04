@@ -28,13 +28,10 @@ export const orderApi = createApi({
         url: "/stripe/create-checkout-session",
         method: "POST",
         body: newSession,
-      })
-    })
+      }),
+    }),
   }),
 });
 
-export const { 
-  useGetOrdersQuery, 
-  useCreateOrderMutation, 
-  useCreateStripeSessionMutation 
-} = orderApi;
+export const { useGetOrdersQuery, useCreateOrderMutation, useCreateStripeSessionMutation } =
+  orderApi;

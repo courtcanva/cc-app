@@ -32,14 +32,14 @@ const OrderContainer = () => {
     try {
       const orderId = await createOrder(newOrder)
         .unwrap()
-        .then(res => res._id);
+        .then((res) => res._id);
       const sessionData: IStripeSession = {
         ...newOrder,
         order_Id: orderId,
       };
       const sessionUrl = await createStripeSessionMutation(sessionData)
         .unwrap()
-        .then(res => res.sessionUrl);
+        .then((res) => res.sessionUrl);
       window.location.href = sessionUrl;
     } catch {
       return toast({
@@ -49,9 +49,9 @@ const OrderContainer = () => {
         position: "bottom",
         duration: 9000,
         status: "error",
-      })
+      });
     }
-  }
+  };
 
   const handleBackToCart = () => dispatch(switchOrderGeneration(false));
 
