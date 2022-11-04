@@ -1,6 +1,6 @@
 import { Stage, Layer, Group } from "react-konva";
 import { Flex } from "@chakra-ui/react";
-import { ReactReduxContext, Provider } from "react-redux";
+import { ReactReduxContext, Provider, useDispatch } from "react-redux";
 import ThreePointArea from "../BasketballCourt/ThreePointArea";
 import KeyArea from "../BasketballCourt/KeyArea";
 import CourtArea from "../BasketballCourt/CourtArea";
@@ -12,14 +12,63 @@ import BorderDimension from "../BasketballCourt/BorderDimension";
 import DashedLine from "../BasketballCourt/DashedLine";
 import useCourt from "@/hooks/useCourt";
 import { IZoomShift } from "@/interfaces/zoomShift";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import canvasControlModel from "../../utils/canvasControlModel";
 import useImageDataUrl from "@/hooks/useImageDataUrl";
+import CustomiseWindow from "./CustomiseWindow";
+import CustomiseCourtDimension from "./CustomiseCourtDimension";
+import { setNewCourtAreaYLength, setNewCourtAreaXLength } from "@/store/reducer/courtSpecDataSlice";
+import CustomiseBorder from "../BasketballCourt/CustomiseBorder";
+import { calculation } from "@/utils/tileNumberCalculator";
+import { changeTileQuantity, PriceBar } from "@/store/reducer/priceBarSlice";
+import { useStoreSelector } from "@/store/hooks";
 import ThreeDimensionalToggle from "../ThreeDimensionalCourt";
 
 const ProHalfCourt = () => {
-  const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
+  const dispatch = useDispatch();
+  const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint, stageMargin } =
+    useCourt();
   const ref = useRef<any>(null);
+  const reference = useRef<any>();
+  const [clipWidth, setClipWidth] = useState(0);
+  const [clipLength, setClipLength] = useState(0);
+  const clipCourt = { clipWidth, clipLength };
+  const courtColor = useStoreSelector((state) => state.tile.present.court);
+  const tileInfo = {
+    beginPointX: (courtStartPoint.X - borderLength) * court.courtRatio,
+    beginPointY:
+      (courtStartPoint.Y + courtAreaYLength / 2 - (clipLength * 1000) / 2 - borderLength) *
+      court.courtRatio,
+    endPointX: (courtStartPoint.X + clipWidth * 1000 + borderLength) * court.courtRatio,
+    endPointY:
+      (courtStartPoint.Y +
+        courtAreaYLength / 2 -
+        (clipLength * 1000) / 2 +
+        clipLength * 1000 +
+        borderLength) *
+      court.courtRatio,
+    tileSize: 300 * court.courtRatio,
+  };
+  const courtAndTileInfo = {
+    beginPointX: (stageMargin - borderLength) * court.courtRatio,
+    beginPointY: (stageMargin - borderLength) * court.courtRatio,
+    endPointX: (stageMargin + courtAreaXLength + borderLength) * court.courtRatio,
+    endPointY: (stageMargin + courtAreaYLength + borderLength) * court.courtRatio,
+    tileSize: 300 * court.courtRatio,
+  };
+
+  useEffect(() => {
+    dispatch(setNewCourtAreaXLength(clipWidth * 1000));
+    dispatch(setNewCourtAreaYLength(clipLength * 1000));
+    const timer = setTimeout(() => {
+      const tileNumberResult = calculation(
+        reference,
+        clipLength === 0 && clipWidth === 0 ? courtAndTileInfo : tileInfo
+      ) as PriceBar[];
+      dispatch(changeTileQuantity(tileNumberResult));
+    });
+    return () => clearTimeout(timer);
+  }, [JSON.stringify(clipCourt), JSON.stringify(courtColor)]);
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -56,25 +105,47 @@ const ProHalfCourt = () => {
     >
       <ReactReduxContext.Consumer>
         {({ store }) => (
-          <ThreeDimensionalToggle width={court.stageWidth} height={court.stageHeight}>
-            <Stage
-              id="basketball-court"
-              data-testid="stage"
-              height={court.stageHeight}
-              width={court.stageWidth}
-              scaleX={court.courtRatio * canvasStates.zoomScale}
-              scaleY={court.courtRatio * canvasStates.zoomScale}
-              x={!canvasStates.dragStart ? canvasControl.xShift : 0}
-              y={!canvasStates.dragStart ? canvasControl.yShift : 0}
-              style={{ backgroundColor: "white" }}
-              onDragStart={canvasControl.handleMouseDragStart}
-              onDragEnd={canvasControl.handleCursorChange}
-              ref={ref}
-              draggable={canvasStates.dragActivate && canvasStates.selectedColor === "none"}
-              visible
-            >
-              <Provider store={store}>
-                <Layer>
+          <Stage
+            id="basketball-court"
+            data-testid="stage"
+            height={court.stageHeight}
+            width={court.stageWidth}
+            scaleX={court.courtRatio * canvasStates.zoomScale}
+            scaleY={court.courtRatio * canvasStates.zoomScale}
+            x={!canvasStates.dragStart ? canvasControl.xShift : 0}
+            y={!canvasStates.dragStart ? canvasControl.yShift : 0}
+            style={{ backgroundColor: "white" }}
+            onDragStart={canvasControl.handleMouseDragStart}
+            onDragEnd={canvasControl.handleCursorChange}
+            ref={ref}
+            draggable={canvasStates.dragActivate && canvasStates.selectedColor === "none"}
+            visible
+          >
+            <Provider store={store}>
+              <Layer ref={reference}>
+                {clipLength * clipWidth !== 0 && (
+                  <>
+                    <CustomiseBorder
+                      startPoint={courtStartPoint}
+                      borderLength={borderLength}
+                      customizeXLength={clipWidth}
+                      customizeYLength={clipLength}
+                      courtAreaYLength={courtAreaYLength}
+                    />
+                    <CustomiseCourtDimension
+                      startPoint={courtStartPoint}
+                      borderLength={borderLength}
+                      inputX={clipWidth}
+                      inputY={clipLength}
+                    />
+                  </>
+                )}
+                <Group
+                  clipX={courtStartPoint.X}
+                  clipY={courtStartPoint.Y + courtAreaYLength / 2 - (clipLength * 1000) / 2}
+                  clipHeight={clipLength * 1000}
+                  clipWidth={clipWidth * 1000}
+                >
                   <Border
                     startPoint={courtStartPoint}
                     borderLength={borderLength}
@@ -92,12 +163,13 @@ const ProHalfCourt = () => {
                   <KeyArea startPoint={courtStartPoint} />
                   <CircleArea startPoint={courtStartPoint} />
                   <TopKeyArea startPoint={courtStartPoint} />
-                </Layer>
-              </Provider>
-            </Stage>
-          </ThreeDimensionalToggle>
+                </Group>
+              </Layer>
+            </Provider>
+          </Stage>
         )}
       </ReactReduxContext.Consumer>
+      <CustomiseWindow setInputWidth={setClipWidth} setInputLength={setClipLength} />
     </Flex>
   );
 };

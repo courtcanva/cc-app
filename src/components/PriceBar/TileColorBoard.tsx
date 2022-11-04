@@ -31,9 +31,13 @@ const TileColorBoard: React.FC<ITileColorBoard> = ({ setTotalPrice }) => {
 
   const calculateTile = (tilePricesList: { price: number }) => {
     const courtSize =
-      (((court.courtAreaXLength + court.borderLength * 2) / 1000) *
-        (court.courtAreaYLength + court.borderLength * 2)) /
-      1000;
+      court.customizeCourtAreaXLength &&
+      court.customizeCourtAreaYLength &&
+      court.customizeCourtAreaXLength * court.customizeCourtAreaYLength !== 0
+        ? (court.customizeCourtAreaXLength / 1000) * (court.customizeCourtAreaYLength / 1000)
+        : (((court.courtAreaXLength + court.borderLength * 2) / 1000) *
+            (court.courtAreaYLength + court.borderLength * 2)) /
+          1000;
     priceDetails.tilePrice = (tilePricesList?.price / 100) * courtSize;
   };
 
