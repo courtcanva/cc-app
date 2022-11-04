@@ -50,7 +50,14 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
 
   const handleCreateOrder = () => {
     const orders = shoppingCart.filter((e, index) => checkedItems[index]);
-    dispatch(addOrderItems(orders));
+    // 记得改回去
+    const orders_ = orders.map(item => {
+      return {
+        ...item,
+        quotation: "100.00"
+      }
+    })
+    dispatch(addOrderItems(orders_));
     dispatch(switchOrderGeneration(true));
   };
 

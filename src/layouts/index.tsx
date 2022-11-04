@@ -9,7 +9,12 @@ import PriceBar from "@/components/PriceBar";
 import TopBar from "@/components/TopBar";
 import ShoppingCart from "@/components/ShoppingCart";
 import MyTemplate from "@/components/MyTemplate";
-import { PAGE_NOT_FOUND, TEAM_PAGE } from "../../src/constants";
+import {
+  PAGE_NOT_FOUND,
+  PAYMENT_FAILTURE,
+  PAYMENT_SUCCESS,
+  TEAM_PAGE,
+} from "../../src/constants";
 import OrderGeneration from "@/components/OrderGeneration";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -28,6 +33,26 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
       return (
         <>
           <Header />
+          <Box as="main">
+            <NavigationBar />
+            {children}
+          </Box>
+        </>
+      );
+
+    case PAYMENT_SUCCESS:
+      return (
+        <>
+          <Box as="main">
+            <NavigationBar />
+            {children}
+          </Box>
+        </>
+      );
+
+    case PAYMENT_FAILTURE:
+      return (
+        <>
           <Box as="main">
             <NavigationBar />
             {children}

@@ -14,3 +14,7 @@ export interface IOrder {
   items: IOrderItem[];
   depositRatio: number;
 }
+
+export interface IStripeSession extends IOrder {
+  order_Id: string;
+}
