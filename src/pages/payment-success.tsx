@@ -1,8 +1,29 @@
-import { Box, Button, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  GridItem,
+  Text
+} from "@chakra-ui/react";
 import NextHeadSeo from "next-head-seo";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 
-const PaymentSuccess = () => {
+interface Props {
+  OrderDetails: {
+    createdAt: string;
+    paidAt: string;
+    amount: string;
+    orderId: string;
+  }
+}
+
+const PaymentSuccess = (props: Props) => {
+
+  console.log("props: ", props)
+
+  if (!props) return;
+
   return (
     <>
       <NextHeadSeo
@@ -58,7 +79,7 @@ const PaymentSuccess = () => {
             </Text>
             <Text fontSize={{ base: "0.7rem", md: "0.9rem", lg: "1.1rem" }} fontWeight="600">
               You have successfully paid the deposit. Our staff will contact you soon.
-              <Box height="1rem"></Box>
+              <Text height="1rem"></Text>
             </Text>
             <Box height="0.1rem" background="black" width="calc(100% - 30vw)"></Box>
             <Grid
