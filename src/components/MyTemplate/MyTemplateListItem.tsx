@@ -13,21 +13,25 @@ function MyTemplateListItem({ ...item }) {
   const [buttonClicked, setButtonClicked] = useState("");
   const [updateTemplate] = useUpdateTemplateMutation();
   const [deleteTemplate] = useDeleteTemplateMutation();
-  const template: IUpdateTemplate = { _id: item._id };
   const isPrivate = item.status === "private";
+  const template: IUpdateTemplate = { _id: item._id };
+  template.status = isPrivate ? "censoring" : "private";
 
-  let alertText = "";
-  switch (buttonClicked) {
-    case "Delete":
-      alertText = "permanently delete your template";
-      break;
-    case "Undisplay":
-      alertText = "undisplay your template";
-      break;
-    case "Publish":
-      alertText = "publish your template";
-      break;
-  }
+  const alertObj = {
+    Delete: { text: "permanently delete", action: () => deleteTemplate(template._id) },
+    Undisplay: {
+      text: "undisplay",
+      action: () => updateTemplate(template),
+    },
+    Publish: {
+      text: "publish",
+      action: () => updateTemplate(template),
+    },
+  };
+
+  type ObjectKey = keyof typeof alertObj;
+  const button = buttonClicked as ObjectKey;
+  const alertText = `${alertObj[button]?.text} your template`;
 
   const handleDelete = () => {
     setButtonClicked("Delete");
@@ -40,15 +44,7 @@ function MyTemplateListItem({ ...item }) {
   };
 
   const handleModalConfirm = () => {
-    if (buttonClicked === "Delete") {
-      deleteTemplate(template._id);
-    } else if (buttonClicked === "Undisplay") {
-      template.status = "private";
-      updateTemplate(template);
-    } else {
-      template.status = "censoring";
-      updateTemplate(template);
-    }
+    alertObj[button].action();
     onClose();
   };
 
