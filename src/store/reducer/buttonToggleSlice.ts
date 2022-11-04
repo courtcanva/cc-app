@@ -74,6 +74,7 @@ export const ButtonToggleSlice = createSlice({
         ...state,
         isLoginModalOpen: action.payload,
         isSideBarOpen: false,
+        isSwitch3D: false,
       };
     },
     switchCreateTemplate: (state: ButtonToggleState, action: PayloadAction<boolean>) => {

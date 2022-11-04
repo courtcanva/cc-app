@@ -5,6 +5,7 @@ import ThreeDimensionalContainer from "./ThreeDimensionalContainer";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { switch3D } from "@/store/reducer/buttonToggleSlice";
+import { resetAll } from "@/store/reducer/canvasControlSlice";
 
 interface Props {
   width: number;
@@ -17,8 +18,11 @@ const ThreeDimensionalToggle = ({ width, height, children }: Props) => {
   const { isSwitch3D } = useStoreSelector((state) => state.buttonToggle);
   const { onOpen: onOpen3D, onClose } = useDisclosure();
   const handleOpenSwitch3D = () => {
-    dispatch(switch3D(true));
-    document.body.style.cursor = "pointer";
+    dispatch(resetAll());
+    setTimeout(() => {
+      dispatch(switch3D(true));
+      document.body.style.cursor = "pointer";
+    }, 0);
   };
   const handleClose3D = () => {
     onClose();
