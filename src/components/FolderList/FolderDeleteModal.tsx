@@ -57,11 +57,7 @@ const FolderDeleteModal = () => {
         aria-label="Delete Button"
         size="xs"
         colorScheme="transparent"
-        icon={
-          <FaTrashAlt
-          // style={{ color: "white", marginTop: "-18px", marginLeft: "-17px", border: "none" }}
-          />
-        }
+        icon={<FaTrashAlt />}
         onClick={onOpen}
       />
 
