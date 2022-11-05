@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import React, { useState } from "react";
 import { Flex, Box, Button, Text, Grid, Stack, Badge, useDisclosure } from "@chakra-ui/react";
-import moment from "moment";
+import { format, parseISO } from "date-fns";
 import { MdDeleteOutline, MdRemoveRedEye } from "react-icons/md";
 import Image from "next/image";
 import { useUpdateTemplateMutation, useDeleteTemplateMutation } from "@/redux/api/templateApi";
@@ -120,7 +120,7 @@ function MyTemplateListItem({ ...item }) {
           <Text fontSize="xs" fontWeight="300" fontStyle="italic">
             Created at
           </Text>
-          <Text fontSize="1rem">{moment(item.createdAt).format("DD/MM/YYYY")}</Text>
+          <Text fontSize="1rem">{format(parseISO(item.createdAt), "dd/mm/yyyy")}</Text>
         </Box>
         <Text
           fontSize={{ base: "6px", md: "xs" }}
