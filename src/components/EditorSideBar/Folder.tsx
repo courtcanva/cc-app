@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
@@ -34,6 +34,7 @@ const Folder = () => {
     )?.tileQty as AreaTileQty[];
     dispatch(changeCourtType(tileQtyOfSelectedCourt));
   };
+  const folderEmpty = designsData?.length === 0;
 
   return (
     <Box height="100%" className="scrollbox">
@@ -47,6 +48,7 @@ const Folder = () => {
           />
         );
       })}
+      {folderEmpty && <Text>The folder list is empty</Text>}
     </Box>
   );
 };
