@@ -144,8 +144,6 @@ const SaveBoard: React.FC = () => {
   const handleSaveAsDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     designData.designName = useDesignName.replace(CHECK_START_END_SPACE, "");
-    console.log(3);
-    console.log(designData);
 
     if (!courtDataUrl) {
       return toast({
