@@ -2,9 +2,6 @@ import { Box, Flex, HStack, Tag, Button } from "@chakra-ui/react";
 import Image from "next/image";
 import FolderDeleteModal from "./FolderDeleteModal";
 import React from "react";
-// interface FolderListItemProps {
-//   design: CourtSizeState;
-// }
 
 const FolderListItem = (props: any) => {
   const { courtId, courtName, designName, createdAt, image } = props.design;
@@ -79,7 +76,6 @@ const FolderListItem = (props: any) => {
       </Box>
       <HStack spacing={8}>
         <Tag
-          // variant="courtIDTag"
           backgroundColor="tag.courtCategory"
           size={"sm"}
           style={{
@@ -94,7 +90,6 @@ const FolderListItem = (props: any) => {
           {courtName}
         </Tag>
         <Tag
-          // variant="courtTypeTag"
           backgroundColor="tag.courtType"
           size={"sm"}
           style={{
