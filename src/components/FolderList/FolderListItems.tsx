@@ -28,14 +28,14 @@ const FolderListItem = (props: any) => {
       onClick={() => props.handleCourtSelecting(courtId)}
       data-testid={courtId}
       _hover={{ border: "2px solid button.hover" }}
-      // opacity={!props.activateDesign || props.activateDesign === courtId ? "1" : "0.4"}
+      opacity={!props.activateDesign || props.activateDesign === courtId ? "1" : "0.4"}
     >
       <HStack spacing={8}>
         <Box
           style={{
             background: "none",
             borderRadius: "0",
-            minWidth: "100px",
+            minWidth: "150px",
             marginTop: "5px",
           }}
         >
@@ -106,6 +106,7 @@ const FolderListItem = (props: any) => {
           }}
         >
           Basketball
+          {/* todo: need to update interface when tennis court is added  */}
         </Tag>
       </HStack>
     </Flex>

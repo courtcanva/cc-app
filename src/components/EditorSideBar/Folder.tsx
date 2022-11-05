@@ -43,6 +43,7 @@ const Folder = () => {
             key={design.courtId}
             design={design}
             handleCourtSelecting={handleCourtSelecting}
+            activateDesign={activateDesign}
           />
         );
       })}
