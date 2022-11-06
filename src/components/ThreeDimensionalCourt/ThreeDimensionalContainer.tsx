@@ -32,9 +32,6 @@ const ThreeDimensionalContainer = ({ isOpen, onClose, width, height, content }: 
     dispatch(switch3D(false));
     onClose();
   };
-  const [isSmallerThan1200, isSmallerThan768] = useMediaQuery(
-    "(max-width: 1200px),(max-width: 768px)"
-  );
 
   return (
     <>
@@ -54,19 +51,18 @@ const ThreeDimensionalContainer = ({ isOpen, onClose, width, height, content }: 
           perspective: 10000px;
           transform-style: preserve-3d;
           transform: rotateX(calc(${rotateVerticalDeg} * 1.6deg))
-            rotateZ(calc(${rotateHorizontalDeg} * 1deg)) scale(0.6);
+            rotateZ(calc(${rotateHorizontalDeg} * 1deg)) scale(0.8);
         }
       `}</style>
       {isOpen ? (
         <Box>
-          <Modal
-            isOpen={isOpen}
-            onClose={handleClose3D}
-            isCentered
-            size={isSmallerThan768 ? "sm" : isSmallerThan1200 ? "4xl" : "6xl"}
-          >
+          <Modal isOpen={isOpen} onClose={handleClose3D} isCentered size="6xl">
             <ModalOverlay />
-            <ModalContent position="relative" height="80%">
+            <ModalContent
+              position="relative"
+              height="82%"
+              maxWidth={{ base: "98%", md: "95%", lg: "90%" }}
+            >
               <ModalCloseButton zIndex={10} />
               <Flex
                 flexDirection="column"
@@ -80,16 +76,16 @@ const ThreeDimensionalContainer = ({ isOpen, onClose, width, height, content }: 
                   <div className="court_plane">{content}</div>
                 </div>
 
-                <ModalFooter
-                  position="absolute"
-                  bottom="1rem"
+                <Box
+                  position="fixed"
+                  bottom="15%"
                   display="Flex"
                   justifyContent="center"
                   alignItems="center"
                   data-testid="sidebar"
                 >
                   <Sidebar setRotateDeg={setRotateHorizontalDeg} rotateDeg={rotateHorizontalDeg} />
-                </ModalFooter>
+                </Box>
               </Flex>
             </ModalContent>
           </Modal>
