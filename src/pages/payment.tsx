@@ -1,15 +1,52 @@
-import OrderInfoCard from "@/components/PaymentResponsePage";
+import OrderInfoCard from "@/components/PaymentInfoCard";
 import { environment } from "@/constants/environment";
-import { IOrderWithPaymentInfo, PageStatus, PaymentResPage } from "@/interfaces/order";
-import { Box, Button, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
+import {
+  IOrderDb,
+  IOrderWithPaymentInfo,
+  IStripeSession,
+  PaymentResPage,
+} from "@/interfaces/order";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import NextHeadSeo from "next-head-seo";
 import { BiErrorCircle } from "react-icons/bi";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+import { PageStatus } from "@/constants/paymentResponsePage";
+import { format, parseISO } from "date-fns";
+import { useLazyGetOrderByIdQuery, useCreateStripeSessionMutation } from "../redux/api/orderApi";
+import { useEffect } from "react";
 
-const PaymentResponse = (props: PaymentResPage) => {
-  if (props.status === PageStatus.ERROR) return <></>;
-  const { status } = props;
+interface Props {
+  paymentInfo: PaymentResPage;
+}
+
+const PaymentResponse = (props: Props) => {
+  const { paymentInfo } = props;
+  const { status, orderDetails } = paymentInfo;
+  const [trigger, { data: rawData }] = useLazyGetOrderByIdQuery();
+  const [createStripeSessionMutation] = useCreateStripeSessionMutation();
+
+  if (status === PageStatus.ERROR) return <></>;
+
+  useEffect(() => {
+    if (rawData) {
+      const data = rawData as IOrderDb;
+      createStripeSession(data);
+    }
+  }, [rawData]);
+
+  const repayOrder = () => {
+    trigger(orderDetails?.orderId as string);
+  };
+
+  const createStripeSession = async (data: IOrderDb) => {
+    const { user_id: userId, items, _id, depositRatio } = data;
+    const orderInfo: IStripeSession = { user_id: userId, items, order_Id: _id, depositRatio };
+    const sessionUrl = await createStripeSessionMutation(orderInfo)
+      .unwrap()
+      .then((res) => res.sessionUrl);
+    window.location.href = sessionUrl;
+  };
 
   return (
     <>
@@ -74,14 +111,27 @@ const PaymentResponse = (props: PaymentResPage) => {
             >
               {status === PageStatus.SUCCESS
                 ? "You have successfully paid the deposit. Our staff will contact you soon."
-                : "Your payment could not be processed! Please try again."}
+                : "Your payment could not be processed. Please try again."}
             </Text>
-            <Box height="0.1rem" background="black" width="calc(100% - 30vw)"></Box>
-            <OrderInfoCard paymentResPage={props} />
+            <Box height="0.1rem" background="#D3D3D3" width="calc(100% - 30vw)"></Box>
+            <OrderInfoCard paymentResPage={paymentInfo} />
           </Flex>
-          <Button variant="shareBtn" padding="1rem 1.5rem" fontSize="1.2rem">
-            Check My Order
-          </Button>
+          <Flex justifyContent="center" alignItems="center" gap="3rem">
+            <Button variant="shareBtn" padding="1rem 1.5rem" fontSize="1.2rem">
+              Check My Order
+            </Button>
+            {status !== PageStatus.SUCCESS && (
+              <Button
+                variant="shareBtn"
+                padding="1rem 1.5rem"
+                fontSize="1.2rem"
+                background="#d64543"
+                onClick={repayOrder}
+              >
+                Try again
+              </Button>
+            )}
+          </Flex>
         </Flex>
       </Box>
     </>
@@ -91,8 +141,10 @@ const PaymentResponse = (props: PaymentResPage) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { orderId, status } = context.query;
+
     const res = await fetch(`${environment.apiBaseUrl}/stripe/paymentInfo/${orderId}`);
     const data = (await res.json()) as IOrderWithPaymentInfo;
+
     if (!data.order) return { props: { status: PageStatus.ERROR } };
 
     let paymentStatus: PageStatus;
@@ -100,26 +152,31 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       ? (paymentStatus = PageStatus.SUCCESS)
       : (paymentStatus = PageStatus.FAILURE);
 
-    const { items, createdAt, _id } = data.order;
+    const { items, createdAt, _id, depositRatio } = data.order;
+
     const totalAmount = (
-      items.reduce((previousValue: number, currentValue: any) => {
-        return previousValue + Math.round(Number(currentValue.quotation) * 100);
-      }, 0) / 100
+      Math.round(
+        items.reduce((previousValue: number, currentValue: any) => {
+          return previousValue + Number(currentValue.quotation) * 100;
+        }, 0) * depositRatio
+      ) / 100
     ).toString();
 
     const props: PaymentResPage = {
       status: paymentStatus,
       orderDetails: {
-        createdAt: createdAt,
-        paidAt: data.paymentInfo ? data.paymentInfo.createdAt : null,
+        createdAt: format(parseISO(createdAt), "dd/MM/yyyy HH:mm"),
+        paidAt: data.paymentInfo
+          ? format(parseISO(data.paymentInfo.createdAt), "dd/MM/yyyy HH:mm")
+          : null,
         amount: totalAmount,
         orderId: _id,
       },
     };
-    console.log("props: ", props);
-    return { props: props };
+
+    return { props: { paymentInfo: props } };
   } catch {
-    return { props: { status: PageStatus.ERROR } };
+    return { props: { paymentInfo: { status: PageStatus.ERROR } } };
   }
 };
 

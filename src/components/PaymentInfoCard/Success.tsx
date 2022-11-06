@@ -11,10 +11,10 @@ const Success = (props: Props) => {
     <Grid
       width="60%"
       height="45%"
-      templateColumns="minmax(120px, 1.6fr) minmax(120px, 1.6fr) minmax(80px, 1fr)"
+      templateColumns="minmax(120px, 2fr) minmax(120px, 2fr) minmax(80px, 1fr)"
       templateRows="1fr 1fr"
       lineHeight={1.2}
-      columnGap="2rem"
+      columnGap="2.2rem"
       rowGap="0.8rem"
     >
       <GridItem paddingTop="1rem">

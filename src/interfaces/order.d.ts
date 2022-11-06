@@ -1,5 +1,6 @@
 import { IDesign } from "@/interfaces/design";
 import { PriceBar } from "@/store/reducer/priceBarSlice";
+import { PageStatus } from "@/constants/paymentResponsePage";
 
 interface IOrderItem {
   design: IDesign;
@@ -31,12 +32,6 @@ interface IOrderDb extends IOrder {
 export interface IOrderWithPaymentInfo {
   order: IOrderDb;
   paymentInfo?: IPaymentInfoDb;
-}
-
-export enum PageStatus {
-  SUCCESS = "success",
-  FAILURE = "failure",
-  ERROR = "error",
 }
 
 export interface OrderDetails {

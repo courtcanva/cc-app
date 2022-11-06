@@ -14,6 +14,11 @@ export const orderApi = createApi({
       providesTags: ["orders"],
     }),
 
+    getOrderById: builder.query<any, string>({
+      query: (orderId) => `/orders/${orderId}`,
+      providesTags: ["orders"],
+    }),
+
     createOrder: builder.mutation<any, IOrder>({
       query: (newOrder) => ({
         url: "/orders",
@@ -33,5 +38,9 @@ export const orderApi = createApi({
   }),
 });
 
-export const { useGetOrdersQuery, useCreateOrderMutation, useCreateStripeSessionMutation } =
-  orderApi;
+export const {
+  useGetOrdersQuery,
+  useCreateOrderMutation,
+  useCreateStripeSessionMutation,
+  useLazyGetOrderByIdQuery,
+} = orderApi;

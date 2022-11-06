@@ -1,4 +1,5 @@
-import { PageStatus, PaymentResPage } from "@/interfaces/order";
+import { PaymentResPage } from "@/interfaces/order";
+import { PageStatus } from "@/constants/paymentResponsePage";
 import Failure from "./Failure";
 import Success from "./Success";
 
