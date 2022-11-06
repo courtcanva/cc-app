@@ -51,11 +51,7 @@ export const mockTemplateDataRaw: any = [
     },
     image:
       "https://jr-bookinglet-2.s3.ap-southeast-2.amazonaws.com/court_canva_test/m8i7liw-KKm9Dl2OYwgi_.png",
-    createdAt: {
-      $date: {
-        $numberLong: "1663723361318",
-      },
-    },
+    createdAt: "2022-10-27T14:06:21.850+00:00",
     updatedAt: {
       $date: {
         $numberLong: "1663723361318",
@@ -120,11 +116,7 @@ export const mockTemplateDataRaw: any = [
     },
     image:
       "https://jr-bookinglet-2.s3.ap-southeast-2.amazonaws.com/court_canva_test/m8i7liw-KKm9Dl2OYwgi_.png",
-    createdAt: {
-      $date: {
-        $numberLong: "1663723361318",
-      },
-    },
+    createdAt: "2022-10-27T14:06:21.850+00:00",
     updatedAt: {
       $date: {
         $numberLong: "1663723361318",
@@ -189,11 +181,7 @@ export const mockTemplateDataRaw: any = [
     },
     image:
       "https://jr-bookinglet-2.s3.ap-southeast-2.amazonaws.com/court_canva_test/m8i7liw-KKm9Dl2OYwgi_.png",
-    createdAt: {
-      $date: {
-        $numberLong: "1663723361318",
-      },
-    },
+    createdAt: "2022-10-27T14:06:21.850+00:00",
     updatedAt: {
       $date: {
         $numberLong: "1663723361318",

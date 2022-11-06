@@ -2,7 +2,7 @@ import { mockTemplateData } from "@/components/MockData/MockTemplateData";
 import MyTemplateContainer from "@/components/MyTemplate/MyTemplateContainer";
 import { screen, within } from "@testing-library/react";
 import renderWithMockedProvider from "../../utils";
-import moment from "moment";
+import { format, parseISO } from "date-fns";
 import userEvent from "@testing-library/user-event";
 
 describe("MyTemplate component", () => {
@@ -25,7 +25,7 @@ describe("MyTemplate component", () => {
     listItems.forEach((item, index) => {
       expect(within(item).getByText(mockTemplateData[index].courtName)).toBeVisible();
       expect(
-        within(item).getByText(moment(mockTemplateData[index].createdAt).format("DD/MM/YYYY"))
+        within(item).getByText(format(parseISO(mockTemplateData[index].createdAt), "dd/mm/yyyy"))
       ).toBeVisible();
       expect(within(item).getByText(mockTemplateData[index].description)).toBeVisible();
       expect(within(item).getByText(mockTemplateData[index].status)).toBeVisible();
