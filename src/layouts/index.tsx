@@ -10,10 +10,10 @@ import TopBar from "@/components/TopBar";
 import ShoppingCart from "@/components/ShoppingCart";
 import MyTemplate from "@/components/MyTemplate";
 import {
-  PAGE_NOT_FOUND, TEAM_PAGE,
+  PAGE_NOT_FOUND,
+  TEAM_PAGE,
   TEAM_PAGE_PERFORMANCE_TESTING,
-  PAYMENT_SUCCESS,
-  PAYMENT_FAILTURE
+  PAYMENT,
 } from "../../src/constants";
 import OrderGeneration from "@/components/OrderGeneration";
 
@@ -48,17 +48,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
         </>
       );
 
-    case PAYMENT_SUCCESS:
-      return (
-        <>
-          <Box as="main">
-            <NavigationBar />
-            {children}
-          </Box>
-        </>
-      );
-
-    case PAYMENT_FAILTURE:
+    case PAYMENT:
       return (
         <>
           <Box as="main">
