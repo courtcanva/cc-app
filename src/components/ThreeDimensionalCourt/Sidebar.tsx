@@ -40,7 +40,8 @@ const Sidebar = ({ setRotateDeg, rotateDeg }: Props) => {
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
       width="400px"
-      marginBottom={15}
+      position="absolute"
+      bottom={"-10%"}
     >
       {sliderMarkLists()}
       <SliderTrack backgroundColor="rgba(112, 136, 177, 0.5)">

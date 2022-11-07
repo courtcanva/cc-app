@@ -8,7 +8,7 @@ import { startSelectTemplate } from "@/store/reducer/buttonToggleSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { FaEllipsisH } from "react-icons/fa";
-import moment from "moment";
+import { format, parseISO } from "date-fns";
 import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
 import { setActiveCourt, updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
 import { changeWholeCourtColor } from "@/store/reducer/tileSlice";
@@ -31,7 +31,7 @@ const TemplateItem = (prop: Props) => {
     userId: prop.template.user_id,
     description: prop.template.description,
     courtImgUrl: prop.template.image,
-    createDate: moment(prop.template.createdAt).format("DD/MM/YYYY"),
+    createDate: format(parseISO(prop.template.createdAt), "dd/mm/yyyy"),
     tags: prop.template.tags,
     designDetail: prop.template.design,
   };
