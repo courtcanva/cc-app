@@ -12,10 +12,10 @@ const FolderListItem = (props: any) => {
   return (
     <Flex
       key={courtId}
-      width="230px"
+      width="232px"
       height="160px"
       background="white"
-      marginBottom="8px"
+      marginBottom="18px"
       alignItems="center"
       justifyContent="space-between"
       cursor="pointer"
@@ -32,7 +32,7 @@ const FolderListItem = (props: any) => {
           style={{
             background: "none",
             borderRadius: "0",
-            minWidth: "150px",
+            minWidth: "140px",
             marginTop: "5px",
           }}
         >
