@@ -1,10 +1,12 @@
 import { useStoreSelector } from "@/store/hooks";
-import { Flex, Text, Checkbox, Button, Link, Box, Tooltip } from "@chakra-ui/react";
+import { Flex, Text, Checkbox, Button, Link, Box, Tooltip, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import OrderItem from "./OrderItem";
 import { switchOrderGeneration } from "@/store/reducer/buttonToggleSlice";
 import { useDispatch } from "react-redux";
-import { useCreateOrderMutation } from "@/redux/api/orderApi";
+import { useCreateOrderMutation, useCreateStripeSessionMutation } from "@/redux/api/orderApi";
+import { IStripeSession } from "@/interfaces/order";
+import { useDeleteItemFromCartMutation } from "@/redux/api/cartApi";
 
 const OrderContainer = () => {
   const dispatch = useDispatch();
@@ -12,6 +14,9 @@ const OrderContainer = () => {
   const userId = useStoreSelector((state) => state.user.userId);
   const [isChecked, setIschecked] = useState(false);
   const [createOrder] = useCreateOrderMutation();
+  const [createStripeSessionMutation] = useCreateStripeSessionMutation();
+  const [deleteItemFromCart] = useDeleteItemFromCartMutation();
+  const toast = useToast();
 
   const items = orderItems.map((item) => {
     const orderItem = {
@@ -25,7 +30,37 @@ const OrderContainer = () => {
   });
   const newOrder = { user_id: userId, items, depositRatio: 0.02 };
 
-  const handleProceedToCheckOut = () => createOrder(newOrder);
+  const handleProceedToCheckOut = async () => {
+    try {
+      const orderId = await createOrder(newOrder)
+        .unwrap()
+        .then((res) => res._id);
+
+      orderItems &&
+        orderItems.forEach((item) => {
+          deleteItemFromCart(item.id);
+        });
+
+      const sessionData: IStripeSession = {
+        ...newOrder,
+        order_Id: orderId,
+      };
+      const sessionUrl = await createStripeSessionMutation(sessionData)
+        .unwrap()
+        .then((res) => res.sessionUrl);
+
+      window.location.href = sessionUrl;
+    } catch {
+      return toast({
+        title: "Fail to redirect to payment page",
+        description: "Please try again or contact IT support!",
+        isClosable: true,
+        position: "bottom",
+        duration: 9000,
+        status: "error",
+      });
+    }
+  };
 
   const handleBackToCart = () => dispatch(switchOrderGeneration(false));
 
