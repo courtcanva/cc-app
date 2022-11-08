@@ -6,6 +6,7 @@ import { switchOrderGeneration } from "@/store/reducer/buttonToggleSlice";
 import { useDispatch } from "react-redux";
 import { useCreateOrderMutation, useCreateStripeSessionMutation } from "@/redux/api/orderApi";
 import { IStripeSession } from "@/interfaces/order";
+import { useDeleteItemFromCartMutation } from "@/redux/api/cartApi";
 
 const OrderContainer = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const OrderContainer = () => {
   const [isChecked, setIschecked] = useState(false);
   const [createOrder] = useCreateOrderMutation();
   const [createStripeSessionMutation] = useCreateStripeSessionMutation();
+  const [deleteItemFromCart] = useDeleteItemFromCartMutation();
   const toast = useToast();
 
   const items = orderItems.map((item) => {
@@ -33,6 +35,11 @@ const OrderContainer = () => {
       const orderId = await createOrder(newOrder)
         .unwrap()
         .then((res) => res._id);
+
+      orderItems && orderItems.forEach((item) => {
+        deleteItemFromCart(item.id);
+      });
+
       const sessionData: IStripeSession = {
         ...newOrder,
         order_Id: orderId,
@@ -40,6 +47,7 @@ const OrderContainer = () => {
       const sessionUrl = await createStripeSessionMutation(sessionData)
         .unwrap()
         .then((res) => res.sessionUrl);
+        
       window.location.href = sessionUrl;
     } catch {
       return toast({
