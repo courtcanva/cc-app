@@ -1,7 +1,7 @@
 const generateImageFromDataUrl = async (courtDataUrl: string) => {
   const base64 = await fetch(courtDataUrl);
   const blob = await base64.blob();
-  return new File([blob], "default", { type: "image/png" });
+  return new File([blob], "default", { type: "image/jpeg" });
 };
 
 export const upLoadScreenshot = async (courtDataUrl: string, toast: any) => {
@@ -21,12 +21,13 @@ export const upLoadScreenshot = async (courtDataUrl: string, toast: any) => {
       IdentityPoolId: IdentityPoolId,
     }),
   });
-  const photoKey = albumPhotosKey + nanoid() + ".png";
+  const photoKey = albumPhotosKey + nanoid() + ".jpeg";
   const upload = new AWS.S3.ManagedUpload({
     params: {
       Bucket: albumBucketName,
       Key: photoKey,
       Body: imgFile,
+      ContentType: "image/jpeg",
     },
   });
 
