@@ -36,9 +36,10 @@ const OrderContainer = () => {
         .unwrap()
         .then((res) => res._id);
 
-      orderItems && orderItems.forEach((item) => {
-        deleteItemFromCart(item.id);
-      });
+      orderItems &&
+        orderItems.forEach((item) => {
+          deleteItemFromCart(item.id);
+        });
 
       const sessionData: IStripeSession = {
         ...newOrder,
@@ -47,7 +48,7 @@ const OrderContainer = () => {
       const sessionUrl = await createStripeSessionMutation(sessionData)
         .unwrap()
         .then((res) => res.sessionUrl);
-        
+
       window.location.href = sessionUrl;
     } catch {
       return toast({
