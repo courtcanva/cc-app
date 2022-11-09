@@ -12,6 +12,7 @@ export interface ButtonToggleState {
   isOrderGenerationOpen: boolean;
   isMyTemplateOpen: boolean;
   isSwitch3D: boolean;
+  isMyAccountOpen: boolean;
 }
 
 export const initialState: ButtonToggleState = {
@@ -26,6 +27,7 @@ export const initialState: ButtonToggleState = {
   isOrderGenerationOpen: false,
   isMyTemplateOpen: false,
   isSwitch3D: false,
+  isMyAccountOpen: false,
 };
 
 export const ButtonToggleSlice = createSlice({
@@ -46,6 +48,7 @@ export const ButtonToggleSlice = createSlice({
         isOrderGenerationOpen: false,
         isMyTemplateOpen: false,
         isSwitch3D: false,
+        isMyAccountOpen: false,
       };
     },
     switchPaintBucket: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
@@ -86,6 +89,7 @@ export const ButtonToggleSlice = createSlice({
         isOrderGenerationOpen: false,
         isMyTemplateOpen: false,
         isSwitch3D: false,
+        isMyAccountOpen: false,
       };
     },
     switchOrderGeneration: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
@@ -101,6 +105,7 @@ export const ButtonToggleSlice = createSlice({
         isCartOpen: false,
         isOrderGenerationOpen: false,
         isSwitch3D: false,
+        isMyAccountOpen: false,
       };
     },
     startSelectTemplate: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
@@ -122,6 +127,17 @@ export const ButtonToggleSlice = createSlice({
         isSavePopoverOpen: false,
       };
     },
+    switchMyAccount: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isMyAccountOpen: action.payload,
+        isCartOpen: false,
+        isOrderGenerationOpen: false,
+        isSwitch3D: false,
+        isMyTemplateOpen: false,
+        isCreateTemplateOpen: false,
+      };
+    },
   },
 });
 
@@ -137,6 +153,7 @@ export const {
   startSelectTemplate,
   switchOrderGeneration,
   switch3D,
+  switchMyAccount,
 } = ButtonToggleSlice.actions;
 
 export default ButtonToggleSlice.reducer;
