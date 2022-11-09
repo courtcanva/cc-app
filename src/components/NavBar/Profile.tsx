@@ -1,8 +1,8 @@
 import { Menu, MenuButton, MenuList, MenuItem, Flex } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
-import { PROFILE_LISTS } from "@/constants/profileLists";
+import PROFILE_LISTS from "@/constants/profileLists";
 import { BiChevronDown } from "react-icons/bi";
-import { switchMyTemplateDisplay } from "@/store/reducer/buttonToggleSlice";
+import { switchMyTemplateDisplay, switchMyOrderDisplay } from "@/store/reducer/buttonToggleSlice";
 import { useDispatch } from "react-redux";
 
 interface Props {
@@ -14,10 +14,27 @@ interface Props {
 
 const Profile = ({ isOpen, onOpen, onClose, handleLogout }: Props) => {
   const disPatch = useDispatch();
-  const handleOpenMyTemplate = () => {
-    disPatch(switchMyTemplateDisplay(true));
-    onClose();
+
+  const onClickHandler = (title: string) => {
+    switch (title) {
+      case "My Account":
+        return;
+      case "My Order":
+        disPatch(switchMyOrderDisplay(true));
+        onClose();
+        return;
+      case "My Template":
+        disPatch(switchMyTemplateDisplay(true));
+        onClose();
+        return;
+      case "Sign Out":
+        handleLogout();
+        return;
+      default:
+        return;
+    }
   };
+
   return (
     <Menu isOpen={isOpen}>
       <MenuButton
@@ -38,10 +55,10 @@ const Profile = ({ isOpen, onOpen, onClose, handleLogout }: Props) => {
       </MenuButton>
       <MenuList onMouseEnter={onOpen} onMouseLeave={onClose} position="absolute" left="-44px">
         {PROFILE_LISTS.map((item) => (
-          <MenuItem key={item}>{item}</MenuItem>
+          <MenuItem key={item.title} onClick={() => onClickHandler(item.title)}>
+            {item.title}
+          </MenuItem>
         ))}
-        <MenuItem onClick={handleOpenMyTemplate}>My Template</MenuItem>
-        <MenuItem onClick={handleLogout}>Sign Out</MenuItem>
       </MenuList>
     </Menu>
   );

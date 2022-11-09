@@ -11,6 +11,7 @@ export interface ButtonToggleState {
   isTemplateSelect: boolean;
   isOrderGenerationOpen: boolean;
   isMyTemplateOpen: boolean;
+  isMyOrderOpen: boolean;
   isSwitch3D: boolean;
 }
 
@@ -25,6 +26,7 @@ export const initialState: ButtonToggleState = {
   isTemplateSelect: false,
   isOrderGenerationOpen: false,
   isMyTemplateOpen: false,
+  isMyOrderOpen: false,
   isSwitch3D: false,
 };
 
@@ -45,6 +47,7 @@ export const ButtonToggleSlice = createSlice({
         isSideBarOpen: false,
         isOrderGenerationOpen: false,
         isMyTemplateOpen: false,
+        isMyOrderOpen: false,
         isSwitch3D: false,
       };
     },
@@ -85,6 +88,7 @@ export const ButtonToggleSlice = createSlice({
         isSideBarOpen: false,
         isOrderGenerationOpen: false,
         isMyTemplateOpen: false,
+        isMyOrderOpen: false,
         isSwitch3D: false,
       };
     },
@@ -98,6 +102,17 @@ export const ButtonToggleSlice = createSlice({
       return {
         ...state,
         isMyTemplateOpen: action.payload,
+        isMyOrderOpen: false,
+        isCartOpen: false,
+        isOrderGenerationOpen: false,
+        isSwitch3D: false,
+      };
+    },
+    switchMyOrderDisplay: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isMyOrderOpen: action.payload,
+        isMyTemplateOpen: false,
         isCartOpen: false,
         isOrderGenerationOpen: false,
         isSwitch3D: false,
@@ -134,6 +149,7 @@ export const {
   switchLoginModal,
   switchCreateTemplate,
   switchMyTemplateDisplay,
+  switchMyOrderDisplay,
   startSelectTemplate,
   switchOrderGeneration,
   switch3D,

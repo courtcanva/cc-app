@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import React from "react";
 import MyTemplateContainer from "./MyTemplateContainer";
-import { Flex } from "@chakra-ui/react";
+import BackgroundContainer from "../BackgroundContainer";
 import { useStoreSelector } from "@/store/hooks";
 import { useGetTemplatesQuery } from "@/redux/api/templateApi";
 import { userData } from "@/store/reducer/userSlice";
@@ -29,21 +29,9 @@ function MyTemplate() {
   return (
     <>
       {isMyTemplateOpen && currentUserId && (
-        <Flex
-          position="fixed"
-          backgroundColor="#fff"
-          top="72px"
-          padding="20px 20px 80px 20px"
-          width="100vw"
-          height="100vh"
-          zIndex={1600}
-          gap="28px"
-          overflowY="scroll"
-          flexDirection="column"
-          color="brand.primary"
-        >
+        <BackgroundContainer>
           <MyTemplateContainer myTemplates={myTemplates} />
-        </Flex>
+        </BackgroundContainer>
       )}
     </>
   );

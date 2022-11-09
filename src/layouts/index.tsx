@@ -9,6 +9,7 @@ import PriceBar from "@/components/PriceBar";
 import TopBar from "@/components/TopBar";
 import ShoppingCart from "@/components/ShoppingCart";
 import MyTemplate from "@/components/MyTemplate";
+import MyOrder from "@/components/MyOrder";
 import { PAGE_NOT_FOUND, TEAM_PAGE, TEAM_PAGE_PERFORMANCE_TESTING } from "../../src/constants";
 import OrderGeneration from "@/components/OrderGeneration";
 
@@ -50,6 +51,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
           <Box as="main">
             <NavigationBar />
             <MyTemplate />
+            <MyOrder />
             <ShoppingCart />
             <OrderGeneration />
             <EditorSideBar />

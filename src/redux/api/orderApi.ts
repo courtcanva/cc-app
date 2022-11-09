@@ -5,13 +5,13 @@ import { IOrder } from "@/interfaces/order";
 export const orderApi = createApi({
   reducerPath: "orders",
   baseQuery: fetchBaseQuery({
-    baseUrl: environment.apiBaseUrl,
+    baseUrl: "http://localhost:3500",
   }),
   tagTypes: ["orders"],
   endpoints: (builder) => ({
     getOrders: builder.query({
       query: (userId) => `/orders?user_id=${userId}`,
-      providesTags: ["orders"],
+      providesTags: [{ type: "orders", id: "userId" }],
     }),
 
     CreateOrder: builder.mutation({
@@ -20,7 +20,7 @@ export const orderApi = createApi({
         method: "POST",
         body: newOrder,
       }),
-      invalidatesTags: ["orders"],
+      invalidatesTags: [{ type: "orders", id: "LIST" }],
     }),
   }),
 });
