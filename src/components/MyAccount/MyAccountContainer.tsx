@@ -87,7 +87,7 @@ const MyAccountContainer = () => {
         />
       </Box>
       <Button variant="shareBtn" padding="10px 24px" onClick={handleReturnToDesign}>
-        Return To Design
+        Return to Design
       </Button>
     </Flex>
   );

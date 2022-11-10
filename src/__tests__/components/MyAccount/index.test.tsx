@@ -13,7 +13,7 @@ describe("My account", () => {
     const nameTitle = screen.getByText("Name");
     const emailTitle = screen.getByText("Email Address");
     const passwordTitle = screen.getByText("Password");
-    const returnBtn = screen.getByRole("button", { name: "Return To Design" });
+    const returnBtn = screen.getByRole("button", { name: "Return to Design" });
 
     expect(pageTitle).toBeVisible();
     expect(avatarTitle).toBeVisible();
