@@ -16,6 +16,7 @@ import {
   PAYMENT,
 } from "../../src/constants";
 import OrderGeneration from "@/components/OrderGeneration";
+import MyAccount from "@/components/MyAccount";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
@@ -65,6 +66,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
           <Box as="main">
             <NavigationBar />
             <MyTemplate />
+            <MyAccount />
             <ShoppingCart />
             <OrderGeneration />
             <EditorSideBar />
