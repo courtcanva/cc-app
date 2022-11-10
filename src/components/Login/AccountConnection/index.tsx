@@ -57,22 +57,22 @@ const AccountConnection: React.FC<Props> = ({
         firstName: loginRes.firstName,
         lastName: loginRes.lastName,
       };
+      localStorage.setItem("UserInfo", JSON.stringify(userInfo));
+      dispatch(updateUserInfo(userInfo));
+      updateLoginData(userInfo);
       toast({
         title: "Connection successful! Enjoy designing!",
         status: "success",
         isClosable: true,
-        position: "top",
+        position: "bottom",
       });
-      localStorage.setItem("UserInfo", JSON.stringify(userInfo));
-      dispatch(updateUserInfo(userInfo));
-      updateLoginData(userInfo);
       closeModal();
     } catch (err) {
       toast({
         title: "Connection failed, please try again",
         status: "error",
         isClosable: true,
-        position: "top",
+        position: "bottom",
       });
     }
   };
