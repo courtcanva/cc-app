@@ -21,16 +21,16 @@ import validatePwd from "@/components/Login/helpers/validatePwd";
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
-  getUserId: (userId: string) => void;
   onClose: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  setUserId: React.Dispatch<React.SetStateAction<string>>;
   userEmail: string;
   initialRef: React.MutableRefObject<null>;
   currentStep: string;
 };
 
 const Register: React.FC<Props> = (props: Props) => {
-  const { nextStep, prevStep, userEmail, onClose, setStep, getUserId, currentStep } = props;
+  const { nextStep, prevStep, userEmail, onClose, setStep, setUserId, currentStep } = props;
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -47,31 +47,37 @@ const Register: React.FC<Props> = (props: Props) => {
       return;
     }
     if (!validatePwd(password, confirmPassword, setWeakPasswordMsg, setErrorMessage)) return;
-    try {
-      const userInfo = {
-        email: userEmail,
-        password,
-        firstName,
-        lastName,
-      };
-      const { data } = await userRegister(userInfo);
-      if (data.status !== "PENDING") {
-        throw Error("Failed to send email.");
-      }
-      getUserId(data.data.userId);
-      nextStep();
-    } catch (err) {
+    const userInfo = {
+      email: userEmail,
+      password,
+      firstName,
+      lastName,
+    };
+    const res = await userRegister(userInfo);
+    if (res.status !== 201) {
       toast({
-        title: "network error",
+        title: "Network Error",
         status: "error",
         isClosable: true,
-        position: "top",
+        position: "bottom",
       });
+      return;
     }
+    if (res.data.status !== "PENDING") {
+      toast({
+        title: "Failed to send verification email",
+        status: "error",
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+    setUserId(res.data.userId);
+    nextStep();
   };
   const handleCloseModal = () => {
-    setStep(1);
     onClose();
+    setStep(1);
   };
 
   return (
@@ -123,7 +129,7 @@ const Register: React.FC<Props> = (props: Props) => {
               onChange={(event) => setPassword(event?.currentTarget.value)}
             />
             <PwdInputGroup
-              label="Confirm Password"
+              label="Confirm password"
               value={confirmPassword}
               onChange={(event) => setConfirmPassword(event?.currentTarget.value)}
             />
