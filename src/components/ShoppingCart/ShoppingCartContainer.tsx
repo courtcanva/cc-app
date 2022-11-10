@@ -55,7 +55,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
   };
 
   return (
-    <Flex flexDirection="column" alignItems="center">
+    <Flex flexDirection="column" alignItems="center" marginLeft="78px" marginRight="78px">
       <Text
         fontSize="32px"
         lineHeight="40px"
@@ -93,9 +93,9 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
         >
           <Thead>
             <Tr backgroundColor="#E2E8F0" height="80px">
-              <Th>
+              <Th width="350px">
                 <Checkbox
-                  paddingLeft="10px"
+                  paddingLeft="21px"
                   borderColor="#b3b2b2"
                   isChecked={allChecked}
                   isIndeterminate={isIndeterminate}
@@ -108,6 +108,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                     lineHeight="28px"
                     color="#000000"
                     sx={{ "text-transform": "capitalize" }}
+                    marginLeft="23px"
                   >
                     All
                   </Text>
@@ -120,6 +121,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                 lineHeight="28px"
                 color="#000000"
                 sx={{ "text-transform": "capitalize" }}
+                width="200px"
               >
                 Product
               </Th>
@@ -130,6 +132,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                 lineHeight="28px"
                 color="#000000"
                 sx={{ "text-transform": "capitalize" }}
+                width="300px"
               >
                 Quotation Details
               </Th>

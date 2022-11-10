@@ -1,6 +1,5 @@
-import { Box, Button, ButtonGroup, Flex, Td, Tr, Text, Checkbox, Center } from "@chakra-ui/react";
+import { Box, Button, Flex, Td, Tr, Text, Checkbox, Center } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
-import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { ICartItem } from "@/interfaces/cartItem";
 import DropDownButton from "@/components/ShoppingCart/dropDownButton";
@@ -40,7 +39,7 @@ const CartListItem = ({
   return (
     <>
       <Tr alignItems="center" role="dataRow">
-        <Td padding="25px" sx={{ "vertical-align": "top" }} height="180px">
+        <Td sx={{ "vertical-align": "top" }} height="180px">
           {/* Todo: space for thumbnail images that implementing in the future. */}
           <Flex alignItems="center">
             <Center minWidth="57px">
@@ -61,13 +60,21 @@ const CartListItem = ({
             </Box>
           </Flex>
         </Td>
-        <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }} overflowX="auto">
+        <Td
+          fontSize="14px"
+          fontWeight="700"
+          lineHeight="40px"
+          color="#344C5C"
+          fontStyle="normal"
+          sx={{ "vertical-align": "top" }}
+          overflowX="auto"
+        >
           {productName}
           {isExpired && (
             <Text
               color="#F55252"
               fontSize="16px"
-              lineHeight="19px"
+              lineHeight="40px"
               fontWeight="700"
               marginTop="39px"
             >
@@ -75,36 +82,50 @@ const CartListItem = ({
             </Text>
           )}
         </Td>
-        <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }}>
-          AU${quotation}
-        </Td>
-        <Td padding="25px 40px" fontSize="13px" sx={{ "vertical-align": "top" }}>
-          <Box width="100%" height="120px" flexDirection="column">
+        <Td
+          fontSize="14px"
+          fontWeight="700"
+          color="#344C5C"
+          fontStyle="normal"
+          sx={{ "vertical-align": "top" }}
+        >
+          <Box width="100%" flexDirection="column">
             <DropDownButton detail={courtDetail} />
-            <ButtonGroup display="flex" justifyContent="flex-end" variant="outline" spacing="4">
-              <Button
-                fontSize="16px"
-                colorScheme="whiteAlpha"
-                variant="unstyled"
-                size="xs"
-                aria-label="cartEditBtn"
-              >
-                <FaPen />
-              </Button>
-              <Button
-                fontSize="18px"
-                colorScheme="whiteAlpha"
-                variant="unstyled"
-                size="xs"
-                aria-label="cartDeleteBtn"
-                onClick={() => {
-                  onDelete(item.id);
-                }}
-              >
-                <MdDeleteForever />
-              </Button>
-            </ButtonGroup>
           </Box>
+        </Td>
+        <Td
+          fontSize="16px"
+          fontWeight="700"
+          lineHeight="40px"
+          color="#344C5C"
+          fontStyle="normal"
+          sx={{ "vertical-align": "top" }}
+        >
+          A${quotation}
+        </Td>
+        <Td
+          fontSize="16px"
+          fontWeight="700"
+          lineHeight="40px"
+          color="#344C5C"
+          fontStyle="normal"
+          sx={{ "vertical-align": "top" }}
+        >
+          A${parseFloat(quotation) * 0.2}
+          <Button
+            height="44px"
+            float="right"
+            fontSize="28px"
+            colorScheme="whiteAlpha"
+            variant="unstyled"
+            size="xs"
+            aria-label="cartDeleteBtn"
+            onClick={() => {
+              onDelete(item.id);
+            }}
+          >
+            <MdDeleteForever />
+          </Button>
         </Td>
       </Tr>
     </>

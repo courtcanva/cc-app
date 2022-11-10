@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { GrDown, GrUp } from "react-icons/gr";
-import { Flex, Box, IconButton, ListItem, UnorderedList, Text } from "@chakra-ui/react";
+import { Flex, IconButton, ListItem, UnorderedList, Text } from "@chakra-ui/react";
 import { Collapse } from "@chakra-ui/react";
 import { MotionStyle } from "framer-motion";
 import { ICourtSize } from "@/interfaces/design";
@@ -10,15 +10,7 @@ interface Detail {
 }
 
 const DropDownButton = ({ detail }: Detail) => {
-  const {
-    name: courtName,
-    length,
-    width,
-    sideBorderWidth,
-    // fencingLength,
-    // fencingWidth,
-    // hoopsCount,
-  } = detail;
+  const { name: courtName, length, width, sideBorderWidth } = detail;
   {
     /* todo: add fencing and hoops in detail */
   }
@@ -40,15 +32,15 @@ const DropDownButton = ({ detail }: Detail) => {
   };
 
   return (
-    <Flex w="100%" flexDirection="row" overflow="auto">
+    <Flex width="100%" flexDirection="row" overflow="auto" marginTop="9px">
       <Collapse startingHeight={20} in={show} style={collapseStyle} data-testid="testShow">
         <UnorderedList>
-          <ListItem>
+          <ListItem marginLeft="3px">
             <Text size="xs">
               Court Material
               <UnorderedList>
                 <ListItem>
-                  Tile: ({lengthInMeter}m*{widthInMeter}m,{courtName})
+                  Tiles: ({lengthInMeter}m*{widthInMeter}m,{courtName})
                 </ListItem>
                 <ListItem style={{ listStyle: "none" }}>
                   Hoops (fixed height)
@@ -74,7 +66,6 @@ const DropDownButton = ({ detail }: Detail) => {
         colorScheme="white"
         size="sm"
         onClick={handleToggle}
-        marginTop="auto"
         aria-label="dropDownBtn"
         _focus={{ background: "white" }}
         data-testid="collapseBtn"
