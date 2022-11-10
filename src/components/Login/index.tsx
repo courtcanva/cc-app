@@ -14,8 +14,8 @@ interface Props {
   onClose: () => void;
   updateLoginData: (data: any) => void;
 }
+
 export enum stepName {
-  SelectLogin = "SelectLogin",
   EmailLogin = "EmailLogin",
   LoginWithPwd = "LoginWithPwd",
   Register = "Register",
@@ -72,9 +72,7 @@ const LoginModalContent = (props: Props) => {
             prevStep={prevStep}
             initialRef={initialRef}
             setUserExisted={setUserExisted}
-            inputEmail={(email: string) => {
-              setUserEmail(email);
-            }}
+            setUserEmail={setUserEmail}
             setNeedPwd={setNeedPwd}
             setUserId={setUserId}
           />
@@ -83,16 +81,16 @@ const LoginModalContent = (props: Props) => {
         return userExisted ? (
           <LoginWithPwd
             currentStep={stepName.LoginWithPwd}
+            setNeedPwd={setNeedPwd}
             setStep={setStep}
             onClose={onClose}
             prevStep={prevStep}
             nextStep={nextStep}
             initialRef={initialRef}
             userEmail={userEmail}
+            userId={userId}
             updateLoginData={updateLoginData}
-            getUserId={(userId: string) => {
-              setUserId(userId);
-            }}
+            setUserId={setUserId}
           />
         ) : (
           <Register
@@ -103,9 +101,7 @@ const LoginModalContent = (props: Props) => {
             prevStep={prevStep}
             initialRef={initialRef}
             userEmail={userEmail}
-            getUserId={(userId: string) => {
-              setUserId(userId);
-            }}
+            setUserId={setUserId}
           />
         );
       case 4:
@@ -120,9 +116,7 @@ const LoginModalContent = (props: Props) => {
             userEmail={userEmail}
             userId={userId}
             updateLoginData={updateLoginData}
-            validation={(verified: boolean) => {
-              setVerified(verified);
-            }}
+            setVerified={setVerified}
             needPwd={needPwd}
             setPwdStep={setPwdStep}
           />

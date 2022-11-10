@@ -21,10 +21,12 @@ type Props = {
   nextStep: () => void;
   onClose: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  setNeedPwd: React.Dispatch<React.SetStateAction<boolean>>;
   userEmail: string;
+  userId: string;
   initialRef: React.MutableRefObject<null>;
   updateLoginData: (data: any) => void;
-  getUserId: (userId: string) => void;
+  setUserId: React.Dispatch<React.SetStateAction<string>>;
   currentStep: string;
 };
 
@@ -36,21 +38,46 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
     onClose,
     setStep,
     updateLoginData,
-    getUserId,
+    setUserId,
     currentStep,
+    setNeedPwd,
+    userId,
   } = props;
   const [password, setPassword] = useState("");
-  const [isLoginFail, setIsLoginFail] = useState(false);
+  const [isLoginFailed, setIsLoginFailed] = useState(false);
   const { userLogin, resendOTP } = useAuthRequest();
   const dispatch = useDispatch();
   const toast = useToast();
 
+  const handleForgotPwd = async () => {
+    const res = await resendOTP(userId, userEmail);
+    if (res.status !== 201) {
+      toast({
+        title: "Network Error",
+        status: "error",
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+    if (res.data.status !== "PENDING") {
+      toast({
+        title: "Failed to send verification email",
+        status: "error",
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+    setNeedPwd(true);
+    setStep(4);
+  };
   const closeModal = () => {
     onClose();
     setStep(1);
   };
   const handlePassword = (value: string) => {
-    setIsLoginFail(false);
+    setIsLoginFailed(false);
     setPassword(value);
   };
   const handleSubmit = async (event: React.FormEvent) => {
@@ -58,10 +85,21 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
     try {
       const response = await userLogin(userEmail, password);
       if (response.status !== 200) {
-        throw Error("Failed to login.");
+        if (response.status === 403) {
+          setIsLoginFailed(true);
+          return;
+        } else {
+          toast({
+            title: "Network Error",
+            status: "error",
+            isClosable: true,
+            position: "bottom",
+          });
+          return;
+        }
       }
       const data = response.data;
-      getUserId(data.userId);
+      setUserId(data.userId);
       if (data.isActivated) {
         localStorage.setItem("UserInfo", JSON.stringify(data));
         dispatch(updateUserInfo(data));
@@ -70,7 +108,7 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
           title: "Login successful! Enjoy designing!",
           status: "success",
           isClosable: true,
-          position: "top",
+          position: "bottom",
         });
         closeModal();
       } else {
@@ -78,7 +116,7 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
         nextStep();
       }
     } catch (err) {
-      setIsLoginFail(true);
+      setIsLoginFailed(true);
     }
   };
   return (
@@ -94,8 +132,8 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
             <Text color="brand.secondary">{userEmail}</Text>
           </Text>
           <Divider />
-          <Text fontSize="md" color={isLoginFail ? "red.500" : "black"}>
-            {isLoginFail ? "Incorrect Password!" : ""}
+          <Text fontSize="md" color={isLoginFailed ? "red.500" : "black"}>
+            {isLoginFailed ? "Incorrect password!" : ""}
           </Text>
         </Flex>
       </ModalHeader>
@@ -109,6 +147,15 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
             />
             <Button variant="shareBtn" width="300px" marginTop="20px" type="submit">
               Continue Login
+            </Button>
+            <Button
+              variant="link"
+              width="300px"
+              marginTop="15px"
+              fontSize="15px"
+              onClick={handleForgotPwd}
+            >
+              Forgot password?
             </Button>
           </form>
         </Flex>
