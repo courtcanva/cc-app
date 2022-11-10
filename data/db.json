@@ -1,104 +1,14 @@
 {
   "orders": [
     {
-      "_id": {
-        "$oid": "636b6069f397b2054ec895ff"
-      },
-      "user_id": "6368e90574ac194077a36814",
-      "status": "completed",
-      "items": [
-        {
-          "design": {
-            "designName": "Court Canva 1",
-            "courtSize": {
-              "name": "Pro Full Court",
-              "length": 28000,
-              "width": 15000,
-              "threePointLine": 900,
-              "threePointRadius": 6600,
-              "centreCircleRadius": 1800,
-              "restrictedAreaLength": 5790,
-              "restrictedAreaWidth": 4800,
-              "sideBorderWidth": 1000,
-              "lengthOfCorner": 1575,
-              "lineBorderWidth": 200
-            },
-            "tileColor": [
-              {
-                "location": "threePoint",
-                "color": "#7088B1"
-              },
-              {
-                "location": "courtArea",
-                "color": "#E18E11"
-              },
-              {
-                "location": "topKeyArea",
-                "color": "#B6B6B6"
-              },
-              {
-                "location": "border",
-                "color": "#834085"
-              },
-              {
-                "location": "keyArea",
-                "color": "#2C4E8A"
-              },
-              {
-                "location": "circleArea",
-                "color": "#B6B6B6"
-              }
-            ]
-          },
-          "quotation": "67445.40",
-          "quotationDetails": [
-            {
-              "color": "#7088B1",
-              "quantity": 1273
-            },
-            {
-              "color": "#E18E11",
-              "quantity": 2572
-            },
-            {
-              "color": "#B6B6B6",
-              "quantity": 231
-            },
-            {
-              "color": "#834085",
-              "quantity": 1000
-            },
-            {
-              "color": "#2C4E8A",
-              "quantity": 624
-            }
-          ],
-          "image": "https://courtcanva-image-node.s3.ap-southeast-2.amazonaws.com/preview-image/44xL3BqMd1DaPBxUUx1lu.png",
-          "constructionDrawing": "https://developer.mozilla.org"
-        }
-      ],
-      "createdAt": {
-        "$date": {
-          "$numberLong": "1667981417845"
-        }
-      },
-      "updatedAt": {
-        "$date": {
-          "$numberLong": "1667981417845"
-        }
-      },
-      "__v": 0
-    },
-    {
-      "_id": {
-        "$oid": "636b60b0f397b2054ec89605"
-      },
+      "_id": "636c81a01d21575492c67ac5",
       "user_id": "6368e90574ac194077a36814",
       "status": "unpaid",
       "items": [
         {
           "design": {
             "designName": "Court Canva 1",
+            "courtType": "basketball",
             "courtSize": {
               "name": "Pro Full Court",
               "length": 28000,
@@ -162,90 +72,124 @@
               "quantity": 624
             }
           ],
-          "image": "https://courtcanva-image-node.s3.ap-southeast-2.amazonaws.com/preview-image/F5oHP_3uCMOlKnRdX43QJ.png",
-          "constructionDrawing": "https://developer.mozilla.org"
-        },
-        {
-          "design": {
-            "designName": "Court Canva 1",
-            "courtSize": {
-              "name": "Pro Full Court",
-              "length": 28000,
-              "width": 15000,
-              "threePointLine": 900,
-              "threePointRadius": 6600,
-              "centreCircleRadius": 1800,
-              "restrictedAreaLength": 5790,
-              "restrictedAreaWidth": 4800,
-              "sideBorderWidth": 1000,
-              "lengthOfCorner": 1575,
-              "lineBorderWidth": 200
-            },
-            "tileColor": [
-              {
-                "location": "threePoint",
-                "color": "#7088B1"
-              },
-              {
-                "location": "courtArea",
-                "color": "#E18E11"
-              },
-              {
-                "location": "topKeyArea",
-                "color": "#B6B6B6"
-              },
-              {
-                "location": "border",
-                "color": "#834085"
-              },
-              {
-                "location": "keyArea",
-                "color": "#2C4E8A"
-              },
-              {
-                "location": "circleArea",
-                "color": "#B6B6B6"
-              }
-            ]
-          },
-          "quotation": "67445.40",
-          "quotationDetails": [
-            {
-              "color": "#7088B1",
-              "quantity": 1273
-            },
-            {
-              "color": "#E18E11",
-              "quantity": 2572
-            },
-            {
-              "color": "#B6B6B6",
-              "quantity": 231
-            },
-            {
-              "color": "#834085",
-              "quantity": 1000
-            },
-            {
-              "color": "#2C4E8A",
-              "quantity": 624
-            }
-          ],
-          "image": "https://courtcanva-image-node.s3.ap-southeast-2.amazonaws.com/preview-image/LT--9Bsq6gtQIR-r7mt9V.png",
+          "image": "https://courtcanva-image-node.s3.ap-southeast-2.amazonaws.com/preview-image/WBwrzG0hn5E-R1FE-iklG.png",
           "constructionDrawing": "https://developer.mozilla.org"
         }
       ],
-      "createdAt": {
-        "$date": {
-          "$numberLong": "1667981488294"
-        }
-      },
-      "updatedAt": {
-        "$date": {
-          "$numberLong": "1667981488294"
-        }
-      },
+      "depositRatio": 0.02,
+      "createdAt": "2022-11-10T04:44:16.089Z",
+      "updatedAt": "2022-11-10T04:44:16.089Z",
       "__v": 0
+    },
+    {
+      "_id": "636c5d771d21575492c67a66",
+      "user_id": "6368e90574ac194077a36814",
+      "status": "completed",
+      "items": [
+        {
+          "design": {
+            "designName": "Court Canva 1",
+            "courtType": "basketball",
+            "courtSize": {
+              "name": "Pro Full Court",
+              "length": 28000,
+              "width": 15000,
+              "threePointLine": 900,
+              "threePointRadius": 6600,
+              "centreCircleRadius": 1800,
+              "restrictedAreaLength": 5790,
+              "restrictedAreaWidth": 4800,
+              "sideBorderWidth": 1000,
+              "lengthOfCorner": 1575,
+              "lineBorderWidth": 200
+            },
+            "tileColor": [
+              {
+                "location": "threePoint",
+                "color": "#7088B1"
+              },
+              {
+                "location": "courtArea",
+                "color": "#E18E11"
+              },
+              {
+                "location": "topKeyArea",
+                "color": "#B6B6B6"
+              },
+              {
+                "location": "border",
+                "color": "#834085"
+              },
+              {
+                "location": "keyArea",
+                "color": "#2C4E8A"
+              },
+              {
+                "location": "circleArea",
+                "color": "#B6B6B6"
+              }
+            ]
+          },
+          "quotation": "67445.40",
+          "quotationDetails": [
+            {
+              "color": "#7088B1",
+              "quantity": 1273
+            },
+            {
+              "color": "#E18E11",
+              "quantity": 2572
+            },
+            {
+              "color": "#B6B6B6",
+              "quantity": 231
+            },
+            {
+              "color": "#834085",
+              "quantity": 1000
+            },
+            {
+              "color": "#2C4E8A",
+              "quantity": 624
+            }
+          ],
+          "image": "https://courtcanva-image-node.s3.ap-southeast-2.amazonaws.com/preview-image/uRTQKyoDS8gYeyc_NagRp.jpeg",
+          "constructionDrawing": "https://developer.mozilla.org"
+        }
+      ],
+      "depositRatio": 0.02,
+      "createdAt": "2022-11-10T02:09:59.303Z",
+      "updatedAt": "2022-11-10T02:11:31.611Z",
+      "__v": 0,
+      "paymentInfo": {
+        "_id": "636c5dd31d21575492c67a6a",
+        "orderId": "636c5d771d21575492c67a66",
+        "name": "21/30 rossmoyne street",
+        "email": "test@gmail.com",
+        "phone": "+61412121121",
+        "billingAddress": {
+          "city": "Mitchell",
+          "country": "AU",
+          "line1": "21/30 rossmoyne street",
+          "line2": null,
+          "state": "ACT",
+          "postalCode": "2911"
+        },
+        "constructionAddress": {
+          "city": "Mitchell",
+          "country": "AU",
+          "line1": "21/30 rossmoyne street",
+          "line2": null,
+          "state": "ACT",
+          "postalCode": "2911"
+        },
+        "currency": "aud",
+        "amountTotal": 134891,
+        "sessionId": "cs_test_a14nHeSQcx7tP7Lz5n3mw4VfU8dM46OUoRsNJJxpvXEbw8WPAGljbMvG1l",
+        "createdAt": "2022-11-10T02:11:31.600Z",
+        "updatedAt": "2022-11-10T02:11:31.600Z",
+        "__v": 0
+      }
     }
   ]
 }

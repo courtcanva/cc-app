@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 interface Props {
   children: ReactNode;
 }
-const BackgroundContainer = ({ children }: Props) => {
+const ProfileItemContainer = ({ children }: Props) => {
   return (
     <Flex
       position="fixed"
@@ -24,4 +24,4 @@ const BackgroundContainer = ({ children }: Props) => {
   );
 };
 
-export default BackgroundContainer;
+export default ProfileItemContainer;

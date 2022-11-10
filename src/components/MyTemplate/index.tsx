@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import React from "react";
 import MyTemplateContainer from "./MyTemplateContainer";
-import BackgroundContainer from "../BackgroundContainer";
+import ProfileItemContainer from "../ProfileItemContainer";
 import { useStoreSelector } from "@/store/hooks";
 import { useGetTemplatesQuery } from "@/redux/api/templateApi";
 import { userData } from "@/store/reducer/userSlice";
@@ -29,9 +29,9 @@ function MyTemplate() {
   return (
     <>
       {isMyTemplateOpen && currentUserId && (
-        <BackgroundContainer>
+        <ProfileItemContainer>
           <MyTemplateContainer myTemplates={myTemplates} />
-        </BackgroundContainer>
+        </ProfileItemContainer>
       )}
     </>
   );

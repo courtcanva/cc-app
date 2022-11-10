@@ -6,6 +6,7 @@ export const orderApi = createApi({
   reducerPath: "orders",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3500",
+    // baseUrl: environment.apiBaseUrl,
   }),
   tagTypes: ["orders"],
   endpoints: (builder) => ({
