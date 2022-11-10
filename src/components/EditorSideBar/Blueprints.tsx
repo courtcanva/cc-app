@@ -40,7 +40,7 @@ const Blueprints = ({ fetchedCourtsData }: Props) => {
           <Box
             key={imgUrl}
             flexDirection="column"
-            width="219px"
+            width="232px"
             height="150px"
             background="#fff"
             marginBottom="18px"

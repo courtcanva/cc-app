@@ -67,7 +67,7 @@ const FolderDeleteModal = () => {
           <ModalHeader display={"flex"} flexDirection="column" gap="10px" alignItems={"center"}>
             <FaTrashAlt
               size={35}
-              style={{ color: "#9F100F", marginTop: "25px", marginBottom: "10px" }}
+              style={{ color: "#C13D46", marginTop: "25px", marginBottom: "10px" }}
             />
           </ModalHeader>
           <ModalCloseButton />
@@ -78,7 +78,7 @@ const FolderDeleteModal = () => {
             <Button variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button variant="folderDeleteBtn" onClick={handleDeleteDesign}>
+            <Button variant="deleteBtn" onClick={handleDeleteDesign}>
               Delete
             </Button>
           </ModalFooter>

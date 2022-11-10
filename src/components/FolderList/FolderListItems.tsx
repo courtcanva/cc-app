@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Tag, Button } from "@chakra-ui/react";
+import { Box, Flex, HStack, Tag, Button, IconButton } from "@chakra-ui/react";
 import Image from "next/image";
 import FolderDeleteModal from "./FolderDeleteModal";
 import React from "react";
@@ -57,17 +57,9 @@ const FolderListItem = (props: any) => {
             created at {createDate}
           </Box>
         </Box>
-        <Box
-          style={{
-            backgroundColor: "#C13D46",
-            height: "24px",
-            width: "24px",
-            borderRadius: "20%",
-            marginTop: "10px",
-          }}
-        >
+        <IconButton aria-label="delete button" variant="deleteIconBtn" size="xs">
           <FolderDeleteModal />
-        </Box>
+        </IconButton>
       </HStack>
       <Box width="80%" height="100%" position="relative">
         {image && image.startsWith("http") && (
@@ -80,11 +72,11 @@ const FolderListItem = (props: any) => {
           size={"sm"}
           style={{
             borderRadius: "0",
-            fontSize: "9px",
+            fontSize: "8px",
             marginBottom: "5px",
             fontWeight: "bold",
             textAlign: "center",
-            padding: "0 15px 0 15px",
+            padding: "0 16px",
           }}
         >
           {courtName}
@@ -94,9 +86,9 @@ const FolderListItem = (props: any) => {
           size={"sm"}
           style={{
             borderRadius: "0",
-            fontSize: "9px",
+            fontSize: "8px",
             marginBottom: "5px",
-            padding: "0 15px 0 15px",
+            padding: "0 16px",
             fontWeight: "bold",
           }}
         >

@@ -6,7 +6,7 @@ export interface IDesign {
   courtSize: ICourtSize;
 }
 
-export interface IDesignDetailed extends IDesign {
+export interface IDesignDetail extends IDesign {
   description: string;
   createdAt: string;
   updatedAt: string;

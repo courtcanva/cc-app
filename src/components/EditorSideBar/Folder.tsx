@@ -12,13 +12,17 @@ import FolderListItem from "../FolderList/FolderListItems";
 const Folder = () => {
   const dispatch = useDispatch();
   const { designsData, activeCourt } = useStoreSelector((state) => state.courtSpecData);
+  console.log(designsData);
+  console.log("below is active");
+  console.log(activeCourt);
   const [activateDesign, setActivateDesign] = useState<string>(activeCourt.courtId);
   const { designTileList } = useStoreSelector((state) => state.designTileList);
 
-  useEffect(() => {
-    if (designsData === undefined) return;
-    setActivateDesign(activeCourt.courtId);
-  }, [designsData]);
+  // useEffect(() => {
+  //   if (designsData === undefined) return;
+  //   setActivateDesign(activeCourt.courtId);
+  //   console.log(activeCourt.courtId);
+  // }, [designsData]);
 
   const handleCourtSelecting = (courtId: string): void => {
     setActivateDesign(courtId);
