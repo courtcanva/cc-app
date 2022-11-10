@@ -2,7 +2,11 @@ import { Menu, MenuButton, MenuList, MenuItem, Flex } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import PROFILE_LISTS from "@/constants/profileLists";
 import { BiChevronDown } from "react-icons/bi";
-import { switchMyTemplateDisplay, switchMyOrderDisplay } from "@/store/reducer/buttonToggleSlice";
+import {
+  switchMyTemplateDisplay,
+  switchMyOrderDisplay,
+  switchMyAccount,
+} from "@/store/reducer/buttonToggleSlice";
 import { useDispatch } from "react-redux";
 
 interface Props {
@@ -18,6 +22,8 @@ const Profile = ({ isOpen, onOpen, onClose, handleLogout }: Props) => {
   const onClickHandler = (title: string) => {
     switch (title) {
       case "My Account":
+        disPatch(switchMyAccount(true));
+        onClose();
         return;
       case "My Order":
         disPatch(switchMyOrderDisplay(true));

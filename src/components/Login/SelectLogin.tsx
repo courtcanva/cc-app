@@ -49,12 +49,12 @@ const SelectLogin: React.FC<Props> = ({
   // Send request to backend after the request from front-end has been approved by Google
   /* istanbul ignore next */
   const handleSuccess = async (codeResponse: any) => {
-    const axiosResponse = await api("/auth/google", {
-      method: "post",
-      requestData: codeResponse,
-    });
-    const googleLoginRes: GoogleLoginRes = axiosResponse.data;
     try {
+      const axiosResponse = await api("/auth/google", {
+        method: "post",
+        requestData: codeResponse,
+      });
+      const googleLoginRes: GoogleLoginRes = axiosResponse.data;
       if (!googleLoginRes.needConnection) {
         // Store user data into local storage after logging
         localStorage.setItem("UserInfo", JSON.stringify(googleLoginRes));
@@ -64,7 +64,7 @@ const SelectLogin: React.FC<Props> = ({
           title: "Login successful! Enjoy designing!",
           status: "success",
           isClosable: true,
-          position: "top",
+          position: "bottom",
         });
         onClose();
       } else {
@@ -75,7 +75,7 @@ const SelectLogin: React.FC<Props> = ({
         title: "Login failed, please try again",
         status: "error",
         isClosable: true,
-        position: "top",
+        position: "bottom",
       });
     }
   };
