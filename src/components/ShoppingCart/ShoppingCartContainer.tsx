@@ -58,11 +58,12 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
     <Flex flexDirection="column" alignItems="center">
       <Text
         fontSize="32px"
-        lineHeight="39px"
+        lineHeight="40px"
         fontWeight="700"
-        color="brand.primary"
-        marginTop="23px"
-        marginBottom="20px"
+        fontStyle="normal"
+        color="#344C5C"
+        marginTop="20px"
+        marginBottom="42px"
       >
         Shopping Cart
       </Text>
@@ -91,7 +92,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
           sx={{ "table-layout": "fixed" }}
         >
           <Thead>
-            <Tr>
+            <Tr backgroundColor="#E2E8F0" height="80px">
               <Th>
                 <Checkbox
                   paddingLeft="10px"
@@ -100,32 +101,57 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                   isIndeterminate={isIndeterminate}
                   onChange={(e) => setCheckedItems(shoppingCart.map(() => e.target.checked))}
                 >
-                  All
+                  <Text
+                    fontStyle="normal"
+                    fontSize="20px"
+                    fontWeight="700"
+                    lineHeight="28px"
+                    color="#000000"
+                    sx={{ "text-transform": "capitalize" }}
+                  >
+                    All
+                  </Text>
                 </Checkbox>
               </Th>
               <Th
-                fontSize="16px"
-                fontWeight="800"
-                padding="25px"
+                fontStyle="normal"
+                fontSize="20px"
+                fontWeight="700"
+                lineHeight="28px"
+                color="#000000"
                 sx={{ "text-transform": "capitalize" }}
               >
                 Product
               </Th>
               <Th
-                fontSize="16px"
-                fontWeight="800"
-                padding="25px"
+                fontStyle="normal"
+                fontSize="20px"
+                fontWeight="700"
+                lineHeight="28px"
+                color="#000000"
+                sx={{ "text-transform": "capitalize" }}
+              >
+                Quotation Details
+              </Th>
+              <Th
+                fontStyle="normal"
+                fontSize="20px"
+                fontWeight="700"
+                lineHeight="28px"
+                color="#000000"
                 sx={{ "text-transform": "capitalize" }}
               >
                 Quotation
               </Th>
               <Th
-                fontSize="16px"
-                fontWeight="800"
-                padding="25px 40px"
+                fontStyle="normal"
+                fontSize="20px"
+                fontWeight="700"
+                lineHeight="28px"
+                color="#000000"
                 sx={{ "text-transform": "capitalize" }}
               >
-                Quotation Details
+                Deposit
               </Th>
             </Tr>
           </Thead>
