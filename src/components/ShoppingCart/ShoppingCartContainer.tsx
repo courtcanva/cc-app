@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Table,
   Thead,
@@ -22,7 +22,7 @@ import { RiErrorWarningLine } from "react-icons/ri";
 import { deleteImage } from "@/utils/manageExternalImage";
 import { addOrderItems } from "@/store/reducer/orderSlice";
 import { useDispatch } from "react-redux";
-import { switchOrderGeneration } from "@/store/reducer/buttonToggleSlice";
+import { switchCartDisplay, switchOrderGeneration } from "@/store/reducer/buttonToggleSlice";
 
 interface userCartList {
   shoppingCart: ICartItem[];
@@ -82,7 +82,6 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
           </Text>
         </Flex>
       )}
-
       <TableContainer minWidth="1080px" width="100%" overflowY="auto">
         <Table
           variant="simple"
@@ -175,23 +174,34 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
           </Tbody>
         </Table>
       </TableContainer>
-      <Tooltip label="Please select items" isDisabled={checkedItems.some(Boolean)}>
-        <Box>
-          <Button
-            variant="shareBtn"
-            marginBottom="20px"
-            marginTop="20px"
-            width="160px"
-            padding="10px"
-            data-testid="checkout-btn"
-            onClick={handleCreateOrder}
-            isDisabled={!checkedItems.some(Boolean)}
-          >
-            Create Order
-          </Button>
-        </Box>
-      </Tooltip>
-
+      <Flex gap="100px" marginTop="44px" marginBottom="32px" justifyContent="center">
+        <Button
+          padding="10px 24px"
+          fontSize="lg"
+          fontWeight="700"
+          borderWidth="1px"
+          borderColor="brand.primary"
+          backgroundColor="#F3F2F7"
+          data-testid="back-btn"
+          onClick={() => dispatch(switchCartDisplay())}
+        >
+          Back
+        </Button>
+        <Tooltip label="Please select items" isDisabled={checkedItems.some(Boolean)}>
+          <Box>
+            <Button
+              variant="shareBtn"
+              padding="10px 24px"
+              fontWeight="700"
+              data-testid="checkout-btn"
+              onClick={handleCreateOrder}
+              isDisabled={!checkedItems.some(Boolean)}
+            >
+              Place Order
+            </Button>
+          </Box>
+        </Tooltip>
+      </Flex>
       <ConfirmModal
         isOpen={isOpen}
         onClose={onClose}
