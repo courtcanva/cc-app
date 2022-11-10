@@ -37,7 +37,6 @@ const MyOrder = () => {
       items: order.items,
     };
   });
-  console.log(myOrders);
   return (
     <>
       {isMyOrderOpen && currentUserId && (

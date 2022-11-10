@@ -12,7 +12,7 @@ const MyOrderContainer = ({ myOrders }: Props) => {
   const handleReturnToDesign = () => {
     dispatch(switchMyOrderDisplay(false));
   };
-  console.log(myOrders);
+
   const myOrdersList = (): JSX.Element[] | undefined => {
     return myOrders?.map((order) => <MyOrderListItem key={order._id} {...order} />);
   };
