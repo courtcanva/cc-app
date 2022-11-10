@@ -54,6 +54,14 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
     dispatch(switchOrderGeneration(true));
   };
 
+  const columnStyle = {
+    fontStyle: "normal",
+    fontSize: "20px",
+    fontWeight: "700",
+    lineHeight: "28px",
+    color: "#000000",
+  };
+
   return (
     <Flex flexDirection="column" alignItems="center" marginLeft="78px" marginRight="78px">
       <Text
@@ -101,11 +109,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                   onChange={(e) => setCheckedItems(shoppingCart.map(() => e.target.checked))}
                 >
                   <Text
-                    fontStyle="normal"
-                    fontSize="20px"
-                    fontWeight="700"
-                    lineHeight="28px"
-                    color="#000000"
+                    style={columnStyle}
                     sx={{ "text-transform": "capitalize" }}
                     marginLeft="23px"
                   >
@@ -113,46 +117,16 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                   </Text>
                 </Checkbox>
               </Th>
-              <Th
-                fontStyle="normal"
-                fontSize="20px"
-                fontWeight="700"
-                lineHeight="28px"
-                color="#000000"
-                sx={{ "text-transform": "capitalize" }}
-                width="200px"
-              >
+              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }} width="200px">
                 Product
               </Th>
-              <Th
-                fontStyle="normal"
-                fontSize="20px"
-                fontWeight="700"
-                lineHeight="28px"
-                color="#000000"
-                sx={{ "text-transform": "capitalize" }}
-                width="300px"
-              >
+              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }} width="300px">
                 Quotation Details
               </Th>
-              <Th
-                fontStyle="normal"
-                fontSize="20px"
-                fontWeight="700"
-                lineHeight="28px"
-                color="#000000"
-                sx={{ "text-transform": "capitalize" }}
-              >
+              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }}>
                 Quotation
               </Th>
-              <Th
-                fontStyle="normal"
-                fontSize="20px"
-                fontWeight="700"
-                lineHeight="28px"
-                color="#000000"
-                sx={{ "text-transform": "capitalize" }}
-              >
+              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }}>
                 Deposit
               </Th>
             </Tr>

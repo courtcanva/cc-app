@@ -40,7 +40,7 @@ const DropDownButton = ({ detail }: Detail) => {
               Court Material
               <UnorderedList>
                 <ListItem>
-                  Tiles: ({lengthInMeter}m*{widthInMeter}m,{courtName})
+                  Tiles ({lengthInMeter}m*{widthInMeter}m,{courtName})
                 </ListItem>
                 <ListItem style={{ listStyle: "none" }}>
                   Hoops (fixed height)
@@ -53,11 +53,17 @@ const DropDownButton = ({ detail }: Detail) => {
               </UnorderedList>
             </Text>
           </ListItem>
-          <ListItem>
-            <Text size="xs">Shipping cost</Text>
+          <ListItem marginLeft="3px">
+            <Text size="xs">Shipping</Text>
           </ListItem>
-          <ListItem>
-            <Text size="xs">Installation fee</Text>
+          <ListItem marginLeft="3px">
+            <Text size="xs">
+              Installation fee
+              <UnorderedList>
+                <ListItem>Court tile paving</ListItem>
+                <ListItem>Court painting</ListItem>
+              </UnorderedList>
+            </Text>
           </ListItem>
         </UnorderedList>
       </Collapse>

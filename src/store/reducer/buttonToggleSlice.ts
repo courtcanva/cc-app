@@ -51,6 +51,17 @@ export const ButtonToggleSlice = createSlice({
         isMyAccountOpen: false,
       };
     },
+    setCartDisplay: (state: ButtonToggleState) => {
+      return {
+        ...state,
+        isCartOpen: true,
+        isSideBarOpen: false,
+        isOrderGenerationOpen: false,
+        isMyTemplateOpen: false,
+        isSwitch3D: false,
+        isMyAccountOpen: false,
+      };
+    },
     switchPaintBucket: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
       return {
         ...state,
@@ -144,6 +155,7 @@ export const ButtonToggleSlice = createSlice({
 export const {
   switchRuler,
   switchCartDisplay,
+  setCartDisplay,
   switchPaintBucket,
   switchSavePopover,
   switchSideBar,
