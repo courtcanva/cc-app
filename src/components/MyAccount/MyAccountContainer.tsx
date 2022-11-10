@@ -5,15 +5,16 @@ import { switchMyAccount } from "@/store/reducer/buttonToggleSlice";
 import Image from "next/image";
 import { useStoreSelector } from "@/store/hooks";
 import { MdEdit } from "react-icons/md";
+import FlexContainer from "./FlexContainer";
 
 const MyAccountContainer = () => {
   const dispatch = useDispatch();
+  const { firstName, lastName, email } = useStoreSelector((state) => state.user);
+  const avatarUrl = "";
 
   const handleReturnToDesign = () => {
     dispatch(switchMyAccount(false));
   };
-
-  const { firstName, lastName, email } = useStoreSelector((state) => state.user);
 
   return (
     <Flex
@@ -33,17 +34,9 @@ const MyAccountContainer = () => {
         My Account
       </Text>
       <Box width="100%">
-        <Flex
-          height="100px"
-          border="1px solid #B6B6B6"
-          padding="0 52px"
-          alignItems="center"
-          marginBottom="-1px"
-        >
-          <Text fontWeight="700" fontSize="16px" flex={1}>
-            Avatar
-          </Text>
-          <Box flex={1}>
+        <FlexContainer
+          title="Avatar"
+          content={
             <Box
               width="68px"
               height="68px"
@@ -52,49 +45,35 @@ const MyAccountContainer = () => {
               position="relative"
               overflow="hidden"
             >
-              <Image src="" layout="fill" objectFit="cover" />
+              {avatarUrl && <Image src={avatarUrl} layout="fill" objectFit="cover" />}
             </Box>
-          </Box>
-        </Flex>
-        <Flex
-          height="100px"
-          border="1px solid #B6B6B6"
-          padding="0 52px"
-          alignItems="center"
-          marginBottom="-1px"
-        >
-          <Text fontWeight="700" fontSize="16px" flex={1}>
-            Name
-          </Text>
-          <Text fontWeight="700" fontSize="16px" flex={1}>
-            {firstName} {lastName}{" "}
-            <IconButton
-              aria-label="edit name"
-              icon={<MdEdit />}
-              background="transparent"
-              size="lg"
-            />
-          </Text>
-        </Flex>
-        <Flex
-          height="100px"
-          border="1px solid #B6B6B6"
-          padding="0 52px"
-          alignItems="center"
-          marginBottom="-1px"
-        >
-          <Text fontWeight="700" fontSize="16px" flex={1}>
-            Email Address
-          </Text>
-          <Text fontWeight="700" fontSize="16px" flex={1}>
-            {email}
-          </Text>
-        </Flex>
-        <Flex height="100px" border="1px solid #B6B6B6" padding="0 52px" alignItems="center">
-          <Text fontWeight="700" fontSize="16px" flex={1}>
-            Password
-          </Text>
-          <Box flex={1}>
+          }
+        />
+        <FlexContainer
+          title="Name"
+          content={
+            <Text fontWeight="700" fontSize="16px">
+              {firstName} {lastName}{" "}
+              <IconButton
+                aria-label="edit name"
+                icon={<MdEdit />}
+                background="transparent"
+                size="lg"
+              />
+            </Text>
+          }
+        />
+        <FlexContainer
+          title="Email Address"
+          content={
+            <Text fontWeight="700" fontSize="16px">
+              {email}
+            </Text>
+          }
+        />
+        <FlexContainer
+          title="Password"
+          content={
             <Button
               padding="10px 24px"
               fontSize="18px"
@@ -104,8 +83,8 @@ const MyAccountContainer = () => {
             >
               Change Password
             </Button>
-          </Box>
-        </Flex>
+          }
+        />
       </Box>
       <Button variant="shareBtn" padding="10px 24px" onClick={handleReturnToDesign}>
         Return To Design
