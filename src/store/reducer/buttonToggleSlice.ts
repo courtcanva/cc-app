@@ -51,7 +51,7 @@ export const ButtonToggleSlice = createSlice({
         isMyAccountOpen: false,
       };
     },
-    setCartDisplay: (state: ButtonToggleState) => {
+    openCartDisplay: (state: ButtonToggleState) => {
       return {
         ...state,
         isCartOpen: true,
@@ -155,7 +155,7 @@ export const ButtonToggleSlice = createSlice({
 export const {
   switchRuler,
   switchCartDisplay,
-  setCartDisplay,
+  openCartDisplay,
   switchPaintBucket,
   switchSavePopover,
   switchSideBar,
