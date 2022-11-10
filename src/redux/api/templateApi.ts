@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { environment } from "@/constants/environment";
-import { ITemplate, ITemplateDataDb } from "@/interfaces/template";
+import { ITemplate, ITemplateDataDb, ITemplateObj, ITemplateLists } from "@/interfaces/template";
 import _ from "lodash";
 
 export const templateApi = createApi({
@@ -10,14 +10,28 @@ export const templateApi = createApi({
   }),
   tagTypes: ["template"],
   endpoints: (builder) => ({
-    getTemplates: builder.query<Omit<ITemplateDataDb, "__v" | "isDeleted">[], string | void>({
+    getTemplates: builder.query<ITemplateObj<ITemplateLists>, string | void>({
       query: (userId) => (userId ? `/templates?user_id=${userId}` : `/templates`),
-      transformResponse: (result: ITemplateDataDb[], _meta, _arg) => {
-        return result.map((item) => _.omit(item, ["__v", "isDeleted"]));
-      },
+      // transformResponse: (result: ITemplateObj<ITemplateLists>, _meta, _arg) => {
+      //   return result.data.map((item) => _.omit(item, ["__v", "isDeleted"]));
+      // },
       providesTags: (result, _err, _arg) =>
         result
-          ? [...result.map(({ _id }) => ({ type: "template" as const, id: _id })), "template"]
+          ? [...result.data.map(({ _id }) => ({ type: "template" as const, id: _id })), "template"]
+          : ["template"],
+    }),
+
+    getTemplateLists: builder.query<
+      ITemplateObj<ITemplateLists>,
+      { offset: number | void; limit: number | void }
+    >({
+      query: ({ offset = 0, limit = 10 }) => `/templates?offset=${offset}&limit=${limit}`,
+      // transformResponse: (result: ITemplateObj<ITemplateLists>, _meta, _arg) => {
+      //   return result.data.map((item) => _.omit(item, ["__v", "isDeleted"]));
+      // },
+      providesTags: (result, _err, _arg) =>
+        result
+          ? [...result.data.map(({ _id }) => ({ type: "template" as const, id: _id })), "template"]
           : ["template"],
     }),
 
@@ -60,6 +74,7 @@ export const templateApi = createApi({
 
 export const {
   useGetTemplatesQuery,
+  useGetTemplateListsQuery,
   useGetTemplateByIdQuery,
   useAddTemplateMutation,
   useDeleteTemplateMutation,

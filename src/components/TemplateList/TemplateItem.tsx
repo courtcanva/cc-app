@@ -14,12 +14,13 @@ import { setActiveCourt, updateBorderLength } from "@/store/reducer/courtSpecDat
 import { changeWholeCourtColor } from "@/store/reducer/tileSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
+import React from "react";
 
 interface Props {
   template: Omit<ITemplateDataDb, "__v" | "isDeleted">;
 }
 
-const TemplateItem = (prop: Props) => {
+const TemplateItem = React.forwardRef<HTMLDivElement, Props>((prop, ref) => {
   const dispatch = useDispatch();
   const { isTemplateSelect } = useStoreSelector((state) => state.buttonToggle);
   const [hoverOn, setHoverOn] = useState<boolean>(false);
@@ -72,20 +73,8 @@ const TemplateItem = (prop: Props) => {
     resetHeightLight();
   };
 
-  return (
-    <Flex
-      position="relative"
-      width="300px"
-      height="240px"
-      marginBottom="16px"
-      flexDirection="column"
-      alignItems="center"
-      padding="5px 10px 10px 10px"
-      backgroundColor="white"
-      opacity={templateOpacityDrop ? "0.4" : "1"}
-      onMouseEnter={selectTemplate}
-      onMouseLeave={resetHeightLight}
-    >
+  const templateBody = (
+    <>
       <Box width="95%">
         <Box>
           <Text color="black" fontSize="1rem" fontWeight="700">
@@ -125,7 +114,44 @@ const TemplateItem = (prop: Props) => {
         template={templateItem}
         applyTemplate={() => handleCourtSelecting(prop.template.design.courtSize.name)}
       />
+    </>
+  );
+
+  const templateContent = ref ? (
+    <Flex
+      position="relative"
+      width="300px"
+      height="240px"
+      marginBottom="16px"
+      flexDirection="column"
+      alignItems="center"
+      padding="5px 10px 10px 10px"
+      backgroundColor="white"
+      opacity={templateOpacityDrop ? "0.4" : "1"}
+      onMouseEnter={selectTemplate}
+      onMouseLeave={resetHeightLight}
+      ref={ref}
+    >
+      {templateBody}
+    </Flex>
+  ) : (
+    <Flex
+      position="relative"
+      width="300px"
+      height="240px"
+      marginBottom="16px"
+      flexDirection="column"
+      alignItems="center"
+      padding="5px 10px 10px 10px"
+      backgroundColor="white"
+      opacity={templateOpacityDrop ? "0.4" : "1"}
+      onMouseEnter={selectTemplate}
+      onMouseLeave={resetHeightLight}
+    >
+      {templateBody}
     </Flex>
   );
-};
+  return templateContent;
+});
+TemplateItem.displayName = "TemplateItem";
 export default TemplateItem;

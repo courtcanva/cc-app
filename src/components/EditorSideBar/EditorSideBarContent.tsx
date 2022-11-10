@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import Blueprints from "./Blueprints";
 import Folder from "./Folder";
@@ -7,17 +7,28 @@ import { useGetCourtsQuery } from "@/redux/api/courtSizeApi";
 import { ICourtData } from "@/interfaces/design";
 import { IconContext } from "react-icons";
 import Templates from "./Templates";
-import { useGetTemplatesQuery } from "@/redux/api/templateApi";
-import { ITemplateDataDb } from "@/interfaces/template";
+import { useGetTemplateListsQuery, useGetTemplatesQuery } from "@/redux/api/templateApi";
+import { ITemplateDataDb, ITemplateLists, ITemplateObj } from "@/interfaces/template";
+import { LIMIT } from "@/constants/templateItemPagination";
+
+interface IPackTemplates {
+  offset: number;
+  templatesData: Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined;
+  isLoading: boolean;
+  hasNextPage: boolean;
+  setOffset: React.Dispatch<React.SetStateAction<number>>;
+  setPageNum: React.Dispatch<React.SetStateAction<number>>;
+}
 
 interface Props {
   iconClickTitle: string;
   onHandleCloseClick: () => void;
 }
+
 const showContainerItem = (
   iconClickTitle: string,
   courtsData: ICourtData[],
-  templateData: Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined
+  packTemplates: IPackTemplates
 ) => {
   switch (iconClickTitle) {
     case "Blueprints":
@@ -25,7 +36,7 @@ const showContainerItem = (
     case "Folder":
       return <Folder />;
     case "Templates":
-      return <Templates templatesData={templateData} />;
+      return <Templates {...packTemplates} />;
     default:
       return iconClickTitle;
   }
@@ -41,7 +52,35 @@ const SideBarContainer = (props: Props) => {
     },
   });
 
-  const { data: rawTemplateData } = useGetTemplatesQuery("");
+  const [offset, setOffset] = useState<number>(0);
+  const limit = LIMIT;
+  const [pageNum, setPageNum] = useState<number>(1);
+  const [templatesData, setTemplatesData] = useState<any>([]);
+  const [hasNextPage, setHasNextPage] = useState(false);
+
+  const {
+    data: rawTemplateData,
+    isLoading,
+    isSuccess,
+  } = useGetTemplateListsQuery({ offset, limit });
+
+  const newData: any = rawTemplateData?.data;
+
+  useEffect(() => {
+    if (isSuccess) {
+      setTemplatesData((prev: any) => [...prev, ...newData]);
+      setHasNextPage(Boolean(newData.length));
+    }
+  }, [isSuccess]);
+
+  const packTemplates = {
+    offset,
+    templatesData,
+    isLoading,
+    hasNextPage,
+    setOffset,
+    setPageNum,
+  };
 
   return (
     <Box
@@ -54,7 +93,7 @@ const SideBarContainer = (props: Props) => {
       zIndex="1510"
       color="fontcolor.primary"
     >
-      {showContainerItem(props.iconClickTitle, courtsData, rawTemplateData)}
+      {showContainerItem(props.iconClickTitle, courtsData, packTemplates)}
       <Box
         as="button"
         onClick={props.onHandleCloseClick}
