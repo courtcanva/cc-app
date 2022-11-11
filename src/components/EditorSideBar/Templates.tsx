@@ -1,7 +1,8 @@
 import { LIMIT } from "@/constants/templateItemPagination";
 import { ITemplateDataDb, ITemplateLists, ITemplateObj } from "@/interfaces/template";
+import { useGetTemplateListsQuery } from "@/redux/api/templateApi";
 import { Box, Select, Text } from "@chakra-ui/react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import TemplateItem from "../TemplateList/TemplateItem";
 
 export interface Props {
@@ -20,20 +21,42 @@ export interface Props {
   filterTag: string;
 }
 
-const Templates = ({
-  offset,
-  templatesData,
-  isLoading,
-  hasNextPage,
-  setOffset,
-  setPageNum,
-  setFilterTag,
-  setTemplatesData,
-  newData,
-  isSuccess,
-  filterTag,
-}: //
-Props) => {
+const Templates = () => {
+  const [offset, setOffset] = useState<number>(0);
+  const [pageNum, setPageNum] = useState<number>(1);
+  const [templatesData, setTemplatesData] = useState<any>([]);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [filterTag, setFilterTag] = useState<string>("");
+  const limit = LIMIT;
+  const {
+    data: rawTemplateData,
+    isLoading,
+    isSuccess,
+  } = useGetTemplateListsQuery({ offset, limit, filterTag });
+
+  const newData: any = rawTemplateData?.data;
+  // if (isSuccess) console.log(newData);
+  if (isSuccess) {
+    console.log(filterTag);
+    console.log(templatesData);
+  }
+
+  useEffect(() => {
+    // if (filterTag) {
+    //   setTemplatesData(newData);
+    // }
+    if (isSuccess) {
+      console.log(filterTag);
+      setTemplatesData((prev: any) => [...prev, ...newData]);
+      setHasNextPage(Boolean(newData.length));
+      console.log("useEffect  渲染了");
+    }
+
+    // if (isSuccess && filterTag) {
+    //   setTemplatesData(newData);
+    //   setHasNextPage(Boolean(newData.length));
+    // }
+  }, [filterTag, isSuccess]);
   const intObserver = useRef<IntersectionObserver | null>(null);
   const lastTemplateRef = useCallback(
     (template) => {
@@ -53,15 +76,17 @@ Props) => {
     [isLoading, hasNextPage]
   );
 
-  const limit = LIMIT;
+  // BUG: 1、页面刚加载时，切换成fullCourt 页面没有任何变化 2、 当页面是ProFullCourt 的时候，页面切换成FullCourt 页面显示数据为空
 
   const handleOnChange = (e: { target: { value: string } }) => {
     setFilterTag(e.target.value);
     // console.log(e.target.value);
     // if (isSuccess) {
-    //   setTemplatesData(newData);
-    //   console.log(templatesData);
-    //   console.log(newData);
+    setTemplatesData(newData);
+    setOffset(0);
+    // console.log(templatesData);
+    console.log(newData);
+    console.log(filterTag);
     // }
     // NEED TO OPTIMIZE LOGIC
   };
@@ -70,11 +95,13 @@ Props) => {
   return (
     <Box height="100%" className="scrollbox">
       <Select placeholder="Court Category" onChange={handleOnChange} value={filterTag}>
-        <option value="ProFullCourt">Pro Full Court</option>
-        <option value="FullCourt">Full Court</option>
-        {/* <option value="option3">Option 3</option> */}
+        <option value="ProFullCourt">ProFullCourt</option>
+        <option value="FullCourt">FullCourt</option>
+        <option value="SmallCourt">Small Court</option>
+        <option value="ProHalfCourt">ProHalfCourt</option>
+        <option value="MediumCourt">MediumCourt</option>
       </Select>
-      {templatesData?.map((template, index) => {
+      {templatesData?.map((template: any, index: number) => {
         if (templatesData?.length === index + 1) {
           return <TemplateItem key={template._id} template={template} ref={lastTemplateRef} />;
         }

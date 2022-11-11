@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Select } from "@chakra-ui/react";
 import React, { useCallback, useEffect, useState } from "react";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import Blueprints from "./Blueprints";
@@ -32,18 +32,14 @@ interface Props {
   onHandleCloseClick: () => void;
 }
 
-const showContainerItem = (
-  iconClickTitle: string,
-  courtsData: ICourtData[],
-  packTemplates: IPackTemplates
-) => {
+const showContainerItem = (iconClickTitle: string, courtsData: ICourtData[]) => {
   switch (iconClickTitle) {
     case "Blueprints":
       return <Blueprints fetchedCourtsData={courtsData} />;
     case "Folder":
       return <Folder />;
     case "Templates":
-      return <Templates {...packTemplates} />;
+      return <Templates />;
     default:
       return iconClickTitle;
   }
@@ -59,55 +55,6 @@ const SideBarContainer = (props: Props) => {
     },
   });
 
-  const [offset, setOffset] = useState<number>(0);
-  const limit = LIMIT;
-  const [pageNum, setPageNum] = useState<number>(1);
-  const [templatesData, setTemplatesData] = useState<any>([]);
-  const [hasNextPage, setHasNextPage] = useState(false);
-  const [filterTag, setFilterTag] = useState<string>("");
-
-  const {
-    data: rawTemplateData,
-    isLoading,
-    isSuccess,
-  } = useGetTemplateListsQuery({ offset, limit, filterTag });
-
-  const newData: any = rawTemplateData?.data;
-  // if (isSuccess) console.log(newData);
-  if (isSuccess) console.log(filterTag);
-
-  useEffect(() => {
-    // if (filterTag) {
-    //   setTemplatesData(newData);
-    // }
-    if (isSuccess) {
-      setTemplatesData((prev: any) => [...prev, ...newData]);
-      setHasNextPage(Boolean(newData.length));
-    }
-
-    // if (isSuccess && filterTag) {
-    //   setTemplatesData(newData);
-    //   setTimeout(() => {
-    //     setTemplatesData((prev: any) => [...prev, ...newData]);
-    //   }, 1000);
-    //   setHasNextPage(Boolean(newData.length));
-    // }
-  }, [isSuccess]);
-
-  const packTemplates: IPackTemplates = {
-    offset,
-    templatesData,
-    isLoading,
-    hasNextPage,
-    setOffset,
-    setPageNum,
-    setFilterTag,
-    setTemplatesData,
-    newData,
-    isSuccess,
-    filterTag,
-  };
-
   return (
     <Box
       background="background.secondaryLight"
@@ -119,7 +66,7 @@ const SideBarContainer = (props: Props) => {
       zIndex="1510"
       color="fontcolor.primary"
     >
-      {showContainerItem(props.iconClickTitle, courtsData, packTemplates)}
+      {showContainerItem(props.iconClickTitle, courtsData)}
       <Box
         as="button"
         onClick={props.onHandleCloseClick}

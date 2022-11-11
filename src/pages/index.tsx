@@ -57,7 +57,6 @@ const Home: NextPage = () => {
     document.body.style.cursor = "auto";
   };
 
-
   return (
     <HeaderLayout>
       <div ref={ref} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
