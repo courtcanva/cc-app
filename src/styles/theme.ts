@@ -31,6 +31,8 @@ const colors = {
     tertiary: "#FFFFFF",
     secondaryLight: "#2c5282",
     lightOrange: "#DD6B20",
+    veryLightOrange: "#E18E11",
+    darkRed: "#9F100F",
   },
   fontcolor: {
     primary: "#FFFFFF",

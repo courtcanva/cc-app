@@ -9,7 +9,12 @@ import PriceBar from "@/components/PriceBar";
 import TopBar from "@/components/TopBar";
 import ShoppingCart from "@/components/ShoppingCart";
 import MyTemplate from "@/components/MyTemplate";
-import { PAGE_NOT_FOUND, TEAM_PAGE, TEAM_PAGE_PERFORMANCE_TESTING } from "../../src/constants";
+import {
+  PAGE_NOT_FOUND,
+  TEAM_PAGE,
+  TEAM_PAGE_PERFORMANCE_TESTING,
+  PAYMENT,
+} from "../../src/constants";
 import OrderGeneration from "@/components/OrderGeneration";
 import MyAccount from "@/components/MyAccount";
 
@@ -37,6 +42,16 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
       return (
         <>
           <Header />
+          <Box as="main">
+            <NavigationBar />
+            {children}
+          </Box>
+        </>
+      );
+
+    case PAYMENT:
+      return (
+        <>
           <Box as="main">
             <NavigationBar />
             {children}

@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
@@ -7,19 +7,16 @@ import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
 import { changeWholeCourtColor } from "@/store/reducer/tileSlice";
 import { ActionCreators } from "redux-undo";
+import FolderListItem from "../FolderList/FolderListItems";
 
-const Folder: React.FC = () => {
+const Folder = () => {
   const dispatch = useDispatch();
   const { designsData, activeCourt } = useStoreSelector((state) => state.courtSpecData);
   const [activateDesign, setActivateDesign] = useState<string>(activeCourt.courtId);
   const { designTileList } = useStoreSelector((state) => state.designTileList);
 
-  useEffect(() => {
-    if (designsData === undefined) return;
-    setActivateDesign(activeCourt.courtId);
-  }, [designsData]);
-
   const handleCourtSelecting = (courtId: string): void => {
+    console.log(activeCourt.courtId);
     setActivateDesign(courtId);
     dispatch(setActiveDesign(courtId));
     const selectedDesign = designsData.find((item) => item.courtId === courtId);
@@ -33,32 +30,21 @@ const Folder: React.FC = () => {
     )?.tileQty as AreaTileQty[];
     dispatch(changeCourtType(tileQtyOfSelectedCourt));
   };
+  const folderEmpty = designsData?.length === 0;
 
   return (
     <Box height="100%" className="scrollbox">
       {designsData.map((design) => {
-        const { courtId, courtName, designName } = design;
         return (
-          <Box
-            key={courtId}
-            width="230px"
-            height="25px"
-            background="transparent"
-            marginBottom="18px"
-            display="flex"
-            alignItems="center"
-            justifyContent="left"
-            cursor="pointer"
-            fontSize="14"
-            onClick={() => handleCourtSelecting(courtId)}
-            data-testid={courtId}
-            _hover={{ border: "2px solid button.hover" }}
-            opacity={!activateDesign || activateDesign === courtId ? "1" : "0.4"}
-          >
-            {designName} - {courtName}
-          </Box>
+          <FolderListItem
+            key={design.courtId}
+            design={design}
+            handleCourtSelecting={handleCourtSelecting}
+            activateDesign={activateDesign}
+          />
         );
       })}
+      {folderEmpty && <Text>The folder list is empty</Text>}
     </Box>
   );
 };
