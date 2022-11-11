@@ -5,7 +5,7 @@ export const mockCartDataRaw: any = [
     _id: {
       $oid: "632a6741439020e45d11aa2a",
     },
-    quotation: "0.00",
+    quotation: "1.00",
     quotationDetails: [
       {
         color: "#7088B1",
@@ -91,7 +91,7 @@ export const mockCartDataRaw: any = [
     _id: {
       $oid: "632a6761439020e45d11aa2d",
     },
-    quotation: "0.00",
+    quotation: "1.00",
     quotationDetails: [
       {
         color: "#7088B1",
@@ -177,7 +177,7 @@ export const mockCartDataRaw: any = [
     _id: {
       $oid: "632a6761439020e45d11aa2e",
     },
-    quotation: "0.00",
+    quotation: "1.00",
     quotationDetails: [
       {
         color: "#7088B1",
