@@ -181,7 +181,7 @@ const NavigationBar = () => {
           </Flex>
         )}
       </Flex>
-      {!isCartOpen && !isMyTemplateOpen && !isSwitch3D ? <EditorDesignName /> : <Box></Box>}
+      {!isCartOpen && !isMyTemplateOpen ? <EditorDesignName /> : <Box></Box>}
       <Flex alignItems="center" justifyContent="flex-end">
         {!loginState ? (
           <Button onClick={handleLoginModalOpen}>Sign up / Login</Button>
