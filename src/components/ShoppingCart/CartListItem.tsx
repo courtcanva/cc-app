@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Td, Tr, Text, Checkbox, Center } from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
-import { MdDeleteForever } from "react-icons/md";
+import { FaTrashAlt } from "react-icons/fa";
 import { ICartItem } from "@/interfaces/cartItem";
 import DropDownButton from "@/components/ShoppingCart/dropDownButton";
 import { RiErrorWarningLine } from "react-icons/ri";
@@ -115,7 +115,7 @@ const CartListItem = ({
           <Button
             height="39px"
             float="right"
-            fontSize="28px"
+            fontSize="23px"
             colorScheme="whiteAlpha"
             variant="unstyled"
             size="xs"
@@ -124,7 +124,7 @@ const CartListItem = ({
               onDelete(item.id);
             }}
           >
-            <MdDeleteForever />
+            <FaTrashAlt />
           </Button>
         </Td>
       </Tr>
