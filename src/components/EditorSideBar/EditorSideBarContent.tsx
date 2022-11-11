@@ -14,10 +14,17 @@ import { LIMIT } from "@/constants/templateItemPagination";
 interface IPackTemplates {
   offset: number;
   templatesData: Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined;
+  setTemplatesData: React.Dispatch<
+    React.SetStateAction<Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined>
+  >;
   isLoading: boolean;
   hasNextPage: boolean;
   setOffset: React.Dispatch<React.SetStateAction<number>>;
   setPageNum: React.Dispatch<React.SetStateAction<number>>;
+  setFilterTag: React.Dispatch<React.SetStateAction<string>>;
+  newData: Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined;
+  isSuccess: boolean;
+  filterTag: string;
 }
 
 interface Props {
@@ -57,29 +64,48 @@ const SideBarContainer = (props: Props) => {
   const [pageNum, setPageNum] = useState<number>(1);
   const [templatesData, setTemplatesData] = useState<any>([]);
   const [hasNextPage, setHasNextPage] = useState(false);
+  const [filterTag, setFilterTag] = useState<string>("");
 
   const {
     data: rawTemplateData,
     isLoading,
     isSuccess,
-  } = useGetTemplateListsQuery({ offset, limit });
+  } = useGetTemplateListsQuery({ offset, limit, filterTag });
 
   const newData: any = rawTemplateData?.data;
+  // if (isSuccess) console.log(newData);
+  if (isSuccess) console.log(filterTag);
 
   useEffect(() => {
+    // if (filterTag) {
+    //   setTemplatesData(newData);
+    // }
     if (isSuccess) {
       setTemplatesData((prev: any) => [...prev, ...newData]);
       setHasNextPage(Boolean(newData.length));
     }
+
+    // if (isSuccess && filterTag) {
+    //   setTemplatesData(newData);
+    //   setTimeout(() => {
+    //     setTemplatesData((prev: any) => [...prev, ...newData]);
+    //   }, 1000);
+    //   setHasNextPage(Boolean(newData.length));
+    // }
   }, [isSuccess]);
 
-  const packTemplates = {
+  const packTemplates: IPackTemplates = {
     offset,
     templatesData,
     isLoading,
     hasNextPage,
     setOffset,
     setPageNum,
+    setFilterTag,
+    setTemplatesData,
+    newData,
+    isSuccess,
+    filterTag,
   };
 
   return (

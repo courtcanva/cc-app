@@ -1,6 +1,6 @@
 import { LIMIT } from "@/constants/templateItemPagination";
 import { ITemplateDataDb, ITemplateLists, ITemplateObj } from "@/interfaces/template";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Select, Text } from "@chakra-ui/react";
 import { useCallback, useRef, useState } from "react";
 import TemplateItem from "../TemplateList/TemplateItem";
 
@@ -11,6 +11,13 @@ export interface Props {
   hasNextPage: boolean;
   setOffset: React.Dispatch<React.SetStateAction<number>>;
   setPageNum: React.Dispatch<React.SetStateAction<number>>;
+  setFilterTag: React.Dispatch<React.SetStateAction<string>>;
+  setTemplatesData: React.Dispatch<
+    React.SetStateAction<Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined>
+  >;
+  newData: Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined;
+  isSuccess: boolean;
+  filterTag: string;
 }
 
 const Templates = ({
@@ -20,7 +27,13 @@ const Templates = ({
   hasNextPage,
   setOffset,
   setPageNum,
-}: Props) => {
+  setFilterTag,
+  setTemplatesData,
+  newData,
+  isSuccess,
+  filterTag,
+}: //
+Props) => {
   const intObserver = useRef<IntersectionObserver | null>(null);
   const lastTemplateRef = useCallback(
     (template) => {
@@ -30,7 +43,6 @@ const Templates = ({
 
       intObserver.current = new IntersectionObserver((templatesData) => {
         if (templatesData[0].isIntersecting && hasNextPage) {
-          console.log("We are near the last template!");
           setPageNum((prev) => prev + 1);
           setOffset((prev) => prev + LIMIT);
         }
@@ -41,10 +53,27 @@ const Templates = ({
     [isLoading, hasNextPage]
   );
 
+  const limit = LIMIT;
+
+  const handleOnChange = (e: { target: { value: string } }) => {
+    setFilterTag(e.target.value);
+    // console.log(e.target.value);
+    // if (isSuccess) {
+    //   setTemplatesData(newData);
+    //   console.log(templatesData);
+    //   console.log(newData);
+    // }
+    // NEED TO OPTIMIZE LOGIC
+  };
   const templateEmpty = templatesData?.length === 0;
 
   return (
     <Box height="100%" className="scrollbox">
+      <Select placeholder="Court Category" onChange={handleOnChange} value={filterTag}>
+        <option value="ProFullCourt">Pro Full Court</option>
+        <option value="FullCourt">Full Court</option>
+        {/* <option value="option3">Option 3</option> */}
+      </Select>
       {templatesData?.map((template, index) => {
         if (templatesData?.length === index + 1) {
           return <TemplateItem key={template._id} template={template} ref={lastTemplateRef} />;

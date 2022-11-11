@@ -23,9 +23,10 @@ export const templateApi = createApi({
 
     getTemplateLists: builder.query<
       ITemplateObj<ITemplateLists>,
-      { offset: number | void; limit: number | void }
+      { offset: number | void; limit: number | void; filterTag: string | void }
     >({
-      query: ({ offset = 0, limit = 10 }) => `/templates?offset=${offset}&limit=${limit}`,
+      query: ({ offset = 0, limit = 10, filterTag = "" }) =>
+        `/templates?offset=${offset}&limit=${limit}&filterTag=${filterTag}`,
       // transformResponse: (result: ITemplateObj<ITemplateLists>, _meta, _arg) => {
       //   return result.data.map((item) => _.omit(item, ["__v", "isDeleted"]));
       // },
