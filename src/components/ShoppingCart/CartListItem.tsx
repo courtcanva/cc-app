@@ -94,7 +94,7 @@ const CartListItem = ({
         </Td>
         <Td sx={{ "vertical-align": "top" }}>
           <Text fontSize="16px" style={columnStyle}>
-            A${(parseFloat("quotation") * 0.02).toFixed(2)}
+            A${(parseFloat(quotation) * 0.02).toFixed(2)}
           </Text>
         </Td>
         <Td sx={{ "vertical-align": "top" }}>
