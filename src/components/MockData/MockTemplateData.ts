@@ -9,6 +9,7 @@ export const mockTemplateDataRaw: any = [
     design: {
       designer: "test designer",
       designName: "Small Court example",
+      image: "",
       courtSize: {
         name: "Small Court",
         length: 9000,
@@ -74,6 +75,7 @@ export const mockTemplateDataRaw: any = [
     design: {
       designer: "test designer",
       designName: "Pro Full Court example",
+      image: "",
       courtSize: {
         name: "Pro Full Court",
         length: 28000,
@@ -139,6 +141,7 @@ export const mockTemplateDataRaw: any = [
     design: {
       designer: "test designer",
       designName: "Pro Full Court example",
+      image: "",
       courtSize: {
         name: "Pro Full Court",
         length: 28000,
