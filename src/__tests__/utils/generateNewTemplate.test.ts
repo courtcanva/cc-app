@@ -26,7 +26,9 @@ describe("generateNewTemplate", () => {
           lengthOfCorner: 5,
           lineBorderWidth: 1,
           designName: "",
+          image: "",
         },
+        image: "",
       },
       image: "image_url",
       tags: {
@@ -54,6 +56,9 @@ describe("generateNewTemplate", () => {
       strokeWidth: 1,
       borderLength: 9,
       designName: "",
+      createdAt: "",
+      updatedAt: "",
+      image: "",
     };
     const newTemplate = generateNewTemplate(
       userId,

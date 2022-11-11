@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import SaveSvg from "@/assets/svg/TopBarSvg/save.svg";
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import { useStoreSelector } from "@/store/hooks";
 import {
   fetchDesignData,
@@ -23,9 +23,11 @@ import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { CHECK_START_END_SPACE, DESIGN_NAME_MAX_CHAR_LENGTH } from "@/constants/courtData";
 import SaveDesignModal from "./SaveDesignModal";
 import SaveAlert from "./SaveAlert";
+import { upLoadScreenshot } from "@/utils/manageExternalImage";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();
+  const toast = useToast();
   const userData = useStoreSelector((state) => state.user);
   const courtData = useStoreSelector((state) => state.courtSpecData.activeCourt);
   const tileData = useStoreSelector((state) => state.tile.present.court);
@@ -37,6 +39,7 @@ const SaveBoard: React.FC = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [useFeedback, setFeedback] = useState("");
   const [useSaveDesignModal, setSaveDesignModal] = useState(false);
+  const courtDataUrl = useStoreSelector((state) => state.canvasControl.courtDataUrl);
 
   const tiles: ITileColor[] = [];
   for (const tile of tileData) {
@@ -78,7 +81,17 @@ const SaveBoard: React.FC = () => {
   const handleSaveDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (useCourtId === "") {
-      await addDesign({ design: designData })
+      if (!courtDataUrl) {
+        return toast({
+          title: `Fail to get courtDataUrl`,
+          description: "Try again or contact IT support",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+      const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
+      await addDesign({ design: { ...designData, image: imgUrl } })
         .unwrap()
         .then(() => {
           setFeedback("Your design has been saved.");
@@ -89,7 +102,17 @@ const SaveBoard: React.FC = () => {
           setSaveDesignModal(true);
         });
     } else {
-      await updateDesign({ _id: useCourtId, design: designData })
+      if (!courtDataUrl) {
+        return toast({
+          title: `Fail to get courtDataUrl`,
+          description: "Try again or contact IT support",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+      const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
+      await updateDesign({ _id: useCourtId, design: { ...designData, image: imgUrl } })
         .unwrap()
         .then(() => {
           setFeedback("Your design has been updated.");
@@ -121,7 +144,19 @@ const SaveBoard: React.FC = () => {
   const handleSaveAsDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     designData.designName = useDesignName.replace(CHECK_START_END_SPACE, "");
-    await addDesign({ design: designData })
+
+    if (!courtDataUrl) {
+      return toast({
+        title: `Fail to get courtDataUrl`,
+        description: "Try again or contact IT support",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+    const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
+
+    await addDesign({ design: { ...designData, image: imgUrl } })
       .unwrap()
       .then(() => {
         setFeedback("Your design has been saved.");

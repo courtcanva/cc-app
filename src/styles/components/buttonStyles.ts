@@ -72,6 +72,12 @@ const buttonStyles = {
       _hover: { bg: "#C13D46", opacity: "0.60" },
       _active: { bg: "#C13D46", opacity: "0.60" },
     },
+    deleteIconBtn: {
+      bg: "background.darkRed",
+      color: "white",
+      _hover: { bg: "red.500", opacity: "0.60" },
+      _active: { bg: "red.500", opacity: "0.60" },
+    },
   },
 };
 
