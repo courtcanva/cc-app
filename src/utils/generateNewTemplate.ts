@@ -24,6 +24,7 @@ const generateNewTemplate = (
     designName: name,
     tileColor: tiles,
     courtSize: courtSizeData,
+    image: "",
   };
 
   const newTemplate: ITemplate = {
