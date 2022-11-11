@@ -128,7 +128,7 @@ const PaymentResponse = (props: Props) => {
                 background="#d64543"
                 onClick={repayOrder}
               >
-                Try again
+                Try Again
               </Button>
             )}
           </Flex>
