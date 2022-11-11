@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Td, Tr, Text, Checkbox, Center } from "@chakra-ui/react";
-import { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { ICartItem } from "@/interfaces/cartItem";
 import DropDownButton from "@/components/ShoppingCart/dropDownButton";
@@ -36,10 +36,16 @@ const CartListItem = ({
     );
   };
 
+  const columnStyle = {
+    fontWeight: "700",
+    marginTop: "1.5vw",
+    color: "#344C5C",
+    fontStyle: "normal",
+  };
   return (
     <>
       <Tr alignItems="center" role="dataRow">
-        <Td sx={{ "vertical-align": "top" }} height="180px">
+        <Td sx={{ "vertical-align": "top" }}>
           {/* Todo: space for thumbnail images that implementing in the future. */}
           <Flex alignItems="center">
             <Center minWidth="57px">
@@ -53,28 +59,22 @@ const CartListItem = ({
                 />
               )}
             </Center>
-            <Box width="340px" height="140px" position="relative">
+            <Box width="20vw" height="10vw" position="relative">
               {image && (
                 <Image src={image} alt="Court image" layout="fill" objectFit="contain"></Image>
               )}
             </Box>
           </Flex>
         </Td>
-        <Td
-          fontSize="14px"
-          fontWeight="700"
-          lineHeight="40px"
-          color="#344C5C"
-          fontStyle="normal"
-          sx={{ "vertical-align": "top" }}
-          overflowX="auto"
-        >
-          {productName}
+        <Td sx={{ "vertical-align": "top" }} overflowX="auto">
+          <Text fontSize="14px" style={columnStyle}>
+            {productName}
+          </Text>
           {isExpired && (
             <Text
               color="#F55252"
               fontSize="16px"
-              lineHeight="40px"
+              lineHeight="4vw"
               fontWeight="700"
               marginTop="39px"
             >
@@ -82,39 +82,25 @@ const CartListItem = ({
             </Text>
           )}
         </Td>
-        <Td
-          fontSize="14px"
-          fontWeight="700"
-          color="#344C5C"
-          fontStyle="normal"
-          sx={{ "vertical-align": "top" }}
-        >
-          <Box width="100%" flexDirection="column">
+        <Td fontSize="14px" sx={{ "vertical-align": "top" }}>
+          <Box style={columnStyle}>
             <DropDownButton detail={courtDetail} />
           </Box>
         </Td>
-        <Td
-          fontSize="16px"
-          fontWeight="700"
-          lineHeight="40px"
-          color="#344C5C"
-          fontStyle="normal"
-          sx={{ "vertical-align": "top" }}
-        >
-          A${quotation}
+        <Td sx={{ "vertical-align": "top" }}>
+          <Text fontSize="16px" style={columnStyle}>
+            A${quotation}
+          </Text>
         </Td>
-        <Td
-          fontSize="16px"
-          fontWeight="700"
-          lineHeight="40px"
-          color="#344C5C"
-          fontStyle="normal"
-          sx={{ "vertical-align": "top" }}
-        >
-          A${parseFloat(quotation) * 0.2}
+        <Td sx={{ "vertical-align": "top" }}>
+          <Text fontSize="16px" style={columnStyle}>
+            A${parseFloat(quotation) * 0.02}
+          </Text>
+        </Td>
+        <Td sx={{ "vertical-align": "top" }}>
           <Button
-            height="39px"
-            float="right"
+            marginTop="1.5vw"
+            right="3vw"
             fontSize="23px"
             colorScheme="whiteAlpha"
             variant="unstyled"

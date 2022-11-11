@@ -1,24 +1,24 @@
 import React, { useState } from "react";
-import { GrDown, GrUp } from "react-icons/gr";
-import { Flex, IconButton, ListItem, UnorderedList, Text } from "@chakra-ui/react";
+import { Flex, ListItem, UnorderedList, Text, IconButton } from "@chakra-ui/react";
 import { Collapse } from "@chakra-ui/react";
 import { MotionStyle } from "framer-motion";
 import { ICourtSize } from "@/interfaces/design";
+import { GrDown, GrUp } from "react-icons/gr";
 
-interface Detail {
+interface Props {
   detail: ICourtSize;
 }
 
-const DropDownButton = ({ detail }: Detail) => {
+const DropDownButton: React.FC<Props> = ({ detail }) => {
   const { name: courtName, length, width, sideBorderWidth } = detail;
+
+  const [show, setShow] = useState(false);
+  const handleToggle = () => setShow(!show);
   {
     /* todo: add fencing and hoops in detail */
   }
   const lengthInMeter = (length + sideBorderWidth * 2) / 1000;
   const widthInMeter = (width + sideBorderWidth * 2) / 1000;
-
-  const [show, setShow] = useState(false);
-  const handleToggle = () => setShow(!show);
   const collapseStyle: MotionStyle = {
     width: "100%",
     overflowY: show ? "scroll" : "hidden",
@@ -30,9 +30,8 @@ const DropDownButton = ({ detail }: Detail) => {
     alignItems: "center",
     paddingLeft: "2px",
   };
-
   return (
-    <Flex width="100%" flexDirection="row" overflow="auto" marginTop="9px">
+    <Flex width="100%" flexDirection="row" overflow="auto">
       <Collapse startingHeight={20} in={show} style={collapseStyle} data-testid="testShow">
         <UnorderedList>
           <ListItem marginLeft="3px">
@@ -42,17 +41,10 @@ const DropDownButton = ({ detail }: Detail) => {
                 <ListItem>
                   Tiles ({lengthInMeter}m*{widthInMeter}m,{courtName})
                 </ListItem>
-                <ListItem style={{ listStyle: "none" }}>
-                  Hoops (fixed height)
-                  {/* todo: Hoops x {hoopsCount} */}
-                </ListItem>
-                <ListItem style={{ listStyle: "none" }}>
-                  Fencing (2m height)
-                  {/* todo: {fencingLength}*{fencingWidth}m */}
-                </ListItem>
               </UnorderedList>
             </Text>
           </ListItem>
+
           <ListItem marginLeft="3px">
             <Text size="xs">Shipping</Text>
           </ListItem>

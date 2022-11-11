@@ -63,15 +63,17 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
   };
 
   return (
-    <Flex flexDirection="column" alignItems="center" marginLeft="78px" marginRight="78px">
+    <Flex flexDirection="column" alignItems="center" width="100vw">
       <Text
         fontSize="32px"
         lineHeight="40px"
         fontWeight="700"
         fontStyle="normal"
         color="#344C5C"
-        marginTop="20px"
-        marginBottom="42px"
+        marginTop="2vh"
+        marginBottom="5vh"
+        marginLeft="auto"
+        marginRight="auto"
       >
         Shopping Cart
       </Text>
@@ -90,7 +92,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
           </Text>
         </Flex>
       )}
-      <TableContainer minWidth="1080px" width="100%" overflowY="auto">
+      <TableContainer minWidth="1024px" width="90vw" overflowY="auto">
         <Table
           variant="simple"
           border="1px"
@@ -100,7 +102,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
         >
           <Thead>
             <Tr backgroundColor="#E2E8F0" height="80px">
-              <Th width="350px">
+              <Th width="24%">
                 <Checkbox
                   paddingLeft="21px"
                   borderColor="#b3b2b2"
@@ -111,24 +113,25 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                   <Text
                     style={columnStyle}
                     sx={{ "text-transform": "capitalize" }}
-                    marginLeft="23px"
+                    marginLeft="1.5vw"
                   >
                     All
                   </Text>
                 </Checkbox>
               </Th>
-              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }} width="200px">
+              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }} width="16%">
                 Product
               </Th>
-              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }} width="300px">
+              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }} width="22%">
                 Quotation Details
               </Th>
-              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }}>
+              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }} width="17%">
                 Quotation
               </Th>
-              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }}>
+              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }} width="17%">
                 Deposit
               </Th>
+              <Th width="4%"></Th>
             </Tr>
           </Thead>
           <Tbody>
