@@ -113,7 +113,7 @@ const CartListItem = ({
         >
           A${parseFloat(quotation) * 0.2}
           <Button
-            height="44px"
+            height="39px"
             float="right"
             fontSize="28px"
             colorScheme="whiteAlpha"
