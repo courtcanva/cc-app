@@ -1,5 +1,5 @@
-import { Box, Select } from "@chakra-ui/react";
-import React, { useCallback, useEffect, useState } from "react";
+import { Box } from "@chakra-ui/react";
+import React from "react";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import Blueprints from "./Blueprints";
 import Folder from "./Folder";
@@ -7,25 +7,6 @@ import { useGetCourtsQuery } from "@/redux/api/courtSizeApi";
 import { ICourtData } from "@/interfaces/design";
 import { IconContext } from "react-icons";
 import Templates from "./Templates";
-import { useGetTemplateListsQuery, useGetTemplatesQuery } from "@/redux/api/templateApi";
-import { ITemplateDataDb, ITemplateLists, ITemplateObj } from "@/interfaces/template";
-import { LIMIT } from "@/constants/templateItemPagination";
-
-interface IPackTemplates {
-  offset: number;
-  templatesData: Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined;
-  setTemplatesData: React.Dispatch<
-    React.SetStateAction<Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined>
-  >;
-  isLoading: boolean;
-  hasNextPage: boolean;
-  setOffset: React.Dispatch<React.SetStateAction<number>>;
-  setPageNum: React.Dispatch<React.SetStateAction<number>>;
-  setFilterTag: React.Dispatch<React.SetStateAction<string>>;
-  newData: Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined;
-  isSuccess: boolean;
-  filterTag: string;
-}
 
 interface Props {
   iconClickTitle: string;

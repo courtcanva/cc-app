@@ -1,6 +1,5 @@
 import Templates from "@/components/EditorSideBar/Templates";
-import { mockTemplateDataRaw } from "@/components/MockData/MockTemplateData";
-import { screen } from "@testing-library/dom";
+import { getByText, screen } from "@testing-library/dom";
 import renderWithMockedProvider from "../../utils";
 
 describe("Render the templates list", () => {
@@ -19,10 +18,9 @@ describe("Render the templates list", () => {
     expect(emptyList).toBeInTheDocument();
   });
 
-  // FIXME: need to fix
-  // it("All templates are correctly rendered", () => {
-  //   renderWithMockedProvider(<Templates />);
-  //   const imgElements = screen.getAllByRole("img");
-  //   expect(imgElements.length).toBe(3);
-  // });
+  it("Should render select option", () => {
+    renderWithMockedProvider(<Templates />);
+    const selectOption = screen.getByText("Court Category");
+    expect(selectOption).toBeInTheDocument();
+  });
 });
