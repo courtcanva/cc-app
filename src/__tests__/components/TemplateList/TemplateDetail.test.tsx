@@ -10,7 +10,7 @@ describe("Render template detail modal", () => {
     userId: mockTemplateItem.user_id,
     description: mockTemplateItem.description,
     courtImgUrl: mockTemplateItem.image,
-    createDate: format(parseISO(mockTemplateItem.createdAt), "dd/mm/yyyy"),
+    createDate: format(parseISO(mockTemplateItem.createdAt), "dd/MM/yyyy"),
     tags: mockTemplateItem.tags,
     designDetail: mockTemplateItem.design,
   };

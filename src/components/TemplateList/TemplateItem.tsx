@@ -32,7 +32,7 @@ const TemplateItem = React.forwardRef<HTMLDivElement, Props>((prop, ref) => {
     userId: prop.template.user_id,
     description: prop.template.description,
     courtImgUrl: prop.template.image,
-    createDate: format(parseISO(prop.template.createdAt), "dd/mm/yyyy"),
+    createDate: format(parseISO(prop.template.createdAt), "dd/MM/yyyy"),
     tags: prop.template.tags,
     designDetail: prop.template.design,
   };
