@@ -23,3 +23,12 @@ body {
   border-radius: 5px;
   background-color: #ababad;
 }
+
+.selectBox option {
+  background-color: white;
+  color:#344C5C;
+}
+
+.selectBox option:hover{
+  background-color: #EBECF0;
+}

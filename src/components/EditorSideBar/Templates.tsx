@@ -57,8 +57,14 @@ const Templates = () => {
 
   return (
     <Box height="100%" className="scrollbox">
-      <Select placeholder="Court Category" onChange={handleOnChange} value={filterTag}>
+      <Select
+        placeholder="Court Category"
+        onChange={handleOnChange}
+        value={filterTag}
+        className="selectBox"
+      >
         <option value="ProFullCourt">Pro Full Court</option>
+
         <option value="FullCourt">Full Court</option>
         <option value="SmallCourt">Small Court</option>
         <option value="ProHalfCourt">Pro Half Court</option>
