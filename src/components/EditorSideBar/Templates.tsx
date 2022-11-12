@@ -1,95 +1,56 @@
 import { LIMIT } from "@/constants/templateItemPagination";
-import { ITemplateDataDb, ITemplateLists, ITemplateObj } from "@/interfaces/template";
-import { useGetTemplateListsQuery } from "@/redux/api/templateApi";
+import { useLazyGetTemplateListsQuery } from "@/redux/api/templateApi";
 import { Box, Select, Text } from "@chakra-ui/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import TemplateItem from "../TemplateList/TemplateItem";
 
-export interface Props {
-  offset: number;
-  templatesData: Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined;
-  isLoading: boolean;
-  hasNextPage: boolean;
-  setOffset: React.Dispatch<React.SetStateAction<number>>;
-  setPageNum: React.Dispatch<React.SetStateAction<number>>;
-  setFilterTag: React.Dispatch<React.SetStateAction<string>>;
-  setTemplatesData: React.Dispatch<
-    React.SetStateAction<Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined>
-  >;
-  newData: Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined;
-  isSuccess: boolean;
-  filterTag: string;
-}
-
 const Templates = () => {
   const [offset, setOffset] = useState<number>(0);
-  const [pageNum, setPageNum] = useState<number>(1);
   const [templatesData, setTemplatesData] = useState<any>([]);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [filterTag, setFilterTag] = useState<string>("");
   const limit = LIMIT;
-  const {
-    data: rawTemplateData,
-    isLoading,
-    isSuccess,
-  } = useGetTemplateListsQuery({ offset, limit, filterTag });
 
-  const newData: any = rawTemplateData?.data;
-  // if (isSuccess) console.log(newData);
-  if (isSuccess) {
-    console.log(filterTag);
-    console.log(templatesData);
-  }
+  const [trigger, { data: rawTemplateData, isLoading }] = useLazyGetTemplateListsQuery();
 
   useEffect(() => {
-    // if (filterTag) {
-    //   setTemplatesData(newData);
-    // }
-    if (isSuccess) {
-      console.log(filterTag);
-      setTemplatesData((prev: any) => [...prev, ...newData]);
-      setHasNextPage(Boolean(newData.length));
-      console.log("useEffect  渲染了");
-    }
+    trigger({ offset, limit, filterTag });
+  }, []);
 
-    // if (isSuccess && filterTag) {
-    //   setTemplatesData(newData);
-    //   setHasNextPage(Boolean(newData.length));
-    // }
-  }, [filterTag, isSuccess]);
+  useEffect(() => {
+    const fetchData = trigger({ offset, limit, filterTag });
+    return () => fetchData.abort();
+  }, [offset, filterTag]);
+
+  useEffect(() => {
+    const newData = rawTemplateData?.data;
+    if (newData) {
+      setTemplatesData((prev: any) => [...prev, ...newData]);
+      setHasNextPage(Boolean(rawTemplateData?.data.length));
+    }
+  }, [rawTemplateData?.data]);
+
+  const handleOnChange = (e: { target: { value: string } }) => {
+    setFilterTag(() => e.target.value);
+    setTemplatesData(() => []);
+    setOffset(() => 0);
+  };
+
   const intObserver = useRef<IntersectionObserver | null>(null);
   const lastTemplateRef = useCallback(
     (template) => {
       if (isLoading) return;
-
       if (intObserver.current) intObserver.current?.disconnect();
-
       intObserver.current = new IntersectionObserver((templatesData) => {
         if (templatesData[0].isIntersecting && hasNextPage) {
-          setPageNum((prev) => prev + 1);
           setOffset((prev) => prev + LIMIT);
         }
       });
-
       if (template) intObserver.current?.observe(template);
     },
     [isLoading, hasNextPage]
   );
 
-  // BUG: 1、页面刚加载时，切换成fullCourt 页面没有任何变化 2、 当页面是ProFullCourt 的时候，页面切换成FullCourt 页面显示数据为空
-
-  const handleOnChange = (e: { target: { value: string } }) => {
-    setFilterTag(e.target.value);
-    // console.log(e.target.value);
-    // if (isSuccess) {
-    setTemplatesData(newData);
-    setOffset(0);
-    // console.log(templatesData);
-    console.log(newData);
-    console.log(filterTag);
-    // }
-    // NEED TO OPTIMIZE LOGIC
-  };
   const templateEmpty = templatesData?.length === 0;
 
   return (

@@ -76,6 +76,7 @@ export const templateApi = createApi({
 export const {
   useGetTemplatesQuery,
   useGetTemplateListsQuery,
+  useLazyGetTemplateListsQuery,
   useGetTemplateByIdQuery,
   useAddTemplateMutation,
   useDeleteTemplateMutation,

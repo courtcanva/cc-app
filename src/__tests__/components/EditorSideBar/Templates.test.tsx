@@ -2,7 +2,6 @@ import Templates from "@/components/EditorSideBar/Templates";
 import { mockTemplateDataRaw } from "@/components/MockData/MockTemplateData";
 import { screen } from "@testing-library/dom";
 import renderWithMockedProvider from "../../utils";
-import { Props } from "@/components/EditorSideBar/Templates";
 
 describe("Render the templates list", () => {
   beforeEach(() => {
