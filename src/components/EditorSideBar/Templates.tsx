@@ -70,8 +70,16 @@ const Templates = () => {
         }
         return <TemplateItem key={template._id} template={template} />;
       })}
-      {templateEmpty && <Text>The template list is empty</Text>}
-      {isLoading && <Text>Template is loading</Text>}
+      {templateEmpty && (
+        <Box textAlign="center" width={300} marginTop={8}>
+          <Text>The template list is empty</Text>
+        </Box>
+      )}
+      {isLoading && (
+        <Box textAlign="center" width={300} marginTop={8}>
+          <Text>Template is loading</Text>
+        </Box>
+      )}
     </Box>
   );
 };
