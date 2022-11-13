@@ -37,10 +37,10 @@ const CartListItem = ({
   };
 
   const columnStyle = {
+    fontSize: "1vw",
     fontWeight: "700",
     marginTop: "1.5vw",
     color: "#344C5C",
-    fontStyle: "normal",
   };
   return (
     <>
@@ -67,9 +67,7 @@ const CartListItem = ({
           </Flex>
         </Td>
         <Td sx={{ "vertical-align": "top" }} overflowX="auto">
-          <Text fontSize="14px" style={columnStyle}>
-            {productName}
-          </Text>
+          <Text style={columnStyle}>{productName}</Text>
           {isExpired && (
             <Text
               color="#F55252"
@@ -82,26 +80,22 @@ const CartListItem = ({
             </Text>
           )}
         </Td>
-        <Td fontSize="14px" sx={{ "vertical-align": "top" }}>
+        <Td sx={{ "vertical-align": "top" }}>
           <Box style={columnStyle}>
             <DropDownButton detail={courtDetail} />
           </Box>
         </Td>
         <Td sx={{ "vertical-align": "top" }}>
-          <Text fontSize="16px" style={columnStyle}>
-            A${quotation}
-          </Text>
+          <Text style={columnStyle}>A${quotation}</Text>
         </Td>
         <Td sx={{ "vertical-align": "top" }}>
-          <Text fontSize="16px" style={columnStyle}>
-            A${(parseFloat(quotation) * 0.02).toFixed(2)}
-          </Text>
+          <Text style={columnStyle}>A${(parseFloat(quotation) * 0.02).toFixed(2)}</Text>
         </Td>
         <Td sx={{ "vertical-align": "top" }}>
           <Button
             marginTop="1.5vw"
             right="3vw"
-            fontSize="23px"
+            fontSize="1.25vw"
             colorScheme="whiteAlpha"
             variant="unstyled"
             size="xs"

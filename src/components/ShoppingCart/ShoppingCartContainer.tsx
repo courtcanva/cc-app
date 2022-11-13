@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { CSSProperties, useState } from "react";
 import {
   Table,
   Thead,
@@ -54,26 +54,22 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
     dispatch(switchOrderGeneration(true));
   };
 
-  const columnStyle = {
-    fontStyle: "normal",
-    fontSize: "20px",
+  const columnStyle: CSSProperties = {
+    fontSize: "1.25vw",
     fontWeight: "700",
-    lineHeight: "28px",
+    lineHeight: "2vw",
+    textTransform: "capitalize",
     color: "#000000",
   };
 
   return (
     <Flex flexDirection="column" alignItems="center" width="100vw">
       <Text
-        fontSize="32px"
-        lineHeight="40px"
+        fontSize="2.3vw"
         fontWeight="700"
-        fontStyle="normal"
-        color="#344C5C"
+        color="brand.primary"
         marginTop="2vh"
         marginBottom="5vh"
-        marginLeft="auto"
-        marginRight="auto"
       >
         Shopping Cart
       </Text>
@@ -92,7 +88,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
           </Text>
         </Flex>
       )}
-      <TableContainer minWidth="1024px" width="90vw" overflowY="auto">
+      <TableContainer minWidth="700px" width="90vw" overflowY="auto">
         <Table
           variant="simple"
           border="1px"
@@ -101,8 +97,8 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
           sx={{ "table-layout": "fixed" }}
         >
           <Thead>
-            <Tr backgroundColor="#E2E8F0" height="80px">
-              <Th width="24%">
+            <Tr backgroundColor="#E2E8F0">
+              <Th width="22%">
                 <Checkbox
                   paddingLeft="21px"
                   borderColor="#b3b2b2"
@@ -119,16 +115,16 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                   </Text>
                 </Checkbox>
               </Th>
-              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }} width="16%">
+              <Th style={columnStyle} width="16%">
                 Product
               </Th>
-              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }} width="22%">
+              <Th style={columnStyle} width="24%">
                 Quotation Details
               </Th>
-              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }} width="17%">
+              <Th style={columnStyle} width="17%">
                 Quotation
               </Th>
-              <Th style={columnStyle} sx={{ "text-transform": "capitalize" }} width="17%">
+              <Th style={columnStyle} width="18%">
                 Deposit
               </Th>
               <Th width="4%"></Th>

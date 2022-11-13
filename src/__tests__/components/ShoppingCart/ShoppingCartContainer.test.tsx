@@ -80,7 +80,7 @@ describe("ShoppingCart component", () => {
       "Court MaterialTiles (9m*5m,Small Court)ShippingInstallation feeCourt tile pavingCourt painting"
     );
     expect(textShow).toHaveStyle(
-      ` overflow-y: hidden; height:20px; white-space:nowrap; text-overflow:ellipsis `
+      ` overflow-y: hidden; height:1.5vw; white-space:nowrap; text-overflow:ellipsis `
     );
   });
 

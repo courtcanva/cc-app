@@ -31,8 +31,8 @@ const DropDownButton: React.FC<Props> = ({ detail }) => {
     paddingLeft: "2px",
   };
   return (
-    <Flex width="100%" flexDirection="row" overflow="auto">
-      <Collapse startingHeight={20} in={show} style={collapseStyle} data-testid="testShow">
+    <Flex width="100%" flexDirection="row" overflow="auto" marginTop="1.5vw">
+      <Collapse startingHeight="1.5vw" in={show} style={collapseStyle} data-testid="testShow">
         <UnorderedList>
           <ListItem marginLeft="3px">
             <Text size="xs">
@@ -62,7 +62,7 @@ const DropDownButton: React.FC<Props> = ({ detail }) => {
       <IconButton
         icon={show ? <GrUp /> : <GrDown />}
         colorScheme="white"
-        size="sm"
+        size="1vw"
         onClick={handleToggle}
         aria-label="dropDownBtn"
         _focus={{ background: "white" }}
