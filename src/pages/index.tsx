@@ -12,7 +12,6 @@ import { getCourtSpecData, CourtSpecMapper } from "@/store/reducer/courtSpecData
 import { useGetCourtsQuery } from "@/redux/api/courtSizeApi";
 import { courtSpecMapping } from "@/utils/courtSpecMapping";
 import LoadingPage from "@/components/LoadingPage";
-import { useGetTemplateListsQuery, useGetTemplatesQuery } from "@/redux/api/templateApi";
 
 const ProFullCourt = dynamic(() => import("@/components/ProFullCourt"), { ssr: false });
 const FullCourt = dynamic(() => import("@/components/FullCourt"), { ssr: false });

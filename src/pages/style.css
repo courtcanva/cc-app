@@ -26,9 +26,9 @@ body {
 
 .selectBox option {
   background-color: white;
-  color:#344C5C;
+  color: #344c5c;
 }
 
-.selectBox option:hover{
-  background-color: #EBECF0;
+.selectBox option:hover {
+  background-color: #ebecf0;
 }

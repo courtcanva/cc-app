@@ -117,7 +117,7 @@ const TemplateItem = React.forwardRef<HTMLDivElement, Props>((prop, ref) => {
     </>
   );
 
-  const templateContent = ref ? (
+  const templateContent = (
     <Flex
       position="relative"
       width="300px"
@@ -130,23 +130,7 @@ const TemplateItem = React.forwardRef<HTMLDivElement, Props>((prop, ref) => {
       opacity={templateOpacityDrop ? "0.4" : "1"}
       onMouseEnter={selectTemplate}
       onMouseLeave={resetHeightLight}
-      ref={ref}
-    >
-      {templateBody}
-    </Flex>
-  ) : (
-    <Flex
-      position="relative"
-      width="300px"
-      height="240px"
-      marginBottom="16px"
-      flexDirection="column"
-      alignItems="center"
-      padding="5px 10px 10px 10px"
-      backgroundColor="white"
-      opacity={templateOpacityDrop ? "0.4" : "1"}
-      onMouseEnter={selectTemplate}
-      onMouseLeave={resetHeightLight}
+      ref={ref ? ref : null}
     >
       {templateBody}
     </Flex>

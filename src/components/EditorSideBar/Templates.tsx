@@ -62,6 +62,7 @@ const Templates = () => {
         onChange={handleOnChange}
         value={filterTag}
         className="selectBox"
+        marginBottom={5}
       >
         <option value="ProFullCourt">Pro Full Court</option>
 
