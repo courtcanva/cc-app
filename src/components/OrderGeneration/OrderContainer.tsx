@@ -1,22 +1,28 @@
 import { useStoreSelector } from "@/store/hooks";
-import { Flex, Text, Checkbox, Button, Link, Box, Tooltip, useToast } from "@chakra-ui/react";
+import { Flex, Text, Checkbox, Link, Box, Tooltip, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import OrderItem from "./OrderItem";
 import { switchOrderGeneration } from "@/store/reducer/buttonToggleSlice";
 import { useDispatch } from "react-redux";
+import { DEPOSIT_RATIO } from "@/constants/depositRatio";
 import { useCreateOrderMutation, useCreateStripeSessionMutation } from "@/redux/api/orderApi";
 import { IStripeSession } from "@/interfaces/order";
 import { useDeleteItemFromCartMutation } from "@/redux/api/cartApi";
+import ProcessToCheckOutButton from "./ProcessToCheckoutButton";
+import CancelOrBackButton from "./CancelOrBackButton";
 
 const OrderContainer = () => {
   const dispatch = useDispatch();
   const orderItems = useStoreSelector((state) => state.order);
+  console.log(orderItems);
   const userId = useStoreSelector((state) => state.user.userId);
   const [isChecked, setIschecked] = useState(false);
   const [createOrder] = useCreateOrderMutation();
   const [createStripeSessionMutation] = useCreateStripeSessionMutation();
   const [deleteItemFromCart] = useDeleteItemFromCartMutation();
   const toast = useToast();
+
+  const buttonTitle = "Back";
 
   const items = orderItems.map((item) => {
     const orderItem = {
@@ -28,7 +34,7 @@ const OrderContainer = () => {
     };
     return orderItem;
   });
-  const newOrder = { user_id: userId, items, depositRatio: 0.02 };
+  const newOrder = { user_id: userId, items, depositRatio: DEPOSIT_RATIO };
 
   const handleProceedToCheckOut = async () => {
     try {
@@ -61,7 +67,6 @@ const OrderContainer = () => {
       });
     }
   };
-
   const handleBackToCart = () => dispatch(switchOrderGeneration(false));
 
   return (
@@ -104,29 +109,12 @@ const OrderContainer = () => {
           </Checkbox>
         </Box>
         <Flex gap="100px" justifyContent="center">
-          <Button
-            padding="10px 24px"
-            fontSize="lg"
-            fontWeight="700"
-            borderWidth="1px"
-            borderColor="brand.primary"
-            backgroundColor="#F3F2F7"
-            onClick={handleBackToCart}
-          >
-            Back
-          </Button>
+          <CancelOrBackButton buttonTitle={buttonTitle} handleBackToCart={handleBackToCart} />
           <Tooltip label="Please agree the terms and conditions" isDisabled={isChecked}>
-            <Box>
-              <Button
-                variant="shareBtn"
-                onClick={handleProceedToCheckOut}
-                isDisabled={!isChecked}
-                padding="10px 24px"
-                fontWeight="700"
-              >
-                Proceed to Checkout
-              </Button>
-            </Box>
+            <ProcessToCheckOutButton
+              isChecked={isChecked}
+              handleProceedToCheckOut={handleProceedToCheckOut}
+            />
           </Tooltip>
         </Flex>
       </Box>

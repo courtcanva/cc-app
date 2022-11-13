@@ -30,6 +30,7 @@ interface IOrderDb extends IOrder {
 }
 
 export interface IOrderWithPaymentInfo {
+  status: string;
   _id: string;
   order: IOrderDb;
   paymentInfo?: IPaymentInfoDb;

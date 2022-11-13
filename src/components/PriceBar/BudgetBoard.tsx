@@ -24,6 +24,7 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
   const userId = useStoreSelector((state) => state.user.userId);
   const [addToCart] = useAddToCartMutation();
   const mappedCourtSize = saveDesignMapping(court);
+  const courtType = "basketball";
 
   const currentDesign: IDesign = {
     _id: court.courtId,
@@ -31,6 +32,7 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
     designName: court.designName,
     courtSize: mappedCourtSize,
     tileColor: tiles,
+    courtType: courtType,
   };
 
   const newCartItem: ICartItem = {
@@ -42,7 +44,6 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
     id: "",
     isExpired: false,
   };
-
   const handleAddToCart = async () => {
     if (!userId) return dispatch(switchLoginModal(true));
     if (!courtDataUrl) {

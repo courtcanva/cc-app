@@ -10,8 +10,6 @@ const MyOrder = () => {
   const isMyOrderOpen = useStoreSelector((state) => state.buttonToggle.isMyOrderOpen);
   const currentUserId = useStoreSelector(userData).userId;
   const { data: ordersData } = useGetOrdersQuery(currentUserId ? currentUserId : skipToken);
-  console.log(ordersData);
-
   const myOrders: IOrderWithPaymentInfo[] = ordersData?.map((order: any) => {
     return {
       userId: order.user_id,
