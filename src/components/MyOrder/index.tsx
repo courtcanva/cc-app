@@ -1,48 +1,29 @@
-import ProfileItemContainer from "../ProfileItemContainer";
-import { userData } from "@/store/reducer/userSlice";
-import { useStoreSelector } from "@/store/hooks";
-import { useGetOrdersQuery } from "@/redux/api/orderApi";
-import { skipToken } from "@reduxjs/toolkit/dist/query";
+import ListItemsContainer from "../ProfileItemContainer/ListItemContainer";
+import MyOrderList from "./MyOrderList";
 import { IOrderWithPaymentInfo } from "../../interfaces/order";
-import MyOrderContainer from "./MyOrderContainer";
+import { useRouter } from "next/router";
+interface Props {
+  myOrders: IOrderWithPaymentInfo[];
+}
+const MyOrderContainer = ({ myOrders }: Props) => {
+  const title = "My Orders";
 
-const MyOrder = () => {
-  const isMyOrderOpen = useStoreSelector((state) => state.buttonToggle.isMyOrderOpen);
-  const currentUserId = useStoreSelector(userData).userId;
-  const { data: ordersData } = useGetOrdersQuery(currentUserId ? currentUserId : skipToken);
-  const myOrders: IOrderWithPaymentInfo[] = ordersData?.map((order: any) => {
-    return {
-      userId: order.user_id,
-      _id: order._id,
-      status: order.status,
-      createdAt: order.createdAt,
-      paidAt: order.paymentInfo ? order.paymentInfo.createdAt : "",
-      consigneeName: order.paymentInfo ? order.paymentInfo.name : "",
-      consigneePhoneNo: order.paymentInfo ? order.paymentInfo.phone : "",
-      consigneeEmail: order.paymentInfo ? order.paymentInfo.email : "",
-      shoppingAddressCity: order.paymentInfo ? order.paymentInfo.constructionAddress.city : "",
-      shoppingAddressState: order.paymentInfo ? order.paymentInfo.constructionAddress.state : "",
-      shoppingAddressCountry: order.paymentInfo
-        ? order.paymentInfo.constructionAddress.country
-        : "",
-      shoppingAddressLine1: order.paymentInfo ? order.paymentInfo.constructionAddress.line1 : "",
-      shoppingAddressLine2: order.paymentInfo ? order.paymentInfo.constructionAddress.line2 : "",
-      shoppingAddressPostalCode: order.paymentInfo
-        ? order.paymentInfo.constructionAddress.postalCode
-        : "",
-      currency: order.paymentInfo ? order.paymentInfo.currency : "aud",
-      depositRatio: order.depositRatio,
-      items: order.items,
-    };
-  });
+  const router = useRouter();
+  const handleReturnToDesign = () => {
+    router.push("/");
+  };
+  const myOrdersList = () => {
+    return myOrders?.map(
+      (order) => order.status !== "cancelled" && <MyOrderList key={order._id} {...order} />
+    );
+  };
   return (
-    <>
-      {isMyOrderOpen && currentUserId && (
-        <ProfileItemContainer>
-          <MyOrderContainer myOrders={myOrders} />
-        </ProfileItemContainer>
-      )}
-    </>
+    <ListItemsContainer
+      title={title}
+      onClickHandler={handleReturnToDesign}
+      myListsArrayFc={myOrdersList}
+      listArray={myOrders}
+    />
   );
 };
-export default MyOrder;
+export default MyOrderContainer;

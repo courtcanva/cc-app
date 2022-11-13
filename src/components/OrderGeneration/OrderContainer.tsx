@@ -14,7 +14,6 @@ import CancelOrBackButton from "./CancelOrBackButton";
 const OrderContainer = () => {
   const dispatch = useDispatch();
   const orderItems = useStoreSelector((state) => state.order);
-  console.log(orderItems);
   const userId = useStoreSelector((state) => state.user.userId);
   const [isChecked, setIschecked] = useState(false);
   const [createOrder] = useCreateOrderMutation();
