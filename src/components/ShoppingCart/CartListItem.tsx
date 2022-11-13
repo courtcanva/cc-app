@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Td, Tr, Text, Checkbox, Center } from "@chakra-ui/react";
+import { Box, Button, Flex, Td, Tr, Text, Checkbox } from "@chakra-ui/react";
 import React, { Dispatch, SetStateAction } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { ICartItem } from "@/interfaces/cartItem";
@@ -40,65 +40,56 @@ const CartListItem = ({
     fontSize: "1vw",
     fontWeight: "700",
     marginTop: "1.5vw",
-    color: "#344C5C",
+    color: "brand.primary",
   };
   return (
     <>
       <Tr alignItems="center" role="dataRow">
-        <Td sx={{ "vertical-align": "top" }}>
+        <Td verticalAlign="top">
           {/* Todo: space for thumbnail images that implementing in the future. */}
-          <Flex alignItems="center">
-            <Center minWidth="57px">
-              {isExpired ? (
-                <RiErrorWarningLine size={36} color="#F55252" data-testid="expired-icon" />
-              ) : (
-                <Checkbox
-                  borderColor="#DCDCDC"
-                  isChecked={checkedItems[index]}
-                  onChange={handleCheckBox}
-                />
-              )}
-            </Center>
-            <Box width="20vw" height="10vw" position="relative">
+          <Flex alignItems="center" marginLeft="1vw">
+            {isExpired ? (
+              <RiErrorWarningLine size="2.1vw" color="#F55252" data-testid="expired-icon" />
+            ) : (
+              <Checkbox
+                borderColor="#DCDCDC"
+                isChecked={checkedItems[index]}
+                onChange={handleCheckBox}
+              />
+            )}
+            <Box width="20vw" height="10vw" marginLeft="1vw" position="relative">
               {image && (
                 <Image src={image} alt="Court image" layout="fill" objectFit="contain"></Image>
               )}
             </Box>
           </Flex>
         </Td>
-        <Td sx={{ "vertical-align": "top" }} overflowX="auto">
+        <Td verticalAlign="top" overflowX="auto">
           <Text style={columnStyle}>{productName}</Text>
           {isExpired && (
-            <Text
-              color="#F55252"
-              fontSize="16px"
-              lineHeight="4vw"
-              fontWeight="700"
-              marginTop="39px"
-            >
+            <Text color="#F55252" fontSize="1vw" fontWeight="700" marginTop="3vw">
               Quotation has expired.
             </Text>
           )}
         </Td>
-        <Td sx={{ "vertical-align": "top" }}>
+        <Td verticalAlign="top">
           <Box style={columnStyle}>
             <DropDownButton detail={courtDetail} />
           </Box>
         </Td>
-        <Td sx={{ "vertical-align": "top" }}>
+        <Td verticalAlign="top">
           <Text style={columnStyle}>A${quotation}</Text>
         </Td>
-        <Td sx={{ "vertical-align": "top" }}>
+        <Td verticalAlign="top">
           <Text style={columnStyle}>A${(parseFloat(quotation) * 0.02).toFixed(2)}</Text>
         </Td>
-        <Td sx={{ "vertical-align": "top" }}>
+        <Td verticalAlign="top">
           <Button
-            marginTop="1.5vw"
+            marginTop="1vw"
             right="3vw"
-            fontSize="1.25vw"
+            fontSize="1.1vw"
             colorScheme="whiteAlpha"
             variant="unstyled"
-            size="xs"
             aria-label="cartDeleteBtn"
             onClick={() => {
               onDelete(item.id);

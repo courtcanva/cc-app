@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from "react";
+import { CSSProperties, useState } from "react";
 import {
   Table,
   Thead,
@@ -58,6 +58,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
     fontSize: "1.25vw",
     fontWeight: "700",
     lineHeight: "2vw",
+    height: "2.25vw",
     textTransform: "capitalize",
     color: "#000000",
   };
@@ -73,22 +74,22 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
       >
         Shopping Cart
       </Text>
-      {anyExpired && (
-        <Flex padding="31px 24px" width="100%" backgroundColor="#F55252" justifyContent="center">
-          <RiErrorWarningLine size={24} color="#FFFDFF" />
-          <Text
-            fontSize="18px"
-            lineHeight="22px"
-            fontWeight="700"
-            marginLeft="25px"
-            color="#F5F5F5"
-          >
-            Sorry, some product’s quotation has expired. Please edit your cart and try again. We
-            apologize for any inconvenience caused.
-          </Text>
-        </Flex>
-      )}
       <TableContainer minWidth="700px" width="90vw" overflowY="auto">
+        {anyExpired && (
+          <Flex padding="2vw" width="90vw" backgroundColor="#F55252" justifyContent="center">
+            <RiErrorWarningLine size="1.3vw" color="#FFFDFF" />
+            <Text
+              fontSize="1.25vw"
+              height="2.25vw"
+              fontWeight="700"
+              marginLeft="1vw"
+              color="#F5F5F5"
+            >
+              Sorry, some product’s quotation has expired. Please edit your cart and try again. We
+              apologize for any inconvenience caused.
+            </Text>
+          </Flex>
+        )}
         <Table
           variant="simple"
           border="1px"
@@ -99,21 +100,23 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
           <Thead>
             <Tr backgroundColor="#E2E8F0">
               <Th width="22%">
-                <Checkbox
-                  paddingLeft="21px"
-                  borderColor="#b3b2b2"
-                  isChecked={allChecked}
-                  isIndeterminate={isIndeterminate}
-                  onChange={(e) => setCheckedItems(shoppingCart.map(() => e.target.checked))}
-                >
-                  <Text
-                    style={columnStyle}
-                    sx={{ "text-transform": "capitalize" }}
-                    marginLeft="1.5vw"
+                {!anyExpired ? (
+                  <Checkbox
+                    paddingLeft="1vw"
+                    borderColor="#b3b2b2"
+                    isChecked={allChecked}
+                    isIndeterminate={isIndeterminate}
+                    onChange={(e) => setCheckedItems(shoppingCart.map(() => e.target.checked))}
                   >
+                    <Text style={columnStyle} marginLeft="1vw">
+                      All
+                    </Text>
+                  </Checkbox>
+                ) : (
+                  <Text style={columnStyle} marginLeft="1vw">
                     All
                   </Text>
-                </Checkbox>
+                )}
               </Th>
               <Th style={columnStyle} width="16%">
                 Product
