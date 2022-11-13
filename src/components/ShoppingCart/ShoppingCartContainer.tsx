@@ -58,7 +58,6 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
     fontSize: "1.25vw",
     fontWeight: "700",
     lineHeight: "2vw",
-    height: "2.25vw",
     textTransform: "capitalize",
     color: "#000000",
   };
@@ -100,23 +99,21 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
           <Thead>
             <Tr backgroundColor="#E2E8F0">
               <Th width="22%">
-                {!anyExpired ? (
-                  <Checkbox
-                    paddingLeft="1vw"
-                    borderColor="#b3b2b2"
-                    isChecked={allChecked}
-                    isIndeterminate={isIndeterminate}
-                    onChange={(e) => setCheckedItems(shoppingCart.map(() => e.target.checked))}
-                  >
-                    <Text style={columnStyle} marginLeft="1vw">
-                      All
-                    </Text>
-                  </Checkbox>
-                ) : (
+                <Checkbox
+                  paddingLeft="1vw"
+                  borderColor="#b3b2b2"
+                  isChecked={!anyExpired ? allChecked : false}
+                  isIndeterminate={isIndeterminate}
+                  onChange={
+                    !anyExpired
+                      ? (e) => setCheckedItems(shoppingCart.map(() => e.target.checked))
+                      : () => null
+                  }
+                >
                   <Text style={columnStyle} marginLeft="1vw">
                     All
                   </Text>
-                )}
+                </Checkbox>
               </Th>
               <Th style={columnStyle} width="16%">
                 Product
