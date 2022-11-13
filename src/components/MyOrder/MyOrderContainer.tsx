@@ -14,7 +14,10 @@ const MyOrderContainer = ({ myOrders }: Props) => {
   };
 
   const myOrdersList = (): JSX.Element[] | undefined => {
-    return myOrders?.map((order) => <MyOrderListItem key={order._id} {...order} />);
+    return myOrders?.map((order) => {
+      console.log(order);
+      return <MyOrderListItem key={order._id} {...order} />;
+    });
   };
   return (
     <ListItemsContainer

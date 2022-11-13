@@ -1,5 +1,6 @@
 import { IDesign } from "@/interfaces/design";
 import { PriceBar } from "@/store/reducer/priceBarSlice";
+import { PageStatus } from "@/constants/paymentResponsePage";
 
 interface IOrderItem {
   design: IDesign;
@@ -15,6 +16,10 @@ export interface IOrder {
   depositRatio: number;
 }
 
+export interface IStripeSession extends IOrder {
+  order_Id: string;
+}
+
 interface IPaymentInfoDb {
   createdAt: string;
 }
@@ -25,7 +30,7 @@ interface IOrderDb extends IOrder {
 }
 
 export interface IOrderWithPaymentInfo {
-  _id: Key | null | undefined;
+  _id: string;
   order: IOrderDb;
   paymentInfo?: IPaymentInfoDb;
 }

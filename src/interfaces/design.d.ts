@@ -6,6 +6,14 @@ export interface IDesign {
   courtSize: ICourtSize;
 }
 
+export interface IDesignDetail extends IDesign {
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  isDeleted: boolean;
+  image: string;
+}
+
 export interface ITileColor {
   location: string;
   color: string;
@@ -48,4 +56,5 @@ export interface ISaveDesign {
   designName: string;
   tileColor: ITileColor[];
   courtSize: ICourtSize;
+  image: string;
 }
