@@ -100,6 +100,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
             <Tr backgroundColor="#E2E8F0">
               <Th width="22%">
                 <Checkbox
+                  isDisabled={anyExpired}
                   paddingLeft="1vw"
                   borderColor="#b3b2b2"
                   isChecked={!anyExpired ? allChecked : false}
