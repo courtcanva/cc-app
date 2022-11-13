@@ -35,7 +35,7 @@ const EmptyCart = () => {
           padding="10px 20px"
           onClick={handleReturnToDesign}
         >
-          RETURN TO DESIGN
+          Return to Design
         </Button>
       </Flex>
     </Flex>

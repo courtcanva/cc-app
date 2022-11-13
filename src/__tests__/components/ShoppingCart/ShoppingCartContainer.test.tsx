@@ -29,10 +29,9 @@ describe("ShoppingCart component", () => {
     renderWithMockedProvider(<ShoppingCartContainer shoppingCart={mockCartData} />);
     const listItems = screen.queryAllByRole("dataRow");
     listItems.forEach((item, idx) => {
-      expect(within(item).getByText(`AU$${mockCartData[idx].quotation}`)).toBeVisible();
+      expect(within(item).getByText(`A$${mockCartData[idx].quotation}`)).toBeVisible();
       expect(within(item).getByText(mockCartData[idx].design.designName)).toBeVisible();
       expect(within(item).getByRole("button", { name: "cartDeleteBtn" })).toBeVisible();
-      expect(within(item).getByRole("button", { name: "cartEditBtn" })).toBeVisible();
     });
   });
 
@@ -78,10 +77,10 @@ describe("ShoppingCart component", () => {
     const { getByTestId } = render(<DropDownButton detail={courtDetail} />);
     const textShow = getByTestId("testShow");
     expect(textShow.textContent).toBe(
-      "Court MaterialTile: (9m*5m,Small Court)Hoops (fixed height)Fencing (2m height)Shipping costInstallation fee"
+      "Court MaterialTiles (9m*5m,Small Court)ShippingInstallation feeCourt tile pavingCourt painting"
     );
     expect(textShow).toHaveStyle(
-      ` overflow-y: hidden; height:20px; white-space:nowrap; text-overflow:ellipsis `
+      ` overflow-y: hidden; height:1.5vw; white-space:nowrap; text-overflow:ellipsis `
     );
   });
 

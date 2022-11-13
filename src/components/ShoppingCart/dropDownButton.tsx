@@ -1,32 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { GrDown, GrUp } from "react-icons/gr";
-import { Flex, Box, IconButton, ListItem, UnorderedList, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Flex, ListItem, UnorderedList, Text, IconButton } from "@chakra-ui/react";
 import { Collapse } from "@chakra-ui/react";
 import { MotionStyle } from "framer-motion";
 import { ICourtSize } from "@/interfaces/design";
+import { GrDown, GrUp } from "react-icons/gr";
 
-interface Detail {
+interface Props {
   detail: ICourtSize;
 }
 
-const DropDownButton = ({ detail }: Detail) => {
-  const {
-    name: courtName,
-    length,
-    width,
-    sideBorderWidth,
-    // fencingLength,
-    // fencingWidth,
-    // hoopsCount,
-  } = detail;
+const DropDownButton: React.FC<Props> = ({ detail }) => {
+  const { name: courtName, length, width, sideBorderWidth } = detail;
+
+  const [show, setShow] = useState(false);
+  const handleToggle = () => setShow(!show);
   {
     /* todo: add fencing and hoops in detail */
   }
   const lengthInMeter = (length + sideBorderWidth * 2) / 1000;
   const widthInMeter = (width + sideBorderWidth * 2) / 1000;
-
-  const [show, setShow] = useState(false);
-  const handleToggle = () => setShow(!show);
   const collapseStyle: MotionStyle = {
     width: "100%",
     overflowY: show ? "scroll" : "hidden",
@@ -38,43 +30,40 @@ const DropDownButton = ({ detail }: Detail) => {
     alignItems: "center",
     paddingLeft: "2px",
   };
-
   return (
-    <Flex w="100%" flexDirection="row" overflow="auto">
-      <Collapse startingHeight={20} in={show} style={collapseStyle} data-testid="testShow">
+    <Flex width="100%" flexDirection="row" overflow="auto" marginTop="1.5vw">
+      <Collapse startingHeight="1.5vw" in={show} style={collapseStyle} data-testid="testShow">
         <UnorderedList>
-          <ListItem>
+          <ListItem marginLeft="3px">
             <Text size="xs">
               Court Material
               <UnorderedList>
                 <ListItem>
-                  Tile: ({lengthInMeter}m*{widthInMeter}m,{courtName})
-                </ListItem>
-                <ListItem style={{ listStyle: "none" }}>
-                  Hoops (fixed height)
-                  {/* todo: Hoops x {hoopsCount} */}
-                </ListItem>
-                <ListItem style={{ listStyle: "none" }}>
-                  Fencing (2m height)
-                  {/* todo: {fencingLength}*{fencingWidth}m */}
+                  Tiles ({lengthInMeter}m*{widthInMeter}m,{courtName})
                 </ListItem>
               </UnorderedList>
             </Text>
           </ListItem>
-          <ListItem>
-            <Text size="xs">Shipping cost</Text>
+
+          <ListItem marginLeft="3px">
+            <Text size="xs">Shipping</Text>
           </ListItem>
-          <ListItem>
-            <Text size="xs">Installation fee</Text>
+          <ListItem marginLeft="3px">
+            <Text size="xs">
+              Installation fee
+              <UnorderedList>
+                <ListItem>Court tile paving</ListItem>
+                <ListItem>Court painting</ListItem>
+              </UnorderedList>
+            </Text>
           </ListItem>
         </UnorderedList>
       </Collapse>
       <IconButton
         icon={show ? <GrUp /> : <GrDown />}
         colorScheme="white"
-        size="sm"
+        size="1vw"
         onClick={handleToggle}
-        marginTop="auto"
         aria-label="dropDownBtn"
         _focus={{ background: "white" }}
         data-testid="collapseBtn"
