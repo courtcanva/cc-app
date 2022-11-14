@@ -105,6 +105,7 @@ const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
                 cursor="pointer"
                 width="100%"
                 height="100%"
+                data-testid="fileInput"
               ></Input>
               <Box
                 position="absolute"
