@@ -30,15 +30,15 @@ const MyOrderItem = ({ ...mergedItem }) => {
             <Text fontSize="12px" fontStyle="italic" fontWeight="300">
               Quotation
             </Text>
-            <Text>{`A$${mergedItem.quotation}`}</Text>
+            <Text>{`A$${Number(mergedItem.quotation).toLocaleString()}`}</Text>
           </Flex>
           <Flex flexDirection="column">
             <Text fontSize="14px" fontStyle="italic" fontWeight="300">
               Deposit
             </Text>
-            <Text fontSize="20px">{`A$${(
-              Number(mergedItem.quotation) * mergedItem.orderDepositRatio
-            ).toFixed(2)}`}</Text>
+            <Text fontSize="20px">{`A$${Number(
+              (Number(mergedItem.quotation) * mergedItem.orderDepositRatio).toFixed(2)
+            ).toLocaleString()}`}</Text>
           </Flex>
         </Flex>
       </Flex>

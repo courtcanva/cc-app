@@ -11,6 +11,9 @@ const MyOrderList = ({ ...order }) => {
     (preValue: number, currentValue: IOrderItem) => preValue + Number(currentValue.quotation),
     initialQuotation
   );
+  // const numberWithCommas = (x: string) => {
+  //   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  // };
 
   return (
     <Flex
@@ -146,13 +149,13 @@ const MyOrderList = ({ ...order }) => {
             >
               <Flex width="45%" justifyContent="space-between">
                 <Text fontWeight="400">Total Quotation</Text>
-                <Text>{`A$${totalQuotation.toFixed(2)}`}</Text>
+                <Text>{`A$${Number(totalQuotation.toFixed(2)).toLocaleString()}`}</Text>
               </Flex>
               <Flex width="45%" justifyContent="space-between" color="fontcolor.deepDark">
                 <Text fontSize="14px">Total Deposit</Text>
                 <Text fontSize="20px">
                   {" "}
-                  {`A$${(totalQuotation * order.depositRatio).toFixed(2)}`}
+                  {`A$${Number((totalQuotation * order.depositRatio).toFixed(2)).toLocaleString()}`}
                 </Text>
               </Flex>
             </Flex>
