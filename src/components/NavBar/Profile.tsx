@@ -5,7 +5,7 @@ import { BiChevronDown } from "react-icons/bi";
 import {
   switchMyTemplateDisplay,
   switchMyAccount,
-  switchCartDisplay,
+  switchCreateTemplate,
 } from "@/store/reducer/buttonToggleSlice";
 import { userData } from "@/store/reducer/userSlice";
 import { useStoreSelector } from "@/store/hooks";
