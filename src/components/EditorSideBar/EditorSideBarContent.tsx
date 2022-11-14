@@ -7,25 +7,20 @@ import { useGetCourtsQuery } from "@/redux/api/courtSizeApi";
 import { ICourtData } from "@/interfaces/design";
 import { IconContext } from "react-icons";
 import Templates from "./Templates";
-import { useGetTemplatesQuery } from "@/redux/api/templateApi";
-import { ITemplateDataDb } from "@/interfaces/template";
 
 interface Props {
   iconClickTitle: string;
   onHandleCloseClick: () => void;
 }
-const showContainerItem = (
-  iconClickTitle: string,
-  courtsData: ICourtData[],
-  templateData: Omit<ITemplateDataDb, "__v" | "isDeleted">[] | undefined
-) => {
+
+const showContainerItem = (iconClickTitle: string, courtsData: ICourtData[]) => {
   switch (iconClickTitle) {
     case "Blueprints":
       return <Blueprints fetchedCourtsData={courtsData} />;
     case "Folder":
       return <Folder />;
     case "Templates":
-      return <Templates templatesData={templateData} />;
+      return <Templates />;
     default:
       return iconClickTitle;
   }
@@ -41,8 +36,6 @@ const SideBarContainer = (props: Props) => {
     },
   });
 
-  const { data: rawTemplateData } = useGetTemplatesQuery("");
-
   return (
     <Box
       background="background.secondaryLight"
@@ -54,7 +47,7 @@ const SideBarContainer = (props: Props) => {
       zIndex="1510"
       color="fontcolor.primary"
     >
-      {showContainerItem(props.iconClickTitle, courtsData, rawTemplateData)}
+      {showContainerItem(props.iconClickTitle, courtsData)}
       <Box
         as="button"
         onClick={props.onHandleCloseClick}
