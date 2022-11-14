@@ -22,7 +22,8 @@ const MyOrderList = ({ ...order }) => {
       alignItems="center"
       data-testid="myOrderListItems"
       fontSize="16px"
-      fontWeight="700"
+      fontWeight="bold"
+      color="fontcolor.lightDark"
     >
       <Flex
         width="100%"
@@ -34,13 +35,13 @@ const MyOrderList = ({ ...order }) => {
         backgroundColor="background.lightblue"
       >
         <Flex justifyContent="space-between" width="90%">
-          <Flex width="30%" flexDirection="column">
+          <Flex width="40%" flexDirection="column" color="fontcolor.deepDark">
             <Text fontSize="12px" fontStyle="italic" fontWeight="300">
               Order ID
             </Text>
             <Text fontSize="14px">{order._id}</Text>
           </Flex>
-          <Flex width="60%" justifyContent="space-between">
+          <Flex width="55%" justifyContent="space-between">
             <Flex width="50%" flexDirection="column">
               <Text fontSize="12px" fontStyle="italic" fontWeight="300">
                 Created At
@@ -51,15 +52,20 @@ const MyOrderList = ({ ...order }) => {
               <Text fontSize="12px" fontStyle="italic" fontWeight="300">
                 Paid At
               </Text>
-              <Text>{order.paidAt ? format(parseISO(order.createdAt), "dd/mm/yyyy") : ""}</Text>
+              <Text>
+                {order.paidAt ? format(parseISO(order.createdAt), "dd/mm/yyyy hh:mm") : ""}
+              </Text>
             </Flex>
           </Flex>
           <Flex width="5%" justifyContent="flex-end">
             <Flex flexDirection="column">
-              <Text fontSize="12px" fontStyle="italic" fontWeight="300">
+              <Text fontSize="14px" fontStyle="italic" fontWeight="300">
                 Status
               </Text>
-              <Text color={order.status === "completed" ? "fontcolor.green" : "fontcolor.red"}>
+              <Text
+                color={order.status === "completed" ? "fontcolor.green" : "fontcolor.red"}
+                fontSize="20px"
+              >
                 {order.status === "completed" ? "Paid" : "Unpaid"}
               </Text>
             </Flex>
@@ -133,11 +139,11 @@ const MyOrderList = ({ ...order }) => {
               justifyContent="center"
               alignItems="flex-end"
             >
-              <Flex width="35%" justifyContent="space-between">
+              <Flex width="45%" justifyContent="space-between">
                 <Text fontWeight="400">Total Quotation</Text>
                 <Text>{`A$${totalQuotation.toFixed(2)}`}</Text>
               </Flex>
-              <Flex width="35%" justifyContent="space-between">
+              <Flex width="45%" justifyContent="space-between" color="fontcolor.deepDark">
                 <Text fontSize="14px">Total Deposit</Text>
                 <Text fontSize="20px">
                   {" "}

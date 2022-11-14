@@ -45,6 +45,8 @@ const colors = {
     black: "#000000",
     green: "#40B383",
     red: "#EB4335",
+    deepDark: "#000000",
+    lightDark: "#344C5C",
   },
   CourtSizecolor: {
     btc: "#40B484",
