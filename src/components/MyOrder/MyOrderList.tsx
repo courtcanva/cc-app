@@ -76,7 +76,7 @@ const MyOrderList = ({ ...order }) => {
         <Flex width="30%" borderRight="1px" borderColor="brand.lightGray" justifyContent="center">
           <Flex width="64%" flexDirection="column" gap="20px" marginTop="25px">
             <Text fontSize="20px" textAlign="center">
-              Shopping Information
+              Shipping Information
             </Text>
             <Flex flexDirection="column">
               <Text fontSize="12px" fontStyle="italic" fontWeight="300">
