@@ -1,9 +1,7 @@
 import mockOrdersData from "@/components/MockData/MockOrdersData";
 import MyOrderContainer from "@/components/MyOrder";
 import renderWithMockedProvider from "../../utils";
-import { screen, within } from "@testing-library/react";
-import { format, parseISO } from "date-fns";
-import userEvent from "@testing-library/user-event";
+import { screen } from "@testing-library/react";
 
 describe("My Order Component", () => {
   const OLD_ENV = process.env;
@@ -30,7 +28,7 @@ describe("My Order Component", () => {
     const createdAtElement = screen.getByText(/Created At/i);
     const paidAtElement = screen.getByText(/Paid At/i);
     const statusElement = screen.getByText(/Status/i);
-    const shoppingInformationElement = screen.getByText(/Shopping Information/i);
+    const shoppingInformationElement = screen.getByText(/Shipping Information/i);
     const consigneeNameElement = screen.getByText(/Consignee Name/i);
     const consigneePhoneNoaElement = screen.getByText(/Consignee Phone No/i);
     const consigneeEmailElement = screen.getByText(/Consignee Email/i);
