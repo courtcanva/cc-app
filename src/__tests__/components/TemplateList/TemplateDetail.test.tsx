@@ -2,7 +2,7 @@ import { screen } from "@testing-library/dom";
 import { render } from "@testing-library/react";
 import TemplateDetail from "@/components/TemplateList/TemplateDetail";
 import { mockTemplateDataRaw } from "@/components/MockData/MockTemplateData";
-import moment from "moment";
+import { format, parseISO } from "date-fns";
 
 describe("Render template detail modal", () => {
   const mockTemplateItem = mockTemplateDataRaw[0];
@@ -10,7 +10,7 @@ describe("Render template detail modal", () => {
     userId: mockTemplateItem.user_id,
     description: mockTemplateItem.description,
     courtImgUrl: mockTemplateItem.image,
-    createDate: moment(mockTemplateItem.createdAt).format("DD/MM/YYYY"),
+    createDate: format(parseISO(mockTemplateItem.createdAt), "dd/mm/yyyy"),
     tags: mockTemplateItem.tags,
     designDetail: mockTemplateItem.design,
   };

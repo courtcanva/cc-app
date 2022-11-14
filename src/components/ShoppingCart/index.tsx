@@ -32,10 +32,9 @@ const ShoppingCart = () => {
           position="fixed"
           backgroundColor="#fff"
           top="72px"
-          left="98px"
           padding="20px 20px 80px 20px"
           color="rgb(58, 75, 92)"
-          width="calc(100vw - 98px)"
+          width="100vw"
           height="100vh"
           zIndex={1600}
         >

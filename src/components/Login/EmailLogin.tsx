@@ -25,7 +25,7 @@ interface Props {
   prevStep: () => void;
   setUserExisted: React.Dispatch<React.SetStateAction<boolean>>;
   setNeedPwd: React.Dispatch<React.SetStateAction<boolean>>;
-  inputEmail: (input: string) => void;
+  setUserEmail: React.Dispatch<React.SetStateAction<string>>;
   currentStep: string;
   setUserId: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -45,7 +45,7 @@ const EmailLogin: React.FC<Props> = ({
   nextStep,
   prevStep,
   setUserExisted,
-  inputEmail,
+  setUserEmail,
   onClose,
   setStep,
   currentStep,
@@ -74,10 +74,10 @@ const EmailLogin: React.FC<Props> = ({
     const axiosResponse: AxiosResponse = await checkEmail(input);
     if (axiosResponse.status !== 201) {
       toast({
-        title: "network error",
+        title: "Network Error",
         status: "error",
         isClosable: true,
-        position: "top",
+        position: "bottom",
       });
       return;
     }
@@ -89,7 +89,7 @@ const EmailLogin: React.FC<Props> = ({
           title: "Failed to send verification email",
           status: "error",
           isClosable: true,
-          position: "top",
+          position: "bottom",
         });
         return;
       }
@@ -97,6 +97,7 @@ const EmailLogin: React.FC<Props> = ({
       setUserId(res.userId);
       setStep(4);
     } else {
+      res.userId ? setUserId(res.userId) : null;
       nextStep();
     }
   };
@@ -106,7 +107,7 @@ const EmailLogin: React.FC<Props> = ({
     const validation = validate(input);
     setIsValidEmail(validation);
     if (validation) {
-      inputEmail(input);
+      setUserEmail(input);
       handleEmailCheck();
     }
   };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 import {
   Table,
   Thead,
@@ -22,7 +22,7 @@ import { RiErrorWarningLine } from "react-icons/ri";
 import { deleteImage } from "@/utils/manageExternalImage";
 import { addOrderItems } from "@/store/reducer/orderSlice";
 import { useDispatch } from "react-redux";
-import { switchOrderGeneration } from "@/store/reducer/buttonToggleSlice";
+import { switchCartDisplay, switchOrderGeneration } from "@/store/reducer/buttonToggleSlice";
 
 interface userCartList {
   shoppingCart: ICartItem[];
@@ -54,35 +54,41 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
     dispatch(switchOrderGeneration(true));
   };
 
+  const columnStyle: CSSProperties = {
+    fontSize: "1.25vw",
+    fontWeight: "700",
+    lineHeight: "2vw",
+    textTransform: "capitalize",
+    color: "#000000",
+  };
+
   return (
-    <Flex flexDirection="column" alignItems="center">
+    <Flex flexDirection="column" alignItems="center" width="100vw">
       <Text
-        fontSize="32px"
-        lineHeight="39px"
+        fontSize="2.3vw"
         fontWeight="700"
         color="brand.primary"
-        marginTop="23px"
-        marginBottom="20px"
+        marginTop="2vh"
+        marginBottom="5vh"
       >
         Shopping Cart
       </Text>
-      {anyExpired && (
-        <Flex padding="31px 24px" width="100%" backgroundColor="#F55252" justifyContent="center">
-          <RiErrorWarningLine size={24} color="#FFFDFF" />
-          <Text
-            fontSize="18px"
-            lineHeight="22px"
-            fontWeight="700"
-            marginLeft="25px"
-            color="#F5F5F5"
-          >
-            Sorry, some product’s quotation has expired. Please edit your cart and try again. We
-            apologize for any inconvenience caused.
-          </Text>
-        </Flex>
-      )}
-
-      <TableContainer minWidth="1080px" width="100%" overflowY="auto">
+      <TableContainer minWidth="700px" width="90vw" overflowY="auto">
+        {anyExpired && (
+          <Flex padding="2vw" width="90vw" backgroundColor="#F55252" justifyContent="center">
+            <RiErrorWarningLine size="1.3vw" color="#FFFDFF" />
+            <Text
+              fontSize="1.25vw"
+              height="2.25vw"
+              fontWeight="700"
+              marginLeft="1vw"
+              color="#F5F5F5"
+            >
+              Sorry, some product’s quotation has expired. Please edit your cart and try again. We
+              apologize for any inconvenience caused.
+            </Text>
+          </Flex>
+        )}
         <Table
           variant="simple"
           border="1px"
@@ -91,42 +97,38 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
           sx={{ "table-layout": "fixed" }}
         >
           <Thead>
-            <Tr>
-              <Th>
+            <Tr backgroundColor="#E2E8F0">
+              <Th width="22%">
                 <Checkbox
-                  paddingLeft="10px"
+                  isDisabled={anyExpired}
+                  paddingLeft="1vw"
                   borderColor="#b3b2b2"
-                  isChecked={allChecked}
+                  isChecked={!anyExpired ? allChecked : false}
                   isIndeterminate={isIndeterminate}
-                  onChange={(e) => setCheckedItems(shoppingCart.map(() => e.target.checked))}
+                  onChange={
+                    !anyExpired
+                      ? (e) => setCheckedItems(shoppingCart.map(() => e.target.checked))
+                      : () => null
+                  }
                 >
-                  All
+                  <Text style={columnStyle} marginLeft="1vw">
+                    All
+                  </Text>
                 </Checkbox>
               </Th>
-              <Th
-                fontSize="16px"
-                fontWeight="800"
-                padding="25px"
-                sx={{ "text-transform": "capitalize" }}
-              >
+              <Th style={columnStyle} width="16%">
                 Product
               </Th>
-              <Th
-                fontSize="16px"
-                fontWeight="800"
-                padding="25px"
-                sx={{ "text-transform": "capitalize" }}
-              >
-                Quotation
-              </Th>
-              <Th
-                fontSize="16px"
-                fontWeight="800"
-                padding="25px 40px"
-                sx={{ "text-transform": "capitalize" }}
-              >
+              <Th style={columnStyle} width="24%">
                 Quotation Details
               </Th>
+              <Th style={columnStyle} width="17%">
+                Quotation
+              </Th>
+              <Th style={columnStyle} width="18%">
+                Deposit
+              </Th>
+              <Th width="4%"></Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -146,23 +148,34 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
           </Tbody>
         </Table>
       </TableContainer>
-      <Tooltip label="Please select items" isDisabled={checkedItems.some(Boolean)}>
-        <Box>
-          <Button
-            variant="shareBtn"
-            marginBottom="20px"
-            marginTop="20px"
-            width="160px"
-            padding="10px"
-            data-testid="checkout-btn"
-            onClick={handleCreateOrder}
-            isDisabled={!checkedItems.some(Boolean)}
-          >
-            Create Order
-          </Button>
-        </Box>
-      </Tooltip>
-
+      <Flex gap="100px" marginTop="44px" marginBottom="32px" justifyContent="center">
+        <Button
+          padding="10px 24px"
+          fontSize="lg"
+          fontWeight="700"
+          borderWidth="1px"
+          borderColor="brand.primary"
+          backgroundColor="#F3F2F7"
+          data-testid="back-btn"
+          onClick={() => dispatch(switchCartDisplay())}
+        >
+          Back
+        </Button>
+        <Tooltip label="Please select items" isDisabled={checkedItems.some(Boolean)}>
+          <Box>
+            <Button
+              variant="shareBtn"
+              padding="10px 24px"
+              fontWeight="700"
+              data-testid="checkout-btn"
+              onClick={handleCreateOrder}
+              isDisabled={!checkedItems.some(Boolean)}
+            >
+              Place Order
+            </Button>
+          </Box>
+        </Tooltip>
+      </Flex>
       <ConfirmModal
         isOpen={isOpen}
         onClose={onClose}

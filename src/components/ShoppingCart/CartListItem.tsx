@@ -1,7 +1,6 @@
-import { Box, Button, ButtonGroup, Flex, Td, Tr, Text, Checkbox, Center } from "@chakra-ui/react";
-import { Dispatch, SetStateAction } from "react";
-import { FaPen } from "react-icons/fa";
-import { MdDeleteForever } from "react-icons/md";
+import { Box, Button, Flex, Td, Tr, Text, Checkbox } from "@chakra-ui/react";
+import React, { Dispatch, SetStateAction } from "react";
+import { FaTrashAlt } from "react-icons/fa";
 import { ICartItem } from "@/interfaces/cartItem";
 import DropDownButton from "@/components/ShoppingCart/dropDownButton";
 import { RiErrorWarningLine } from "react-icons/ri";
@@ -37,74 +36,67 @@ const CartListItem = ({
     );
   };
 
+  const columnStyle = {
+    fontSize: "1vw",
+    fontWeight: "700",
+    marginTop: "1.5vw",
+    color: "brand.primary",
+  };
   return (
     <>
       <Tr alignItems="center" role="dataRow">
-        <Td padding="25px" sx={{ "vertical-align": "top" }} height="180px">
+        <Td verticalAlign="top">
           {/* Todo: space for thumbnail images that implementing in the future. */}
-          <Flex alignItems="center">
-            <Center minWidth="57px">
-              {isExpired ? (
-                <RiErrorWarningLine size={36} color="#F55252" data-testid="expired-icon" />
-              ) : (
-                <Checkbox
-                  borderColor="#DCDCDC"
-                  isChecked={checkedItems[index]}
-                  onChange={handleCheckBox}
-                />
-              )}
-            </Center>
-            <Box width="340px" height="140px" position="relative">
+          <Flex alignItems="center" marginLeft="1vw">
+            {isExpired ? (
+              <RiErrorWarningLine size="2.1vw" color="#F55252" data-testid="expired-icon" />
+            ) : (
+              <Checkbox
+                borderColor="#DCDCDC"
+                isChecked={checkedItems[index]}
+                onChange={handleCheckBox}
+              />
+            )}
+            <Box width="20vw" height="10vw" marginLeft="1vw" position="relative">
               {image && (
                 <Image src={image} alt="Court image" layout="fill" objectFit="contain"></Image>
               )}
             </Box>
           </Flex>
         </Td>
-        <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }} overflowX="auto">
-          {productName}
+        <Td verticalAlign="top" overflowX="auto">
+          <Text style={columnStyle}>{productName}</Text>
           {isExpired && (
-            <Text
-              color="#F55252"
-              fontSize="16px"
-              lineHeight="19px"
-              fontWeight="700"
-              marginTop="39px"
-            >
+            <Text color="#F55252" fontSize="1vw" fontWeight="700" marginTop="3vw">
               Quotation has expired.
             </Text>
           )}
         </Td>
-        <Td padding="25px" fontSize="13px" sx={{ "vertical-align": "top" }}>
-          AU${quotation}
-        </Td>
-        <Td padding="25px 40px" fontSize="13px" sx={{ "vertical-align": "top" }}>
-          <Box width="100%" height="120px" flexDirection="column">
+        <Td verticalAlign="top">
+          <Box style={columnStyle}>
             <DropDownButton detail={courtDetail} />
-            <ButtonGroup display="flex" justifyContent="flex-end" variant="outline" spacing="4">
-              <Button
-                fontSize="16px"
-                colorScheme="whiteAlpha"
-                variant="unstyled"
-                size="xs"
-                aria-label="cartEditBtn"
-              >
-                <FaPen />
-              </Button>
-              <Button
-                fontSize="18px"
-                colorScheme="whiteAlpha"
-                variant="unstyled"
-                size="xs"
-                aria-label="cartDeleteBtn"
-                onClick={() => {
-                  onDelete(item.id);
-                }}
-              >
-                <MdDeleteForever />
-              </Button>
-            </ButtonGroup>
           </Box>
+        </Td>
+        <Td verticalAlign="top">
+          <Text style={columnStyle}>A${quotation}</Text>
+        </Td>
+        <Td verticalAlign="top">
+          <Text style={columnStyle}>A${(parseFloat(quotation) * 0.02).toFixed(2)}</Text>
+        </Td>
+        <Td verticalAlign="top">
+          <Button
+            marginTop="1vw"
+            right="3vw"
+            fontSize="1.1vw"
+            colorScheme="whiteAlpha"
+            variant="unstyled"
+            aria-label="cartDeleteBtn"
+            onClick={() => {
+              onDelete(item.id);
+            }}
+          >
+            <FaTrashAlt />
+          </Button>
         </Td>
       </Tr>
     </>

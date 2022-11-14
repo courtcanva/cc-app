@@ -36,12 +36,10 @@ const FolderDeleteModal = () => {
       return;
     }
     if (selectedCourt.courtId === "") return;
-
     await deleteDesign(selectedCourt.courtId);
     dispatch(setDefaultCourt(defaultCourt));
     const design = await fetchDesignData(useUserId);
     if (design.data === undefined) return;
-
     const { mappedDesignsData, mappedTileData, mappedNameList } = designMapping(design.data);
     dispatch(getDesignsData(mappedDesignsData));
     dispatch(getDesignsTileData(mappedTileData));
