@@ -51,7 +51,14 @@ const CancelOrCheckoutOrder = ({ orderId, userId, depositRatio, unPaidItems }: P
 
   return (
     <>
-      <Flex width="100%" height="95px" justifyContent="center" alignItems="center">
+      <Flex
+        width="100%"
+        height="95px"
+        justifyContent="center"
+        alignItems="center"
+        borderTop="1px"
+        borderColor="brand.lightGray"
+      >
         <Flex gap="20px">
           <CancelOrBackButton buttonTitle={buttonTitle} handleBackToCart={handleCancelOrder} />
           <ProcessToCheckOutButton

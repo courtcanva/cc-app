@@ -35,20 +35,25 @@ const MyOrderList = ({ ...order }) => {
         backgroundColor="background.lightblue"
       >
         <Flex justifyContent="space-between" width="90%">
-          <Flex width="40%" flexDirection="column" color="fontcolor.deepDark">
-            <Text fontSize="12px" fontStyle="italic" fontWeight="300">
+          <Flex
+            width="40%"
+            flexDirection="column"
+            color="fontcolor.deepDark"
+            justifyContent="center"
+          >
+            <Text fontSize="14px" fontStyle="italic" fontWeight="300">
               Order ID
             </Text>
             <Text fontSize="14px">{order._id}</Text>
           </Flex>
-          <Flex width="55%" justifyContent="space-between">
-            <Flex width="50%" flexDirection="column">
+          <Flex width="55%">
+            <Flex width="50%" flexDirection="column" justifyContent="center">
               <Text fontSize="12px" fontStyle="italic" fontWeight="300">
                 Created At
               </Text>
               <Text>{format(parseISO(order.createdAt), "dd/MM/yyyy HH:mm")}</Text>
             </Flex>
-            <Flex width="50%" flexDirection="column">
+            <Flex width="50%" flexDirection="column" justifyContent="center">
               <Text fontSize="12px" fontStyle="italic" fontWeight="300">
                 Paid At
               </Text>
@@ -58,7 +63,7 @@ const MyOrderList = ({ ...order }) => {
             </Flex>
           </Flex>
           <Flex width="5%" justifyContent="flex-end">
-            <Flex flexDirection="column">
+            <Flex flexDirection="column" justifyContent="center">
               <Text fontSize="14px" fontStyle="italic" fontWeight="300">
                 Status
               </Text>
