@@ -51,9 +51,7 @@ const MyOrderList = ({ ...order }) => {
               <Text fontSize="12px" fontStyle="italic" fontWeight="300">
                 Paid At
               </Text>
-              <Text>
-                {order.paidAt ? format(parseISO(order.createdAt), "dd/mm/yyyy hh:mm") : ""}
-              </Text>
+              <Text>{order.paidAt ? format(parseISO(order.createdAt), "dd/mm/yyyy") : ""}</Text>
             </Flex>
           </Flex>
           <Flex width="5%" justifyContent="flex-end">
@@ -68,7 +66,7 @@ const MyOrderList = ({ ...order }) => {
           </Flex>
         </Flex>
       </Flex>
-      <Flex width="100%" height="100%" borderBottom="1px" borderColor="brand.lightGray">
+      <Flex width="100%" height="100%">
         <Flex width="30%" borderRight="1px" borderColor="brand.lightGray" justifyContent="center">
           <Flex width="64%" flexDirection="column" gap="20px" marginTop="25px">
             <Text fontSize="20px" textAlign="center">
