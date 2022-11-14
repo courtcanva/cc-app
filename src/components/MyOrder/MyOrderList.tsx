@@ -46,14 +46,14 @@ const MyOrderList = ({ ...order }) => {
               <Text fontSize="12px" fontStyle="italic" fontWeight="300">
                 Created At
               </Text>
-              <Text>{format(parseISO(order.createdAt), "dd/mm/yyyy hh:mm")}</Text>
+              <Text>{format(parseISO(order.createdAt), "dd/MM/yyyy HH:mm")}</Text>
             </Flex>
             <Flex width="50%" flexDirection="column">
               <Text fontSize="12px" fontStyle="italic" fontWeight="300">
                 Paid At
               </Text>
               <Text>
-                {order.paidAt ? format(parseISO(order.createdAt), "dd/mm/yyyy hh:mm") : ""}
+                {order.paidAt ? format(parseISO(order.createdAt), "dd/MM/yyyy HH:mm") : ""}
               </Text>
             </Flex>
           </Flex>
