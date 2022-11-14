@@ -120,7 +120,7 @@ function MyTemplateListItem({ ...item }) {
           <Text fontSize="xs" fontWeight="300" fontStyle="italic">
             Created at
           </Text>
-          <Text fontSize="1rem">{format(parseISO(item.createdAt), "dd/mm/yyyy")}</Text>
+          <Text fontSize="1rem">{format(parseISO(item.createdAt), "dd/MM/yyyy")}</Text>
         </Box>
         <Text
           fontSize={{ base: "6px", md: "xs" }}

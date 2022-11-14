@@ -19,7 +19,7 @@ describe("MyTemplate component", () => {
     listItems.forEach((item, index) => {
       expect(within(item).getByText(mockTemplateData[index].courtName)).toBeVisible();
       expect(
-        within(item).getByText(format(parseISO(mockTemplateData[index].createdAt), "dd/mm/yyyy"))
+        within(item).getByText(format(parseISO(mockTemplateData[index].createdAt), "dd/MM/yyyy"))
       ).toBeVisible();
       expect(within(item).getByText(mockTemplateData[index].description)).toBeVisible();
       expect(within(item).getByText(mockTemplateData[index].status)).toBeVisible();

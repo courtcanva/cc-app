@@ -21,6 +21,21 @@ export const templateApi = createApi({
           : ["template"],
     }),
 
+    getTemplateLists: builder.query<
+      Omit<ITemplateDataDb, "__v" | "isDeleted">[],
+      { offset: number | void; limit: number | void; filterTag: string | void }
+    >({
+      query: ({ offset = 0, limit = 10, filterTag = "" }) =>
+        `/templates?offset=${offset}&limit=${limit}&filterTag=${filterTag}`,
+      transformResponse: (result: ITemplateDataDb[], _meta, _arg) => {
+        return result.map((item) => _.omit(item, ["__v", "isDeleted"]));
+      },
+      providesTags: (result, _err, _arg) =>
+        result
+          ? [...result.map(({ _id }) => ({ type: "template" as const, id: _id })), "template"]
+          : ["template"],
+    }),
+
     getTemplateById: builder.query<Omit<ITemplateDataDb, "__v" | "isDeleted">, string>({
       query: (templateId) => `templates/${templateId}`,
       transformResponse: (result: ITemplateDataDb, _meta, _arg) => {
@@ -60,6 +75,8 @@ export const templateApi = createApi({
 
 export const {
   useGetTemplatesQuery,
+  useGetTemplateListsQuery,
+  useLazyGetTemplateListsQuery,
   useGetTemplateByIdQuery,
   useAddTemplateMutation,
   useDeleteTemplateMutation,

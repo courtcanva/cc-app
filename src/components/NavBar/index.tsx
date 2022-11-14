@@ -44,8 +44,7 @@ const NavigationBar = () => {
 
   // Get user info from local storage
   const getInfo = () => {
-    const userInfo = getLocalStorageItem("UserInfo");
-    return userInfo;
+    return getLocalStorageItem("UserInfo");
   };
 
   const [loginData, setLoginData] = useState(getInfo());
@@ -184,7 +183,7 @@ const NavigationBar = () => {
           </Flex>
         )}
       </Flex>
-      {!isCartOpen || !isMyTemplateOpen || !isSwitch3D ? <EditorDesignName /> : <Box></Box>}
+      {!isCartOpen && !isMyTemplateOpen && !isSwitch3D ? <EditorDesignName /> : <Box></Box>}
       <Flex alignItems="center" justifyContent="flex-end">
         {!loginState ? (
           <Button onClick={handleLoginModalOpen}>Sign up / Login</Button>
