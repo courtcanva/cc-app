@@ -82,3 +82,51 @@ export const toBase64 = (file: File) =>
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
+
+export const inputImageCheck = (
+  img: File,
+  minSizeInKB: number,
+  maxSizeInKB: number,
+  toast: any
+) => {
+  const allowedTypes = [".jpg", ".png", ".jpeg"];
+  const imgPath = img.name;
+  const imgFormat = imgPath.substring(imgPath.indexOf("."));
+  const imgSize = img.size / 1024;
+
+  if (allowedTypes.indexOf(imgFormat) < 0) {
+    toast({
+      title: "Incorrect image format",
+      description: "Image format is not acceptable.",
+      status: "error",
+      duration: 9000,
+      isClosable: true,
+      position: "bottom-left",
+    });
+    return false;
+  }
+  if (imgSize > maxSizeInKB) {
+    toast({
+      title: "Size too large",
+      description: `Image size must less than ${maxSizeInKB} KB!`,
+      status: "error",
+      duration: 9000,
+      isClosable: true,
+      position: "bottom-left",
+    });
+    return false;
+  }
+
+  if (imgSize < minSizeInKB) {
+    toast({
+      title: "Resolution hint",
+      description: `Image size less than ${minSizeInKB} KB, it may cause resolution issues.`,
+      status: "info",
+      duration: 9000,
+      isClosable: true,
+      position: "bottom-left",
+    });
+  }
+
+  return true;
+};

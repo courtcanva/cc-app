@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import Cropper from "react-easy-crop";
 import { Point, Area } from "react-easy-crop/types";
-import { toBase64, upLoadScreenshot } from "@/utils/manageExternalImage";
+import { toBase64, upLoadScreenshot, inputImageCheck } from "@/utils/manageExternalImage";
 import { getCroppedImg } from "@/utils/canvasUtils";
 
 interface Props {
@@ -30,7 +30,6 @@ interface Props {
 
 const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
   const toast = useToast();
-  const uploadImageRef = useRef<HTMLInputElement | null>(null);
   const [picture, setPicture] = useState<string | null>(null);
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -46,8 +45,9 @@ const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
   };
 
   const handleInputImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (uploadImageRef.current?.files?.length === 0) return;
-    const imgUrl = e.target.files ? ((await toBase64(e.target.files[0])) as string) : null;
+    if (e.target.files?.length === 0 || !e.target.files) return;
+    if (!inputImageCheck(e.target.files[0], 0, 300, toast)) return;
+    const imgUrl = (await toBase64(e.target.files[0])) as string;
     setPicture(imgUrl);
   };
 
@@ -61,6 +61,7 @@ const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
     e.stopPropagation();
     e.preventDefault();
     const file = e.dataTransfer.files[0];
+    if (!inputImageCheck(file, 0, 300, toast)) return;
     const imgUrl = (await toBase64(file)) as string;
     setPicture(imgUrl);
   };
@@ -95,7 +96,6 @@ const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
               margin="auto"
             >
               <Input
-                ref={uploadImageRef}
                 type="file"
                 id="file"
                 accept="image/*"
