@@ -44,9 +44,3 @@ export const mockDesignData: any = [
       "https://courtcanva-image-node.s3.ap-southeast-2.amazonaws.com/preview-image/Bd3poCt9hQFcPRjkPJcXl.png",
   },
 ];
-
-// export const mockDesignData: IDesignDetail[] = mockDesignDataRaw.map((item: IDesignDetail[]) => {
-//   return {
-//     ...item,
-//   };
-// });
