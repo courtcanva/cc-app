@@ -1,5 +1,4 @@
 import React, { useRef, useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
 import {
   Modal,
   ModalOverlay,
@@ -17,11 +16,12 @@ import {
   SliderTrack,
   SliderFilledTrack,
   SliderThumb,
+  useToast,
 } from "@chakra-ui/react";
 import Cropper from "react-easy-crop";
 import { Point, Area } from "react-easy-crop/types";
-import { toBase64 } from "@/utils/manageExternalImage";
-import { Label } from "react-konva";
+import { toBase64, upLoadScreenshot } from "@/utils/manageExternalImage";
+import { getCroppedImg } from "@/utils/canvasUtils";
 
 interface Props {
   isOpen: boolean;
@@ -29,14 +29,16 @@ interface Props {
 }
 
 const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
-  const dispatch = useDispatch();
+  const toast = useToast();
   const uploadImageRef = useRef<HTMLInputElement | null>(null);
   const [picture, setPicture] = useState<string | null>(null);
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+
   const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
-    console.log(croppedArea, croppedAreaPixels);
+    setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
   const closeWindow = () => {
@@ -49,14 +51,31 @@ const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
     setPicture(imgUrl);
   };
 
+  const handleDragOver = (e: React.DragEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "copy";
+  };
+
+  const handleDragImage = async (e: React.DragEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    const imgUrl = (await toBase64(file)) as string;
+    setPicture(imgUrl);
+  };
+
   const handleReset = () => {
     setZoom(1);
     setRotation(0);
   };
 
-  const handleApply = () => {
-    console.log("undo");
-  };
+  const handleApply = useCallback(async () => {
+    if (!picture || !croppedAreaPixels) return;
+    const croppedImage = (await getCroppedImg(picture, croppedAreaPixels, rotation)) as string;
+    const uploadedImageUrl = await upLoadScreenshot(croppedImage, toast);
+    console.log(uploadedImageUrl, "final image");
+  }, [picture, croppedAreaPixels, rotation]);
 
   return (
     <>
@@ -67,12 +86,9 @@ const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
             Change Your Avatar
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody padding="0.5rem 2rem">
+          <ModalBody padding="0.5rem 2rem" marginTop="5px">
             <Center
-              backgroundColor="#e3eaf6"
-              border="dotted"
-              borderColor="#799ad4"
-              borderWidth="2px"
+              backgroundColor="#3761ad"
               borderRadius="5px"
               maxWidth="156px"
               height="34px"
@@ -90,7 +106,13 @@ const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
                 width="100%"
                 height="100%"
               ></Input>
-              <Box position="absolute" zIndex="1" color="#3761ad" fontWeight="500">
+              <Box
+                position="absolute"
+                zIndex="1"
+                color="white"
+                fontWeight="500"
+                pointerEvents="none"
+              >
                 Choose an image
               </Box>
             </Center>
@@ -109,7 +131,25 @@ const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
                   onRotationChange={setRotation}
                 />
               )}
-              {!picture && <Text>Please upload image</Text>}
+              {!picture && (
+                <Flex
+                  onDragOver={handleDragOver}
+                  onDrop={handleDragImage}
+                  width="100%"
+                  height="100%"
+                  backgroundColor="#e3eaf6"
+                  border="dotted"
+                  borderColor="#799ad4"
+                  borderWidth="2px"
+                  borderRadius="3px"
+                >
+                  <Center margin="auto">
+                    <Text fontSize="20px" fontWeight="600" color="#3761ad">
+                      or Drag image to this area
+                    </Text>
+                  </Center>
+                </Flex>
+              )}
             </Center>
             <Flex
               justifyContent="space-between"

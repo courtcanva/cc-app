@@ -4,7 +4,7 @@ const generateImageFromDataUrl = async (courtDataUrl: string) => {
   return new File([blob], "default", { type: "image/jpeg" });
 };
 
-export const upLoadScreenshot = async (courtDataUrl: string, toast: any) => {
+export const upLoadScreenshot = async (dataUrl: string, toast: any) => {
   const { default: AWS } = await import(/* webpackChunkName: "aws-sdk" */ "aws-sdk");
   const { nanoid } = await import("nanoid");
 
@@ -13,7 +13,14 @@ export const upLoadScreenshot = async (courtDataUrl: string, toast: any) => {
   const IdentityPoolId = process.env.NEXT_PUBLIC_IDENTITY_POOL_ID as string;
   const albumName = process.env.NEXT_PUBLIC_ALBUM_NAME as string;
   const albumPhotosKey = encodeURIComponent(albumName) + "/";
-  const imgFile = await generateImageFromDataUrl(courtDataUrl);
+  const imgFile = await generateImageFromDataUrl(dataUrl);
+
+  /*
+  const regex1 = /data:image\//;
+  const regex2 = /;base64.+/;
+  const suffix = dataUrl.replace(regex1, "").replace(regex2, "");
+  */
+  const suffix = "jpeg";
 
   AWS.config.update({
     region: bucketRegion,
@@ -21,13 +28,13 @@ export const upLoadScreenshot = async (courtDataUrl: string, toast: any) => {
       IdentityPoolId: IdentityPoolId,
     }),
   });
-  const photoKey = albumPhotosKey + nanoid() + ".jpeg";
+  const photoKey = albumPhotosKey + nanoid() + `.${suffix}`;
   const upload = new AWS.S3.ManagedUpload({
     params: {
       Bucket: albumBucketName,
       Key: photoKey,
       Body: imgFile,
-      ContentType: "image/jpeg",
+      ContentType: `image/${suffix}`,
     },
   });
 
