@@ -1,13 +1,13 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
 import { setActiveDesign } from "@/store/reducer/courtSpecDataSlice";
 import { mockTileData } from "../MockData/MockTileData";
 import { useStoreSelector } from "@/store/hooks";
 import { changeWholeCourtColor } from "@/store/reducer/tileSlice";
 import { ActionCreators } from "redux-undo";
-import FolderListItem from "../FolderList/FolderListItems";
+import FolderListItem from "../FolderList/FolderListItem";
 
 const Folder = () => {
   const dispatch = useDispatch();
