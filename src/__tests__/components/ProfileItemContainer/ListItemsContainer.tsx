@@ -10,7 +10,13 @@ describe("ProfileItemContainer", () => {
     myListsArrayFc: jest.fn(),
     onClickHandler: jest.fn(),
   };
-  it("should render the title correctly and", () => {
+  const props1 = {
+    title: "My Template",
+    listArray: [],
+    myListsArrayFc: jest.fn(),
+    onClickHandler: jest.fn(),
+  };
+  it("should render the title 'My Template' correctly and", () => {
     renderWithMockedProvider(
       <ListItemsContainer
         title={props.title}
@@ -35,5 +41,17 @@ describe("ProfileItemContainer", () => {
     const returnBtn = screen.getByRole("button", { name: "Return To Design" });
     userEvent.click(returnBtn);
     expect(props.onClickHandler).toBeCalled();
+  });
+  it("should render the title 'My Orders' correctly and", () => {
+    renderWithMockedProvider(
+      <ListItemsContainer
+        title={props1.title}
+        listArray={props1.listArray}
+        myListsArrayFc={props1.myListsArrayFc}
+        onClickHandler={props1.onClickHandler}
+      />
+    );
+    const myTitle = screen.getByText("My Orders");
+    expect(myTitle).toBeInTheDocument();
   });
 });

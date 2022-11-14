@@ -17,10 +17,10 @@ const MyOrderItem = ({ ...mergedItem }) => {
             ></Image>
           </Box>
           <Stack direction="row">
-            <Badge backgroundColor="tag.courtCategory" fontSize={{ base: "10px", lg: "12px" }}>
+            <Badge backgroundColor="tag.courtCategory" fontSize={{ base: "10px", lg: "11px" }}>
               {mergedItem.design.courtSize.name}
             </Badge>
-            <Badge backgroundColor="tag.courtType" fontSize={{ base: "10px", lg: "12px" }}>
+            <Badge backgroundColor="tag.courtType" fontSize={{ base: "10px", lg: "11px" }}>
               {mergedItem.design.courtType}
             </Badge>
           </Stack>

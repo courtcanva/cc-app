@@ -1,4 +1,4 @@
-import { mockTemplateData } from "@/components/MockData/MockTemplateData";
+import mockTemplateData from "@/components/MockData/MockTemplateData";
 import MyTemplateContainer from "@/components/MyTemplate/MyTemplateContainer";
 import { screen, within } from "@testing-library/react";
 import renderWithMockedProvider from "../../utils";

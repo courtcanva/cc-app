@@ -2,7 +2,11 @@ import { Menu, MenuButton, MenuList, MenuItem, Flex } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
 import PROFILE_LISTS from "@/constants/profileLists";
 import { BiChevronDown } from "react-icons/bi";
-import { switchMyTemplateDisplay, switchMyAccount } from "@/store/reducer/buttonToggleSlice";
+import {
+  switchMyTemplateDisplay,
+  switchMyAccount,
+  switchCartDisplay,
+} from "@/store/reducer/buttonToggleSlice";
 import { userData } from "@/store/reducer/userSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";

@@ -1,16 +1,20 @@
 import ListItemsContainer from "../ProfileItemContainer/ListItemContainer";
 import MyOrderList from "./MyOrderList";
-import { IOrderWithPaymentInfo } from "../../interfaces/order";
+import { IMyOrder } from "@/interfaces/order";
+import { switchCartDisplay } from "@/store/reducer/buttonToggleSlice";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 interface Props {
-  myOrders: IOrderWithPaymentInfo[];
+  myOrders: IMyOrder[];
 }
 const MyOrderContainer = ({ myOrders }: Props) => {
   const title = "My Orders";
 
   const router = useRouter();
+  const disPatch = useDispatch();
   const handleReturnToDesign = () => {
     router.push("/");
+    disPatch(switchCartDisplay());
   };
   const myOrdersList = () => {
     return myOrders?.map(

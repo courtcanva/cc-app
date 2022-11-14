@@ -201,7 +201,7 @@ export const mockTemplateDataRaw: any = [
   },
 ];
 
-export const mockTemplateData: ITestImyTemplates[] = mockTemplateDataRaw.map((item: any) => {
+const mockTemplateData: ITestImyTemplates[] = mockTemplateDataRaw.map((item: any) => {
   return {
     _id: item._id,
     courtName: item.design.designName,
@@ -214,3 +214,4 @@ export const mockTemplateData: ITestImyTemplates[] = mockTemplateDataRaw.map((it
     design: item.design,
   };
 });
+export default mockTemplateData;

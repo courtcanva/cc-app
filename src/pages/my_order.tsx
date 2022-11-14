@@ -1,7 +1,7 @@
 import MyOrderContainer from "@/components/MyOrder";
 import ProfileItemContainer from "@/components/ProfileItemContainer";
 import { environment } from "../constants/environment";
-import { IOrderWithPaymentInfo } from "../interfaces/order";
+import { IMyOrder } from "@/interfaces/order";
 
 const MyOrder = ({ ...props }) => {
   return (
@@ -18,7 +18,7 @@ export const getServerSideProps = async (context: any) => {
   const res = await fetch(`${environment.apiBaseUrl}/orders?user_id=${currentUserId}`);
   const ordersData = await res.json();
 
-  const myOrders: IOrderWithPaymentInfo[] = ordersData?.map((order: any) => {
+  const myOrders: IMyOrder[] | undefined = ordersData?.map((order: any) => {
     return {
       userId: order.user_id,
       _id: order._id,

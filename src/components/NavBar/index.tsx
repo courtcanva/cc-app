@@ -31,6 +31,7 @@ import {
 import { useHandleLocalStorageItem } from "@/hooks/useHandleLocalStorage";
 import CreateTemplate from "../CreateTemplate";
 import Profile from "./Profile";
+import { useRouter } from "next/router";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const NavigationBar = () => {
   const { userLogout, updateToken } = useAuthRequest();
   const { getLocalStorageItem } = useHandleLocalStorageItem();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
 
   // Get user info from local storage
   const getInfo = () => {
@@ -115,6 +117,7 @@ const NavigationBar = () => {
   };
 
   const handleCreateTemplateOpen = () => {
+    router.push("/");
     dispatch(switchCreateTemplate(true));
   };
   const handleCreateTemplateClose = () => {
