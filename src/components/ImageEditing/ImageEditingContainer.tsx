@@ -110,6 +110,7 @@ const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
                 width="100%"
                 height="100%"
                 data-testid="fileInput"
+                autoFocus
               ></Input>
               <Box
                 position="absolute"
