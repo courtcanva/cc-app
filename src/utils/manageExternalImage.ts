@@ -4,14 +4,17 @@ const generateImageFromDataUrl = async (courtDataUrl: string) => {
   return new File([blob], "default", { type: "image/jpeg" });
 };
 
-export const upLoadScreenshot = async (dataUrl: string, toast: any) => {
+export const upLoadScreenshot = async (
+  dataUrl: string,
+  toast: any,
+  albumName = process.env.NEXT_PUBLIC_ALBUM_NAME as string
+) => {
   const { default: AWS } = await import(/* webpackChunkName: "aws-sdk" */ "aws-sdk");
   const { nanoid } = await import("nanoid");
 
   const albumBucketName = process.env.NEXT_PUBLIC_ALBUM_BUCKET_NAME as string;
   const bucketRegion = process.env.NEXT_PUBLIC_BUCKET_REGION as string;
   const IdentityPoolId = process.env.NEXT_PUBLIC_IDENTITY_POOL_ID as string;
-  const albumName = process.env.NEXT_PUBLIC_ALBUM_NAME as string;
   const albumPhotosKey = encodeURIComponent(albumName) + "/";
   const imgFile = await generateImageFromDataUrl(dataUrl);
 

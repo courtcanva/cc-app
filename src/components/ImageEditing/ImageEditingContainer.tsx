@@ -74,7 +74,11 @@ const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
   const handleApply = useCallback(async () => {
     if (!picture || !croppedAreaPixels) return;
     const croppedImage = (await getCroppedImg(picture, croppedAreaPixels, rotation)) as string;
-    const uploadedImageUrl = await upLoadScreenshot(croppedImage, toast);
+    const uploadedImageUrl = await upLoadScreenshot(
+      croppedImage,
+      toast,
+      process.env.NEXT_PUBLIC_AVATAR_ALBUM_NAME
+    );
     console.log(uploadedImageUrl, "final image");
   }, [picture, croppedAreaPixels, rotation]);
 
