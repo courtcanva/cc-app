@@ -1,9 +1,11 @@
 import React from "react";
 import { useStoreSelector } from "@/store/hooks";
 import { userData } from "@/store/reducer/userSlice";
-import ImageEditingContainer from "./ImageEditingContainer";
 import { switchImageEditing } from "@/store/reducer/buttonToggleSlice";
 import { useDispatch } from "react-redux";
+import dynamic from "next/dynamic";
+
+const ImageEditingContainer = dynamic(() => import("./ImageEditingContainer"), {});
 
 const ImageEditing = () => {
   const dispatch = useDispatch();
