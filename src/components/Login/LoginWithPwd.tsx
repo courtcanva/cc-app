@@ -99,7 +99,6 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
         }
       }
       const data = response.data;
-      console.log(response, "loginWithPwd");
       setUserId(data.userId);
       if (data.isActivated) {
         localStorage.setItem("UserInfo", JSON.stringify(data));

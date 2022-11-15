@@ -6,7 +6,6 @@ const nextConfig = {
   images: {
     domains: [
       `${process.env.NEXT_PUBLIC_ALBUM_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_BUCKET_REGION}.amazonaws.com`,
-      `courtcanva-image-node.s3.ap-southeast-2.amazonaws.com`,
     ],
   },
 
