@@ -51,6 +51,7 @@ const AccountConnection: React.FC<Props> = ({
         },
       });
       const loginRes: GoogleLoginRes = axiosResponse.data;
+      console.log(axiosResponse, "Account connection");
       const userInfo: IUser = {
         userId: loginRes.userId,
         email: loginRes.email,

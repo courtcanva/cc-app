@@ -80,6 +80,8 @@ const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
       process.env.NEXT_PUBLIC_AVATAR_ALBUM_NAME
     );
     console.log(uploadedImageUrl, "final image");
+
+    // dispatch(updateUserInfo(userInfo));
   }, [picture, croppedAreaPixels, rotation]);
 
   return (

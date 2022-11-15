@@ -54,6 +54,7 @@ const SelectLogin: React.FC<Props> = ({
         method: "post",
         requestData: codeResponse,
       });
+      console.log(axiosResponse, "selectLogin");
       const googleLoginRes: GoogleLoginRes = axiosResponse.data;
       if (!googleLoginRes.needConnection) {
         // Store user data into local storage after logging
