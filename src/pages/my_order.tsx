@@ -17,7 +17,6 @@ export const getServerSideProps = async (context: any) => {
   const currentUserId = context.query.user_id;
   const res = await fetch(`${environment.apiBaseUrl}/orders?user_id=${currentUserId}`);
   const ordersData = await res.json();
-  console.log(ordersData.data[0].paymentInfo.createdAt);
   const myOrders: IMyOrder[] | undefined = ordersData?.data.map((order: any) => {
     return {
       userId: order.user_id,
