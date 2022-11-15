@@ -1,7 +1,7 @@
 import ListItemsContainer from "../ProfileItemContainer/ListItemContainer";
 import MyOrderList from "./MyOrderList";
 import { IMyOrder } from "@/interfaces/order";
-import { switchCartDisplay } from "@/store/reducer/buttonToggleSlice";
+import { switchMyAccount, switchMyTemplateDisplay } from "@/store/reducer/buttonToggleSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 interface Props {
@@ -14,7 +14,8 @@ const MyOrderContainer = ({ myOrders }: Props) => {
   const disPatch = useDispatch();
   const handleReturnToDesign = () => {
     router.push("/");
-    disPatch(switchCartDisplay());
+    disPatch(switchMyAccount(false));
+    disPatch(switchMyTemplateDisplay(false));
   };
   const myOrdersList = () => {
     return myOrders?.map(

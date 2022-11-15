@@ -71,7 +71,7 @@ const CancelOrCheckoutOrder = ({ orderId, userId, depositRatio, unPaidItems }: P
         isOpen={isOpen}
         onClose={onClose}
         onConfirm={handleModalConfirm}
-        buttonText="Cancel"
+        buttonText="Confirm"
         alertText="permanently delete your order"
       />
     </>
