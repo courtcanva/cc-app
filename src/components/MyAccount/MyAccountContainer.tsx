@@ -10,8 +10,7 @@ import ImageEditing from "../ImageEditing";
 
 const MyAccountContainer = () => {
   const dispatch = useDispatch();
-  const { firstName, lastName, email } = useStoreSelector((state) => state.user);
-  const avatarUrl = "";
+  const { firstName, lastName, email, profileImgUrl } = useStoreSelector((state) => state.user);
 
   const handleReturnToDesign = () => {
     dispatch(switchMyAccount(false));
@@ -51,7 +50,7 @@ const MyAccountContainer = () => {
                 position="relative"
                 overflow="hidden"
               >
-                {avatarUrl && <Image src={avatarUrl} layout="fill" objectFit="cover" />}
+                {profileImgUrl && <Image src={profileImgUrl} layout="fill" objectFit="cover" />}
               </Box>
               <Box marginLeft="5px" onClick={handleImageEditing}>
                 <IconButton

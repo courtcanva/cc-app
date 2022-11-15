@@ -5,6 +5,7 @@ export interface UserState {
   email: string;
   firstName: string;
   lastName: string;
+  profileImgUrl?: string | null;
 }
 
 export const initialState: UserState = {
@@ -12,6 +13,7 @@ export const initialState: UserState = {
   email: "",
   firstName: "",
   lastName: "",
+  profileImgUrl: null,
 };
 
 export const userSlice = createSlice({

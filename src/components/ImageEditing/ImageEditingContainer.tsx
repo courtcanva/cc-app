@@ -22,6 +22,10 @@ import Cropper from "react-easy-crop";
 import { Point, Area } from "react-easy-crop/types";
 import { toBase64, upLoadScreenshot, inputImageCheck } from "@/utils/manageExternalImage";
 import { getCroppedImg } from "@/utils/canvasUtils";
+import { useDispatch } from "react-redux";
+import { updateUserInfo } from "@/store/reducer/userSlice";
+import { updateUser } from "@/components/Login/helpers/userRequests";
+import { useStoreSelector } from "@/store/hooks";
 
 interface Props {
   isOpen: boolean;
@@ -29,12 +33,15 @@ interface Props {
 }
 
 const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
+  const dispatch = useDispatch();
   const toast = useToast();
+  const userInfo = useStoreSelector((state) => state.user);
   const [picture, setPicture] = useState<string | null>(null);
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+  console.log(userInfo);
 
   const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -80,6 +87,13 @@ const ImageEditingContainer = ({ isOpen, onClose }: Props) => {
       process.env.NEXT_PUBLIC_AVATAR_ALBUM_NAME
     );
     console.log(uploadedImageUrl, "final image");
+    localStorage.setItem(
+      "UserInfo",
+      JSON.stringify({ ...userInfo, profileImgUrl: uploadedImageUrl })
+    );
+    dispatch(updateUserInfo({ ...userInfo, profileImgUrl: uploadedImageUrl }));
+    updateUser({ ...userInfo, profileImgUrl: uploadedImageUrl });
+    closeWindow();
   }, [picture, croppedAreaPixels, rotation]);
 
   return (
