@@ -32,7 +32,7 @@ const Profile = ({ isOpen, onOpen, onClose, handleLogout }: Props) => {
         return;
       case "My Order":
         router.push(`/my_order?user_id=${currentUserId}`);
-        disPatch(switchCreateTemplate(false));
+
         onClose();
         return;
       case "My Template":

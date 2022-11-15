@@ -13,6 +13,7 @@ interface Props {
 }
 const CancelOrCheckoutOrder = ({ orderId, userId, depositRatio, unPaidItems }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [deleteOrder] = useDeleteOrderMutation();
   const [createStripeSessionMutation] = useCreateStripeSessionMutation();
   const toast = useToast();
@@ -20,7 +21,6 @@ const CancelOrCheckoutOrder = ({ orderId, userId, depositRatio, unPaidItems }: P
   const buttonTitle = "Cancel Order";
 
   const newOrder = { order_Id: orderId, user_id: userId, items: unPaidItems, depositRatio };
-
   const handleProceedToCheckOut = async () => {
     try {
       const sessionData: IStripeSession = newOrder;
@@ -44,8 +44,9 @@ const CancelOrCheckoutOrder = ({ orderId, userId, depositRatio, unPaidItems }: P
   const handleCancelOrder = () => {
     onOpen();
   };
-  const handleModalConfirm = () => {
+  const handleModalConfirm = async () => {
     deleteOrder(orderId);
+
     onClose();
   };
 

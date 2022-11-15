@@ -1,7 +1,7 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { format, parseISO } from "date-fns";
 import { IOrderItem } from "../../interfaces/order";
-
+import formatCurrency from "@/utils/formatCurrency";
 import CancelOrCheckoutOrder from "./CancelOrCheckoutOrder";
 import MyOrderItem from "./MyOrderItem";
 
@@ -56,9 +56,7 @@ const MyOrderList = ({ ...order }) => {
               <Text fontSize="12px" fontStyle="italic" fontWeight="300">
                 Paid At
               </Text>
-              <Text>
-                {order.paidAt ? format(parseISO(order.createdAt), "dd/MM/yyyy HH:mm") : ""}
-              </Text>
+              <Text>{order.paidAt ? format(parseISO(order.paidAt), "dd/MM/yyyy HH:mm") : ""}</Text>
             </Flex>
           </Flex>
           <Flex width="5%" justifyContent="flex-end">
@@ -70,7 +68,11 @@ const MyOrderList = ({ ...order }) => {
                 color={order.status === "completed" ? "fontcolor.green" : "fontcolor.red"}
                 fontSize="20px"
               >
-                {order.status === "completed" ? "Paid" : "Unpaid"}
+                {order.status === "completed"
+                  ? "Paid"
+                  : order.status === "unpaid"
+                  ? "Unpaid"
+                  : "Cancelled"}
               </Text>
             </Flex>
           </Flex>
@@ -143,24 +145,27 @@ const MyOrderList = ({ ...order }) => {
               justifyContent="center"
               alignItems="flex-end"
             >
-              <Flex width="45%" justifyContent="space-between">
+              <Flex width="45%" justifyContent="space-between" alignItems="center">
                 <Text fontWeight="400">Total Quotation</Text>
-                <Text>{`A$${Number(totalQuotation.toFixed(2)).toLocaleString()}`}</Text>
+                <Text>{formatCurrency(totalQuotation.toFixed(2))}</Text>
               </Flex>
-              <Flex width="45%" justifyContent="space-between" color="fontcolor.deepDark">
+              <Flex
+                width="45%"
+                justifyContent="space-between"
+                alignItems="center"
+                color="fontcolor.deepDark"
+              >
                 <Text fontSize="14px">Total Deposit</Text>
                 <Text fontSize="20px">
                   {" "}
-                  {`A$${Number((totalQuotation * order.depositRatio).toFixed(2)).toLocaleString()}`}
+                  {formatCurrency((totalQuotation * order.depositRatio).toFixed(2))}
                 </Text>
               </Flex>
             </Flex>
           </Flex>
         </Flex>
       </Flex>
-      {order.status === "completed" ? (
-        ""
-      ) : (
+      {order.status === "unpaid" && (
         <CancelOrCheckoutOrder
           orderId={order._id}
           userId={order.userId}

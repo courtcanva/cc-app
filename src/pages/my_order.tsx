@@ -17,13 +17,14 @@ export const getServerSideProps = async (context: any) => {
   const currentUserId = context.query.user_id;
   const res = await fetch(`${environment.apiBaseUrl}/orders?user_id=${currentUserId}`);
   const ordersData = await res.json();
+  console.log(ordersData.data[0].paymentInfo.createdAt);
   const myOrders: IMyOrder[] | undefined = ordersData?.data.map((order: any) => {
     return {
       userId: order.user_id,
       _id: order._id,
       status: order.status,
       createdAt: order.createdAt,
-      paidAt: order.paymentInfo ? order.paymentInfo.createdAt : "",
+      paidAt: order.paymentInfo ? order.paymentInfo.updatedAt : "",
       consigneeName: order.paymentInfo ? order.paymentInfo.name : "",
       consigneePhoneNo: order.paymentInfo ? order.paymentInfo.phone : "",
       consigneeEmail: order.paymentInfo ? order.paymentInfo.email : "",

@@ -1,8 +1,9 @@
 import { Flex, Box, Text, Stack, Badge } from "@chakra-ui/react";
 import Image from "next/image";
+import formatCurrency from "@/utils/formatCurrency";
 const MyOrderItem = ({ ...mergedItem }) => {
   return (
-    <Flex key={mergedItem.design.designName} flexDirection="column" alignItems="center">
+    <Flex flexDirection="column" alignItems="center">
       <Flex width="85%" minHeight="150px">
         <Flex width="25%" alignItems="center" justifyContent="center">
           <Text>{mergedItem.design.designName}</Text>
@@ -30,15 +31,15 @@ const MyOrderItem = ({ ...mergedItem }) => {
             <Text fontSize="12px" fontStyle="italic" fontWeight="300">
               Quotation
             </Text>
-            <Text>{`A$${Number(mergedItem.quotation).toLocaleString()}`}</Text>
+            <Text>{formatCurrency(mergedItem.quotation)}</Text>
           </Flex>
           <Flex flexDirection="column">
             <Text fontSize="14px" fontStyle="italic" fontWeight="300">
               Deposit
             </Text>
-            <Text fontSize="20px">{`A$${Number(
-              (Number(mergedItem.quotation) * mergedItem.orderDepositRatio).toFixed(2)
-            ).toLocaleString()}`}</Text>
+            <Text fontSize="20px">
+              {formatCurrency((mergedItem.quotation * mergedItem.orderDepositRatio).toFixed(2))}
+            </Text>
           </Flex>
         </Flex>
       </Flex>

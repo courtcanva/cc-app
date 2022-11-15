@@ -18,9 +18,7 @@ const MyOrderContainer = ({ myOrders }: Props) => {
     disPatch(switchMyTemplateDisplay(false));
   };
   const myOrdersList = () => {
-    return myOrders?.map(
-      (order) => order.status !== "cancelled" && <MyOrderList key={order._id} {...order} />
-    );
+    return myOrders?.map((order) => <MyOrderList key={order._id} {...order} />);
   };
   return (
     <ListItemsContainer
