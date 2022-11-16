@@ -1,4 +1,4 @@
-import { mockTemplateData } from "@/components/MockData/MockTemplateData";
+import mockTemplateData from "@/components/MockData/MockTemplateData";
 import MyTemplateContainer from "@/components/MyTemplate/MyTemplateContainer";
 import { screen, within } from "@testing-library/react";
 import renderWithMockedProvider from "../../utils";
@@ -6,12 +6,6 @@ import { format, parseISO } from "date-fns";
 import userEvent from "@testing-library/user-event";
 
 describe("MyTemplate component", () => {
-  it("should render template title", () => {
-    renderWithMockedProvider(<MyTemplateContainer myTemplates={mockTemplateData} />);
-    const myTemplateTitle = screen.getByText("My Template");
-    expect(myTemplateTitle).toBeInTheDocument();
-  });
-
   it("Should render template list items correctly", () => {
     renderWithMockedProvider(<MyTemplateContainer myTemplates={mockTemplateData} />);
     const listItems = screen.getAllByTestId("templateListItems");
@@ -44,9 +38,7 @@ describe("MyTemplate component", () => {
 
   it("Should render emplaty text then template data is null", () => {
     renderWithMockedProvider(<MyTemplateContainer myTemplates={undefined} />);
-    const templateTitle = screen.getByText("My Template");
     const templateInfo = screen.getByTestId("emptyText");
-    expect(templateTitle).toBeVisible();
     expect(templateInfo).toBeVisible();
   });
 

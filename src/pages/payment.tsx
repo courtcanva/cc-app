@@ -15,6 +15,9 @@ import { PageStatus } from "@/constants/paymentResponsePage";
 import { format, parseISO } from "date-fns";
 import { useLazyGetOrderByIdQuery, useCreateStripeSessionMutation } from "../redux/api/orderApi";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { userData } from "@/store/reducer/userSlice";
+import { useStoreSelector } from "@/store/hooks";
 
 interface Props {
   paymentInfo: PaymentResPage;
@@ -25,7 +28,11 @@ const PaymentResponse = (props: Props) => {
   const { status, orderDetails } = paymentInfo;
   const [trigger, { data: rawData }] = useLazyGetOrderByIdQuery();
   const [createStripeSessionMutation] = useCreateStripeSessionMutation();
-
+  const currentUserId = useStoreSelector(userData).userId;
+  const router = useRouter();
+  const onCheckMyOrderHandler = () => {
+    router.push(`/my_order?user_id=${currentUserId}`);
+  };
   if (status === PageStatus.ERROR) return <></>;
 
   useEffect(() => {
@@ -117,7 +124,12 @@ const PaymentResponse = (props: Props) => {
             <OrderInfoCard paymentResPage={paymentInfo} />
           </Flex>
           <Flex justifyContent="center" alignItems="center" gap="3rem">
-            <Button variant="shareBtn" padding="1rem 1.5rem" fontSize="1.2rem">
+            <Button
+              variant="shareBtn"
+              padding="1rem 1.5rem"
+              fontSize="1.2rem"
+              onClick={onCheckMyOrderHandler}
+            >
               Check My Order
             </Button>
             {status !== PageStatus.SUCCESS && (

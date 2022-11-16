@@ -7,6 +7,7 @@ interface Props {
 
 const Success = (props: Props) => {
   const { orderDetails } = props;
+
   return (
     <Grid
       width="60%"

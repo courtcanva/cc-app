@@ -1,8 +1,16 @@
 import { Menu, MenuButton, MenuList, MenuItem, Flex } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
+import PROFILE_LISTS from "@/constants/profileLists";
 import { BiChevronDown } from "react-icons/bi";
-import { switchMyTemplateDisplay, switchMyAccount } from "@/store/reducer/buttonToggleSlice";
+import {
+  switchMyTemplateDisplay,
+  switchMyAccount,
+  switchCreateTemplate,
+} from "@/store/reducer/buttonToggleSlice";
+import { userData } from "@/store/reducer/userSlice";
+import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 interface Props {
   isOpen: boolean;
@@ -12,14 +20,37 @@ interface Props {
 }
 
 const Profile = ({ isOpen, onOpen, onClose, handleLogout }: Props) => {
+  const currentUserId = useStoreSelector(userData).userId;
   const disPatch = useDispatch();
-  const handleOpenMyTemplate = () => {
-    disPatch(switchMyTemplateDisplay(true));
-    onClose();
-  };
-  const handleOpenMyAccount = () => {
-    disPatch(switchMyAccount(true));
-    onClose();
+  const router = useRouter();
+  const onClickHandler = (title: string) => {
+    switch (title) {
+      case "My Account":
+        router.push("/");
+        disPatch(switchMyAccount(true));
+        onClose();
+        return;
+      case "My Order":
+        router.push(`/my_order?user_id=${currentUserId}`);
+
+        onClose();
+        return;
+      case "My Template":
+        router.push("/");
+        disPatch(switchMyTemplateDisplay(true));
+        onClose();
+        return;
+      case "Sign Out":
+        router.push("/");
+        disPatch(switchMyAccount(false));
+        disPatch(switchMyTemplateDisplay(false));
+        handleLogout();
+        onClose();
+
+        return;
+      default:
+        return;
+    }
   };
 
   return (
@@ -41,10 +72,11 @@ const Profile = ({ isOpen, onOpen, onClose, handleLogout }: Props) => {
         </Flex>
       </MenuButton>
       <MenuList onMouseEnter={onOpen} onMouseLeave={onClose} position="absolute" left="-44px">
-        <MenuItem onClick={handleOpenMyAccount}>My Account</MenuItem>
-        <MenuItem>My Order</MenuItem>
-        <MenuItem onClick={handleOpenMyTemplate}>My Template</MenuItem>
-        <MenuItem onClick={handleLogout}>Sign Out</MenuItem>
+        {PROFILE_LISTS.map((item) => (
+          <MenuItem key={item.title} onClick={() => onClickHandler(item.title)}>
+            {item.title}
+          </MenuItem>
+        ))}
       </MenuList>
     </Menu>
   );

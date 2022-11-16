@@ -113,10 +113,10 @@ export const ButtonToggleSlice = createSlice({
       return {
         ...state,
         isMyTemplateOpen: action.payload,
+        isMyAccountOpen: false,
         isCartOpen: false,
         isOrderGenerationOpen: false,
         isSwitch3D: false,
-        isMyAccountOpen: false,
       };
     },
     startSelectTemplate: (state: ButtonToggleState, action: PayloadAction<boolean>) => {

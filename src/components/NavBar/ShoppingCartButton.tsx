@@ -3,15 +3,17 @@ import { IconButton, Circle, Stack } from "@chakra-ui/react";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { openCartDisplay, switchLoginModal } from "@/store/reducer/buttonToggleSlice";
 import { useDispatch } from "react-redux";
-
+import { useRouter } from "next/router";
 interface Props {
   quantity: number;
   loginState: boolean;
 }
 
 const ShoppingCartButton = ({ quantity, loginState }: Props) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const handleCartPageOpen = () => {
+    router.push("/");
     loginState ? dispatch(openCartDisplay()) : dispatch(switchLoginModal(true));
   };
 

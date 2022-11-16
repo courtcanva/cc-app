@@ -1,9 +1,9 @@
 /* eslint-disable require-jsdoc */
 import React from "react";
 import MyTemplateListItem from "./MyTemplateListItem";
-import { Flex, Text, Button } from "@chakra-ui/react";
 import { IMyTemplates } from "@/interfaces/template";
 import { useDispatch } from "react-redux";
+import ListItemsContainer from "../ProfileItemContainer/ListItemContainer";
 import { switchMyTemplateDisplay } from "@/store/reducer/buttonToggleSlice";
 
 interface MyTemplates {
@@ -11,6 +11,7 @@ interface MyTemplates {
 }
 
 export default function MyTemplateContainer({ myTemplates }: MyTemplates) {
+  const title = "My template";
   const dispatch = useDispatch();
   const handleReturnToDesign = () => {
     dispatch(switchMyTemplateDisplay(false));
@@ -20,30 +21,11 @@ export default function MyTemplateContainer({ myTemplates }: MyTemplates) {
   };
 
   return (
-    <Flex flexDirection="column" width="100vw" gap="28px" alignItems="center" min-height="100vh">
-      <Text fontSize="32px" fontWeight="700" textAlign="center">
-        My Template
-      </Text>
-      {myTemplates?.length ? (
-        myTemplateLists()
-      ) : (
-        <Text fontSize="lg" fontWeight="500" color="black" data-testid="emptyText">
-          You currently have{" "}
-          <Text display="inline" fontWeight="900">
-            no items{" "}
-          </Text>
-          in your Template
-        </Text>
-      )}
-      <Button
-        variant="shareBtn"
-        size="lg"
-        padding="10px 24px"
-        onClick={handleReturnToDesign}
-        marginBottom="28px"
-      >
-        Return To Design
-      </Button>
-    </Flex>
+    <ListItemsContainer
+      title={title}
+      listArray={myTemplates}
+      myListsArrayFc={myTemplateLists}
+      onClickHandler={handleReturnToDesign}
+    />
   );
 }

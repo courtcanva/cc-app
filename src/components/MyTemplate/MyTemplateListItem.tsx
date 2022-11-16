@@ -56,7 +56,7 @@ function MyTemplateListItem({ ...item }) {
       margin="auto 120px"
       padding="1rem"
       placeItems="center"
-      templateColumns="minmax(min(300px,100%), 45%) minmax(min(200px,100%), 30%)minmax(min(150px,100%), 25%)"
+      templateColumns="minmax(min(300px,100%), 45%) minmax(min(200px,100%), 30%) minmax(min(150px,100%), 25%)"
       rounded="2xl"
       minHeight="300px"
       fontWeight="700"

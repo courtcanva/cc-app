@@ -4,6 +4,7 @@ it("should return mapped data", () => {
   const design = {
     _id: "001",
     designName: "Pro Full Court",
+    courtType: "basketball",
     courtSize: {
       name: "Pro Full Court",
       length: 28000,

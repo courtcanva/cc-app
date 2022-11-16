@@ -24,6 +24,7 @@ const colors = {
     primary: "#344C5C",
     secondary: "#40B484",
     primaryLight: "#496A80",
+    lightGray: "#B6B6B6",
   },
   background: {
     primary: "#2C4E8A",
@@ -33,6 +34,7 @@ const colors = {
     lightOrange: "#DD6B20",
     veryLightOrange: "#E18E11",
     darkRed: "#9F100F",
+    lightblue: "#E2E8F0",
   },
   fontcolor: {
     primary: "#FFFFFF",
@@ -40,6 +42,11 @@ const colors = {
     tertiary: "#4285f4",
     quaternary: "#C8C5C5",
     tealishBlue: "#2C4E8A",
+    black: "#000000",
+    green: "#40B383",
+    red: "#EB4335",
+    deepDark: "#000000",
+    lightDark: "#344C5C",
   },
   CourtSizecolor: {
     btc: "#40B484",

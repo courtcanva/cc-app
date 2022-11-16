@@ -14,7 +14,9 @@ import {
   TEAM_PAGE,
   TEAM_PAGE_PERFORMANCE_TESTING,
   PAYMENT,
+  MY_ORDER,
 } from "../../src/constants";
+
 import OrderGeneration from "@/components/OrderGeneration";
 import MyAccount from "@/components/MyAccount";
 
@@ -39,6 +41,16 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
       );
 
     case PAGE_NOT_FOUND:
+      return (
+        <>
+          <Header />
+          <Box as="main">
+            <NavigationBar />
+            {children}
+          </Box>
+        </>
+      );
+    case MY_ORDER:
       return (
         <>
           <Header />

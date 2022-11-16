@@ -10,12 +10,15 @@ export const orderApi = createApi({
   tagTypes: ["orders"],
   endpoints: (builder) => ({
     getOrders: builder.query<any, string>({
-      query: (userId) => `/orders?user_id=${userId}`,
-      providesTags: ["orders"],
+      query: (userId: string) => `/orders?user_id=${userId}`,
+      providesTags: [
+        { type: "orders", id: "userId" },
+        { type: "orders", id: "LIST" },
+      ],
     }),
 
     getOrderById: builder.query<any, string>({
-      query: (orderId) => `/orders/${orderId}`,
+      query: (orderId: string) => `/orders/${orderId}`,
       providesTags: ["orders"],
     }),
 
@@ -25,9 +28,15 @@ export const orderApi = createApi({
         method: "POST",
         body: newOrder,
       }),
-      invalidatesTags: ["orders"],
+      invalidatesTags: [{ type: "orders", id: "LIST" }],
     }),
-
+    deleteOrder: builder.mutation<any, string>({
+      query: (orderId: string) => ({
+        url: `/orders/${orderId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [{ type: "orders", id: "LIST" }],
+    }),
     createStripeSession: builder.mutation<any, IStripeSession>({
       query: (newSession) => ({
         url: "/stripe/create-checkout-session",
@@ -41,6 +50,7 @@ export const orderApi = createApi({
 export const {
   useGetOrdersQuery,
   useCreateOrderMutation,
+  useDeleteOrderMutation,
   useCreateStripeSessionMutation,
   useLazyGetOrderByIdQuery,
 } = orderApi;

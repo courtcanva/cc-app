@@ -29,7 +29,6 @@ const Home: NextPage = () => {
   const isSwitch3D = useStoreSelector((state) => state.buttonToggle);
 
   const { data, isLoading } = useGetCourtsQuery(0);
-
   useEffect(() => {
     if (data) {
       const mappedCourtData = data.map((item: CourtSpecMapper) =>

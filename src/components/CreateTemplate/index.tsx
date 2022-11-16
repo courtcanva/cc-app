@@ -55,7 +55,6 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const [addTemplate] = useAddTemplateMutation();
   const toast = useToast();
   const designerName = `${firstName} ${lastName}`;
-
   const courtType = "basketball";
   const {
     isOpen: isSuccessNoticeOpen,
@@ -122,6 +121,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
       imageUrl,
       designerName
     );
+
     await addTemplate(packedTemplate)
       .unwrap()
       .then((_res) => {

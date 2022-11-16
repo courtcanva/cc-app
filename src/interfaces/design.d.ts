@@ -2,6 +2,7 @@ export interface IDesign {
   _id: string;
   user_id: string;
   designName: string;
+  courtType: string;
   tileColor: ITileColor[];
   courtSize: ICourtSize;
 }
