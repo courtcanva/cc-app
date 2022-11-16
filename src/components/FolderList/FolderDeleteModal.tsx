@@ -59,6 +59,7 @@ const FolderDeleteModal = () => {
         colorScheme="transparent"
         icon={<FaTrashAlt />}
         onClick={onOpen}
+        data-testid="delete-btn"
       />
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -72,13 +73,19 @@ const FolderDeleteModal = () => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody textAlign={"center"}>
-            <p>Are you sure you want to remove this item from the folder list?</p>
+            <p data-testid="delete-modal-text">
+              Are you sure you want to remove this item from the folder list?
+            </p>
           </ModalBody>
           <ModalFooter display={"flex"} gap="10px" marginTop={"10px"}>
-            <Button variant="ghost" onClick={onClose}>
+            <Button variant="ghost" onClick={onClose} data-testid="delete-modal-close">
               Cancel
             </Button>
-            <Button variant="deleteBtn" onClick={handleDeleteDesign}>
+            <Button
+              variant="deleteBtn"
+              onClick={handleDeleteDesign}
+              data-testid="delete-modal-confirm"
+            >
               Delete
             </Button>
           </ModalFooter>

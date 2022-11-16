@@ -1,13 +1,12 @@
-import { Box, Flex, HStack, Tag, Button, IconButton } from "@chakra-ui/react";
+import { Box, Flex, HStack, Tag, IconButton } from "@chakra-ui/react";
 import Image from "next/image";
 import FolderDeleteModal from "./FolderDeleteModal";
 import React from "react";
+import { format, parseISO } from "date-fns";
 
 const FolderListItem = (props: any) => {
   const { courtId, courtName, designName, createdAt, image } = props.design;
-  const createDate = [createdAt.slice(8, 10), createdAt.slice(5, 7), createdAt.slice(0, 4)].join(
-    "/"
-  );
+  const createDate = format(parseISO(createdAt), "dd/MM/yyyy");
 
   return (
     <Flex

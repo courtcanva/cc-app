@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render folder should render initial empty folder correctly 1`] = `
+<div>
+  <div
+    class="scrollbox css-10klw3m"
+  >
+    <p
+      class="chakra-text css-0"
+    >
+      The folder list is empty
+    </p>
+  </div>
+</div>
+`;

@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render folder list Should render folder list item correctly 1`] = `
+<div>
+  <div
+    class="css-1gsyri3"
+    data-testid="folderListItems-0"
+  >
+    <div
+      class="chakra-stack css-16awuyr"
+    >
+      <div
+        class="css-0"
+        style="background: none; border-radius: 0; min-width: 140px; margin-top: 5px;"
+      >
+        <div
+          class="css-0"
+          style="font-size: 13px; background: none; border-radius: 0; font-weight: bold;"
+        >
+          Court Canva 0
+        </div>
+        <div
+          class="css-0"
+          style="font-size: 9px; color: rgb(44, 82, 130); background: none; border-radius: 0;"
+        >
+          created at 
+          02/11/2022
+        </div>
+      </div>
+      <button
+        aria-label="delete button"
+        class="chakra-button css-198bfjk"
+        type="button"
+      >
+        <button
+          aria-label="Delete Button"
+          class="chakra-button css-198bfjk"
+          data-testid="delete-btn"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 448 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
+            />
+          </svg>
+        </button>
+      </button>
+    </div>
+    <div
+      class="css-r0om48"
+    >
+      <span
+        style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
+      >
+        <img
+          alt="Court image"
+          data-nimg="fill"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: contain;"
+        />
+        <noscript />
+      </span>
+    </div>
+    <div
+      class="chakra-stack css-16awuyr"
+    >
+      <span
+        class="css-10kxp63"
+        style="border-radius: 0; font-size: 8px; margin-bottom: 5px; font-weight: bold; text-align: center; padding: 0px 16px;"
+      >
+        full court
+      </span>
+      <span
+        class="css-3uf65l"
+        style="border-radius: 0; font-size: 8px; margin-bottom: 5px; padding: 0px 16px; font-weight: bold;"
+      >
+        Basketball
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render folder list Should render opacity correctly 1`] = `
+<div>
+  <div
+    class="css-kvs84j"
+    data-testid="folderListItems-0"
+  >
+    <div
+      class="chakra-stack css-16awuyr"
+    >
+      <div
+        class="css-0"
+        style="background: none; border-radius: 0; min-width: 140px; margin-top: 5px;"
+      >
+        <div
+          class="css-0"
+          style="font-size: 13px; background: none; border-radius: 0; font-weight: bold;"
+        >
+          Court Canva 0
+        </div>
+        <div
+          class="css-0"
+          style="font-size: 9px; color: rgb(44, 82, 130); background: none; border-radius: 0;"
+        >
+          created at 
+          02/11/2022
+        </div>
+      </div>
+      <button
+        aria-label="delete button"
+        class="chakra-button css-198bfjk"
+        type="button"
+      >
+        <button
+          aria-label="Delete Button"
+          class="chakra-button css-198bfjk"
+          data-testid="delete-btn"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 448 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
+            />
+          </svg>
+        </button>
+      </button>
+    </div>
+    <div
+      class="css-r0om48"
+    >
+      <span
+        style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
+      >
+        <img
+          alt="Court image"
+          data-nimg="fill"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: contain;"
+        />
+        <noscript />
+      </span>
+    </div>
+    <div
+      class="chakra-stack css-16awuyr"
+    >
+      <span
+        class="css-10kxp63"
+        style="border-radius: 0; font-size: 8px; margin-bottom: 5px; font-weight: bold; text-align: center; padding: 0px 16px;"
+      >
+        full court
+      </span>
+      <span
+        class="css-3uf65l"
+        style="border-radius: 0; font-size: 8px; margin-bottom: 5px; padding: 0px 16px; font-weight: bold;"
+      >
+        Basketball
+      </span>
+    </div>
+  </div>
+</div>
+`;
