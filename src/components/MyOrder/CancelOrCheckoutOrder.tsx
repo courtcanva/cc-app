@@ -1,4 +1,5 @@
 import { Flex, useDisclosure, useToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import CancelOrBackButton from "../OrderGeneration/CancelOrBackButton";
 import ProcessToCheckOutButton from "../OrderGeneration/ProcessToCheckoutButton";
 import ConfirmModal from "../ComfirmModal";
@@ -13,7 +14,7 @@ interface Props {
 }
 const CancelOrCheckoutOrder = ({ orderId, userId, depositRatio, unPaidItems }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const router = useRouter();
   const [deleteOrder] = useDeleteOrderMutation();
   const [createStripeSessionMutation] = useCreateStripeSessionMutation();
   const toast = useToast();
@@ -46,7 +47,7 @@ const CancelOrCheckoutOrder = ({ orderId, userId, depositRatio, unPaidItems }: P
   };
   const handleModalConfirm = async () => {
     deleteOrder(orderId);
-
+    router.push(`/my_order?user_id=${userId}`);
     onClose();
   };
 
