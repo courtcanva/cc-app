@@ -1,17 +1,28 @@
-import React from "react";
-import { Box, Button, Flex, IconButton, Text } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Box, Button, Flex, IconButton, Text, useDisclosure } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { switchMyAccount } from "@/store/reducer/buttonToggleSlice";
 import Image from "next/image";
 import { useStoreSelector } from "@/store/hooks";
 import { MdEdit } from "react-icons/md";
 import FlexContainer from "./FlexContainer";
+import EditPopUpWindow from "./EditPopUpWindow";
 
 const MyAccountContainer = () => {
   const dispatch = useDispatch();
   const { firstName, lastName, email } = useStoreSelector((state) => state.user);
   const avatarUrl = "";
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [title, setTitle] = useState("");
 
+  const handleEditName = () => {
+    setTitle("Change Your Name");
+    onOpen();
+  };
+  const handleChangePsw = () => {
+    setTitle("Change Your Password");
+    onOpen();
+  };
   const handleReturnToDesign = () => {
     dispatch(switchMyAccount(false));
   };
@@ -59,6 +70,7 @@ const MyAccountContainer = () => {
                 icon={<MdEdit />}
                 background="transparent"
                 size="lg"
+                onClick={handleEditName}
               />
             </Text>
           }
@@ -80,6 +92,7 @@ const MyAccountContainer = () => {
               fontWeight="700"
               background="#F3F2F7"
               border="1px solid #344C5C"
+              onClick={handleChangePsw}
             >
               Change Password
             </Button>
@@ -89,6 +102,7 @@ const MyAccountContainer = () => {
       <Button variant="shareBtn" padding="10px 24px" onClick={handleReturnToDesign}>
         Return to Design
       </Button>
+      <EditPopUpWindow isOpen={isOpen} onClose={onClose} title={title} />
     </Flex>
   );
 };
