@@ -50,5 +50,12 @@ describe("EditInput test", () => {
     await waitFor(() => {
       expect(invalidMsg).toBeVisible();
     });
+    userEvent.type(newPswInput, "1234567~Ab");
+    userEvent.type(confirmPswInput, "123456~Ab");
+    userEvent.click(applyBtn);
+    const notMatchMsg = screen.getByText("Password does not match!");
+    await waitFor(() => {
+      expect(notMatchMsg).toBeVisible();
+    });
   });
 });
