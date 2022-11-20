@@ -89,6 +89,7 @@ const EditInputGroup = ({
                 onClick={visibleClick}
                 color={incorrectPswMsg || weakPasswordMsg || errorMessage ? "#C13D46" : "#344C5C"}
                 cursor="pointer"
+                data-testid="eyeIcon"
               />
             </InputRightElement>
           </InputGroup>

@@ -36,9 +36,9 @@ describe("EditInput test", () => {
   it("should show error message when users input invalid password information", async () => {
     const editPsw = screen.getByText(/change password/i);
     userEvent.click(editPsw);
-    const oldPswInput = screen.getByLabelText(/Enter your password/i);
+    const oldPswInput = screen.getByLabelText("Enter your password");
     const newPswInput = screen.getByLabelText("New password");
-    const confirmPswInput = screen.getByLabelText(/Confirm new password/i);
+    const confirmPswInput = screen.getByLabelText("Confirm new password");
     const applyBtn = screen.getByRole("button", { name: /apply/i });
     userEvent.type(oldPswInput, "123456");
     userEvent.type(newPswInput, "1234567");
@@ -56,6 +56,23 @@ describe("EditInput test", () => {
     const notMatchMsg = screen.getByText("Password does not match!");
     await waitFor(() => {
       expect(notMatchMsg).toBeVisible();
+    });
+  });
+
+  it("should show password content when users click eye icon", async () => {
+    const editPsw = screen.getByText(/change password/i);
+    userEvent.click(editPsw);
+    const oldPswInput = screen.getByLabelText("Enter your password");
+    const newPswInput = screen.getByLabelText("New password");
+    const confirmPswInput = screen.getByLabelText("Confirm new password");
+    const eyeIcons = screen.getAllByTestId("eyeIcon");
+    eyeIcons.forEach((eyeIcon) => {
+      userEvent.click(eyeIcon);
+    });
+    await waitFor(() => {
+      expect(oldPswInput.getAttribute("type")).toEqual("text");
+      expect(newPswInput.getAttribute("type")).toEqual("text");
+      expect(confirmPswInput.getAttribute("type")).toEqual("text");
     });
   });
 });
