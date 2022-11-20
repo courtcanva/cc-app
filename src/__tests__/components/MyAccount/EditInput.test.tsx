@@ -39,5 +39,9 @@ describe("EditInput test", () => {
     const oldPswInput = screen.getByLabelText(/Enter your password/i);
     const newPswInput = screen.getByLabelText("New password");
     const confirmPswInput = screen.getByLabelText(/Confirm new password/i);
+    const applyBtn = screen.getByRole("button", { name: /apply/i });
+    userEvent.type(oldPswInput, "123456");
+    userEvent.type(newPswInput, "1234567");
+    userEvent.type(newPswInput, "1234567");
   });
 });
