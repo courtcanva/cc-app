@@ -33,7 +33,7 @@ describe("EditInput test", () => {
     });
   });
 
-  it("should show error message when users input invalid password information", () => {
+  it("should show error message when users input invalid password information", async () => {
     const editPsw = screen.getByText(/change password/i);
     userEvent.click(editPsw);
     const oldPswInput = screen.getByLabelText(/Enter your password/i);
@@ -42,6 +42,13 @@ describe("EditInput test", () => {
     const applyBtn = screen.getByRole("button", { name: /apply/i });
     userEvent.type(oldPswInput, "123456");
     userEvent.type(newPswInput, "1234567");
-    userEvent.type(newPswInput, "1234567");
+    userEvent.type(confirmPswInput, "1234567");
+    userEvent.click(applyBtn);
+    const invalidMsg = screen.getByText(
+      "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character!"
+    );
+    await waitFor(() => {
+      expect(invalidMsg).toBeVisible();
+    });
   });
 });
