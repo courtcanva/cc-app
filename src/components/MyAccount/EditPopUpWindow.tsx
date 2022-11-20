@@ -182,6 +182,7 @@ const EditPopUpWindow = ({
               incorrectPswMsg={incorrectPswMsg}
               setIncorrectPswMsg={setIncorrectPswMsg}
               keyBoardEvent={enterPress}
+              key={0}
             />
             <EditInputGroup
               inputType="password"
@@ -190,6 +191,7 @@ const EditPopUpWindow = ({
               weakPasswordMsg={weakPasswordMsg}
               setWeakPasswordMsg={setWeakPasswordMsg}
               keyBoardEvent={enterPress}
+              key={1}
             />
             <EditInputGroup
               inputType="password"
@@ -198,6 +200,7 @@ const EditPopUpWindow = ({
               errorMessage={errorMessage}
               setErrorMessage={setErrorMessage}
               keyBoardEvent={enterPress}
+              key={2}
             />
           </ModalBody>
         )}
