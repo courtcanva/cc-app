@@ -1,7 +1,6 @@
 import MyAccountContainer from "@/components/MyAccount/MyAccountContainer";
 import renderWithMockedProvider from "../../utils";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 describe("EditInput test", () => {
