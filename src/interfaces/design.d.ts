@@ -58,4 +58,5 @@ export interface ISaveDesign {
   tileColor: ITileColor[];
   courtSize: ICourtSize;
   image: string;
+  courtType: string;
 }

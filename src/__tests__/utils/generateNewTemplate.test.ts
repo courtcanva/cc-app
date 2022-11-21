@@ -11,6 +11,7 @@ describe("generateNewTemplate", () => {
       design: {
         designer: "Zark",
         user_id: "",
+        courtType: "basketball",
         designName: "Cecilia's Court",
         tileColor: [],
         courtSize: {
