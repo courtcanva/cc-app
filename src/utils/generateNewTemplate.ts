@@ -3,6 +3,7 @@ import { ITemplate } from "@/interfaces/template";
 import { CourtSizeState } from "@/store/reducer/courtSpecDataSlice";
 import { Court } from "@/store/reducer/tileSlice";
 import { saveDesignMapping } from "./designMapping";
+import { COURT_TYPE } from "@/constants/courtData";
 
 const generateNewTemplate = (
   userId: string,
@@ -16,7 +17,6 @@ const generateNewTemplate = (
   const courtSizeData = saveDesignMapping(selectedCourt);
   const tiles = selectedCourtTileData;
   const selectedCourtCategory = selectedCourt.courtName.replace(/ /g, "");
-  const courtType = "basketball";
 
   const newDesign: ISaveDesign = {
     designer: designer,
@@ -25,6 +25,7 @@ const generateNewTemplate = (
     tileColor: tiles,
     courtSize: courtSizeData,
     image: "",
+    courtType: COURT_TYPE,
   };
 
   const newTemplate: ITemplate = {
@@ -35,7 +36,7 @@ const generateNewTemplate = (
     image: imageUrl,
     tags: {
       CourtCategory: selectedCourtCategory,
-      CourtType: courtType,
+      CourtType: COURT_TYPE,
     },
   };
   return newTemplate;

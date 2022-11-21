@@ -23,6 +23,7 @@ import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { CHECK_START_END_SPACE, DESIGN_NAME_MAX_CHAR_LENGTH } from "@/constants/courtData";
 import SaveDesignModal from "./SaveDesignModal";
 import SaveAlert from "./SaveAlert";
+import { COURT_TYPE } from "@/constants/courtData";
 import { upLoadScreenshot } from "@/utils/manageExternalImage";
 
 const SaveBoard: React.FC = () => {
@@ -91,7 +92,7 @@ const SaveBoard: React.FC = () => {
         });
       }
       const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
-      await addDesign({ design: { ...designData, image: imgUrl } })
+      await addDesign({ design: { ...designData, image: imgUrl, courtType: COURT_TYPE } })
         .unwrap()
         .then(() => {
           setFeedback("Your design has been saved.");
@@ -112,7 +113,10 @@ const SaveBoard: React.FC = () => {
         });
       }
       const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
-      await updateDesign({ _id: useCourtId, design: { ...designData, image: imgUrl } })
+      await updateDesign({
+        _id: useCourtId,
+        design: { ...designData, image: imgUrl, courtType: COURT_TYPE },
+      })
         .unwrap()
         .then(() => {
           setFeedback("Your design has been updated.");
@@ -156,7 +160,7 @@ const SaveBoard: React.FC = () => {
     }
     const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
 
-    await addDesign({ design: { ...designData, image: imgUrl } })
+    await addDesign({ design: { ...designData, image: imgUrl, courtType: COURT_TYPE } })
       .unwrap()
       .then(() => {
         setFeedback("Your design has been saved.");

@@ -7,6 +7,7 @@ import { IDesign, ITileColor } from "@/interfaces/design";
 import { useDispatch } from "react-redux";
 import { switchLoginModal } from "@/store/reducer/buttonToggleSlice";
 import { upLoadScreenshot } from "@/utils/manageExternalImage";
+import { COURT_TYPE } from "../../constants/courtData";
 
 interface IBudgetBoardprops {
   useTotalPrice: string;
@@ -24,7 +25,6 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
   const userId = useStoreSelector((state) => state.user.userId);
   const [addToCart] = useAddToCartMutation();
   const mappedCourtSize = saveDesignMapping(court);
-  const courtType = "basketball";
 
   const currentDesign: IDesign = {
     _id: court.courtId,
@@ -32,7 +32,7 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
     designName: court.designName,
     courtSize: mappedCourtSize,
     tileColor: tiles,
-    courtType: courtType,
+    courtType: COURT_TYPE,
   };
 
   const newCartItem: ICartItem = {

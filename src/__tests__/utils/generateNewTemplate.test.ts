@@ -11,6 +11,7 @@ describe("generateNewTemplate", () => {
       design: {
         designer: "Zark",
         user_id: "",
+        courtType: "basketball",
         designName: "Cecilia's Court",
         tileColor: [],
         courtSize: {
@@ -38,6 +39,7 @@ describe("generateNewTemplate", () => {
     };
     const designer = "Zark";
     const userId = "123456";
+    const courtType = "basketball";
     const name = "Cecilia's Court";
     const imageUrl = "image_url";
     const description = "This is description";
@@ -61,6 +63,7 @@ describe("generateNewTemplate", () => {
       image: "",
     };
     const newTemplate = generateNewTemplate(
+      courtType,
       userId,
       name,
       description,
