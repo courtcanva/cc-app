@@ -39,7 +39,6 @@ describe("generateNewTemplate", () => {
     };
     const designer = "Zark";
     const userId = "123456";
-    const courtType = "basketball";
     const name = "Cecilia's Court";
     const imageUrl = "image_url";
     const description = "This is description";
@@ -63,7 +62,6 @@ describe("generateNewTemplate", () => {
       image: "",
     };
     const newTemplate = generateNewTemplate(
-      courtType,
       userId,
       name,
       description,
