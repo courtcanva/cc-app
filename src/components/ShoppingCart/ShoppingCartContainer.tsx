@@ -23,7 +23,7 @@ import { deleteImage } from "@/utils/manageExternalImage";
 import { addOrderItems } from "@/store/reducer/orderSlice";
 import { useDispatch } from "react-redux";
 import { switchCartDisplay, switchOrderGeneration } from "@/store/reducer/buttonToggleSlice";
-
+import { useGetDepositQuery } from "../../redux/api/depositApi";
 interface userCartList {
   shoppingCart: ICartItem[];
 }
@@ -32,6 +32,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [deleteItemFromCart] = useDeleteItemFromCartMutation();
+  const { data: depositData } = useGetDepositQuery();
 
   const confirmDeleteDesign = (id: string) => {
     deleteItemFromCart(id);
@@ -143,6 +144,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                 checkedItems={checkedItems}
                 setCheckedItems={setCheckedItems}
                 index={index}
+                depositRate={depositData?.depositRate}
               />
             ))}
           </Tbody>
