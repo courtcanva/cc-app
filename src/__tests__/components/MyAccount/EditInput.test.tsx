@@ -2,7 +2,6 @@ import MyAccountContainer from "@/components/MyAccount/MyAccountContainer";
 import renderWithMockedProvider from "../../utils";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
 describe("EditInput test", () => {
   beforeEach(() => {
@@ -32,7 +31,6 @@ describe("EditInput test", () => {
       expect(editNameWindow).not.toBeVisible();
     });
   });
-
   it("should show password content when users click eye icon", async () => {
     const editPsw = screen.getByText(/change password/i);
     userEvent.click(editPsw);
