@@ -21,11 +21,11 @@ import EditInputGroup from "./EditInputGroup";
 const EditPopUpWindow = ({
   onClose,
   isOpen,
-  title,
+  type,
 }: {
   onClose: () => void;
   isOpen: boolean;
-  title: string;
+  type: string;
 }) => {
   const [newFirstName, setNewFirstName] = useState("");
   const [newLastName, setNewLastName] = useState("");
@@ -40,10 +40,10 @@ const EditPopUpWindow = ({
   const dispatch = useDispatch();
 
   const isBlank = (): boolean => {
-    switch (title) {
-      case "Change Your Name":
-        return newFirstName === "" || newLastName == "";
-      case "Change Your Password":
+    switch (type) {
+      case "Name edit form":
+        return newFirstName === "" || newLastName === "";
+      case "Password edit form":
         return oldPsw === "" || newPsw === "" || confirmPsw === "";
       default:
         return true;
@@ -75,8 +75,8 @@ const EditPopUpWindow = ({
   };
 
   const handleApply = async () => {
-    switch (title) {
-      case "Change Your Name": {
+    switch (type) {
+      case "Name edit form": {
         const res: AxiosResponse = await updateUser({
           userId: currentUserId,
           firstName: newFirstName,
@@ -101,8 +101,7 @@ const EditPopUpWindow = ({
         onClose();
         break;
       }
-      case "Change Your Password": {
-        validatePwd(newPsw, confirmPsw, setWeakPasswordMsg, setErrorMessage);
+      case "Password edit form": {
         const response: AxiosResponse = await validPassword({
           userId: currentUserId,
           password: oldPsw,
@@ -111,10 +110,14 @@ const EditPopUpWindow = ({
           failMessage();
           return;
         }
+
         const result = response.data;
-        result
-          ? setIncorrectPswMsg("")
-          : setIncorrectPswMsg("The password you entered is incorrect. Please try again");
+
+        if (result) {
+          setIncorrectPswMsg("");
+        } else {
+          setIncorrectPswMsg("The password you entered is incorrect. Please try again");
+        }
         if (validatePwd(newPsw, confirmPsw, setWeakPasswordMsg, setErrorMessage) && result) {
           const res: AxiosResponse = await updateUser({
             userId: currentUserId,
@@ -139,8 +142,9 @@ const EditPopUpWindow = ({
       <ModalOverlay />
       <ModalContent padding="1% 2%" backgroundColor="#F5F5F5">
         <ModalHeader textAlign="center" fontFamily="Inter" fontWeight={700} fontSize="20px">
-          {" "}
-          {title}
+          {type === "Name edit form" && "Change Your Name"}
+
+          {type === "Password edit form" && "Change Your Password"}
         </ModalHeader>
         <ModalCloseButton
           margin="2% 1%"
@@ -157,23 +161,23 @@ const EditPopUpWindow = ({
             setIncorrectPswMsg("");
           }}
         />
-        {title === "Change Your Name" && (
+        {type === "Name edit form" && (
           <ModalBody>
             <EditInputGroup
               inputType="name"
               label="First Name"
-              setNewFirstName={setNewFirstName}
+              setNewName={setNewFirstName}
               keyBoardEvent={enterPress}
             />
             <EditInputGroup
               inputType="name"
               label="Last Name"
-              setNewLastName={setNewLastName}
+              setNewName={setNewLastName}
               keyBoardEvent={enterPress}
             />
           </ModalBody>
         )}
-        {title === "Change Your Password" && (
+        {type === "Password edit form" && (
           <ModalBody>
             <EditInputGroup
               inputType="password"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, Button, Flex, IconButton, Text, useDisclosure } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { switchMyAccount } from "@/store/reducer/buttonToggleSlice";
@@ -13,14 +13,14 @@ const MyAccountContainer = () => {
   const { firstName, lastName, email } = useStoreSelector((state) => state.user);
   const avatarUrl = "";
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [title, setTitle] = useState("");
+  const [type, setType] = useState("");
 
   const handleEditName = () => {
-    setTitle("Change Your Name");
+    setType("Name edit form");
     onOpen();
   };
   const handleChangePsw = () => {
-    setTitle("Change Your Password");
+    setType("Password edit form");
     onOpen();
   };
   const handleReturnToDesign = () => {
@@ -102,7 +102,7 @@ const MyAccountContainer = () => {
       <Button variant="shareBtn" padding="10px 24px" onClick={handleReturnToDesign}>
         Return to Design
       </Button>
-      <EditPopUpWindow isOpen={isOpen} onClose={onClose} title={title} />
+      <EditPopUpWindow isOpen={isOpen} onClose={onClose} type={type} />
     </Flex>
   );
 };

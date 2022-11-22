@@ -9,12 +9,11 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { VscEyeClosed, VscEye } from "react-icons/vsc";
+import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 const EditInputGroup = ({
   label,
   inputType,
-  setNewFirstName,
-  setNewLastName,
+  setNewName,
   setPassword,
   incorrectPswMsg,
   weakPasswordMsg,
@@ -26,8 +25,7 @@ const EditInputGroup = ({
 }: {
   label: string;
   inputType: string;
-  setNewFirstName?: React.Dispatch<React.SetStateAction<string>>;
-  setNewLastName?: React.Dispatch<React.SetStateAction<string>>;
+  setNewName?: React.Dispatch<React.SetStateAction<string>>;
   setPassword?: React.Dispatch<React.SetStateAction<string>>;
   incorrectPswMsg?: string;
   weakPasswordMsg?: string;
@@ -38,7 +36,7 @@ const EditInputGroup = ({
   keyBoardEvent: (event: any) => void;
 }) => {
   const [show, setShow] = useState(false);
-  const visibleClick = () => setShow(!show);
+  const toggleVisible = () => setShow(!show);
   return (
     <FormControl>
       <FormLabel
@@ -57,8 +55,7 @@ const EditInputGroup = ({
           fontSize="16px"
           marginBottom={10}
           onChange={(e) => {
-            setNewFirstName && setNewFirstName(e.target.value);
-            setNewLastName && setNewLastName(e.target.value);
+            setNewName && setNewName(e.target.value);
           }}
           onKeyPress={keyBoardEvent}
         />
@@ -85,8 +82,8 @@ const EditInputGroup = ({
             />
             <InputRightElement>
               <Icon
-                as={show ? VscEye : VscEyeClosed}
-                onClick={visibleClick}
+                as={show ? RiEyeOffFill : RiEyeFill}
+                onClick={toggleVisible}
                 color={incorrectPswMsg || weakPasswordMsg || errorMessage ? "#C13D46" : "#344C5C"}
                 cursor="pointer"
                 data-testid="eyeIcon"

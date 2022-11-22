@@ -2,6 +2,7 @@ import MyAccountContainer from "@/components/MyAccount/MyAccountContainer";
 import renderWithMockedProvider from "../../utils";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 describe("EditInput test", () => {
   beforeEach(() => {
@@ -29,32 +30,6 @@ describe("EditInput test", () => {
     userEvent.click(applyBtn);
     await waitFor(() => {
       expect(editNameWindow).not.toBeVisible();
-    });
-  });
-
-  it("should show error message when users input invalid password information", async () => {
-    const editPsw = screen.getByText(/change password/i);
-    userEvent.click(editPsw);
-    const oldPswInput = screen.getByLabelText("Enter your password");
-    const newPswInput = screen.getByLabelText("New password");
-    const confirmPswInput = screen.getByLabelText("Confirm new password");
-    const applyBtn = screen.getByRole("button", { name: /apply/i });
-    userEvent.type(oldPswInput, "123456");
-    userEvent.type(newPswInput, "1234567");
-    userEvent.type(confirmPswInput, "1234567");
-    userEvent.click(applyBtn);
-    const invalidMsg = screen.getByText(
-      "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character!"
-    );
-    await waitFor(() => {
-      expect(invalidMsg).toBeVisible();
-    });
-    userEvent.type(newPswInput, "1234567~Ab");
-    userEvent.type(confirmPswInput, "123456~Ab");
-    userEvent.click(applyBtn);
-    const notMatchMsg = screen.getByText("Password does not match!");
-    await waitFor(() => {
-      expect(notMatchMsg).toBeVisible();
     });
   });
 
