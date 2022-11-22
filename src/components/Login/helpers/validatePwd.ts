@@ -17,7 +17,7 @@ const validatePwd = (
   if (!passwordRegExp.test(password)) {
     setErrorMessage("");
     setWeakPasswordMsg(
-      "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character!"
+      "Password must contain at least eight characters, one uppercase letter, one lowercase letter, one number and one special character!"
     );
     return false;
   }
