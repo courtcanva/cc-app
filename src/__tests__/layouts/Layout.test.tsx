@@ -27,8 +27,10 @@ describe("Header", () => {
         </RouterContext.Provider>
       </GoogleOAuthProvider>
     );
-    const budgetTextElement = screen.queryAllByText(/Estimated Budget/i);
-    expect(budgetTextElement).toHaveLength(1);
+    const quotationTextElement = screen.queryAllByText(/Quotation/i);
+    const depositTextElement = screen.queryAllByText(/Deposit/i);
+    expect(quotationTextElement).toHaveLength(1);
+    expect(depositTextElement).toHaveLength(1);
   });
 
   it("should define Layout", () => {

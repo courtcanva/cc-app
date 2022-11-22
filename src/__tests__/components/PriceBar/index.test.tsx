@@ -6,7 +6,8 @@ describe("PriceBar", () => {
   it("Should show the price bar with correct content", () => {
     renderWithMockedProvider(<PriceBar />);
 
-    expect(screen.getByText(/Estimated Budget/i)).toBeInTheDocument();
+    expect(screen.getByText(/Quotation/i)).toBeInTheDocument();
+    expect(screen.getByText(/Deposit/i)).toBeInTheDocument();
     expect(screen.getByText(/Estimated Tiles/i)).toBeInTheDocument();
     expect(screen.getByTestId("tileBoard")).toBeTruthy();
   });
