@@ -37,7 +37,7 @@ import {
 import ErrorMsg from "./ErrorMsg";
 import { upLoadScreenshot } from "@/utils/manageExternalImage";
 import { FcRemoveImage } from "react-icons/fc";
-
+import { COURT_TYPE } from "../../constants/courtData";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
@@ -55,7 +55,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
   const [addTemplate] = useAddTemplateMutation();
   const toast = useToast();
   const designerName = `${firstName} ${lastName}`;
-  const courtType = "basketball";
+
   const {
     isOpen: isSuccessNoticeOpen,
     onOpen: handleSuccessNoticeOpen,
@@ -159,7 +159,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
             </Flex>
             <Flex gap="1.5rem" justifyContent="center" flexWrap="wrap">
               <Badge margin="1rem" colorScheme="green">
-                {courtType}
+                {COURT_TYPE}
               </Badge>
               <Badge margin="1rem">{selectedCourt.courtName}</Badge>
             </Flex>
