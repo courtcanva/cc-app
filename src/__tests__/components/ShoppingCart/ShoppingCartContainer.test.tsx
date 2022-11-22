@@ -80,7 +80,7 @@ describe("ShoppingCart component", () => {
       "Court MaterialTiles (9m*5m,Small Court)ShippingInstallation feeCourt tile pavingCourt painting"
     );
     expect(textShow).toHaveStyle(
-      ` overflow-y: hidden; height:1.5vw; white-space:nowrap; text-overflow:ellipsis `
+      ` overflow-y: hidden; white-space:nowrap; text-overflow:ellipsis `
     );
   });
 
@@ -98,7 +98,7 @@ describe("ShoppingCart component", () => {
   it("Should render expired message when one or more item expired", () => {
     renderWithMockedProvider(<ShoppingCartContainer shoppingCart={mockCartData} />);
     const expiredMessage = screen.getByText(
-      "Sorry, some product’s quotation has expired. Please edit your cart and try again. We apologize for any inconvenience caused."
+      "Sorry, some quotation has expired. Please edit your cart and try again. We apologize for any inconvenience caused."
     );
     expect(expiredMessage).toBeVisible();
   });
@@ -106,7 +106,7 @@ describe("ShoppingCart component", () => {
   it("Should render expired icon and expired quotation message when item is expired", () => {
     renderWithMockedProvider(<ShoppingCartContainer shoppingCart={[mockCartData[0]]} />);
     const expireIcon = screen.getByTestId("expired-icon");
-    const expireText = screen.getByText("Quotation has expired.");
+    const expireText = screen.getByText("Quotation expired");
     expect(expireText).toBeVisible();
     expect(expireIcon).toBeVisible();
   });

@@ -26,16 +26,15 @@ const DropDownButton: React.FC<Props> = ({ detail }) => {
     whiteSpace: show ? "normal" : "nowrap",
     textOverflow: show ? "clip" : "ellipsis",
     textAlign: "left",
-    lineHeight: "160%",
     alignItems: "center",
     paddingLeft: "2px",
   };
   return (
-    <Flex width="100%" flexDirection="row" overflow="auto" marginTop="1.5vw">
-      <Collapse startingHeight="1.5vw" in={show} style={collapseStyle} data-testid="testShow">
+    <Flex width="100%" flexDirection="row" overflow="auto">
+      <Collapse startingHeight="20px" in={show} style={collapseStyle} data-testid="testShow">
         <UnorderedList>
           <ListItem marginLeft="3px">
-            <Text size="xs">
+            <Text variant="textFont">
               Court Material
               <UnorderedList>
                 <ListItem>
@@ -46,10 +45,10 @@ const DropDownButton: React.FC<Props> = ({ detail }) => {
           </ListItem>
 
           <ListItem marginLeft="3px">
-            <Text size="xs">Shipping</Text>
+            <Text variant="textFont">Shipping</Text>
           </ListItem>
           <ListItem marginLeft="3px">
-            <Text size="xs">
+            <Text variant="textFont">
               Installation fee
               <UnorderedList>
                 <ListItem>Court tile paving</ListItem>
@@ -62,7 +61,7 @@ const DropDownButton: React.FC<Props> = ({ detail }) => {
       <IconButton
         icon={show ? <GrUp /> : <GrDown />}
         colorScheme="white"
-        size="1vw"
+        fontSize={{ base: "8px", lg: "12px", xl: "16px" }}
         onClick={handleToggle}
         aria-label="dropDownBtn"
         _focus={{ background: "white" }}

@@ -36,20 +36,14 @@ const CartListItem = ({
     );
   };
 
-  const columnStyle = {
-    fontSize: "1vw",
-    fontWeight: "700",
-    marginTop: "1.5vw",
-    color: "brand.primary",
-  };
   return (
     <>
-      <Tr alignItems="center" role="dataRow">
+      <Tr alignItems="center" role="dataRow" height={{ base: "90px", lg: "135px", xl: " 180px" }}>
         <Td verticalAlign="top">
           {/* Todo: space for thumbnail images that implementing in the future. */}
-          <Flex alignItems="center" marginLeft="1vw">
+          <Flex alignItems="center" paddingLeft="1%">
             {isExpired ? (
-              <RiErrorWarningLine size="2.1vw" color="#F55252" data-testid="expired-icon" />
+              <RiErrorWarningLine size="25px" color="#F55252" data-testid="expired-icon" />
             ) : (
               <Checkbox
                 borderColor="#DCDCDC"
@@ -57,7 +51,12 @@ const CartListItem = ({
                 onChange={handleCheckBox}
               />
             )}
-            <Box width="20vw" height="10vw" marginLeft="1vw" position="relative">
+            <Box
+              width={{ base: "140px", lg: "210px", xl: "280px" }}
+              height={{ base: "70px", lg: "105px", xl: "140px" }}
+              marginLeft="5%"
+              position="relative"
+            >
               {image && (
                 <Image src={image} alt="Court image" layout="fill" objectFit="contain"></Image>
               )}
@@ -65,29 +64,27 @@ const CartListItem = ({
           </Flex>
         </Td>
         <Td verticalAlign="top" overflowX="auto">
-          <Text style={columnStyle}>{productName}</Text>
+          <Text variant="textFont">{productName}</Text>
           {isExpired && (
-            <Text color="#F55252" fontSize="1vw" fontWeight="700" marginTop="3vw">
-              Quotation has expired.
+            <Text variant="textFont" color="#F55252" marginTop="40%">
+              Quotation expired
             </Text>
           )}
         </Td>
         <Td verticalAlign="top">
-          <Box style={columnStyle}>
-            <DropDownButton detail={courtDetail} />
-          </Box>
+          <DropDownButton detail={courtDetail} />
         </Td>
         <Td verticalAlign="top">
-          <Text style={columnStyle}>A${quotation}</Text>
+          <Text variant="textFont">A${quotation}</Text>
         </Td>
         <Td verticalAlign="top">
-          <Text style={columnStyle}>A${(parseFloat(quotation) * 0.02).toFixed(2)}</Text>
+          <Text variant="textFont">A${(parseFloat(quotation) * 0.02).toFixed(2)}</Text>
         </Td>
         <Td verticalAlign="top">
           <Button
-            marginTop="1vw"
-            right="3vw"
-            fontSize="1.1vw"
+            marginTop={{ base: "22px", lg: "33px", xl: "44px" }}
+            right={{ base: "22px", lg: "33px", xl: "44px" }}
+            fontSize={{ base: "10px", lg: "15px", xl: "20px" }}
             colorScheme="whiteAlpha"
             variant="unstyled"
             aria-label="cartDeleteBtn"

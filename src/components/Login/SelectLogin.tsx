@@ -92,7 +92,7 @@ const SelectLogin: React.FC<Props> = ({
           <Icon width="240px" height="180px" viewBox="120 0 550 550" role="logo">
             <MainLogoSvg />
           </Icon>
-          <Text fontSize="xl">Log in or sign up in seconds</Text>
+          <Text fontSize="xl">Login or sign up in seconds</Text>
           <Text fontSize="11px" textAlign="center" fontWeight="light" marginTop="15px">
             Use your email or Google account to continue with CourtCanva!
           </Text>
