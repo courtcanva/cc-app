@@ -18,10 +18,15 @@ const EmptyCart = () => {
       borderTop="5px solid #7088B1"
     >
       <Flex flexDirection="column" justifyContent="space-evenly" alignItems="center" height="400px">
-        <Text fontSize="50px" fontWeight="700">
-          Shopping Cart
-        </Text>
-        <Text fontSize="18px" fontWeight="500" role="text" aria-label="paragraph">
+        <Text variant="headerFont">Shopping Cart</Text>
+        <Text
+          variant="bodyFont"
+          textTransform="none"
+          fontWeight="500"
+          color="black"
+          role="text"
+          aria-label="paragraph"
+        >
           You currently have{" "}
           <Text display="inline" fontWeight="900">
             no items
