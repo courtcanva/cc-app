@@ -10,7 +10,7 @@ interface Props {
 const ListItemsContainer = ({ title, onClickHandler, listArray, myListsArrayFc }: Props) => {
   const ListTitle = () => {
     return (
-      <Text fontSize="lg" fontWeight="500" color="black" data-testid="emptyText">
+      <Text variant="bodyFont" fontWeight="500" color="black" data-testid="emptyText">
         You currently have{" "}
         <Text display="inline" fontWeight="900">
           no items{" "}
