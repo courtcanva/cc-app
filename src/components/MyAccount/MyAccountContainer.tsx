@@ -9,9 +9,9 @@ import FlexContainer from "./FlexContainer";
 import EditPopUpWindow from "./EditPopUpWindow";
 
 export enum FormType {
-    NameEdit= "NameEdit",
-    PasswordEdit= "PasswordEdit"
-  }
+  NameEdit = "NameEdit",
+  PasswordEdit = "PasswordEdit",
+}
 const MyAccountContainer = () => {
   const dispatch = useDispatch();
   const { firstName, lastName, email } = useStoreSelector((state) => state.user);
