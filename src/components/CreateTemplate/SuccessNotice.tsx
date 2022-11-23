@@ -34,7 +34,7 @@ const SuccessNotice = (prop: Props) => {
         justifyContent="center"
       >
         <ModalHeader marginTop="15px" marginBottom="-10px" color="brand.primary" fontSize="md">
-          Congratulations You have successfully submitted a new template!
+          Congratulations, you have successfully submitted a new template!
         </ModalHeader>
         <ModalFooter>
           <Flex gap="5rem">
@@ -47,7 +47,7 @@ const SuccessNotice = (prop: Props) => {
               Close
             </Button>
             <Button fontSize="lg" onClick={handleOpenMyTemplate}>
-              Go My Template
+              My Template
             </Button>
           </Flex>
         </ModalFooter>
