@@ -10,7 +10,7 @@ const FlexContainer = ({ title, content }: any) => {
       alignItems="center"
       marginBottom="-1px"
     >
-      <Text fontWeight="700" fontSize="16px" flex={1}>
+      <Text variant="bodyFont" flex={1}>
         {title}
       </Text>
       <Box flex={1}>{content}</Box>

@@ -15,7 +15,7 @@ const fontStyles = {
       color: "brand.primary",
     },
     textFont: {
-      fontSize: { base: "8px", lg: "12px", xl: "16px" },
+      fontSize: { base: "10px", lg: "12px", xl: "16px" },
       lineHeight: "auto",
       fontWeight: "700",
       color: "brand.primary",

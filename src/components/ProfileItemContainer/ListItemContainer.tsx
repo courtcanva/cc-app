@@ -20,9 +20,7 @@ const ListItemsContainer = ({ title, onClickHandler, listArray, myListsArrayFc }
   };
   return (
     <Flex flexDirection="column" width="100vw" gap="28px" alignItems="center" min-height="100vh">
-      <Text fontSize="32px" fontWeight="700" textAlign="center">
-        {title}
-      </Text>
+      <Text variant="headerFont">{title}</Text>
       {listArray?.length ? myListsArrayFc() : <ListTitle />}
       <Button
         variant="shareBtn"
@@ -31,7 +29,7 @@ const ListItemsContainer = ({ title, onClickHandler, listArray, myListsArrayFc }
         onClick={onClickHandler}
         marginBottom="28px"
       >
-        Return To Design
+        Return to Design
       </Button>
     </Flex>
   );

@@ -30,9 +30,7 @@ const MyAccountContainer = () => {
       color="brand.primary"
       alignItems="center"
     >
-      <Text fontSize="32px" fontWeight="700">
-        My Account
-      </Text>
+      <Text variant="headerFont">My Account</Text>
       <Box width="100%">
         <FlexContainer
           title="Avatar"
@@ -52,7 +50,7 @@ const MyAccountContainer = () => {
         <FlexContainer
           title="Name"
           content={
-            <Text fontWeight="700" fontSize="16px">
+            <Text variant="textFont">
               {firstName} {lastName}{" "}
               <IconButton
                 aria-label="edit name"
@@ -63,25 +61,16 @@ const MyAccountContainer = () => {
             </Text>
           }
         />
-        <FlexContainer
-          title="Email Address"
-          content={
-            <Text fontWeight="700" fontSize="16px">
-              {email}
-            </Text>
-          }
-        />
+        <FlexContainer title="Email Address" content={<Text variant="textFont">{email}</Text>} />
         <FlexContainer
           title="Password"
           content={
             <Button
-              padding="10px 24px"
-              fontSize="18px"
-              fontWeight="700"
+              padding={{ base: "5px 12px", lg: "7.5px 18px", xl: "10px 24px" }}
               background="#F3F2F7"
               border="1px solid #344C5C"
             >
-              Change Password
+              <Text variant="textFont">Change Password</Text>
             </Button>
           }
         />

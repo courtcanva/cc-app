@@ -62,11 +62,7 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
       <TableContainer minWidth="922px" maxWidth="1728px" width="90vw" overflowY="auto">
         {anyExpired && (
           <Flex padding="1.5%" width="100%" backgroundColor="#F55252" justifyContent="center">
-            <RiErrorWarningLine
-              size="1.5%"
-              style={{ marginTop: "auto", marginBottom: "auto" }}
-              color="#FFFDFF"
-            />
+            <RiErrorWarningLine size="1.5%" style={{ margin: "auto 0" }} color="#FFFDFF" />
             <Text variant="textFont" marginLeft="1%" color="#F5F5F5">
               Sorry, some quotation has expired. Please edit your cart and try again. We apologize
               for any inconvenience caused.
