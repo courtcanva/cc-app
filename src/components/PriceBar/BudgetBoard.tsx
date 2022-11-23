@@ -76,7 +76,6 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
     >
       <Flex flexDirection="column" justifyContent="center" width="40%" color="fontcolor.lightDark">
         <Flex justifyContent="space-around" fontSize="12px">
-          {" "}
           <Text marginLeft="20px">Quotation</Text>
           <Text marginLeft="5px">
             {useTotalPrice === "0.00" ? "Loading..." : formatCurrency(useTotalPrice)}

@@ -84,9 +84,7 @@ const CartListItem = ({
           <Text style={columnStyle}>{formatCurrency(quotation)}</Text>
         </Td>
         <Td verticalAlign="top">
-          <Text style={columnStyle}>
-            {formatCurrency((Number(quotation) * depositRate).toString())}
-          </Text>
+          <Text style={columnStyle}>{formatCurrency(Number(quotation) * depositRate)}</Text>
         </Td>
         <Td verticalAlign="top">
           <Button

@@ -79,7 +79,7 @@ const OrderItem = ({ item, index, depositRatio }: IOrderProps) => {
           </Text>
           <Spacer />
           <Text fontSize="14px" fontWeight="500" flex="1.6 1 0">
-            {formatCurrency((Number(quotation) * depositRatio).toString())}
+            {formatCurrency(Number(quotation) * depositRatio)}
           </Text>
         </Flex>
       </GridItem>
