@@ -5,7 +5,6 @@ const validateUsername = (
   lastName: string,
   setInvalidUsernameMsg: React.Dispatch<React.SetStateAction<string>>
 ): boolean => {
-  // regular expression from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
   const usernameRegExp = /[*|":<>[\]{}`\\()';!?@#$%^&~/_+=\s]/; // eslint-disable-line
   if (usernameRegExp.test(firstName) || usernameRegExp.test(lastName)) {
     setInvalidUsernameMsg(
