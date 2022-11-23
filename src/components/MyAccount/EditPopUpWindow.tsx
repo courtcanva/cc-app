@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { updateUser, validPassword } from "../Login/helpers/userRequests";
 import validatePwd from "../Login/helpers/validatePwd";
 import EditInputGroup from "./EditInputGroup";
+import { FormType } from "./MyAccountContainer";
 
 const EditPopUpWindow = ({
   onClose,
@@ -41,9 +42,9 @@ const EditPopUpWindow = ({
 
   const isBlank = (): boolean => {
     switch (type) {
-      case "Name edit form":
+      case FormType.NameEdit:
         return newFirstName === "" || newLastName === "";
-      case "Password edit form":
+      case FormType.PasswordEdit:
         return oldPsw === "" || newPsw === "" || confirmPsw === "";
       default:
         return true;
@@ -76,7 +77,7 @@ const EditPopUpWindow = ({
 
   const handleApply = async () => {
     switch (type) {
-      case "Name edit form": {
+      case FormType.NameEdit: {
         const res: AxiosResponse = await updateUser({
           userId: currentUserId,
           firstName: newFirstName,
@@ -101,7 +102,7 @@ const EditPopUpWindow = ({
         onClose();
         break;
       }
-      case "Password edit form": {
+      case FormType.PasswordEdit: {
         const response: AxiosResponse = await validPassword({
           userId: currentUserId,
           password: oldPsw,
@@ -142,9 +143,9 @@ const EditPopUpWindow = ({
       <ModalOverlay />
       <ModalContent padding="1% 2%" backgroundColor="#F5F5F5">
         <ModalHeader textAlign="center" fontFamily="Inter" fontWeight={700} fontSize="20px">
-          {type === "Name edit form" && "Change Your Name"}
+          {type === FormType.NameEdit && "Change Your Name"}
 
-          {type === "Password edit form" && "Change Your Password"}
+          {type === FormType.PasswordEdit && "Change Your Password"}
         </ModalHeader>
         <ModalCloseButton
           margin="2% 1%"
@@ -161,7 +162,7 @@ const EditPopUpWindow = ({
             setIncorrectPswMsg("");
           }}
         />
-        {type === "Name edit form" && (
+        {type === FormType.NameEdit && (
           <ModalBody>
             <EditInputGroup
               inputType="name"
@@ -177,7 +178,7 @@ const EditPopUpWindow = ({
             />
           </ModalBody>
         )}
-        {type === "Password edit form" && (
+        {type === FormType.PasswordEdit && (
           <ModalBody>
             <EditInputGroup
               inputType="password"

@@ -8,19 +8,22 @@ import { MdEdit } from "react-icons/md";
 import FlexContainer from "./FlexContainer";
 import EditPopUpWindow from "./EditPopUpWindow";
 
+export enum FormType {
+    NameEdit= "NameEdit",
+    PasswordEdit= "PasswordEdit"
+  }
 const MyAccountContainer = () => {
   const dispatch = useDispatch();
   const { firstName, lastName, email } = useStoreSelector((state) => state.user);
   const avatarUrl = "";
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [type, setType] = useState("");
-
   const handleEditName = () => {
-    setType("Name edit form");
+    setType(FormType.NameEdit);
     onOpen();
   };
   const handleChangePsw = () => {
-    setType("Password edit form");
+    setType(FormType.PasswordEdit);
     onOpen();
   };
   const handleReturnToDesign = () => {
