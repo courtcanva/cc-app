@@ -2,13 +2,14 @@ import { Grid, GridItem, Text, Box, Flex, Spacer, UnorderedList, ListItem } from
 import React from "react";
 import Image from "next/image";
 import { ICartItem } from "@/interfaces/cartItem";
-
+import formatCurrency from "@/utils/formatCurrency";
 interface IOrderProps {
   item: ICartItem;
   index: number;
+  depositRatio: number;
 }
 
-const OrderItem = ({ item, index }: IOrderProps) => {
+const OrderItem = ({ item, index, depositRatio }: IOrderProps) => {
   const {
     design: {
       designName,
@@ -20,13 +21,12 @@ const OrderItem = ({ item, index }: IOrderProps) => {
 
   const lengthInMeter = (length + sideBorderWidth * 2) / 1000;
   const widthInMeter = (width + sideBorderWidth * 2) / 1000;
-
   return (
     <Grid
       templateColumns="5fr 7.84fr"
       templateRows="repeat(6, 1fr)"
       rounded="20px"
-      height="420px"
+      height="500px"
       fontWeight="700"
       boxShadow="4px 4px 8px rgba(0, 0, 0, 0.25), -4px -4px 8px #EBECF0"
     >
@@ -68,7 +68,18 @@ const OrderItem = ({ item, index }: IOrderProps) => {
           </Text>
           <Spacer />
           <Text fontSize="14px" fontWeight="500" flex="1.6 1 0">
-            A${quotation}
+            {formatCurrency(quotation)}
+          </Text>
+        </Flex>
+      </GridItem>
+      <GridItem padding={{ base: "30px 14px", md: "30px 44px" }} borderBottom="2px solid #EBECF0">
+        <Flex alignItems="center">
+          <Text fontSize="16px" flex="2 1 0">
+            Deposit
+          </Text>
+          <Spacer />
+          <Text fontSize="14px" fontWeight="500" flex="1.6 1 0">
+            {formatCurrency(Number(quotation) * depositRatio)}
           </Text>
         </Flex>
       </GridItem>

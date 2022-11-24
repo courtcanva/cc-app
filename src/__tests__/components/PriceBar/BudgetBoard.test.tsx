@@ -6,8 +6,8 @@ import renderWithMockedProvider from "../../utils";
 describe("TileColorBoard", () => {
   it("Should render estimated budget text", () => {
     renderWithMockedProvider(<BudgetBoard useTotalPrice="" />);
-    const budgetTextEl = screen.getByText(/Estimated Budget/i);
-    expect(budgetTextEl).toBeInTheDocument();
+    expect(screen.getByText(/Quotation/i)).toBeInTheDocument();
+    expect(screen.getByText(/Deposit/i)).toBeInTheDocument();
   });
 
   it("Should render the clickable add-to-cart button", () => {
