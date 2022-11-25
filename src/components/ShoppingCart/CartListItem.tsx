@@ -5,6 +5,7 @@ import { ICartItem } from "@/interfaces/cartItem";
 import DropDownButton from "@/components/ShoppingCart/dropDownButton";
 import { RiErrorWarningLine } from "react-icons/ri";
 import Image from "next/image";
+import formatCurrency from "../../utils/formatCurrency";
 
 interface CartListItemProps {
   item: ICartItem;
@@ -12,6 +13,7 @@ interface CartListItemProps {
   checkedItems: boolean[];
   setCheckedItems: Dispatch<SetStateAction<boolean[]>>;
   index: number;
+  depositRate: number;
 }
 
 const CartListItem = ({
@@ -20,6 +22,7 @@ const CartListItem = ({
   checkedItems,
   setCheckedItems,
   index,
+  depositRate,
 }: CartListItemProps) => {
   const {
     design: { designName: productName, courtSize: courtDetail },
@@ -75,10 +78,10 @@ const CartListItem = ({
           <DropDownButton detail={courtDetail} />
         </Td>
         <Td verticalAlign="top">
-          <Text variant="textFont">A${quotation}</Text>
+          <Text variant="textFont">{formatCurrency(quotation)}</Text>
         </Td>
         <Td verticalAlign="top">
-          <Text variant="textFont">A${(parseFloat(quotation) * 0.02).toFixed(2)}</Text>
+          <Text variant="textFont">{formatCurrency(Number(quotation) * depositRate)}</Text>
         </Td>
         <Td verticalAlign="top">
           <Button

@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import OrderItem from "./OrderItem";
 import { switchOrderGeneration } from "@/store/reducer/buttonToggleSlice";
 import { useDispatch } from "react-redux";
-import { DEPOSIT_RATIO } from "@/constants/depositRatio";
 import { useCreateOrderMutation, useCreateStripeSessionMutation } from "@/redux/api/orderApi";
 import { IStripeSession } from "@/interfaces/order";
 import { useDeleteItemFromCartMutation } from "@/redux/api/cartApi";
 import ProcessToCheckOutButton from "./ProcessToCheckoutButton";
 import CancelOrBackButton from "./CancelOrBackButton";
+import { useGetDepositQuery } from "@/redux/api/depositApi";
 
 const OrderContainer = () => {
   const dispatch = useDispatch();
@@ -19,10 +19,9 @@ const OrderContainer = () => {
   const [createOrder] = useCreateOrderMutation();
   const [createStripeSessionMutation] = useCreateStripeSessionMutation();
   const [deleteItemFromCart] = useDeleteItemFromCartMutation();
+  const { data: depositData } = useGetDepositQuery();
   const toast = useToast();
-
   const buttonTitle = "Back";
-
   const items = orderItems.map((item) => {
     const orderItem = {
       design: item.design,
@@ -33,7 +32,7 @@ const OrderContainer = () => {
     };
     return orderItem;
   });
-  const newOrder = { user_id: userId, items, depositRatio: DEPOSIT_RATIO };
+  const newOrder = { user_id: userId, items, depositRatio: depositData?.depositRate };
 
   const handleProceedToCheckOut = async () => {
     try {
@@ -87,7 +86,12 @@ const OrderContainer = () => {
         </Text>
         <Flex flexDirection="column" gap="71px">
           {orderItems.map((item, index) => (
-            <OrderItem key={item.id} item={item} index={index} />
+            <OrderItem
+              key={item.id}
+              item={item}
+              index={index}
+              depositRatio={depositData?.depositRate}
+            />
           ))}
         </Flex>
         <Box textAlign="center">
