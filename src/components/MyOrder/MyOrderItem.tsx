@@ -6,7 +6,7 @@ const MyOrderItem = ({ ...mergedItem }) => {
     <Flex flexDirection="column" alignItems="center">
       <Flex width="85%" minHeight="150px">
         <Flex width="25%" alignItems="center" justifyContent="center">
-          <Text>{mergedItem.design.designName}</Text>
+          <Text variant="textFont">{mergedItem.design.designName}</Text>
         </Flex>
         <Flex flexDirection="column" width="50%" alignItems="center">
           <Box width="100%" height="100%" position="relative">
@@ -28,16 +28,16 @@ const MyOrderItem = ({ ...mergedItem }) => {
         </Flex>
         <Flex flexDirection="column" gap="10px" width="25%" justifyContent="center">
           <Flex flexDirection="column">
-            <Text fontSize="12px" fontStyle="italic" fontWeight="300">
+            <Text variant="textFont" fontStyle="italic" fontWeight="300">
               Quotation
             </Text>
-            <Text>{formatCurrency(mergedItem.quotation)}</Text>
+            <Text variant="textFont">{formatCurrency(mergedItem.quotation)}</Text>
           </Flex>
           <Flex flexDirection="column">
-            <Text fontSize="14px" fontStyle="italic" fontWeight="300">
+            <Text variant="textFont" fontStyle="italic" fontWeight="300">
               Deposit
             </Text>
-            <Text fontSize="20px">
+            <Text variant="bodyFont">
               {formatCurrency((mergedItem.quotation * mergedItem.orderDepositRatio).toFixed(2))}
             </Text>
           </Flex>

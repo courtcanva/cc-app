@@ -17,6 +17,7 @@ import PwdInputGroup from "./PwdInputGroup";
 import ModalOperator from "./ModalOperater";
 import useAuthRequest from "./helpers/authRequest";
 import validatePwd from "@/components/Login/helpers/validatePwd";
+import validateUsername from "@/components/Login/helpers/validateUsername";
 
 type Props = {
   nextStep: () => void;
@@ -37,16 +38,21 @@ const Register: React.FC<Props> = (props: Props) => {
   const [lastName, setLastName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [weakPasswordMsg, setWeakPasswordMsg] = useState("");
+  const [invalidUsernameMsg, setInvalidUsernameMsg] = useState("");
   const { userRegister } = useAuthRequest();
   const toast = useToast();
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (firstName === "" || lastName === "" || password === "" || confirmPassword === "") {
+    if (!firstName || !lastName || !password || !confirmPassword) {
       setWeakPasswordMsg("");
       setErrorMessage("Please fill all fields with asterisk!");
       return;
     }
-    if (!validatePwd(password, confirmPassword, setWeakPasswordMsg, setErrorMessage)) return;
+    if (
+      !validatePwd(password, confirmPassword, setWeakPasswordMsg, setErrorMessage) ||
+      !validateUsername(firstName, lastName, setInvalidUsernameMsg)
+    )
+      return;
     const userInfo = {
       email: userEmail,
       password,
@@ -111,7 +117,10 @@ const Register: React.FC<Props> = (props: Props) => {
                 <Input
                   placeholder="First name"
                   value={firstName}
-                  onChange={(event) => setFirstName(event?.currentTarget.value)}
+                  onChange={(event) => {
+                    setInvalidUsernameMsg("");
+                    setFirstName(event?.currentTarget.value);
+                  }}
                 />
               </FormControl>
               <FormControl isRequired>
@@ -119,19 +128,33 @@ const Register: React.FC<Props> = (props: Props) => {
                 <Input
                   placeholder="Last name"
                   value={lastName}
-                  onChange={(event) => setLastName(event?.currentTarget.value)}
+                  onChange={(event) => {
+                    setInvalidUsernameMsg("");
+                    setLastName(event?.currentTarget.value);
+                  }}
                 />
               </FormControl>
             </Flex>
+            {invalidUsernameMsg.length > 0 && (
+              <Text fontSize="xs" color="red.500">
+                {invalidUsernameMsg}
+              </Text>
+            )}
             <PwdInputGroup
               label="Password"
               value={password}
-              onChange={(event) => setPassword(event?.currentTarget.value)}
+              onChange={(event) => {
+                setWeakPasswordMsg("");
+                setPassword(event?.currentTarget.value);
+              }}
             />
             <PwdInputGroup
               label="Confirm password"
               value={confirmPassword}
-              onChange={(event) => setConfirmPassword(event?.currentTarget.value)}
+              onChange={(event) => {
+                setWeakPasswordMsg("");
+                setConfirmPassword(event?.currentTarget.value);
+              }}
             />
             {weakPasswordMsg.length > 0 && (
               <Text fontSize="xs" color="red.500">

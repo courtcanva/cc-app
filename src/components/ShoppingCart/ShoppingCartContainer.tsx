@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from "react";
+import { useState } from "react";
 import {
   Table,
   Thead,
@@ -55,38 +55,18 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
     dispatch(switchOrderGeneration(true));
   };
 
-  const columnStyle: CSSProperties = {
-    fontSize: "1.25vw",
-    fontWeight: "700",
-    lineHeight: "2vw",
-    textTransform: "capitalize",
-    color: "#000000",
-  };
-
   return (
     <Flex flexDirection="column" alignItems="center" width="100vw">
-      <Text
-        fontSize="2.3vw"
-        fontWeight="700"
-        color="brand.primary"
-        marginTop="2vh"
-        marginBottom="5vh"
-      >
+      <Text variant="headerFont" marginTop="2vh" marginBottom="5vh">
         Shopping Cart
       </Text>
-      <TableContainer minWidth="700px" width="90vw" overflowY="auto">
+      <TableContainer minWidth="922px" maxWidth="1728px" width="90vw" overflowY="auto">
         {anyExpired && (
-          <Flex padding="2vw" width="90vw" backgroundColor="#F55252" justifyContent="center">
-            <RiErrorWarningLine size="1.3vw" color="#FFFDFF" />
-            <Text
-              fontSize="1.25vw"
-              height="2.25vw"
-              fontWeight="700"
-              marginLeft="1vw"
-              color="#F5F5F5"
-            >
-              Sorry, some product’s quotation has expired. Please edit your cart and try again. We
-              apologize for any inconvenience caused.
+          <Flex padding="1.5%" width="100%" backgroundColor="#F55252" justifyContent="center">
+            <RiErrorWarningLine size="1.5%" style={{ margin: "auto 0" }} color="#FFFDFF" />
+            <Text variant="textFont" marginLeft="1%" color="#F5F5F5">
+              Sorry, some quotation has expired. Please edit your cart and try again. We apologize
+              for any inconvenience caused.
             </Text>
           </Flex>
         )}
@@ -97,12 +77,12 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
           size="lg"
           sx={{ "table-layout": "fixed" }}
         >
-          <Thead>
+          <Thead height={{ base: "48px", lg: "64px", xl: "80px" }}>
             <Tr backgroundColor="#E2E8F0">
               <Th width="22%">
                 <Checkbox
                   isDisabled={anyExpired}
-                  paddingLeft="1vw"
+                  paddingLeft="1%"
                   borderColor="#b3b2b2"
                   isChecked={!anyExpired ? allChecked : false}
                   isIndeterminate={isIndeterminate}
@@ -112,22 +92,30 @@ const ShoppingCartContainer = ({ shoppingCart }: userCartList) => {
                       : () => null
                   }
                 >
-                  <Text style={columnStyle} marginLeft="1vw">
+                  <Text variant="bodyFont" color="#000000" marginLeft="70%">
                     All
                   </Text>
                 </Checkbox>
               </Th>
-              <Th style={columnStyle} width="16%">
-                Product
+              <Th width="16%">
+                <Text variant="bodyFont" color="#000000">
+                  Product
+                </Text>
               </Th>
-              <Th style={columnStyle} width="24%">
-                Quotation Details
+              <Th width="24%">
+                <Text variant="bodyFont" color="#000000">
+                  Quotation Details
+                </Text>
               </Th>
-              <Th style={columnStyle} width="17%">
-                Quotation
+              <Th width="17%">
+                <Text variant="bodyFont" color="#000000">
+                  Quotation
+                </Text>
               </Th>
-              <Th style={columnStyle} width="18%">
-                Deposit
+              <Th width="17%">
+                <Text variant="bodyFont" color="#000000">
+                  Deposit
+                </Text>
               </Th>
               <Th width="4%"></Th>
             </Tr>

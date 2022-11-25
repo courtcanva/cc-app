@@ -85,14 +85,7 @@ function MyTemplateListItem({ ...item }) {
         gap="10px"
         position="relative"
       >
-        <Text
-          fontSize="24px"
-          fontWeight={700}
-          whiteSpace="pre-wrap"
-          width="100%"
-          color="#344C5C"
-          paddingTop="1rem"
-        >
+        <Text variant="bodyFont" whiteSpace="pre-wrap" paddingTop="1rem">
           {item.courtName}
         </Text>
         <Stack direction="row">
@@ -104,30 +97,23 @@ function MyTemplateListItem({ ...item }) {
           </Badge>
         </Stack>
         <Box>
-          <Text fontSize="xs" fontWeight="300" lineHeight="15px" fontStyle="italic">
+          <Text variant="textFont" fontWeight="300" lineHeight="15px" fontStyle="italic">
             Status
           </Text>
           <Text
-            marginTop="0"
-            fontSize="1rem"
-            lineHeight="20px"
+            variant="textFont"
             color={item.status === "published" ? "CourtSizecolor.btc" : "fontcolor.quaternary"}
           >
             {item.status}
           </Text>
         </Box>
         <Box>
-          <Text fontSize="xs" fontWeight="300" fontStyle="italic">
+          <Text variant="textFont" fontWeight="300" fontStyle="italic">
             Created at
           </Text>
-          <Text fontSize="1rem">{format(parseISO(item.createdAt), "dd/MM/yyyy")}</Text>
+          <Text variant="textFont">{format(parseISO(item.createdAt), "dd/MM/yyyy")}</Text>
         </Box>
-        <Text
-          fontSize={{ base: "6px", md: "xs" }}
-          fontWeight="400"
-          marginTop="12px"
-          maxWidth="180px"
-        >
+        <Text variant="textFont" fontWeight="400" maxWidth="180px">
           {item.description}
         </Text>
       </Flex>

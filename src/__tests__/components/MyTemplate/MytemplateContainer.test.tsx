@@ -32,7 +32,7 @@ describe("MyTemplate component", () => {
 
   it("Should render return to design button", async () => {
     renderWithMockedProvider(<MyTemplateContainer myTemplates={mockTemplateData} />);
-    const returnBtn = screen.getByRole("button", { name: "Return To Design" });
+    const returnBtn = screen.getByRole("button", { name: "Return to Design" });
     expect(returnBtn).toBeVisible();
   });
 

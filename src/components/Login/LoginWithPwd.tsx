@@ -146,7 +146,7 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
               onChange={(event) => handlePassword(event?.currentTarget.value)}
             />
             <Button variant="shareBtn" width="300px" marginTop="20px" type="submit">
-              Continue Login
+              Login
             </Button>
             <Button
               variant="link"

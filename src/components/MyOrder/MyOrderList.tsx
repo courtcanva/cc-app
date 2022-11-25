@@ -1,6 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { format, parseISO } from "date-fns";
-import { IOrderItem } from "../../interfaces/order";
+import { IOrderItem } from "@/interfaces/order";
 import formatCurrency from "@/utils/formatCurrency";
 import CancelOrCheckoutOrder from "./CancelOrCheckoutOrder";
 import MyOrderItem from "./MyOrderItem";
@@ -40,33 +40,37 @@ const MyOrderList = ({ ...order }) => {
             color="fontcolor.deepDark"
             justifyContent="center"
           >
-            <Text fontSize="14px" fontStyle="italic" fontWeight="300">
+            <Text variant="textFont" fontStyle="italic" fontWeight="300">
               Order ID
             </Text>
-            <Text fontSize="14px">{order._id}</Text>
+            <Text variant="textFont">{order._id}</Text>
           </Flex>
           <Flex width="55%">
             <Flex width="50%" flexDirection="column" justifyContent="center">
-              <Text fontSize="12px" fontStyle="italic" fontWeight="300">
+              <Text variant="textFont" fontStyle="italic" fontWeight="300">
                 Created At
               </Text>
-              <Text>{format(parseISO(order.createdAt), "dd/MM/yyyy HH:mm")}</Text>
+              <Text variant="textFont">
+                {format(parseISO(order.createdAt), "dd/MM/yyyy HH:mm")}
+              </Text>
             </Flex>
             <Flex width="50%" flexDirection="column" justifyContent="center">
-              <Text fontSize="12px" fontStyle="italic" fontWeight="300">
+              <Text variant="textFont" fontStyle="italic" fontWeight="300">
                 Paid At
               </Text>
-              <Text>{order.paidAt ? format(parseISO(order.paidAt), "dd/MM/yyyy HH:mm") : ""}</Text>
+              <Text variant="textFont">
+                {order.paidAt ? format(parseISO(order.paidAt), "dd/MM/yyyy HH:mm") : ""}
+              </Text>
             </Flex>
           </Flex>
           <Flex width="5%" justifyContent="flex-end">
             <Flex flexDirection="column" justifyContent="center">
-              <Text fontSize="14px" fontStyle="italic" fontWeight="300">
+              <Text variant="textFont" fontStyle="italic" fontWeight="300">
                 Status
               </Text>
               <Text
+                variant="bodyFont"
                 color={order.status === "completed" ? "fontcolor.green" : "fontcolor.red"}
-                fontSize="20px"
               >
                 {order.status === "completed"
                   ? "Paid"
@@ -80,33 +84,33 @@ const MyOrderList = ({ ...order }) => {
       </Flex>
       <Flex width="100%" height="100%">
         <Flex width="30%" borderRight="1px" borderColor="brand.lightGray" justifyContent="center">
-          <Flex width="64%" flexDirection="column" gap="20px" marginTop="25px">
-            <Text fontSize="20px" textAlign="center">
+          <Flex width="64%" flexDirection="column" gap="20px" margin="25px 0">
+            <Text variant="bodyFont" textAlign="center">
               Shipping Information
             </Text>
             <Flex flexDirection="column">
-              <Text fontSize="12px" fontStyle="italic" fontWeight="300">
+              <Text variant="textFont" fontStyle="italic" fontWeight="300">
                 Consignee Name
               </Text>
-              <Text>{order.consigneeName ? order.consigneeName : ""}</Text>
+              <Text variant="textFont">{order.consigneeName ? order.consigneeName : ""}</Text>
             </Flex>
             <Flex flexDirection="column">
-              <Text fontSize="12px" fontStyle="italic" fontWeight="300">
+              <Text variant="textFont" fontStyle="italic" fontWeight="300">
                 Consignee Phone No.
               </Text>
-              <Text>{order.consigneePhoneNo ? order.consigneePhoneNo : ""}</Text>
+              <Text variant="textFont">{order.consigneePhoneNo ? order.consigneePhoneNo : ""}</Text>
             </Flex>
             <Flex flexDirection="column">
-              <Text fontSize="12px" fontStyle="italic" fontWeight="300">
+              <Text variant="textFont" fontStyle="italic" fontWeight="300">
                 Consignee Email
               </Text>
-              <Text>{order.consigneeEmail ? order.consigneeEmail : ""}</Text>
+              <Text variant="textFont">{order.consigneeEmail ? order.consigneeEmail : ""}</Text>
             </Flex>
             <Flex flexDirection="column">
-              <Text fontSize="12px" fontStyle="italic" fontWeight="300">
+              <Text variant="textFont" fontStyle="italic" fontWeight="300">
                 Consignee Address
               </Text>
-              <Text>
+              <Text variant="textFont">
                 {order.status === "completed" ? (
                   <Text>
                     {order.shoppingAddressLine1},{order.shoppingAddressLine2}
@@ -130,7 +134,7 @@ const MyOrderList = ({ ...order }) => {
             justifyContent="space-evenly"
           >
             <Flex justifyContent="center" alignItems="center">
-              <Text fontSize="20px">Item</Text>
+              <Text variant="bodyFont">Item</Text>
             </Flex>
             {order.items.map((item: IOrderItem) => {
               const mergedItem = { ...item, orderDepositRatio: order.depositRatio };
@@ -146,8 +150,10 @@ const MyOrderList = ({ ...order }) => {
               alignItems="flex-end"
             >
               <Flex width="45%" justifyContent="space-between" alignItems="center">
-                <Text fontWeight="400">Total Quotation</Text>
-                <Text>{formatCurrency(totalQuotation.toFixed(2))}</Text>
+                <Text variant="textFont" fontWeight="400">
+                  Total Quotation
+                </Text>
+                <Text variant="textFont">{formatCurrency(totalQuotation.toFixed(2))}</Text>
               </Flex>
               <Flex
                 width="45%"
@@ -155,8 +161,8 @@ const MyOrderList = ({ ...order }) => {
                 alignItems="center"
                 color="fontcolor.deepDark"
               >
-                <Text fontSize="14px">Total Deposit</Text>
-                <Text fontSize="20px">
+                <Text variant="textFont">Total Deposit</Text>
+                <Text variant="bodyFont">
                   {" "}
                   {formatCurrency((totalQuotation * order.depositRatio).toFixed(2))}
                 </Text>
