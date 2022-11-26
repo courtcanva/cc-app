@@ -13,6 +13,7 @@ export interface ButtonToggleState {
   isMyTemplateOpen: boolean;
   isSwitch3D: boolean;
   isMyAccountOpen: boolean;
+  isImageEditing: boolean;
 }
 
 export const initialState: ButtonToggleState = {
@@ -28,6 +29,7 @@ export const initialState: ButtonToggleState = {
   isMyTemplateOpen: false,
   isSwitch3D: false,
   isMyAccountOpen: false,
+  isImageEditing: false,
 };
 
 export const ButtonToggleSlice = createSlice({
@@ -149,6 +151,17 @@ export const ButtonToggleSlice = createSlice({
         isCreateTemplateOpen: false,
       };
     },
+    switchImageEditing: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isImageEditing: action.payload,
+        isCartOpen: false,
+        isOrderGenerationOpen: false,
+        isSwitch3D: false,
+        isMyTemplateOpen: false,
+        isCreateTemplateOpen: false,
+      };
+    },
   },
 });
 
@@ -166,6 +179,7 @@ export const {
   switchOrderGeneration,
   switch3D,
   switchMyAccount,
+  switchImageEditing,
 } = ButtonToggleSlice.actions;
 
 export default ButtonToggleSlice.reducer;

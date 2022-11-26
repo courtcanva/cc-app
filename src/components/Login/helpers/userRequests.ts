@@ -6,6 +6,7 @@ interface updateInfo {
   firstName?: string;
   lastName?: string;
   password?: string;
+  profileImgUrl?: string;
 }
 
 const getErrorMessage = (error: unknown) => {

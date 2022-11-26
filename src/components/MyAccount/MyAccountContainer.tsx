@@ -1,19 +1,23 @@
 import React from "react";
 import { Box, Button, Flex, IconButton, Text } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { switchMyAccount } from "@/store/reducer/buttonToggleSlice";
+import { switchMyAccount, switchImageEditing } from "@/store/reducer/buttonToggleSlice";
 import Image from "next/image";
 import { useStoreSelector } from "@/store/hooks";
 import { MdEdit } from "react-icons/md";
 import FlexContainer from "./FlexContainer";
+import ImageEditing from "../ImageEditing";
 
 const MyAccountContainer = () => {
   const dispatch = useDispatch();
-  const { firstName, lastName, email } = useStoreSelector((state) => state.user);
-  const avatarUrl = "";
+  const { firstName, lastName, email, profileImgUrl } = useStoreSelector((state) => state.user);
 
   const handleReturnToDesign = () => {
     dispatch(switchMyAccount(false));
+  };
+
+  const handleImageEditing = () => {
+    dispatch(switchImageEditing(true));
   };
 
   return (
@@ -35,16 +39,26 @@ const MyAccountContainer = () => {
         <FlexContainer
           title="Avatar"
           content={
-            <Box
-              width="68px"
-              height="68px"
-              borderRadius="50%"
-              border="1px solid #B6B6B6"
-              position="relative"
-              overflow="hidden"
-            >
-              {avatarUrl && <Image src={avatarUrl} layout="fill" objectFit="cover" />}
-            </Box>
+            <Flex alignItems="center">
+              <Box
+                width="68px"
+                height="68px"
+                borderRadius="50%"
+                border="1px solid #B6B6B6"
+                position="relative"
+                overflow="hidden"
+              >
+                {profileImgUrl && <Image src={profileImgUrl} layout="fill" objectFit="cover" />}
+              </Box>
+              <Box marginLeft="5px" onClick={handleImageEditing}>
+                <IconButton
+                  aria-label="edit name"
+                  icon={<MdEdit />}
+                  background="transparent"
+                  size="lg"
+                />
+              </Box>
+            </Flex>
           }
         />
         <FlexContainer
@@ -78,6 +92,7 @@ const MyAccountContainer = () => {
       <Button variant="shareBtn" padding="10px 24px" onClick={handleReturnToDesign}>
         Return to Design
       </Button>
+      <ImageEditing />
     </Flex>
   );
 };
