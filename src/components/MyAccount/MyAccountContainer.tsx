@@ -1,17 +1,31 @@
-import React from "react";
-import { Box, Button, Flex, IconButton, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Box, Button, Flex, IconButton, Text, useDisclosure } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { switchMyAccount } from "@/store/reducer/buttonToggleSlice";
 import Image from "next/image";
 import { useStoreSelector } from "@/store/hooks";
 import { MdEdit } from "react-icons/md";
 import FlexContainer from "./FlexContainer";
+import EditPopUpWindow from "./EditPopUpWindow";
 
+export enum FormType {
+  NameEdit = "NameEdit",
+  PasswordEdit = "PasswordEdit",
+}
 const MyAccountContainer = () => {
   const dispatch = useDispatch();
   const { firstName, lastName, email } = useStoreSelector((state) => state.user);
   const avatarUrl = "";
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [type, setType] = useState("");
+  const handleEditName = () => {
+    setType(FormType.NameEdit);
+    onOpen();
+  };
+  const handleChangePsw = () => {
+    setType(FormType.PasswordEdit);
+    onOpen();
+  };
   const handleReturnToDesign = () => {
     dispatch(switchMyAccount(false));
   };
@@ -57,6 +71,7 @@ const MyAccountContainer = () => {
                 icon={<MdEdit />}
                 background="transparent"
                 size="lg"
+                onClick={handleEditName}
               />
             </Text>
           }
@@ -69,6 +84,7 @@ const MyAccountContainer = () => {
               padding={{ base: "5px 12px", lg: "7.5px 18px", xl: "10px 24px" }}
               background="#F3F2F7"
               border="1px solid #344C5C"
+              onClick={handleChangePsw}
             >
               <Text variant="textFont">Change Password</Text>
             </Button>
@@ -78,6 +94,7 @@ const MyAccountContainer = () => {
       <Button variant="shareBtn" padding="10px 24px" onClick={handleReturnToDesign}>
         Return to Design
       </Button>
+      <EditPopUpWindow isOpen={isOpen} onClose={onClose} type={type} />
     </Flex>
   );
 };

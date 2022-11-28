@@ -24,4 +24,15 @@ const updateUser = async (updateInfo: updateInfo) => {
   }
 };
 
-export { updateUser };
+const validPassword = async (updateInfo: updateInfo) => {
+  try {
+    return await api("/user/password", {
+      method: "put",
+      requestData: { ...updateInfo },
+    });
+  } catch (err) {
+    return getErrorMessage(err).response;
+  }
+};
+
+export { updateUser, validPassword };
