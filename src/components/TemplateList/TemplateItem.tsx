@@ -1,5 +1,5 @@
 import { ITemplateDataDb } from "@/interfaces/template";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, HStack } from "@chakra-ui/react";
 import { useState } from "react";
 import CourtTags from "./CourtTags";
 import TemplateDetail from "./TemplateDetail";
@@ -75,15 +75,15 @@ const TemplateItem = React.forwardRef<HTMLDivElement, Props>((prop, ref) => {
 
   const templateBody = (
     <>
-      <Box width="95%">
-        <Box>
-          <Text color="black" fontSize="1rem" fontWeight="700">
-            {templateItem.designDetail.designName}
-          </Text>
-          <Text
-            color="fontcolor.tealishBlue"
-            fontSize="0.8rem"
-          >{`Created at ${templateItem.createDate}`}</Text>
+      <HStack spacing={8}>
+        <Box
+          style={{
+            minWidth: "140px",
+            marginTop: "5px",
+          }}
+        >
+          <Text variant="textFont">{templateItem.designDetail.designName}</Text>
+          <Text variant="dateFont">{`Created at ${templateItem.createDate}`}</Text>
         </Box>
         {hoverOn && (
           <Box top="10px" position="absolute" right="1rem">
@@ -100,7 +100,7 @@ const TemplateItem = React.forwardRef<HTMLDivElement, Props>((prop, ref) => {
             </Button>
           </Box>
         )}
-      </Box>
+      </HStack>
 
       <Box width="80%" height="full" position="relative" cursor="pointer" onClick={applyTemplate}>
         <Image src={templateItem.courtImgUrl} layout="fill" objectFit="contain" />
@@ -120,12 +120,12 @@ const TemplateItem = React.forwardRef<HTMLDivElement, Props>((prop, ref) => {
   const templateContent = (
     <Flex
       position="relative"
-      width="300px"
-      height="240px"
-      marginBottom="16px"
+      width="232px"
+      height="160px"
+      marginBottom="18px"
       flexDirection="column"
       alignItems="center"
-      padding="5px 10px 10px 10px"
+      justifyContent="space-between"
       backgroundColor="white"
       opacity={templateOpacityDrop ? "0.4" : "1"}
       onMouseEnter={selectTemplate}

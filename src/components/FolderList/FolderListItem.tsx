@@ -1,11 +1,11 @@
-import { Box, Flex, HStack, Tag, IconButton } from "@chakra-ui/react";
+import { Box, Flex, HStack, Tag, IconButton, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import FolderDeleteModal from "./FolderDeleteModal";
 import React from "react";
 import { format, parseISO } from "date-fns";
 
 const FolderListItem = (props: any) => {
-  const { courtId, courtName, designName, createdAt, image } = props.design;
+  const { courtId, courtName, designName, createdAt, image, courtType } = props.design;
   const createDate = format(parseISO(createdAt), "dd/MM/yyyy");
 
   return (
@@ -18,8 +18,6 @@ const FolderListItem = (props: any) => {
       alignItems="center"
       justifyContent="space-between"
       cursor="pointer"
-      fontSize="12"
-      color="black"
       flexDirection="column"
       onClick={() => props.handleCourtSelecting(courtId)}
       data-testid={courtId}
@@ -29,32 +27,12 @@ const FolderListItem = (props: any) => {
       <HStack spacing={8}>
         <Box
           style={{
-            background: "none",
-            borderRadius: "0",
             minWidth: "140px",
             marginTop: "5px",
           }}
         >
-          <Box
-            style={{
-              fontSize: "13px",
-              background: "none",
-              borderRadius: "0",
-              fontWeight: "bold",
-            }}
-          >
-            {designName}
-          </Box>
-          <Box
-            style={{
-              fontSize: "9px",
-              color: "#2c5282",
-              background: "none",
-              borderRadius: "0",
-            }}
-          >
-            created at {createDate}
-          </Box>
+          <Text variant="textFont">{designName}</Text>
+          <Text variant="dateFont">created at {createDate}</Text>
         </Box>
         <IconButton aria-label="delete button" variant="deleteIconBtn" size="xs">
           <FolderDeleteModal />
@@ -65,32 +43,11 @@ const FolderListItem = (props: any) => {
           <Image src={image.toString()} alt="Court image" layout="fill" objectFit="contain"></Image>
         )}
       </Box>
-      <HStack spacing={8}>
-        <Tag
-          backgroundColor="tag.courtCategory"
-          size={"sm"}
-          style={{
-            borderRadius: "0",
-            fontSize: "8px",
-            marginBottom: "5px",
-            fontWeight: "bold",
-            textAlign: "center",
-            padding: "0 16px",
-          }}
-        >
-          {courtName}
+      <HStack spacing={8} style={{ margin: "4px" }}>
+        <Tag size="sm" variant="courtName">
+          {courtName.replace(/ /g, "")}
         </Tag>
-        <Tag
-          backgroundColor="tag.courtType"
-          size={"sm"}
-          style={{
-            borderRadius: "0",
-            fontSize: "8px",
-            marginBottom: "5px",
-            padding: "0 16px",
-            fontWeight: "bold",
-          }}
-        >
+        <Tag size="sm" variant="courtType">
           Basketball
           {/* todo: need to update interface when tennis court is added  */}
         </Tag>
