@@ -107,6 +107,5 @@ export async function getStaticProps() {
     props: {
       groupedTeamMembers,
     },
-    revalidate: 86400,
   };
 }
