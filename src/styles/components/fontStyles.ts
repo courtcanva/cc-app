@@ -17,6 +17,11 @@ const fontStyles = {
       fontWeight: "700",
       color: "brand.primary",
     },
+    dateFont: {
+      fontSize: { base: "6", lg: "8px", xl: "10px" },
+      fontWeight: "500",
+      color: "fontcolor.tealishBlue",
+    },
   },
 };
 

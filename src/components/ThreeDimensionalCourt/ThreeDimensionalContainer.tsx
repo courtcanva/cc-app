@@ -35,7 +35,7 @@ const ThreeDimensionalContainer = ({ isOpen, onClose, width, height, content }: 
 
   return (
     <>
-      <style jsx>{`
+      <style>{`
         .scene_3d {
           perspective: 2000px;
           transform-style: preserve-3d;

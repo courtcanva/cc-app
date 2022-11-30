@@ -38,7 +38,7 @@ const DropDownButton: React.FC<Props> = ({ detail }) => {
               Court Material
               <UnorderedList>
                 <ListItem>
-                  Tiles ({lengthInMeter}m*{widthInMeter}m,{courtName})
+                  Tiles ({lengthInMeter}m x {widthInMeter}m, {courtName})
                 </ListItem>
               </UnorderedList>
             </Text>

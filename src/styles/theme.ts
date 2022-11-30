@@ -4,6 +4,7 @@ import buttonStyles from "./components/buttonStyles";
 import modal from "./modal";
 import drawerButtonStyles from "./components/drawerButtonStyles";
 import fontStyles from "./components/fontStyles";
+import tagStyles from "./components/tagStyles";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -83,6 +84,7 @@ const components = {
   Modal: { ...modal },
   Drawer: { ...drawerButtonStyles },
   Text: { ...fontStyles },
+  Tag: { ...tagStyles },
   drawerButtonStyles,
 };
 

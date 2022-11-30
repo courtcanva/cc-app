@@ -94,25 +94,6 @@ const TopBar = () => {
     dispatch(switchSavePopover(false));
   };
 
-  const [deleteDesign] = useDeleteDesignMutation();
-  const handleDeleteDesign = async (e: { preventDefault: () => void }) => {
-    dispatch(switchSideBar(false));
-    e.preventDefault();
-    if (useUserId === "") {
-      dispatch(switchLoginModal(true));
-      return;
-    }
-    if (selectedCourt.courtId === "") return;
-    await deleteDesign(selectedCourt.courtId);
-    dispatch(setDefaultCourt(defaultCourt));
-    const design = await fetchDesignData(useUserId);
-    if (design.data === undefined) return;
-    const { mappedDesignsData, mappedTileData, mappedNameList } = designMapping(design.data);
-    dispatch(getDesignsData(mappedDesignsData));
-    dispatch(getDesignsTileData(mappedTileData));
-    dispatch(changeDesignNameList(mappedNameList));
-  };
-
   return (
     <Grid
       gridTemplateColumns={{ base: "0 1fr 1fr", lg: "1fr 1fr 1fr" }}
@@ -259,13 +240,6 @@ const TopBar = () => {
             </PopoverBody>
           </PopoverContent>
         </Popover>
-        <IconButton
-          aria-label="Bin"
-          colorScheme="transparent"
-          icon={<BinSvg />}
-          variant="editorFooterIconBtn"
-          onClick={handleDeleteDesign}
-        />
       </Flex>
     </Grid>
   );
