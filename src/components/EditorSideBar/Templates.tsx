@@ -65,7 +65,6 @@ const Templates = () => {
         marginBottom={5}
       >
         <option value="ProFullCourt">Pro Full Court</option>
-
         <option value="FullCourt">Full Court</option>
         <option value="SmallCourt">Small Court</option>
         <option value="ProHalfCourt">Pro Half Court</option>
@@ -78,12 +77,12 @@ const Templates = () => {
         return <TemplateItem key={template._id} template={template} />;
       })}
       {templateEmpty && (
-        <Box textAlign="center" width={300} marginTop={8}>
+        <Box textAlign="center" width={232} marginTop={8}>
           <Text>The template list is empty</Text>
         </Box>
       )}
       {isLoading && (
-        <Box textAlign="center" width={300} marginTop={8}>
+        <Box textAlign="center" width={232} marginTop={8}>
           <Text>Template is loading</Text>
         </Box>
       )}

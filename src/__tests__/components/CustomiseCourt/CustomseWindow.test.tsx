@@ -4,7 +4,9 @@ import userEvent from "@testing-library/user-event";
 
 describe("CustomiseWindow.test", () => {
   beforeEach(() => {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     const setClipLength = () => {};
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     const setClipWidth = () => {};
     render(<CustomiseWindow setInputLength={setClipLength} setInputWidth={setClipWidth} />);
   });

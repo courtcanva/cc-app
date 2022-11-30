@@ -77,7 +77,7 @@ describe("ShoppingCart component", () => {
     const { getByTestId } = render(<DropDownButton detail={courtDetail} />);
     const textShow = getByTestId("testShow");
     expect(textShow.textContent).toBe(
-      "Court MaterialTiles (9m*5m,Small Court)ShippingInstallation feeCourt tile pavingCourt painting"
+      "Court MaterialTiles (9m x 5m, Small Court)ShippingInstallation feeCourt tile pavingCourt painting"
     );
     expect(textShow).toHaveStyle(
       ` overflow-y: hidden; white-space:nowrap; text-overflow:ellipsis `

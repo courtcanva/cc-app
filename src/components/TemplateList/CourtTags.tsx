@@ -10,8 +10,7 @@ const CourtTags = (prop: Props) => {
         {prop.tags.CourtCategory}
       </Tag>
       <Tag size="sm" variant="courtType">
-        {prop.tags.CourtType[0].toUpperCase()}
-        {prop.tags.CourtType.slice(1)}
+        {prop.tags.CourtType.toUpperCase()}
       </Tag>
     </HStack>
   );

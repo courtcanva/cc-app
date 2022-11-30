@@ -17,7 +17,7 @@ describe("EditInput test", () => {
     const editPswWindow = screen.getByRole("dialog", { name: /change your password/i });
     await waitFor(() => expect(editPswWindow).toBeVisible());
   });
-  it("should close pop up window after submit input form ", async () => {
+  it("should close pop up window after submit input form", async () => {
     const editNameBtn = screen.getByRole("button", { name: /edit name/i });
     userEvent.click(editNameBtn);
     const firstNameInput = screen.getByRole("textbox", { name: /first name/i });

@@ -75,10 +75,10 @@ const TemplateItem = React.forwardRef<HTMLDivElement, Props>((prop, ref) => {
 
   const templateBody = (
     <>
-      <HStack spacing={8}>
+      <Box>
         <Box
           style={{
-            minWidth: "140px",
+            minWidth: "200px",
             marginTop: "5px",
           }}
         >
@@ -100,7 +100,7 @@ const TemplateItem = React.forwardRef<HTMLDivElement, Props>((prop, ref) => {
             </Button>
           </Box>
         )}
-      </HStack>
+      </Box>
 
       <Box width="80%" height="full" position="relative" cursor="pointer" onClick={applyTemplate}>
         <Image src={templateItem.courtImgUrl} layout="fill" objectFit="contain" />

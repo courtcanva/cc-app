@@ -48,7 +48,7 @@ const FolderListItem = (props: any) => {
           {courtName.replace(/ /g, "")}
         </Tag>
         <Tag size="sm" variant="courtType">
-          Basketball
+          BASKETBALL
           {/* todo: need to update interface when tennis court is added  */}
         </Tag>
       </HStack>

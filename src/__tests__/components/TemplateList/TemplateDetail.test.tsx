@@ -19,8 +19,10 @@ describe("Render template detail modal", () => {
     render(
       <TemplateDetail
         isOpen={true}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         onClose={() => {}}
         template={mockDetail}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         applyTemplate={() => {}}
       />
     );

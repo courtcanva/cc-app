@@ -48,7 +48,11 @@ const Folder: React.FC = () => {
           />
         );
       })}
-      {folderEmpty && <Text>The folder list is empty</Text>}
+      {folderEmpty && (
+        <Box textAlign="center" width={232} marginTop={8}>
+          <Text>The folder list is empty</Text>
+        </Box>
+      )}
     </Box>
   );
 };

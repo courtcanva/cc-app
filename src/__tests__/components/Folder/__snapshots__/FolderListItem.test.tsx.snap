@@ -3,7 +3,7 @@
 exports[`Render folder list Should render folder list item correctly 1`] = `
 <div>
   <div
-    class="css-1gsyri3"
+    class="css-13hcwsy"
     data-testid="folderListItems-0"
   >
     <div
@@ -11,21 +11,19 @@ exports[`Render folder list Should render folder list item correctly 1`] = `
     >
       <div
         class="css-0"
-        style="background: none; border-radius: 0; min-width: 140px; margin-top: 5px;"
+        style="min-width: 140px; margin-top: 5px;"
       >
-        <div
-          class="css-0"
-          style="font-size: 13px; background: none; border-radius: 0; font-weight: bold;"
+        <p
+          class="chakra-text css-0"
         >
           Court Canva 0
-        </div>
-        <div
-          class="css-0"
-          style="font-size: 9px; color: rgb(44, 82, 130); background: none; border-radius: 0;"
+        </p>
+        <p
+          class="chakra-text css-0"
         >
           created at 
           02/11/2022
-        </div>
+        </p>
       </div>
       <button
         aria-label="delete button"
@@ -74,18 +72,17 @@ exports[`Render folder list Should render folder list item correctly 1`] = `
     </div>
     <div
       class="chakra-stack css-16awuyr"
+      style="margin: 4px;"
     >
       <span
-        class="css-10kxp63"
-        style="border-radius: 0; font-size: 8px; margin-bottom: 5px; font-weight: bold; text-align: center; padding: 0px 16px;"
+        class="css-1qm7lvz"
       >
-        full court
+        fullcourt
       </span>
       <span
-        class="css-3uf65l"
-        style="border-radius: 0; font-size: 8px; margin-bottom: 5px; padding: 0px 16px; font-weight: bold;"
+        class="css-1qm7lvz"
       >
-        Basketball
+        BASKETBALL
       </span>
     </div>
   </div>
@@ -95,7 +92,7 @@ exports[`Render folder list Should render folder list item correctly 1`] = `
 exports[`Render folder list Should render opacity correctly 1`] = `
 <div>
   <div
-    class="css-kvs84j"
+    class="css-16m31no"
     data-testid="folderListItems-0"
   >
     <div
@@ -103,21 +100,19 @@ exports[`Render folder list Should render opacity correctly 1`] = `
     >
       <div
         class="css-0"
-        style="background: none; border-radius: 0; min-width: 140px; margin-top: 5px;"
+        style="min-width: 140px; margin-top: 5px;"
       >
-        <div
-          class="css-0"
-          style="font-size: 13px; background: none; border-radius: 0; font-weight: bold;"
+        <p
+          class="chakra-text css-0"
         >
           Court Canva 0
-        </div>
-        <div
-          class="css-0"
-          style="font-size: 9px; color: rgb(44, 82, 130); background: none; border-radius: 0;"
+        </p>
+        <p
+          class="chakra-text css-0"
         >
           created at 
           02/11/2022
-        </div>
+        </p>
       </div>
       <button
         aria-label="delete button"
@@ -166,18 +161,17 @@ exports[`Render folder list Should render opacity correctly 1`] = `
     </div>
     <div
       class="chakra-stack css-16awuyr"
+      style="margin: 4px;"
     >
       <span
-        class="css-10kxp63"
-        style="border-radius: 0; font-size: 8px; margin-bottom: 5px; font-weight: bold; text-align: center; padding: 0px 16px;"
+        class="css-1qm7lvz"
       >
-        full court
+        fullcourt
       </span>
       <span
-        class="css-3uf65l"
-        style="border-radius: 0; font-size: 8px; margin-bottom: 5px; padding: 0px 16px; font-weight: bold;"
+        class="css-1qm7lvz"
       >
-        Basketball
+        BASKETBALL
       </span>
     </div>
   </div>
