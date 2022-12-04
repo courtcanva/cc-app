@@ -32,6 +32,7 @@ import { useHandleLocalStorageItem } from "@/hooks/useHandleLocalStorage";
 import CreateTemplate from "../CreateTemplate";
 import Profile from "./Profile";
 import { useRouter } from "next/router";
+import UserTokenService from "@/utils/TokenService";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -80,11 +81,17 @@ const NavigationBar = () => {
   };
   /* istanbul ignore next */
   useEffect(() => {
-    updateUserInfoInStorage().then(() => {
-      const userInfo = localStorage.getItem("UserInfo");
-      userInfo ? setLoginData(JSON.parse(userInfo)) : setLoginData(null);
-      userInfo ? setLoginState(true) : setLoginState(false);
-    });
+    const refreshToken = UserTokenService.getLocalRefreshToken();
+    if (refreshToken) {
+      updateUserInfoInStorage().then(() => {
+        const userInfo = localStorage.getItem("UserInfo");
+        userInfo ? setLoginData(JSON.parse(userInfo)) : setLoginData(null);
+        userInfo ? setLoginState(true) : setLoginState(false);
+      });
+    } else {
+      setLoginData(null);
+      setLoginState(false);
+    }
   }, []);
 
   const handleLoginModalOpen = () => {
