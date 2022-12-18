@@ -1,6 +1,6 @@
 /* eslint-disable require-jsdoc */
 import React, { useState } from "react";
-import { Flex, Box, Button, Text, Grid, Stack, Badge, useDisclosure } from "@chakra-ui/react";
+import { Flex, Box, Button, Text, Grid, Stack, Tag, useDisclosure } from "@chakra-ui/react";
 import { format, parseISO } from "date-fns";
 import { MdDeleteOutline, MdRemoveRedEye } from "react-icons/md";
 import Image from "next/image";
@@ -89,12 +89,12 @@ function MyTemplateListItem({ ...item }) {
           {item.courtName}
         </Text>
         <Stack direction="row">
-          <Badge backgroundColor="tag.courtCategory" fontSize={{ base: "10px", lg: "12px" }}>
+          <Tag size="sm" variant="courtName">
             {item.tags.CourtCategory}
-          </Badge>
-          <Badge backgroundColor="tag.courtType" fontSize={{ base: "10px", lg: "12px" }}>
-            {item.tags.CourtType}
-          </Badge>
+          </Tag>
+          <Tag size="sm" variant="courtType">
+            {item.tags.CourtType.toUpperCase()}
+          </Tag>
         </Stack>
         <Box>
           <Text variant="textFont" fontWeight="300" lineHeight="15px" fontStyle="italic">

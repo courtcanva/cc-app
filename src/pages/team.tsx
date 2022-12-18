@@ -19,7 +19,7 @@ interface GroupedTeamMembers {
 
 export default function Team({ groupedTeamMembers }: Props) {
   const CarouselIndicator = (onClickHandler: any, isSelected: boolean, index: number) => {
-    const defStyle = { marginLeft: 20, color: "lightgrey", cursor: "pointer", fontWeight: "bold" };
+    const defStyle = { marginLeft: 20, color: "lightgrey", cursor: "pointer" };
     const style = isSelected ? { ...defStyle, color: "#2C4E8A" } : { ...defStyle };
     return (
       <span onClick={onClickHandler} style={style}>
