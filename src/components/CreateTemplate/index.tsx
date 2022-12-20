@@ -17,11 +17,12 @@ import {
   Text,
   Textarea,
   Icon,
-  Badge,
+  HStack,
   useDisclosure,
   FormHelperText,
   FormErrorMessage,
   useToast,
+  Tag,
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
@@ -157,12 +158,14 @@ function CreateTemplate({ isOpen, onClose }: Props) {
                 <FcRemoveImage size={42} />
               )}
             </Flex>
-            <Flex gap="1.5rem" justifyContent="center" flexWrap="wrap">
-              <Badge margin="1rem" colorScheme="green">
-                {COURT_TYPE}
-              </Badge>
-              <Badge margin="1rem">{selectedCourt.courtName}</Badge>
-            </Flex>
+            <HStack gap="1.5rem" justifyContent="center" flexWrap="wrap">
+              <Tag size="md" variant="courtName">
+                {selectedCourt.courtName.replace(/ /g, "")}
+              </Tag>
+              <Tag size="md" variant="courtType">
+                {COURT_TYPE.toUpperCase()}
+              </Tag>
+            </HStack>
             <Flex>
               <FormControl
                 width="50%"
