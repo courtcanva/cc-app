@@ -32,7 +32,7 @@ const Templates = () => {
     }
   }, [rawTemplateData]);
 
-  const handleOnChange = (e: { target: { value: string } }) => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterTag(() => e.target.value);
     setTemplatesData(() => []);
     setOffset(() => 0);
@@ -67,6 +67,7 @@ const Templates = () => {
         <option value="ProFullCourt">Pro Full Court</option>
         <option value="FullCourt">Full Court</option>
         <option value="SmallCourt">Small Court</option>
+        <option value="HalfCourt">Half Court</option>
         <option value="ProHalfCourt">Pro Half Court</option>
         <option value="MediumCourt">Medium Court</option>
       </Select>
