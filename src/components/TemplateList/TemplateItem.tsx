@@ -103,7 +103,13 @@ const TemplateItem = React.forwardRef<HTMLDivElement, Props>((prop, ref) => {
       </Box>
 
       <Box width="80%" height="full" position="relative" cursor="pointer" onClick={applyTemplate}>
-        <Image src={templateItem.courtImgUrl} layout="fill" objectFit="contain" />
+        <Image
+          src={templateItem.courtImgUrl}
+          layout="fill"
+          objectFit="contain"
+          placeholder="blur"
+          blurDataURL="https://cdn-images-1.medium.com/max/1800/1*sg-uLNm73whmdOgKlrQdZA.jpeg"
+        />
       </Box>
       <Flex width="full" wrap="wrap" gap="1rem" justifyContent="space-around">
         <CourtTags tags={templateItem.tags} />
