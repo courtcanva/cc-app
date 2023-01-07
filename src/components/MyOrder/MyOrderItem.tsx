@@ -15,6 +15,8 @@ const MyOrderItem = ({ ...mergedItem }) => {
               alt={`${mergedItem.design.designName} image`}
               layout="fill"
               objectFit="contain"
+              placeholder="blur"
+              blurDataURL="https://cdn-images-1.medium.com/max/1800/1*sg-uLNm73whmdOgKlrQdZA.jpeg"
             ></Image>
           </Box>
           <Stack direction="row">

@@ -47,7 +47,14 @@ const OrderItem = ({ item, index, depositRatio }: IOrderProps) => {
           Design Preview
         </Text>
         <Box width="100%" height="217px" position="relative">
-          <Image src={image} alt="Court image" layout="fill" objectFit="contain" />
+          <Image
+            src={image}
+            alt="Court image"
+            layout="fill"
+            objectFit="contain"
+            placeholder="blur"
+            blurDataURL="https://cdn-images-1.medium.com/max/1800/1*sg-uLNm73whmdOgKlrQdZA.jpeg"
+          />
         </Box>
       </GridItem>
       <GridItem padding={{ base: "30px 14px", md: "30px 44px" }} borderBottom="2px solid #EBECF0">
