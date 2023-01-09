@@ -226,11 +226,11 @@ function CreateTemplate({ isOpen, onClose }: Props) {
             </FormControl>
           </ModalBody>
           <Flex justifyContent="space-around" margin="1.5rem" flexWrap="wrap">
-            <Button colorScheme="blue" variant="shareBtn" paddingX="3rem" onClick={submitTemplate}>
-              Publish
-            </Button>
             <Button fontSize="lg" onClick={closeWindow} paddingX="3rem" borderRadius="6px">
               Cancel
+            </Button>
+            <Button colorScheme="blue" variant="shareBtn" paddingX="3rem" onClick={submitTemplate}>
+              Publish
             </Button>
           </Flex>
         </ModalContent>
