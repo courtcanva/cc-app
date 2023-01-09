@@ -40,7 +40,14 @@ const FolderListItem = (props: any) => {
       </HStack>
       <Box width="80%" height="100%" position="relative">
         {image && image.startsWith("http") && (
-          <Image src={image.toString()} alt="Court image" layout="fill" objectFit="contain"></Image>
+          <Image
+            src={image.toString()}
+            alt="Court image"
+            layout="fill"
+            objectFit="contain"
+            placeholder="blur"
+            blurDataURL="https://cdn-images-1.medium.com/max/1800/1*sg-uLNm73whmdOgKlrQdZA.jpeg"
+          ></Image>
         )}
       </Box>
       <HStack spacing={8} style={{ margin: "4px" }}>
