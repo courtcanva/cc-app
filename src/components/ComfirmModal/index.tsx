@@ -8,16 +8,18 @@ import {
   ModalCloseButton,
   Button,
 } from "@chakra-ui/react";
-import { FaTrashAlt, FaFileUpload } from "react-icons/fa";
+import { FaTrashAlt, FaFileUpload, FaSave } from "react-icons/fa";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm: (e: any) => void;
   buttonText: string;
   alertText: string;
 }
 const ConfirmModal = ({ isOpen, onClose, onConfirm, buttonText, alertText }: Props) => {
+  const alert = buttonText === "Save" ? alertText : `Are you sure you want to ${alertText}?`;
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -29,6 +31,8 @@ const ConfirmModal = ({ isOpen, onClose, onConfirm, buttonText, alertText }: Pro
                 size={35}
                 style={{ color: "red", marginTop: "25px", marginBottom: "10px" }}
               />
+            ) : buttonText === "Save" ? (
+              <FaSave size={35} style={{ color: "red", marginTop: "25px", marginBottom: "10px" }} />
             ) : (
               <FaTrashAlt
                 size={35}
@@ -38,7 +42,7 @@ const ConfirmModal = ({ isOpen, onClose, onConfirm, buttonText, alertText }: Pro
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody textAlign={"center"}>
-            <p>Are you sure you want to {alertText}?</p>
+            <p>{alert}</p>
           </ModalBody>
           <ModalFooter display={"flex"} gap="10px" marginTop={"10px"}>
             <Button variant="ghost" onClick={onClose}>

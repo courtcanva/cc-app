@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, useDisclosure } from "@chakra-ui/react";
 import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import SaveSvg from "@/assets/svg/TopBarSvg/save.svg";
 import { Button, useToast } from "@chakra-ui/react";
@@ -25,6 +25,7 @@ import SaveDesignModal from "./SaveDesignModal";
 import SaveAlert from "./SaveAlert";
 import { COURT_TYPE } from "@/constants/courtData";
 import { upLoadScreenshot } from "@/utils/manageExternalImage";
+import ConfirmModal from "../ComfirmModal";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,10 @@ const SaveBoard: React.FC = () => {
   const [useFeedback, setFeedback] = useState("");
   const [useSaveDesignModal, setSaveDesignModal] = useState(false);
   const courtDataUrl = useStoreSelector((state) => state.canvasControl.courtDataUrl);
+  const { designTileList } = useStoreSelector((state) => state.designTileList);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isSideBarOpen } = useStoreSelector((state) => state.buttonToggle);
 
   const tiles: ITileColor[] = [];
   for (const tile of tileData) {
@@ -58,6 +63,17 @@ const SaveBoard: React.FC = () => {
       setCourtId(courtData.courtId);
     }
   }, [designNames, courtData]);
+
+  useEffect(() => {
+    const savedCourt = designsData.find((e) => e.courtId === courtData.courtId);
+    if (!savedCourt) return;
+    const savedTile = designTileList.find((e) => e.courtId === courtData.courtId)?.tileColor;
+    if (
+      Object.is(savedCourt, courtData) === false ||
+      JSON.stringify(savedTile) !== JSON.stringify(tileData)
+    )
+      onOpen();
+  }, [courtData, tileData]);
 
   const designData = {
     user_id: userData.userId,
@@ -128,6 +144,7 @@ const SaveBoard: React.FC = () => {
         });
     }
     mappedDesignData(designData.designName);
+    onClose();
   };
 
   const open = () => {
@@ -219,6 +236,15 @@ const SaveBoard: React.FC = () => {
         onClose={() => setSaveDesignModal(false)}
         updateFeedbackData={useFeedback}
       ></SaveDesignModal>
+      {isSideBarOpen && (
+        <ConfirmModal
+          isOpen={isOpen}
+          onClose={onClose}
+          onConfirm={handleSaveDesign}
+          buttonText="Save"
+          alertText="Do you want to save your latest changes in the design?"
+        />
+      )}
     </Flex>
   );
 };
