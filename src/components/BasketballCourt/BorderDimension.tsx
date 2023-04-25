@@ -1,4 +1,5 @@
 import { useStoreSelector } from "@/store/hooks";
+import { Group } from "react-konva";
 import DimensionText from "./DimensionText";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
 import { MIN_DIMENSION_BOX } from "../../constants/courtData";
@@ -59,9 +60,9 @@ const BorderDimension: React.FC<BorderDimensionProps> = ({ startPoint, borderLen
   return (
     <>
       {borderDimensionPosition.map((item: { startPoint: ICourtStartPoint; id: number }) => (
-        <div key={item.id}>
+        <Group key={item.id}>
           <DimensionText startPoint={item.startPoint} text={borderLength} color={dimensionColor} />
-        </div>
+        </Group>
       ))}
     </>
   );

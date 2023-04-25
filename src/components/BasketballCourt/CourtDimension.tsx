@@ -1,4 +1,4 @@
-import { Arrow } from "react-konva";
+import { Arrow, Group } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
 import { MIN_DIMENSION_BOX } from "@/constants/courtData";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
@@ -8,6 +8,7 @@ interface CourtDimensionProps {
   startPoint: ICourtStartPoint;
   borderLength: number;
 }
+
 const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint, borderLength }) => {
   const { courtAreaXLength, courtAreaYLength } = useStoreSelector(
     (state) => state.courtSpecData.activeCourt
@@ -38,9 +39,9 @@ const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint, borderLengt
   return (
     <>
       {courtDimensionPosition.map((item: { startPoint: ICourtStartPoint; text: number }) => (
-        <div key={item.text}>
+        <Group key={item.text}>
           <DimensionText startPoint={item.startPoint} text={item.text} color={dimensionColor} />
-        </div>
+        </Group>
       ))}
       <Arrow // court x length left arrow
         pointerLength={arrowSize}
