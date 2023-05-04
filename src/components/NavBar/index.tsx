@@ -36,8 +36,14 @@ import UserTokenService from "@/utils/TokenService";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
-  const { isCartOpen, isLoginModalOpen, isCreateTemplateOpen, isMyTemplateOpen, isSwitch3D } =
-    useStoreSelector((state) => state.buttonToggle);
+  const {
+    isCartOpen,
+    isLoginModalOpen,
+    isCreateTemplateOpen,
+    isMyTemplateOpen,
+    isMyAccountOpen,
+    isSwitch3D,
+  } = useStoreSelector((state) => state.buttonToggle);
   const { userLogout, updateToken } = useAuthRequest();
   const { getLocalStorageItem } = useHandleLocalStorageItem();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -155,7 +161,7 @@ const NavigationBar = () => {
             Home
           </Button>
         </Link>
-        {!isCartOpen && (
+        {!isCartOpen && !isMyTemplateOpen && !isMyAccountOpen && (
           <Flex flex="1" justifyContent="center">
             <Tooltip hasArrow shouldWrapChildren label="undo color edit" fontSize="sm">
               <IconButton
@@ -190,7 +196,11 @@ const NavigationBar = () => {
           </Flex>
         )}
       </Flex>
-      {!isCartOpen && !isMyTemplateOpen && !isSwitch3D ? <EditorDesignName /> : <Box></Box>}
+      {!isCartOpen && !isMyAccountOpen && !isMyTemplateOpen && !isSwitch3D ? (
+        <EditorDesignName />
+      ) : (
+        <Box></Box>
+      )}
       <Flex alignItems="center" justifyContent="flex-end">
         {!loginState ? (
           <Button onClick={handleLoginModalOpen}>Sign up / Login</Button>

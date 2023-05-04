@@ -263,7 +263,7 @@ export const mockCartDataRaw: any = [
 
 export const mockCartData: ICartItem[] = mockCartDataRaw.map((cartItem: any) => {
   return {
-    id: cartItem._id,
+    id: cartItem._id.$oid,
     user_id: cartItem.user_id,
     design: cartItem.design,
     quotation: cartItem.quotation,
