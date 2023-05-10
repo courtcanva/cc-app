@@ -35,7 +35,6 @@ const FullCourt = () => {
   const canvasStates = canvasControl.canvasStates;
 
   useEffect(() => {
-    console.log(canvasStates.selectedColor);
     ref.current.x(0);
     ref.current.y(0);
   }, [canvasStates.resetState]);
