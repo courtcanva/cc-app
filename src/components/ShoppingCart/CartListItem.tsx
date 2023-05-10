@@ -78,7 +78,9 @@ const CartListItem = ({
           <DropDownButton detail={courtDetail} />
         </Td>
         <Td verticalAlign="top">
-          <Text variant="textFont">{formatCurrency(quotation)}</Text>
+          <Text variant="textFont" data-testid="quotation">
+            {formatCurrency(quotation)}
+          </Text>
         </Td>
         <Td verticalAlign="top">
           <Text variant="textFont">{formatCurrency(Number(quotation) * depositRate)}</Text>

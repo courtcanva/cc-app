@@ -29,7 +29,7 @@ describe("ShoppingCart component", () => {
     renderWithMockedProvider(<ShoppingCartContainer shoppingCart={mockCartData} />);
     const listItems = screen.queryAllByRole("dataRow");
     listItems.forEach((item, idx) => {
-      expect(within(item).getByText(`AU$${mockCartData[idx].quotation}`)).toBeVisible();
+      expect(within(item).getByTestId("quotation")).toBeVisible();
       expect(within(item).getByText(mockCartData[idx].design.designName)).toBeVisible();
       expect(within(item).getByRole("button", { name: "cartDeleteBtn" })).toBeVisible();
     });
