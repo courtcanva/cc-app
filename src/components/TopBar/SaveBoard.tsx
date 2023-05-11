@@ -59,7 +59,6 @@ const SaveBoard: React.FC = () => {
   }, [courtData]);
 
   useEffect(() => {
-    // setDesignName("test");
     if (designNames.includes(useDesignName)) {
       const index = designsData.findIndex((item) => item.designName === useDesignName);
       setCourtId(designsData[index]?.courtId);
