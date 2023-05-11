@@ -62,8 +62,6 @@ const SaveBoard: React.FC = () => {
     // setDesignName("test");
     if (designNames.includes(useDesignName)) {
       const index = designsData.findIndex((item) => item.designName === useDesignName);
-      console.log("designsData index: " + index);
-      console.log("courtId: " + courtData.courtId);
       setCourtId(designsData[index]?.courtId);
     } else {
       setCourtId(courtData.courtId);
