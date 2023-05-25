@@ -12,6 +12,7 @@ const useImageDataUrl = (stageRef: RefObject<Konva.Stage>) => {
   const dispatch = useDispatch();
   const { borderLength } = useCourt();
   const selectedColor = useStoreSelector((state) => state.courtColor.selectedColor);
+  const tileHistoryNumber = useStoreSelector((state) => state.tile.past).length;
   const rulerState = useStoreSelector((state) => state.buttonToggle.isRulerOn);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const useImageDataUrl = (stageRef: RefObject<Konva.Stage>) => {
     });
     dispatch(setCourtDataUrl(image));
     rulerState ? dispatch(switchRuler(true)) : null;
-  }, [selectedColor, borderLength]);
+  }, [selectedColor, borderLength, tileHistoryNumber]);
 };
 
 export default useImageDataUrl;
