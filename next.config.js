@@ -7,6 +7,8 @@ const nextConfig = {
     domains: [
       `${process.env.NEXT_PUBLIC_ALBUM_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_BUCKET_REGION}.amazonaws.com`,
     ],
+    loader: "akamai",
+    path: "",
   },
 
   webpack(config) {
