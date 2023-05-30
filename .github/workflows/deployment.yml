@@ -73,7 +73,7 @@ jobs:
           role-session-name: S3Deployment
           aws-region: ap-southeast-2
       - name: Install AWS Amplify CLI
-        run: npm install -g @aws-amplify/cli@4.59.2
+        run: npm install -g @aws-amplify/cli
       - name: Deploy to Amplify
         run: |
           amplify env checkout cc-app-uat
@@ -100,7 +100,7 @@ jobs:
           role-to-assume: arn:aws:iam::245866473499:role/OIDC-Amplify-deployment
           aws-region: ap-southeast-2
       - name: Install AWS Amplify CLI
-        run: npm install -g @aws-amplify/cli@4.59.2
+        run: npm install -g @aws-amplify/cli
       - name: Deploy to Amplify
         run: |
           amplify env checkout cc-app
