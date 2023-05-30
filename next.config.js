@@ -7,7 +7,9 @@ const nextConfig = {
     domains: [
       `${process.env.NEXT_PUBLIC_ALBUM_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_BUCKET_REGION}.amazonaws.com`,
     ],
-    loader: "akamai",
+    // loader: "akamai",
+    // path: "",
+    loader: "imgix",
     path: "",
   },
 

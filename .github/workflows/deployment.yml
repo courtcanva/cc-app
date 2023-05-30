@@ -1,13 +1,8 @@
 name: cc-frontend
 on:
-  #   push:
-  # branches:
-  #   - main
   pull_request:
     branches:
       - main
-    # paths:
-    #   - '.github/workflows/*'
 permissions:
   id-token: write
   contents: read
@@ -21,18 +16,16 @@ jobs:
       - name: Load & cache dependencies
         id: cache-dependencies
         uses: ./.github/actions/cached-dependencies
-      - name: 'Create env file'
+      - name: "Create env file"
         run: |
           echo "${{ secrets.ENV_FILE }}" > .env
       - name: Build website
         run: npm run build
-      - name: Build export
-        run: npm run export
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: out-files
-          path: out
+          name: next-files
+          path: .next
 
   # test:
   #   needs: build
@@ -64,20 +57,25 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
       - name: Get build artifacts
         uses: actions/download-artifact@v3
         with:
-          name: out-files
-          path: out
+          name: next-files
+          path: .next
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::245866473499:role/OIDC-S3-deployment
           role-session-name: S3Deployment
-          aws-region: ap-southeast-2
-      - name: Deploy to PROD S3
+          aws-region: ap-southeast-2 
+      - name: Deploy to Amplify
         run: |
-          aws s3 sync out ${{ secrets.S3_UAT_BUCKET }}
+          amplify env checkout cc-app-uat
+          amplify publish
 
   deploy-prod:
     needs: deploy-uat
@@ -85,6 +83,10 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
       - name: Get build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -95,6 +97,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::245866473499:role/OIDC-S3-deployment
           aws-region: ap-southeast-2
-      - name: Deploy to PROD S3
+      - name: Deploy to Amplify
         run: |
-          aws s3 sync out ${{ secrets.S3_PROD_BUCKET }}
+          amplify env checkout cc-app
+          amplify publish
