@@ -21,6 +21,9 @@ jobs:
       - name: Load & cache dependencies
         id: cache-dependencies
         uses: ./.github/actions/cached-dependencies
+      - name: 'Create env file'
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
       - name: Build website
         run: npm run build
       - name: Build export
