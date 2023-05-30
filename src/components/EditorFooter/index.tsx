@@ -48,11 +48,12 @@ const EditorFooter = () => {
       justifyContent="space-between"
       alignItems="center"
       px={4}
-      w="calc(100vw - 98px)"
+      w="calc(100vw - 298px)"
       bg="white"
       boxShadow="dark-lg"
       lineHeight="34px"
       left="98px"
+      right="200px"
       zIndex={1400}
     >
       <Box>

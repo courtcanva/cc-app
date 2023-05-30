@@ -98,7 +98,7 @@ const TopBar = () => {
     <Grid
       gridTemplateColumns={{ base: "0 1fr 1fr", lg: "1fr 1fr 1fr" }}
       position="fixed"
-      width="calc(100vw - 98px)"
+      width="calc(100vw - 298px)"
       background="background.tertiary"
       left="98px"
       top="73px"

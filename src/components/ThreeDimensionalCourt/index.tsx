@@ -35,7 +35,7 @@ const ThreeDimensionalToggle = ({ width, height, children }: Props) => {
         width="100px"
         height="40px"
         position="absolute"
-        right="18px"
+        right="218px"
         top="38px"
         justifyContent="center"
         alignItems="center"
