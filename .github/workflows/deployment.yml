@@ -69,9 +69,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::245866473499:role/OIDC-S3-deployment
+          role-to-assume: arn:aws:iam::245866473499:role/OIDC-Amplify-deployment
           role-session-name: S3Deployment
-          aws-region: ap-southeast-2 
+          aws-region: ap-southeast-2
       - name: Deploy to Amplify
         run: |
           amplify env checkout cc-app-uat
@@ -95,7 +95,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::245866473499:role/OIDC-S3-deployment
+          role-to-assume: arn:aws:iam::245866473499:role/OIDC-Amplify-deployment
           aws-region: ap-southeast-2
       - name: Deploy to Amplify
         run: |
