@@ -16,6 +16,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { changeZoomScale, dragSwitch, resetAll } from "@/store/reducer/canvasControlSlice";
 import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
 import { RiRepeatLine } from "react-icons/ri";
+import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
 
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
@@ -48,12 +49,11 @@ const EditorFooter = () => {
       justifyContent="space-between"
       alignItems="center"
       px={4}
-      w="calc(100vw - 298px)"
+      w={`calc(100vw - 98px - ${RIGHT_BAR_WIDTH})`}
       bg="white"
       boxShadow="dark-lg"
       lineHeight="34px"
       left="98px"
-      right="200px"
       zIndex={1400}
     >
       <Box>
