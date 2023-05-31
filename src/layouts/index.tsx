@@ -19,6 +19,7 @@ import {
 
 import OrderGeneration from "@/components/OrderGeneration";
 import MyAccount from "@/components/MyAccount";
+import EditorRightSideBar from "@/components/EditorRightSideBar";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
@@ -84,6 +85,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
             <EditorSideBar />
             {children}
             <TopBar />
+            <EditorRightSideBar />
           </Box>
           <PriceBar />
           <EditorFooter />

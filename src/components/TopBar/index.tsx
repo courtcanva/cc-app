@@ -43,6 +43,7 @@ import { designMapping } from "@/utils/designMapping";
 import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
 import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
+import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
 
 const TopBar = () => {
   const dispatch = useDispatch();
@@ -98,7 +99,7 @@ const TopBar = () => {
     <Grid
       gridTemplateColumns={{ base: "0 1fr 1fr", lg: "1fr 1fr 1fr" }}
       position="fixed"
-      width="calc(100vw - 98px)"
+      width={`calc(100vw - 98px - ${RIGHT_BAR_WIDTH})`}
       background="background.tertiary"
       left="98px"
       top="73px"
