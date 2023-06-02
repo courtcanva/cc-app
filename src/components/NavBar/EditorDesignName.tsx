@@ -71,7 +71,7 @@ const DesignName = () => {
           }}
           onSubmit={saveNameChange}
         >
-          <EditablePreview noOfLines={1} maxWidth={"120px"} />
+          <EditablePreview noOfLines={1} maxWidth={"180px"} />
           <Input as={EditableInput} />
           <EditableControls />
         </Editable>
