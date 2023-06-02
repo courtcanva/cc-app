@@ -21,6 +21,7 @@ const EditableControls = () => {
   return isEditing ? null : (
     <IconButton
       aria-label="Edit"
+      size="sm"
       icon={<BiPencil />}
       variant="navbarIconBtn"
       {...getEditButtonProps()}
@@ -70,7 +71,7 @@ const DesignName = () => {
           }}
           onSubmit={saveNameChange}
         >
-          <EditablePreview p="0px 8px" />
+          <EditablePreview noOfLines={1} maxWidth={"120px"} />
           <Input as={EditableInput} />
           <EditableControls />
         </Editable>

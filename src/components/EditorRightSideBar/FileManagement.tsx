@@ -3,6 +3,7 @@ import { useStoreSelector } from "@/store/hooks";
 import {
   Box,
   Button,
+  Container,
   Flex,
   Grid,
   IconButton,
@@ -12,9 +13,8 @@ import {
   PopoverTrigger,
   Text,
 } from "@chakra-ui/react";
-import DownloadSvg from "@/assets/svg/TopBarSvg/download.svg";
-import DocSvg from "@/assets/svg/TopBarSvg/document.svg";
 import SaveBoard from "@/components/TopBar/SaveBoard";
+import { BiDownload, BiSave } from "react-icons/bi";
 import {
   switchCreateTemplate,
   switchLoginModal,
@@ -78,15 +78,18 @@ const FileManagement = () => {
   };
   return (
     <Box>
-      <EditorDesignName />
-      <Flex align="center" justify="flex-start" gap="10px">
+      <Flex maxW={"md"} paddingLeft={"8px"}>
+        <EditorDesignName />
+      </Flex>
+      <Flex align="center" justify="flex-start" gap="15px">
         <Popover isOpen={isSavePopoverOpen} onClose={handleSaveClose}>
           <PopoverTrigger>
             <IconButton
               aria-label="DocSvg"
-              colorScheme="transparent"
-              icon={<DocSvg />}
-              variant="witheBackgroundIconBtn"
+              icon={<BiSave />}
+              colorScheme="white"
+              size="md"
+              variant="navbarIconBtn"
               onClick={handleSaveOpen}
               data-testid="save-btn"
             />
@@ -100,9 +103,10 @@ const FileManagement = () => {
 
         <IconButton
           aria-label="Download"
-          colorScheme="transparent"
-          icon={<DownloadSvg />}
-          variant="witheBackgroundIconBtn"
+          icon={<BiDownload />}
+          colorScheme="white"
+          variant="navbarIconBtn"
+          size="md"
           onClick={handleDownload}
           data-testid="download-btn"
         />
