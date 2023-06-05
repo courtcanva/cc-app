@@ -1,17 +1,14 @@
-import { getCourtNameString, updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
+import { getCourtNameString } from "@/store/reducer/courtSpecDataSlice";
 import { useStoreSelector } from "@/store/hooks";
 import {
   Box,
   Button,
-  Container,
   Flex,
-  Grid,
   IconButton,
   Popover,
   PopoverBody,
   PopoverContent,
   PopoverTrigger,
-  Text,
 } from "@chakra-ui/react";
 import SaveBoard from "@/components/TopBar/SaveBoard";
 import { BiDownload, BiSave } from "react-icons/bi";
@@ -26,21 +23,16 @@ import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { downloadToPDF } from "@/utils/printPDF";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
 import { useRouter } from "next/router";
 import EditorDesignName from "@/components/NavBar/EditorDesignName";
 
 const FileManagement = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const open = () => dispatch(switchPaintBucket(true));
-  const close = () => dispatch(switchPaintBucket(false));
   const userData = useStoreSelector((state) => state.user);
-  const { selectedColor } = useStoreSelector((state) => state.courtColor);
   const { isPaintPopoverOpen, isSavePopoverOpen } = useStoreSelector((state) => state.buttonToggle);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
 
-  const nameString = getCourtNameString(selectedCourt);
   const borderLength = selectedCourt.borderLength;
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
   const [useUserId, setUserId] = useState(userData.userId);
