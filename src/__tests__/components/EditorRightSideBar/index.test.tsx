@@ -7,6 +7,7 @@ describe("EditorRightSideBar component", () => {
     renderWithMockedProvider(<EditorRightSideBar />);
     // const courtCanva1Text = screen.getByText("CourtCanva1");
     // const designToolsText = screen.getByText("Design Tools");
+
     const displayAdjustmentText = screen.getByText("Display Adjustment");
     const quotationText = screen.getByText("Quote");
 
