@@ -1,4 +1,4 @@
-import { Center, Text } from "@chakra-ui/react";
+import { Center, Text, Flex, Wrap } from "@chakra-ui/react";
 import React, { useEffect, useMemo, Dispatch, SetStateAction } from "react";
 import { useStoreSelector } from "@/store/hooks";
 import { TilePrices } from "../../interfaces/priceCalculation";
@@ -9,8 +9,16 @@ interface ITileColorBoard {
   setTotalPrice: Dispatch<SetStateAction<string>>;
 }
 
+interface ITilePrice {
+  price: {
+    singleTone: number;
+    twoTone: number;
+    threeTone: number;
+  };
+}
+
 const TileColorBoard: React.FC<ITileColorBoard> = ({ setTotalPrice }) => {
-  const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
+  const { blocks: tileBlocks } = useStoreSelector((state) => state.priceBar);
   const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
   const { colorList } = useStoreSelector((state) => state.colorList);
   const { data } = useGetPriceQuery(0);
@@ -29,19 +37,20 @@ const TileColorBoard: React.FC<ITileColorBoard> = ({ setTotalPrice }) => {
     priceDetails.deliveryPrice += Math.ceil(totalQuantity / 1000) * (delivery / 100);
   };
 
-  const calculateTile = (tilePricesList: { price: number }) => {
-    const courtSize =
-      court.customizeCourtAreaXLength &&
-      court.customizeCourtAreaYLength &&
-      court.customizeCourtAreaXLength * court.customizeCourtAreaYLength !== 0
-        ? (court.customizeCourtAreaXLength / 1000) * (court.customizeCourtAreaYLength / 1000)
-        : (((court.courtAreaXLength + court.borderLength * 2) / 1000) *
-            (court.courtAreaYLength + court.borderLength * 2)) /
-          1000;
-    priceDetails.tilePrice = (tilePricesList?.price / 100) * courtSize;
+  const calculateTile = (tilePricesList: ITilePrice) => {
+    const { singleTone, twoTone, threeTone } = tilePricesList && tilePricesList.price;
+    const [singleToneNumber, twoToneNumber, threeToneNumber] = [1, 2, 3].map((length) =>
+      tileBlocks
+        .filter((item) => item.color.split(" ").length === length)
+        .map((tile) => tile.quantity)
+        .reduce((number, total) => number + total, 0)
+    );
+    priceDetails.tilePrice =
+      (singleTone * singleToneNumber + twoTone * twoToneNumber + threeTone * threeToneNumber) / 100;
   };
 
   useEffect(() => {
+    if (colorList.length === 0) return;
     if (data === undefined) return;
     const tilePricesList = data[0]?.tilePrices?.find(
       (item: TilePrices) => item.tileName === colorList[0]?.name
@@ -58,19 +67,35 @@ const TileColorBoard: React.FC<ITileColorBoard> = ({ setTotalPrice }) => {
 
     return tileBlocks.map(({ color, quantity }) => {
       if (quantity !== 0) {
+        const colorArray = color.split(" ");
         return (
-          <Center
-            key={color}
-            backgroundColor={color}
-            width={{ base: "45px", lg: "60px", xl: "85px" }}
-            height={{ base: "25px", lg: "30px", xl: "35px" }}
-            fontSize={{ base: "xs", xl: "sm" }}
-            color="fontcolor.primary"
-            role="tileBlock"
-            borderRadius="6px"
+          <Flex
+            width={{ base: "27px", lg: "40px", xl: "50px" }}
+            height={{ base: "15px", lg: "18px", xl: "22px" }}
+            position="relative"
+            borderRadius="md"
           >
-            {quantity}
-          </Center>
+            {colorArray.map((singleColor, index) => {
+              return (
+                <Center
+                  backgroundColor={singleColor}
+                  key={singleColor}
+                  width={"100%"}
+                  borderStartRadius={index === 0 ? "inherit" : "none"}
+                  borderEndRadius={index === colorArray.length - 1 ? "inherit" : "none"}
+                ></Center>
+              );
+            })}
+            <Center
+              position="absolute"
+              width="100%"
+              height="100%"
+              color="fontcolor.primary"
+              fontSize={["8px", "10px", "12px", "14px"]}
+            >
+              {quantity}
+            </Center>
+          </Flex>
         );
       }
     });
@@ -91,9 +116,9 @@ const TileColorBoard: React.FC<ITileColorBoard> = ({ setTotalPrice }) => {
         >
           Estimated Tiles
         </Text>
-        <Center gap="8px" height="35px" marginLeft="8px" data-testid="tileBoard">
+        <Wrap gap="8px" height="48px" marginLeft="8px" data-testid="tileBoard">
           {centers}
-        </Center>
+        </Wrap>
       </Center>
     </>
   );

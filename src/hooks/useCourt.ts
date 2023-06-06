@@ -1,7 +1,6 @@
 import { useStoreSelector } from "@/store/hooks";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import { useLayoutEffect, useState } from "react";
-import { useTileCount } from "./useTileCount";
 
 const useCourt = () => {
   const {
@@ -29,15 +28,13 @@ const useCourt = () => {
 
   const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
 
-  const court = getCourtAndTileInfo(
+  const { court, courtAndTileInfo } = getCourtAndTileInfo(
     courtAreaXLength,
     courtAreaYLength,
     borderLength,
     stageMargin,
     size
-  ).court;
-
-  useTileCount();
+  );
 
   useLayoutEffect(() => {
     const checkSize = () => {
@@ -57,6 +54,7 @@ const useCourt = () => {
     stageMargin,
     courtStartPoint,
     componentsStartPoint,
+    courtAndTileInfo,
   };
 };
 

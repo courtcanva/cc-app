@@ -29,19 +29,8 @@ import {
   switchLoginModal,
   switchSavePopover,
 } from "@/store/reducer/buttonToggleSlice";
-import {
-  getCourtNameString,
-  updateBorderLength,
-  getDesignsData,
-  setDefaultCourt,
-  defaultCourt,
-} from "@/store/reducer/courtSpecDataSlice";
-import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
+import { getCourtNameString, updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
 import { downloadToPDF } from "@/utils/printPDF";
-import { fetchDesignData, useDeleteDesignMutation } from "@/redux/api/designApi";
-import { designMapping } from "@/utils/designMapping";
-import { getDesignsTileData } from "@/store/reducer/designsTileListSlice";
-import { changeDesignNameList } from "@/store/reducer/designNameSlice";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
 
 const TopBar = () => {
@@ -77,13 +66,6 @@ const TopBar = () => {
     dispatch(switchSideBar(false));
     setSliderValue(val);
     dispatch(updateBorderLength(val * 1000));
-    const borderTileQty =
-      2 *
-        (Math.ceil(selectedCourt.courtAreaXLength / 300) +
-          Math.ceil(selectedCourt.courtAreaYLength / 300)) *
-        Math.ceil((val * 1000) / 300) +
-      4 * Math.pow(Math.ceil((val * 1000) / 300), 2);
-    dispatch(updateBorderTileQty(borderTileQty));
   };
 
   const handleSaveOpen = () => {

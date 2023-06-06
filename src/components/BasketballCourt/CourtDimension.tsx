@@ -1,6 +1,6 @@
 import { Arrow, Group } from "react-konva";
 import { useStoreSelector } from "@/store/hooks";
-import { MIN_DIMENSION_BOX } from "@/constants/courtData";
+import { MIN_DIMENSION_BOX, DIMENSION_BLACK, DIMENSION_WHITE } from "@/constants/courtData";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import DimensionText from "./DimensionText";
 
@@ -13,7 +13,7 @@ const CourtDimension: React.FC<CourtDimensionProps> = ({ startPoint, borderLengt
     (state) => state.courtSpecData.activeCourt
   );
   const { isRulerOn } = useStoreSelector((state) => state.buttonToggle);
-  const dimensionColor = borderLength < MIN_DIMENSION_BOX ? "black" : "white";
+  const dimensionColor = borderLength < MIN_DIMENSION_BOX ? DIMENSION_BLACK : DIMENSION_WHITE;
   const borderSize = borderLength < MIN_DIMENSION_BOX ? MIN_DIMENSION_BOX : borderLength;
   const arrowSize = 100;
   const arrowWeight = 50;

@@ -16,10 +16,12 @@ import { useRef, useEffect } from "react";
 import canvasControlModel from "../../utils/canvasControlModel";
 import useImageDataUrl from "@/hooks/useImageDataUrl";
 import ThreeDimensionalToggle from "../ThreeDimensionalCourt";
+import { useTileCalculation } from "@/hooks/useTileCalculation";
 
 const FullCourt = () => {
   const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
-  const ref = useRef<any>(null);
+  const stageRef = useRef<any>(null);
+  const layerRef = useRef<any>(null);
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,
@@ -35,12 +37,12 @@ const FullCourt = () => {
   const canvasStates = canvasControl.canvasStates;
 
   useEffect(() => {
-    console.log(canvasStates.selectedColor);
-    ref.current.x(0);
-    ref.current.y(0);
+    stageRef.current.x(0);
+    stageRef.current.y(0);
   }, [canvasStates.resetState]);
 
-  useImageDataUrl(ref);
+  useImageDataUrl(stageRef);
+  useTileCalculation(layerRef);
 
   return (
     <Flex
@@ -70,12 +72,12 @@ const FullCourt = () => {
               style={{ backgroundColor: "white" }}
               onDragStart={canvasControl.handleMouseDragStart}
               onDragEnd={canvasControl.handleCursorChange}
-              ref={ref}
+              ref={stageRef}
               draggable={canvasStates.dragActivate && canvasStates.selectedColor === "none"}
               visible
             >
               <Provider store={store}>
-                <Layer>
+                <Layer ref={layerRef}>
                   <Border
                     startPoint={courtStartPoint}
                     borderLength={borderLength}

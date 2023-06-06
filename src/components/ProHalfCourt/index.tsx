@@ -26,14 +26,21 @@ import ThreeDimensionalToggle from "../ThreeDimensionalCourt";
 
 const ProHalfCourt = () => {
   const dispatch = useDispatch();
-  const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint, stageMargin } =
-    useCourt();
+  const {
+    courtAreaXLength,
+    courtAreaYLength,
+    borderLength,
+    court,
+    courtStartPoint,
+    courtAndTileInfo,
+  } = useCourt();
   const ref = useRef<any>(null);
   const reference = useRef<any>();
   const [clipWidth, setClipWidth] = useState(0);
   const [clipLength, setClipLength] = useState(0);
   const clipCourt = { clipWidth, clipLength };
   const courtColor = useStoreSelector((state) => state.tile.present.court);
+  const { colorList } = useStoreSelector((state) => state.colorList);
   const tileInfo = {
     beginPointX: (courtStartPoint.X - borderLength) * court.courtRatio,
     beginPointY:
@@ -49,26 +56,21 @@ const ProHalfCourt = () => {
       court.courtRatio,
     tileSize: 300 * court.courtRatio,
   };
-  const courtAndTileInfo = {
-    beginPointX: (stageMargin - borderLength) * court.courtRatio,
-    beginPointY: (stageMargin - borderLength) * court.courtRatio,
-    endPointX: (stageMargin + courtAreaXLength + borderLength) * court.courtRatio,
-    endPointY: (stageMargin + courtAreaYLength + borderLength) * court.courtRatio,
-    tileSize: 300 * court.courtRatio,
-  };
 
   useEffect(() => {
     dispatch(setNewCourtAreaXLength(clipWidth * 1000));
     dispatch(setNewCourtAreaYLength(clipLength * 1000));
     const timer = setTimeout(() => {
+      if (colorList.length === 0) return;
       const tileNumberResult = calculation(
+        colorList,
         reference,
         clipLength === 0 && clipWidth === 0 ? courtAndTileInfo : tileInfo
       ) as PriceBar[];
       dispatch(changeTileQuantity(tileNumberResult));
     });
     return () => clearTimeout(timer);
-  }, [JSON.stringify(clipCourt), JSON.stringify(courtColor)]);
+  }, [JSON.stringify(clipCourt), JSON.stringify(courtColor), borderLength, colorList]);
 
   const zoomShift: IZoomShift = {
     courtXLen: courtAreaXLength,

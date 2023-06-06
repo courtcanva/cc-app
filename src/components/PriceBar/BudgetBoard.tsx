@@ -11,6 +11,7 @@ import { COURT_TYPE } from "../../constants/courtData";
 import { BsQuestionCircle } from "react-icons/bs";
 import { useGetDepositQuery } from "../../redux/api/depositApi";
 import formatCurrency from "@/utils/formatCurrency";
+import { useGetPriceQuery } from "@/redux/api/priceApi";
 
 interface IBudgetBoardprops {
   useTotalPrice: string;
@@ -20,10 +21,12 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
   const dispatch = useDispatch();
   const toast = useToast();
 
-  const tileBlocks = useStoreSelector((state) => state.priceBar.blocks);
+  const { blocks: tileBlocks } = useStoreSelector((state) => state.priceBar);
+  const { data } = useGetPriceQuery(0);
   const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
   const tileData = useStoreSelector((state) => state.tile.present.court);
   const courtDataUrl = useStoreSelector((state) => state.canvasControl.courtDataUrl);
+  const { colorList } = useStoreSelector((state) => state.colorList);
   const tiles: ITileColor[] = [...tileData];
   const userId = useStoreSelector((state) => state.user.userId);
   const [addToCart] = useAddToCartMutation();
@@ -78,7 +81,9 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
         <Flex justifyContent="space-around" fontSize="12px">
           <Text marginLeft="20px">Quotation</Text>
           <Text marginLeft="5px">
-            {useTotalPrice === "0.00" ? "Loading..." : formatCurrency(useTotalPrice)}
+            {colorList.length === 0 || data === undefined
+              ? "Loading..."
+              : formatCurrency(useTotalPrice)}
           </Text>
         </Flex>
         <Flex
@@ -92,7 +97,7 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
           </Center>
 
           <Text marginLeft="5px" marginRight={{ base: "8px", lg: "20px" }}>
-            {useTotalPrice === "0.00"
+            {colorList.length === 0 || data === undefined
               ? "Loading..."
               : formatCurrency((Number(useTotalPrice) * depositData?.depositRate).toString())}
           </Text>

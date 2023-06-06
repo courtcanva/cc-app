@@ -10,7 +10,6 @@ import { courtColorApi } from "@/redux/api/courtColorAPi";
 import { cartApi } from "@/redux/api/cartApi";
 import designNameReducer from "./reducer/designNameSlice";
 import priceBarReducer from "./reducer/priceBarSlice";
-import areaTileQtyReducer from "./reducer/areaTileQtySlice";
 import courtSpecDataReducer from "./reducer/courtSpecDataSlice";
 import designTileListReducer from "./reducer/designsTileListSlice";
 import colorListReducer from "./reducer/colorListSlice";
@@ -39,7 +38,6 @@ export const makeStore = () =>
       [templateApi.reducerPath]: templateApi.reducer,
       [orderApi.reducerPath]: orderApi.reducer,
       [depositApi.reducerPath]: depositApi.reducer,
-      areaTileQty: areaTileQtyReducer,
       colorList: colorListReducer,
       canvasControl: canvasControlReducer,
       order: orderReducer,

@@ -1,7 +1,7 @@
 import { useStoreSelector } from "@/store/hooks";
 import DimensionText from "./DimensionText";
 import { ICourtStartPoint } from "../../interfaces/courtStartPoint";
-import { MIN_DIMENSION_BOX } from "../../constants/courtData";
+import { MIN_DIMENSION_BOX, DIMENSION_BLACK, DIMENSION_WHITE } from "../../constants/courtData";
 import { Group } from "react-konva";
 
 interface BorderDimensionProps {
@@ -18,7 +18,7 @@ const BorderDimension: React.FC<BorderDimensionProps> = ({ startPoint, borderLen
   if (borderLength === 0) {
     dimensionColor = "transparent";
   } else {
-    dimensionColor = borderLength < MIN_DIMENSION_BOX ? "black" : "white";
+    dimensionColor = borderLength < MIN_DIMENSION_BOX ? DIMENSION_BLACK : DIMENSION_WHITE;
   }
 
   const textStartX =
