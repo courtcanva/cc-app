@@ -56,13 +56,16 @@ const SaveBoard: React.FC = () => {
 
   useEffect(() => {
     setDesignName(courtData.designName);
+  }, [courtData]);
+
+  useEffect(() => {
     if (designNames.includes(useDesignName)) {
       const index = designsData.findIndex((item) => item.designName === useDesignName);
       setCourtId(designsData[index]?.courtId);
     } else {
       setCourtId(courtData.courtId);
     }
-  }, [designNames, courtData]);
+  }, [designNames, courtData, useDesignName]);
 
   useEffect(() => {
     const savedCourt = designsData.find((e) => e.courtId === courtData.courtId);

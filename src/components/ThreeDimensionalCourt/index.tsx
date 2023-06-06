@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { switch3D } from "@/store/reducer/buttonToggleSlice";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
+import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
 
 interface Props {
   width: number;
@@ -35,7 +36,7 @@ const ThreeDimensionalToggle = ({ width, height, children }: Props) => {
         width="100px"
         height="40px"
         position="absolute"
-        right="18px"
+        right={`calc(18px + ${RIGHT_BAR_WIDTH})`}
         top="38px"
         justifyContent="center"
         alignItems="center"
