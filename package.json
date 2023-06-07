@@ -54,7 +54,7 @@
     "@babel/plugin-proposal-decorators": "^7.17.9",
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
-    "@heroicons/react": "^1.0.6",
+    "@heroicons/react": "^2.0.0",
     "@svgr/webpack": "^6.2.1",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/jest-dom": "^5.16.4",
