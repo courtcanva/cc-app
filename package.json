@@ -27,7 +27,7 @@
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@react-oauth/google": "^0.2.6",
+    "@react-oauth/google": "^0.11.0",
     "@reduxjs/toolkit": "^1.8.2",
     "aws-sdk": "^2.1231.0",
     "axios": "^0.27.2",
