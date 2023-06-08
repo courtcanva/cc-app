@@ -58,7 +58,7 @@ const FileManagement = () => {
       <Flex maxW={"md"} paddingLeft={"8px"}>
         <EditorDesignName />
       </Flex>
-      <Flex align="center" justify="flex-start" gap="15px">
+      <Flex align="center" justify="left">
         <Popover onClose={handleSaveClose}>
           <PopoverTrigger>
             <IconButton
@@ -90,8 +90,9 @@ const FileManagement = () => {
 
         <Button
           variant="shareBtn"
-          marginLeft="2px"
+          marginLeft="3px"
           size="xs"
+          width={"65px"}
           fontSize="sm"
           onClick={userId ? handleCreateTemplateOpen : handleLoginModalOpen}
           data-testid="share-btn"
