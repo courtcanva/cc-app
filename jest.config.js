@@ -55,7 +55,7 @@ const customJestConfig = {
     "!<rootDir>/**/__tests__/**",
     "!<rootDir>/**/*.d.ts",
     "<rootDir>/src/hooks/useNameCheckFeedback.ts",
-    "<rootDir>/src/hooks/useTileCalculation",
+    "<rootDir>/src/hooks/useTileCalculation.ts",
   ],
   verbose: true,
   collectCoverage: true,
