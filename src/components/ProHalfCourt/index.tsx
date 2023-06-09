@@ -68,7 +68,7 @@ const ProHalfCourt = () => {
         clipLength === 0 && clipWidth === 0 ? courtAndTileInfo : tileInfo
       ) as PriceBar[];
       dispatch(changeTileQuantity(tileNumberResult));
-    });
+    }, 100); // Avoid transit effect disturb getting correct image data.
     return () => clearTimeout(timer);
   }, [JSON.stringify(clipCourt), JSON.stringify(courtColor), borderLength, colorList]);
 

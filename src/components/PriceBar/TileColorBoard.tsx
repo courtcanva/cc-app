@@ -33,7 +33,7 @@ const TileColorBoard: React.FC<ITileColorBoard> = ({ setTotalPrice }) => {
     for (const tile of tileBlocks) {
       totalQuantity += tile.quantity;
     }
-    const delivery = tilePricesList?.deliveryPrice;
+    const delivery = tilePricesList && tilePricesList.deliveryPrice;
     priceDetails.deliveryPrice += Math.ceil(totalQuantity / 1000) * (delivery / 100);
   };
 
@@ -51,39 +51,36 @@ const TileColorBoard: React.FC<ITileColorBoard> = ({ setTotalPrice }) => {
 
   useEffect(() => {
     if (colorList.length === 0) return;
-    if (data === undefined) return;
-    const tilePricesList = data[0]?.tilePrices?.find(
-      (item: TilePrices) => item.tileName === colorList[0]?.name
+    if (!data || data.length === 0) return;
+    const tilePricesList = data[0].tilePrices.find(
+      (item: TilePrices) => item.tileName === colorList[0].name
     );
-    calculateTile(tilePricesList);
-    calculateDelivery(tilePricesList);
-    const price = (priceDetails.tilePrice + priceDetails.deliveryPrice) * 1.1;
-    const totalPrice = priceFormat(price);
-    setTotalPrice(totalPrice);
+    if (tilePricesList) {
+      calculateTile(tilePricesList);
+      calculateDelivery(tilePricesList);
+      const price = (priceDetails.tilePrice + priceDetails.deliveryPrice) * 1.1;
+      const totalPrice = priceFormat(price);
+      setTotalPrice(totalPrice);
+    }
   }, [tileBlocks, court, data, colorList]);
 
   const centers = useMemo(() => {
-    if (!tileBlocks) return null;
-
     return tileBlocks.map(({ color, quantity }) => {
       if (quantity !== 0) {
         const colorArray = color.split(" ");
         return (
           <Flex
-            width={{ base: "27px", lg: "40px", xl: "50px" }}
-            height={{ base: "15px", lg: "18px", xl: "22px" }}
+            key={color}
+            width={{ base: "27px", xl: "40px", "2xl": "50px" }}
+            height={{ base: "15px", xl: "18px", "2xl": "22px" }}
             position="relative"
             borderRadius="md"
+            role="tileBlock"
+            overflow="hidden"
           >
-            {colorArray.map((singleColor, index) => {
+            {colorArray.map((singleColor) => {
               return (
-                <Center
-                  backgroundColor={singleColor}
-                  key={singleColor}
-                  width={"100%"}
-                  borderStartRadius={index === 0 ? "inherit" : "none"}
-                  borderEndRadius={index === colorArray.length - 1 ? "inherit" : "none"}
-                ></Center>
+                <Center backgroundColor={singleColor} key={singleColor} width={"100%"}></Center>
               );
             })}
             <Center
@@ -91,7 +88,7 @@ const TileColorBoard: React.FC<ITileColorBoard> = ({ setTotalPrice }) => {
               width="100%"
               height="100%"
               color="fontcolor.primary"
-              fontSize={["8px", "10px", "12px", "14px"]}
+              fontSize={{ base: "9px", xl: "12px", "2xl": "15px" }}
             >
               {quantity}
             </Center>

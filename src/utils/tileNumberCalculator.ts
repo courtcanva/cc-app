@@ -33,11 +33,9 @@ const refactorData = (data: Uint8ClampedArray) => {
   return array;
 };
 
-// set the color that takes most pixels as the tile color
-// by finding the most repeated element in pixelColorInTile array
 const determineTileColor = (arr: Array<string>) => {
   const singleTile: PixelColors = {};
-  // filter out white and no solid colors
+  // filter out colors not included in the color list.
   arr = arr.filter((item) => colorListString.includes(item));
   arr.forEach((item) => {
     if (singleTile[item]) {
@@ -47,43 +45,47 @@ const determineTileColor = (arr: Array<string>) => {
     }
   });
   for (const key in singleTile) {
-    if (singleTile[key] < 5) {
+    // Eliminate interference pixels.
+    if (singleTile[key] < 3 && Object.keys(singleTile).length !== 1) {
       delete singleTile[key];
     }
   }
   const colors = Object.entries(singleTile).map((item) => item[0]);
   const hexColors = rgbaToHex(colors);
-  // if (singleTile[mostTwoColors[1]] < 20) {
-  //   mostTwoColors.pop();
-  // }
   const compareHexColors = (color1: string, color2: string) => {
     const hexToDecimal = (color: string) => parseInt(color.replace("#", ""), 16);
     return hexToDecimal(color1) - hexToDecimal(color2);
   };
+  // sort colors to avoid duplicate color string
   hexColors.sort(compareHexColors);
   return hexColors.join(" ");
 };
 
-export const tileNumberCalculator = (
-  canvas: Layer | null, // Canva's context 2D information including pixel's color
-  courtAndTileInfo: IcourtAndTileInfo // Coordinates of important points of the specific area
-) => {
+export const tileNumberCalculator = (canvas: Layer | null, courtAndTileInfo: IcourtAndTileInfo) => {
+  // Entire area covering the court and border for calculation.
   let { beginPointX, beginPointY, endPointX, endPointY, tileSize } = { ...courtAndTileInfo };
+  let tileSizeX = tileSize;
+  let tileSizeY = tileSize;
+  console.log(courtAndTileInfo);
   const ctx = canvas?.getContext();
   if (canvas) {
-    const drawRatio = canvas.getCanvas()._canvas.width / canvas.getWidth();
-    beginPointX *= drawRatio;
-    beginPointY *= drawRatio;
-    endPointX *= drawRatio;
-    endPointY *= drawRatio;
-    tileSize *= drawRatio;
+    // DrawRatio = canvas size / canvas style size
+    // Coordinates arguments passed to context.getImageData are based on canvas width/height, while coordinates from courtAndTileInfo
+    // are based on style settings. Canvas width/height is automatically set by canvas behind the scene and unpredictable.
+    // Sometimes the x ratio and y ratio might be slightly different.
+    const drawRatioX = canvas.getCanvas()._canvas.width / canvas.getWidth();
+    const drawRatioY = canvas.getCanvas()._canvas.height / canvas.getHeight();
+    beginPointX *= drawRatioX;
+    beginPointY *= drawRatioY;
+    endPointX *= drawRatioX;
+    endPointY *= drawRatioY;
+    tileSizeX *= drawRatioX;
+    tileSizeY *= drawRatioY;
   }
   let colorResult: PriceBar[] = [];
-  console.time("codeExecution");
-  // scan horizontally
-  for (let x = beginPointX; x < endPointX; x += tileSize) {
-    // scan vertically
-    for (let y = beginPointY; y < endPointY; y += tileSize) {
+  // scan horizontally and vertically, end at very close but not reach to the edge to avoid blank tile
+  for (let x = beginPointX; x < endPointX - 0.01; x += tileSizeX) {
+    for (let y = beginPointY; y < endPointY - 0.01; y += tileSizeY) {
       // get r,g,b,a value of pixels in unit tile area
       const data = ctx?.getImageData(x, y, tileSize, tileSize).data;
       // store refactored data in pixelColorInTile
@@ -109,8 +111,7 @@ export const calculation = (
   canvasRef: RefObject<Konva.Layer>,
   courtAndTileInfo: IcourtAndTileInfo
 ) => {
-  console.log(`courtAndTileInfo ${JSON.stringify(courtAndTileInfo)}`);
-  colorListString = colorList[0].colors.map((item: IColorList) => hexAToRGBA(item.value));
+  colorListString = colorList[0].colors.map((item: IColorList) => hexAToRgba(item.value));
   const canvas = canvasRef.current;
   if (canvas) {
     const tileNumResult = tileNumberCalculator(canvas, courtAndTileInfo);
@@ -136,11 +137,10 @@ const rgbaToHex = (rgbaColors: string[]) => {
   return colorArray;
 };
 
-const hexAToRGBA = (hexString: string) => {
+const hexAToRgba = (hexString: string) => {
   let r = "0";
   let g = "0";
   let b = "0";
-
   if (hexString.length == 4) {
     r = "0x" + hexString[1] + hexString[1];
     g = "0x" + hexString[2] + hexString[2];

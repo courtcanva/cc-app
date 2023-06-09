@@ -21,7 +21,7 @@ export const useTileCalculation = (canvasRef: RefObject<Konva.Layer>) => {
         courtAndTileInfo
       ) as PriceBar[];
       dispatch(changeTileQuantity(tileNumberResult));
-    }, 0);
+    }, 100); // set 100ms delay to avoid transit effect disturb getting correct image data.
     return () => clearTimeout(timer);
   }, [tileColorState, borderLength, colorList]);
 };
