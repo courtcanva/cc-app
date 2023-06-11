@@ -22,11 +22,11 @@ describe("FileManagement", () => {
     renderWithMockedProvider(<FileManagement />);
 
     const saveButtonElement = screen.getByTestId("save-btn");
-    const downloadButton = screen.getByTestId("download-btn");
+    const downloadButtonElement = screen.getByTestId("download-btn");
     const shareButtonElement = screen.getByText(/Share/i);
 
     expect(saveButtonElement).toBeInTheDocument();
-    expect(downloadButton).toBeInTheDocument();
+    expect(downloadButtonElement).toBeInTheDocument();
     expect(shareButtonElement).toBeInTheDocument();
     expect(shareButtonElement).toHaveTextContent("Share");
   });

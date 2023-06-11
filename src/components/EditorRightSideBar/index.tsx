@@ -21,7 +21,7 @@ const EditorRightSideBar = () => {
               flex={item.id === itemNum ? 2 : 1}
               h={`${100 / (itemNum + 1)}%`}
               color="#FFFFFF"
-              p="16px 10px"
+              p="20px 16px"
             >
               {item.section}
             </Flex>
