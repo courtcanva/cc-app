@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Flex,
   Box,
@@ -13,19 +13,19 @@ import {
   SliderTrack,
   SliderThumb,
 } from "@chakra-ui/react";
+import ColorBoard from "@/components/TopBar/ColorBoard";
+import { useDispatch } from "react-redux";
+import { ActionCreators } from "redux-undo";
+import { switchPaintBucket, switchSideBar } from "@/store/reducer/buttonToggleSlice";
+import { useStoreSelector } from "@/store/hooks";
+import { resetAll } from "@/store/reducer/canvasControlSlice";
+import { updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
+import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
 import PaintBucketSvg from "@/assets/svg/RightBarSvg/paintBucket.svg";
 import UndoSvg from "@/assets/svg/RightBarSvg/undo.svg";
 import RedoSvg from "@/assets/svg/RightBarSvg/redo.svg";
 import ResetSvg from "@/assets/svg/RightBarSvg/reset.svg";
 import CustomizeSvg from "@/assets/svg/RightBarSvg/customize.svg";
-import { useDispatch } from "react-redux";
-import { switchPaintBucket, switchSideBar } from "@/store/reducer/buttonToggleSlice";
-import { useStoreSelector } from "@/store/hooks";
-import ColorBoard from "@/components/TopBar/ColorBoard";
-import { ActionCreators } from "redux-undo";
-import { resetAll } from "@/store/reducer/canvasControlSlice";
-import { updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
-import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
 
 const DesignTools = () => {
   const dispatch = useDispatch();
@@ -33,22 +33,19 @@ const DesignTools = () => {
   const close = () => dispatch(switchPaintBucket(false));
   const userData = useStoreSelector((state) => state.user);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
-  const { isPaintPopoverOpen, isSavePopoverOpen } = useStoreSelector((state) => state.buttonToggle);
+  const { isPaintPopoverOpen } = useStoreSelector((state) => state.buttonToggle);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
 
   const isThingsToUndo = useStoreSelector((state) => state.tile.past).length;
   const isThingsToRedo = useStoreSelector((state) => state.tile.future).length;
   const isThingsToReset = isThingsToUndo;
   const handleUndo = () => {
-    dispatch(switchSideBar(false));
     dispatch(ActionCreators.undo());
   };
   const handleRedo = () => {
-    dispatch(switchSideBar(false));
     dispatch(ActionCreators.redo());
   };
   const handleReset = () => {
-    dispatch(switchSideBar(false));
     dispatch(ActionCreators.jumpToPast(0));
   };
 
@@ -141,16 +138,18 @@ const DesignTools = () => {
       <Flex>
         <Tooltip label="Custom size">
           <IconButton
-            aria-label={"Custom size"}
+            aria-label="Custom size"
+            data-testid="customizeBtn"
             icon={<CustomizeSvg boxSize={6} />}
             disabled={true}
             variant="navbarIconBtn"
-            mr="4px"
+            mr="14px"
             ml="-10px"
           />
         </Tooltip>
         <Slider
           aria-label="slider"
+          data-testid="slider"
           defaultValue={sliderValue}
           value={sliderValue}
           min={0}
@@ -161,7 +160,6 @@ const DesignTools = () => {
           onChange={(val: number) => handleChange(val)}
           display="flex"
           alignItems="center"
-          colorScheme=""
         >
           <SliderTrack height="1px" borderColor="#FFFFFF" />
           <SliderThumb
