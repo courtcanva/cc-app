@@ -1,4 +1,5 @@
-import userEvent from "@testing-library/user-event";
+import { screen } from "@testing-library/react";
+import user from "@testing-library/user-event";
 import DesignTools from "@/components/EditorRightSideBar/DesignTools";
 import renderWithMockedProvider from "../../utils";
 
@@ -13,19 +14,18 @@ describe("DesignTolls actionButtons", () => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     jest.spyOn(require("react-redux"), "useDispatch").mockReturnValue(mockDispatch);
 
-    const { getByTestId } = renderWithMockedProvider(<DesignTools />);
+    renderWithMockedProvider(<DesignTools />);
+    const undoBtn = screen.getByRole("button", { name: /Revert edit/i });
+    const redoBtn = screen.getByRole("button", { name: /Forward edit/i });
+    const resetBtn = screen.getByRole("button", { name: /Reset edit/i });
 
-    const undoBtn = getByTestId("undoBtn");
-    const redoBtn = getByTestId("redoBtn");
-    const resetBtn = getByTestId("resetBtn");
-
-    userEvent.click(undoBtn);
+    user.click(undoBtn);
     expect(mockDispatch).toHaveBeenCalled();
 
-    userEvent.click(redoBtn);
+    user.click(redoBtn);
     expect(mockDispatch).toHaveBeenCalled();
 
-    userEvent.click(resetBtn);
+    user.click(resetBtn);
     expect(mockDispatch).toHaveBeenCalled();
   });
 });

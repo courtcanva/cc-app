@@ -6,11 +6,11 @@ import ColorBoard from "@/components/TopBar/ColorBoard";
 describe("DesignTolls component", () => {
   test("Each element in the Design Tools component to display the correct text", () => {
     renderWithMockedProvider(<DesignTools />);
-    const paintBucketBtn = screen.getByTestId("colorSelectBtn");
-    const undoBtn = screen.getByTestId("undoBtn");
-    const redoBtn = screen.getByTestId("redoBtn");
-    const resetBtn = screen.getByTestId("resetBtn");
-    const customizeBtn = screen.getByTestId("customizeBtn");
+    const paintBucketBtn = screen.getByRole("button", { name: /Rb/i });
+    const undoBtn = screen.getByRole("button", { name: /Revert edit/i });
+    const redoBtn = screen.getByRole("button", { name: /Forward edit/i });
+    const resetBtn = screen.getByRole("button", { name: /Reset edit/i });
+    const customizeBtn = screen.getByRole("button", { name: /Custom size/i });
     const slider = screen.getByRole("slider");
 
     expect(paintBucketBtn).toBeInTheDocument();

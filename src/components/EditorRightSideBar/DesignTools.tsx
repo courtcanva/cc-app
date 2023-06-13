@@ -79,7 +79,14 @@ const DesignTools = () => {
         Design Tools
       </Text>
       <Flex>
-        <Tooltip hasArrow shouldWrapChildren label="Paint Bucket" fontSize="sm" placement="top">
+        <Tooltip
+          hasArrow
+          shouldWrapChildren
+          label="Paint Bucket"
+          fontSize="sm"
+          placement="top"
+          ml="-15px"
+        >
           <Popover
             isOpen={isPaintPopoverOpen}
             onOpen={open}
