@@ -1,5 +1,5 @@
 import { ITemplateDataDb } from "@/interfaces/template";
-import { Box, Button, Flex, Text, HStack } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import CourtTags from "./CourtTags";
 import TemplateDetail from "./TemplateDetail";
@@ -9,10 +9,8 @@ import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { FaEllipsisH } from "react-icons/fa";
 import { format, parseISO } from "date-fns";
-import { AreaTileQty, changeCourtType } from "@/store/reducer/areaTileQtySlice";
 import { setActiveCourt, updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
 import { changeWholeCourtColor } from "@/store/reducer/tileSlice";
-import { mockTileData } from "../MockData/MockTileData";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
 import React from "react";
 
@@ -26,7 +24,6 @@ const TemplateItem = React.forwardRef<HTMLDivElement, Props>((prop, ref) => {
   const [hoverOn, setHoverOn] = useState<boolean>(false);
   const [enableTempDetail, setEnableTempDetail] = useState<boolean>(false);
   const templateOpacityDrop = isTemplateSelect && !hoverOn;
-  const { courtsData } = useStoreSelector((state) => state.courtSpecData);
 
   const templateItem = {
     userId: prop.template.user_id,
@@ -40,11 +37,6 @@ const TemplateItem = React.forwardRef<HTMLDivElement, Props>((prop, ref) => {
   const handleCourtSelecting = (courtSizeName: string): void => {
     dispatch(setActiveCourt(courtSizeName));
     dispatch(updateBorderLength(templateItem.designDetail.courtSize.sideBorderWidth));
-    const selectedCourt = courtsData.find((item) => item.courtName === courtSizeName);
-    const tileQtyOfSelectedCourt = mockTileData.find(
-      (item) => item.name === selectedCourt?.courtName
-    )?.tileQty as AreaTileQty[];
-    dispatch(changeCourtType(tileQtyOfSelectedCourt));
     dispatch(changeWholeCourtColor(templateItem.designDetail.tileColor));
     dispatch(resetAll());
   };
