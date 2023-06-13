@@ -40,22 +40,23 @@ const DesignTools = () => {
   const isThingsToRedo = useStoreSelector((state) => state.tile.future).length;
   const isThingsToReset = isThingsToUndo;
   const handleUndo = () => {
+    dispatch(switchSideBar(false));
     dispatch(ActionCreators.undo());
   };
   const handleRedo = () => {
+    dispatch(switchSideBar(false));
     dispatch(ActionCreators.redo());
   };
   const handleReset = () => {
+    dispatch(switchSideBar(false));
     dispatch(ActionCreators.jumpToPast(0));
   };
 
   const borderLength = selectedCourt.borderLength;
   const [sliderValue, setSliderValue] = useState(borderLength / 1000);
-  const [useUserId, setUserId] = useState(userData.userId);
 
   useEffect(() => {
     setSliderValue(borderLength / 1000);
-    setUserId(userData.userId);
   }, [borderLength, userData]);
 
   const handleChange = (val: number) => {
