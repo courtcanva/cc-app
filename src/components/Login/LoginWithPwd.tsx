@@ -129,7 +129,9 @@ const LoginWithPwd: React.FC<Props> = (props: Props) => {
           </Icon>
           <Text fontSize="sm" textAlign="center">
             Login with
-            <Text color="brand.secondary">{userEmail}</Text>
+          </Text>
+          <Text fontSize="sm" color="brand.secondary">
+            {userEmail}
           </Text>
           <Divider />
           <Text fontSize="md" color={isLoginFailed ? "red.500" : "black"}>

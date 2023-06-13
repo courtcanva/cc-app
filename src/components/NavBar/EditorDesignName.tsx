@@ -16,6 +16,19 @@ import { useDispatch } from "react-redux";
 import { changeDesignName } from "@/store/reducer/courtSpecDataSlice";
 import { DESIGN_NAME_MAX_CHAR_LENGTH } from "@/constants/courtData";
 
+const EditableControls = () => {
+  const { isEditing, getEditButtonProps } = useEditableControls();
+  return isEditing ? null : (
+    <IconButton
+      aria-label="Edit"
+      size="sm"
+      icon={<BiPencil />}
+      variant="navbarIconBtn"
+      {...getEditButtonProps()}
+    />
+  );
+};
+
 const DesignName = () => {
   const dispatch = useDispatch();
 
@@ -28,18 +41,6 @@ const DesignName = () => {
   useEffect(() => {
     setNewDesignName(designName);
   }, [designName]);
-
-  const EditableControls = () => {
-    const { isEditing, getEditButtonProps } = useEditableControls();
-    return isEditing ? null : (
-      <IconButton
-        aria-label="Edit"
-        icon={<BiPencil />}
-        variant="navbarIconBtn"
-        {...getEditButtonProps()}
-      />
-    );
-  };
 
   const saveNameChange = () => {
     if (newDesignName.trim().length > DESIGN_NAME_MAX_CHAR_LENGTH) {
@@ -70,7 +71,7 @@ const DesignName = () => {
           }}
           onSubmit={saveNameChange}
         >
-          <EditablePreview p="0px 8px" />
+          <EditablePreview noOfLines={1} maxWidth={"140px"} />
           <Input as={EditableInput} />
           <EditableControls />
         </Editable>
