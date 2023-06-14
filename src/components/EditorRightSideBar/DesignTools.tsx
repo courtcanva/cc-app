@@ -20,7 +20,6 @@ import { switchPaintBucket, switchSideBar } from "@/store/reducer/buttonToggleSl
 import { useStoreSelector } from "@/store/hooks";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
-import { updateBorderTileQty } from "@/store/reducer/areaTileQtySlice";
 import PaintBucketSvg from "@/assets/svg/RightBarSvg/paintBucket.svg";
 import UndoSvg from "@/assets/svg/RightBarSvg/undo.svg";
 import RedoSvg from "@/assets/svg/RightBarSvg/redo.svg";
@@ -64,13 +63,6 @@ const DesignTools = () => {
     dispatch(switchSideBar(false));
     setSliderValue(val);
     dispatch(updateBorderLength(val * 1000));
-    const borderTileQty =
-      2 *
-        (Math.ceil(selectedCourt.courtAreaXLength / 300) +
-          Math.ceil(selectedCourt.courtAreaYLength / 300)) *
-        Math.ceil((val * 1000) / 300) +
-      4 * Math.pow(Math.ceil((val * 1000) / 300), 2);
-    dispatch(updateBorderTileQty(borderTileQty));
   };
 
   return (
