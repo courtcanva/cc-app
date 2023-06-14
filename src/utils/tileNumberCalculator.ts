@@ -66,7 +66,6 @@ export const tileNumberCalculator = (canvas: Layer | null, courtAndTileInfo: Ico
   let { beginPointX, beginPointY, endPointX, endPointY, tileSize } = { ...courtAndTileInfo };
   let tileSizeX = tileSize;
   let tileSizeY = tileSize;
-  console.log(courtAndTileInfo);
   const ctx = canvas?.getContext();
   if (canvas) {
     // DrawRatio = canvas size / canvas style size
@@ -87,7 +86,7 @@ export const tileNumberCalculator = (canvas: Layer | null, courtAndTileInfo: Ico
   for (let x = beginPointX; x < endPointX - 0.01; x += tileSizeX) {
     for (let y = beginPointY; y < endPointY - 0.01; y += tileSizeY) {
       // get r,g,b,a value of pixels in unit tile area
-      const data = ctx?.getImageData(x, y, tileSize, tileSize).data;
+      const data = ctx?.getImageData(x, y, tileSizeX, tileSizeY).data;
       // store refactored data in pixelColorInTile
       const pixelColorInTile = refactorData(data as Uint8ClampedArray);
       // determine the color of unit tile
