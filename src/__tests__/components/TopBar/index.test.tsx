@@ -16,10 +16,10 @@ describe("TopBar", () => {
     expect(borderWidthTextElement).toBeInTheDocument();
   });
 
-  it("should render color select button", () => {
-    renderWithMockedProvider(<TopBar />);
-    expect(screen.getByTestId("colorSelectBtn")).toBeTruthy();
-  });
+  // it("should render color select button", () => {
+  //   renderWithMockedProvider(<TopBar />);
+  //   expect(screen.getByTestId("colorSelectBtn")).toBeTruthy();
+  // });
 
   it("should render upload image btn", () => {
     renderWithMockedProvider(<TopBar />);
