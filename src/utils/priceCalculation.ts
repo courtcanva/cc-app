@@ -1,6 +1,5 @@
 import { PriceBar } from "@/store/reducer/priceBarSlice";
 import { ITilePrice, TilePrices } from "@/interfaces/priceCalculation";
-import priceFormat from "@/utils/priceFormat";
 
 export const calculateQuotation = (tileBlocks: PriceBar[], tilePrices: TilePrices) => {
   const { price: tilePricesList, deliveryPrice } = tilePrices;
