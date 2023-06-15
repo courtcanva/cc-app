@@ -108,7 +108,7 @@ const TopBar = () => {
         marginLeft="35px"
       >
         <Flex alignItems="center" gap="3" marginRight={{ base: "55px", lg: "50px", xl: "100px" }}>
-          <Tooltip hasArrow shouldWrapChildren label="Paint Bucket" fontSize="sm" placement="top">
+          {/* <Tooltip hasArrow shouldWrapChildren label="Paint Bucket" fontSize="sm" placement="top">
             <Popover
               isOpen={isPaintPopoverOpen}
               onOpen={open}
@@ -130,7 +130,7 @@ const TopBar = () => {
                 </PopoverBody>
               </PopoverContent>
             </Popover>
-          </Tooltip>
+          </Tooltip> */}
           <Tooltip hasArrow shouldWrapChildren label="Label Bucket" fontSize="sm" placement="top">
             <IconButton
               aria-label="Upload"
