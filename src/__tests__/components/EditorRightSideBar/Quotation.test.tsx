@@ -96,20 +96,22 @@ describe("Quotation", () => {
 });
 
 describe("click add-to-cart button", () => {
-  it("should call correct dispatch action when user id is null", () => {
-    const mockSwitchLoginModal = jest.spyOn(buttonToggleSlice, "switchLoginModal");
-    store.dispatch(updateUserInfo(preloadedState.userStateNone));
+  const renderAndClick = () => {
     renderWithMockedProvider(<Quotation />);
     const cartBtn = screen.getByText(/Add to Cart/i);
     userEvent.click(cartBtn);
+  };
+
+  it("should call correct dispatch action when user id is null", () => {
+    const mockSwitchLoginModal = jest.spyOn(buttonToggleSlice, "switchLoginModal");
+    store.dispatch(updateUserInfo(preloadedState.userStateNone));
+    renderAndClick();
     expect(mockSwitchLoginModal).toBeCalled();
   });
 
   it("should call toast when courtDataUrl is null", () => {
     store.dispatch(updateUserInfo(preloadedState.userState));
-    renderWithMockedProvider(<Quotation />);
-    const cartBtn = screen.getByText(/Add to Cart/i);
-    userEvent.click(cartBtn);
+    renderAndClick();
     expect(mockToast).toBeCalled();
   });
 
@@ -118,9 +120,7 @@ describe("click add-to-cart button", () => {
     jest.spyOn(cartApi, "useAddToCartMutation").mockReturnValue([mockAddToCart, jest.fn()] as any);
     store.dispatch(updateUserInfo(preloadedState.userState));
     store.dispatch(setCourtDataUrl(preloadedState.canvasState.courtDataUrl));
-    renderWithMockedProvider(<Quotation />);
-    const cartBtn = screen.getByText(/Add to Cart/i);
-    userEvent.click(cartBtn);
+    renderAndClick();
     expect(upLoadScreenshot).toBeCalled();
     await waitFor(() => expect(mockAddToCart).toBeCalled());
   });
