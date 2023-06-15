@@ -21,15 +21,15 @@ const Quotation = () => {
   const toast = useToast();
   const { blocks: tileBlocks } = useStoreSelector((state) => state.priceBar);
   const { data: priceData } = useGetPriceQuery(0);
+  const { data: depositData } = useGetDepositQuery();
   const court = useStoreSelector((state) => state.courtSpecData).activeCourt;
   const tileData = useStoreSelector((state) => state.tile.present.court);
+  const tiles: ITileColor[] = [...tileData];
   const courtDataUrl = useStoreSelector((state) => state.canvasControl.courtDataUrl);
   const { colorList } = useStoreSelector((state) => state.colorList);
-  const tiles: ITileColor[] = [...tileData];
   const userId = useStoreSelector((state) => state.user.userId);
   const [addToCart] = useAddToCartMutation();
   const mappedCourtSize = saveDesignMapping(court);
-  const { data: depositData } = useGetDepositQuery();
 
   const [quotation, setQuotation] = useState("Loading");
   const [deposit, setDeposit] = useState("Loading");
@@ -64,6 +64,7 @@ const Quotation = () => {
     id: "",
     isExpired: false,
   };
+
   const handleAddToCart = async () => {
     if (!userId) return dispatch(switchLoginModal(true));
     if (!courtDataUrl) {
@@ -80,6 +81,7 @@ const Quotation = () => {
       item: { ...newCartItem, image: imgUrl },
     });
   };
+
   return (
     <Box>
       <Text fontSize="14px" fontWeight="700" mb="10px">

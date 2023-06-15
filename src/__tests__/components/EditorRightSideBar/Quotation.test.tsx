@@ -14,6 +14,7 @@ import { upLoadScreenshot } from "@/utils/manageExternalImage";
 import * as cartApi from "@/redux/api/cartApi";
 
 jest.setTimeout(20000);
+
 const server = setupServer(...handlers);
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -84,6 +85,7 @@ describe("Quotation", () => {
     const cartBtn = screen.getByText(/Add to Cart/i);
     expect(cartBtn).toBeInTheDocument();
   });
+
   it("should render correct quotation and deposit value", async () => {
     renderWithMockedProvider(<Quotation />);
     await waitFor(() => {
@@ -102,6 +104,7 @@ describe("click add-to-cart button", () => {
     userEvent.click(cartBtn);
     expect(mockSwitchLoginModal).toBeCalled();
   });
+
   it("should call toast when courtDataUrl is null", () => {
     store.dispatch(updateUserInfo(preloadedState.userState));
     renderWithMockedProvider(<Quotation />);
@@ -109,6 +112,7 @@ describe("click add-to-cart button", () => {
     userEvent.click(cartBtn);
     expect(mockToast).toBeCalled();
   });
+
   it("should upload screenshot and add new item to cart", async () => {
     const mockAddToCart = jest.fn();
     jest.spyOn(cartApi, "useAddToCartMutation").mockReturnValue([mockAddToCart, jest.fn()] as any);
