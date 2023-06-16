@@ -11,8 +11,6 @@ import ShoppingCart from "@/components/ShoppingCart";
 import MyTemplate from "@/components/MyTemplate";
 import {
   PAGE_NOT_FOUND,
-  TEAM_PAGE,
-  TEAM_PAGE_PERFORMANCE_TESTING,
   PAYMENT,
   MY_ORDER,
 } from "../../src/constants";
@@ -25,22 +23,6 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
 
   switch (router.pathname) {
-    case TEAM_PAGE:
-      return (
-        <>
-          <Header />
-          <Box as="main">{children}</Box>
-        </>
-      );
-
-    case TEAM_PAGE_PERFORMANCE_TESTING:
-      return (
-        <>
-          <Header />
-          <Box as="main">{children}</Box>
-        </>
-      );
-
     case PAGE_NOT_FOUND:
       return (
         <>

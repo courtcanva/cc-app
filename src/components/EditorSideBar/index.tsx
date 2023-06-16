@@ -5,8 +5,6 @@ import EditorSideBarContent from "./EditorSideBarContent";
 import { useEffect, useState } from "react";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
-import { AiOutlineTeam } from "react-icons/ai";
-import { RiShareBoxLine } from "react-icons/ri";
 import { switchSideBar, switchLoginModal } from "@/store/reducer/buttonToggleSlice";
 
 const EditorSideBar = () => {
@@ -61,22 +59,6 @@ const EditorSideBar = () => {
               iconClickTitle={iconClickTitle}
             />
           ))}
-        </Flex>
-        <Flex
-          flexDirection="column"
-          alignItems="center"
-          margin="180px auto 0 auto"
-          color="fontcolor.primary"
-          fontSize="x-small"
-          fontWeight="bold"
-        >
-          <AiOutlineTeam size="24px" />
-          <Link href="/team">
-            <Flex flexDirection="row" alignItems="center">
-              <Text paddingRight="5px">Our Team </Text>
-              <RiShareBoxLine />
-            </Flex>
-          </Link>
         </Flex>
       </Box>
 
