@@ -68,6 +68,7 @@ const EmailVerification: React.FC<Props> = ({
         dispatch(updateUserInfo(data));
         updateLoginData(data);
         setVerified(true);
+        nextStep();
       } else {
         setVerified(false);
         nextStep();
