@@ -63,11 +63,12 @@ const EmailVerification: React.FC<Props> = ({
     try {
       const { data } = await verifyOTP(userId, otp);
       if (data.tokens) {
-        if (needPwd) setPwdStep();
         localStorage.setItem("UserInfo", JSON.stringify(data));
         dispatch(updateUserInfo(data));
         updateLoginData(data);
         setVerified(true);
+        if (needPwd) return setPwdStep();
+        nextStep();
       } else {
         setVerified(false);
         nextStep();

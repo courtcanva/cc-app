@@ -78,7 +78,7 @@ const Register: React.FC<Props> = (props: Props) => {
       });
       return;
     }
-    setUserId(res.data.userId);
+    setUserId(res.data.data.userId);
     nextStep();
   };
   const handleCloseModal = () => {
