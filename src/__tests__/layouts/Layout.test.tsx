@@ -29,8 +29,8 @@ describe("Header", () => {
     );
     const quotationTextElement = screen.queryAllByText(/Quotation/i);
     const depositTextElement = screen.queryAllByText(/Deposit/i);
-    expect(quotationTextElement).toHaveLength(1);
-    expect(depositTextElement).toHaveLength(1);
+    expect(quotationTextElement).toHaveLength(3);
+    expect(depositTextElement).toHaveLength(2);
   });
 
   it("should define Layout", () => {

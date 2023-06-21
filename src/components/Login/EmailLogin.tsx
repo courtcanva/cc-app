@@ -32,7 +32,7 @@ interface Props {
 
 export interface CheckResponse {
   findUser: boolean;
-  needPwd?: boolean;
+  needPwd: boolean;
   emailRes?: {
     status: string;
     message: string;
@@ -83,6 +83,7 @@ const EmailLogin: React.FC<Props> = ({
     }
     const res: CheckResponse = axiosResponse.data;
     setUserExisted(res.findUser);
+    setNeedPwd(res.findUser && res.needPwd);
     if (res.findUser && res.needPwd && res.emailRes && res.userId) {
       if (res.emailRes.status !== "PENDING") {
         toast({
@@ -93,7 +94,6 @@ const EmailLogin: React.FC<Props> = ({
         });
         return;
       }
-      setNeedPwd(true);
       setUserId(res.userId);
       setStep(4);
     } else {
