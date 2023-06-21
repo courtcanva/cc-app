@@ -12,7 +12,7 @@ export const calculateDeposit = (totalQuote: number, depositRate: number) => {
   return totalQuote * depositRate;
 };
 
-export const calculateDelivery = (tileBlocks: PriceBar[], deliveryPrice: number) => {
+const calculateDelivery = (tileBlocks: PriceBar[], deliveryPrice: number) => {
   let totalQuantity = 0;
   for (const tile of tileBlocks) {
     totalQuantity += tile.quantity;
@@ -20,7 +20,7 @@ export const calculateDelivery = (tileBlocks: PriceBar[], deliveryPrice: number)
   return Math.ceil(totalQuantity / 1000) * (deliveryPrice / 100);
 };
 
-export const calculateTile = (tileBlocks: PriceBar[], tilePricesList: ITilePrice) => {
+const calculateTile = (tileBlocks: PriceBar[], tilePricesList: ITilePrice) => {
   const { singleTone, twoTone, threeTone } = tilePricesList;
   const [singleToneNumber, twoToneNumber, threeToneNumber] = [1, 2, 3].map((length) =>
     tileBlocks

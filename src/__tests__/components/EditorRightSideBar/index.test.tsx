@@ -7,9 +7,9 @@ describe("EditorRightSideBar component", () => {
     renderWithMockedProvider(<EditorRightSideBar />);
 
     const displayAdjustmentText = screen.getByText("Display Adjustment");
-    const quotationText = screen.getByText("Quote");
+    const quotationText = screen.getAllByText("Quotation");
 
     expect(displayAdjustmentText).toBeInTheDocument();
-    expect(quotationText).toBeInTheDocument();
+    expect(quotationText).toHaveLength(2);
   });
 });

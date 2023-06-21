@@ -18,10 +18,18 @@ const responseData = {
       updatedAt: new Date(),
     },
   ],
+  deposit: {
+    depositRate: 0.2,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
 };
 
 export const handlers = [
   rest.get(`${process.env.NEXT_PUBLIC_API_BASE_URI}/price`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(responseData.price));
+  }),
+  rest.get(`${process.env.NEXT_PUBLIC_API_BASE_URI}/deposit`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(responseData.deposit));
   }),
 ];
