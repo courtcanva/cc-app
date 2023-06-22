@@ -1,16 +1,25 @@
-import { Stack, Flex, Text, Switch, FormLabel, Tooltip } from "@chakra-ui/react";
-import { changeZoomScale, dragSwitch, resetAll } from "@/store/reducer/canvasControlSlice";
+import {
+  Box,
+  Flex,
+  IconButton,
+  FormControl,
+  Switch,
+  FormLabel,
+  Text,
+  Tooltip,
+} from "@chakra-ui/react";
 import { RiZoomInLine, RiZoomOutLine } from "react-icons/ri";
 import { GiAnticlockwiseRotation } from "react-icons/gi";
-import IconWrapper from "./IconWrapper/IconWrapper";
 import { useDispatch } from "react-redux";
 import { switchRuler } from "@/store/reducer/buttonToggleSlice";
-import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
 import { useStoreSelector } from "@/store/hooks";
+import { changeZoomScale, dragSwitch, resetAll } from "@/store/reducer/canvasControlSlice";
+import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
 
 const DisplayAdjustment = () => {
-  const dispatch = useDispatch();
   const { zoomScale } = useStoreSelector((state) => state.canvasControl);
+
+  const dispatch = useDispatch();
   const handleRulerState = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(switchRuler(e.target.checked));
   };
@@ -30,69 +39,90 @@ const DisplayAdjustment = () => {
   };
 
   return (
-    <Stack spacing="20px">
-      <Text fontWeight="700" fontSize="14px" fontFamily="Inter" paddingLeft="2px">
+    <Box>
+      <Text fontSize="14px" fontWeight="700" mb="10px" fontFamily="Inter">
         Display Adjustment
       </Text>
-      <Flex alignItems="center" gap="12px">
-        <Tooltip hasArrow shouldWrapChildren label="Zoom Out">
-          <IconWrapper disabled={zoomScale <= MIN_ZOOM} onClick={handleZoomOut}>
-            <RiZoomOutLine
-              aria-label="Revert edit"
-              color="fontcolor.primary"
-              data-testid="zoom-out-btn"
-              size="20px"
-            />
-          </IconWrapper>
+      <Flex alignItems="center">
+        <Tooltip hasArrow shouldWrapChildren label="Zoom Out" fontSize="sm">
+          <IconButton
+            aria-label="Revert edit"
+            icon={<RiZoomOutLine />}
+            variant="navbarIconBtn"
+            data-testid="zoom-out-btn"
+            onClick={handleZoomOut}
+            isDisabled={zoomScale <= MIN_ZOOM}
+            ml="-10px"
+          />
         </Tooltip>
 
-        <Tooltip hasArrow shouldWrapChildren label="Zoom In">
-          <IconWrapper disabled={zoomScale > MAX_ZOOM} onClick={handleZoomIn}>
-            <RiZoomInLine
-              aria-label="Forward edit"
-              color="fontcolor.primary"
-              data-testid="zoom-in-btn"
-              size="20px"
-            />
-          </IconWrapper>
+        <Tooltip hasArrow shouldWrapChildren label="Zoom In" fontSize="sm">
+          <IconButton
+            aria-label="Forward edit"
+            icon={<RiZoomInLine />}
+            variant="navbarIconBtn"
+            data-testid="zoom-in-btn"
+            onClick={handleZoomIn}
+            isDisabled={zoomScale > MAX_ZOOM}
+          />
         </Tooltip>
 
-        <Text display="inline" fontWeight="500" fontSize="sm">
-          {`${(zoomScale * 100).toFixed()} %`}
-        </Text>
+        <Text fontSize="12px" fontFamily="Inter" fontWeight="500">{` ${(
+          zoomScale * 100
+        ).toFixed()} %`}</Text>
 
-        <Tooltip hasArrow shouldWrapChildren label="Reset Scale">
-          <IconWrapper onClick={handleResetZoom}>
-            <GiAnticlockwiseRotation
-              aria-label="Reset Scale"
-              color="fontcolor.primary"
-              data-testid="reset-btn"
-              size="20px"
-            />
-          </IconWrapper>
+        <Tooltip hasArrow label="Reset Court Scale" fontSize="sm">
+          <IconButton
+            aria-label="reset zoom"
+            icon={<GiAnticlockwiseRotation />}
+            variant="navbarIconBtn"
+            data-testid="reset-btn"
+            onClick={handleResetZoom}
+          />
         </Tooltip>
       </Flex>
-      <Flex paddingTop="2px">
-        <FormLabel
-          htmlFor="ruler-switch-btn"
-          color="fontcolor.primary"
-          data-testid="ruler-label"
-          fontSize="12px"
-          fontWeight="500"
-          fontFamily="Inter"
-        >
-          Ruler
-        </FormLabel>
-        <Switch
-          id="ruler-switch-btn"
-          colorScheme="footerSwitch"
-          size="md"
-          defaultChecked
-          data-testid="switch-btn"
-          onChange={handleRulerState}
-        />
+      <Flex alignItems="center" marginTop="11.5px">
+        <FormControl display="flex" alignItems="center">
+          <FormLabel
+            htmlFor="ruler-switch-btn"
+            mb="0"
+            data-testid="ruler-label"
+            fontFamily="Inter"
+            fontSize="12px"
+            fontWeight="500"
+          >
+            Ruler
+          </FormLabel>
+          <Switch
+            id="ruler-switch-btn"
+            colorScheme="footerSwitch"
+            size="lg"
+            marginLeft="-4px"
+            sx={{
+              "span.chakra-switch__track": {
+                padding: "0px",
+                borderRadius: "12px",
+                width: "39px",
+                height: "18px",
+              },
+              "span .chakra-switch__thumb": {
+                bgColor: "background.tertiary",
+                marginTop: "2px",
+                width: "14px",
+                height: "14px",
+                boxShadow: "-2px 0px 4px rgba(0,0,0,0.25)",
+              },
+              "span.chakra-switch__track[data-focus]": {
+                boxShadow: "none",
+              },
+            }}
+            defaultChecked
+            data-testid="switch-btn"
+            onChange={handleRulerState}
+          />
+        </FormControl>
       </Flex>
-    </Stack>
+    </Box>
   );
 };
 
