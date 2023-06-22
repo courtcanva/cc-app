@@ -18,6 +18,7 @@ import {
 import OrderGeneration from "@/components/OrderGeneration";
 import MyAccount from "@/components/MyAccount";
 import EditorRightSideBar from "@/components/EditorRightSideBar";
+import TileBoard from "@/components/TileBoard";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
@@ -69,6 +70,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
             <TopBar />
             <EditorRightSideBar />
           </Box>
+          <TileBoard />
           <PriceBar />
           <EditorFooter />
         </>
