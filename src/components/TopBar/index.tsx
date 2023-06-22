@@ -197,7 +197,7 @@ const TopBar = () => {
       </Flex>
 
       {/* right */}
-      <Flex alignItems="center" justifyContent="flex-end" marginRight="3" gap="2">
+      {/* <Flex alignItems="center" justifyContent="flex-end" marginRight="3" gap="2">
         <IconButton
           aria-label="Download"
           colorScheme="transparent"
@@ -223,7 +223,7 @@ const TopBar = () => {
             </PopoverBody>
           </PopoverContent>
         </Popover>
-      </Flex>
+      </Flex> */}
     </Grid>
   );
 };

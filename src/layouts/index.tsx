@@ -9,11 +9,7 @@ import PriceBar from "@/components/PriceBar";
 import TopBar from "@/components/TopBar";
 import ShoppingCart from "@/components/ShoppingCart";
 import MyTemplate from "@/components/MyTemplate";
-import {
-  PAGE_NOT_FOUND,
-  PAYMENT,
-  MY_ORDER,
-} from "../../src/constants";
+import { PAGE_NOT_FOUND, PAYMENT, MY_ORDER } from "../../src/constants";
 
 import OrderGeneration from "@/components/OrderGeneration";
 import MyAccount from "@/components/MyAccount";
