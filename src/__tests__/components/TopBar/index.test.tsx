@@ -26,11 +26,11 @@ describe("TopBar", () => {
     expect(screen.getByTestId("uploadBtn")).toBeTruthy();
   });
 
-  it("Should render Share button", () => {
-    renderWithMockedProvider(<TopBar />);
-    const downloadButton = screen.getByTestId("download-btn");
-    expect(downloadButton).toBeInTheDocument();
-  });
+  // it("Should render Share button", () => {
+  //   renderWithMockedProvider(<TopBar />);
+  //   const downloadButton = screen.getByTestId("download-btn");
+  //   expect(downloadButton).toBeInTheDocument();
+  // });
 
   // todo
   // it("should change value when slide the arrow", () => {

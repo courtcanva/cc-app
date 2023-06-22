@@ -13,8 +13,8 @@ describe("Header", () => {
         </RouterContext.Provider>
       </GoogleOAuthProvider>
     );
-    const navBarBtn = screen.getByRole("button", { name: /Share/i });
-    expect(navBarBtn).toBeInTheDocument();
+    // const navBarBtn = screen.getByRole("button", { name: /Share/i });
+    // expect(navBarBtn).toBeInTheDocument();
     const budgetTextElement = screen.queryAllByText(/Estimated Budget/i);
     expect(budgetTextElement).toHaveLength(0);
   });

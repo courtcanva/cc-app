@@ -196,11 +196,12 @@ const NavigationBar = () => {
           </Flex>
         )}
       </Flex>
-      {!isCartOpen && !isMyAccountOpen && !isMyTemplateOpen && !isSwitch3D ? (
+      {/* {!isCartOpen && !isMyAccountOpen && !isMyTemplateOpen && !isSwitch3D ? (
         <EditorDesignName />
       ) : (
         <Box></Box>
-      )}
+      )} */}
+      <Box />
       <Flex alignItems="center" justifyContent="flex-end">
         {!loginState ? (
           <Button onClick={handleLoginModalOpen}>Sign up / Login</Button>
@@ -217,14 +218,14 @@ const NavigationBar = () => {
           isOpen={isCreateTemplateOpen}
           onClose={handleCreateTemplateClose}
         ></CreateTemplate>
-        <Button
+        {/* <Button
           variant="shareBtn"
           marginLeft="10px"
           onClick={loginState ? handleCreateTemplateOpen : handleLoginModalOpen}
           data-testid="share-btn"
         >
           Share
-        </Button>
+        </Button> */}
       </Flex>
     </Grid>
   );
