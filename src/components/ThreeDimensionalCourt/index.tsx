@@ -1,13 +1,12 @@
 import React, { ReactNode } from "react";
-import { IoCubeSharp } from "react-icons/io5";
-import { Icon, Flex, Text, useDisclosure } from "@chakra-ui/react";
+import { Icon, Flex, useDisclosure } from "@chakra-ui/react";
 import ThreeDimensionalContainer from "./ThreeDimensionalContainer";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { switch3D } from "@/store/reducer/buttonToggleSlice";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { changeSelectedColor } from "@/store/reducer/courtColorSlice";
-import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
+import ThreeDPreviewSvg from "@/assets/svg/3dPreview.svg";
 
 interface Props {
   width: number;
@@ -33,22 +32,19 @@ const ThreeDimensionalToggle = ({ width, height, children }: Props) => {
   return (
     <>
       <Flex
-        width="100px"
-        height="40px"
-        position="absolute"
-        right={`calc(18px + ${RIGHT_BAR_WIDTH})`}
-        top="38px"
+        width="48px"
+        height="80px"
+        marginTop="12px"
         justifyContent="center"
         alignItems="center"
         flexDirection="column"
-        color="brand.primary"
+        bgColor="background.primary"
         filter="drop-shadow(2px 2px 4px #7088B1)"
         onClick={handleOpenSwitch3D}
         cursor="pointer"
         zIndex={10}
       >
-        <Icon as={IoCubeSharp} width={6} height={6} />
-        <Text fontSize="12px">3D Preview</Text>
+        <Icon as={ThreeDPreviewSvg} width="32px" height="32px" />
       </Flex>
       <ThreeDimensionalContainer
         isOpen={isSwitch3D}
