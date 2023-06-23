@@ -39,6 +39,7 @@ const SaveBoard: React.FC = () => {
   const [useDesignName, setDesignName] = useState(courtData.designName);
   const [useCourtId, setCourtId] = useState(courtData.courtId);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [useFeedback, setFeedback] = useState("");
   const [useSaveDesignModal, setSaveDesignModal] = useState(false);
   const courtDataUrl = useStoreSelector((state) => state.canvasControl.courtDataUrl);
@@ -100,6 +101,7 @@ const SaveBoard: React.FC = () => {
 
   const handleSaveDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    setIsSaving(true);
     if (useCourtId === "") {
       if (!courtDataUrl) {
         return toast({
@@ -147,6 +149,7 @@ const SaveBoard: React.FC = () => {
         });
     }
     mappedDesignData(designData.designName);
+    setIsSaving(false);
     onClose();
   };
 
@@ -167,6 +170,7 @@ const SaveBoard: React.FC = () => {
 
   const handleSaveAsDesign = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    setIsSaving(true);
     designData.designName = useDesignName.replace(CHECK_START_END_SPACE, "");
 
     if (!courtDataUrl) {
@@ -193,6 +197,7 @@ const SaveBoard: React.FC = () => {
     setNameCheck("");
     dispatch(changeDesignName(useDesignName));
     mappedDesignData(designData.designName);
+    setIsSaving(false);
     setDialogOpen(false);
   };
 
@@ -208,6 +213,9 @@ const SaveBoard: React.FC = () => {
           justifyContent="left"
           onClick={handleSaveDesign}
           data-testid="save"
+          isLoading={isSaving}
+          loadingText="saving"
+          color="black"
         >
           Save
         </Button>
@@ -220,6 +228,7 @@ const SaveBoard: React.FC = () => {
           justifyContent="left"
           onClick={open}
           data-testid="sava-as"
+          color="black"
         >
           <SaveAlert
             dialogOpen={dialogOpen}
@@ -230,6 +239,7 @@ const SaveBoard: React.FC = () => {
             setDialogOpen={setDialogOpen}
             setDesignName={setDesignName}
             setNameCheck={setNameCheck}
+            isSaving={isSaving}
           />
           Save as
         </Button>
