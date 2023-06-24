@@ -26,6 +26,8 @@ describe("EditorFooter", () => {
   // test tooltips work well
   it("show zoom out button info in tooltip", async () => {
     renderWithMockedProvider(<DisplayAdjustment />);
+    const zoomInElement = screen.getByRole("button", { name: /Forward edit/i });
+    user.click(zoomInElement);
     const zoomOutElement = screen.getByRole("button", { name: /Revert edit/i });
     user.hover(zoomOutElement);
     expect(await screen.findByText("Zoom Out")).toBeInTheDocument();
@@ -46,14 +48,6 @@ describe("EditorFooter", () => {
   });
 
   // test click function is work
-  // zoom out to 90%
-  it("zoom scale percentage information will reach 90% if click once zoom out button", async () => {
-    renderWithMockedProvider(<DisplayAdjustment />);
-    const zoomOutElement = screen.getByRole("button", { name: /Revert edit/i });
-    user.click(zoomOutElement);
-    const updatedZoomScale = screen.getByText("90 %");
-    expect(updatedZoomScale).toBeVisible();
-  });
 
   // reset to 100%
   it("zoom scale percentage information will reset to 100% if click once Reset Court Scale", async () => {

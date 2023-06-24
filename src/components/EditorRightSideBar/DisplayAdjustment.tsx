@@ -8,8 +8,10 @@ import {
   Text,
   Tooltip,
 } from "@chakra-ui/react";
-import { RiZoomInLine, RiZoomOutLine } from "react-icons/ri";
-import { GiAnticlockwiseRotation } from "react-icons/gi";
+
+import ResetDisplayAdjustmentSvg from "@/assets/svg/RightBarSvg/resetDisplayAdjustment.svg";
+import ZoomOutSvg from "@/assets/svg/RightBarSvg/zoomOut.svg";
+import ZoomInSvg from "@/assets/svg/RightBarSvg/zoomIn.svg";
 import { useDispatch } from "react-redux";
 import { switchRuler } from "@/store/reducer/buttonToggleSlice";
 import { useStoreSelector } from "@/store/hooks";
@@ -47,7 +49,7 @@ const DisplayAdjustment = () => {
         <Tooltip hasArrow shouldWrapChildren label="Zoom Out" fontSize="sm">
           <IconButton
             aria-label="Revert edit"
-            icon={<RiZoomOutLine />}
+            icon={<ZoomOutSvg />}
             variant="navbarIconBtn"
             data-testid="zoom-out-btn"
             onClick={handleZoomOut}
@@ -59,7 +61,7 @@ const DisplayAdjustment = () => {
         <Tooltip hasArrow shouldWrapChildren label="Zoom In" fontSize="sm">
           <IconButton
             aria-label="Forward edit"
-            icon={<RiZoomInLine />}
+            icon={<ZoomInSvg />}
             variant="navbarIconBtn"
             data-testid="zoom-in-btn"
             onClick={handleZoomIn}
@@ -74,7 +76,7 @@ const DisplayAdjustment = () => {
         <Tooltip hasArrow label="Reset Court Scale" fontSize="sm">
           <IconButton
             aria-label="reset zoom"
-            icon={<GiAnticlockwiseRotation />}
+            icon={<ResetDisplayAdjustmentSvg boxSize={6} />}
             variant="navbarIconBtn"
             data-testid="reset-btn"
             onClick={handleResetZoom}
