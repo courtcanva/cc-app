@@ -21,6 +21,7 @@ const SaveAlert = ({
   setDialogOpen,
   setDesignName,
   setNameCheck,
+  isSaving,
 }: any) => {
   const cancelRef = useRef(null);
   const close = () => {
@@ -68,6 +69,7 @@ const SaveAlert = ({
             ref={cancelRef}
             _hover={{ bg: "brand.secondary", opacity: "0.60" }}
             _active={{ bg: "brand.secondary", opacity: "0.60" }}
+            isLoading={isSaving}
           >
             Save
           </Button>
