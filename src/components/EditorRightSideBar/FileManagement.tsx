@@ -22,8 +22,11 @@ import { downloadToPDF } from "@/utils/printPDF";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import EditorDesignName from "@/components/NavBar/EditorDesignName";
+import { useEffect, useState } from "react";
 
 const FileManagement = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const router = useRouter();
   const userId = useStoreSelector((state) => state.user.userId);
@@ -37,14 +40,20 @@ const FileManagement = () => {
     dispatch(switchLoginModal(true));
   };
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
+    !isLoading && setIsLoading(true);
     dispatch(switchSideBar(false));
     dispatch(resetAll());
     const downloadTimer = setTimeout(() => {
-      downloadToPDF();
+      isLoading && setIsLoading(false);
       clearTimeout(downloadTimer);
-    }, 500);
+    }, 1000);
   };
+  useEffect(() => {
+    isLoading && setTimeout(() => {
+      downloadToPDF();
+    }, 0);
+  }, [isLoading]);
 
   const handleSaveOpen = () => {
     userId ? dispatch(switchSavePopover(true)) : dispatch(switchLoginModal(true));
@@ -79,6 +88,7 @@ const FileManagement = () => {
         </Popover>
 
         <IconButton
+        isLoading={isLoading}
           aria-label="Download"
           icon={<BiDownload />}
           colorScheme="white"
