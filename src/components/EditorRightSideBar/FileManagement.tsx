@@ -58,14 +58,14 @@ const FileManagement = () => {
       <Flex maxW={"md"} paddingLeft={"8px"}>
         <EditorDesignName />
       </Flex>
-      <Flex align="center" justify="left">
+      <Flex align="center" justify="left" marginTop="15px">
         <Popover onClose={handleSaveClose}>
           <PopoverTrigger>
             <IconButton
               aria-label="DocSvg"
               icon={<BiSave />}
               colorScheme="white"
-              size="md"
+              size="sm"
               variant="navbarIconBtn"
               onClick={handleSaveOpen}
               data-testid="save-btn"
@@ -83,15 +83,15 @@ const FileManagement = () => {
           icon={<BiDownload />}
           colorScheme="white"
           variant="navbarIconBtn"
-          size="md"
+          size="sm"
           onClick={handleDownload}
           data-testid="download-btn"
         />
 
         <Button
           variant="shareBtn"
-          marginLeft="3px"
-          size="xs"
+          marginLeft="10px"
+          size="sm"
           width={"65px"}
           fontSize="sm"
           onClick={userId ? handleCreateTemplateOpen : handleLoginModalOpen}
