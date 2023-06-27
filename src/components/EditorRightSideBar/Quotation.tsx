@@ -90,12 +90,12 @@ const Quotation = () => {
       </Text>
       <Flex w="122px" fontSize="10px" justifyContent="space-between" mb="8px">
         <Text>Quotation</Text>
-        <Text>{formatCurrency(quotation)}</Text>
+        <Text>{quotation === "Loading" ? quotation : formatCurrency(quotation)}</Text>
       </Flex>
       <Flex>
         <Flex w="135px" fontSize="14px" fontWeight="700" justifyContent="space-between">
           <Text>Deposit</Text>
-          <Text>{formatCurrency(deposit)}</Text>
+          <Text>{deposit === "Loading" ? deposit : formatCurrency(deposit)}</Text>
         </Flex>
         <Flex w="25px" alignItems="center" justifyContent="end">
           <BsQuestionCircle />
