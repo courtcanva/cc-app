@@ -36,7 +36,7 @@ const ShoppingCart = () => {
           color="rgb(58, 75, 92)"
           width="100vw"
           height="100vh"
-          zIndex={1600}
+          zIndex={2499}
         >
           {quantity > 0 && <ShoppingCartContainer shoppingCart={cart} />}
           {quantity === 0 && <EmptyCart />}

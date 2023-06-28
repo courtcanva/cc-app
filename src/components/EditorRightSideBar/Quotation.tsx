@@ -47,6 +47,7 @@ const Quotation = () => {
   const [quotation, setQuotation] = useState("Loading");
   const [deposit, setDeposit] = useState("Loading");
   const [isConstructionOpen, setIsConstructionOpen] = useState(false);
+  const [isConstructionMounted, setIsConstructionMounted] = useState(false);
 
   useEffect(() => {
     if (priceData && depositData && tileBlocks.length !== 0) {
@@ -90,27 +91,27 @@ const Quotation = () => {
         isClosable: true,
       });
     }
+    setIsConstructionMounted(true);
     const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
     addToCart({
       item: { ...newCartItem, image: imgUrl },
     });
   };
 
-  const handleConstructionDisplay = () => {
+  const handleConstructionOpen = () => {
     dispatch(resetAll());
     dispatch(switchRuler(false));
-    setIsConstructionOpen(!isConstructionOpen);
+    setIsConstructionOpen(true);
+    setIsConstructionMounted(true);
+  };
+
+  const handleConstructionClose = () => {
+    setIsConstructionOpen(false);
+    setIsConstructionMounted(false);
   };
 
   return (
     <>
-      <style>{`
-        #chakra-modal-construction {
-          margin-right: auto;
-          margin-bottom: 0;
-          margin-top: auto;
-        }
-      `}</style>
       <Box position="relative" zIndex={500}>
         <Text fontSize="14px" fontWeight="700" mb="10px">
           Quotation
@@ -131,17 +132,29 @@ const Quotation = () => {
         <Button variant="shareBtn" w="160px" mt="12px" onClick={handleAddToCart}>
           Add to Cart
         </Button>
-        <Button
-          variant="shareBtn"
-          w="160px"
-          mt="12px"
-          onClick={handleConstructionDisplay}
-          position="relative"
-          zIndex={3999}
-        >
-          Construction
-        </Button>
-        {isConstructionOpen && <Construction />}
+        {isConstructionOpen ? (
+          <Button
+            variant="shareBtn"
+            w="160px"
+            mt="12px"
+            onClick={handleConstructionClose}
+            position="relative"
+            zIndex={3999}
+          >
+            Construction
+          </Button>
+        ) : (
+          <Button
+            variant="shareBtn"
+            w="160px"
+            mt="12px"
+            onClick={handleConstructionOpen}
+            position="relative"
+          >
+            Construction
+          </Button>
+        )}
+        {isConstructionMounted && <Construction isConstructionOpen={isConstructionOpen} />}
       </Box>
     </>
   );

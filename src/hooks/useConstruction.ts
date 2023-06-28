@@ -12,7 +12,7 @@ export const useConstruction = (
 ) => {
   const dispatch = useDispatch();
   const canvas = canvasRef.current;
-  let { beginPointX, beginPointY } = constructionInfo;
+  let { beginPointX, beginPointY } = { ...constructionInfo };
   useEffect(() => {
     if (!canvas) return;
     const drawRatioX = canvas.getCanvas()._canvas.width / canvas.getWidth();
@@ -30,5 +30,5 @@ export const useConstruction = (
     });
     dispatch(changeConstructionSrc(dataUrl));
     dispatch(changeConstructionInfo(constructionInfo));
-  }, [canvasRef, constructionInfo]);
+  }, [constructionInfo]);
 };

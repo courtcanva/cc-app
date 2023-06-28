@@ -77,6 +77,10 @@ jest.mock("@/utils/manageExternalImage", () => {
   };
 });
 
+jest.mock("@/components/Construction/index", () => {
+  return jest.fn().mockReturnValue(<div>Mocked Component</div>);
+});
+
 describe("Quotation", () => {
   it("should render quotation, deposit name and add-to-cart button", () => {
     renderWithMockedProvider(<Quotation />);

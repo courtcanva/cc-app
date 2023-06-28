@@ -3,7 +3,7 @@ import { Box, Center } from "@chakra-ui/react";
 import { useState, RefObject, useRef, useEffect } from "react";
 import Konva from "konva";
 import { useDispatch } from "react-redux";
-import { Stage, Layer, Line, Rect, Text } from "react-konva";
+import { Stage, Layer, Line, Rect, Text, Image } from "react-konva";
 import useCourt from "@/hooks/useCourt";
 import { KonvaEventObject } from "konva/lib/Node";
 import { useStoreSelector } from "@/store/hooks";
@@ -16,7 +16,7 @@ import {
 } from "@/constants/construction";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { getInvertColor } from "@/utils/getInvertColor";
-import constructionSlice from "@/store/reducer/constructionSlice";
+import { changeConstructionPdfSrc } from "@/store/reducer/constructionSlice";
 
 interface Coordinates {
   x: number;
@@ -26,10 +26,11 @@ interface Coordinates {
   text: string;
 }
 
-const Construction = () => {
+const Construction = (props: { isConstructionOpen: boolean }) => {
   const dispatch = useDispatch();
-  const constructionRef = useRef<any>();
-  const [constructionRatio, setConstructionRatio] = useState(1);
+  const constructionRef = useRef<Konva.Layer>(null);
+  const pdfRef = useRef<Konva.Stage>(null);
+  // const [constructionRatio, setConstructionRatio] = useState(1);
   const imgSrc = useStoreSelector((state) => state.construction.constructionSrc);
   const constructionInfo = useStoreSelector((state) => state.construction.constructionInfo);
   const tiles = useStoreSelector((state) => state.tile.present.court);
@@ -37,10 +38,23 @@ const Construction = () => {
   const invertColor = getInvertColor(tilesColor);
 
   const { beginPointX, beginPointY, endPointX, endPointY, tileSize } = constructionInfo;
-  const img = new Image();
-  imgSrc && (img.src = imgSrc);
+  const constructionRatio = window.innerHeight / (endPointY - beginPointY);
+  // calculate suitable font size for different design
+  const coordinateFontSize = Math.floor(3 * constructionRatio);
   const canvasWidth = constructionRatio * (endPointX - beginPointX);
   const canvasHeight = constructionRatio * (endPointY - beginPointY);
+
+  const [img, setImg] = useState(new window.Image());
+  useEffect(() => {
+    if (imgSrc) {
+      const loadImg = new window.Image();
+      loadImg.onload = () => {
+        setImg(loadImg);
+      };
+      loadImg.src = imgSrc;
+    }
+  }, [imgSrc]);
+
   // prepare start and end points of lines along the x axis
   const xLinesPoints = Array.from(
     { length: Math.ceil((endPointX - beginPointX) / tileSize) + 1 },
@@ -110,27 +124,51 @@ const Construction = () => {
     return cartesianCoordinates;
   };
   const cartesianCoordinates = getCartesianCoordinates(xCoordinates, yCoordinates);
-  console.log(cartesianCoordinates);
 
-  useEffect(() => {
-    const constructionCtx = constructionRef.current?.getContext();
-    if (imgSrc && constructionCtx) {
-      setConstructionRatio(window.innerHeight / (endPointY - beginPointY));
-      setTimeout(() => {
-        constructionCtx.drawImage(
-          img,
-          COORDINATES_AREA_WIDTH,
-          COORDINATES_AREA_WIDTH,
-          (img.width * constructionRatio * IMAGE_COVERAGE) / PIXEL_RATIO,
-          (img.height * constructionRatio * IMAGE_COVERAGE) / PIXEL_RATIO
-        );
-      }, DRAW_DELAY);
-    }
-  }, [img]);
+  // useEffect(() => {
+  //   const constructionCtx = constructionRef.current?.getContext();
+  //   if (imgSrc && constructionCtx) {
+  //     setTimeout(() => {
+  //       console.log(img.width);
+  //       constructionCtx.drawImage(
+  //         img,
+  //         COORDINATES_AREA_WIDTH,
+  //         COORDINATES_AREA_WIDTH,
+  //         (img.width * constructionRatio * IMAGE_COVERAGE) / PIXEL_RATIO,
+  //         (img.height * constructionRatio * IMAGE_COVERAGE) / PIXEL_RATIO
+  //       );
+  //     }, DRAW_DELAY);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     console.log(1);
+  //     if (pdfRef.current) {
+  //       const constructionUrl = pdfRef.current.toDataURL({
+  //         x: beginPointX,
+  //         y: beginPointY,
+  //         width: canvasWidth,
+  //         height: canvasHeight,
+  //       });
+  //       dispatch(changeConstructionPdfSrc(constructionUrl));
+  //     }
+  //   }, 100);
+  // }, [constructionInfo, pdfRef, tilesColor]);
+
   return (
-    <Box position="fixed" h="100vh" w="100vw" bottom="0" left="0" bg="blackAlpha.600" zIndex="999">
+    <Box
+      position="fixed"
+      h="100vh"
+      w="100vw"
+      bottom="0"
+      left="0"
+      bg="blackAlpha.600"
+      zIndex="999"
+      visibility={props.isConstructionOpen ? "visible" : "hidden"}
+    >
       <Center h="100vh" w={`calc(100vw - ${RIGHT_BAR_WIDTH})`}>
-        <Stage width={canvasWidth} height={canvasHeight}>
+        <Stage width={canvasWidth} height={canvasHeight} ref={pdfRef}>
           <Layer>
             <Rect
               x={0}
@@ -178,7 +216,15 @@ const Construction = () => {
               );
             })}
           </Layer>
-          <Layer ref={constructionRef}></Layer>
+          <Layer>
+            <Image
+              x={COORDINATES_AREA_WIDTH}
+              y={COORDINATES_AREA_WIDTH}
+              image={img}
+              width={(img.width * constructionRatio * IMAGE_COVERAGE) / PIXEL_RATIO}
+              height={(img.height * constructionRatio * IMAGE_COVERAGE) / PIXEL_RATIO}
+            />
+          </Layer>
           <Layer>
             {xLinesPoints.map((linePoints, index) => {
               return <Line key={index} points={linePoints} stroke="black" strokeWidth={1} />;
@@ -197,7 +243,7 @@ const Construction = () => {
                   text={item.text}
                   align="center"
                   verticalAlign="middle"
-                  fontSize={6}
+                  fontSize={coordinateFontSize}
                   fill={invertColor}
                 />
               );

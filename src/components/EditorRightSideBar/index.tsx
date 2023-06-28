@@ -13,7 +13,7 @@ const EditorRightSideBar = () => {
       position="fixed"
       top="72px"
       right="0"
-      zIndex="2999"
+      zIndex="1999"
     >
       <Flex flexDirection="column" maxW={RIGHT_BAR_WIDTH} h="100%">
         {rightSideBarItemList.map((item) => (
