@@ -28,6 +28,7 @@ import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { switchRuler } from "@/store/reducer/buttonToggleSlice";
 import Construction from "../Construction";
+import formatCurrency from "@/utils/formatCurrency";
 
 const Quotation = () => {
   const dispatch = useDispatch();
@@ -111,52 +112,50 @@ const Quotation = () => {
   };
 
   return (
-    <>
-      <Box position="relative" zIndex={500}>
-        <Text fontSize="14px" fontWeight="700" mb="10px">
-          Quotation
-        </Text>
-        <Flex w="122px" fontSize="10px" justifyContent="space-between" mb="8px">
-          <Text>Quotation</Text>
-          <Text>{quotation}</Text>
+    <Box position="relative" zIndex={500}>
+      <Text fontSize="14px" fontWeight="700" mb="10px">
+        Quotation
+      </Text>
+      <Flex w="122px" fontSize="10px" justifyContent="space-between" mb="8px">
+        <Text>Quotation</Text>
+        <Text>{quotation === "Loading" ? quotation : formatCurrency(quotation)}</Text>
+      </Flex>
+      <Flex>
+        <Flex w="135px" fontSize="14px" fontWeight="700" justifyContent="space-between">
+          <Text>Deposit</Text>
+          <Text>{deposit === "Loading" ? deposit : formatCurrency(deposit)}</Text>
         </Flex>
-        <Flex>
-          <Flex w="130px" fontSize="14px" fontWeight="700" justifyContent="space-between">
-            <Text>Deposit</Text>
-            <Text>{deposit}</Text>
-          </Flex>
-          <Flex w="30px" alignItems="center" justifyContent="end">
-            <BsQuestionCircle />
-          </Flex>
+        <Flex w="25px" alignItems="center" justifyContent="end">
+          <BsQuestionCircle />
         </Flex>
-        <Button variant="shareBtn" w="160px" mt="12px" onClick={handleAddToCart}>
-          Add to Cart
+      </Flex>
+      <Button variant="shareBtn" w="160px" mt="12px" onClick={handleAddToCart}>
+        Add to Cart
+      </Button>
+      {isConstructionOpen ? (
+        <Button
+          variant="shareBtn"
+          w="160px"
+          mt="12px"
+          onClick={handleConstructionClose}
+          position="relative"
+          zIndex={3999}
+        >
+          Construction
         </Button>
-        {isConstructionOpen ? (
-          <Button
-            variant="shareBtn"
-            w="160px"
-            mt="12px"
-            onClick={handleConstructionClose}
-            position="relative"
-            zIndex={3999}
-          >
-            Construction
-          </Button>
-        ) : (
-          <Button
-            variant="shareBtn"
-            w="160px"
-            mt="12px"
-            onClick={handleConstructionOpen}
-            position="relative"
-          >
-            Construction
-          </Button>
-        )}
-        {isConstructionMounted && <Construction isConstructionOpen={isConstructionOpen} />}
-      </Box>
-    </>
+      ) : (
+        <Button
+          variant="shareBtn"
+          w="160px"
+          mt="12px"
+          onClick={handleConstructionOpen}
+          position="relative"
+        >
+          Construction
+        </Button>
+      )}
+      {isConstructionMounted && <Construction isConstructionOpen={isConstructionOpen} />}
+    </Box>
   );
 };
 

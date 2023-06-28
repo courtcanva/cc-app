@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import FileManagement from "@/components/EditorRightSideBar";
+import userEvent from "@testing-library/user-event";
 import renderWithMockedProvider from "../../utils";
 import { switchLoginModal, switchSideBar } from "../../../store/reducer/buttonToggleSlice";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
@@ -18,6 +19,7 @@ jest.mock("jspdf", () => {
 });
 
 describe("FileManagement", () => {
+
   test("Each button in the File Management Component to display the correct text", () => {
     renderWithMockedProvider(<FileManagement />);
 
@@ -54,7 +56,7 @@ describe("FileManagement", () => {
     expect(mockDispatch).toHaveBeenCalledWith(switchLoginModal(true));
   });
 
-  it("Should download PDF file when click download button", async () => {
+  it("Should download PDF file only once and show spinner when click download button", async () => {
     const { default: jsPDF } = await import(/* webpackChunkName: "jsPDF" */ "jspdf");
     const mockJSPDFInstance = new jsPDF();
     mockJSPDFInstance.save();
@@ -63,11 +65,15 @@ describe("FileManagement", () => {
 
     const downloadBtn = screen.getByTestId("download-btn");
     fireEvent.click(downloadBtn);
+    fireEvent.click(downloadBtn);
 
     expect(mockDispatch).toHaveBeenCalledWith(switchSideBar(false));
     expect(mockDispatch).toHaveBeenCalledWith(resetAll());
 
-    await waitFor(() => expect(mockJSPDFInstance.save).toHaveBeenCalled());
+    await waitFor(async () => {
+      expect(downloadBtn).toHaveAttribute("data-loading");
+      expect(mockJSPDFInstance.save).toHaveBeenCalledTimes(1)
+    });
   });
 
   it("Should close Modal when click save button", async () => {
