@@ -17,9 +17,17 @@ import canvasControlModel from "../../utils/canvasControlModel";
 import useImageDataUrl from "@/hooks/useImageDataUrl";
 import { useTileCalculation } from "@/hooks/useTileCalculation";
 import ThreeDimensionalToggle from "@/components/ThreeDimensionalCourt";
+import { useConstruction } from "@/hooks/useConstruction";
 
 const ProFullCourt = () => {
-  const { courtAreaXLength, courtAreaYLength, borderLength, court, courtStartPoint } = useCourt();
+  const {
+    courtAreaXLength,
+    courtAreaYLength,
+    borderLength,
+    court,
+    courtStartPoint,
+    courtAndTileInfo,
+  } = useCourt();
   const stageRef = useRef<any>(null);
   const layerRef = useRef<any>(null);
 
@@ -43,6 +51,7 @@ const ProFullCourt = () => {
 
   useImageDataUrl(stageRef);
   useTileCalculation(layerRef);
+  useConstruction(layerRef, courtAndTileInfo);
 
   return (
     <Flex

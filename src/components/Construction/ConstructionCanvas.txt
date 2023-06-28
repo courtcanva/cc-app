@@ -1,0 +1,51 @@
+import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
+import { Button, Box, Modal, ModalOverlay, ModalContent, ModalCloseButton } from "@chakra-ui/react";
+import { useState, RefObject, useRef, useEffect } from "react";
+import Konva from "konva";
+import { Stage, Layer } from "react-konva";
+import useCourt from "@/hooks/useCourt";
+import { KonvaEventObject } from "konva/lib/Node";
+
+const ConstructionCanvas = (props: {
+  canvas: Konva.Layer;
+  beginPointX: number;
+  beginPointY: number;
+  tileSizeX: number;
+  tileSizeY: number;
+}) => {
+  const { canvas, beginPointX, beginPointY } = props;
+  const constructionRef = useRef<any>();
+  const drawCtx = canvas?.getContext();
+  const canvasWidth = canvas.getCanvas()._canvas.width;
+  const canvasHeight = canvas.getCanvas()._canvas.height;
+  const drawData = drawCtx.getImageData(beginPointX, beginPointY, canvasWidth, canvasHeight);
+  const dataUrl = canvas.toDataURL({
+    x: beginPointX,
+    y: beginPointY,
+    width: canvasWidth,
+    height: canvasHeight,
+  });
+  const img = new Image();
+  img.src = dataUrl;
+  const handleMouseMove = (event: KonvaEventObject<MouseEvent>) => {
+    console.log(event.evt.clientX);
+  };
+  useEffect(() => {
+    setTimeout(() => {
+      const constructionCtx = constructionRef.current?.getContext();
+      // constructionCtx?.putImageData(drawData, beginPointX, beginPointY);
+      constructionCtx.drawImage(img, 0, 0, img.width * 1.5, img.height * 1.5);
+    }, 10);
+  });
+  return (
+    <>
+      <ModalContent w={canvasWidth} h={canvasHeight} bg="white" top="20px" borderRadius="none">
+        <Stage width={canvasWidth} height={canvasHeight} onMouseMove={handleMouseMove}>
+          <Layer ref={constructionRef}></Layer>
+        </Stage>
+      </ModalContent>
+    </>
+  );
+};
+
+export default ConstructionCanvas;

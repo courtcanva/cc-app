@@ -48,7 +48,7 @@ const TileBoard = () => {
       bottom="106px"
       left="98px"
       width={`calc(100vw - 98px - ${RIGHT_BAR_WIDTH})`}
-      zIndex="1500"
+      zIndex="-1"
     >
       <Center
         width="100%"

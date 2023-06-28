@@ -18,6 +18,7 @@ import { templateApi } from "@/redux/api/templateApi";
 import orderReducer from "./reducer/orderSlice";
 import { orderApi } from "@/redux/api/orderApi";
 import { depositApi } from "../redux/api/depositApi";
+import constructionReducer from "./reducer/constructionSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -41,6 +42,7 @@ export const makeStore = () =>
       colorList: colorListReducer,
       canvasControl: canvasControlReducer,
       order: orderReducer,
+      construction: constructionReducer,
     },
 
     middleware: (getDefaultMiddleware) =>

@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import { RiZoomInLine, RiZoomOutLine } from "react-icons/ri";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { switchRuler } from "@/store/reducer/buttonToggleSlice";
 import { useStoreSelector } from "@/store/hooks";
@@ -21,12 +21,18 @@ import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
 const EditorFooter = () => {
   const [ruler, setRuler] = useState("RULER ON");
   const { zoomScale } = useStoreSelector((state) => state.canvasControl);
+  const rulerRef = useRef<HTMLInputElement>(null);
+  const isRulerOn = useStoreSelector((state) => state.buttonToggle.isRulerOn);
 
   const dispatch = useDispatch();
   const handleRulerState = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRuler(e.target.checked ? "RULER ON" : "RULER OFF");
     dispatch(switchRuler(e.target.checked));
   };
+
+  useEffect(() => {
+    setRuler(isRulerOn ? "RULER ON" : "RULER OFF");
+  }, [isRulerOn]);
 
   // changeZoomScale Payload: true -> Zoom in, false -> Zoom out
   const handleZoomIn = () => {
@@ -132,6 +138,8 @@ const EditorFooter = () => {
             defaultChecked
             data-testid="switch-btn"
             onChange={handleRulerState}
+            ref={rulerRef}
+            isChecked={isRulerOn}
           />
         </FormControl>
       </Flex>

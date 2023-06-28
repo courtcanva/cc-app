@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Box, Text, Flex, Button, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Flex,
+  Button,
+  useToast,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+} from "@chakra-ui/react";
 import { BsQuestionCircle } from "react-icons/bs";
 import { useStoreSelector } from "@/store/hooks";
 import { useAddToCartMutation } from "@/redux/api/cartApi";
@@ -15,6 +24,10 @@ import priceFormat from "@/utils/priceFormat";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import { calculateQuotation, calculateDeposit } from "@/utils/priceCalculation";
 import { TilePrices } from "@/interfaces/priceCalculation";
+import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
+import { resetAll } from "@/store/reducer/canvasControlSlice";
+import { switchRuler } from "@/store/reducer/buttonToggleSlice";
+import Construction from "../Construction";
 
 const Quotation = () => {
   const dispatch = useDispatch();
@@ -33,6 +46,7 @@ const Quotation = () => {
 
   const [quotation, setQuotation] = useState("Loading");
   const [deposit, setDeposit] = useState("Loading");
+  const [isConstructionOpen, setIsConstructionOpen] = useState(false);
 
   useEffect(() => {
     if (priceData && depositData && tileBlocks.length !== 0) {
@@ -82,28 +96,54 @@ const Quotation = () => {
     });
   };
 
+  const handleConstructionDisplay = () => {
+    dispatch(resetAll());
+    dispatch(switchRuler(false));
+    setIsConstructionOpen(!isConstructionOpen);
+  };
+
   return (
-    <Box>
-      <Text fontSize="14px" fontWeight="700" mb="10px">
-        Quotation
-      </Text>
-      <Flex w="122px" fontSize="10px" justifyContent="space-between" mb="8px">
-        <Text>Quotation</Text>
-        <Text>{quotation}</Text>
-      </Flex>
-      <Flex>
-        <Flex w="130px" fontSize="14px" fontWeight="700" justifyContent="space-between">
-          <Text>Deposit</Text>
-          <Text>{deposit}</Text>
+    <>
+      <style>{`
+        #chakra-modal-construction {
+          margin-right: auto;
+          margin-bottom: 0;
+          margin-top: auto;
+        }
+      `}</style>
+      <Box position="relative" zIndex={500}>
+        <Text fontSize="14px" fontWeight="700" mb="10px">
+          Quotation
+        </Text>
+        <Flex w="122px" fontSize="10px" justifyContent="space-between" mb="8px">
+          <Text>Quotation</Text>
+          <Text>{quotation}</Text>
         </Flex>
-        <Flex w="30px" alignItems="center" justifyContent="end">
-          <BsQuestionCircle />
+        <Flex>
+          <Flex w="130px" fontSize="14px" fontWeight="700" justifyContent="space-between">
+            <Text>Deposit</Text>
+            <Text>{deposit}</Text>
+          </Flex>
+          <Flex w="30px" alignItems="center" justifyContent="end">
+            <BsQuestionCircle />
+          </Flex>
         </Flex>
-      </Flex>
-      <Button variant="shareBtn" w="160px" mt="12px" onClick={handleAddToCart}>
-        Add to Cart
-      </Button>
-    </Box>
+        <Button variant="shareBtn" w="160px" mt="12px" onClick={handleAddToCart}>
+          Add to Cart
+        </Button>
+        <Button
+          variant="shareBtn"
+          w="160px"
+          mt="12px"
+          onClick={handleConstructionDisplay}
+          position="relative"
+          zIndex={3999}
+        >
+          Construction
+        </Button>
+        {isConstructionOpen && <Construction />}
+      </Box>
+    </>
   );
 };
 
