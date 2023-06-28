@@ -64,7 +64,7 @@ const SaveAlert = ({
             color="fontcolor.primary"
             w="75px"
             ml={3}
-            disabled={nameCheck !== ""}
+            disabled={nameCheck !== "" || isSaving}
             onClick={handleSaveAsDesign}
             ref={cancelRef}
             _hover={{ bg: "brand.secondary", opacity: "0.60" }}
