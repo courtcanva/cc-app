@@ -41,18 +41,21 @@ const FileManagement = () => {
   };
 
   const handleDownload = async () => {
-    !isLoading && setIsLoading(true);
     dispatch(switchSideBar(false));
     dispatch(resetAll());
-    const downloadTimer = setTimeout(() => {
-      isLoading && setIsLoading(false);
-      clearTimeout(downloadTimer);
-    }, 1000);
+    if (!isLoading) {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
   };
   useEffect(() => {
-    isLoading && setTimeout(() => {
-      downloadToPDF();
-    }, 0);
+    if (isLoading) {
+      setTimeout(() => {
+        downloadToPDF();
+      }, 0);
+    }
   }, [isLoading]);
 
   const handleSaveOpen = () => {
@@ -88,7 +91,7 @@ const FileManagement = () => {
         </Popover>
 
         <IconButton
-        isLoading={isLoading}
+          isLoading={isLoading}
           aria-label="Download"
           icon={<BiDownload />}
           colorScheme="white"
