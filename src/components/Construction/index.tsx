@@ -1,5 +1,5 @@
 import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
-import { Box, Center } from "@chakra-ui/react";
+import { Box, Center, Button } from "@chakra-ui/react";
 import { useState, RefObject, useRef, useEffect } from "react";
 import Konva from "konva";
 import { useDispatch } from "react-redux";
@@ -17,6 +17,10 @@ import {
 import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { getInvertColor } from "@/utils/getInvertColor";
 import { changeConstructionPdfSrc } from "@/store/reducer/constructionSlice";
+import {
+  switchConstructionOpen,
+  switchConstructionMounted,
+} from "@/store/reducer/buttonToggleSlice";
 
 interface Coordinates {
   x: number;
@@ -26,9 +30,10 @@ interface Coordinates {
   text: string;
 }
 
-const Construction = (props: { isConstructionOpen: boolean }) => {
+const Construction = () => {
   const dispatch = useDispatch();
   const constructionRef = useRef<Konva.Layer>(null);
+  const isConstructionOpen = useStoreSelector((state) => state.buttonToggle.isConstructionOpen);
   const pdfRef = useRef<Konva.Stage>(null);
   // const [constructionRatio, setConstructionRatio] = useState(1);
   const imgSrc = useStoreSelector((state) => state.construction.constructionSrc);
@@ -53,7 +58,7 @@ const Construction = (props: { isConstructionOpen: boolean }) => {
       };
       loadImg.src = imgSrc;
     }
-  }, [imgSrc]);
+  }, []);
 
   // prepare start and end points of lines along the x axis
   const xLinesPoints = Array.from(
@@ -68,6 +73,7 @@ const Construction = (props: { isConstructionOpen: boolean }) => {
     return [x, COORDINATES_AREA_WIDTH, x, COORDINATES_AREA_WIDTH + canvasHeight * IMAGE_COVERAGE];
   });
   // prepare start and end points of lines along the y axis
+
   const yLinesPoints = Array.from(
     { length: Math.ceil((endPointY - beginPointY) / tileSize) + 1 },
     (v, k) => k
@@ -107,6 +113,7 @@ const Construction = (props: { isConstructionOpen: boolean }) => {
   });
   // remove the item start from the last line
   yCoordinates.pop();
+
   const getCartesianCoordinates = (xCoordinates: Coordinates[], yCoordinates: Coordinates[]) => {
     const cartesianCoordinates: Coordinates[] = [];
     xCoordinates.forEach((xCoordinate) => {
@@ -125,36 +132,28 @@ const Construction = (props: { isConstructionOpen: boolean }) => {
   };
   const cartesianCoordinates = getCartesianCoordinates(xCoordinates, yCoordinates);
 
-  // useEffect(() => {
-  //   const constructionCtx = constructionRef.current?.getContext();
-  //   if (imgSrc && constructionCtx) {
-  //     setTimeout(() => {
-  //       console.log(img.width);
-  //       constructionCtx.drawImage(
-  //         img,
-  //         COORDINATES_AREA_WIDTH,
-  //         COORDINATES_AREA_WIDTH,
-  //         (img.width * constructionRatio * IMAGE_COVERAGE) / PIXEL_RATIO,
-  //         (img.height * constructionRatio * IMAGE_COVERAGE) / PIXEL_RATIO
-  //       );
-  //     }, DRAW_DELAY);
-  //   }
-  // }, []);
+  const constructionButton = document.getElementById("constructionButton");
+  const rect = constructionButton?.getBoundingClientRect();
+  useEffect(() => {
+    setTimeout(() => {
+      if (pdfRef.current) {
+        const constructionUrl = pdfRef.current.toDataURL({
+          x: 0,
+          y: 0,
+          width: canvasWidth,
+          height: canvasHeight,
+          pixelRatio: PIXEL_RATIO,
+        });
+        dispatch(changeConstructionPdfSrc(constructionUrl));
+      }
+    }, DRAW_DELAY);
+  }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     console.log(1);
-  //     if (pdfRef.current) {
-  //       const constructionUrl = pdfRef.current.toDataURL({
-  //         x: beginPointX,
-  //         y: beginPointY,
-  //         width: canvasWidth,
-  //         height: canvasHeight,
-  //       });
-  //       dispatch(changeConstructionPdfSrc(constructionUrl));
-  //     }
-  //   }, 100);
-  // }, [constructionInfo, pdfRef, tilesColor]);
+  const handleConstructionClose = () => {
+    dispatch(switchConstructionOpen(false));
+    dispatch(switchConstructionMounted(false));
+    dispatch(changeConstructionPdfSrc(null));
+  };
 
   return (
     <Box
@@ -164,8 +163,8 @@ const Construction = (props: { isConstructionOpen: boolean }) => {
       bottom="0"
       left="0"
       bg="blackAlpha.600"
-      zIndex="999"
-      visibility={props.isConstructionOpen ? "visible" : "hidden"}
+      zIndex="5999"
+      visibility={isConstructionOpen ? "visible" : "hidden"}
     >
       <Center h="100vh" w={`calc(100vw - ${RIGHT_BAR_WIDTH})`}>
         <Stage width={canvasWidth} height={canvasHeight} ref={pdfRef}>
@@ -251,6 +250,19 @@ const Construction = (props: { isConstructionOpen: boolean }) => {
           </Layer>
         </Stage>
       </Center>
+      {rect && (
+        <Button
+          variant="shareBtn"
+          w="160px"
+          onClick={handleConstructionClose}
+          position="fixed"
+          zIndex="5999"
+          top={rect.top}
+          left={rect.left}
+        >
+          Construction
+        </Button>
+      )}
     </Box>
   );
 };

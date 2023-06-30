@@ -62,7 +62,7 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
         isClosable: true,
       });
     }
-    const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
+    const imgUrl = await upLoadScreenshot(courtDataUrl, toast, "design");
     addToCart({
       item: { ...newCartItem, image: imgUrl },
     });

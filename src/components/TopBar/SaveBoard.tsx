@@ -112,7 +112,7 @@ const SaveBoard: React.FC = () => {
           isClosable: true,
         });
       }
-      const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
+      const imgUrl = await upLoadScreenshot(courtDataUrl, toast, "design");
       await addDesign({ design: { ...designData, image: imgUrl, courtType: COURT_TYPE } })
         .unwrap()
         .then(() => {
@@ -133,7 +133,7 @@ const SaveBoard: React.FC = () => {
           isClosable: true,
         });
       }
-      const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
+      const imgUrl = await upLoadScreenshot(courtDataUrl, toast, "design");
       await updateDesign({
         _id: useCourtId,
         design: { ...designData, image: imgUrl, courtType: COURT_TYPE },
@@ -182,7 +182,7 @@ const SaveBoard: React.FC = () => {
         isClosable: true,
       });
     }
-    const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
+    const imgUrl = await upLoadScreenshot(courtDataUrl, toast, "design");
 
     await addDesign({ design: { ...designData, image: imgUrl, courtType: COURT_TYPE } })
       .unwrap()

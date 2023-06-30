@@ -28,7 +28,7 @@ const OrderContainer = () => {
       quotation: item.quotation,
       quotationDetails: item.quotationDetails,
       image: item.image,
-      constructionDrawing: "https://developer.mozilla.org",
+      constructionDrawing: item.constructionDrawing as string,
     };
     return orderItem;
   });
@@ -72,7 +72,7 @@ const OrderContainer = () => {
       <Box
         position="fixed"
         top="72px"
-        zIndex={1700}
+        zIndex={3999}
         backgroundColor="#fff"
         padding="43px 78px 53px 78px"
         color="brand.primary"

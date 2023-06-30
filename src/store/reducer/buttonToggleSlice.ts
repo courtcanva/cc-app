@@ -13,6 +13,8 @@ export interface ButtonToggleState {
   isMyTemplateOpen: boolean;
   isSwitch3D: boolean;
   isMyAccountOpen: boolean;
+  isConstructionOpen: boolean;
+  isConstructionMounted: boolean;
 }
 
 export const initialState: ButtonToggleState = {
@@ -28,6 +30,8 @@ export const initialState: ButtonToggleState = {
   isMyTemplateOpen: false,
   isSwitch3D: false,
   isMyAccountOpen: false,
+  isConstructionOpen: false,
+  isConstructionMounted: false,
 };
 
 export const ButtonToggleSlice = createSlice({
@@ -149,6 +153,18 @@ export const ButtonToggleSlice = createSlice({
         isCreateTemplateOpen: false,
       };
     },
+    switchConstructionOpen: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isConstructionOpen: action.payload,
+      };
+    },
+    switchConstructionMounted: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isConstructionMounted: action.payload,
+      };
+    },
   },
 });
 
@@ -166,6 +182,8 @@ export const {
   switchOrderGeneration,
   switch3D,
   switchMyAccount,
+  switchConstructionOpen,
+  switchConstructionMounted,
 } = ButtonToggleSlice.actions;
 
 export default ButtonToggleSlice.reducer;

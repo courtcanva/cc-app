@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Box,
   Text,
@@ -16,7 +16,11 @@ import { ICartItem } from "@/interfaces/cartItem";
 import { saveDesignMapping } from "@/utils/designMapping";
 import { IDesign, ITileColor } from "@/interfaces/design";
 import { useDispatch } from "react-redux";
-import { switchLoginModal } from "@/store/reducer/buttonToggleSlice";
+import {
+  switchLoginModal,
+  switchConstructionOpen,
+  switchConstructionMounted,
+} from "@/store/reducer/buttonToggleSlice";
 import { upLoadScreenshot } from "@/utils/manageExternalImage";
 import { COURT_TYPE } from "@/constants/courtData";
 import { useGetDepositQuery } from "@/redux/api/depositApi";
@@ -29,6 +33,8 @@ import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { switchRuler } from "@/store/reducer/buttonToggleSlice";
 import Construction from "../Construction";
 import formatCurrency from "@/utils/formatCurrency";
+import { changeConstructionPdfSrc } from "@/store/reducer/constructionSlice";
+import { DRAW_DELAY } from "@/constants/construction";
 
 const Quotation = () => {
   const dispatch = useDispatch();
@@ -42,13 +48,17 @@ const Quotation = () => {
   const courtDataUrl = useStoreSelector((state) => state.canvasControl.courtDataUrl);
   const { colorList } = useStoreSelector((state) => state.colorList);
   const userId = useStoreSelector((state) => state.user.userId);
+  const constructionUrl = useStoreSelector((state) => state.construction.constructionPdfSrc);
+  const isConstructionOpen = useStoreSelector((state) => state.buttonToggle.isConstructionOpen);
+  const isConstructionMounted = useStoreSelector(
+    (state) => state.buttonToggle.isConstructionMounted
+  );
   const [addToCart] = useAddToCartMutation();
   const mappedCourtSize = saveDesignMapping(court);
 
   const [quotation, setQuotation] = useState("Loading");
   const [deposit, setDeposit] = useState("Loading");
-  const [isConstructionOpen, setIsConstructionOpen] = useState(false);
-  const [isConstructionMounted, setIsConstructionMounted] = useState(false);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   useEffect(() => {
     if (priceData && depositData && tileBlocks.length !== 0) {
@@ -81,9 +91,62 @@ const Quotation = () => {
     isExpired: false,
   };
 
+  // const handleAddToCart = async () => {
+  //   dispatch(switchRuler(false));
+  //   setIsAddingToCart(true);
+  //   if (!userId) {
+  //     dispatch(switchConstructionMounted(false));
+  //     setIsAddingToCart(false);
+  //     return dispatch(switchLoginModal(true));
+  //   }
+  //   if (!courtDataUrl) {
+  //     dispatch(switchConstructionMounted(false));
+  //     setIsAddingToCart(false);
+  //     return toast({
+  //       title: `Fail to get courtDataUrl`,
+  //       description: "Try again or contact IT support",
+  //       status: "error",
+  //       duration: 9000,
+  //       isClosable: true,
+  //     });
+  //   }
+  //   dispatch(switchConstructionMounted(true));
+  //   await new Promise((resolve) => {
+  //     setTimeout(resolve, DRAW_DELAY + 1000);
+  //   });
+  //   const designImageUrl = await upLoadScreenshot(courtDataUrl, toast, "design");
+  //   console.log(constructionUrl);
+  //   if (!constructionUrl) {
+  //     dispatch(switchConstructionMounted(false));
+  //     setIsAddingToCart(false);
+  //     return toast({
+  //       title: `Fail to get construction url`,
+  //       description: "Try again or contact IT support",
+  //       status: "error",
+  //       duration: 9000,
+  //       isClosable: true,
+  //     });
+  //   }
+  //   dispatch(switchConstructionMounted(false));
+  //   const constructionImageUrl = await upLoadScreenshot(constructionUrl, toast, "construction");
+  //   addToCart({
+  //     item: { ...newCartItem, image: designImageUrl, constructionDrawing: constructionImageUrl },
+  //   });
+  //   dispatch(changeConstructionPdfSrc(null));
+  //   setIsAddingToCart(false);
+  // };
+
   const handleAddToCart = async () => {
-    if (!userId) return dispatch(switchLoginModal(true));
+    dispatch(switchRuler(false));
+    setIsAddingToCart(true);
+    if (!userId) {
+      dispatch(switchConstructionMounted(false));
+      setIsAddingToCart(false);
+      return dispatch(switchLoginModal(true));
+    }
     if (!courtDataUrl) {
+      dispatch(switchConstructionMounted(false));
+      setIsAddingToCart(false);
       return toast({
         title: `Fail to get courtDataUrl`,
         description: "Try again or contact IT support",
@@ -92,23 +155,27 @@ const Quotation = () => {
         isClosable: true,
       });
     }
-    setIsConstructionMounted(true);
-    const imgUrl = await upLoadScreenshot(courtDataUrl, toast);
-    addToCart({
-      item: { ...newCartItem, image: imgUrl },
-    });
+    dispatch(switchConstructionMounted(true));
   };
+  useMemo(async () => {
+    console.log(1);
+    dispatch(changeConstructionPdfSrc(null));
+    if (!isConstructionMounted || isConstructionOpen || !constructionUrl || !courtDataUrl) return;
+    console.log(2);
+    const constructionImageUrl = await upLoadScreenshot(constructionUrl, toast, "construction");
+    const designImageUrl = await upLoadScreenshot(courtDataUrl, toast, "design");
+    addToCart({
+      item: { ...newCartItem, image: designImageUrl, constructionDrawing: constructionImageUrl },
+    });
+    setIsAddingToCart(false);
+    dispatch(switchConstructionMounted(false));
+  }, [constructionUrl]);
 
   const handleConstructionOpen = () => {
     dispatch(resetAll());
     dispatch(switchRuler(false));
-    setIsConstructionOpen(true);
-    setIsConstructionMounted(true);
-  };
-
-  const handleConstructionClose = () => {
-    setIsConstructionOpen(false);
-    setIsConstructionMounted(false);
+    dispatch(switchConstructionOpen(true));
+    dispatch(switchConstructionMounted(true));
   };
 
   return (
@@ -129,32 +196,25 @@ const Quotation = () => {
           <BsQuestionCircle />
         </Flex>
       </Flex>
-      <Button variant="shareBtn" w="160px" mt="12px" onClick={handleAddToCart}>
+      <Button
+        variant="shareBtn"
+        w="160px"
+        mt="12px"
+        onClick={handleAddToCart}
+        isLoading={isAddingToCart}
+      >
         Add to Cart
       </Button>
-      {isConstructionOpen ? (
-        <Button
-          variant="shareBtn"
-          w="160px"
-          mt="12px"
-          onClick={handleConstructionClose}
-          position="relative"
-          zIndex={3999}
-        >
-          Construction
-        </Button>
-      ) : (
-        <Button
-          variant="shareBtn"
-          w="160px"
-          mt="12px"
-          onClick={handleConstructionOpen}
-          position="relative"
-        >
-          Construction
-        </Button>
-      )}
-      {isConstructionMounted && <Construction isConstructionOpen={isConstructionOpen} />}
+      <Button
+        variant="shareBtn"
+        w="160px"
+        mt="12px"
+        onClick={handleConstructionOpen}
+        position="relative"
+        id="constructionButton"
+      >
+        Construction
+      </Button>
     </Box>
   );
 };

@@ -35,10 +35,10 @@ export const ConstructionSlice = createSlice({
         constructionSrc: action.payload,
       };
     },
-    changeConstructionPdfSrc: (state: ConstructionState, action: PayloadAction<string>) => {
+    changeConstructionPdfSrc: (state: ConstructionState, action: PayloadAction<string | null>) => {
       return {
         ...state,
-        constructionSrc: action.payload,
+        constructionPdfSrc: action.payload,
       };
     },
     changeConstructionInfo: (state: ConstructionState, action: PayloadAction<ConstructionInfo>) => {

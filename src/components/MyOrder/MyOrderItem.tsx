@@ -1,12 +1,31 @@
-import { Flex, Box, Text, Stack, Badge } from "@chakra-ui/react";
+import { Flex, Box, Text, Stack, Badge, Button } from "@chakra-ui/react";
 import Image from "next/image";
 import formatCurrency from "@/utils/formatCurrency";
+import { downloadToPDF } from "@/utils/printConstruction";
+
 const MyOrderItem = ({ ...mergedItem }) => {
+  const handleDownload = () => {
+    downloadToPDF(mergedItem.design, mergedItem.constructionDrawing);
+  };
   return (
     <Flex flexDirection="column" alignItems="center">
       <Flex width="85%" minHeight="150px">
-        <Flex width="25%" alignItems="center" justifyContent="center">
+        <Flex width="25%" alignItems="center" justifyContent="space-around" direction="column">
           <Text variant="textFont">{mergedItem.design.designName}</Text>
+          <Flex justifyContent="space-around">
+            <Text width="100px" mr="30px" align="center" fontSize="14px">
+              Construction Drawing
+            </Text>
+            <Button
+              variant="outline"
+              borderColor="black"
+              width="100px"
+              my="auto"
+              onClick={handleDownload}
+            >
+              Download
+            </Button>
+          </Flex>
         </Flex>
         <Flex flexDirection="column" width="50%" alignItems="center">
           <Box width="100%" height="100%" position="relative">

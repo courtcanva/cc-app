@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { useStoreSelector } from "@/store/hooks";
 import Header from "./Header";
 import NavigationBar from "../components/NavBar";
 import EditorSideBar from "../components/EditorSideBar";
@@ -17,9 +18,12 @@ import MyAccount from "@/components/MyAccount";
 import TileBoard from "@/components/TileBoard";
 
 const EditorRightSideBar = dynamic(() => import("@/components/EditorRightSideBar"), { ssr: false });
+const Construction = dynamic(() => import("@/components/Construction"), { ssr: false });
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
-
+  const isConstructionMounted = useStoreSelector(
+    (state) => state.buttonToggle.isConstructionMounted
+  );
   switch (router.pathname) {
     case PAGE_NOT_FOUND:
       return (
@@ -66,6 +70,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
             {children}
             <TopBar />
             <EditorRightSideBar />
+            {isConstructionMounted && <Construction />}
           </Box>
           <TileBoard />
           <PriceBar />

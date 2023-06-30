@@ -112,7 +112,7 @@ function CreateTemplate({ isOpen, onClose }: Props) {
       const title = `Fail to generate court preview image`;
       return generateToast(title);
     }
-    const imageUrl = await upLoadScreenshot(courtDataUrl, toast);
+    const imageUrl = await upLoadScreenshot(courtDataUrl, toast, "design");
     const packedTemplate = generateNewTemplate(
       userId,
       courtName,

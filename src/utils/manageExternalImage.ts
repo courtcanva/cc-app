@@ -4,7 +4,11 @@ const generateImageFromDataUrl = async (courtDataUrl: string) => {
   return new File([blob], "default", { type: "image/jpeg" });
 };
 
-export const upLoadScreenshot = async (courtDataUrl: string, toast: any) => {
+export const upLoadScreenshot = async (
+  courtDataUrl: string,
+  toast: any,
+  type: "design" | "construction"
+) => {
   const { default: AWS } = await import(/* webpackChunkName: "aws-sdk" */ "aws-sdk");
   const { nanoid } = await import("nanoid");
 
@@ -34,7 +38,7 @@ export const upLoadScreenshot = async (courtDataUrl: string, toast: any) => {
   const imageUrl = (await upload.promise()).Location;
   if (!imageUrl) {
     return toast({
-      title: "Image update failure.",
+      title: `${type} update failure.`,
       description: "Try again or contact IT support",
       status: "error",
       duration: 9000,
