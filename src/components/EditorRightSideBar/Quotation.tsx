@@ -8,6 +8,7 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { BsQuestionCircle } from "react-icons/bs";
 import { useStoreSelector } from "@/store/hooks";
@@ -20,6 +21,7 @@ import {
   switchLoginModal,
   switchConstructionOpen,
   switchConstructionMounted,
+  switchAddingToCart,
 } from "@/store/reducer/buttonToggleSlice";
 import { upLoadScreenshot } from "@/utils/manageExternalImage";
 import { COURT_TYPE } from "@/constants/courtData";
@@ -35,10 +37,12 @@ import Construction from "../Construction";
 import formatCurrency from "@/utils/formatCurrency";
 import { changeConstructionPdfSrc } from "@/store/reducer/constructionSlice";
 import { DRAW_DELAY } from "@/constants/construction";
+import store from "@/store";
 
 const Quotation = () => {
   const dispatch = useDispatch();
   const toast = useToast();
+  const { onClose } = useDisclosure();
   const { blocks: tileBlocks } = useStoreSelector((state) => state.priceBar);
   const { data: priceData } = useGetPriceQuery(0);
   const { data: depositData } = useGetDepositQuery();
@@ -53,12 +57,12 @@ const Quotation = () => {
   const isConstructionMounted = useStoreSelector(
     (state) => state.buttonToggle.isConstructionMounted
   );
+  const isAddingToCart = useStoreSelector((state) => state.buttonToggle.isAddingToCart);
   const [addToCart] = useAddToCartMutation();
   const mappedCourtSize = saveDesignMapping(court);
 
   const [quotation, setQuotation] = useState("Loading");
   const [deposit, setDeposit] = useState("Loading");
-  const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   useEffect(() => {
     if (priceData && depositData && tileBlocks.length !== 0) {
@@ -90,63 +94,20 @@ const Quotation = () => {
     id: "",
     isExpired: false,
   };
-
-  // const handleAddToCart = async () => {
-  //   dispatch(switchRuler(false));
-  //   setIsAddingToCart(true);
-  //   if (!userId) {
-  //     dispatch(switchConstructionMounted(false));
-  //     setIsAddingToCart(false);
-  //     return dispatch(switchLoginModal(true));
-  //   }
-  //   if (!courtDataUrl) {
-  //     dispatch(switchConstructionMounted(false));
-  //     setIsAddingToCart(false);
-  //     return toast({
-  //       title: `Fail to get courtDataUrl`,
-  //       description: "Try again or contact IT support",
-  //       status: "error",
-  //       duration: 9000,
-  //       isClosable: true,
-  //     });
-  //   }
-  //   dispatch(switchConstructionMounted(true));
-  //   await new Promise((resolve) => {
-  //     setTimeout(resolve, DRAW_DELAY + 1000);
-  //   });
-  //   const designImageUrl = await upLoadScreenshot(courtDataUrl, toast, "design");
-  //   console.log(constructionUrl);
-  //   if (!constructionUrl) {
-  //     dispatch(switchConstructionMounted(false));
-  //     setIsAddingToCart(false);
-  //     return toast({
-  //       title: `Fail to get construction url`,
-  //       description: "Try again or contact IT support",
-  //       status: "error",
-  //       duration: 9000,
-  //       isClosable: true,
-  //     });
-  //   }
-  //   dispatch(switchConstructionMounted(false));
-  //   const constructionImageUrl = await upLoadScreenshot(constructionUrl, toast, "construction");
-  //   addToCart({
-  //     item: { ...newCartItem, image: designImageUrl, constructionDrawing: constructionImageUrl },
-  //   });
-  //   dispatch(changeConstructionPdfSrc(null));
-  //   setIsAddingToCart(false);
-  // };
-
+  // the event handler only work as a trigger for mounting Construction, as the construction image URL required
+  // for cart item will not be available until the image is generated in Construction and dispatch to the store.
   const handleAddToCart = async () => {
+    // turn off the ruler before start drawing construction
     dispatch(switchRuler(false));
-    setIsAddingToCart(true);
+    dispatch(switchAddingToCart(true));
     if (!userId) {
       dispatch(switchConstructionMounted(false));
-      setIsAddingToCart(false);
+      dispatch(switchAddingToCart(false));
       return dispatch(switchLoginModal(true));
     }
     if (!courtDataUrl) {
       dispatch(switchConstructionMounted(false));
-      setIsAddingToCart(false);
+      dispatch(switchAddingToCart(false));
       return toast({
         title: `Fail to get courtDataUrl`,
         description: "Try again or contact IT support",
@@ -157,22 +118,31 @@ const Quotation = () => {
     }
     dispatch(switchConstructionMounted(true));
   };
+  // when user click add-to-cart button, construction component will be mounted but invisible, then the useEffect in it will
+  // generate the construction drawing and dispatch to corresponding state. The following useMemo will fetch design image
+  // and construction image URL and put them together to an item to add to the cart if the construction drawing is mounted
+  // but invisible.
   useMemo(async () => {
-    console.log(1);
     dispatch(changeConstructionPdfSrc(null));
     if (!isConstructionMounted || isConstructionOpen || !constructionUrl || !courtDataUrl) return;
-    console.log(2);
     const constructionImageUrl = await upLoadScreenshot(constructionUrl, toast, "construction");
     const designImageUrl = await upLoadScreenshot(courtDataUrl, toast, "design");
     addToCart({
       item: { ...newCartItem, image: designImageUrl, constructionDrawing: constructionImageUrl },
     });
-    setIsAddingToCart(false);
+    dispatch(switchAddingToCart(false));
     dispatch(switchConstructionMounted(false));
+    return toast({
+      title: `Your design has been added to the cart`,
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
   }, [constructionUrl]);
 
   const handleConstructionOpen = () => {
     dispatch(resetAll());
+    // turn off the ruler before start drawing construction
     dispatch(switchRuler(false));
     dispatch(switchConstructionOpen(true));
     dispatch(switchConstructionMounted(true));

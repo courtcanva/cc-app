@@ -15,6 +15,7 @@ export interface ButtonToggleState {
   isMyAccountOpen: boolean;
   isConstructionOpen: boolean;
   isConstructionMounted: boolean;
+  isAddingToCart: boolean;
 }
 
 export const initialState: ButtonToggleState = {
@@ -32,6 +33,7 @@ export const initialState: ButtonToggleState = {
   isMyAccountOpen: false,
   isConstructionOpen: false,
   isConstructionMounted: false,
+  isAddingToCart: false,
 };
 
 export const ButtonToggleSlice = createSlice({
@@ -165,6 +167,12 @@ export const ButtonToggleSlice = createSlice({
         isConstructionMounted: action.payload,
       };
     },
+    switchAddingToCart: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isAddingToCart: action.payload,
+      };
+    },
   },
 });
 
@@ -184,6 +192,7 @@ export const {
   switchMyAccount,
   switchConstructionOpen,
   switchConstructionMounted,
+  switchAddingToCart,
 } = ButtonToggleSlice.actions;
 
 export default ButtonToggleSlice.reducer;

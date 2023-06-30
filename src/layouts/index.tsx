@@ -10,6 +10,7 @@ import PriceBar from "@/components/PriceBar";
 import TopBar from "@/components/TopBar";
 import ShoppingCart from "@/components/ShoppingCart";
 import MyTemplate from "@/components/MyTemplate";
+import AddingToCartOverlay from "@/components/AddingToCartOverlay";
 import { PAGE_NOT_FOUND, PAYMENT, MY_ORDER } from "../../src/constants";
 import dynamic from "next/dynamic";
 
@@ -24,6 +25,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const isConstructionMounted = useStoreSelector(
     (state) => state.buttonToggle.isConstructionMounted
   );
+  const isAddingToCart = useStoreSelector((state) => state.buttonToggle.isAddingToCart);
   switch (router.pathname) {
     case PAGE_NOT_FOUND:
       return (
@@ -71,6 +73,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
             <TopBar />
             <EditorRightSideBar />
             {isConstructionMounted && <Construction />}
+            {isAddingToCart && <AddingToCartOverlay />}
           </Box>
           <TileBoard />
           <PriceBar />
