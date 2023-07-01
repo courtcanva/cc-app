@@ -103,11 +103,14 @@ const Quotation = () => {
     if (!userId) {
       dispatch(switchConstructionMounted(false));
       dispatch(switchAddingToCart(false));
-      return dispatch(switchLoginModal(true));
+      dispatch(changeConstructionPdfSrc(null));
+      dispatch(switchLoginModal(true));
+      return;
     }
     if (!courtDataUrl) {
       dispatch(switchConstructionMounted(false));
       dispatch(switchAddingToCart(false));
+      dispatch(changeConstructionPdfSrc(null));
       return toast({
         title: `Fail to get courtDataUrl`,
         description: "Try again or contact IT support",
@@ -183,7 +186,7 @@ const Quotation = () => {
         position="relative"
         id="constructionButton"
       >
-        Construction
+        Construction on
       </Button>
     </Box>
   );

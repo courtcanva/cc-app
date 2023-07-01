@@ -1,20 +1,16 @@
 import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
 import { Box, Center, Button } from "@chakra-ui/react";
-import { useState, RefObject, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Konva from "konva";
 import { useDispatch } from "react-redux";
 import { Stage, Layer, Line, Rect, Text, Image } from "react-konva";
-import useCourt from "@/hooks/useCourt";
-import { KonvaEventObject } from "konva/lib/Node";
 import { useStoreSelector } from "@/store/hooks";
-import { useConstruction } from "@/hooks/useConstruction";
 import {
   COORDINATES_AREA_WIDTH,
   IMAGE_COVERAGE,
   DRAW_DELAY,
   PIXEL_RATIO,
 } from "@/constants/construction";
-import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { getInvertColor } from "@/utils/getInvertColor";
 import { changeConstructionPdfSrc } from "@/store/reducer/constructionSlice";
 import {
@@ -32,10 +28,8 @@ interface Coordinates {
 
 const Construction = () => {
   const dispatch = useDispatch();
-  const constructionRef = useRef<Konva.Layer>(null);
   const isConstructionOpen = useStoreSelector((state) => state.buttonToggle.isConstructionOpen);
   const pdfRef = useRef<Konva.Stage>(null);
-  // const [constructionRatio, setConstructionRatio] = useState(1);
   const imgSrc = useStoreSelector((state) => state.construction.constructionSrc);
   const constructionInfo = useStoreSelector((state) => state.construction.constructionInfo);
   const tiles = useStoreSelector((state) => state.tile.present.court);
@@ -61,29 +55,29 @@ const Construction = () => {
   }, []);
 
   // prepare start and end points of lines along the x axis
+  const xLineLength =
+    Math.ceil(canvasHeight / (tileSize * constructionRatio)) *
+    (tileSize * constructionRatio) *
+    IMAGE_COVERAGE;
   const xLinesPoints = Array.from(
     { length: Math.ceil((endPointX - beginPointX) / tileSize) + 1 },
     (v, k) => k
   ).map((number) => {
-    let x = number * tileSize * constructionRatio * IMAGE_COVERAGE + COORDINATES_AREA_WIDTH;
-    // the last line will move back if the court size is not divisible by tile size.
-    if (number - (endPointX - beginPointX) / tileSize > 0.1) {
-      x -= (tileSize - ((endPointX - beginPointX) % tileSize)) * constructionRatio * IMAGE_COVERAGE;
-    }
-    return [x, COORDINATES_AREA_WIDTH, x, COORDINATES_AREA_WIDTH + canvasHeight * IMAGE_COVERAGE];
+    const x = number * tileSize * constructionRatio * IMAGE_COVERAGE + COORDINATES_AREA_WIDTH;
+    return [x, COORDINATES_AREA_WIDTH, x, COORDINATES_AREA_WIDTH + xLineLength];
   });
-  // prepare start and end points of lines along the y axis
 
+  // prepare start and end points of lines along the y axis
+  const yLineLength =
+    Math.ceil(canvasWidth / (tileSize * constructionRatio)) *
+    (tileSize * constructionRatio) *
+    IMAGE_COVERAGE;
   const yLinesPoints = Array.from(
     { length: Math.ceil((endPointY - beginPointY) / tileSize) + 1 },
     (v, k) => k
   ).map((number) => {
-    let y = number * tileSize * constructionRatio * IMAGE_COVERAGE + COORDINATES_AREA_WIDTH;
-    // the last line will move back if the court size is not divisible by tile size.
-    if (number - (endPointY - beginPointY) / tileSize > 0.1) {
-      y -= (tileSize - ((endPointY - beginPointY) % tileSize)) * constructionRatio * IMAGE_COVERAGE;
-    }
-    return [COORDINATES_AREA_WIDTH, y, COORDINATES_AREA_WIDTH + canvasWidth * IMAGE_COVERAGE, y];
+    const y = number * tileSize * constructionRatio * IMAGE_COVERAGE + COORDINATES_AREA_WIDTH;
+    return [COORDINATES_AREA_WIDTH, y, COORDINATES_AREA_WIDTH + yLineLength, y];
   });
 
   const xCoordinates = xLinesPoints.map((item, index) => {
@@ -98,7 +92,6 @@ const Construction = () => {
         (index % 10).toString(),
     };
   });
-  // remove the item start from the last line
   xCoordinates.pop();
 
   const yCoordinates = yLinesPoints.map((item, index) => {
@@ -111,7 +104,6 @@ const Construction = () => {
         String.fromCharCode(65 + Math.floor(index / 26)) + String.fromCharCode(65 + (index % 26)),
     };
   });
-  // remove the item start from the last line
   yCoordinates.pop();
 
   const getCartesianCoordinates = (xCoordinates: Coordinates[], yCoordinates: Coordinates[]) => {
@@ -132,8 +124,10 @@ const Construction = () => {
   };
   const cartesianCoordinates = getCartesianCoordinates(xCoordinates, yCoordinates);
 
+  // extract the position of original construction button
   const constructionButton = document.getElementById("constructionButton");
   const rect = constructionButton?.getBoundingClientRect();
+
   useEffect(() => {
     setTimeout(() => {
       if (pdfRef.current) {
@@ -172,7 +166,6 @@ const Construction = () => {
             <Rect
               x={0}
               y={0}
-              // add a tileSize width and height to avoid overflow
               width={
                 canvasWidth * IMAGE_COVERAGE +
                 COORDINATES_AREA_WIDTH +
@@ -260,7 +253,7 @@ const Construction = () => {
           top={rect.top}
           left={rect.left}
         >
-          Construction
+          Construction off
         </Button>
       )}
     </Box>
