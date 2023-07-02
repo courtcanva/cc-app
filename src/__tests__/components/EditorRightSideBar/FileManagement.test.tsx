@@ -19,7 +19,6 @@ jest.mock("jspdf", () => {
 });
 
 describe("FileManagement", () => {
-
   test("Each button in the File Management Component to display the correct text", () => {
     renderWithMockedProvider(<FileManagement />);
 
@@ -72,7 +71,7 @@ describe("FileManagement", () => {
 
     await waitFor(async () => {
       expect(downloadBtn).toHaveAttribute("data-loading");
-      expect(mockJSPDFInstance.save).toHaveBeenCalledTimes(1)
+      expect(mockJSPDFInstance.save).toHaveBeenCalledTimes(1);
     });
   });
 

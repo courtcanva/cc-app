@@ -1,10 +1,7 @@
 import { Flex, Button, IconButton, Grid, Tooltip, Box, useDisclosure } from "@chakra-ui/react";
 import { IoIosArrowBack } from "react-icons/io";
-import { RiArrowGoBackLine, RiArrowGoForwardLine } from "react-icons/ri";
-import { BsArrowCounterclockwise } from "react-icons/bs";
 import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
-import EditorDesignName from "@/components/NavBar/EditorDesignName";
 import LoginModalContent from "../Login";
 import ShoppingCartButton from "./ShoppingCartButton";
 import { useEffect, useMemo, useState } from "react";
@@ -23,11 +20,7 @@ import { userData } from "@/store/reducer/userSlice";
 import { useGetItemQuantityQuery } from "@/redux/api/cartApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import useAuthRequest from "../Login/helpers/authRequest";
-import {
-  switchSideBar,
-  switchLoginModal,
-  switchCreateTemplate,
-} from "@/store/reducer/buttonToggleSlice";
+import { switchLoginModal, switchCreateTemplate } from "@/store/reducer/buttonToggleSlice";
 import { useHandleLocalStorageItem } from "@/hooks/useHandleLocalStorage";
 import CreateTemplate from "../CreateTemplate";
 import Profile from "./Profile";
@@ -36,14 +29,9 @@ import UserTokenService from "@/utils/TokenService";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
-  const {
-    isCartOpen,
-    isLoginModalOpen,
-    isCreateTemplateOpen,
-    isMyTemplateOpen,
-    isMyAccountOpen,
-    isSwitch3D,
-  } = useStoreSelector((state) => state.buttonToggle);
+  const { isLoginModalOpen, isCreateTemplateOpen } = useStoreSelector(
+    (state) => state.buttonToggle
+  );
   const { userLogout, updateToken } = useAuthRequest();
   const { getLocalStorageItem } = useHandleLocalStorageItem();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -115,30 +103,9 @@ const NavigationBar = () => {
     onClose();
   };
 
-  const handleUndo = () => {
-    dispatch(switchSideBar(false));
-    dispatch(ActionCreators.undo());
-  };
-  const handleRedo = () => {
-    dispatch(switchSideBar(false));
-    dispatch(ActionCreators.redo());
-  };
-  const handleReset = () => {
-    dispatch(switchSideBar(false));
-    dispatch(ActionCreators.jumpToPast(0));
-  };
-
-  const handleCreateTemplateOpen = () => {
-    router.push("/");
-    dispatch(switchCreateTemplate(true));
-  };
   const handleCreateTemplateClose = () => {
     dispatch(switchCreateTemplate(false));
   };
-
-  const isThingsToUndo = useStoreSelector((state) => state.tile.past).length;
-  const isThingsToRedo = useStoreSelector((state) => state.tile.future).length;
-  const isThingsToReset = isThingsToUndo;
 
   // Get current userId and item quantity in the shopping cart
   const curUserId = useStoreSelector(userData).userId;
@@ -161,47 +128,10 @@ const NavigationBar = () => {
             Home
           </Button>
         </Link>
-        {!isCartOpen && !isMyTemplateOpen && !isMyAccountOpen && (
-          <Flex flex="1" justifyContent="center">
-            <Tooltip hasArrow shouldWrapChildren label="undo color edit" fontSize="sm">
-              <IconButton
-                aria-label="Revert edit"
-                icon={<RiArrowGoBackLine />}
-                variant="navbarIconBtn"
-                disabled={!isThingsToUndo}
-                onClick={handleUndo}
-                marginX="10px"
-              />
-            </Tooltip>
-            <Tooltip hasArrow shouldWrapChildren label="redo color edit" fontSize="sm">
-              <IconButton
-                aria-label="Forward edit"
-                icon={<RiArrowGoForwardLine />}
-                variant="navbarIconBtn"
-                disabled={!isThingsToRedo}
-                onClick={handleRedo}
-                marginX="10px"
-              />
-            </Tooltip>
-            <Tooltip hasArrow shouldWrapChildren label="reset all color edits" fontSize="sm">
-              <IconButton
-                aria-label="Reset edit"
-                icon={<BsArrowCounterclockwise />}
-                variant="navbarIconBtn"
-                disabled={!isThingsToReset}
-                onClick={handleReset}
-                marginX="10px"
-              />
-            </Tooltip>
-          </Flex>
-        )}
       </Flex>
-      {/* {!isCartOpen && !isMyAccountOpen && !isMyTemplateOpen && !isSwitch3D ? (
-        <EditorDesignName />
-      ) : (
-        <Box></Box>
-      )} */}
+
       <Box />
+
       <Flex alignItems="center" justifyContent="flex-end">
         {!loginState ? (
           <Button onClick={handleLoginModalOpen}>Sign up / Login</Button>
@@ -218,14 +148,6 @@ const NavigationBar = () => {
           isOpen={isCreateTemplateOpen}
           onClose={handleCreateTemplateClose}
         ></CreateTemplate>
-        {/* <Button
-          variant="shareBtn"
-          marginLeft="10px"
-          onClick={loginState ? handleCreateTemplateOpen : handleLoginModalOpen}
-          data-testid="share-btn"
-        >
-          Share
-        </Button> */}
       </Flex>
     </Grid>
   );

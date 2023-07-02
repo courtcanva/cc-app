@@ -50,9 +50,10 @@ const FileManagement = () => {
     }, 1000);
   };
   useEffect(() => {
-    isLoading && setTimeout(() => {
-      downloadToPDF();
-    }, 0);
+    isLoading &&
+      setTimeout(() => {
+        downloadToPDF();
+      }, 0);
   }, [isLoading]);
 
   const handleSaveOpen = () => {
@@ -88,7 +89,7 @@ const FileManagement = () => {
         </Popover>
 
         <IconButton
-        isLoading={isLoading}
+          isLoading={isLoading}
           aria-label="Download"
           icon={<BiDownload />}
           colorScheme="white"
