@@ -1,15 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  Box,
-  Text,
-  Flex,
-  Button,
-  useToast,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Text, Flex, Button, useToast } from "@chakra-ui/react";
 import { BsQuestionCircle } from "react-icons/bs";
 import { useStoreSelector } from "@/store/hooks";
 import { useAddToCartMutation } from "@/redux/api/cartApi";
@@ -30,19 +20,14 @@ import priceFormat from "@/utils/priceFormat";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import { calculateQuotation, calculateDeposit } from "@/utils/priceCalculation";
 import { TilePrices } from "@/interfaces/priceCalculation";
-import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { switchRuler } from "@/store/reducer/buttonToggleSlice";
-import Construction from "../Construction";
 import formatCurrency from "@/utils/formatCurrency";
 import { changeConstructionPdfSrc } from "@/store/reducer/constructionSlice";
-import { DRAW_DELAY } from "@/constants/construction";
-import store from "@/store";
 
 const Quotation = () => {
   const dispatch = useDispatch();
   const toast = useToast();
-  const { onClose } = useDisclosure();
   const { blocks: tileBlocks } = useStoreSelector((state) => state.priceBar);
   const { data: priceData } = useGetPriceQuery(0);
   const { data: depositData } = useGetDepositQuery();
@@ -64,18 +49,6 @@ const Quotation = () => {
   const [quotation, setQuotation] = useState("Loading");
   const [deposit, setDeposit] = useState("Loading");
 
-  useEffect(() => {
-    if (priceData && depositData && tileBlocks.length !== 0) {
-      const tilePricesList = priceData[0].tilePrices.find(
-        (item: TilePrices) => item.tileName === colorList[0].name
-      );
-      const quotation = calculateQuotation(tileBlocks, tilePricesList);
-      const deposit = calculateDeposit(quotation, depositData.depositRate);
-      setQuotation(priceFormat(quotation));
-      setDeposit(priceFormat(deposit));
-    }
-  }, [priceData, depositData, tileBlocks]);
-
   const currentDesign: IDesign = {
     _id: court.courtId,
     user_id: userId,
@@ -94,11 +67,28 @@ const Quotation = () => {
     id: "",
     isExpired: false,
   };
+
+  useEffect(() => {
+    if (priceData && depositData && tileBlocks.length !== 0) {
+      const tilePricesList = priceData[0].tilePrices.find(
+        (item: TilePrices) => item.tileName === colorList[0].name
+      );
+      const quotation = calculateQuotation(tileBlocks, tilePricesList);
+      const deposit = calculateDeposit(quotation, depositData.depositRate);
+      setQuotation(priceFormat(quotation));
+      setDeposit(priceFormat(deposit));
+    }
+  }, [priceData, depositData, tileBlocks]);
+
   // the event handler only work as a trigger for mounting Construction, as the construction image URL required
   // for cart item will not be available until the image is generated in Construction and dispatch to the store.
   const handleAddToCart = async () => {
-    // turn off the ruler before start drawing construction
+    // turn off the ruler and reset zoom before start drawing construction
+    dispatch(resetAll());
     dispatch(switchRuler(false));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 50);
+    });
     dispatch(switchAddingToCart(true));
     if (!userId) {
       dispatch(switchConstructionMounted(false));
@@ -122,31 +112,43 @@ const Quotation = () => {
     dispatch(switchConstructionMounted(true));
   };
   // when user click add-to-cart button, construction component will be mounted but invisible, then the useEffect in it will
-  // generate the construction drawing and dispatch to corresponding state. The following useMemo will fetch design image
-  // and construction image URL and put them together to an item to add to the cart if the construction drawing is mounted
-  // but invisible.
-  useMemo(async () => {
-    dispatch(changeConstructionPdfSrc(null));
-    if (!isConstructionMounted || isConstructionOpen || !constructionUrl || !courtDataUrl) return;
-    const constructionImageUrl = await upLoadScreenshot(constructionUrl, toast, "construction");
-    const designImageUrl = await upLoadScreenshot(courtDataUrl, toast, "design");
-    addToCart({
-      item: { ...newCartItem, image: designImageUrl, constructionDrawing: constructionImageUrl },
-    });
-    dispatch(switchAddingToCart(false));
-    dispatch(switchConstructionMounted(false));
-    return toast({
-      title: `Your design has been added to the cart`,
-      status: "success",
-      duration: 9000,
-      isClosable: true,
-    });
+  // generate the construction drawing and dispatch it to corresponding state. The following effect will fetch design image
+  // and construction image URL and put them together to add to the cart.
+
+  useEffect(() => {
+    const addToCartAsync = async () => {
+      if (!isConstructionMounted || isConstructionOpen || !constructionUrl || !courtDataUrl) return;
+      const constructionImageUrl = await upLoadScreenshot(constructionUrl, toast, "construction");
+      const designImageUrl = await upLoadScreenshot(courtDataUrl, toast, "design");
+      addToCart({
+        item: {
+          ...newCartItem,
+          image: designImageUrl,
+          constructionDrawing: constructionImageUrl,
+        },
+      });
+      toast({
+        title: `Your design has been added to the cart`,
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+      dispatch(switchAddingToCart(false));
+      dispatch(switchConstructionMounted(false));
+    };
+    addToCartAsync();
+    return () => {
+      dispatch(changeConstructionPdfSrc(null));
+    };
   }, [constructionUrl]);
 
-  const handleConstructionOpen = () => {
+  const handleConstructionOpen = async () => {
     dispatch(resetAll());
     // turn off the ruler before start drawing construction
     dispatch(switchRuler(false));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 50);
+    });
     dispatch(switchConstructionOpen(true));
     dispatch(switchConstructionMounted(true));
   };

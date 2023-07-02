@@ -26,14 +26,13 @@ export const downloadToPDF = async (design: IDesign, imageUrl: string) => {
   const pageWidth = doc.internal.pageSize.width;
   const pageHeight = doc.internal.pageSize.height;
   const base64Image = (await getBase64Image(imageUrl)) as string;
-
   const { width, height } = (await getImageDimensions(base64Image)) as {
     width: number;
     height: number;
   };
   const ratio = width / height;
-  const canvasHeight = 250;
-  const canvasWidth = canvasHeight * ratio;
+  const canvasWidth = pageWidth;
+  const canvasHeight = canvasWidth / ratio;
   const center = (pageWidth / 2) as number;
   const marginX = (pageWidth - canvasWidth) / 2;
   const marginY = (pageHeight - canvasHeight) / 2;

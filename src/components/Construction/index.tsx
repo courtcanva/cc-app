@@ -56,7 +56,7 @@ const Construction = () => {
 
   // prepare start and end points of lines along the x axis
   const xLineLength =
-    Math.ceil(canvasHeight / (tileSize * constructionRatio)) *
+    Math.ceil(canvasHeight / (tileSize * constructionRatio) - 0.001) *
     (tileSize * constructionRatio) *
     IMAGE_COVERAGE;
   const xLinesPoints = Array.from(
@@ -69,7 +69,7 @@ const Construction = () => {
 
   // prepare start and end points of lines along the y axis
   const yLineLength =
-    Math.ceil(canvasWidth / (tileSize * constructionRatio)) *
+    Math.ceil(canvasWidth / (tileSize * constructionRatio) - 0.001) *
     (tileSize * constructionRatio) *
     IMAGE_COVERAGE;
   const yLinesPoints = Array.from(
