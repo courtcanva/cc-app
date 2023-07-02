@@ -72,7 +72,7 @@ describe("FileManagement", () => {
 
     await waitFor(async () => {
       expect(downloadBtn).toHaveAttribute("data-loading");
-      expect(mockJSPDFInstance.save).toHaveBeenCalledTimes(1)
+      expect(mockJSPDFInstance.save).toHaveBeenCalledTimes(1);
     });
   });
 
