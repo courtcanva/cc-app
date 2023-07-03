@@ -11,7 +11,7 @@ import {
   DRAW_DELAY,
   PIXEL_RATIO,
 } from "@/constants/construction";
-import { getInvertColor } from "@/utils/getInvertColor";
+import { findDistinctColor } from "@/utils/getInvertColor";
 import { changeConstructionPdfSrc } from "@/store/reducer/constructionSlice";
 import {
   switchConstructionOpen,
@@ -34,7 +34,7 @@ const Construction = () => {
   const constructionInfo = useStoreSelector((state) => state.construction.constructionInfo);
   const tiles = useStoreSelector((state) => state.tile.present.court);
   const tilesColor = tiles.map((item) => item.color);
-  const invertColor = getInvertColor(tilesColor);
+  const invertColor = findDistinctColor(tilesColor);
 
   const { beginPointX, beginPointY, endPointX, endPointY, tileSize } = constructionInfo;
   const constructionRatio = window.innerHeight / (endPointY - beginPointY);
@@ -219,10 +219,26 @@ const Construction = () => {
           </Layer>
           <Layer>
             {xLinesPoints.map((linePoints, index) => {
-              return <Line key={index} points={linePoints} stroke="black" strokeWidth={1} />;
+              return (
+                <Line
+                  key={index}
+                  points={linePoints}
+                  stroke="#000000"
+                  strokeWidth={1}
+                  opacity={0.5}
+                />
+              );
             })}
             {yLinesPoints.map((linePoints, index) => {
-              return <Line key={index} points={linePoints} stroke="black" strokeWidth={1} />;
+              return (
+                <Line
+                  key={index}
+                  points={linePoints}
+                  stroke="#000000"
+                  strokeWidth={1}
+                  opacity={0.5}
+                />
+              );
             })}
             {cartesianCoordinates.map((item, index) => {
               return (

@@ -1,22 +1,75 @@
-export const getInvertColor = (colorArray: string[]) => {
-  let rTotal = 0;
-  let gTotal = 0;
-  let bTotal = 0;
+interface RGBColor {
+  R: number;
+  G: number;
+  B: number;
+}
 
-  colorArray.forEach((color) => {
-    const r = parseInt(color.slice(1, 3), 16);
-    const g = parseInt(color.slice(3, 5), 16);
-    const b = parseInt(color.slice(5, 7), 16);
+const hexToRGB = (hex: string): RGBColor => {
+  const bigint = parseInt(hex.slice(1), 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return { R: r, G: g, B: b };
+};
 
-    rTotal += r;
-    gTotal += g;
-    bTotal += b;
+const arrayTo16 = Array.from({ length: 32 }, (v, k) => k + 1);
+const colorGrid: RGBColor[] = [];
+arrayTo16.forEach((r) => {
+  arrayTo16.forEach((g) => {
+    arrayTo16.forEach((b) => {
+      colorGrid.push({ R: 8 * r - 1, G: 8 * g - 1, B: 8 * b - 1 });
+    });
+  });
+});
+
+const calculateContrast = (color1: RGBColor, color2: RGBColor): number => {
+  // calculate luminance based on WCAG standard
+  // https://www.w3.org/WAI/GL/wiki/Relative_luminance
+  // https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html
+  const getLuminance = (color: RGBColor): number => {
+    const rgb = [color.R, color.G, color.B].map((c) => {
+      const cLinear = c / 255;
+      return cLinear <= 0.03928 ? cLinear / 12.92 : Math.pow((cLinear + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+  };
+
+  const l1 = getLuminance(color1);
+  const l2 = getLuminance(color2);
+
+  if (l1 > l2) {
+    return (l1 + 0.05) / (l2 + 0.05);
+  } else {
+    return (l2 + 0.05) / (l1 + 0.05);
+  }
+};
+
+// Function to find the color with largest contrast ratio to closest color
+export const findDistinctColor = (colors: string[]): string => {
+  const colorPalette = colors.map((color) => {
+    return hexToRGB(color);
+  });
+  let maxContrast = -Infinity;
+  let distinguishedColor = { R: 0, G: 0, B: 0 };
+  colorGrid.forEach((selectedColor) => {
+    let minContrast = Infinity;
+    colorPalette.forEach((color) => {
+      const contrast = calculateContrast(color, selectedColor);
+      if (contrast < minContrast) {
+        minContrast = contrast;
+      }
+    });
+    if (minContrast > maxContrast) {
+      maxContrast = minContrast;
+      distinguishedColor = selectedColor;
+    }
   });
 
-  const rAverage = Math.round(rTotal / colorArray.length);
-  const gAverage = Math.round(gTotal / colorArray.length);
-  const bAverage = Math.round(bTotal / colorArray.length);
-
-  const brightness = (rAverage * 299 + gAverage * 587 + bAverage * 114) / 1000;
-  return brightness >= 128 ? "#000000" : "#FFFFFF";
+  const distinctHex =
+    "#" +
+    ((1 << 24) + (distinguishedColor.R << 16) + (distinguishedColor.G << 8) + distinguishedColor.B)
+      .toString(16)
+      .slice(1);
+  console.log(distinguishedColor);
+  return distinctHex;
 };

@@ -13,6 +13,10 @@ import { changeConstructionPdfSrc } from "@/store/reducer/constructionSlice";
 import * as buttonToggleSlice from "@/store/reducer/buttonToggleSlice";
 import { upLoadScreenshot } from "@/utils/manageExternalImage";
 import * as cartApi from "@/redux/api/cartApi";
+import {
+  switchConstructionMounted,
+  switchConstructionOpen,
+} from "@/store/reducer/buttonToggleSlice";
 
 jest.setTimeout(20000);
 
@@ -51,6 +55,10 @@ const preloadedState = {
   },
   constructionState: {
     constructionPdfSrc: "mockUrl",
+  },
+  buttonToggle: {
+    isConstructionOpen: false,
+    isConstructionMounted: true,
   },
 };
 
@@ -110,32 +118,55 @@ describe("click add-to-cart button", () => {
     userEvent.click(cartBtn);
   };
 
-  it("should call correct dispatch action when user id is null", () => {
+  it("should call correct dispatch action when user id is null", async () => {
     const mockSwitchLoginModal = jest.spyOn(buttonToggleSlice, "switchLoginModal");
     store.dispatch(updateUserInfo(preloadedState.userStateNone));
     renderAndClick();
-    expect(mockSwitchLoginModal).toBeCalled();
+    await waitFor(() => expect(mockSwitchLoginModal).toBeCalled());
   });
 
-  it("should call toast when courtDataUrl is null", () => {
+  it("should call toast when courtDataUrl is null", async () => {
     store.dispatch(updateUserInfo(preloadedState.userState));
     renderAndClick();
-    expect(mockToast).toBeCalled();
+    await waitFor(() => expect(mockToast).toBeCalled());
   });
 
-  // it("should upload screenshot and add new item to cart", async () => {
-  //   const mockAddToCart = jest.fn();
-  //   jest.spyOn(cartApi, "useAddToCartMutation").mockReturnValue([mockAddToCart, jest.fn()] as any);
-  //   store.dispatch(updateUserInfo(preloadedState.userState));
-  //   store.dispatch(setCourtDataUrl(preloadedState.canvasState.courtDataUrl));
-  //   store.dispatch(changeConstructionPdfSrc(preloadedState.constructionState.constructionPdfSrc));
-  //   renderAndClick();
-  //   await waitFor(
-  //     () => {
-  //       expect(mockAddToCart).toBeCalled();
-  //       expect(upLoadScreenshot).toBeCalled();
-  //     },
-  //     { timeout: 10000 }
-  //   );
-  // });
+  it("should upload screenshot and add new item to cart", async () => {
+    const mockAddToCart = jest.fn();
+    jest.spyOn(cartApi, "useAddToCartMutation").mockReturnValue([mockAddToCart, jest.fn()] as any);
+    store.dispatch(updateUserInfo(preloadedState.userState));
+    store.dispatch(setCourtDataUrl(preloadedState.canvasState.courtDataUrl));
+    store.dispatch(changeConstructionPdfSrc(preloadedState.constructionState.constructionPdfSrc));
+    store.dispatch(switchConstructionMounted(preloadedState.buttonToggle.isConstructionMounted));
+    store.dispatch(switchConstructionOpen(preloadedState.buttonToggle.isConstructionOpen));
+    renderAndClick();
+    await waitFor(
+      () => {
+        expect(mockAddToCart).toBeCalled();
+        expect(upLoadScreenshot).toBeCalled();
+      },
+      { timeout: 10000 }
+    );
+  });
+});
+
+describe("click construction-on button", () => {
+  it("should switch construction mounted and construction open", async () => {
+    const mockSwitchConstructionOpen = jest.spyOn(buttonToggleSlice, "switchConstructionOpen");
+    const mockSwitchConstructionMounted = jest.spyOn(
+      buttonToggleSlice,
+      "switchConstructionMounted"
+    );
+    renderWithMockedProvider(<Quotation />);
+    const constructionBtn = screen.getByText(/Construction on/i);
+    userEvent.click(constructionBtn);
+    await waitFor(
+      () => {
+        expect(upLoadScreenshot).toBeCalled();
+        expect(mockSwitchConstructionOpen).toBeCalled();
+        expect(mockSwitchConstructionMounted).toBeCalled();
+      },
+      { timeout: 10000 }
+    );
+  });
 });
