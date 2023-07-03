@@ -261,15 +261,17 @@ const Construction = () => {
       </Center>
       {rect && (
         <Button
-          variant="shareBtn"
+          variant="solid"
           w="160px"
+          bg="black"
+          color="white"
           onClick={handleConstructionClose}
           position="fixed"
           zIndex="5999"
           top={rect.top}
           left={rect.left}
         >
-          Construction off
+          Construction Off
         </Button>
       )}
     </Box>

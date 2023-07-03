@@ -181,14 +181,16 @@ const Quotation = () => {
         Add to Cart
       </Button>
       <Button
-        variant="shareBtn"
+        variant="outline"
+        color="black"
         w="160px"
         mt="12px"
         onClick={handleConstructionOpen}
         position="relative"
         id="constructionButton"
+        borderColor="black"
       >
-        Construction on
+        Construction On
       </Button>
     </Box>
   );

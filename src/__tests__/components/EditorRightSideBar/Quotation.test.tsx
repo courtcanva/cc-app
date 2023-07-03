@@ -158,7 +158,7 @@ describe("click construction-on button", () => {
       "switchConstructionMounted"
     );
     renderWithMockedProvider(<Quotation />);
-    const constructionBtn = screen.getByText(/Construction on/i);
+    const constructionBtn = screen.getByText(/Construction On/i);
     userEvent.click(constructionBtn);
     await waitFor(
       () => {
