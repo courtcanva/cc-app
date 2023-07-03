@@ -1,6 +1,6 @@
 import { act, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
-import ColorBoard from "@/components/EditorRightSideBar/ColorBoard";
+import ColorBoard from "@/components/EditorRightSideBar/DesignTools/ColorBoard";
 import renderWithMockedProvider from "../../utils";
 import store from "@/store/index";
 import { initialState, PriceBar } from "@/store/reducer/priceBarSlice";

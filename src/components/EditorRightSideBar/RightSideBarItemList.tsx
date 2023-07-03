@@ -1,6 +1,6 @@
 import DesignTools from "./DesignTools";
 import DisplayAdjustment from "./DisplayAdjustment";
-import FileManagement from "./FileManagement";
+import FileManagement from "./FileMangement";
 import Quotation from "./Quotation";
 
 const rightSideBarItemList = [
