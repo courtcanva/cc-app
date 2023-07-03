@@ -70,6 +70,6 @@ export const findDistinctColor = (colors: string[]): string => {
     ((1 << 24) + (distinguishedColor.R << 16) + (distinguishedColor.G << 8) + distinguishedColor.B)
       .toString(16)
       .slice(1);
-  console.log(distinguishedColor);
+  console.log(distinctHex);
   return distinctHex;
 };

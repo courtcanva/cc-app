@@ -11,7 +11,7 @@ import {
   DRAW_DELAY,
   PIXEL_RATIO,
 } from "@/constants/construction";
-import { findDistinctColor } from "@/utils/getInvertColor";
+import { findDistinctColor } from "@/utils/findDistinctColor";
 import { changeConstructionPdfSrc } from "@/store/reducer/constructionSlice";
 import {
   switchConstructionOpen,
@@ -34,7 +34,7 @@ const Construction = () => {
   const constructionInfo = useStoreSelector((state) => state.construction.constructionInfo);
   const tiles = useStoreSelector((state) => state.tile.present.court);
   const tilesColor = tiles.map((item) => item.color);
-  const invertColor = findDistinctColor(tilesColor);
+  const distinctColor = findDistinctColor(tilesColor);
 
   const { beginPointX, beginPointY, endPointX, endPointY, tileSize } = constructionInfo;
   const constructionRatio = window.innerHeight / (endPointY - beginPointY);
@@ -252,7 +252,7 @@ const Construction = () => {
                   align="center"
                   verticalAlign="middle"
                   fontSize={coordinateFontSize}
-                  fill={invertColor}
+                  fill={distinctColor}
                 />
               );
             })}
