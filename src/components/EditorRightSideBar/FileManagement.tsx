@@ -9,7 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@chakra-ui/react";
-import SaveBoard from "@/components/TopBar/SaveBoard";
+import SaveBoard from "@/components/EditorRightSideBar/SaveBoard";
 import { BiDownload, BiSave } from "react-icons/bi";
 import {
   switchCreateTemplate,
@@ -21,7 +21,7 @@ import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { downloadToPDF } from "@/utils/printPDF";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import EditorDesignName from "@/components/NavBar/EditorDesignName";
+import EditorDesignName from "@/components/EditorRightSideBar/EditorDesignName";
 import { useEffect, useState } from "react";
 
 const FileManagement = () => {
