@@ -33,15 +33,9 @@ const calculateContrast = (color1: RGBColor, color2: RGBColor): number => {
     });
     return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
   };
-
   const l1 = getLuminance(color1);
   const l2 = getLuminance(color2);
-
-  if (l1 > l2) {
-    return (l1 + 0.05) / (l2 + 0.05);
-  } else {
-    return (l2 + 0.05) / (l1 + 0.05);
-  }
+  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
 };
 
 // Function to find the color with largest contrast ratio to closest color
@@ -70,6 +64,5 @@ export const findDistinctColor = (colors: string[]): string => {
     ((1 << 24) + (distinguishedColor.R << 16) + (distinguishedColor.G << 8) + distinguishedColor.B)
       .toString(16)
       .slice(1);
-  console.log(distinctHex);
   return distinctHex;
 };

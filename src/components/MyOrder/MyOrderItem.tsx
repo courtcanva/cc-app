@@ -2,10 +2,14 @@ import { Flex, Box, Text, Stack, Badge, Button } from "@chakra-ui/react";
 import Image from "next/image";
 import formatCurrency from "@/utils/formatCurrency";
 import { downloadToPDF } from "@/utils/printConstruction";
+import { useState } from "react";
 
 const MyOrderItem = ({ ...mergedItem }) => {
-  const handleDownload = () => {
-    downloadToPDF(mergedItem.design, mergedItem.constructionDrawing);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const handleDownload = async () => {
+    setIsDownloading(true);
+    await downloadToPDF(mergedItem.design, mergedItem.constructionDrawing);
+    setIsDownloading(false);
   };
   return (
     <Flex flexDirection="column" alignItems="center">
@@ -22,6 +26,7 @@ const MyOrderItem = ({ ...mergedItem }) => {
               width="100px"
               my="auto"
               onClick={handleDownload}
+              isLoading={isDownloading}
             >
               Download
             </Button>
