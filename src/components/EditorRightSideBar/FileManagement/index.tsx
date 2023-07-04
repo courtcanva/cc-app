@@ -9,7 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@chakra-ui/react";
-import SaveBoard from "@/components/EditorRightSideBar/FileMangement/SaveBoard";
+import SaveBoard from "@/components/EditorRightSideBar/FileManagement/SaveBoard";
 import { BiDownload, BiSave } from "react-icons/bi";
 import {
   switchCreateTemplate,
@@ -21,7 +21,7 @@ import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { downloadToPDF } from "@/utils/printPDF";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import EditorDesignName from "@/components/EditorRightSideBar/FileMangement/EditorDesignName";
+import EditorDesignName from "@/components/EditorRightSideBar/FileManagement/EditorDesignName";
 import { useEffect, useState } from "react";
 
 const FileManagement = () => {
@@ -41,19 +41,21 @@ const FileManagement = () => {
   };
 
   const handleDownload = async () => {
-    !isLoading && setIsLoading(true);
     dispatch(switchSideBar(false));
     dispatch(resetAll());
-    const downloadTimer = setTimeout(() => {
-      isLoading && setIsLoading(false);
-      clearTimeout(downloadTimer);
-    }, 1000);
+    if (!isLoading) {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
   };
   useEffect(() => {
-    isLoading &&
+    if (isLoading) {
       setTimeout(() => {
         downloadToPDF();
       }, 0);
+    }
   }, [isLoading]);
 
   const handleSaveOpen = () => {
