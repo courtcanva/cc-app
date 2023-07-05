@@ -19,7 +19,6 @@ jest.mock("jspdf", () => {
 });
 
 describe("FileManagement", () => {
-
   test("Each button in the File Management Component to display the correct text", () => {
     renderWithMockedProvider(<FileManagement />);
 

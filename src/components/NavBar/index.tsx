@@ -33,6 +33,7 @@ import CreateTemplate from "../CreateTemplate";
 import Profile from "./Profile";
 import { useRouter } from "next/router";
 import UserTokenService from "@/utils/TokenService";
+import LogoSVG from "@/assets/svg/NavSvg/logo.svg";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -157,8 +158,15 @@ const NavigationBar = () => {
     >
       <Flex alignItems="center">
         <Link href={HOME_PAGE_LINK} passHref>
-          <Button leftIcon={<IoIosArrowBack />} pl="0" variant="navbarIconBtn">
-            Home
+          <Button
+            leftIcon={<LogoSVG />}
+            style={{
+              fontFamily: "'Poppins', sans-serif",
+            }}
+            pl="0"
+            variant="navbarIconBtn"
+          >
+            CourtCanva
           </Button>
         </Link>
         {!isCartOpen && !isMyTemplateOpen && !isMyAccountOpen && (
