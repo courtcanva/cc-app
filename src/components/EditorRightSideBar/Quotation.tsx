@@ -80,9 +80,27 @@ const Quotation = () => {
     }
   }, [priceData, depositData, tileBlocks]);
 
-  // the event handler only work as a trigger for mounting Construction, as the construction image URL required
-  // for cart item will not be available until the image is generated in Construction and dispatch to the store.
-  const handleAddToCart = async () => {
+  const handleNotLoggedUser = () => {
+    dispatch(switchConstructionMounted(false));
+    dispatch(switchAddingToCart(false));
+    dispatch(changeConstructionPdfSrc(null));
+    dispatch(switchLoginModal(true));
+  };
+
+  const handleNoCourtData = () => {
+    dispatch(switchConstructionMounted(false));
+    dispatch(switchAddingToCart(false));
+    dispatch(changeConstructionPdfSrc(null));
+    toast({
+      title: `Fail to get courtDataUrl`,
+      description: "Try again or contact IT support",
+      status: "error",
+      duration: 9000,
+      isClosable: true,
+    });
+  };
+
+  const preAddToCart = async () => {
     // turn off the ruler and reset zoom before start drawing construction
     dispatch(resetAll());
     dispatch(switchRuler(false));
@@ -90,52 +108,45 @@ const Quotation = () => {
       setTimeout(resolve, 50);
     });
     dispatch(switchAddingToCart(true));
+    // Construction component will be invisibly mounted, draw the construction and dispatch to the state.
+    dispatch(switchConstructionMounted(true));
+  };
+
+  // the event handler checks the required conditions and triggers preAddToCart to prepare construction drawing.
+  const handleAddToCart = async () => {
     if (!userId) {
-      dispatch(switchConstructionMounted(false));
-      dispatch(switchAddingToCart(false));
-      dispatch(changeConstructionPdfSrc(null));
-      dispatch(switchLoginModal(true));
+      handleNotLoggedUser();
       return;
     }
     if (!courtDataUrl) {
-      dispatch(switchConstructionMounted(false));
-      dispatch(switchAddingToCart(false));
-      dispatch(changeConstructionPdfSrc(null));
-      return toast({
-        title: `Fail to get courtDataUrl`,
-        description: "Try again or contact IT support",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-      });
+      handleNoCourtData();
+      return;
     }
-    dispatch(switchConstructionMounted(true));
+    preAddToCart();
   };
-  // when user click add-to-cart button, construction component will be mounted but invisible, then the useEffect in it will
-  // generate the construction drawing and dispatch it to corresponding state. The following effect will fetch design image
-  // and construction image URL and put them together to add to the cart.
+
+  const addToCartAsync = async () => {
+    if (!isConstructionMounted || isConstructionOpen || !constructionUrl || !courtDataUrl) return;
+    const constructionImageUrl = await upLoadScreenshot(constructionUrl, toast, "construction");
+    const designImageUrl = await upLoadScreenshot(courtDataUrl, toast, "design");
+    addToCart({
+      item: {
+        ...newCartItem,
+        image: designImageUrl,
+        constructionDrawing: constructionImageUrl,
+      },
+    });
+    toast({
+      title: `Your design has been added to the cart`,
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
+    dispatch(switchAddingToCart(false));
+    dispatch(switchConstructionMounted(false));
+  };
 
   useEffect(() => {
-    const addToCartAsync = async () => {
-      if (!isConstructionMounted || isConstructionOpen || !constructionUrl || !courtDataUrl) return;
-      const constructionImageUrl = await upLoadScreenshot(constructionUrl, toast, "construction");
-      const designImageUrl = await upLoadScreenshot(courtDataUrl, toast, "design");
-      addToCart({
-        item: {
-          ...newCartItem,
-          image: designImageUrl,
-          constructionDrawing: constructionImageUrl,
-        },
-      });
-      toast({
-        title: `Your design has been added to the cart`,
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
-      dispatch(switchAddingToCart(false));
-      dispatch(switchConstructionMounted(false));
-    };
     addToCartAsync();
     return () => {
       dispatch(changeConstructionPdfSrc(null));
