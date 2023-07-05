@@ -5,9 +5,6 @@ import { useStoreSelector } from "@/store/hooks";
 import Header from "./Header";
 import NavigationBar from "../components/NavBar";
 import EditorSideBar from "../components/EditorSideBar";
-import EditorFooter from "@/components/EditorFooter";
-import PriceBar from "@/components/PriceBar";
-import TopBar from "@/components/TopBar";
 import ShoppingCart from "@/components/ShoppingCart";
 import MyTemplate from "@/components/MyTemplate";
 import AddingToCartOverlay from "@/components/AddingToCartOverlay";
@@ -70,14 +67,11 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
             <OrderGeneration />
             <EditorSideBar />
             {children}
-            <TopBar />
             <EditorRightSideBar />
             {isConstructionMounted && <Construction />}
             {isAddingToCart && <AddingToCartOverlay />}
           </Box>
           <TileBoard />
-          <PriceBar />
-          <EditorFooter />
         </>
       );
   }

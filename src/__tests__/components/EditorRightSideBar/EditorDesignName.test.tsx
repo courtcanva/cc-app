@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import EditorDesignName from "../../../components/NavBar/EditorDesignName";
+import EditorDesignName from "../../../components/EditorRightSideBar/FileManagement/EditorDesignName";
 import userEvent from "@testing-library/user-event";
 import renderWithMockedProvider from "../../utils";
 

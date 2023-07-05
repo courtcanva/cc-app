@@ -13,7 +13,7 @@ import {
   SliderTrack,
   SliderThumb,
 } from "@chakra-ui/react";
-import ColorBoard from "@/components/TopBar/ColorBoard";
+import ColorBoard from "./ColorBoard";
 import { useDispatch } from "react-redux";
 import { ActionCreators } from "redux-undo";
 import { switchPaintBucket, switchSideBar } from "@/store/reducer/buttonToggleSlice";
