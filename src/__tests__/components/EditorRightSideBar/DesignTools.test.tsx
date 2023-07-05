@@ -1,7 +1,7 @@
 import { screen, fireEvent } from "@testing-library/react";
 import DesignTools from "@/components/EditorRightSideBar/DesignTools";
 import renderWithMockedProvider from "../../utils";
-import ColorBoard from "@/components/TopBar/ColorBoard";
+import ColorBoard from "@/components/EditorRightSideBar/DesignTools/ColorBoard";
 
 describe("DesignTolls component", () => {
   test("Each element in the Design Tools component to display the correct text", () => {

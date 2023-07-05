@@ -12,12 +12,9 @@ describe("NavigationBar", () => {
       </GoogleOAuthProvider>
     );
 
-    const homeButtonElement = screen.getByText(/CourtCanva/i);
-    // const shareButtonElement = screen.getByText(/Share/i);
+    const homeButtonElement = screen.getByText(/Home/i);
 
     expect(homeButtonElement).toBeInTheDocument();
-    // expect(shareButtonElement).toBeInTheDocument();
-    expect(homeButtonElement).toHaveTextContent("CourtCanva");
-    // expect(shareButtonElement).toHaveTextContent("Share");
+    expect(homeButtonElement).toHaveTextContent("Home");
   });
 });
