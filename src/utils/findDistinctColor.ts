@@ -12,11 +12,11 @@ const hexToRGB = (hex: string): RGBColor => {
   return { R: r, G: g, B: b };
 };
 
-const arrayTo16 = Array.from({ length: 32 }, (v, k) => k + 1);
+const numberArray = (num: number) => Array.from({ length: num }, (v, k) => k + 1);
 const colorGrid: RGBColor[] = [];
-arrayTo16.forEach((r) => {
-  arrayTo16.forEach((g) => {
-    arrayTo16.forEach((b) => {
+numberArray(32).forEach((r) => {
+  numberArray(32).forEach((g) => {
+    numberArray(32).forEach((b) => {
       colorGrid.push({ R: 8 * r - 1, G: 8 * g - 1, B: 8 * b - 1 });
     });
   });
