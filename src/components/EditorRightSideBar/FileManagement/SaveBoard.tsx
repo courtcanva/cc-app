@@ -25,7 +25,7 @@ import SaveDesignModal from "./SaveDesignModal";
 import SaveAlert from "./SaveAlert";
 import { COURT_TYPE } from "@/constants/courtData";
 import { upLoadScreenshot } from "@/utils/manageExternalImage";
-import ConfirmModal from "../ComfirmModal";
+import ConfirmModal from "../../ComfirmModal";
 
 const SaveBoard: React.FC = () => {
   const dispatch = useDispatch();

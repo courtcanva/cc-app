@@ -45,7 +45,7 @@ const TileBoard = () => {
       height="64px"
       backgroundColor="background.tertiary"
       position="fixed"
-      bottom="106px"
+      bottom="0px"
       left="98px"
       width={`calc(100vw - 98px - ${RIGHT_BAR_WIDTH})`}
       zIndex="1500"

@@ -36,7 +36,6 @@ const ColorBoard: React.FC = () => {
           as="button"
           key={color.value}
           bg={color.value}
-          // data-testid={color}
           w="30px"
           h="30px"
           _hover={{ border: "2.5px solid #40B484" }}
