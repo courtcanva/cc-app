@@ -42,11 +42,11 @@ const DisplayAdjustment = () => {
 
   return (
     <Box>
-      <Text fontSize="14px" fontWeight="700" mb="10px" fontFamily="Inter">
+      <Text fontSize="14px" fontWeight="700" mb="10px">
         Display Adjustment
       </Text>
       <Flex alignItems="center">
-        <Tooltip hasArrow shouldWrapChildren label="Zoom Out" fontSize="sm">
+        <Tooltip hasArrow shouldWrapChildren label="Zoom Out" fontSize="sm" ml="-10px">
           <IconButton
             aria-label="Revert edit"
             icon={<ZoomOutSvg />}
@@ -58,7 +58,7 @@ const DisplayAdjustment = () => {
           />
         </Tooltip>
 
-        <Tooltip hasArrow shouldWrapChildren label="Zoom In" fontSize="sm">
+        <Tooltip hasArrow shouldWrapChildren label="Zoom In" fontSize="sm" ml="-8px">
           <IconButton
             aria-label="Forward edit"
             icon={<ZoomInSvg />}
@@ -66,10 +66,11 @@ const DisplayAdjustment = () => {
             data-testid="zoom-in-btn"
             onClick={handleZoomIn}
             isDisabled={zoomScale > MAX_ZOOM}
+            ml="-8px"
           />
         </Tooltip>
 
-        <Text fontSize="12px" fontFamily="Inter" fontWeight="500">{` ${(
+        <Text fontSize="12px" fontWeight="500" margin="0 2px">{` ${(
           zoomScale * 100
         ).toFixed()} %`}</Text>
 
