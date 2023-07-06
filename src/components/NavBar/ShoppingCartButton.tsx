@@ -1,9 +1,9 @@
 import React from "react";
 import { IconButton, Circle, Stack } from "@chakra-ui/react";
-import { HiOutlineShoppingBag } from "react-icons/hi";
 import { openCartDisplay, switchLoginModal } from "@/store/reducer/buttonToggleSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import ShoppingBagSvg from "@/assets/svg/NavSvg/shoppingBag.svg";
 interface Props {
   quantity: number;
   loginState: boolean;
@@ -21,9 +21,10 @@ const ShoppingCartButton = ({ quantity, loginState }: Props) => {
     <Stack position="relative">
       <IconButton
         aria-label="Order"
-        icon={<HiOutlineShoppingBag />}
+        icon={<ShoppingBagSvg />}
         variant="navbarIconBtn"
         onClick={handleCartPageOpen}
+        mr="-10px"
       />
       {quantity > 0 && loginState && (
         <Circle

@@ -1,16 +1,11 @@
-import { Menu, MenuButton, MenuList, MenuItem, Flex } from "@chakra-ui/react";
-import { FaRegUser } from "react-icons/fa";
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import PROFILE_LISTS from "@/constants/profileLists";
-import { BiChevronDown } from "react-icons/bi";
-import {
-  switchMyTemplateDisplay,
-  switchMyAccount,
-  switchCreateTemplate,
-} from "@/store/reducer/buttonToggleSlice";
+import { switchMyTemplateDisplay, switchMyAccount } from "@/store/reducer/buttonToggleSlice";
 import { userData } from "@/store/reducer/userSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import AvatarSVG from "@/assets/svg/NavSvg/Avatar.svg";
 
 interface Props {
   isOpen: boolean;
@@ -59,17 +54,15 @@ const Profile = ({ isOpen, onOpen, onClose, handleLogout }: Props) => {
         aria-label="User information"
         background="background.tertiary"
         color="brand.primary"
-        marginRight="10px"
+        mr="22px"
         onMouseEnter={onOpen}
         onMouseLeave={onClose}
-        width="40px"
-        height="40px"
+        width="48px"
+        height="48px"
         borderRadius="50%"
+        overflow="hidden"
       >
-        <Flex paddingLeft="5px">
-          <FaRegUser />
-          <BiChevronDown />
-        </Flex>
+        <AvatarSVG />
       </MenuButton>
       <MenuList onMouseEnter={onOpen} onMouseLeave={onClose} position="absolute" left="-44px">
         {PROFILE_LISTS.map((item) => (

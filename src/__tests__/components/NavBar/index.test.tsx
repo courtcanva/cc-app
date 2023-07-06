@@ -12,9 +12,9 @@ describe("NavigationBar", () => {
       </GoogleOAuthProvider>
     );
 
-    const homeButtonElement = screen.getByText(/Home/i);
+    const homeButtonElement = screen.getByText(/CourtCanva/i);
 
     expect(homeButtonElement).toBeInTheDocument();
-    expect(homeButtonElement).toHaveTextContent("Home");
+    expect(homeButtonElement).toHaveTextContent("CourtCanva");
   });
 });

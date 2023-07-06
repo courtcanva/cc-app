@@ -90,7 +90,6 @@ const DisplayAdjustment = () => {
             htmlFor="ruler-switch-btn"
             mb="0"
             data-testid="ruler-label"
-            fontFamily="Inter"
             fontSize="12px"
             fontWeight="500"
           >
