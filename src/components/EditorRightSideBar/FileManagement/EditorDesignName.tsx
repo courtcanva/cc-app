@@ -7,7 +7,6 @@ import {
   Input,
   EditableInput,
 } from "@chakra-ui/react";
-import { BiPencil } from "react-icons/bi";
 import { useStoreSelector } from "@/store/hooks";
 import { useEffect, useState } from "react";
 import NameChangeAlertModal from "./NameChangeAlertModal";
@@ -15,6 +14,7 @@ import checkDesignName from "@/utils/checkDesignName";
 import { useDispatch } from "react-redux";
 import { changeDesignName } from "@/store/reducer/courtSpecDataSlice";
 import { DESIGN_NAME_MAX_CHAR_LENGTH } from "@/constants/courtData";
+import PencilSVG from "@/assets/svg/RightBarSvg/pencil.svg";
 
 const EditableControls = () => {
   const { isEditing, getEditButtonProps } = useEditableControls();
@@ -22,7 +22,7 @@ const EditableControls = () => {
     <IconButton
       aria-label="Edit"
       size="sm"
-      icon={<BiPencil />}
+      icon={<PencilSVG />}
       variant="navbarIconBtn"
       {...getEditButtonProps()}
     />
@@ -58,7 +58,7 @@ const DesignName = () => {
 
   return (
     <>
-      <Flex justifyContent="center" alignItems="center" fontSize="xl">
+      <Flex justifyContent="center" alignItems="center" fontSize="18px" fontWeight="700">
         <Editable
           color="white"
           textAlign="center"

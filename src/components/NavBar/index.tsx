@@ -1,5 +1,4 @@
-import { Flex, Button, IconButton, Grid, Tooltip, Box, useDisclosure } from "@chakra-ui/react";
-import { IoIosArrowBack } from "react-icons/io";
+import { Flex, Button, Grid, Box, useDisclosure } from "@chakra-ui/react";
 import Link from "next/link";
 import HOME_PAGE_LINK from "@/constants/index";
 import LoginModalContent from "../Login";
@@ -24,7 +23,6 @@ import { switchLoginModal, switchCreateTemplate } from "@/store/reducer/buttonTo
 import { useHandleLocalStorageItem } from "@/hooks/useHandleLocalStorage";
 import CreateTemplate from "../CreateTemplate";
 import Profile from "./Profile";
-import { useRouter } from "next/router";
 import UserTokenService from "@/utils/TokenService";
 import LogoSVG from "@/assets/svg/NavSvg/logo.svg";
 
@@ -36,7 +34,6 @@ const NavigationBar = () => {
   const { userLogout, updateToken } = useAuthRequest();
   const { getLocalStorageItem } = useHandleLocalStorageItem();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const router = useRouter();
 
   // Get user info from local storage
   const getInfo = () => {
@@ -117,7 +114,7 @@ const NavigationBar = () => {
     <Grid
       templateColumns="repeat(3, 1fr)"
       bg="background.primary"
-      p={4}
+      p="12px 49px 12px 22px"
       minW="768px"
       w="100vw"
       position="fixed"
@@ -142,7 +139,9 @@ const NavigationBar = () => {
 
       <Flex alignItems="center" justifyContent="flex-end">
         {!loginState ? (
-          <Button onClick={handleLoginModalOpen}>Sign up / Login</Button>
+          <Button m="4px 22px 4px 0" onClick={handleLoginModalOpen}>
+            Sign up / Login
+          </Button>
         ) : (
           <Profile isOpen={isOpen} onOpen={onOpen} onClose={onClose} handleLogout={handleLogout} />
         )}
