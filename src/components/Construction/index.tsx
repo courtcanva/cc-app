@@ -40,8 +40,16 @@ const Construction = () => {
   const constructionRatio = window.innerHeight / (endPointY - beginPointY);
   // calculate suitable font size for different design
   const coordinateFontSize = Math.floor(3 * constructionRatio);
-  const canvasWidth = constructionRatio * (endPointX - beginPointX);
-  const canvasHeight = constructionRatio * (endPointY - beginPointY);
+  const constructionWidth = constructionRatio * (endPointX - beginPointX);
+  const constructionHeight = constructionRatio * (endPointY - beginPointY);
+  const canvasWidth =
+    constructionWidth * IMAGE_COVERAGE +
+    COORDINATES_AREA_WIDTH +
+    tileSize * constructionRatio * IMAGE_COVERAGE;
+  const canvasHeight =
+    constructionHeight * IMAGE_COVERAGE +
+    COORDINATES_AREA_WIDTH +
+    tileSize * constructionRatio * IMAGE_COVERAGE;
 
   const [img, setImg] = useState(new window.Image());
   useEffect(() => {
@@ -56,7 +64,7 @@ const Construction = () => {
 
   // prepare start and end points of lines along the x axis
   const xLineLength =
-    Math.ceil(canvasHeight / (tileSize * constructionRatio) - 0.001) *
+    Math.ceil(constructionHeight / (tileSize * constructionRatio) - 0.001) *
     (tileSize * constructionRatio) *
     IMAGE_COVERAGE;
   const xLinesPoints = Array.from(
@@ -69,7 +77,7 @@ const Construction = () => {
 
   // prepare start and end points of lines along the y axis
   const yLineLength =
-    Math.ceil(canvasWidth / (tileSize * constructionRatio) - 0.001) *
+    Math.ceil(constructionWidth / (tileSize * constructionRatio) - 0.001) *
     (tileSize * constructionRatio) *
     IMAGE_COVERAGE;
   const yLinesPoints = Array.from(
@@ -163,21 +171,7 @@ const Construction = () => {
       <Center h="100vh" w={`calc(100vw - ${RIGHT_BAR_WIDTH})`}>
         <Stage width={canvasWidth} height={canvasHeight} ref={pdfRef}>
           <Layer>
-            <Rect
-              x={0}
-              y={0}
-              width={
-                canvasWidth * IMAGE_COVERAGE +
-                COORDINATES_AREA_WIDTH +
-                tileSize * constructionRatio * IMAGE_COVERAGE
-              }
-              height={
-                canvasHeight * IMAGE_COVERAGE +
-                COORDINATES_AREA_WIDTH +
-                tileSize * constructionRatio * IMAGE_COVERAGE
-              }
-              fill="white"
-            />
+            <Rect x={0} y={0} width={canvasWidth} height={canvasHeight} fill="white" />
             {xCoordinates.map((item, index) => {
               return (
                 <Text

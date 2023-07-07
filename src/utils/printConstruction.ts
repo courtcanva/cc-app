@@ -31,8 +31,13 @@ export const downloadToPDF = async (design: IDesign, imageUrl: string) => {
     height: number;
   };
   const ratio = width / height;
-  const canvasWidth = pageWidth;
-  const canvasHeight = canvasWidth / ratio;
+  let canvasWidth = pageWidth;
+  let canvasHeight = canvasWidth / ratio;
+
+  if (canvasHeight > 0.55 * pageHeight) {
+    canvasHeight = 0.55 * pageHeight;
+    canvasWidth = canvasHeight * ratio;
+  }
   const center = (pageWidth / 2) as number;
   const marginX = (pageWidth - canvasWidth) / 2;
   const marginY = (pageHeight - canvasHeight) / 2;

@@ -145,7 +145,7 @@ const Quotation = () => {
     dispatch(switchAddingToCart(false));
     dispatch(switchConstructionMounted(false));
   };
-
+  // TODO: accomplish add-to-cart operation in a more readable approach
   useEffect(() => {
     addToCartAsync();
     return () => {
