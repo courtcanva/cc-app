@@ -5,7 +5,7 @@ import { userData } from "@/store/reducer/userSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import AvatarSVG from "@/assets/svg/NavSvg/Avatar.svg";
+import AvatarSVG from "@/assets/svg/NavSvg/avatar.svg";
 
 interface Props {
   isOpen: boolean;
