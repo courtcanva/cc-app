@@ -7,9 +7,9 @@ import userEvent from "@testing-library/user-event";
 describe("EditorSideBar component", () => {
   test("Each box in the sidebar should render the correct text", () => {
     renderWithMockedProvider(<EditorSideBar />);
-    const bluePrintsText = screen.getByText("Blueprints");
+    const bluePrintsText = screen.getByText("Basketball");
     const folderText = screen.getByText("Folder");
-    const templateText = screen.getByText("Templates");
+    const templateText = screen.getByText("Template");
 
     expect(bluePrintsText).toBeInTheDocument();
     expect(folderText).toBeInTheDocument();
@@ -18,7 +18,7 @@ describe("EditorSideBar component", () => {
 
   test("When clicking icon button and closing button should be working", () => {
     renderWithMockedProvider(<EditorSideBar />);
-    const element = screen.getByText("Blueprints");
+    const element = screen.getByText("Basketball");
 
     userEvent.click(element);
     const closingBtn = screen.getByRole("button");
