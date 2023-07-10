@@ -1,6 +1,6 @@
 import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
 import { Box, Center, Button } from "@chakra-ui/react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import Konva from "konva";
 import { useDispatch } from "react-redux";
 import { Stage, Layer, Line, Rect, Text, Image } from "react-konva";
@@ -33,8 +33,10 @@ const Construction = () => {
   const imgSrc = useStoreSelector((state) => state.construction.constructionSrc);
   const constructionInfo = useStoreSelector((state) => state.construction.constructionInfo);
   const tiles = useStoreSelector((state) => state.tile.present.court);
-  const tilesColor = tiles.map((item) => item.color);
-  const distinctColor = findDistinctColor(tilesColor);
+  const tilesColor = useMemo(() => tiles.map((item) => item.color), []);
+  const distinctColor = useMemo(() => {
+    return findDistinctColor(tilesColor);
+  }, []);
 
   const { beginPointX, beginPointY, endPointX, endPointY, tileSize } = constructionInfo;
   const constructionRatio = window.innerHeight / (endPointY - beginPointY);
@@ -67,70 +69,89 @@ const Construction = () => {
     Math.ceil(constructionHeight / (tileSize * constructionRatio) - 0.001) *
     (tileSize * constructionRatio) *
     IMAGE_COVERAGE;
-  const xLinesPoints = Array.from(
-    { length: Math.ceil((endPointX - beginPointX) / tileSize) + 1 },
-    (v, k) => k
-  ).map((number) => {
-    const x = number * tileSize * constructionRatio * IMAGE_COVERAGE + COORDINATES_AREA_WIDTH;
-    return [x, COORDINATES_AREA_WIDTH, x, COORDINATES_AREA_WIDTH + xLineLength];
-  });
+
+  const xLinesPoints = useMemo(() => {
+    return Array.from(
+      { length: Math.ceil((endPointX - beginPointX) / tileSize) + 1 },
+      (v, k) => k
+    ).map((number) => {
+      const x = number * tileSize * constructionRatio * IMAGE_COVERAGE + COORDINATES_AREA_WIDTH;
+      return [x, COORDINATES_AREA_WIDTH, x, COORDINATES_AREA_WIDTH + xLineLength];
+    });
+  }, []);
 
   // prepare start and end points of lines along the y axis
   const yLineLength =
     Math.ceil(constructionWidth / (tileSize * constructionRatio) - 0.001) *
     (tileSize * constructionRatio) *
     IMAGE_COVERAGE;
-  const yLinesPoints = Array.from(
-    { length: Math.ceil((endPointY - beginPointY) / tileSize) + 1 },
-    (v, k) => k
-  ).map((number) => {
-    const y = number * tileSize * constructionRatio * IMAGE_COVERAGE + COORDINATES_AREA_WIDTH;
-    return [COORDINATES_AREA_WIDTH, y, COORDINATES_AREA_WIDTH + yLineLength, y];
-  });
 
-  const xCoordinates = xLinesPoints.map((item, index) => {
-    return {
-      x: item[0],
-      y: 0,
-      width: tileSize * constructionRatio * IMAGE_COVERAGE,
-      height: COORDINATES_AREA_WIDTH,
-      text:
-        Math.floor(index / 100).toString() +
-        Math.floor((index % 100) / 10).toString() +
-        (index % 10).toString(),
-    };
-  });
-  xCoordinates.pop();
-
-  const yCoordinates = yLinesPoints.map((item, index) => {
-    return {
-      x: 0,
-      y: item[1],
-      width: COORDINATES_AREA_WIDTH,
-      height: tileSize * constructionRatio * IMAGE_COVERAGE,
-      text:
-        String.fromCharCode(65 + Math.floor(index / 26)) + String.fromCharCode(65 + (index % 26)),
-    };
-  });
-  yCoordinates.pop();
-
-  const getCartesianCoordinates = (xCoordinates: Coordinates[], yCoordinates: Coordinates[]) => {
-    const cartesianCoordinates: Coordinates[] = [];
-    xCoordinates.forEach((xCoordinate) => {
-      yCoordinates.forEach((yCoordinate) => {
-        const cartesianCoordinate = {
-          x: xCoordinate.x,
-          y: yCoordinate.y,
-          width: tileSize * constructionRatio * IMAGE_COVERAGE,
-          height: tileSize * constructionRatio * IMAGE_COVERAGE,
-          text: xCoordinate.text + "\n" + yCoordinate.text,
-        };
-        cartesianCoordinates.push(cartesianCoordinate);
-      });
+  const yLinesPoints = useMemo(() => {
+    return Array.from(
+      { length: Math.ceil((endPointY - beginPointY) / tileSize) + 1 },
+      (v, k) => k
+    ).map((number) => {
+      const y = number * tileSize * constructionRatio * IMAGE_COVERAGE + COORDINATES_AREA_WIDTH;
+      return [COORDINATES_AREA_WIDTH, y, COORDINATES_AREA_WIDTH + yLineLength, y];
     });
-    return cartesianCoordinates;
-  };
-  const cartesianCoordinates = getCartesianCoordinates(xCoordinates, yCoordinates);
+  }, []);
+
+  const xCoordinates = useMemo(() => {
+    return xLinesPoints
+      .map((item, index) => {
+        return {
+          x: item[0],
+          y: 0,
+          width: tileSize * constructionRatio * IMAGE_COVERAGE,
+          height: COORDINATES_AREA_WIDTH,
+          text:
+            Math.floor(index / 100).toString() +
+            Math.floor((index % 100) / 10).toString() +
+            (index % 10).toString(),
+        };
+      })
+      .slice(0, -1);
+  }, []);
+
+  const yCoordinates = useMemo(() => {
+    return yLinesPoints
+      .map((item, index) => {
+        return {
+          x: 0,
+          y: item[1],
+          width: COORDINATES_AREA_WIDTH,
+          height: tileSize * constructionRatio * IMAGE_COVERAGE,
+          text:
+            String.fromCharCode(65 + Math.floor(index / 26)) +
+            String.fromCharCode(65 + (index % 26)),
+        };
+      })
+      .slice(0, -1);
+  }, []);
+
+  const getCartesianCoordinates = useCallback(
+    (xCoordinates: Coordinates[], yCoordinates: Coordinates[]) => {
+      const cartesianCoordinates: Coordinates[] = [];
+      xCoordinates.forEach((xCoordinate) => {
+        yCoordinates.forEach((yCoordinate) => {
+          const cartesianCoordinate = {
+            x: xCoordinate.x,
+            y: yCoordinate.y,
+            width: tileSize * constructionRatio * IMAGE_COVERAGE,
+            height: tileSize * constructionRatio * IMAGE_COVERAGE,
+            text: xCoordinate.text + "\n" + yCoordinate.text,
+          };
+          cartesianCoordinates.push(cartesianCoordinate);
+        });
+      });
+      return cartesianCoordinates;
+    },
+    []
+  );
+
+  const cartesianCoordinates = useMemo(() => {
+    return getCartesianCoordinates(xCoordinates, yCoordinates);
+  }, []);
 
   // extract the position of original construction button
   const constructionButton = document.getElementById("constructionButton");
@@ -151,11 +172,11 @@ const Construction = () => {
     }, DRAW_DELAY);
   }, []);
 
-  const handleConstructionClose = () => {
+  const handleConstructionClose = useCallback(() => {
     dispatch(switchConstructionOpen(false));
     dispatch(switchConstructionMounted(false));
     dispatch(changeConstructionPdfSrc(null));
-  };
+  }, []);
 
   return (
     <Box
