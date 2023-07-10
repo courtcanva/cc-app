@@ -10,7 +10,7 @@ interface Props {
   fetchedCourtsData: ICourtData[] | undefined;
 }
 
-const Blueprints = ({ fetchedCourtsData }: Props) => {
+const Basketball = ({ fetchedCourtsData }: Props) => {
   const dispatch = useDispatch();
   const [activateCourt, setActivateCourt] = useState<string>("");
 
@@ -57,4 +57,4 @@ const Blueprints = ({ fetchedCourtsData }: Props) => {
   );
 };
 
-export default Blueprints;
+export default Basketball;

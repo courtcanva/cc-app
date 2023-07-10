@@ -1,6 +1,5 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import EditorSideBar from "@/components/EditorSideBar";
-import sideBarItemList from "@/components/EditorSideBar/SideBarItemList";
 import renderWithMockedProvider from "../../utils";
 import userEvent from "@testing-library/user-event";
 

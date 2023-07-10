@@ -1,5 +1,5 @@
-import Templates from "@/components/EditorSideBar/Templates";
-import { getByText, screen } from "@testing-library/dom";
+import Template from "@/components/EditorSideBar/Template";
+import { screen } from "@testing-library/dom";
 import renderWithMockedProvider from "../../utils";
 
 describe("Render the templates list", () => {
@@ -13,13 +13,13 @@ describe("Render the templates list", () => {
     window.IntersectionObserver = mockIntersectionObserver;
   });
   it("Notice of empty template list is correct rendered", () => {
-    renderWithMockedProvider(<Templates />);
+    renderWithMockedProvider(<Template />);
     const emptyList = screen.getByText(/the template list is empty/i);
     expect(emptyList).toBeInTheDocument();
   });
 
   it("Should render select option", () => {
-    renderWithMockedProvider(<Templates />);
+    renderWithMockedProvider(<Template />);
     const selectOption = screen.getByText("Court Category");
     expect(selectOption).toBeInTheDocument();
   });
