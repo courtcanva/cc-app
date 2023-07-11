@@ -1,12 +1,12 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import { RiArrowLeftSLine } from "react-icons/ri";
-import Blueprints from "./Blueprints";
+import Basketball from "./Basketball";
 import Folder from "./Folder";
 import { useGetCourtsQuery } from "@/redux/api/courtSizeApi";
 import { ICourtData } from "@/interfaces/design";
 import { IconContext } from "react-icons";
-import Templates from "./Templates";
+import Template from "./Template";
 
 interface Props {
   iconClickTitle: string;
@@ -15,12 +15,12 @@ interface Props {
 
 const showContainerItem = (iconClickTitle: string, courtsData: ICourtData[]) => {
   switch (iconClickTitle) {
-    case "Blueprints":
-      return <Blueprints fetchedCourtsData={courtsData} />;
+    case "Basketball":
+      return <Basketball fetchedCourtsData={courtsData} />;
     case "Folder":
       return <Folder />;
-    case "Templates":
-      return <Templates />;
+    case "Template":
+      return <Template />;
     default:
       return iconClickTitle;
   }

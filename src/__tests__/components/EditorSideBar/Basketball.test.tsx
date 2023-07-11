@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
-import Blueprints from "@/components/EditorSideBar/Blueprints";
+import Basketball from "@/components/EditorSideBar/Basketball";
 import renderWithMockedProvider from "../../utils";
 
-describe("Blueprints", () => {
+describe("Basketball", () => {
   const data = [
     {
       centreCircleRadius: 1800,
@@ -25,7 +25,7 @@ describe("Blueprints", () => {
     },
   ];
   it("Should render images", () => {
-    renderWithMockedProvider(<Blueprints fetchedCourtsData={data} />);
+    renderWithMockedProvider(<Basketball fetchedCourtsData={data} />);
     const imgElements = screen.getAllByRole("img");
     expect(imgElements.length).toBe(1);
   });

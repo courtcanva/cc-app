@@ -5,9 +5,9 @@ import { Box, Select, Text } from "@chakra-ui/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import TemplateItem from "../TemplateList/TemplateItem";
 
-const Templates = () => {
+const Template = () => {
   const [offset, setOffset] = useState<number>(0);
-  const [templatesData, setTemplatesData] = useState<Omit<ITemplateDataDb, "__v" | "isDeleted">[]>(
+  const [TemplateData, setTemplateData] = useState<Omit<ITemplateDataDb, "__v" | "isDeleted">[]>(
     []
   );
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -27,14 +27,14 @@ const Templates = () => {
 
   useEffect(() => {
     if (rawTemplateData) {
-      setTemplatesData((prev) => [...prev, ...rawTemplateData]);
+      setTemplateData((prev) => [...prev, ...rawTemplateData]);
       setHasNextPage(Boolean(rawTemplateData?.length));
     }
   }, [rawTemplateData]);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterTag(() => e.target.value);
-    setTemplatesData(() => []);
+    setTemplateData(() => []);
     setOffset(() => 0);
   };
 
@@ -43,8 +43,8 @@ const Templates = () => {
     (template) => {
       if (isLoading) return;
       if (intObserver.current) intObserver.current?.disconnect();
-      intObserver.current = new IntersectionObserver((templatesData) => {
-        if (templatesData[0].isIntersecting && hasNextPage) {
+      intObserver.current = new IntersectionObserver((TemplateData) => {
+        if (TemplateData[0].isIntersecting && hasNextPage) {
           setOffset((prev) => prev + LIMIT);
         }
       });
@@ -53,7 +53,7 @@ const Templates = () => {
     [isLoading, hasNextPage]
   );
 
-  const templateEmpty = templatesData?.length === 0;
+  const templateEmpty = TemplateData?.length === 0;
 
   return (
     <Box height="100%" className="scrollbox">
@@ -71,8 +71,8 @@ const Templates = () => {
         <option value="ProHalfCourt">Pro Half Court</option>
         <option value="MediumCourt">Medium Court</option>
       </Select>
-      {templatesData?.map((template, index) => {
-        if (templatesData?.length === index + 1) {
+      {TemplateData?.map((template, index) => {
+        if (TemplateData?.length === index + 1) {
           return <TemplateItem key={template._id} template={template} ref={lastTemplateRef} />;
         }
         return <TemplateItem key={template._id} template={template} />;
@@ -90,4 +90,4 @@ const Templates = () => {
     </Box>
   );
 };
-export default Templates;
+export default Template;
