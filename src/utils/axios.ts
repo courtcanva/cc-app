@@ -1,6 +1,8 @@
 import { environment } from "@/constants/environment";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import omit from "lodash/omit";
+import TokenService from "./TokenService";
+import { Token } from "aws-sdk/lib/token";
 
 // // AbortController
 // // Starting from v0.22.0 Axios supports AbortController to cancel requests in fetch API way:
@@ -23,6 +25,19 @@ const axiosInstance = axios.create({
   baseURL: environment.apiBaseUrl,
   timeout: REQUEST_TIMEOUT,
 });
+
+axiosInstance.interceptors.request.use(
+  (config: AxiosRequestConfig) => {
+    const token = TokenService.getLocalAccessToken();
+    if (token && config.headers) {
+      config.headers.Authorization = token;
+    }
+    return config;
+  },
+  (error: unknown) => {
+    Promise.reject(error);
+  }
+);
 
 export const api = async (
   endpoint: string,
