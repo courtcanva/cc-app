@@ -17,6 +17,7 @@ import canvasControlModel from "../../utils/canvasControlModel";
 import useImageDataUrl from "@/hooks/useImageDataUrl";
 import ThreeDimensionalToggle from "../ThreeDimensionalCourt";
 import { useTileCalculation } from "@/hooks/useTileCalculation";
+import { useConstruction } from "@/hooks/useConstruction";
 import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
 
 const SmallCourt = () => {
@@ -28,6 +29,7 @@ const SmallCourt = () => {
     stageMargin,
     courtStartPoint,
     componentsStartPoint,
+    courtAndTileInfo,
   } = useCourt();
   const stageRef = useRef<any>(null);
   const layerRef = useRef<any>(null);
@@ -52,6 +54,7 @@ const SmallCourt = () => {
 
   useImageDataUrl(stageRef);
   useTileCalculation(layerRef);
+  useConstruction(layerRef, courtAndTileInfo);
 
   return (
     <Flex
