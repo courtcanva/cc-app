@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Flex,
   Box,
@@ -16,7 +16,11 @@ import {
 import ColorBoard from "./ColorBoard";
 import { useDispatch } from "react-redux";
 import { ActionCreators } from "redux-undo";
-import { switchPaintBucket, switchSideBar } from "@/store/reducer/buttonToggleSlice";
+import {
+  switchPaintBucket,
+  switchSideBar,
+  switchBadgeUpload,
+} from "@/store/reducer/buttonToggleSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
@@ -25,9 +29,13 @@ import UndoSvg from "@/assets/svg/RightBarSvg/undo.svg";
 import RedoSvg from "@/assets/svg/RightBarSvg/redo.svg";
 import ResetSvg from "@/assets/svg/RightBarSvg/reset.svg";
 import CustomizeSvg from "@/assets/svg/RightBarSvg/customize.svg";
+import UploadSvg from "@/assets/svg/RightBarSvg/upload.svg";
+import UploadImage from "@/components/ImageUpload";
+import { switchBadgeLoaded } from "@/store/reducer/badgeSlice";
 
 const DesignTools = () => {
   const dispatch = useDispatch();
+  const ref = useRef(null);
   const open = () => dispatch(switchPaintBucket(true));
   const close = () => dispatch(switchPaintBucket(false));
   const userData = useStoreSelector((state) => state.user);
@@ -65,8 +73,13 @@ const DesignTools = () => {
     dispatch(updateBorderLength(val * 1000));
   };
 
+  const handleUpload = () => {
+    dispatch(switchBadgeUpload(true));
+    dispatch(switchBadgeLoaded(false));
+  };
+
   return (
-    <Box>
+    <Box ref={ref}>
       <Text fontSize="14px" fontWeight="700" mb="10px">
         Design Tools
       </Text>
@@ -174,6 +187,19 @@ const DesignTools = () => {
             </Box>
           </SliderThumb>
         </Slider>
+      </Flex>
+      <Flex>
+        <Tooltip hasArrow shouldWrapChildren fontSize="sm" placement="top" ml="-10px">
+          <IconButton
+            aria-label="Upload Badge"
+            icon={<UploadSvg />}
+            data-testid="uploadBtn"
+            variant="navbarIconBtn"
+            ml="-10px"
+            onClick={handleUpload}
+          />
+          <UploadImage ref={ref} />
+        </Tooltip>
       </Flex>
     </Box>
   );

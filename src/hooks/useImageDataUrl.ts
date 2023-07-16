@@ -13,17 +13,21 @@ const useImageDataUrl = (stageRef: RefObject<Konva.Stage>) => {
   const { borderLength } = useCourt();
   const presentCourt = useStoreSelector((state) => state.tile.present.court);
   const rulerState = useStoreSelector((state) => state.buttonToggle.isRulerOn);
+  const isBadgeLoaded = useStoreSelector((state) => state.badge.isBadgeLoaded);
 
   useEffect(() => {
-    if (!stageRef.current) return;
-    dispatch(resetAll());
-    rulerState ? dispatch(switchRuler(false)) : null;
-    const image = stageRef.current.toDataURL({
-      pixelRatio: 1.5,
-    });
-    dispatch(setCourtDataUrl(image));
-    rulerState ? dispatch(switchRuler(true)) : null;
-  }, [borderLength, presentCourt]);
+    const timer = setTimeout(() => {
+      if (!stageRef.current) return;
+      dispatch(resetAll());
+      rulerState ? dispatch(switchRuler(false)) : null;
+      const image = stageRef.current.toDataURL({
+        pixelRatio: 1.5,
+      });
+      dispatch(setCourtDataUrl(image));
+      rulerState ? dispatch(switchRuler(true)) : null;
+    }, 100); // set 100ms delay to avoid transit effect disturb getting correct image data.
+    return () => clearTimeout(timer);
+  }, [borderLength, presentCourt, isBadgeLoaded]);
 };
 
 export default useImageDataUrl;

@@ -13,6 +13,7 @@ export interface ButtonToggleState {
   isMyTemplateOpen: boolean;
   isSwitch3D: boolean;
   isMyAccountOpen: boolean;
+  isBadgeUploadOpen: boolean;
 }
 
 export const initialState: ButtonToggleState = {
@@ -28,6 +29,7 @@ export const initialState: ButtonToggleState = {
   isMyTemplateOpen: false,
   isSwitch3D: false,
   isMyAccountOpen: false,
+  isBadgeUploadOpen: false,
 };
 
 export const ButtonToggleSlice = createSlice({
@@ -149,6 +151,13 @@ export const ButtonToggleSlice = createSlice({
         isCreateTemplateOpen: false,
       };
     },
+    switchBadgeUpload: (state: ButtonToggleState, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isBadgeUploadOpen: action.payload,
+        isSideBarOpen: false,
+      };
+    },
   },
 });
 
@@ -166,6 +175,7 @@ export const {
   switchOrderGeneration,
   switch3D,
   switchMyAccount,
+  switchBadgeUpload,
 } = ButtonToggleSlice.actions;
 
 export default ButtonToggleSlice.reducer;
