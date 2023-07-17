@@ -1,6 +1,3 @@
-import { useStoreSelector } from "@/store/hooks";
-import { switchBadgeUsed, setBadgeImage } from "@/store/reducer/badgeSlice";
-import { switchBadgeUpload } from "@/store/reducer/buttonToggleSlice";
 import { inputImageCheck, toBase64 } from "@/utils/manageExternalImage";
 import {
   Modal,
@@ -28,17 +25,20 @@ import { useDispatch } from "react-redux";
 import Cropper, { Area } from "react-easy-crop";
 import { getCroppedImg } from "@/utils/manageExternalImage";
 
-const ImageUpload = (ref: any) => {
+interface IImageUpload {
+  name: string;
+  isOpen: boolean;
+  switchUpload(value: boolean): any;
+  setImage(url: string, width: number, height: number): any;
+  switchUsed(value: boolean): any;
+}
+
+const ImageUpload = (props: IImageUpload) => {
+  const { name, isOpen, switchUpload, setImage, switchUsed } = props;
   const minSizeInKB = 0;
   const maxSizeInKB = 300;
   const dispatch = useDispatch();
   const toast = useToast();
-  const { isBadgeUploadOpen } = useStoreSelector((state) => state.buttonToggle);
-  const onClose = () => {
-    setPicture("");
-    handleReset();
-    dispatch(switchBadgeUpload(false));
-  };
   const [picture, setPicture] = useState("");
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -52,6 +52,12 @@ const ImageUpload = (ref: any) => {
   });
   const [loading, setLoading] = useState(false);
 
+  const onClose = () => {
+    setPicture("");
+    handleReset();
+    dispatch(switchUpload(false));
+  };
+
   const imgSet = async (file: File) => {
     if (!inputImageCheck(file, minSizeInKB, maxSizeInKB, toast)) return;
     const img = (await toBase64(file)) as string;
@@ -64,6 +70,7 @@ const ImageUpload = (ref: any) => {
       setLoading(false);
       return;
     }
+    handleReset();
     const file = e.target.files[0];
     imgSet(file);
     setLoading(false);
@@ -104,23 +111,17 @@ const ImageUpload = (ref: any) => {
       croppedAreaPixels,
       rotation
     )) as HTMLCanvasElement;
-    dispatch(
-      setBadgeImage({
-        badgeImageUrl: cropCanvas.toDataURL(),
-        width: cropCanvas.width,
-        height: cropCanvas.height,
-      })
-    );
-    dispatch(switchBadgeUsed(true));
+    setImage(cropCanvas.toDataURL(), cropCanvas.width, cropCanvas.height);
+    dispatch(switchUsed(true));
     onClose();
   }, [picture, croppedAreaPixels, rotation]);
 
   return (
-    <Modal finalFocusRef={ref} isOpen={isBadgeUploadOpen} onClose={onClose} size="lg" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered returnFocusOnClose={false}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader color="brand.primary" textAlign="center">
-          Upload Image
+          Upload {name} Image
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody alignItems="center">
@@ -228,7 +229,7 @@ const ImageUpload = (ref: any) => {
         <ModalFooter justifyContent="center">
           {picture && !loading && (
             <Button variant="shareBtn" onClick={handleApply}>
-              Apply
+              Apply {name}
             </Button>
           )}
         </ModalFooter>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Flex,
   Box,
@@ -17,9 +17,9 @@ import ColorBoard from "./ColorBoard";
 import { useDispatch } from "react-redux";
 import { ActionCreators } from "redux-undo";
 import {
+  switchBadgeUpload,
   switchPaintBucket,
   switchSideBar,
-  switchBadgeUpload,
 } from "@/store/reducer/buttonToggleSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
@@ -30,17 +30,16 @@ import RedoSvg from "@/assets/svg/RightBarSvg/redo.svg";
 import ResetSvg from "@/assets/svg/RightBarSvg/reset.svg";
 import CustomizeSvg from "@/assets/svg/RightBarSvg/customize.svg";
 import UploadSvg from "@/assets/svg/RightBarSvg/upload.svg";
-import UploadImage from "@/components/ImageUpload";
-import { switchBadgeLoaded } from "@/store/reducer/badgeSlice";
+import ImageUpload from "@/components/ImageUpload";
+import { setBadgeImage, switchBadgeLoaded, switchBadgeUsed } from "@/store/reducer/badgeSlice";
 
 const DesignTools = () => {
   const dispatch = useDispatch();
-  const ref = useRef(null);
   const open = () => dispatch(switchPaintBucket(true));
   const close = () => dispatch(switchPaintBucket(false));
   const userData = useStoreSelector((state) => state.user);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
-  const { isPaintPopoverOpen } = useStoreSelector((state) => state.buttonToggle);
+  const { isPaintPopoverOpen, isBadgeUploadOpen } = useStoreSelector((state) => state.buttonToggle);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
 
   const isThingsToUndo = useStoreSelector((state) => state.tile.past).length;
@@ -73,13 +72,24 @@ const DesignTools = () => {
     dispatch(updateBorderLength(val * 1000));
   };
 
-  const handleUpload = () => {
+  const handleBadgeUpload = () => {
     dispatch(switchBadgeUpload(true));
     dispatch(switchBadgeLoaded(false));
   };
 
+  const name = "Badge";
+  const setImage = (url: string, width: number, height: number) => {
+    dispatch(
+      setBadgeImage({
+        badgeImageUrl: url,
+        width: width,
+        height: height,
+      })
+    );
+  };
+
   return (
-    <Box ref={ref}>
+    <Box>
       <Text fontSize="14px" fontWeight="700" mb="10px">
         Design Tools
       </Text>
@@ -196,9 +206,15 @@ const DesignTools = () => {
             data-testid="uploadBtn"
             variant="navbarIconBtn"
             ml="-10px"
-            onClick={handleUpload}
+            onClick={handleBadgeUpload}
           />
-          <UploadImage ref={ref} />
+          <ImageUpload
+            name={name}
+            isOpen={isBadgeUploadOpen}
+            switchUpload={switchBadgeUpload}
+            setImage={setImage}
+            switchUsed={switchBadgeUsed}
+          />
         </Tooltip>
       </Flex>
     </Box>
