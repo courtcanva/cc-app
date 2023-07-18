@@ -1,8 +1,6 @@
 import { environment } from "@/constants/environment";
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 import omit from "lodash/omit";
-import TokenService from "./TokenService";
-import { Token } from "aws-sdk/lib/token";
 
 // // AbortController
 // // Starting from v0.22.0 Axios supports AbortController to cancel requests in fetch API way:
