@@ -26,19 +26,6 @@ const axiosInstance = axios.create({
   timeout: REQUEST_TIMEOUT,
 });
 
-axiosInstance.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
-    const token = TokenService.getLocalAccessToken();
-    if (token && config.headers) {
-      config.headers.Authorization = token;
-    }
-    return config;
-  },
-  (error: unknown) => {
-    Promise.reject(error);
-  }
-);
-
 export const api = async (
   endpoint: string,
   { method, params, requestData, token, headers, ...customConfig }: IConfig

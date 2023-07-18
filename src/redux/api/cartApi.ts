@@ -1,11 +1,20 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { environment } from "@/constants/environment";
 import { ICartItem } from "@/interfaces/cartItem";
+import { tokenToCSSVar } from "@chakra-ui/react";
+import TokenService from "@/utils/TokenService";
 
 export const cartApi = createApi({
   reducerPath: "shoppingCart",
   baseQuery: fetchBaseQuery({
     baseUrl: environment.apiBaseUrl,
+    prepareHeaders: (headers) => {
+      const token = TokenService.getLocalAccessToken();
+      if (token) {
+        headers.set("Authorization", "Bearer " + token);
+      }
+      return headers;
+    },
   }),
   tagTypes: ["cartItems"],
   endpoints: (builder) => ({
