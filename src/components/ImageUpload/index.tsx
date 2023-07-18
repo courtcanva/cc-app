@@ -24,17 +24,17 @@ import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import Cropper, { Area } from "react-easy-crop";
 import { getCroppedImg } from "@/utils/manageExternalImage";
+import { AnyAction } from "@reduxjs/toolkit";
 
 interface IImageUpload {
   name: string;
   isOpen: boolean;
-  switchUpload(value: boolean): any;
-  setImage(url: string, width: number, height: number): any;
-  switchUsed(value: boolean): any;
+  switchUpload: (value: boolean) => AnyAction;
+  setImage: (url: string, width: number, height: number) => void;
 }
 
 const ImageUpload = (props: IImageUpload) => {
-  const { name, isOpen, switchUpload, setImage, switchUsed } = props;
+  const { name, isOpen, switchUpload, setImage } = props;
   const minSizeInKB = 0;
   const maxSizeInKB = 300;
   const dispatch = useDispatch();
@@ -112,7 +112,6 @@ const ImageUpload = (props: IImageUpload) => {
       rotation
     )) as HTMLCanvasElement;
     setImage(cropCanvas.toDataURL(), cropCanvas.width, cropCanvas.height);
-    dispatch(switchUsed(true));
     onClose();
   }, [picture, croppedAreaPixels, rotation]);
 

@@ -31,7 +31,7 @@ import ResetSvg from "@/assets/svg/RightBarSvg/reset.svg";
 import CustomizeSvg from "@/assets/svg/RightBarSvg/customize.svg";
 import UploadSvg from "@/assets/svg/RightBarSvg/upload.svg";
 import ImageUpload from "@/components/ImageUpload";
-import { setBadgeImage, switchBadgeLoaded, switchBadgeUsed } from "@/store/reducer/badgeSlice";
+import { setBadgeImage } from "@/store/reducer/badgeSlice";
 
 const DesignTools = () => {
   const dispatch = useDispatch();
@@ -74,7 +74,6 @@ const DesignTools = () => {
 
   const handleBadgeUpload = () => {
     dispatch(switchBadgeUpload(true));
-    dispatch(switchBadgeLoaded(false));
   };
 
   const name = "Badge";
@@ -213,7 +212,6 @@ const DesignTools = () => {
             isOpen={isBadgeUploadOpen}
             switchUpload={switchBadgeUpload}
             setImage={setImage}
-            switchUsed={switchBadgeUsed}
           />
         </Tooltip>
       </Flex>

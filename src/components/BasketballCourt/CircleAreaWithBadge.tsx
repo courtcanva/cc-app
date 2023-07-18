@@ -4,7 +4,7 @@ import { courtWhiteLine } from "../../store/reducer/courtSpecDataSlice";
 import { ICourtStartPoint } from "@/interfaces/courtStartPoint";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { switchBadgeLoaded } from "@/store/reducer/badgeSlice";
+import { switchBadgeUsed } from "@/store/reducer/badgeSlice";
 interface CircleAreaProps {
   startPoint: ICourtStartPoint;
 }
@@ -36,7 +36,7 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
   }
 
   useEffect(() => {
-    dispatch(switchBadgeLoaded(true));
+    if (loadingImg.src) dispatch(switchBadgeUsed(true));
   }, [loadingImg.src]);
 
   return (
