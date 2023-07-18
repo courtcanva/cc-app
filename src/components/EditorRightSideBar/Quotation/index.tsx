@@ -7,7 +7,11 @@ import { ICartItem } from "@/interfaces/cartItem";
 import { saveDesignMapping } from "@/utils/designMapping";
 import { IDesign, ITileColor } from "@/interfaces/design";
 import { useDispatch } from "react-redux";
-import { switchLoginModal } from "@/store/reducer/buttonToggleSlice";
+import {
+  switchLoginModal,
+  switchConstructionMounted,
+  switchRuler,
+} from "@/store/reducer/buttonToggleSlice";
 import { upLoadScreenshot } from "@/utils/manageExternalImage";
 import { COURT_TYPE } from "@/constants/courtData";
 import { useGetDepositQuery } from "@/redux/api/depositApi";
@@ -15,6 +19,7 @@ import priceFormat from "@/utils/priceFormat";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import { calculateQuotation, calculateDeposit } from "@/utils/priceCalculation";
 import { TilePrices } from "@/interfaces/priceCalculation";
+import { resetAll } from "@/store/reducer/canvasControlSlice";
 import formatCurrency from "@/utils/formatCurrency";
 
 const Quotation = () => {
@@ -83,6 +88,14 @@ const Quotation = () => {
     });
   };
 
+  const handleConstructionOpen = () => {
+    dispatch(resetAll());
+    dispatch(switchRuler(false));
+    setTimeout(() => {
+      dispatch(switchConstructionMounted(true));
+    });
+  };
+
   return (
     <Box>
       <Text fontSize="14px" fontWeight="700" mb="10px">
@@ -103,6 +116,18 @@ const Quotation = () => {
       </Flex>
       <Button variant="shareBtn" w="160px" mt="12px" onClick={handleAddToCart}>
         Add to Cart
+      </Button>
+      <Button
+        variant="outline"
+        color="black"
+        w="160px"
+        mt="12px"
+        onClick={handleConstructionOpen}
+        position="relative"
+        id="constructionButton"
+        borderColor="black"
+      >
+        Construction On
       </Button>
     </Box>
   );
