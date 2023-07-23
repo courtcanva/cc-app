@@ -1,20 +1,10 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { environment } from "@/constants/environment";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { IOrder, IStripeSession } from "@/interfaces/order";
-import TokenService from "@/utils/TokenService";
+import { baseQueryWithReauth } from "@/utils/rtkQueryAuthWrapper";
 
 export const orderApi = createApi({
   reducerPath: "orders",
-  baseQuery: fetchBaseQuery({
-    baseUrl: environment.apiBaseUrl,
-    prepareHeaders: (headers) => {
-      const token = TokenService.getLocalAccessToken();
-      if (token) {
-        headers.set("Authorization", "Bearer " + token);
-      }
-      return headers;
-    },
-  }),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ["orders"],
   endpoints: (builder) => ({
     getOrders: builder.query<any, string>({
