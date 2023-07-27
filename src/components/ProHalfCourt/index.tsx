@@ -23,6 +23,7 @@ import { calculation } from "@/utils/tileNumberCalculator";
 import { changeTileQuantity, PriceBar } from "@/store/reducer/priceBarSlice";
 import { useStoreSelector } from "@/store/hooks";
 import ThreeDimensionalToggle from "../ThreeDimensionalCourt";
+import { useConstruction } from "@/hooks/useConstruction";
 import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
 
 const ProHalfCourt = () => {
@@ -92,6 +93,7 @@ const ProHalfCourt = () => {
   }, [canvasStates.resetState]);
 
   useImageDataUrl(ref);
+  useConstruction(reference, clipLength === 0 && clipWidth === 0 ? courtAndTileInfo : tileInfo);
 
   return (
     <Flex

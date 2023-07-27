@@ -118,7 +118,7 @@ const NavigationBar = () => {
       minW="768px"
       w="100vw"
       position="fixed"
-      zIndex={9999}
+      zIndex={4999}
     >
       <Flex alignItems="center">
         <Link href={HOME_PAGE_LINK} passHref>

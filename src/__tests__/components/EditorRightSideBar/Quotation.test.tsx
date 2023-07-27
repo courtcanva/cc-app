@@ -125,3 +125,22 @@ describe("click add-to-cart button", () => {
     await waitFor(() => expect(mockAddToCart).toBeCalled());
   });
 });
+
+describe("click construction-on button", () => {
+  it("should switch construction mounted and construction open", async () => {
+    const mockSwitchConstructionMounted = jest.spyOn(
+      buttonToggleSlice,
+      "switchConstructionMounted"
+    );
+    renderWithMockedProvider(<Quotation />);
+    const constructionBtn = screen.getByText(/Construction On/i);
+    userEvent.click(constructionBtn);
+    await waitFor(
+      () => {
+        expect(upLoadScreenshot).toBeCalled();
+        expect(mockSwitchConstructionMounted).toBeCalled();
+      },
+      { timeout: 10000 }
+    );
+  });
+});

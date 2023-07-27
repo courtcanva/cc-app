@@ -19,6 +19,7 @@ import orderReducer from "./reducer/orderSlice";
 import { orderApi } from "@/redux/api/orderApi";
 import { depositApi } from "../redux/api/depositApi";
 import badgeReducer from "./reducer/badgeSlice";
+import constructionReducer from "./reducer/constructionSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -43,6 +44,7 @@ export const makeStore = () =>
       canvasControl: canvasControlReducer,
       order: orderReducer,
       badge: badgeReducer,
+      construction: constructionReducer,
     },
 
     middleware: (getDefaultMiddleware) =>

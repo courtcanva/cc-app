@@ -1,18 +1,19 @@
-import Blueprints from "@/assets/svg/blueprints.svg";
-import Folder from "@/assets/svg/folder.svg";
-import { HiOutlineTemplate } from "react-icons/hi";
+import Basketball from "@/assets/svg/LeftBarSvg/basketball.svg";
+import Folder from "@/assets/svg/LeftBarSvg/folder.svg";
+import Template from "@/assets/svg/LeftBarSvg/template.svg";
+
 const sideBarItemList = [
   {
-    title: "Blueprints",
-    icon: <Blueprints />,
+    title: "Basketball",
+    icon: <Basketball />,
   },
   {
     title: "Folder",
     icon: <Folder />,
   },
   {
-    title: "Templates",
-    icon: <HiOutlineTemplate fontSize="24px" />,
+    title: "Template",
+    icon: <Template />,
   },
 ];
 export default sideBarItemList;

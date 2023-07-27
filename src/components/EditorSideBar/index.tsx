@@ -56,7 +56,7 @@ const EditorSideBar = () => {
               title={item.title}
               icon={item.icon}
               onHandleIconClick={() => handleIconClick(item.title)}
-              iconClickTitle={iconClickTitle}
+              iconClickTitle={iconClickTitle === item.title ? item.title : ""}
             />
           ))}
         </Flex>
