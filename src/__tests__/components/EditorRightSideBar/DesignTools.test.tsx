@@ -1,7 +1,15 @@
 import { screen, fireEvent } from "@testing-library/react";
+import user from "@testing-library/user-event";
 import DesignTools from "@/components/EditorRightSideBar/DesignTools";
 import renderWithMockedProvider from "../../utils";
 import ColorBoard from "@/components/EditorRightSideBar/DesignTools/ColorBoard";
+import { switchBadgeUpload } from "@/store/reducer/buttonToggleSlice";
+
+const mockDispatch = jest.fn();
+jest.mock("react-redux", () => ({
+  ...jest.requireActual("react-redux"),
+  useDispatch: () => mockDispatch,
+}));
 
 describe("DesignTolls component", () => {
   test("Each element in the Design Tools component to display the correct text", () => {
@@ -33,5 +41,12 @@ describe("DesignTolls component", () => {
     fireEvent.change(slider, { target: { ariaValueNow: "1" } });
     const sliderValue = screen.getByText("1.0");
     expect(sliderValue).toBeInTheDocument();
+  });
+
+  it("should", () => {
+    renderWithMockedProvider(<DesignTools />);
+    const uploadBtn = screen.getByRole("button", { name: /Upload Badge/i });
+    user.click(uploadBtn);
+    expect(mockDispatch).toBeCalledWith(switchBadgeUpload(true));
   });
 });
