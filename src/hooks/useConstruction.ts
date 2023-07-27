@@ -11,20 +11,14 @@ export const useConstruction = (
 ) => {
   const dispatch = useDispatch();
   const canvas = canvasRef.current;
-  let { beginPointX, beginPointY } = { ...constructionInfo };
+  const { beginPointX, beginPointY, endPointX, endPointY } = { ...constructionInfo };
   useEffect(() => {
     if (!canvas) return;
-    const drawRatioX = canvas.getCanvas()._canvas.width / canvas.getWidth();
-    const drawRatioY = canvas.getCanvas()._canvas.height / canvas.getHeight();
-    beginPointX *= drawRatioX;
-    beginPointY *= drawRatioY;
-    const canvasWidth = canvas.getCanvas()._canvas.width;
-    const canvasHeight = canvas.getCanvas()._canvas.height;
     const dataUrl = canvas.toDataURL({
       x: beginPointX,
       y: beginPointY,
-      width: canvasWidth,
-      height: canvasHeight,
+      width: endPointX - beginPointX,
+      height: endPointY - beginPointY,
       pixelRatio: PIXEL_RATIO,
     });
     dispatch(changeConstructionSrc(dataUrl));
