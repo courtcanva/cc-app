@@ -22,6 +22,7 @@ const ShoppingCart = () => {
       quotationDetails: item.quotationDetails,
       image: item.image,
       isExpired: item.isExpired,
+      expiredAt: item.expiredAt,
     };
   });
 
@@ -39,6 +40,7 @@ const ShoppingCart = () => {
           zIndex={1600}
         >
           {quantity > 0 && <ShoppingCartContainer shoppingCart={cart} />}
+          {console.log(cart)}
           {quantity === 0 && <EmptyCart />}
         </Flex>
       )}

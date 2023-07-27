@@ -6,6 +6,7 @@ import DropDownButton from "@/components/ShoppingCart/dropDownButton";
 import { RiErrorWarningLine } from "react-icons/ri";
 import Image from "next/image";
 import formatCurrency from "../../utils/formatCurrency";
+import calculateDateDifference from "../../utils/calculateDateDifference";
 
 interface CartListItemProps {
   item: ICartItem;
@@ -29,7 +30,15 @@ const CartListItem = ({
     quotation: quotation,
     image: image,
     isExpired,
+    expiredAt,
   } = item;
+
+  const {
+    days: leftDays,
+    hours: leftHours,
+    minutes: leftMinutes,
+    seconds: leftSeconds,
+  } = calculateDateDifference(new Date(), new Date(expiredAt));
 
   const handleCheckBox = () => {
     setCheckedItems(
@@ -68,7 +77,20 @@ const CartListItem = ({
         </Td>
         <Td verticalAlign="top" overflowX="auto">
           <Text variant="textFont">{productName}</Text>
-          {isExpired && (
+          {!isExpired ? (
+            <Text variant="textFont" color="#F55252" marginTop="40%">
+              Quotation will expire in <br />
+              {leftDays !== 0 ? (
+                <>
+                  {leftDays} days {leftHours} hours
+                </>
+              ) : (
+                <>
+                  {leftHours} hours {leftMinutes} minutes {leftSeconds} seconds
+                </>
+              )}
+            </Text>
+          ) : (
             <Text variant="textFont" color="#F55252" marginTop="40%">
               Quotation expired
             </Text>
