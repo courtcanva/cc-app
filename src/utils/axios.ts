@@ -32,7 +32,6 @@ export const api = async (
   endpoint: string,
   { method, params, requestData, token, headers, ...customConfig }: IConfig
 ) => {
-  console.log("拦截器前的token:", token);
   const config = {
     method,
     headers: {
