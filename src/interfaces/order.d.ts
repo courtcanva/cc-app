@@ -1,7 +1,6 @@
 import { IDesign } from "@/interfaces/design";
 import { PriceBar } from "@/store/reducer/priceBarSlice";
 import { PageStatus } from "@/constants/paymentResponsePage";
-import MyOrder from "@/pages/my_order";
 
 interface IOrderItem {
   design: IDesign;

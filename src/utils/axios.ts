@@ -10,7 +10,7 @@ import omit from "lodash/omit";
 // // cancel the request
 // controller.abort()
 
-interface IConfig {
+export interface IConfig {
   method: string;
   params?: string;
   requestData?: Record<string, unknown>;
@@ -24,10 +24,15 @@ const axiosInstance = axios.create({
   timeout: REQUEST_TIMEOUT,
 });
 
+// axiosInstance.interceptors.request.use((config) => {
+//   console.log(config);
+// });
+
 export const api = async (
   endpoint: string,
   { method, params, requestData, token, headers, ...customConfig }: IConfig
 ) => {
+  console.log("拦截器前的token:", token);
   const config = {
     method,
     headers: {
