@@ -4,6 +4,8 @@ import { IOrderItem } from "@/interfaces/order";
 import formatCurrency from "@/utils/formatCurrency";
 import CancelOrCheckoutOrder from "./CancelOrCheckoutOrder";
 import MyOrderItem from "./MyOrderItem";
+import calculateDateDifference from "@/utils/calculateDateDifference";
+import { useGetExpireDayQuery } from "@/redux/api/expireDayApi";
 
 const MyOrderList = ({ ...order }) => {
   const initialQuotation = 0;
@@ -11,6 +13,14 @@ const MyOrderList = ({ ...order }) => {
     (preValue: number, currentValue: IOrderItem) => preValue + Number(currentValue.quotation),
     initialQuotation
   );
+  const { data } = useGetExpireDayQuery(0);
+
+  const {
+    days: leftDays,
+    hours: leftHours,
+    minutes: leftMinutes,
+    seconds: leftSeconds,
+  } = calculateDateDifference(new Date(), new Date(order.createdAt));
   return (
     <Flex
       flexDirection="column"
@@ -54,14 +64,23 @@ const MyOrderList = ({ ...order }) => {
                 {format(parseISO(order.createdAt), "dd/MM/yyyy HH:mm")}
               </Text>
             </Flex>
-            <Flex width="50%" flexDirection="column" justifyContent="center">
-              <Text variant="textFont" fontStyle="italic" fontWeight="300">
-                Paid At
-              </Text>
-              <Text variant="textFont">
-                {order.paidAt ? format(parseISO(order.paidAt), "dd/MM/yyyy HH:mm") : ""}
-              </Text>
-            </Flex>
+
+            {order.status === "unpaid" ? (
+              <Flex width="50%" flexDirection="column" justifyContent="center">
+                <Text variant="textFont" fontStyle="italic" fontWeight="300">
+                  Quotation will expire in {data.expireDays} days
+                </Text>
+              </Flex>
+            ) : (
+              <Flex width="50%" flexDirection="column" justifyContent="center">
+                <Text variant="textFont" fontStyle="italic" fontWeight="300">
+                  Paid At
+                </Text>
+                <Text variant="textFont">
+                  {order.paidAt ? format(parseISO(order.paidAt), "dd/MM/yyyy HH:mm") : ""}
+                </Text>
+              </Flex>
+            )}
           </Flex>
           <Flex width="5%" justifyContent="flex-end">
             <Flex flexDirection="column" justifyContent="center">

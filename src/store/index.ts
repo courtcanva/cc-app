@@ -19,6 +19,7 @@ import orderReducer from "./reducer/orderSlice";
 import { orderApi } from "@/redux/api/orderApi";
 import { depositApi } from "../redux/api/depositApi";
 import constructionReducer from "./reducer/constructionSlice";
+import { expireDayApi } from "@/redux/api/expireDayApi";
 
 export const makeStore = () =>
   configureStore({
@@ -39,6 +40,7 @@ export const makeStore = () =>
       [templateApi.reducerPath]: templateApi.reducer,
       [orderApi.reducerPath]: orderApi.reducer,
       [depositApi.reducerPath]: depositApi.reducer,
+      [expireDayApi.reducerPath]: expireDayApi.reducer,
       colorList: colorListReducer,
       canvasControl: canvasControlReducer,
       order: orderReducer,
@@ -54,7 +56,8 @@ export const makeStore = () =>
         cartApi.middleware,
         templateApi.middleware,
         orderApi.middleware,
-        depositApi.middleware
+        depositApi.middleware,
+        expireDayApi.middleware
       ),
   });
 
