@@ -2,11 +2,17 @@ import MyOrderContainer from "@/components/MyOrder";
 import ProfileItemContainer from "@/components/ProfileItemContainer";
 import { environment } from "../constants/environment";
 import { IMyOrder } from "@/interfaces/order";
+import { useStoreSelector } from "@/store/hooks";
+import dynamic from "next/dynamic";
 
+const PdfCanvas = dynamic(() => import("@/components/PdfCanvas"), { ssr: false });
 const MyOrder = ({ ...props }) => {
+  const courtDesign = useStoreSelector((state) => state.construction.courtDesign);
+  const imgSrc = useStoreSelector((state) => state.construction.courtSrc);
   return (
     <ProfileItemContainer>
       <MyOrderContainer myOrders={props.myOrders} />
+      {imgSrc && courtDesign && <PdfCanvas courtDesign={courtDesign} imgSrc={imgSrc as string} />}
     </ProfileItemContainer>
   );
 };

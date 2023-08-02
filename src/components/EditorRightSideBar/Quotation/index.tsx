@@ -7,11 +7,7 @@ import { ICartItem } from "@/interfaces/cartItem";
 import { saveDesignMapping } from "@/utils/designMapping";
 import { IDesign, ITileColor } from "@/interfaces/design";
 import { useDispatch } from "react-redux";
-import {
-  switchLoginModal,
-  switchConstructionMounted,
-  switchRuler,
-} from "@/store/reducer/buttonToggleSlice";
+import { switchLoginModal, switchConstructionMounted } from "@/store/reducer/buttonToggleSlice";
 import { upLoadScreenshot } from "@/utils/manageExternalImage";
 import { COURT_TYPE } from "@/constants/courtData";
 import { useGetDepositQuery } from "@/redux/api/depositApi";
@@ -19,7 +15,6 @@ import priceFormat from "@/utils/priceFormat";
 import { useGetPriceQuery } from "@/redux/api/priceApi";
 import { calculateQuotation, calculateDeposit } from "@/utils/priceCalculation";
 import { TilePrices } from "@/interfaces/priceCalculation";
-import { resetAll } from "@/store/reducer/canvasControlSlice";
 import formatCurrency from "@/utils/formatCurrency";
 
 const Quotation = () => {
@@ -89,11 +84,7 @@ const Quotation = () => {
   };
 
   const handleConstructionOpen = () => {
-    dispatch(resetAll());
-    dispatch(switchRuler(false));
-    setTimeout(() => {
-      dispatch(switchConstructionMounted(true));
-    });
+    dispatch(switchConstructionMounted(true));
   };
 
   return (
