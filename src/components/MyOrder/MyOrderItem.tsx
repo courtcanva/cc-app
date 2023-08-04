@@ -25,22 +25,24 @@ const MyOrderItem = ({ ...mergedItem }) => {
       <Flex width="85%" minHeight="150px">
         <Flex width="25%" alignItems="center" justifyContent="space-around" direction="column">
           <Text variant="textFont">{mergedItem.design.designName}</Text>
-          <Flex justifyContent="space-around">
-            <Text width="100px" mr="30px" align="center" fontSize="14px">
-              Construction Drawing
-            </Text>
-            <Button
-              variant="outline"
-              borderColor="black"
-              width="100px"
-              my="auto"
-              onClick={handleDownload}
-              isLoading={isCurrentDownloading}
-              disabled={isDownloading}
-            >
-              Download
-            </Button>
-          </Flex>
+          {mergedItem.orderStatus === "unpaid" && (
+            <Flex justifyContent="space-around">
+              <Text width="100px" mr="30px" align="center" fontSize="14px">
+                Construction Drawing
+              </Text>
+              <Button
+                variant="outline"
+                borderColor="black"
+                width="100px"
+                my="auto"
+                onClick={handleDownload}
+                isLoading={isCurrentDownloading}
+                disabled={isDownloading}
+              >
+                Download
+              </Button>
+            </Flex>
+          )}
         </Flex>
         <Flex flexDirection="column" width="50%" alignItems="center">
           <Box width="100%" height="100%" position="relative">

@@ -1,15 +1,4 @@
 import { IDesign } from "@/interfaces/design";
-import axios from "axios";
-
-const getBase64Image = async (imageUrl: string) => {
-  const response = await axios.get(imageUrl, { responseType: "blob" });
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(response.data);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-};
 
 const getImageDimensions = (base64Image: string) => {
   return new Promise((resolve) => {

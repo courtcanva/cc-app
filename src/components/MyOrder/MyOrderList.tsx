@@ -137,7 +137,11 @@ const MyOrderList = ({ ...order }) => {
               <Text variant="bodyFont">Item</Text>
             </Flex>
             {order.items.map((item: IOrderItem) => {
-              const mergedItem = { ...item, orderDepositRatio: order.depositRatio };
+              const mergedItem = {
+                ...item,
+                orderDepositRatio: order.depositRatio,
+                orderStatus: order.status,
+              };
               return <MyOrderItem key={item.design.designName} {...mergedItem} />;
             })}
           </Flex>
