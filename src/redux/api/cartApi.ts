@@ -1,12 +1,10 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { environment } from "@/constants/environment";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { ICartItem } from "@/interfaces/cartItem";
+import { baseQueryWithReauth } from "@/utils/rtkQueryAuthWrapper";
 
 export const cartApi = createApi({
   reducerPath: "shoppingCart",
-  baseQuery: fetchBaseQuery({
-    baseUrl: environment.apiBaseUrl,
-  }),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ["cartItems"],
   endpoints: (builder) => ({
     getItemQuantity: builder.query({

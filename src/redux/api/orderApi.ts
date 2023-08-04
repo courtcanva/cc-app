@@ -1,12 +1,10 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { environment } from "@/constants/environment";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { IOrder, IStripeSession } from "@/interfaces/order";
+import { baseQueryWithReauth } from "@/utils/rtkQueryAuthWrapper";
 
 export const orderApi = createApi({
   reducerPath: "orders",
-  baseQuery: fetchBaseQuery({
-    baseUrl: environment.apiBaseUrl,
-  }),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ["orders"],
   endpoints: (builder) => ({
     getOrders: builder.query<any, string>({
