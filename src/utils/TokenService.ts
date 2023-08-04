@@ -25,6 +25,16 @@ class UserTokenService {
     }
   }
 
+  getUserId(): string {
+    try {
+      const userInfo = getLocalStorageItem("UserInfo");
+      return userInfo.userId;
+    } catch (error) {
+      const err = getErrorMessage(error);
+      return err;
+    }
+  }
+
   getLocalAccessToken(): string | undefined {
     try {
       const userInfo = getLocalStorageItem("UserInfo");
