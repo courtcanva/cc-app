@@ -18,6 +18,7 @@ import { templateApi } from "@/redux/api/templateApi";
 import orderReducer from "./reducer/orderSlice";
 import { orderApi } from "@/redux/api/orderApi";
 import { depositApi } from "../redux/api/depositApi";
+import badgeReducer from "./reducer/badgeSlice";
 import constructionReducer from "./reducer/constructionSlice";
 
 export const makeStore = () =>
@@ -42,6 +43,7 @@ export const makeStore = () =>
       colorList: colorListReducer,
       canvasControl: canvasControlReducer,
       order: orderReducer,
+      badge: badgeReducer,
       construction: constructionReducer,
     },
 
