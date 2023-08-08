@@ -1,5 +1,4 @@
-import { Flex, Button, Grid, Box, useDisclosure } from "@chakra-ui/react";
-import Link from "next/link";
+import { Flex, Button, Grid, Box, useDisclosure, useToast } from "@chakra-ui/react";
 import HOME_PAGE_LINK from "@/constants/index";
 import LoginModalContent from "../Login";
 import ShoppingCartButton from "./ShoppingCartButton";
@@ -25,6 +24,11 @@ import CreateTemplate from "../CreateTemplate";
 import Profile from "./Profile";
 import UserTokenService from "@/utils/TokenService";
 import LogoSVG from "@/assets/svg/NavSvg/logo.svg";
+import TokenService from "@/utils/TokenService";
+import { api } from "@/utils/axios";
+import { IMyOrder } from "@/interfaces/order";
+import Link from "next/link";
+import router from "next/router";
 
 const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -34,7 +38,7 @@ const NavigationBar = () => {
   const { userLogout, updateToken } = useAuthRequest();
   const { getLocalStorageItem } = useHandleLocalStorageItem();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const toast = useToast();
   // Get user info from local storage
   const getInfo = () => {
     return getLocalStorageItem("UserInfo");
@@ -85,6 +89,58 @@ const NavigationBar = () => {
       setLoginState(false);
     }
   }, []);
+
+  useEffect(() => {
+    const fetchExpiringData = async () => {
+      const currentUserId = await TokenService.getUserId();
+      const { updateToken } = useAuthRequest();
+      let response = await api(`/orders?user_id=${currentUserId}`, {
+        method: "GET",
+        token: await TokenService.getLocalAccessToken(),
+      });
+
+      if (response.status >= 400 && response.status < 500) {
+        await updateToken();
+        response = await api(`/orders?user_id=${currentUserId}`, {
+          method: "GET",
+          token: TokenService.getLocalAccessToken(),
+        });
+      }
+
+      const ordersData: IMyOrder[] = response.data;
+      const now = new Date().getTime();
+      const threeDaysInMilliseconds = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
+
+      const expiringOrders = ordersData?.filter((order: IMyOrder) => {
+        const expiredAt = new Date(order.expiredAt).getTime();
+        const remainingTime = expiredAt - now;
+        return remainingTime <= threeDaysInMilliseconds && remainingTime > 0;
+      });
+      if (expiringOrders && expiringOrders.length > 0) {
+        toast({
+          position: "top",
+          status: "success",
+          isClosable: true,
+          render: () => (
+            <Box color='white' p={3} bg='green.500' mt={70}>
+              Your quotation for order number {expiringOrders[0]._id} will expire in 3 days.&nbsp;
+              <Button
+                type="button"
+                colorScheme='blackAlpha'
+                variant='outline'
+                onClick={(e) => {
+                  router.push(`/my_order?user_id=${expiringOrders[0].user_id}`)
+
+                }}>
+                Proceed to deposit payment
+              </Button>
+            </Box>
+          ),
+        })
+      }
+    };
+    fetchExpiringData();
+  }, [loginData])
 
   const handleLoginModalOpen = () => {
     dispatch(switchLoginModal(true));
