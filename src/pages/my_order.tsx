@@ -23,6 +23,8 @@ export const getServerSideProps = async (context: any) => {
       _id: order._id,
       status: order.status,
       createdAt: order.createdAt,
+      isExpired: order.isExpired,
+      expiredAt: order.expiredAt,
       paidAt: order.paymentInfo ? order.paymentInfo.updatedAt : "",
       consigneeName: order.paymentInfo ? order.paymentInfo.name : "",
       consigneePhoneNo: order.paymentInfo ? order.paymentInfo.phone : "",

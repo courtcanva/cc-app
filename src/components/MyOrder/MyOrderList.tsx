@@ -13,14 +13,13 @@ const MyOrderList = ({ ...order }) => {
     (preValue: number, currentValue: IOrderItem) => preValue + Number(currentValue.quotation),
     initialQuotation
   );
-  const { data } = useGetExpireDayQuery(0);
 
   const {
     days: leftDays,
     hours: leftHours,
     minutes: leftMinutes,
     seconds: leftSeconds,
-  } = calculateDateDifference(new Date(), new Date(order.createdAt));
+  } = calculateDateDifference(new Date(), new Date(order.expiredAt));
   return (
     <Flex
       flexDirection="column"
@@ -68,7 +67,23 @@ const MyOrderList = ({ ...order }) => {
             {order.status === "unpaid" ? (
               <Flex width="50%" flexDirection="column" justifyContent="center">
                 <Text variant="textFont" fontStyle="italic" fontWeight="300">
-                  Quotation will expire in {data.expireDays} days
+                  Quotation will expire in
+                </Text>
+                <Text
+                  variant="bodyFont"
+                  fontStyle="italic"
+                  fontWeight="300"
+                  color={"fontcolor.red"}
+                >
+                  {leftDays !== 0 ? (
+                    <>
+                      {leftDays} days {leftHours} hours
+                    </>
+                  ) : (
+                    <>
+                      {leftHours} hours {leftMinutes} minutes {leftSeconds} seconds
+                    </>
+                  )}
                 </Text>
               </Flex>
             ) : (
@@ -95,6 +110,8 @@ const MyOrderList = ({ ...order }) => {
                   ? "Paid"
                   : order.status === "unpaid"
                   ? "Unpaid"
+                  : order.status === "expired"
+                  ? "Expired"
                   : "Cancelled"}
               </Text>
             </Flex>
@@ -190,14 +207,23 @@ const MyOrderList = ({ ...order }) => {
           </Flex>
         </Flex>
       </Flex>
-      {order.status === "unpaid" && (
+      {order.status === "unpaid" ? (
         <CancelOrCheckoutOrder
           orderId={order._id}
           userId={order.userId}
           depositRatio={order.depositRatio}
           unPaidItems={order.items}
+          isChecked={true}
         />
-      )}
+      ) : order.status === "expired" ? (
+        <CancelOrCheckoutOrder
+          orderId={order._id}
+          userId={order.userId}
+          depositRatio={order.depositRatio}
+          unPaidItems={order.items}
+          isChecked={false}
+        />
+      ) : null}
     </Flex>
   );
 };

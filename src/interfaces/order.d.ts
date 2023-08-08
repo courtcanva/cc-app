@@ -53,6 +53,8 @@ export interface IMyOrder extends IOrder {
   _id: string;
   status: string;
   createdAt: string;
+  isExpired: boolean;
+  expiredAt: string;
   paidAt: string | null;
   currency: string;
   consigneeEmail: string | null;
