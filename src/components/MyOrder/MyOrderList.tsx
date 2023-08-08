@@ -86,6 +86,8 @@ const MyOrderList = ({ ...order }) => {
                   )}
                 </Text>
               </Flex>
+            ) : order.status === "expired" ? (
+              <>{null}</>
             ) : (
               <Flex width="50%" flexDirection="column" justifyContent="center">
                 <Text variant="textFont" fontStyle="italic" fontWeight="300">
