@@ -19,6 +19,7 @@ import { useTileCalculation } from "@/hooks/useTileCalculation";
 import ThreeDimensionalToggle from "@/components/ThreeDimensionalCourt";
 import { useConstruction } from "@/hooks/useConstruction";
 import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
+import CircleAreaWithBadge from "../BasketballCourt/CircleAreaWithBadge";
 
 const ProFullCourt = () => {
   const {
@@ -113,6 +114,9 @@ const ProFullCourt = () => {
                       <CircleArea startPoint={courtStartPoint} />
                       <TopKeyArea startPoint={courtStartPoint} />
                     </Group>
+                  </Layer>
+                  <Layer>
+                    <CircleAreaWithBadge startPoint={courtStartPoint} />
                   </Layer>
                 </Provider>
               </Stage>

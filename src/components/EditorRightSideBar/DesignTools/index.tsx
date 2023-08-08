@@ -16,7 +16,11 @@ import {
 import ColorBoard from "./ColorBoard";
 import { useDispatch } from "react-redux";
 import { ActionCreators } from "redux-undo";
-import { switchPaintBucket, switchSideBar } from "@/store/reducer/buttonToggleSlice";
+import {
+  switchBadgeUpload,
+  switchPaintBucket,
+  switchSideBar,
+} from "@/store/reducer/buttonToggleSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { resetAll } from "@/store/reducer/canvasControlSlice";
 import { updateBorderLength } from "@/store/reducer/courtSpecDataSlice";
@@ -25,6 +29,9 @@ import UndoSvg from "@/assets/svg/RightBarSvg/undo.svg";
 import RedoSvg from "@/assets/svg/RightBarSvg/redo.svg";
 import ResetSvg from "@/assets/svg/RightBarSvg/reset.svg";
 import CustomizeSvg from "@/assets/svg/RightBarSvg/customize.svg";
+import UploadSvg from "@/assets/svg/RightBarSvg/upload.svg";
+import ImageUpload from "@/components/ImageUpload";
+import { setBadgeImage } from "@/store/reducer/badgeSlice";
 
 const DesignTools = () => {
   const dispatch = useDispatch();
@@ -32,7 +39,7 @@ const DesignTools = () => {
   const close = () => dispatch(switchPaintBucket(false));
   const userData = useStoreSelector((state) => state.user);
   const { selectedColor } = useStoreSelector((state) => state.courtColor);
-  const { isPaintPopoverOpen } = useStoreSelector((state) => state.buttonToggle);
+  const { isPaintPopoverOpen, isBadgeUploadOpen } = useStoreSelector((state) => state.buttonToggle);
   const { activeCourt: selectedCourt } = useStoreSelector((state) => state.courtSpecData);
 
   const isThingsToUndo = useStoreSelector((state) => state.tile.past).length;
@@ -63,6 +70,21 @@ const DesignTools = () => {
     dispatch(switchSideBar(false));
     setSliderValue(val);
     dispatch(updateBorderLength(val * 1000));
+  };
+
+  const handleBadgeUpload = () => {
+    dispatch(switchBadgeUpload(true));
+  };
+
+  const name = "Badge";
+  const setImage = (url: string, width: number, height: number) => {
+    dispatch(
+      setBadgeImage({
+        badgeImageUrl: url,
+        width: width,
+        height: height,
+      })
+    );
   };
 
   return (
@@ -174,6 +196,24 @@ const DesignTools = () => {
             </Box>
           </SliderThumb>
         </Slider>
+      </Flex>
+      <Flex>
+        <Tooltip hasArrow shouldWrapChildren fontSize="sm" placement="top" ml="-10px">
+          <IconButton
+            aria-label="Upload Badge"
+            icon={<UploadSvg />}
+            data-testid="uploadBtn"
+            variant="navbarIconBtn"
+            ml="-10px"
+            onClick={handleBadgeUpload}
+          />
+          <ImageUpload
+            name={name}
+            isOpen={isBadgeUploadOpen}
+            switchUpload={switchBadgeUpload}
+            setImage={setImage}
+          />
+        </Tooltip>
       </Flex>
     </Box>
   );
