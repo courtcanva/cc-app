@@ -1,4 +1,3 @@
-import { environment } from "@/constants/environment";
 import { store } from "../store";
 
 export const downloadToPDF = async () => {
@@ -18,9 +17,13 @@ export const downloadToPDF = async () => {
   };
   const designName = getDesignName() as string;
   const court = window.document.querySelector("canvas") as HTMLCanvasElement;
+  const getCourtImag = () => {
+    const state = store.getState();
+    return state.canvasControl.courtDataUrl;
+  };
+  const img = getCourtImag() as string;
 
-  html2canvas(court).then((canvas) => {
-    const img = canvas.toDataURL("image/png");
+  html2canvas(court).then(() => {
     // eslint-disable-next-line new-cap
     const doc = new jsPDF("p", "px", "a4");
     const pageWidth = doc.internal.pageSize.width;

@@ -18,6 +18,7 @@ import useImageAndConstruction from "@/hooks/useImageAndConstruction";
 import ThreeDimensionalToggle from "../ThreeDimensionalCourt";
 import { useTileCalculation } from "@/hooks/useTileCalculation";
 import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
+import CircleAreaWithBadge from "../BasketballCourt/CircleAreaWithBadge";
 
 const FullCourt = () => {
   const {
@@ -50,7 +51,7 @@ const FullCourt = () => {
   }, [canvasStates.resetState]);
 
   useTileCalculation(layerRef);
-  useImageAndConstruction(layerRef, courtAndTileInfo);
+  useImageAndConstruction(stageRef, courtAndTileInfo);
 
   return (
     <Flex
@@ -111,6 +112,9 @@ const FullCourt = () => {
                       <CircleArea startPoint={courtStartPoint} />
                       <TopKeyArea startPoint={courtStartPoint} />
                     </Group>
+                  </Layer>
+                  <Layer>
+                    <CircleAreaWithBadge startPoint={courtStartPoint} />
                   </Layer>
                 </Provider>
               </Stage>

@@ -18,23 +18,36 @@ const useImageAndConstruction = (
   const canvas = canvasRef.current;
   const rulerState = useStoreSelector((state) => state.buttonToggle.isRulerOn);
   const presentCourt = useStoreSelector((state) => state.tile.present.court);
+  const badgeImage = useStoreSelector((state) => state.badge.badgeImage);
   const { borderLength } = useCourt();
   const { beginPointX, beginPointY, endPointX, endPointY } = { ...constructionInfo };
   useEffect(() => {
-    if (!canvas) return;
-    dispatch(resetAll());
-    rulerState ? dispatch(switchRuler(false)) : null;
-    const dataUrl = canvas.toDataURL({
-      x: beginPointX,
-      y: beginPointY,
-      width: endPointX - beginPointX,
-      height: endPointY - beginPointY,
-      pixelRatio: PIXEL_RATIO,
-    });
-    dispatch(changeConstructionInfo(constructionInfo));
-    dispatch(setCourtDataUrl(dataUrl));
-    rulerState ? dispatch(switchRuler(true)) : null;
-  }, [beginPointX, beginPointY, endPointX, endPointY, borderLength, presentCourt, canvas]);
+    const timer = setTimeout(() => {
+      if (!canvas) return;
+      dispatch(resetAll());
+      rulerState ? dispatch(switchRuler(false)) : null;
+      const dataUrl = canvas.toDataURL({
+        x: beginPointX,
+        y: beginPointY,
+        width: endPointX - beginPointX,
+        height: endPointY - beginPointY,
+        pixelRatio: PIXEL_RATIO,
+      });
+      dispatch(changeConstructionInfo(constructionInfo));
+      dispatch(setCourtDataUrl(dataUrl));
+      rulerState ? dispatch(switchRuler(true)) : null;
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [
+    beginPointX,
+    beginPointY,
+    endPointX,
+    endPointY,
+    borderLength,
+    presentCourt,
+    canvas,
+    badgeImage,
+  ]);
 };
 
 export default useImageAndConstruction;

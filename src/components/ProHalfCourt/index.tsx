@@ -91,10 +91,7 @@ const ProHalfCourt = () => {
     ref.current.y(0);
   }, [canvasStates.resetState]);
 
-  useImageAndConstruction(
-    reference,
-    clipLength === 0 && clipWidth === 0 ? courtAndTileInfo : tileInfo
-  );
+  useImageAndConstruction(ref, clipLength === 0 && clipWidth === 0 ? courtAndTileInfo : tileInfo);
 
   return (
     <Flex

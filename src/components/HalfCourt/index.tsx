@@ -49,7 +49,7 @@ const HalfCourt = () => {
   }, [canvasContorl.canvasStates.resetState]);
 
   useTileCalculation(layerRef);
-  useImageAndConstruction(layerRef, courtAndTileInfo);
+  useImageAndConstruction(stageRef, courtAndTileInfo);
 
   return (
     <Flex
