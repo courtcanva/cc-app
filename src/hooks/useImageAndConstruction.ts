@@ -11,7 +11,7 @@ import { setCourtDataUrl } from "@/store/reducer/canvasControlSlice";
 import useCourt from "./useCourt";
 
 const useImageAndConstruction = (
-  canvasRef: RefObject<Konva.Layer>,
+  canvasRef: RefObject<Konva.Stage>,
   constructionInfo: ConstructionInfo
 ) => {
   const dispatch = useDispatch();
