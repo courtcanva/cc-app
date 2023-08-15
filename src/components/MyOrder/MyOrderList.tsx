@@ -5,7 +5,6 @@ import formatCurrency from "@/utils/formatCurrency";
 import CancelOrCheckoutOrder from "./CancelOrCheckoutOrder";
 import MyOrderItem from "./MyOrderItem";
 import calculateDateDifference from "@/utils/calculateDateDifference";
-import { useGetExpireDayQuery } from "@/redux/api/expireDayApi";
 
 const MyOrderList = ({ ...order }) => {
   const initialQuotation = 0;
@@ -86,9 +85,8 @@ const MyOrderList = ({ ...order }) => {
                   )}
                 </Text>
               </Flex>
-            ) : order.status === "expired" ? (
-              <>{null}</>
-            ) : (
+            ) : order.status !== "expired" && (
+
               <Flex width="50%" flexDirection="column" justifyContent="center">
                 <Text variant="textFont" fontStyle="italic" fontWeight="300">
                   Paid At
@@ -108,13 +106,7 @@ const MyOrderList = ({ ...order }) => {
                 variant="bodyFont"
                 color={order.status === "completed" ? "fontcolor.green" : "fontcolor.red"}
               >
-                {order.status === "completed"
-                  ? "Paid"
-                  : order.status === "unpaid"
-                  ? "Unpaid"
-                  : order.status === "expired"
-                  ? "Expired"
-                  : "Cancelled"}
+                {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
               </Text>
             </Flex>
           </Flex>
@@ -209,23 +201,15 @@ const MyOrderList = ({ ...order }) => {
           </Flex>
         </Flex>
       </Flex>
-      {order.status === "unpaid" ? (
+      {order.status === "unpaid" || order.status === "expired" && (
         <CancelOrCheckoutOrder
           orderId={order._id}
           userId={order.userId}
           depositRatio={order.depositRatio}
           unPaidItems={order.items}
-          isChecked={true}
+          isChecked={order.status === "unpaid" ? true : false}
         />
-      ) : order.status === "expired" ? (
-        <CancelOrCheckoutOrder
-          orderId={order._id}
-          userId={order.userId}
-          depositRatio={order.depositRatio}
-          unPaidItems={order.items}
-          isChecked={false}
-        />
-      ) : null}
+      )}
     </Flex>
   );
 };

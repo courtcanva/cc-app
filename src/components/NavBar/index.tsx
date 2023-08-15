@@ -122,25 +122,25 @@ const NavigationBar = () => {
           status: "success",
           isClosable: true,
           render: () => (
-            <Box color='white' p={3} bg='green.500' mt={70}>
+            <Box color="white" p={3} bg="green.500" mt={70}>
               Your quotation for order number {expiringOrders[0]._id} will expire in 3 days.&nbsp;
               <Button
                 type="button"
-                colorScheme='blackAlpha'
-                variant='outline'
+                colorScheme="blackAlpha"
+                variant="outline"
                 onClick={(e) => {
-                  router.push(`/my_order?user_id=${expiringOrders[0].user_id}`)
-
-                }}>
+                  router.push(`/my_order?user_id=${expiringOrders[0].user_id}`);
+                }}
+              >
                 Proceed to deposit payment
               </Button>
             </Box>
           ),
-        })
+        });
       }
     };
     fetchExpiringData();
-  }, [loginData])
+  }, [loginData]);
 
   const handleLoginModalOpen = () => {
     dispatch(switchLoginModal(true));

@@ -40,7 +40,6 @@ const ShoppingCart = () => {
           zIndex={1600}
         >
           {quantity > 0 && <ShoppingCartContainer shoppingCart={cart} />}
-          {console.log(cart)}
           {quantity === 0 && <EmptyCart />}
         </Flex>
       )}
