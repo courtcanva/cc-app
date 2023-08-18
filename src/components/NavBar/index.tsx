@@ -43,6 +43,21 @@ const NavigationBar = () => {
   const [loginData, setLoginData] = useState(getInfo());
   const [loginState, setLoginState] = useState(false);
 
+  /* istanbul ignore next */
+  useEffect(() => {
+    const refreshToken = UserTokenService.getLocalRefreshToken();
+    if (refreshToken) {
+      updateUserInfoInStorage().then(() => {
+        const userInfo = localStorage.getItem("UserInfo");
+        userInfo ? setLoginData(JSON.parse(userInfo)) : setLoginData(null);
+        userInfo ? setLoginState(true) : setLoginState(false);
+      });
+    } else {
+      setLoginData(null);
+      setLoginState(false);
+    }
+  }, []);
+
   useMemo(async () => {
     if (loginData === null || loginData === undefined) {
       dispatch(updateUserInfo(initialState));
@@ -71,20 +86,6 @@ const NavigationBar = () => {
   const updateUserInfoInStorage = async () => {
     await updateToken();
   };
-  /* istanbul ignore next */
-  useEffect(() => {
-    const refreshToken = UserTokenService.getLocalRefreshToken();
-    if (refreshToken) {
-      updateUserInfoInStorage().then(() => {
-        const userInfo = localStorage.getItem("UserInfo");
-        userInfo ? setLoginData(JSON.parse(userInfo)) : setLoginData(null);
-        userInfo ? setLoginState(true) : setLoginState(false);
-      });
-    } else {
-      setLoginData(null);
-      setLoginState(false);
-    }
-  }, []);
 
   const handleLoginModalOpen = () => {
     dispatch(switchLoginModal(true));
