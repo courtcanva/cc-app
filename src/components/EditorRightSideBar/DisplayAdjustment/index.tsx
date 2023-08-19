@@ -17,12 +17,9 @@ import { switchRuler } from "@/store/reducer/buttonToggleSlice";
 import { useStoreSelector } from "@/store/hooks";
 import { changeZoomScale, dragSwitch, resetAll } from "@/store/reducer/canvasControlSlice";
 import { MAX_ZOOM, MIN_ZOOM } from "@/constants/zoomLimit";
-import { useRef } from "react";
 
 const DisplayAdjustment = () => {
   const { zoomScale } = useStoreSelector((state) => state.canvasControl);
-  const rulerRef = useRef<HTMLInputElement>(null);
-  const isRulerOn = useStoreSelector((state) => state.buttonToggle.isRulerOn);
   const dispatch = useDispatch();
   const handleRulerState = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(switchRuler(e.target.checked));
@@ -123,8 +120,6 @@ const DisplayAdjustment = () => {
             defaultChecked
             data-testid="switch-btn"
             onChange={handleRulerState}
-            ref={rulerRef}
-            isChecked={isRulerOn}
           />
         </FormControl>
       </Flex>

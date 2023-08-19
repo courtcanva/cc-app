@@ -13,6 +13,7 @@ import OrderGeneration from "@/components/OrderGeneration";
 import MyAccount from "@/components/MyAccount";
 import EditorRightSideBar from "@/components/EditorRightSideBar";
 import TileBoard from "@/components/TileBoard";
+// import PdfCanvas from "@/components/PdfCanvas";
 
 const Construction = dynamic(() => import("@/components/Construction"), { ssr: false });
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -20,6 +21,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const isConstructionMounted = useStoreSelector(
     (state) => state.buttonToggle.isConstructionMounted
   );
+
   switch (router.pathname) {
     case PAGE_NOT_FOUND:
       return (

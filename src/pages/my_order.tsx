@@ -1,14 +1,18 @@
 import MyOrderContainer from "@/components/MyOrder";
 import ProfileItemContainer from "@/components/ProfileItemContainer";
-import { environment } from "../constants/environment";
 import { IMyOrder } from "@/interfaces/order";
+import { useStoreSelector } from "@/store/hooks";
+import dynamic from "next/dynamic";
 import { api } from "@/utils/axios";
 import TokenService from "@/utils/TokenService";
 import useAuthRequest from "@/components/Login/helpers/authRequest";
 import { useEffect, useState } from "react";
 
+const PdfCanvas = dynamic(() => import("@/components/PdfCanvas"), { ssr: false });
 const MyOrder = () => {
   const [myOrders, setMyOrders] = useState([]);
+  const courtDesign = useStoreSelector((state) => state.construction.courtDesign);
+  const imgSrc = useStoreSelector((state) => state.construction.courtSrc);
 
   useEffect(() => {
     const fetchData = async (setMyOrders: any) => {
@@ -74,6 +78,7 @@ const MyOrder = () => {
   return (
     <ProfileItemContainer>
       <MyOrderContainer myOrders={myOrders} />
+      {imgSrc && courtDesign && <PdfCanvas courtDesign={courtDesign} imgSrc={imgSrc as string} />}
     </ProfileItemContainer>
   );
 };

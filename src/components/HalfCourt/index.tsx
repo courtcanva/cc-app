@@ -13,10 +13,9 @@ import useCourt from "@/hooks/useCourt";
 import { IZoomShift } from "@/interfaces/zoomShift";
 import { useRef, useEffect } from "react";
 import canvasControlModel from "../../utils/canvasControlModel";
-import useImageDataUrl from "@/hooks/useImageDataUrl";
+import useImageAndConstruction from "@/hooks/useImageAndConstruction";
 import ThreeDimensionalToggle from "../ThreeDimensionalCourt";
 import { useTileCalculation } from "@/hooks/useTileCalculation";
-import { useConstruction } from "@/hooks/useConstruction";
 import { RIGHT_BAR_WIDTH } from "@/constants/designPage";
 
 const HalfCourt = () => {
@@ -49,9 +48,8 @@ const HalfCourt = () => {
     stageRef.current.y(0);
   }, [canvasContorl.canvasStates.resetState]);
 
-  useImageDataUrl(stageRef);
   useTileCalculation(layerRef);
-  useConstruction(layerRef, courtAndTileInfo);
+  useImageAndConstruction(stageRef, courtAndTileInfo);
 
   return (
     <Flex

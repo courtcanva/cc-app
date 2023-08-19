@@ -1,12 +1,48 @@
-import { Flex, Box, Text, Stack, Badge } from "@chakra-ui/react";
+import { Flex, Box, Text, Stack, Badge, Button } from "@chakra-ui/react";
 import Image from "next/image";
 import formatCurrency from "@/utils/formatCurrency";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { changeCourtDesign, changeCourtSrc } from "@/store/reducer/constructionSlice";
+import { useStoreSelector } from "@/store/hooks";
+
 const MyOrderItem = ({ ...mergedItem }) => {
+  const dispatch = useDispatch();
+  const [isCurrentDownloading, setIsCurrentDownloading] = useState(false);
+  const isDownloading = useStoreSelector((state) => state.construction.courtDesign) !== null;
+  const handleDownload = async () => {
+    setIsCurrentDownloading(true);
+    dispatch(changeCourtDesign(mergedItem.design));
+    dispatch(changeCourtSrc(mergedItem.image));
+  };
+  useEffect(() => {
+    if (!isDownloading) {
+      setIsCurrentDownloading(false);
+    }
+  }, [isDownloading]);
   return (
     <Flex flexDirection="column" alignItems="center">
       <Flex width="85%" minHeight="150px">
-        <Flex width="25%" alignItems="center" justifyContent="center">
+        <Flex width="25%" alignItems="center" justifyContent="space-around" direction="column">
           <Text variant="textFont">{mergedItem.design.designName}</Text>
+          {mergedItem.orderStatus === "completed" && (
+            <Flex justifyContent="space-around">
+              <Text width="100px" mr="30px" align="center" fontSize="14px">
+                Construction Drawing
+              </Text>
+              <Button
+                variant="outline"
+                borderColor="black"
+                width="100px"
+                my="auto"
+                onClick={handleDownload}
+                isLoading={isCurrentDownloading}
+                disabled={isDownloading}
+              >
+                Download
+              </Button>
+            </Flex>
+          )}
         </Flex>
         <Flex flexDirection="column" width="50%" alignItems="center">
           <Box width="100%" height="100%" position="relative">
