@@ -6,10 +6,10 @@ import {
   changeCourtSrc,
   changeConstructionSrc,
 } from "@/store/reducer/constructionSlice";
-
+import { findDistinctColor } from "@/utils/findDistinctColor";
 import { getCourtAndTileInfo } from "@/utils/getCourtAndTileInfo";
 import CourtConstruction from "@/components/Construction/CourtConstruction";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { downloadToPDF } from "@/utils/printConstructionPDF";
 import { useStoreSelector } from "@/store/hooks";
 
@@ -25,6 +25,10 @@ const PdfCanvas = ({ courtDesign, imgSrc }: Props) => {
     length: courtAreaXLength,
     width: courtAreaYLength,
   } = courtDesign.courtSize;
+  const tilesColor = courtDesign.tileColor.map((item) => item.color);
+  const distinctColor = useMemo(() => {
+    return findDistinctColor(tilesColor);
+  }, []);
   const stageMargin = 2500;
   const size = { width: window.innerWidth, height: window.innerHeight };
   const constructionPdfSrc = useStoreSelector((state) => state.construction.constructionSrc);
@@ -54,6 +58,7 @@ const PdfCanvas = ({ courtDesign, imgSrc }: Props) => {
           tileSize={tileSize}
           imgSrc={imgSrc as string}
           isForDownloadPdf={true}
+          distinctColor={distinctColor}
         />
       </Center>
     </>
