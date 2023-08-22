@@ -6,11 +6,13 @@ import dynamic from "next/dynamic";
 import { api } from "@/utils/axios";
 import TokenService from "@/utils/TokenService";
 import useAuthRequest from "@/components/Login/helpers/authRequest";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { updateOrderContext } from "../context/updateOrderContext";
 
 const PdfCanvas = dynamic(() => import("@/components/PdfCanvas"), { ssr: false });
 const MyOrder = () => {
   const [myOrders, setMyOrders] = useState([]);
+  const [updateSignal, setUpdateSignal] = useState(0);
   const courtDesign = useStoreSelector((state) => state.construction.courtDesign);
   const imgSrc = useStoreSelector((state) => state.construction.courtSrc);
 
@@ -68,18 +70,20 @@ const MyOrder = () => {
           depositRatio: ordersData[order].depositRatio,
           items: ordersData[order].items,
         };
-      });
+      }, updateSignal);
       setMyOrders(myOrdersSpec);
     };
 
     fetchData(setMyOrders);
-  }, []);
+  }, [updateSignal]);
 
   return (
-    <ProfileItemContainer>
-      <MyOrderContainer myOrders={myOrders} />
-      {imgSrc && courtDesign && <PdfCanvas courtDesign={courtDesign} imgSrc={imgSrc as string} />}
-    </ProfileItemContainer>
+    <updateOrderContext.Provider value={[updateSignal, setUpdateSignal]}>
+      <ProfileItemContainer>
+        <MyOrderContainer myOrders={myOrders} />
+        {imgSrc && courtDesign && <PdfCanvas courtDesign={courtDesign} imgSrc={imgSrc as string} />}
+      </ProfileItemContainer>
+    </updateOrderContext.Provider>
   );
 };
 

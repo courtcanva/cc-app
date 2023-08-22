@@ -11,6 +11,7 @@ const MyOrderList = ({ ...order }) => {
     (preValue: number, currentValue: IOrderItem) => preValue + Number(currentValue.quotation),
     initialQuotation
   );
+
   return (
     <Flex
       flexDirection="column"
