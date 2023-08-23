@@ -20,12 +20,14 @@ import { orderApi } from "@/redux/api/orderApi";
 import { depositApi } from "../redux/api/depositApi";
 import badgeReducer from "./reducer/badgeSlice";
 import constructionReducer from "./reducer/constructionSlice";
+import updateOrderTimesReducer from "./reducer/updateOrderTimesSlice";
 
 export const makeStore = () =>
   configureStore({
     reducer: {
       tile: tileReducer,
       priceBar: priceBarReducer,
+      updateOrderTimes: updateOrderTimesReducer,
       courtColor: courtColorReducer,
       user: userReducer,
       buttonToggle: buttonToggleReducer,
