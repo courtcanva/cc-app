@@ -64,6 +64,7 @@ const Quotation = () => {
     image: "",
     id: "",
     isExpired: false,
+    expiredAt: new Date(),
   };
 
   const handleAddToCart = async () => {

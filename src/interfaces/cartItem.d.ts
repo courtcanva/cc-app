@@ -9,4 +9,5 @@ export interface ICartItem {
   quotationDetails: PriceBar[];
   image: string;
   isExpired: boolean;
+  expiredAt: Date;
 }

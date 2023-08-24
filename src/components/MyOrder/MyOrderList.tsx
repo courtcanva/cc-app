@@ -4,6 +4,7 @@ import { IOrderItem } from "@/interfaces/order";
 import formatCurrency from "@/utils/formatCurrency";
 import CancelOrCheckoutOrder from "./CancelOrCheckoutOrder";
 import MyOrderItem from "./MyOrderItem";
+import calculateDateDifference from "@/utils/calculateDateDifference";
 
 const MyOrderList = ({ ...order }) => {
   const initialQuotation = 0;
@@ -11,6 +12,13 @@ const MyOrderList = ({ ...order }) => {
     (preValue: number, currentValue: IOrderItem) => preValue + Number(currentValue.quotation),
     initialQuotation
   );
+
+  const {
+    days: leftDays,
+    hours: leftHours,
+    minutes: leftMinutes,
+    seconds: leftSeconds,
+  } = calculateDateDifference(new Date(), new Date(order.expiredAt));
   return (
     <Flex
       flexDirection="column"
@@ -54,14 +62,40 @@ const MyOrderList = ({ ...order }) => {
                 {format(parseISO(order.createdAt), "dd/MM/yyyy HH:mm")}
               </Text>
             </Flex>
-            <Flex width="50%" flexDirection="column" justifyContent="center">
-              <Text variant="textFont" fontStyle="italic" fontWeight="300">
-                Paid At
-              </Text>
-              <Text variant="textFont">
-                {order.paidAt ? format(parseISO(order.paidAt), "dd/MM/yyyy HH:mm") : ""}
-              </Text>
-            </Flex>
+
+            {order.status === "unpaid" ? (
+              <Flex width="50%" flexDirection="column" justifyContent="center">
+                <Text variant="textFont" fontStyle="italic" fontWeight="300">
+                  Quotation will expire in
+                </Text>
+                <Text
+                  variant="bodyFont"
+                  fontStyle="italic"
+                  fontWeight="300"
+                  color={"fontcolor.red"}
+                >
+                  {leftDays !== 0 ? (
+                    <>
+                      {leftDays} days {leftHours} hours
+                    </>
+                  ) : (
+                    <>
+                      {leftHours} hours {leftMinutes} minutes {leftSeconds} seconds
+                    </>
+                  )}
+                </Text>
+              </Flex>
+            ) : order.status !== "expired" && (
+
+              <Flex width="50%" flexDirection="column" justifyContent="center">
+                <Text variant="textFont" fontStyle="italic" fontWeight="300">
+                  Paid At
+                </Text>
+                <Text variant="textFont">
+                  {order.paidAt ? format(parseISO(order.paidAt), "dd/MM/yyyy HH:mm") : ""}
+                </Text>
+              </Flex>
+            )}
           </Flex>
           <Flex width="5%" justifyContent="flex-end">
             <Flex flexDirection="column" justifyContent="center">
@@ -72,11 +106,7 @@ const MyOrderList = ({ ...order }) => {
                 variant="bodyFont"
                 color={order.status === "completed" ? "fontcolor.green" : "fontcolor.red"}
               >
-                {order.status === "completed"
-                  ? "Paid"
-                  : order.status === "unpaid"
-                  ? "Unpaid"
-                  : "Cancelled"}
+                {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
               </Text>
             </Flex>
           </Flex>
@@ -175,12 +205,13 @@ const MyOrderList = ({ ...order }) => {
           </Flex>
         </Flex>
       </Flex>
-      {order.status === "unpaid" && (
+      {order.status === "unpaid" || order.status === "expired" && (
         <CancelOrCheckoutOrder
           orderId={order._id}
           userId={order.userId}
           depositRatio={order.depositRatio}
           unPaidItems={order.items}
+          isChecked={order.status === "unpaid" ? true : false}
         />
       )}
     </Flex>

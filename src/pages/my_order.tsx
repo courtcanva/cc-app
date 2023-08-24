@@ -40,6 +40,8 @@ const MyOrder = () => {
           _id: ordersData[order]._id,
           status: ordersData[order].status,
           createdAt: ordersData[order].createdAt,
+          isExpired: ordersData[order].isExpired,
+          expiredAt: ordersData[order].expiredAt,
           paidAt: ordersData[order].paymentInfo ? ordersData[order].paymentInfo.updatedAt : "",
           consigneeName: ordersData[order].paymentInfo ? ordersData[order].paymentInfo.name : "",
           consigneePhoneNo: ordersData[order].paymentInfo

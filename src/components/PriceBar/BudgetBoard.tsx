@@ -50,6 +50,7 @@ const BudgetBoard = ({ useTotalPrice }: IBudgetBoardprops) => {
     image: "",
     id: "",
     isExpired: false,
+    expiredAt: new Date(),
   };
   const handleAddToCart = async () => {
     if (!userId) return dispatch(switchLoginModal(true));

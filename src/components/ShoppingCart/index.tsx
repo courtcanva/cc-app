@@ -22,6 +22,7 @@ const ShoppingCart = () => {
       quotationDetails: item.quotationDetails,
       image: item.image,
       isExpired: item.isExpired,
+      expiredAt: item.expiredAt,
     };
   });
 

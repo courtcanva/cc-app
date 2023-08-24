@@ -11,14 +11,20 @@ interface Props {
   userId: string;
   depositRatio: number;
   unPaidItems: IOrderItem[];
+  isChecked: boolean;
 }
-const CancelOrCheckoutOrder = ({ orderId, userId, depositRatio, unPaidItems }: Props) => {
+const CancelOrCheckoutOrder = ({
+  orderId,
+  userId,
+  depositRatio,
+  unPaidItems,
+  isChecked,
+}: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const [deleteOrder] = useDeleteOrderMutation();
   const [createStripeSessionMutation] = useCreateStripeSessionMutation();
   const toast = useToast();
-  const isChecked = true;
   const buttonTitle = "Cancel Order";
 
   const newOrder = { order_Id: orderId, user_id: userId, items: unPaidItems, depositRatio };

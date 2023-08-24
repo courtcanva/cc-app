@@ -17,6 +17,7 @@ describe("CancelOrCheckoutOrder", () => {
         userId={props.userId}
         depositRatio={props.depositRatio}
         unPaidItems={props.unpaidItems}
+        isChecked={true}
       />
     );
     const proceedToCheckoutBtn = screen.getByRole("button", { name: "Proceed to Checkout" });
