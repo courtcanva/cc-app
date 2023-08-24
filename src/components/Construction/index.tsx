@@ -1,14 +1,20 @@
 import { Box, Button } from "@chakra-ui/react";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "@/store/hooks";
 import { switchConstructionMounted } from "@/store/reducer/buttonToggleSlice";
 import CourtConstruction from "./CourtConstruction";
-
+import { findDistinctColor } from "@/utils/findDistinctColor";
 const Construction = () => {
   const dispatch = useDispatch();
   const imgSrc = useStoreSelector((state) => state.canvasControl.courtDataUrl);
   const constructionInfo = useStoreSelector((state) => state.construction.constructionInfo);
+  const tiles = useStoreSelector((state) => state.tile.present.court);
+  const tilesColor = useMemo(() => tiles.map((item) => item.color), []);
+  const distinctColor = useMemo(() => {
+    return findDistinctColor(tilesColor);
+  }, []);
+
   const { beginPointX, beginPointY, endPointX, endPointY, tileSize } = constructionInfo;
   // extract the position of original construction button
   const constructionButton = document.getElementById("constructionButton");
@@ -27,6 +33,7 @@ const Construction = () => {
         endPointY={endPointY}
         tileSize={tileSize}
         imgSrc={imgSrc as string}
+        distinctColor={distinctColor}
         isForDownloadPdf={false}
       />
       {rect && (

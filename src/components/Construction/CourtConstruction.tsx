@@ -15,6 +15,7 @@ interface Props {
   tileSize: number;
   imgSrc: string;
   isForDownloadPdf: boolean;
+  distinctColor: string;
 }
 
 interface Coordinates {
@@ -33,6 +34,7 @@ const CourtConstruction = ({
   tileSize,
   imgSrc,
   isForDownloadPdf,
+  distinctColor,
 }: Props) => {
   const dispatch = useDispatch();
   const pdfRef = useRef<Konva.Stage>(null);
@@ -235,6 +237,7 @@ const CourtConstruction = ({
                 align="center"
                 verticalAlign="middle"
                 fontSize={coordinateFontSize}
+                fill={distinctColor}
               />
             );
           })}
