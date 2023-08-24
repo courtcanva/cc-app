@@ -1,17 +1,20 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { ISaveDesign } from "@/interfaces/design";
-import axios from "axios";
+import { baseQueryWithReauth } from "@/utils/rtkQueryAuthWrapper";
+import { api } from "@/utils/axios";
+import TokenService from "@/utils/TokenService";
 
-export const fetchDesignData = (userId: string) => {
-  const design = axios.get(process.env.NEXT_PUBLIC_API_BASE_URI + `/designs/` + userId);
+export const fetchDesignData = async (userId: string) => {
+  const design = await api(process.env.NEXT_PUBLIC_API_BASE_URI + `/designs/` + userId, {
+    method: "GET",
+    token: TokenService.getLocalAccessToken(),
+  });
   return design;
 };
 
 export const designApi = createApi({
   reducerPath: "designData",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URI,
-  }),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ["Design"],
   endpoints: (builder) => ({
     getDesign: builder.query({
