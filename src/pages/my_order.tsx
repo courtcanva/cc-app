@@ -7,12 +7,15 @@ import { api } from "@/utils/axios";
 import TokenService from "@/utils/TokenService";
 import useAuthRequest from "@/components/Login/helpers/authRequest";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store";
 
 const PdfCanvas = dynamic(() => import("@/components/PdfCanvas"), { ssr: false });
 const MyOrder = () => {
   const [myOrders, setMyOrders] = useState([]);
   const courtDesign = useStoreSelector((state) => state.construction.courtDesign);
   const imgSrc = useStoreSelector((state) => state.construction.courtSrc);
+  const orderUpdateTimes = useSelector((state: RootState) => state.updateOrderTimes.value);
 
   useEffect(() => {
     const fetchData = async (setMyOrders: any) => {
@@ -73,7 +76,7 @@ const MyOrder = () => {
     };
 
     fetchData(setMyOrders);
-  }, []);
+  }, [orderUpdateTimes]);
 
   return (
     <ProfileItemContainer>

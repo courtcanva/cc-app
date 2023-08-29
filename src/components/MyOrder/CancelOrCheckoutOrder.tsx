@@ -6,6 +6,8 @@ import ConfirmModal from "../ComfirmModal";
 import { IStripeSession } from "@/interfaces/order";
 import { useDeleteOrderMutation, useCreateStripeSessionMutation } from "@/redux/api/orderApi";
 import { IOrderItem } from "../../interfaces/order";
+import { add } from "@/store/reducer/updateOrderTimesSlice";
+import { useDispatch } from "react-redux";
 interface Props {
   orderId: string;
   userId: string;
@@ -20,6 +22,7 @@ const CancelOrCheckoutOrder = ({ orderId, userId, depositRatio, unPaidItems }: P
   const toast = useToast();
   const isChecked = true;
   const buttonTitle = "Cancel Order";
+  const dispatch = useDispatch();
 
   const newOrder = { order_Id: orderId, user_id: userId, items: unPaidItems, depositRatio };
   const handleProceedToCheckOut = async () => {
@@ -48,6 +51,7 @@ const CancelOrCheckoutOrder = ({ orderId, userId, depositRatio, unPaidItems }: P
   const handleModalConfirm = async () => {
     deleteOrder(orderId);
     router.push(`/my_order?user_id=${userId}`);
+    dispatch(add());
     onClose();
   };
 
