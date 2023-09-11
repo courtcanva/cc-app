@@ -6,6 +6,7 @@ import { useStoreSelector } from "@/store/hooks";
 import { changeWholeCourtColor } from "@/store/reducer/tileSlice";
 import { ActionCreators } from "redux-undo";
 import FolderListItem from "../FolderList/FolderListItem";
+import { resetBadgeImage, setBadgeImage } from "@/store/reducer/badgeSlice";
 
 const Folder: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,12 @@ const Folder: React.FC = () => {
     const selectedDesignColor = designTileList.find((item) => item.courtId === courtId);
     if (selectedDesignColor === undefined) return;
     dispatch(changeWholeCourtColor(selectedDesignColor.tileColor));
+    const selectedDesignData = designsData.find((item) => item.courtId === courtId);
+    if (selectedDesignData?.badgeImage?.badgeImageUrl) {
+      dispatch(setBadgeImage(selectedDesignData.badgeImage));
+    } else {
+      dispatch(resetBadgeImage());
+    }
     dispatch(ActionCreators.clearHistory());
   };
   const folderEmpty = designsData?.length === 0;

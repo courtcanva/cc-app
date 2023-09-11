@@ -1,4 +1,9 @@
-import reducer, { initialState, switchBadgeUsed, setBadgeImage } from "@/store/reducer/badgeSlice";
+import reducer, {
+  initialState,
+  switchBadgeUsed,
+  setBadgeImage,
+  resetBadgeImage,
+} from "@/store/reducer/badgeSlice";
 
 describe("Badge Reducer", () => {
   it("should switch badge used state", () => {
@@ -14,5 +19,8 @@ describe("Badge Reducer", () => {
       ...initialState,
       badgeImage: newBadge,
     });
+  });
+  it("should switch to initial state", () => {
+    expect(reducer(initialState, resetBadgeImage())).toEqual(initialState);
   });
 });

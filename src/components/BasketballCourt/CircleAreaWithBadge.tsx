@@ -32,6 +32,7 @@ const CircleArea: React.FC<CircleAreaProps> = ({ startPoint }) => {
     setImage(loadingImg);
   };
   if (badgeImage.badgeImageUrl) {
+    loadingImg.crossOrigin = "Anonymous";
     loadingImg.src = badgeImage.badgeImageUrl;
   }
 

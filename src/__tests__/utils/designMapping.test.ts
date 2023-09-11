@@ -34,7 +34,7 @@ it("should return mapped data", () => {
       badgeImageUrl: "badgeImage-url",
       width: 90,
       height: 90,
-    }
+    },
   };
 
   const { mappedDesignsData, mappedTileData } = designMapping([design]);

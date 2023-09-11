@@ -38,7 +38,7 @@ const FolderListItem = (props: any) => {
           <FolderDeleteModal />
         </IconButton>
       </HStack>
-      <Box width="80%" height="100%" position="relative">
+      <Box width="60%" height="100%" position="relative">
         {image && image.startsWith("http") && (
           <Image
             src={image.toString()}

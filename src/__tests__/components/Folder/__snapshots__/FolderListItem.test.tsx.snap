@@ -55,7 +55,7 @@ exports[`Render folder list Should render folder list item correctly 1`] = `
       </button>
     </div>
     <div
-      class="css-r0om48"
+      class="css-1dus09t"
     >
       <span
         style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
@@ -144,7 +144,7 @@ exports[`Render folder list Should render opacity correctly 1`] = `
       </button>
     </div>
     <div
-      class="css-r0om48"
+      class="css-1dus09t"
     >
       <span
         style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
