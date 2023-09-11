@@ -30,6 +30,11 @@ describe("generateNewTemplate", () => {
           image: "",
         },
         image: "",
+        badgeImage: {
+          badgeImageUrl: null,
+          width: 0,
+          height: 0,
+        },
       },
       image: "image_url",
       tags: {

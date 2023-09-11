@@ -7,12 +7,19 @@ export interface IDesign {
   courtSize: ICourtSize;
 }
 
+export interface BadgeImageState {
+  badgeImageUrl: string | null;
+  width: number;
+  height: number;
+}
+
 export interface IDesignDetail extends IDesign {
   description: string;
   createdAt: string;
   updatedAt: string;
   isDeleted: boolean;
   image: string;
+  badgeImage: BadgeImageState;
 }
 
 export interface ITileColor {
@@ -58,5 +65,6 @@ export interface ISaveDesign {
   tileColor: ITileColor[];
   courtSize: ICourtSize;
   image: string;
+  badgeImage: BadgeImageState;
   courtType: string;
 }

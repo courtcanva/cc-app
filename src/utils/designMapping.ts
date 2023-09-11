@@ -29,6 +29,7 @@ export const designCourtMapping = (item: IDesignDetail) => ({
   createdAt: item.createdAt,
   updatedAt: item.updatedAt,
   image: item.image,
+  badgeImage: item.badgeImage,
 });
 
 export const designTileMapping = (item: IDesignDetail) => ({

@@ -42,6 +42,7 @@ const SaveBoard: React.FC = () => {
   const [useFeedback, setFeedback] = useState("");
   const [useSaveDesignModal, setSaveDesignModal] = useState(false);
   const courtDataUrl = useStoreSelector((state) => state.canvasControl.courtDataUrl);
+  const badgeImage = useStoreSelector((state) => state.badge.badgeImage);
   const { designTileList } = useStoreSelector((state) => state.designTileList);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -111,7 +112,14 @@ const SaveBoard: React.FC = () => {
           isClosable: true,
         });
       }
-      await addDesign({ design: { ...designData, image: courtDataUrl, courtType: COURT_TYPE } })
+      await addDesign({
+        design: {
+          ...designData,
+          image: courtDataUrl,
+          badgeImage: badgeImage,
+          courtType: COURT_TYPE,
+        },
+      })
         .unwrap()
         .then(() => {
           setFeedback("Your design has been saved.");
@@ -133,7 +141,12 @@ const SaveBoard: React.FC = () => {
       }
       await updateDesign({
         _id: useCourtId,
-        design: { ...designData, image: courtDataUrl, courtType: COURT_TYPE },
+        design: {
+          ...designData,
+          image: courtDataUrl,
+          badgeImage: badgeImage,
+          courtType: COURT_TYPE,
+        },
       })
         .unwrap()
         .then(() => {
@@ -179,7 +192,14 @@ const SaveBoard: React.FC = () => {
         isClosable: true,
       });
     }
-    await addDesign({ design: { ...designData, image: courtDataUrl, courtType: COURT_TYPE } })
+    await addDesign({
+      design: {
+        ...designData,
+        image: courtDataUrl,
+        badgeImage: badgeImage,
+        courtType: COURT_TYPE,
+      },
+    })
       .unwrap()
       .then(() => {
         setFeedback("Your design has been saved.");

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
+import { BadgeImageState } from "@/interfaces/design";
 
 export interface CourtSizeState {
   courtId: string;
@@ -20,6 +21,7 @@ export interface CourtSizeState {
   createdAt: string;
   updatedAt: string;
   image: string;
+  badgeImage?: BadgeImageState;
 }
 export interface CourtSpecMapper {
   [prop: string]: string;

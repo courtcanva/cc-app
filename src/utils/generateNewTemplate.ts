@@ -25,6 +25,11 @@ const generateNewTemplate = (
     tileColor: tiles,
     courtSize: courtSizeData,
     image: "",
+    badgeImage: {
+      badgeImageUrl: null,
+      width: 0,
+      height: 0,
+    },
     courtType: COURT_TYPE,
   };
 
