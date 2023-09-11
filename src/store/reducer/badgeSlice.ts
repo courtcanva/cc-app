@@ -1,11 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export interface BadgeImageState {
-  badgeImageUrl: string | null;
-  width: number;
-  height: number;
-}
-
+import { BadgeImageState } from "@/interfaces/design";
 export interface BadgeState {
   isBadgeUsed: boolean;
   badgeImage: BadgeImageState;
@@ -36,9 +30,12 @@ export const badgeSlice = createSlice({
         badgeImage: action.payload,
       };
     },
+    resetBadgeImage: () => {
+      return initialState;
+    },
   },
 });
 
-export const { switchBadgeUsed, setBadgeImage } = badgeSlice.actions;
+export const { switchBadgeUsed, setBadgeImage, resetBadgeImage } = badgeSlice.actions;
 
 export default badgeSlice.reducer;

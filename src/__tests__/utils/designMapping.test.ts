@@ -30,6 +30,11 @@ it("should return mapped data", () => {
     updatedAt: "2022-04-12T11:02:58.964+0000",
     isDeleted: false,
     image: "",
+    badgeImage: {
+      badgeImageUrl: "badgeImage-url",
+      width: 90,
+      height: 90,
+    },
   };
 
   const { mappedDesignsData, mappedTileData } = designMapping([design]);
