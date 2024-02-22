@@ -31,7 +31,7 @@
     "@emotion/styled": "^11",
     "@react-oauth/google": "^0.2.6",
     "@reduxjs/toolkit": "^1.8.2",
-    "axios": "^0.27.2",
+    "axios": "^0.28.0",
     "date-fns": "^2.29.3",
     "framer-motion": "^6",
     "html2canvas": "^1.4.1",
