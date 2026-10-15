@@ -35,7 +35,7 @@
     "date-fns": "^2.29.3",
     "framer-motion": "^6",
     "html2canvas": "^1.4.1",
-    "jspdf": "^2.5.1",
+    "jspdf": "^4.0.0",
     "konva": "^8.3.9",
     "lodash": "^4.17.21",
     "nanoid": "^4.0.0",
